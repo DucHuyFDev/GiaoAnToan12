@@ -1,0 +1,1285 @@
+\documentclass[12pt]{article}
+
+% === CÀI ĐẶT TRANG ===
+\usepackage[margin=2cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T5]{fontenc}
+\usepackage[vietnamese]{babel}
+
+% === TOÁN HỌC ===
+\usepackage{amsmath, amssymb, amsthm}
+
+% === HÌNH VẼ ===
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+% === ĐỊNH DẠNG ===
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage[most]{tcolorbox}
+\usepackage{multicol}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{fancyhdr}
+\usepackage{tocloft}
+\usepackage[hidelinks]{hyperref}
+
+% === LỆNH TỰ ĐỊNH NGHĨA ===
+\newcommand{\otraloi}{\underline{\hspace{5cm}}}
+
+% === TCOLORBOX STYLES ===
+\tcbuselibrary{breakable, skins, fitting}
+
+% Hộp Ví dụ
+\newtcolorbox{vidu}[1][1]{
+	colback=blue!5!white, colframe=blue!60!black,
+	fonttitle=\bfseries, title={Ví dụ #1},
+	breakable, enhanced
+}
+
+% Hộp Lời giải
+\newtcolorbox{loigiai}{
+	colback=gray!8!white, colframe=gray!50!black,
+	fonttitle=\bfseries, title={Lời giải},
+	breakable, enhanced
+}
+
+% Bài tập xanh – Bắt buộc
+\newtcolorbox{btxanh}[1][]{
+	colback=blue!6!white, colframe=blue!65!black,
+	fonttitle=\bfseries\color{white}, coltitle=white,
+	attach boxed title to top left={yshift=-2mm, xshift=4mm},
+	boxed title style={colback=blue!65!black, rounded corners},breakable, enhanced, #1
+}
+
+% Bài tập vàng – Bổ sung
+\newtcolorbox{btvang}[1][]{
+	colback=yellow!12!white, colframe=orange!75!black,
+	fonttitle=\bfseries, coltitle=orange!80!black,
+	attach boxed title to top left={yshift=-2mm, xshift=4mm},
+	boxed title style={colback=yellow!50!white, colframe=orange!75!black, rounded corners}, breakable, enhanced, #1
+}
+
+% Bài tập đỏ – Gia cố
+\newtcolorbox{btdo}[1][]{
+	colback=red!6!white, colframe=red!65!black,
+	fonttitle=\bfseries\color{white}, coltitle=white,
+	attach boxed title to top left={yshift=-2mm, xshift=4mm},
+	boxed title style={colback=red!65!black, rounded corners},breakable, enhanced, #1
+}
+
+% === HEADER/FOOTER (ĐÃ HIỆU CHỈNH THEO YÊU CẦU) ===
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small Chuyên đề: Khảo sát hàm số nâng cao \& Nghiệm bội chẵn, lẻ}
+\fancyhead[R]{\small Toán 12}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% ================================================
+\begin{document}
+	
+	\begin{center}
+		{\LARGE \textbf{KHẢO SÁT HÀM SỐ NÂNG CAO VÀ NGHIỆM BỘI CHẴN, BỘI LẺ}}\\[6pt]
+		{\large Chuyên đề bổ trợ chuyên sâu \quad Khối lớp: 12}
+	\end{center}
+	\vspace{4mm}
+	\hrule
+	\vspace{4mm}
+	
+	% ===========================
+	% PHẦN 1: MỤC TIÊU BÀI HỌC
+	% ===========================
+	\section*{Mục tiêu bài học}
+	\addcontentsline{toc}{section}{Mục tiêu bài học}
+	
+	\textbf{1. Kiến thức:}
+	\begin{itemize}
+		\item Phân biệt rõ ràng khái niệm nghiệm bội chẵn (nghiệm kép, lũy thừa bậc chẵn) và nghiệm bội lẻ (nghiệm đơn, lũy thừa bậc lẻ) của phương trình đạo hàm.
+		\item Hiểu sâu sắc quy tắc xét dấu đạo hàm $y'$: Đạo hàm chỉ đổi dấu khi đi qua nghiệm bội lẻ và không đổi dấu khi đi qua nghiệm bội chẵn.
+		\item Nắm vững phương pháp cực trị của các hàm số nâng cao (hàm hợp liên quan đến lũy thừa nhân tử, hàm chứa dấu giá trị tuyệt đối).
+	\end{itemize}
+	
+	\textbf{2. Kĩ năng:}
+	\begin{itemize}
+		\item Nhận diện và loại bỏ nhanh các nghiệm bội chẵn khi tìm số điểm cực trị của hàm số.
+		\item Lập bảng biến thiên và bảng xét dấu nhanh cho các hàm số có đạo hàm cho dưới dạng tích các lũy thừa.
+	\end{itemize}
+	
+	\textbf{3. Thái độ / Phẩm chất:}
+	\begin{itemize}
+		\item Rèn luyện tư duy logic toán học phản biện, tính cẩn thận khi xét tính đổi dấu của đạo hàm để tránh nhầm lẫn các điểm cực trị.
+	\end{itemize}
+	
+	\newpage
+	
+	% =====================
+	% PHẦN 2: MỤC LỤC
+	% =====================
+	\setcounter{tocdepth}{2}
+	\tableofcontents
+	\newpage
+	
+	% =====================
+	% PHẦN 3: LÝ THUYẾT
+	% =====================
+	\section{Lý thuyết}
+	
+	\subsection{Khái niệm nghiệm bội chẵn, nghiệm bội lẻ}
+	
+	Để hiểu đúng bản chất của cực trị và sự biến thiên, ta cần định nghĩa chính xác nghiệm bội dựa trên cấu trúc phân tích nhân tử của đa thức (hoặc hàm số hữu hạn đạo hàm).
+	
+	\subsubsection{Định nghĩa toán học chính xác}
+	Giả sử $x_0$ là một nghiệm của phương trình $f(x) = 0$. Khi đó, ta luôn biểu diễn được hàm số $f(x)$ dưới dạng phân tích nhân tử:
+	$$f(x) = (x - x_0)^k \cdot g(x) \quad \text{với} \quad g(x_0) \neq 0$$
+	Trong đó, số nguyên dương $k \ge 1$ được gọi là \textbf{bậc bội} (hoặc số mũ của nhân tử) của nghiệm $x_0$:
+	\begin{itemize}
+		\item Nếu $k$ là số \textbf{chẵn} ($k = 2, 4, 6, \dots$), thì $x_0$ được gọi là \textbf{nghiệm bội chẵn} (trường hợp $k=2$ gọi là nghiệm kép).
+		\item Nếu $k$ là số \textbf{lẻ} ($k = 1, 3, 5, \dots$), thì $x_0$ được gọi là \textbf{nghiệm bội lẻ} (trường hợp đặc biệt $k=1$ gọi là nghiệm đơn).
+	\end{itemize}
+	
+	\subsubsection{Bản chất hình học và sự đổi dấu}
+	Bản chất của số mũ $k$ quyết định hành vi của hàm số khi biến số $x$ đi ngang qua điểm $x_0$:
+	
+	\begin{center}
+		\renewcommand{\arraystretch}{1.5}
+		\begin{tabular}{p{7.5cm} p{7.5cm}}
+			\toprule
+			\textbf{Nghiệm bội chẵn ($k$ chẵn)} & \textbf{Nghiệm bội lẻ ($k$ lẻ)} \\
+			\midrule
+			Nhân tử $(x-x_0)^k \ge 0$ với mọi $x$ lân cận $x_0$. & Nhân tử $(x-x_0)^k$ đổi dấu từ âm sang dương (hoặc ngược lại) khi $x$ đi qua $x_0$. \\
+			\textbf{Hàm số KHÔNG đổi dấu} khi đi qua $x_0$. & \textbf{Hàm số BẮT BUỘC đổi dấu} khi đi qua $x_0$. \\
+			Đồ thị hàm số chỉ \textbf{tiếp xúc} (phần lồi/lõm chạm vào) trục hoành rồi quay đầu, không cắt qua. & Đồ thị hàm số \textbf{cắt xuyên qua} trục hoành từ phía này sang phía kia. \\
+			\bottomrule
+		\end{tabular}
+	\end{center}
+	
+	\begin{vidu}[1]
+		Cho hàm số $y = f(x)$ có đạo hàm được cho bởi công thức:
+		$$f'(x) = (x - 1)^2(x + 2)^3(x - 3)$$
+		Hãy xác định các nghiệm của phương trình $f'(x) = 0$ và phân loại chúng thành nghiệm bội chẵn hoặc nghiệm bội lẻ.
+	\end{vidu}
+	
+	\begin{loigiai}
+		Phương trình đạo hàm:
+		$$f'(x) = 0 \iff (x - 1)^2(x + 2)^3(x - 3) = 0 \iff \left[\begin{aligned} &x = 1 \\ &x = -2 \\ &x = 3 \end{aligned}\right.$$
+		
+		Phân tích bản chất từng nghiệm dựa trên số mũ của nhân tử tương ứng:
+		\begin{enumerate}[label=\arabic*.]
+			\item \textbf{Tại điểm $x = 1$:} Nhân tử tương ứng là $(x - 1)^2$ có số mũ $k = 2$ (số chẵn).
+			$$\implies x = 1 \text{ là một \textbf{nghiệm bội chẵn}}.$$
+			
+			\item \textbf{Tại điểm $x = -2$:} Nhân tử tương ứng là $(x + 2)^3$ có số mũ $k = 3$ (số lẻ).
+			$$\implies x = -2 \text{ là một \textbf{nghiệm bội lẻ}}.$$
+			
+			\item \textbf{Tại điểm $x = 3$:} Nhân tử tương ứng là $(x - 3)^1$ có số mũ $k = 1$ (số lẻ).
+			$$\implies x = 3 \text{ là một \textbf{nghiệm đơn (nghiệm bội lẻ)}}.$$
+		\end{enumerate}
+	\end{loigiai}
+	
+	
+	\subsection{Quy tắc đổi dấu đạo hàm qua nghiệm bội}
+	
+	Để tìm cực trị của hàm số, chìa khóa quan trọng nhất không phải là việc giải phương trình $y' = 0$, mà là việc \textbf{quan sát hành vi đổi dấu của đạo hàm} khi đi qua các nghiệm đó.
+	Theo định lý về điều kiện đủ để hàm số có cực trị, ta có quy tắc vàng sau:
+	
+	\begin{tcolorbox}[colback=blue!5!white, colframe=blue!60!black, title=Quy tắc vàng về cực trị]
+		Giả sử hàm số $y = f(x)$ liên tục trên khoảng chứa điểm $x_0$ và $f'(x_0) = 0$:
+		\begin{itemize}
+			\item Nếu $x_0$ là \textbf{nghiệm bội lẻ} của $f'(x) = 0 \implies f'(x)$ \textbf{đổi dấu} khi đi qua $x_0 \implies x_0$ là một \textbf{điểm cực trị}.
+			\item Nếu $x_0$ là \textbf{nghiệm bội chẵn} của $f'(x) = 0 \implies f'(x)$ \textbf{không đổi dấu} khi đi qua $x_0 \implies x_0$ \textbf{không phải} là điểm cực trị.
+		\end{itemize}
+	\end{tcolorbox}
+	
+	\textbf{Quy tắc đan dấu nhanh trên trục số (từ phải qua trái):}
+	Khi ta vẽ trục xét dấu cho đạo hàm $y'$, bắt đầu xác định dấu của khoảng ngoài cùng bên phải (cùng dấu với hệ số của lũy thừa cao nhất). Sau đó, cho biến số chạy từ phải qua trái:
+	\begin{itemize}
+		\item Khi đi qua nghiệm \textbf{bội lẻ}: Ta \textbf{đổi dấu} của khoảng tiếp theo ($+$ thành $-$ hoặc ngược lại).
+		\item Khi đi qua nghiệm \textbf{bội chẵn}: Ta \textbf{giữ nguyên dấu} của khoảng trước đó.
+	\end{itemize}
+	
+	\begin{vidu}[2]
+		Cho hàm số $y = f(x)$ liên tục trên $\mathbb{R}$ và có đạo hàm được cho bởi công thức:
+		$$f'(x) = x^2(x - 1)^3(x + 3)^4(x - 5)^5$$
+		Hãy xét dấu của đạo hàm $f'(x)$ và tìm số điểm cực trị của hàm số đã cho.
+	\end{vidu}
+	
+	\begin{loigiai}
+		% Thêm leftmargin=* để tự động căn lề chữ bên trong hộp không bị đè lên viền
+		\begin{enumerate}[label=\textbf{Bước \arabic*:}, leftmargin=*]
+			\item \textbf{Tìm nghiệm của $f'(x) = 0$ và phân loại:}
+			$$f'(x) = 0 \iff x^2(x-1)^3(x+3)^4(x-5)^5 = 0 \iff \left[\begin{aligned}
+				&x = -3 \quad (\text{mũ } 4 \implies \text{bội chẵn}) \\
+				&x = 0 \quad \ \ \, (\text{mũ } 2 \implies \text{bội chẵn}) \\
+				&x = 1 \quad \ \ \, (\text{mũ } 3 \implies \text{bội lẻ}) \\
+				&x = 5 \quad \ \ \, (\text{mũ } 5 \implies \text{bội lẻ})
+			\end{aligned}\right.$$
+			
+			\item \textbf{Lập trục xét dấu nhanh (từ phải qua trái):}
+			\begin{itemize}
+				\item Với khoảng ngoài cùng bên phải $x > 5$: Thử chọn $x = 6 \implies f'(6) = 6^2 \cdot 5^3 \cdot 9^4 \cdot 1^5 > 0 \implies$ mang dấu $(+)$.
+				\item Đi qua nghiệm cực trị bội lẻ $x = 5 \implies$ đổi dấu từ $(+)$ sang $(-)$.
+				\item Đi qua nghiệm cực trị bội lẻ $x = 1 \implies$ đổi dấu từ $(-)$ sang $(+)$.
+				\item Đi qua nghiệm bội chẵn $x = 0 \implies$ giữ nguyên dấu $(+)$.
+				\item Đi qua nghiệm bội chẵn $x = -3 \implies$ giữ nguyên dấu $(+)$.
+			\end{itemize}
+			
+			\vspace{2mm}
+			Trục xét dấu trực quan của đạo hàm $f'(x)$ (được giãn cách đều tọa độ để dễ quan sát):
+			\begin{center}
+				\begin{tikzpicture}[scale=1.2, >=stealth]
+					% Vẽ trục số dài hơn để tăng không gian hiển thị
+					\draw[->, thick] (-5,0) -- (5,0) node[right, black] {$x$};
+					
+					% Đánh dấu các nghiệm cách đều nhau một khoảng 2cm trên hình vẽ để tránh tràn chữ
+					\filldraw (-3,0) circle (2.2pt) node[below=4pt, black] {$-3$};
+					\filldraw (-1,0) circle (2.2pt) node[below=4pt, black] {$0$};
+					\filldraw (1,0) circle (2.2pt) node[below=4pt, black] {$1$};
+					\filldraw (3,0) circle (2.2pt) node[below=4pt, black] {$5$};
+					
+					% Ghi dấu của các khoảng xen kẽ
+					\node at (-4, 0.4) [blue, font=\large\bfseries] {$+$};
+					\node at (-2, 0.4) [blue, font=\large\bfseries] {$+$};
+					\node at (0, 0.4) [blue, font=\large\bfseries] {$+$};
+					\node at (2, 0.4) [red, font=\large\bfseries] {$-$};
+					\node at (4, 0.4) [blue, font=\large\bfseries] {$+$};
+					
+					% Các cung cong đan dấu có kích thước đều nhau, nhãn nằm giữa cung hoàn hảo
+					\draw[->, bend right=40, gray, dashed] (4,0.6) to (2,0.6) node[midway, above=2pt, font=\scriptsize\color{black}] {};
+					\draw[->, bend right=40, gray, dashed] (2,0.6) to (0,0.6) node[midway, above=2pt, font=\scriptsize\color{black}] {};
+					\draw[->, bend right=40, gray, dashed] (0,0.6) to (-2,0.6) node[midway, above=2pt, font=\scriptsize\color{black}]{} ;
+					\draw[->, bend right=40, gray, dashed] (-2,0.6) to (-4,0.6) node[midway, above=2pt, font=\scriptsize\color{black}]{};
+				\end{tikzpicture}
+			\end{center}
+			\vspace{1mm}
+			
+			\item \textbf{Kết luận cực trị:}
+			Dựa vào trục xét dấu, ta thấy $f'(x)$ chỉ đổi dấu khi đi qua các nghiệm $x = 1$ và $x = 5$. Hai nghiệm $x = 0$ và $x = -3$ là nghiệm bội chẵn nên $f'(x)$ không đổi dấu khi đi qua chúng.
+			
+			Vậy hàm số $y = f(x)$ có đúng \textbf{$2$ điểm cực trị} (bao gồm cực đại tại $x = 1$ và cực tiểu tại $x = 5$).
+		\end{enumerate}
+	\end{loigiai}
+	
+	
+	\subsection{Ứng dụng khảo sát hàm số nâng cao}
+	
+	Một trong những ứng dụng quan trọng và phổ biến nhất của nghiệm bội trong các đề thi tuyển sinh là giải quyết bài toán tìm số điểm cực trị của hàm số chứa dấu giá trị tuyệt đối dạng $y = |f(x)|$.
+	
+	\subsubsection{Công thức tính nhanh cực trị hàm trị tuyệt đối $y = |f(x)|$}
+	Để tìm số điểm cực trị của hàm số $g(x) = |f(x)|$ (với $f(x)$ là hàm đa thức), ta áp dụng công thức sau:
+	
+	\begin{tcolorbox}[colback=blue!5!white, colframe=blue!60!black, title=Công thức đếm nhanh cực trị]
+		Số điểm cực trị của hàm số $g(x) = |f(x)|$ được xác định bởi công thức:
+		$$S = m + n$$
+		Trong đó:
+		\begin{itemize}
+			\item $m$ là số điểm cực trị của hàm số ban đầu $f(x)$ (chính là số nghiệm \textbf{bội lẻ} của phương trình $f'(x) = 0$).
+			\item $n$ là số giao điểm cắt qua trục hoành của đồ thị $f(x)$ (chính là số nghiệm \textbf{bội lẻ/nghiệm đơn} của phương trình $f(x) = 0$).
+		\end{itemize}
+		\textbf{Lưu ý quan trọng:} Toàn bộ các nghiệm bội chẵn của cả hai phương trình $f'(x) = 0$ và $f(x) = 0$ đều bị loại bỏ (không tính vào $m$ và $n$) vì đồ thị chỉ tiếp xúc rồi quay đầu, không tạo ra điểm cực trị mới khi lấy giá trị tuyệt đối.
+	\end{tcolorbox}
+	
+	\begin{vidu}[2]
+		Cho hàm số $f(x) = x^3 - 3x^2 + 1$. Tìm số điểm cực trị của hàm số $g(x) = |f(x)|$.
+	\end{vidu}
+	
+	\begin{loigiai}
+		Để tìm số điểm cực trị của hàm số $g(x) = |f(x)|$, ta thực hiện theo các bước sau:
+		
+		\begin{enumerate}[label=\textbf{Bước \arabic*:}, leftmargin=*]
+			\item \textbf{Tìm số điểm cực trị $m$ của hàm số $f(x)$:}
+			Ta có đạo hàm: $f'(x) = 3x^2 - 6x$.
+			$$f'(x) = 0 \iff 3x(x - 2) = 0 \iff \left[\begin{aligned} &x = 0 \\ &x = 2 \end{aligned}\right.$$
+			Vì phương trình $f'(x) = 0$ có $2$ nghiệm đơn (nghiệm bội lẻ bậc $1$) nên hàm số $f(x)$ có $2$ điểm cực trị.
+			$$\implies m = 2$$
+			
+			\item \textbf{Tìm số nghiệm đơn (bội lẻ) $n$ của phương trình $f(x) = 0$:}
+			Phương trình hoành độ giao điểm: $x^3 - 3x^2 + 1 = 0$.
+			Ta tính các giá trị cực trị của hàm số $f(x)$:
+			\begin{itemize}
+				\item Tại $x = 0 \implies y_{\text{CĐ}} = f(0) = 1 > 0$.
+				\item Tại $x = 2 \implies y_{\text{CT}} = f(2) = -3 < 0$.
+			\end{itemize}
+			Vì hai giá trị cực trị trái dấu nhau ($y_{\text{CĐ}} \cdot y_{\text{CT}} < 0$) nên đồ thị hàm số bậc ba $f(x)$ cắt trục hoành tại đúng $3$ điểm phân biệt. Điều này đồng nghĩa với việc phương trình $f(x) = 0$ có $3$ nghiệm đơn phân biệt.
+			$$\implies n = 3$$
+			
+			\item \textbf{Tính tổng số điểm cực trị của hàm số $g(x) = |f(x)|$:}
+			Áp dụng công thức tính nhanh:
+			$$S = m + n = 2 + 3 = 5$$
+			
+			Vậy hàm số $g(x) = |f(x)|$ có tất cả \textbf{$5$ điểm cực trị}.
+		\end{enumerate}
+	\end{loigiai}
+	
+	\subsubsection{Công thức tính nhanh cực trị hàm số $y = f(|x|)$}
+	Hàm số $g(x) = f(|x|)$ là một hàm số chẵn, đồ thị của nó luôn nhận trục tung $Oy$ làm trục đối xứng. 
+	
+	\begin{tcolorbox}[colback=blue!5!white, colframe=blue!60!black, title=Công thức đếm nhanh cực trị]
+		Số điểm cực trị của hàm số chẵn $g(x) = f(|x|)$ được xác định bởi công thức:
+		$$S = 2k + 1$$
+		Trong đó:
+		\begin{itemize}
+			\item $k$ là số điểm cực trị \textbf{lớn hơn $0$} (điểm cực trị dương, $x > 0$) của hàm số gốc $f(x)$.
+			\item Điểm $x = 0$ luôn luôn là một điểm cực trị của hàm số $g(x) = f(|x|)$ (tạo thành một điểm nhọn hoặc đỉnh cực trị nằm trên trục tung).
+		\end{itemize}
+	\end{tcolorbox}
+	
+	\begin{vidu}[3]
+		Cho hàm số bậc ba $f(x) = x^3 - 3x^2 + 1$. Tìm số điểm cực trị của hàm số $g(x) = f(|x|)$.
+	\end{vidu}
+	
+	\begin{loigiai}
+		Để xác định số điểm cực trị của hàm số $g(x) = f(|x|)$, ta thực hiện các bước sau:
+		
+		\begin{enumerate}[label=\textbf{Bước \arabic*:}, leftmargin=*]
+			\item \textbf{Tìm các điểm cực trị của hàm số gốc $f(x)$:}
+			Ta tính đạo hàm: $f'(x) = 3x^2 - 6x$.
+			$$f'(x) = 0 \iff 3x(x - 2) = 0 \iff \left[\begin{aligned} &x = 0 \\ &x = 2 \end{aligned}\right.$$
+			Vì phương trình $f'(x) = 0$ có $2$ nghiệm đơn nên hàm số $f(x)$ có $2$ điểm cực trị là $x = 0$ và $x = 2$.
+			
+			\item \textbf{Xác định số điểm cực trị dương $k$ của $f(x)$:}
+			Xét tập hợp các điểm cực trị $\{0; 2\}$:
+			\begin{itemize}
+				\item Điểm cực trị $x = 2 > 0$ (thỏa mãn điều kiện dương).
+				\item Điểm cực trị $x = 0$ không thỏa mãn điều kiện lớn hơn $0$ (vì $0$ không phải số dương).
+			\end{itemize}
+			Do đó, hàm số gốc $f(x)$ chỉ có duy nhất $1$ điểm cực trị dương.
+			$$\implies k = 1$$
+			
+			\item \textbf{Tính tổng số điểm cực trị của hàm số $g(x) = f(|x|)$:}
+			Áp dụng công thức đối xứng qua trục tung:
+			$$S = 2k + 1 = 2 \cdot 1 + 1 = 3$$
+			
+			Vậy hàm số chẵn $g(x) = f(|x|)$ có tất cả đúng \textbf{$3$ điểm cực trị}.
+		\end{enumerate}
+	\end{loigiai}
+	\newpage
+	
+	% =====================
+	% PHẦN 4: BÀI TẬP
+	% =====================
+	\section{Bài tập}
+	
+	\subsection{Bài tập tự luận}
+	
+	\subsubsection{Dạng 1: Xác định cực trị dựa vào nghiệm bội của đạo hàm}
+	\textit{Đề bài: Cho hàm số $y = f(x)$ liên tục trên $\mathbb{R}$ và có đạo hàm $f'(x)$ được xác định bởi các công thức dưới đây. Hãy tìm số điểm cực trị của mỗi hàm số đã cho:}
+	
+	\begin{btxanh}
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\alph*)]
+				\item $f'(x) = (x - 1)(x + 2)^2(x - 3)^3$
+				\item $f'(x) = (x^2 - 4x + 4)(x - 2)$
+				\item $f'(x) = x(x - 5)^4(2x + 4)^5$
+				\item $f'(x) = (x + 3)^2(x - 1)^3(x - 4)^4$
+			\end{enumerate}
+		\end{multicols}
+	\end{btxanh}
+	
+	\begin{btvang}
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\alph*)]
+				\item $f'(x) = x^3(x - 2)^2(x + 4)$
+				\item $f'(x) = (x^2 + 6x + 9)(x + 3)(x - 1)^4$
+				\item $f'(x) = (2x - 4)^3(x + 1)^2$
+				\item $f'(x) = (x - 5)(x + 2)^4(x - 1)^3$
+			\end{enumerate}
+		\end{multicols}
+	\end{btvang}
+	
+	\begin{btdo}
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\alph*)]
+				\item $f'(x) = (x - 3)^5(x + 1)^4(x - 2)$
+				\item $f'(x) = (x^2 - 2x + 1)(x - 1)(x + 5)^2$
+				\item $f'(x) = (x - 4)^2(x + 3)^3(x - 1)^5$
+				\item $f'(x) = x^4(3x - 6)^3(x + 2)$
+			\end{enumerate}
+		\end{multicols}
+	\end{btdo}
+	
+	\subsubsection{Dạng 2: Khảo sát đơn điệu và cực trị của hàm số nâng cao}
+	
+	\begin{btxanh}
+		
+		\begin{enumerate}[label=\textbf{Bài \arabic*.}]
+			\item Tìm số điểm cực trị của các hàm số sau:
+			\begin{multicols}{3}
+				\begin{enumerate}[label=\alph*)]
+					\item $y = |x^3 - 3x^2 + 2|$
+					\item $y = |x|^3 - 3|x| + 1$
+					\item $y = |x^4 - 2x^2 - 3|$
+				\end{enumerate}
+			\end{multicols}
+			
+			\item Tìm các khoảng đơn điệu và các điểm cực trị của các hàm số sau:
+			\begin{multicols}{3}
+				\begin{enumerate}[label=\alph*)]
+					\item $y = \sqrt{x^2 - 2x + 3}$
+					\item $y = x\sqrt{4 - x^2}$
+					\item $y = \sqrt{x^2 - 4}$
+				\end{enumerate}
+			\end{multicols}
+			
+			\item  Tìm các khoảng đơn điệu và các điểm cực trị của các hàm số sau:
+			\begin{multicols}{2}
+				\begin{enumerate}[label=\alph*)]
+					\item $y = f(x^2 - 2x)$ biết $f'(x) = x(x - 1)^2$
+					\item $y = x \ln x$
+					\item $y = (x^2 - 2x)e^x$
+					\item $y = \ln(x^2 - 4x + 5)$
+				\end{enumerate}
+			\end{multicols}
+		\end{enumerate}
+	\end{btxanh}
+	
+	\begin{btvang}
+		
+		\begin{enumerate}[label=\textbf{Bài \arabic*.}]
+			\item Tìm số điểm cực trị của các hàm số sau:
+			\begin{multicols}{3}
+				\begin{enumerate}[label=\alph*)]
+					\item $y = |x^3 - 3x + 2|$
+					\item $y = |x|^3 - 3x^2 + 4$
+					\item $y = |x^4 - 4x^2 + 3|$
+				\end{enumerate}
+			\end{multicols}
+			
+			\item Tìm các khoảng đơn điệu và các điểm cực trị của các hàm số sau:
+			\begin{multicols}{3}
+				\begin{enumerate}[label=\alph*)]
+					\item $y = \sqrt{x^2 - 4x + 5}$
+					\item $y = x\sqrt{1 - x^2}$
+					\item $y = \sqrt{x^2 - 9}$
+				\end{enumerate}
+			\end{multicols}
+			
+			\item Tìm các khoảng đơn điệu và các điểm cực trị của các hàm số sau:
+			\begin{multicols}{2}
+				\begin{enumerate}[label=\alph*)]
+					\item $y = f(x^2 + 2x)$ biết $f'(x) = (x + 1)^3(x - 2)$
+					\item $y = x^2 \ln x$
+					\item $y = (x - 3)e^x$
+					\item $y = \ln(x^2 + 2x + 3)$
+				\end{enumerate}
+			\end{multicols}
+		\end{enumerate}
+	\end{btvang}
+	
+	\begin{btdo}
+		
+		\begin{enumerate}[label=\textbf{Bài \arabic*.}]
+			\item  Tìm số điểm cực trị của các hàm số sau:
+			\begin{multicols}{3}
+				\begin{enumerate}[label=\alph*)]
+					\item $y = |x^3 - 3x^2 + 4|$
+					\item $y = -|x|^3 + 3|x| + 2$
+					\item $y = |x^4 - 8x^2 + 7|$
+				\end{enumerate}
+			\end{multicols}
+			
+			\item Tìm các khoảng đơn điệu và các điểm cực trị của các hàm số sau:
+			\begin{multicols}{3}
+				\begin{enumerate}[label=\alph*)]
+					\item $y = \sqrt{x^2 - 6x + 10}$
+					\item $y = x\sqrt{9 - x^2}$
+					\item $y = \sqrt{x^2 - 16}$
+				\end{enumerate}
+			\end{multicols}
+			
+			\item Tìm các khoảng đơn điệu và các điểm cực trị của các hàm số sau:
+			\begin{multicols}{2}
+				\begin{enumerate}[label=\alph*)]
+					\item $y = f(3 - x^2)$ biết $f'(x) = x(x - 4)$
+					\item $y = \dfrac{\ln x}{x}$
+					\item $y = (x^2 + 2x)e^{-x}$
+					\item $y = \ln(x^2 - 6x + 10)$
+				\end{enumerate}
+			\end{multicols}
+		\end{enumerate}
+	\end{btdo}
+	
+	
+	\subsection{Bài tập trắc nghiệm}
+	
+	\begin{enumerate}[label=\textbf{Câu \arabic*.}]
+		
+		\item Cho hàm số $y = f(x)$ liên tục trên $\mathbb{R}$ và có đạo hàm $f'(x) = (x - 2)(x + 1)^2(x - 3)^3$. Hàm số đã cho nghịch biến trên khoảng nào dưới đây?
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $(-\infty; 2)$.
+				\item $(2; 3)$.
+				\item $(-1; 2)$.
+				\item $(3; +\infty)$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Cho hàm số $y = f(x)$ liên tục trên $\mathbb{R}$ và có đạo hàm $f'(x) = (1 - x)(x + 3)^4(x - 2)^5$. Hàm số đã cho đồng biến trên khoảng nào dưới đây?
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $(1; 2)$.
+				\item $(-\infty; 1)$.
+				\item $(2; +\infty)$.
+				\item $(-3; 1)$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Cho hàm số $y = f(x)$ có đạo hàm $f'(x) = x^3(x - 4)^2(x + 2)^5$ với mọi $x \in \mathbb{R}$. Số điểm cực trị của hàm số đã cho là:
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $1$.
+				\item $2$.
+				\item $3$.
+				\item $0$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Cho hàm số $y = f(x)$ có đạo hàm $f'(x) = (x^2 - 1)(x - 1)^3(x + 2)^4$. Hỏi hàm số đã cho có bao nhiêu điểm cực trị?
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $3$.
+				\item $2$.
+				\item $1$.
+				\item $0$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Cho hàm số $y = f(x)$ có đạo hàm $f'(x) = -(x - 3)(x + 1)^2(x - 2)^5$. Hàm số nghịch biến trên khoảng nào dưới đây?
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $(2; 3)$.
+				\item $(-\infty; 2)$.
+				\item $(2; +\infty)$.
+				\item $(-1; 3)$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Cho hàm số $y = f(x)$ liên tục trên $\mathbb{R}$ và có đạo hàm $f'(x) = (x + 2)(x - 1)^4(3 - x)$. Khẳng định nào sau đây là khẳng định đúng?
+		\begin{enumerate}[label=\textbf{\Alph*.}]
+			\item $f(-1) < f(0) < f(2)$.
+			\item $f(2) < f(0) < f(-1)$.
+			\item $f(-2) > f(-1) > f(0)$.
+			\item $f(1) < f(0) < f(-1)$.
+		\end{enumerate}
+		
+		\item Cho hàm số $y = f(x)$ liên tục trên $\mathbb{R}$ và có đạo hàm $f'(x) = -(x + 1)^2(x - 2)^3$. Khẳng định nào sau đây là khẳng định đúng?
+		\begin{enumerate}[label=\textbf{\Alph*.}]
+			\item $f(-3) < f(-2) < f(0)$.
+			\item $f(0) < f(-2) < f(-3)$.
+			\item $f(2) < f(3) < f(4)$.
+			\item $f(-3) > f(-2) > f(0)$.
+		\end{enumerate}
+		
+		\item Cho hàm số $y = f(x)$ liên tục trên $\mathbb{R}$ và có đạo hàm $f'(x) = (x - 3)^2(x + 2)(x - 1)$. Mệnh đề nào dưới đây là mệnh đề đúng?
+		\begin{enumerate}[label=\textbf{\Alph*.}]
+			\item $f(4) < f(3) < f(2)$.
+			\item $f(2) < f(3) < f(4)$.
+			\item $f(2) > f(3) > f(4)$.
+			\item $f(-1) > f(0) > f(1)$.
+		\end{enumerate}
+		
+		\item Cho hàm số $y = f(x)$ liên tục trên $\mathbb{R}$ và có đạo hàm $f'(x) = -(x^2 - 4)(x - 2)^2$. Khẳng định nào sau đây là khẳng định đúng?
+		\begin{enumerate}[label=\textbf{\Alph*.}]
+			\item $f(-1) < f(0) < f(1)$.
+			\item $f(1) < f(0) < f(-1)$.
+			\item $f(-2) > f(-1) > f(0)$.
+			\item $f(2) < f(3) < f(4)$.
+		\end{enumerate}
+		
+		\item Cho hàm số $y = f(x)$ liên tục trên $\mathbb{R}$ và có đạo hàm $f'(x) = -(x - 1)(x + 2)^4(x - 3)$. Khẳng định nào sau đây là khẳng định đúng?
+		\begin{enumerate}[label=\textbf{\Alph*.}]
+			\item $f(1.2) < f(1.8) < f(2.5)$.
+			\item $f(2.5) < f(1.8) < f(1.2)$.
+			\item $f(1) > f(2) > f(3)$.
+			\item $f(-1) < f(0) < f(1)$.
+		\end{enumerate}
+
+		
+		\item Cho hàm số $y = f(x)$ có bảng xét dấu đạo hàm $f'(x)$ trên $\mathbb{R}$ như sau:
+		\begin{center}
+			\begin{tikzpicture}[scale=0.7, >=stealth]
+				\draw[thick] (0,0) rectangle (9,-2.1);
+				\draw[thick] (0,-1) -- (9,-1);
+				\draw[thick] (2,0) -- (2,-2.1);
+				\node at (1,-0.5) {$x$}; \node at (1,-1.5) {$f'(x)$};
+				\node at (2.6,-0.5) {$-\infty$}; \node at (4.5,-0.5) {$-2$}; \node at (6.8,-0.5) {$3$}; \node at (8.4,-0.5) {$+\infty$};
+				\node at (3.5,-1.5) {$+$}; \node at (4.5,-1.5) {$0$}; \node at (5.65,-1.5) {$-$}; \node at (6.8,-1.5) {$0$}; \node at (7.6,-1.5) {$+$};
+			\end{tikzpicture}
+		\end{center}
+		Hàm số đã cho nghịch biến trên khoảng nào dưới đây?
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $(-2; 3)$.
+				\item $(3; +\infty)$.
+				\item $(-\infty; -2)$.
+				\item $(-2; +\infty)$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Cho hàm số $y = f(x)$ có bảng xét dấu đạo hàm $f'(x)$ trên $\mathbb{R}$ như sau:
+		\begin{center}
+			\begin{tikzpicture}[scale=0.7, >=stealth]
+				\draw[thick] (0,0) rectangle (9,-2.1);
+				\draw[thick] (0,-1) -- (9,-1);
+				\draw[thick] (2,0) -- (2,-2.1);
+				\node at (1,-0.5) {$x$}; \node at (1,-1.5) {$f'(x)$};
+				\node at (2.6,-0.5) {$-\infty$}; \node at (4.5,-0.5) {$1$}; \node at (6.8,-0.5) {$4$}; \node at (8.4,-0.5) {$+\infty$};
+				\node at (3.5,-1.5) {$-$}; \node at (4.5,-1.5) {$0$}; \node at (5.65,-1.5) {$+$}; \node at (6.8,-1.5) {$0$}; \node at (7.6,-1.5) {$-$};
+			\end{tikzpicture}
+		\end{center}
+		Hàm số đã cho đồng biến trên khoảng nào dưới đây?
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $(1; 4)$.
+				\item $(-\infty; 1)$.
+				\item $(4; +\infty)$.
+				\item $(1; +\infty)$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Cho hàm số $y = f(x)$ có bảng xét dấu đạo hàm $f'(x)$ trên $\mathbb{R}$ như sau:
+		\begin{center}
+			\begin{tikzpicture}[scale=0.7, >=stealth]
+				\draw[thick] (0,0) rectangle (11.5,-2.1);
+				\draw[thick] (0,-1) -- (11.5,-1);
+				\draw[thick] (2,0) -- (2,-2.1);
+				\node at (1,-0.5) {$x$}; \node at (1,-1.5) {$f'(x)$};
+				\node at (2.6,-0.5) {$-\infty$}; \node at (4.6,-0.5) {$0$}; \node at (6.8,-0.5) {$2$}; \node at (9.0,-0.5) {$5$}; \node at (10.9,-0.5) {$+\infty$};
+				\node at (3.6,-1.5) {$-$}; \node at (4.6,-1.5) {$0$}; \node at (5.7,-1.5) {$+$}; \node at (6.8,-1.5) {$0$}; \node at (7.9,-1.5) {$+$}; \node at (9.0,-1.5) {$0$}; \node at (10.0,-1.5) {$-$};
+			\end{tikzpicture}
+		\end{center}
+		Số điểm cực trị của hàm số đã cho là:
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $3$.
+				\item $2$.
+				\item $4$.
+				\item $1$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Cho hàm số $y = f(x)$ có bảng xét dấu đạo hàm $f'(x)$ trên $\mathbb{R}$ như sau:
+		\begin{center}
+			\begin{tikzpicture}[scale=0.7, >=stealth]
+				\draw[thick] (0,0) rectangle (11.5,-2.1);
+				\draw[thick] (0,-1) -- (11.5,-1);
+				\draw[thick] (2,0) -- (2,-2.1);
+				\node at (1,-0.5) {$x$}; \node at (1,-1.5) {$f'(x)$};
+				\node at (2.6,-0.5) {$-\infty$}; \node at (4.6,-0.5) {$-3$}; \node at (6.8,-0.5) {$1$}; \node at (9.0,-0.5) {$3$}; \node at (10.9,-0.5) {$+\infty$};
+				\node at (3.6,-1.5) {$+$}; \node at (4.6,-1.5) {$0$}; \node at (5.7,-1.5) {$+$}; \node at (6.8,-1.5) {$0$}; \node at (7.9,-1.5) {$-$}; \node at (9.0,-1.5) {$0$}; \node at (10.0,-1.5) {$+$};
+			\end{tikzpicture}
+		\end{center}
+		Hàm số đã cho đồng biến trên khoảng nào dưới đây?
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $(-\infty; 3)$.
+				\item $(1; 3)$.
+				\item $(-\infty; 1)$.
+				\item $(3; +\infty)$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Cho hàm số $y = f(x)$ có bảng xét dấu đạo hàm $f'(x)$ trên $\mathbb{R}$ như sau:
+		\begin{center}
+			\begin{tikzpicture}[scale=0.7, >=stealth]
+				\draw[thick] (0,0) rectangle (11.5,-2.1);
+				\draw[thick] (0,-1) -- (11.5,-1);
+				\draw[thick] (2,0) -- (2,-2.1);
+				\node at (1,-0.5) {$x$}; \node at (1,-1.5) {$f'(x)$};
+				\node at (2.6,-0.5) {$-\infty$}; \node at (4.6,-0.5) {$-1$}; \node at (6.8,-0.5) {$0$}; \node at (9.0,-0.5) {$2$}; \node at (10.9,-0.5) {$+\infty$};
+				\node at (3.6,-1.5) {$-$}; \node at (4.6,-1.5) {$0$}; \node at (5.7,-1.5) {$-$}; \node at (6.8,-1.5) {$0$}; \node at (7.9,-1.5) {$+$}; \node at (9.0,-1.5) {$0$}; \node at (10.0,-1.5) {$-$};
+			\end{tikzpicture}
+		\end{center}
+		Số điểm cực tiểu của hàm số đã cho là:
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $1$.
+				\item $2$.
+				\item $3$.
+				\item $0$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 16
+		\item Cho hàm số $y = f(x)$ liên tục trên $\mathbb{R}$. Đồ thị của hàm số đạo hàm $y = f'(x)$ được cho như hình vẽ bên dưới.
+		\begin{center}
+			\begin{tikzpicture}[scale=0.8, >=stealth]
+				\draw[->] (-2,0) -- (3,0) node[right] {$x$};
+				\draw[->] (0,-1) -- (0,2.5) node[above] {$y$};
+				\node at (0,0) [below left] {$O$};
+				
+				% Đồ thị f'(x) cắt tại -1 và tiếp xúc tại 2
+				\draw[domain=-1.4:2.4, smooth, variable=\x, blue, ultra thick] plot ({\x},{0.3*(\x+1)*(\x-2)^2});
+				
+				\filldraw[red] (-1,0) circle (1.5pt) node[below] {$-1$};
+				\filldraw[red] (2,0) circle (1.5pt) node[below] {$2$};
+				\node at (1.5,1.5) [blue] {$y = f'(x)$};
+			\end{tikzpicture}
+		\end{center}
+		Số điểm cực trị của hàm số $y = f(x)$ là:
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $1$.
+				\item $2$.
+				\item $3$.
+				\item $0$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 17
+		\item Cho hàm số $y = f(x)$ liên tục trên $\mathbb{R}$. Hàm số đạo hàm $y = f'(x)$ có đồ thị như hình vẽ bên dưới.
+		\begin{center}
+			\begin{tikzpicture}[scale=0.8, >=stealth]
+				\draw[->] (-3,0) -- (4,0) node[right] {$x$};
+				\draw[->] (0,-1.5) -- (0,2) node[above] {$y$};
+				\node at (0,0) [below left] {$O$};
+				
+				% Đồ thị f'(x) tiếp xúc tại -2, cắt tại 0 và 3
+				\draw[domain=-2.4:3.3, smooth, variable=\x, blue, ultra thick] plot ({\x},{0.04*\x*(\x-3)*(\x+2)^2});
+				
+				\filldraw[red] (-2,0) circle (1.5pt) node[below] {$-2$};
+				\filldraw[red] (3,0) circle (1.5pt) node[below] {$3$};
+				\node at (2,1.2) [blue] {$y = f'(x)$};
+			\end{tikzpicture}
+		\end{center}
+		Hàm số $y = f(x)$ nghịch biến trên khoảng nào dưới đây?
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $(0; 3)$.
+				\item $(-\infty; -2)$.
+				\item $(-\infty; 0)$.
+				\item $(3; +\infty)$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 18
+		\item Cho hàm số $y = f(x)$ liên tục trên $\mathbb{R}$. Đồ thị của hàm số đạo hàm $y = f'(x)$ tiếp xúc với trục hoành tại điểm có hoành độ bằng $0$ và cắt trục hoành tại hai điểm có hoành độ lần lượt là $-1$ và $1$ như hình vẽ bên dưới.
+		\begin{center}
+			\begin{tikzpicture}[scale=0.8, >=stealth]
+				\draw[->] (-2,0) -- (2,0) node[right] {$x$};
+				\draw[->] (0,-1.5) -- (0,1.5) node[above] {$y$};
+				\node at (0,0) [below left] {$O$};
+				
+				% Đồ thị f'(x) cắt tại -1, 1 và tiếp xúc tại 0 từ phía dưới
+				\draw[domain=-1.25:1.25, smooth, variable=\x, blue, ultra thick] plot ({\x},{0.8*(\x^2-1)*\x^2});
+				
+				\filldraw[red] (-1,0) circle (1.5pt) node[above] {$-1$};
+				\filldraw[red] (1,0) circle (1.5pt) node[above] {$1$};
+				\node at (0.9,-0.8) [blue] {$y = f'(x)$};
+			\end{tikzpicture}
+		\end{center}
+		Số điểm cực trị của hàm số $y = f(x)$ là:
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $2$.
+				\item $3$.
+				\item $1$.
+				\item $0$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 19
+		\item Cho hàm số $y = f(x)$ liên tục trên $\mathbb{R}$ và có đồ thị đạo hàm $y = f'(x)$ như hình vẽ bên dưới.
+		\begin{center}
+			\begin{tikzpicture}[scale=0.8, >=stealth]
+				\draw[->] (-3,0) -- (4,0) node[right] {$x$};
+				\draw[->] (0,-2) -- (0,2) node[above] {$y$};
+				\node at (0,0) [below left] {$O$};
+				
+				% Đồ thị f'(x) cắt tại -2, 3 và tiếp xúc tại 1
+				\draw[domain=-2.2:3.2, smooth, variable=\x, blue, ultra thick] plot ({\x},{0.05*(\x+2)*(\x-3)*(\x-1)^2});
+				
+				\filldraw[red] (-2,0) circle (1.5pt) node[below] {$-2$};
+				\filldraw[red] (1,0) circle (1.5pt) node[above] {$1$};
+				\filldraw[red] (3,0) circle (1.5pt) node[below] {$3$};
+				\node at (2.5,-1.3) [blue] {$y = f'(x)$};
+			\end{tikzpicture}
+		\end{center}
+		Khẳng định nào sau đây đúng?
+		\begin{enumerate}[label=\textbf{\Alph*.}]
+			\item Hàm số $y = f(x)$ đạt cực đại tại điểm $x = 1$.
+			\item Hàm số $y = f(x)$ đồng biến trên khoảng $(-2; 3)$.
+			\item Hàm số $y = f(x)$ nghịch biến trên khoảng $(-2; 3)$.
+			\item Điểm $x = 1$ không phải là điểm cực trị của hàm số $y = f(x)$.
+		\end{enumerate}
+		
+		% CÂU 20
+		\item Cho hàm số $y = f(x)$ liên tục trên $\mathbb{R}$. Đồ thị của đạo hàm $y = f'(x)$ được mô tả ở hình vẽ bên dưới (tiếp xúc trục hoành tại hoành độ $-3$ và $2$; cắt xuyên qua trục hoành tại hoành độ $-1$ và $4$).
+		\begin{center}
+			\begin{tikzpicture}[scale=0.9, >=stealth]
+				\draw[->] (-4.5,0) -- (5,0) node[right] {$x$};
+				\draw[->] (0,-1.5) -- (0,2) node[above] {$y$};
+				\node at (0,0) [below left] {$O$};
+				
+				% Vẽ đường cong uốn lượn mượt mà bằng spline
+				\draw[blue, ultra thick, tension=0.6] plot[smooth] coordinates {(-3.8, -0.6) (-3, 0) (-2, 0.5) (-1, 0) (0.5, -1) (2, 0) (3, -0.5) (4, 0) (4.5, 1)};
+				
+				\filldraw[red] (-3,0) circle (1.5pt) node[below] {$-3$};
+				\filldraw[red] (-1,0) circle (1.5pt) node[below] {$-1$};
+				\filldraw[red] (2,0) circle (1.5pt) node[above] {$2$};
+				\filldraw[red] (4,0) circle (1.5pt) node[below] {$4$};
+				\node at (-2,0.9) [blue] {$y = f'(x)$};
+			\end{tikzpicture}
+		\end{center}
+		Hỏi hàm số $y = f(x)$ có tất cả bao nhiêu điểm cực trị?
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $2$.
+				\item $4$.
+				\item $3$.
+				\item $1$.
+			\end{enumerate}
+		\end{multicols}
+		
+		
+	\end{enumerate}
+	
+	
+	\subsection{Bài tập đúng sai}
+	
+	\begin{enumerate}[label=\textbf{Câu \arabic*.}]
+		
+		% CÂU 1
+		\item Cho hàm số $y = f(x)$ xác định, liên tục trên $\mathbb{R}$ và có đồ thị hàm số đạo hàm $y = f'(x)$ như hình vẽ bên dưới.
+		\begin{center}
+			\begin{tikzpicture}[scale=0.8, >=stealth]
+				\draw[->] (-2,0) -- (4,0) node[right] {$x$};
+				\draw[->] (0,-2) -- (0,2.2) node[above] {$y$};
+				\node at (0,0) [below left] {$O$};
+				
+				% Đồ thị đạo hàm f'(x) cắt tại -1, 1, 3
+				\draw[domain=-1.3:3.3, smooth, variable=\x, blue, ultra thick] plot ({\x},{0.4*(\x^2 - 1)*(\x - 3)});
+				
+				\filldraw[red] (-1,0) circle (1.5pt) node[below] {$-1$};
+				\filldraw[red] (1,0) circle (1.5pt) node[above] {$1$};
+				\filldraw[red] (3,0) circle (1.5pt) node[below] {$3$};
+				\draw[dashed, gray] (2,0) node[above] {$2$} -- (2,-1.5) -- (0,-1.5) node[left] {$-2$};
+				\filldraw[red] (2,-1.5) circle (1.5pt);
+				\node at (2.8,1.5) [blue] {$y = f'(x)$};
+			\end{tikzpicture}
+		\end{center}
+		Xét tính đúng hay sai của các mệnh đề sau:
+		\begin{enumerate}[label=\alph*)]
+			\item Hàm số $y = f(x)$ đồng biến trên khoảng $(-1; 1)$.
+			\item Hàm số $y = f(x)$ nghịch biến trên khoảng $(-\infty; -1)$.
+			\item Hàm số $y = f(x)$ có tất cả $3$ điểm cực trị.
+			\item So sánh các giá trị của hàm số, ta có $f(3) > f(4) > f(2024) > f(2025)$.
+		\end{enumerate}
+		
+		% CÂU 2
+		\item Cho hàm số $y = f(x)$ liên tục trên $\mathbb{R}$. Hàm số đạo hàm $y = f'(x)$ có đồ thị dạng parabol với đỉnh là $I(1; -4)$ và cắt trục hoành tại hai điểm có hoành độ $-1$ và $3$ như hình vẽ bên dưới.
+		\begin{center}
+			\begin{tikzpicture}[scale=0.8, >=stealth]
+				\draw[->] (-2,0) -- (4,0) node[right] {$x$};
+				\draw[->] (0,-4.5) -- (0,1.5) node[above] {$y$};
+				\node at (0,0) [above left] {$O$};
+				
+				% Đồ thị đạo hàm f'(x) cắt tại -1 và 3, đỉnh (1, -4)
+				\draw[domain=-1.3:3.3, smooth, variable=\x, blue, ultra thick] plot ({\x},{\x^2 - 2*\x - 3});
+				
+				\filldraw[red] (-1,0) circle (1.5pt) node[above] {$-1$};
+				\filldraw[red] (3,0) circle (1.5pt) node[above] {$3$};
+				\draw[dashed, gray] (1,0) node[above] {$1$} -- (1,-4) -- (0,-4) node[left] {$-4$};
+				\filldraw[red] (1,-4) circle (1.5pt);
+				\node at (2.8,-2) [blue] {$y = f'(x)$};
+			\end{tikzpicture}
+		\end{center}
+		Xét tính đúng hay sai của các mệnh đề sau:
+		\begin{enumerate}[label=\alph*)]
+			\item Hàm số $y = f(x)$ nghịch biến trên khoảng $(-\infty; -1)$.
+			\item Hàm số $y = f(x)$ đồng biến trên khoảng $(1; +\infty)$.
+			\item Đồ thị của hàm số $y = f(x)$ có đúng $2$ điểm cực trị.
+			\item So sánh các giá trị của hàm số, ta có $f(-1) > f(0) > f(2)$.
+		\end{enumerate}
+		
+		% CÂU 3
+		\item Cho hàm số $y = f(x)$ liên tục trên $\mathbb{R}$ và đồ thị của hàm số đạo hàm $y = f'(x)$ tiếp xúc với trục hoành tại điểm có hoành độ bằng $0$, cắt trục hoành tại hai điểm có hoành độ lần lượt là $-2$ và $2$ như hình vẽ bên dưới.
+		\begin{center}
+			\begin{tikzpicture}[scale=0.8, >=stealth]
+				\draw[->] (-3,0) -- (3,0) node[right] {$x$};
+				\draw[->] (0,-1.5) -- (0,1.5) node[above] {$y$};
+				\node at (0,0) [below left] {$O$};
+				
+				% Đồ thị f'(x) cắt tại -2, 2 và tiếp xúc tại 0 từ phía dưới
+				\draw[domain=-2.1:2.1, smooth, variable=\x, blue, ultra thick] plot ({\x},{0.15*(\x^2 - 4)*\x^2});
+				
+				\filldraw[red] (-2,0) circle (1.5pt) node[above] {$-2$};
+				\filldraw[red] (2,0) circle (1.5pt) node[above] {$2$};
+				\node at (1.5,-1) [blue] {$y = f'(x)$};
+			\end{tikzpicture}
+		\end{center}
+		Xét tính đúng hay sai của các mệnh đề sau:
+		\begin{enumerate}[label=\alph*)]
+			\item Hàm số $y = f(x)$ đồng biến trên khoảng $(2; +\infty)$.
+			\item Hàm số $y = f(x)$ đạt cực trị tại điểm $x = 0$.
+			\item Hàm số $y = f(x)$ có duy nhất $1$ điểm cực đại.
+			\item So sánh các giá trị của hàm số, ta có $f(-2) > f(-1) > f(0)$.
+		\end{enumerate}
+		
+		% CÂU 4
+		\item Cho hàm số $y = f(x)$ liên tục trên $\mathbb{R}$ và có bảng xét dấu đạo hàm $f'(x)$ được cho như sau:
+		\begin{center}
+			\begin{tikzpicture}[scale=0.65, >=stealth]
+				\draw[thick] (0,0) rectangle (11.5,-2.1);
+				\draw[thick] (0,-1) -- (11.5,-1);
+				\draw[thick] (2,0) -- (2,-2.1);
+				\node at (1,-0.5) {$x$}; \node at (1,-1.5) {$f'(x)$};
+				\node at (2.6,-0.5) {$-\infty$}; \node at (4.6,-0.5) {$-2$}; \node at (6.8,-0.5) {$1$}; \node at (9.0,-0.5) {$3$}; \node at (10.9,-0.5) {$+\infty$};
+				\node at (3.6,-1.5) {$+$}; \node at (4.6,-1.5) {$0$}; \node at (5.7,-1.5) {$-$}; \node at (6.8,-1.5) {$0$}; \node at (7.9,-1.5) {$-$}; \node at (9.0,-1.5) {$0$}; \node at (10.0,-1.5) {$+$};
+			\end{tikzpicture}
+		\end{center}
+		Xét tính đúng hay sai của các mệnh đề sau:
+		\begin{enumerate}[label=\alph*)]
+			\item Hàm số $y = f(x)$ đạt cực đại tại điểm $x = -2$.
+			\item Hàm số $y = f(x)$ đạt cực tiểu tại điểm $x = 1$.
+			\item Hàm số $y = f(x)$ nghịch biến trên khoảng $(-2; 3)$.
+			\item So sánh các giá trị của hàm số, ta có $f(4) < f(5) < f(2025)$.
+		\end{enumerate}
+		
+		% CÂU 5
+		\item Cho hàm số $y = f(x)$ liên tục trên $\mathbb{R}$. Hàm số đạo hàm $y = f'(x)$ có đồ thị dạng parabol cắt trục hoành tại hai điểm có hoành độ lần lượt bằng $1$ và $3$ như hình vẽ bên dưới.
+		\begin{center}
+			\begin{tikzpicture}[scale=0.8, >=stealth]
+				\draw[->] (-1,0) -- (4,0) node[right] {$x$};
+				\draw[->] (0,-1.5) -- (0,1.5) node[above] {$y$};
+				\node at (0,0) [below left] {$O$};
+				
+				% Đồ thị f'(x) là parabol úp xuống có nghiệm 1, 3
+				\draw[domain=-0.3:3.8, smooth, variable=\x, blue, ultra thick] plot ({\x},{-\x^2 + 4*\x - 3});
+				
+				\filldraw[red] (1,0) circle (1.5pt) node[below] {$1$};
+				\filldraw[red] (3,0) circle (1.5pt) node[below] {$3$};
+				\node at (2.8,1) [blue] {$y = f'(x)$};
+			\end{tikzpicture}
+		\end{center}
+		Xét tính đúng hay sai của các mệnh đề sau:
+		\begin{enumerate}[label=\alph*)]
+			\item Hàm số $y = f(x)$ nghịch biến trên khoảng $(1; 3)$.
+			\item Hàm số $y = f(x)$ đồng biến trên các khoảng $(-\infty; 1)$ và $(3; +\infty)$.
+			\item Hàm số $y = f(x)$ đạt cực tiểu tại $x = 1$ và đạt cực đại tại $x = 3$.
+			\item So sánh các giá trị của hàm số, ta có $f(1.5) < f(2) < f(2.5)$.
+		\end{enumerate}
+		
+		% CÂU 6
+		\item Cho hàm số $y = f(x)$ liên tục trên $\mathbb{R}$. Đồ thị của hàm số đạo hàm $y = f'(x)$ tiếp xúc với trục hoành tại điểm có hoành độ bằng $-2$ và cắt trục hoành tại điểm có hoành độ bằng $1$ như hình vẽ bên dưới.
+		\begin{center}
+			\begin{tikzpicture}[scale=0.8, >=stealth]
+				\draw[->] (-3.5,0) -- (2.5,0) node[right] {$x$};
+				\draw[->] (0,-1.5) -- (0,2) node[above] {$y$};
+				\node at (0,0) [below left] {$O$};
+				
+				% Đồ thị f'(x) tiếp xúc tại -2, cắt tại 1 từ trên xuống
+				\draw[domain=-3.1:1.6, smooth, variable=\x, blue, ultra thick] plot ({\x},{-0.1*(\x-1)*(\x+2)^2});
+				
+				\filldraw[red] (-2,0) circle (1.5pt) node[below] {$-2$};
+				\filldraw[red] (1,0) circle (1.5pt) node[below] {$1$};
+				\node at (-2.5,1.2) [blue] {$y = f'(x)$};
+			\end{tikzpicture}
+		\end{center}
+		Xét tính đúng hay sai của các mệnh đề sau:
+		\begin{enumerate}[label=\alph*)]
+			\item Hàm số $y = f(x)$ đạt cực tiểu tại điểm $x = -2$.
+			\item Hàm số $y = f(x)$ đồng biến trên khoảng $(-\infty; 1)$.
+			\item Số điểm cực trị của hàm số $y = f(x)$ bằng $1$.
+			\item So sánh các giá trị của hàm số, ta có $f(-3) < f(-2) < f(0)$.
+		\end{enumerate}
+		
+		% CÂU 7
+		\item Cho hàm số $y = f(x)$ liên tục trên $\mathbb{R}$ và có bảng xét dấu đạo hàm $f'(x)$ được cho như sau:
+		\begin{center}
+			\begin{tikzpicture}[scale=0.65, >=stealth]
+				\draw[thick] (0,0) rectangle (11.5,-2.1);
+				\draw[thick] (0,-1) -- (11.5,-1);
+				\draw[thick] (2,0) -- (2,-2.1);
+				\node at (1,-0.5) {$x$}; \node at (1,-1.5) {$f'(x)$};
+				\node at (2.6,-0.5) {$-\infty$}; \node at (4.6,-0.5) {$-1$}; \node at (6.8,-0.5) {$0$}; \node at (9.0,-0.5) {$2$}; \node at (10.9,-0.5) {$+\infty$};
+				\node at (3.6,-1.5) {$+$}; \node at (4.6,-1.5) {$0$}; \node at (5.7,-1.5) {$+$}; \node at (6.8,-1.5) {$0$}; \node at (7.9,-1.5) {$-$}; \node at (9.0,-1.5) {$0$}; \node at (10.0,-1.5) {$+$};
+			\end{tikzpicture}
+		\end{center}
+		Xét tính đúng hay sai của các mệnh đề sau:
+		\begin{enumerate}[label=\alph*)]
+			\item Hàm số $y = f(x)$ nghịch biến trên khoảng $(-\infty; 0)$.
+			\item Hàm số $y = f(x)$ đồng biến trên khoảng $(-\infty; 0)$.
+			\item Hàm số $y = f(x)$ có tất cả $3$ điểm cực trị.
+			\item So sánh các giá trị của hàm số, ta có $f(0.5) > f(1) > f(1.5)$.
+		\end{enumerate}
+		
+		% CÂU 8
+		\item Cho hàm số $y = f(x)$ liên tục trên $\mathbb{R}$. Đồ thị của hàm số đạo hàm $y = f'(x)$ cắt trục hoành tại hai điểm cực trị có hoành độ lần lượt bằng $-\sqrt{3}$ và $\sqrt{3}$, đồng thời đi qua gốc tọa độ $O$ như hình vẽ bên dưới.
+		\begin{center}
+			\begin{tikzpicture}[scale=0.8, >=stealth]
+				\draw[->] (-2.5,0) -- (2.5,0) node[right] {$x$};
+				\draw[->] (0,-2) -- (0,2) node[above] {$y$};
+				\node at (0,0) [below left] {$O$};
+				
+				% Đồ thị f'(x) cắt tại -\sqrt{3}, 0, \sqrt{3}
+				\draw[domain=-2.1:2.1, smooth, variable=\x, blue, ultra thick] plot ({\x},{-0.4*\x^3 + 1.2*\x});
+				
+				\filldraw[red] (-1.73,0) circle (1.5pt) node[below] {$-\sqrt{3}$};
+				\filldraw[red] (1.73,0) circle (1.5pt) node[below] {$\sqrt{3}$};
+				\node at (1.5,-1) [blue] {$y = f'(x)$};
+			\end{tikzpicture}
+		\end{center}
+		Xét tính đúng hay sai của các mệnh đề sau:
+		\begin{enumerate}[label=\alph*)]
+			\item Hàm số $y = f(x)$ đồng biến trên khoảng $(0; \sqrt{3})$.
+			\item Hàm số $y = f(x)$ nghịch biến trên khoảng $(-\infty; -\sqrt{3})$.
+			\item Hàm số $y = f(x)$ đạt cực tiểu tại $x = 0$.
+			\item So sánh các giá trị của hàm số, ta có $f(1) < f(1.5) < f(1.7)$.
+		\end{enumerate}
+		
+		% CÂU 9
+		\item Cho hàm số $y = f(x)$ liên tục trên $\mathbb{R}$ và có bảng xét dấu đạo hàm $f'(x)$ như sau:
+		\begin{center}
+			\begin{tikzpicture}[scale=0.65, >=stealth]
+				\draw[thick] (0,0) rectangle (9.5,-2.1);
+				\draw[thick] (0,-1) -- (9.5,-1);
+				\draw[thick] (2,0) -- (2,-2.1);
+				\node at (1,-0.5) {$x$}; \node at (1,-1.5) {$f'(x)$};
+				\node at (2.6,-0.5) {$-\infty$}; \node at (5.75,-0.45) {$1$}; \node at (8.8,-0.5) {$+\infty$};
+				
+				\node at (4.15,-1.5) {$+$}; 
+				\draw[double, thick] (5.75,-1) -- (5.75,-2.1); \node at (5.75,-1.5) {};
+				\node at (7.25,-1.5) {$+$};
+			\end{tikzpicture}
+		\end{center}
+		Xét tính đúng hay sai của các mệnh đề sau:
+		\begin{enumerate}[label=\alph*)]
+			\item Hàm số $y = f(x)$ đồng biến trên các khoảng $(-\infty; 1)$ và $(1; +\infty)$.
+			\item Hàm số $y = f(x)$ đồng biến trên tập xác định số thực $\mathbb{R}$.
+			\item Hàm số $y = f(x)$ đạt cực trị tại điểm không xác định đạo hàm $x = 1$.
+			\item So sánh các giá trị của hàm số, ta có $f(-2) < f(0) < f(2)$.
+		\end{enumerate}
+		
+		% CÂU 10
+		\item Cho hàm số $y = f(x)$ liên tục trên $\mathbb{R}$. Đồ thị của hàm số đạo hàm $y = f'(x)$ có dạng hình học đi xuyên qua trục hoành tại duy nhất một điểm có hoành độ bằng $1$ như hình vẽ dưới đây.
+		\begin{center}
+			\begin{tikzpicture}[scale=0.8, >=stealth]
+				\draw[->] (-1,0) -- (3,0) node[right] {$x$};
+				\draw[->] (0,-1.5) -- (0,1.5) node[above] {$y$};
+				\node at (0,0) [below left] {$O$};
+				
+				% Đồ thị f'(x) là hàm bậc ba cắt tại 1 từ trên xuống
+				\draw[domain=-0.1:2.1, smooth, variable=\x, blue, ultra thick] plot ({\x},{-(\x-1)^3});
+				
+				\filldraw[red] (1,0) circle (1.5pt) node[below] {$1$};
+				\node at (1.8,-1) [blue] {$y = f'(x)$};
+			\end{tikzpicture}
+		\end{center}
+		Xét tính đúng hay sai của các mệnh đề sau:
+		\begin{enumerate}[label=\alph*)]
+			\item Hàm số $y = f(x)$ đồng biến trên khoảng $(1; +\infty)$.
+			\item Điểm $x = 1$ là một điểm cực đại của hàm số $y = f(x)$.
+			\item Hàm số $y = f(x)$ đạt cực đại tại điểm có hoành độ bằng $1$.
+			\item So sánh các giá trị của hàm số, ta có $f(1.5) < f(2) < f(2.5)$.
+		\end{enumerate}
+		
+		% CÂU 11
+		\item Cho hàm số $y = f(x)$ có bảng xét dấu đạo hàm $f'(x)$ trên $\mathbb{R}$ được cho như sau:
+		\begin{center}
+			\begin{tikzpicture}[scale=0.65, >=stealth]
+				\draw[thick] (0,0) rectangle (9.5,-2.1);
+				\draw[thick] (0,-1) -- (9.5,-1);
+				\draw[thick] (2,0) -- (2,-2.1);
+				\node at (1,-0.5) {$x$}; \node at (1,-1.5) {$f'(x)$};
+				\node at (2.6,-0.5) {$-\infty$}; \node at (4.5,-0.5) {$2$}; \node at (6.8,-0.5) {$4$}; \node at (8.8,-0.5) {$+\infty$};
+				\node at (3.5,-1.5) {$+$}; \node at (4.5,-1.5) {$0$}; \node at (5.65,-1.5) {$+$}; \node at (6.8,-1.5) {$0$}; \node at (7.8,-1.5) {$-$};
+			\end{tikzpicture}
+		\end{center}
+		Xét tính đúng hay sai của các mệnh đề sau:
+		\begin{enumerate}[label=\alph*)]
+			\item Hàm số $y = f(x)$ đồng biến trên khoảng $(-\infty; 4)$.
+			\item Điểm $x = 2$ là điểm cực trị của hàm số $y = f(x)$.
+			\item Hàm số $y = f(x)$ đạt cực đại tại điểm $x = 4$.
+			\item So sánh các giá trị của hàm số, ta có $f(4.5) < f(5) < f(5.5)$.
+		\end{enumerate}
+		
+		% CÂU 12
+		\item Cho hàm số $y = f(x)$ liên tục trên $\mathbb{R}$. Đồ thị của hàm số đạo hàm $y = f'(x)$ cắt trục hoành tại hai điểm có hoành độ $-\sqrt{2}$ và $\sqrt{2}$, tiếp xúc với trục hoành tại điểm có hoành độ bằng $0$ như hình vẽ bên dưới.
+		\begin{center}
+			\begin{tikzpicture}[scale=0.8, >=stealth]
+				\draw[->] (-2.5,0) -- (2.5,0) node[right] {$x$};
+				\draw[->] (0,-2) -- (0,1.5) node[above] {$y$};
+				\node at (0,0) [below left] {$O$};
+				
+				% Đồ thị f'(x) cắt tại -\sqrt{2}, \sqrt{2} và tiếp xúc tại 0 từ phía dưới
+				\draw[domain=-1.75:1.75, smooth, variable=\x, blue, ultra thick] plot ({\x},{0.5*(\x^2 - 2)*\x^2});
+				
+				\filldraw[red] (-1.414,0) circle (1.5pt) node[above] {$-\sqrt{2}$};
+				\filldraw[red] (1.414,0) circle (1.5pt) node[above] {$\sqrt{2}$};
+				\node at (1.5,1) [blue] {$y = f'(x)$};
+			\end{tikzpicture}
+		\end{center}
+		Xét tính đúng hay sai của các mệnh đề sau:
+		\begin{enumerate}[label=\alph*)]
+			\item Hàm số $y = f(x)$ đồng biến trên khoảng $(-\sqrt{2}; \sqrt{2})$.
+			\item Điểm cực đại của đồ thị hàm số là điểm có hoành độ bằng $0$.
+			\item Hàm số $y = f(x)$ chỉ có đúng $2$ điểm cực trị.
+			\item So sánh các giá trị của hàm số, ta có $f(-1) > f(0) > f(1)$.
+		\end{enumerate}
+		
+		% CÂU 13
+		\item Cho hàm số $y = f(x)$ có bảng xét dấu đạo hàm $f'(x)$ trên $\mathbb{R}$ được cho như sau:
+		\begin{center}
+			\begin{tikzpicture}[scale=0.65, >=stealth]
+				\draw[thick] (0,0) rectangle (11.5,-2.1);
+				\draw[thick] (0,-1) -- (11.5,-1);
+				\draw[thick] (2,0) -- (2,-2.1);
+				\node at (1,-0.5) {$x$}; \node at (1,-1.5) {$f'(x)$};
+				\node at (2.6,-0.5) {$-\infty$}; \node at (4.6,-0.5) {$-3$}; \node at (6.8,-0.5) {$-1$}; \node at (9.0,-0.5) {$2$}; \node at (10.9,-0.5) {$+\infty$};
+				\node at (3.6,-1.5) {$-$}; \node at (4.6,-1.5) {$0$}; \node at (5.7,-1.5) {$+$}; \node at (6.8,-1.5) {$0$}; \node at (7.9,-1.5) {$+$}; \node at (9.0,-1.5) {$0$}; \node at (10.0,-1.5) {$-$};
+			\end{tikzpicture}
+		\end{center}
+		Xét tính đúng hay sai của các mệnh đề sau:
+		\begin{enumerate}[label=\alph*)]
+			\item Hàm số $y = f(x)$ nghịch biến trên khoảng $(-\infty; -3)$.
+			\item Hàm số $y = f(x)$ đồng biến trên khoảng $(-3; 2)$.
+			\item Số điểm cực đại của hàm số $y = f(x)$ bằng $1$.
+			\item So sánh các giá trị của hàm số, ta có $f(-0.5) > f(0) > f(0.5)$.
+		\end{enumerate}
+		
+		% CÂU 14
+		\item Cho hàm số $y = f(x)$ liên tục trên $\mathbb{R}$. Đồ thị của hàm số đạo hàm $y = f'(x)$ cắt xuyên qua trục hoành tại hai điểm có hoành độ lần lượt là $-1$ và $1$ như hình vẽ bên dưới.
+		\begin{center}
+			\begin{tikzpicture}[scale=0.8, >=stealth]
+				\draw[->] (-2,0) -- (2,0) node[right] {$x$};
+				\draw[->] (0,-1.5) -- (0,1.5) node[above] {$y$};
+				\node at (0,0) [below left] {$O$};
+				
+				% Đồ thị f'(x) là hàm chẵn cắt tại -1, 1 từ trên xuống rồi đi lên
+				\draw[domain=-1.35:1.35, smooth, variable=\x, blue, ultra thick] plot ({\x},{1.5 - 1.5*\x^4});
+				
+				\filldraw[red] (-1,0) circle (1.5pt) node[below] {$-1$};
+				\filldraw[red] (1,0) circle (1.5pt) node[below] {$1$};
+				\node at (1.2,1.1) [blue] {$y = f'(x)$};
+			\end{tikzpicture}
+		\end{center}
+		Xét tính đúng hay sai của các mệnh đề sau:
+		\begin{enumerate}[label=\alph*)]
+			\item Hàm số $y = f(x)$ đồng biến trên khoảng $(-1; 1)$.
+			\item Hàm số $y = f(x)$ đồng biến trên các khoảng $(-\infty; -1)$ và $(1; +\infty)$.
+			\item Đồ thị hàm số $y = f(x)$ có tất cả $2$ điểm cực trị.
+			\item So sánh các giá trị của hàm số, ta có $f(0.2) > f(0.4) > f(0.6)$.
+		\end{enumerate}
+		
+		% CÂU 15
+		\item Cho hàm số $y = f(x)$ có bảng xét dấu đạo hàm $f'(x)$ trên $\mathbb{R}$ được cho như sau:
+		\begin{center}
+			\begin{tikzpicture}[scale=0.65, >=stealth]
+				\draw[thick] (0,0) rectangle (9.5,-2.1);
+				\draw[thick] (0,-1) -- (9.5,-1);
+				\draw[thick] (2,0) -- (2,-2.1);
+				\node at (1,-0.5) {$x$}; \node at (1,-1.5) {$f'(x)$};
+				\node at (2.6,-0.5) {$-\infty$}; \node at (5.75,-0.45) {$0$}; \node at (8.8,-0.5) {$+\infty$};
+				
+				\node at (4.15,-1.5) {$+$}; \node at (5.75,-1.5) {$0$}; \node at (7.25,-1.5) {$+$};
+			\end{tikzpicture}
+		\end{center}
+		Xét tính đúng hay sai của các mệnh đề sau:
+		\begin{enumerate}[label=\alph*)]
+			\item Hàm số $y = f(x)$ luôn đồng biến trên toàn bộ tập xác định $\mathbb{R}$.
+			\item Đồ thị của hàm số $y = f(x)$ có duy nhất $1$ điểm cực trị nằm trên trục tung.
+			\item Tiếp tuyến tại điểm cực trị của đồ thị hàm số có hệ số góc bằng $0$.
+			\item So sánh các giá trị của hàm số, ta có $f(1) < f(2) < f(3)$.
+		\end{enumerate}
+		
+	\end{enumerate}
+	
+	
+	\subsection{Bài tập trả lời ngắn}
+	
+	\begin{enumerate}[label=\textbf{Câu \arabic*.}]
+		
+		% =========================================================
+		% KHỐI 1: 10 CÂU HỎI ĐẠI SỐ NÂNG CAO (THEO HÌNH VẼ)
+		% =========================================================
+		
+		% CÂU 1
+		\item Cho hàm số $y = \sqrt{x^2 - 2x}$. Hỏi hàm số đã cho có bao nhiêu điểm cực trị?
+		\par Trả lời: \otraloi
+		
+		% CÂU 2
+		\item Cho hàm số $y = x^3 - 3x^2 + 2$. Đường thẳng đi qua hai điểm cực trị của đồ thị hàm số có dạng $y = ax + b$. Tính giá trị của hiệu $b - a$.
+		\par Trả lời: \otraloi
+		
+		% CÂU 3
+		\item Cho hàm số $y = \dfrac{3x^2 + 13x + 19}{x + 3}$. Đường thẳng đi qua hai điểm cực trị của đồ thị hàm số có dạng $y = ax + b$. Tính giá trị của tổng $a + b$.
+		\par Trả lời: \otraloi
+		
+		% CÂU 4
+		\item Cho hàm số $y = \dfrac{-x^2 + 2x - 1}{x + 2}$. Đường thẳng đi qua hai điểm cực trị của đồ thị hàm số có dạng $y = ax + b$. Tính giá trị của biểu thức $5b - 4a$.
+		\par Trả lời: \otraloi
+		
+		% CÂU 5
+		\item Cho hàm số $y = x^3 - 3x^2 + 5$ có đồ thị là đường cong $(C)$. Tính độ dài đoạn thẳng nối hai điểm cực trị của đồ thị $(C)$ (làm tròn kết quả đến hàng phần mười).
+		\par Trả lời: \otraloi
+		
+		% CÂU 6
+		\item Đồ thị của hàm số $y = x^3 - 3x^2 - 9x + 1$ có hai điểm cực trị $A$ và $B$. Tính khoảng cách $d$ từ gốc tọa độ $O$ đến đường thẳng $AB$ (làm tròn kết quả đến hàng phần mười).
+		\par Trả lời: \otraloi
+		
+		% CÂU 7
+		\item Cho hàm số $y = \dfrac{x^2 - 3x + 6}{x - 1}$. Đường thẳng đi qua hai điểm cực trị của đồ thị hàm số có dạng $y = ax + b$. Tính giá trị của hiệu $a - b$.
+		\par Trả lời: \otraloi
+		
+		% CÂU 8
+		\item Cho hàm số $y = -x^3 + 3x + 1$ có đồ thị là đường cong $(C)$. Tính khoảng cách $d$ giữa giá trị cực đại và giá trị cực tiểu của hàm số này.
+		\par Trả lời: \otraloi
+		
+		% CÂU 9
+		\item Cho hàm số $y = \dfrac{x^2 - 4x + 5}{x - 2}$ có đồ thị là đường cong $(C)$. Tính độ dài đoạn thẳng nối hai điểm cực trị của đồ thị $(C)$ (làm tròn kết quả đến hàng phần mười).
+		\par Trả lời: \otraloi
+		
+		% CÂU 10
+		\item Cho hàm số $y = 2x^3 - 3x^2 - 12x + 5$. Đường thẳng đi qua hai điểm cực trị của đồ thị hàm số này có hệ số góc bằng bao nhiêu?
+		\par Trả lời: \otraloi
+		
+		% =========================================================
+		% KHỐI 2: 5 CÂU HỎI THỰC TẾ ỨNG DỤNG (ĐƠN ĐIỆU / CỰC TRỊ)
+		% =========================================================
+		
+		% CÂU 11
+		\item Tốc độ giảm huyết áp của một bệnh nhân được xác định bởi công thức $G(x) = 0.015x^2(30 - x)$ (với $x$ là liều lượng thuốc tính bằng miligam, $0 \le x \le 30$). Tìm liều lượng thuốc $x$ (miligam) để tốc độ giảm huyết áp đạt giá trị lớn nhất.
+		\par Trả lời: \otraloi
+		
+		% CÂU 12
+		\item Một chiếc xe chuyển động thẳng có phương trình quãng đường là $s(t) = -\dfrac{2}{3}t^3 + 8t^2 + 10t$ ($t$ tính bằng giây, $s$ tính bằng mét). Tìm vận tốc lớn nhất (đơn vị: $\text{m/s}$) của chiếc xe đạt được trong suốt quá trình chuyển động.
+		\par Trả lời: \otraloi
+		
+		% CÂU 13
+		\item Công suất phát điện $P$ (đơn vị $\text{W}$) của một tuabin gió phụ thuộc vào tốc độ gió $v$ ($\text{m/s}$) được cho bởi công thức $P(v) = 15v^2 - 0.5v^3$ với $0 \le v \le 30$. Hỏi tốc độ gió $v$ (đơn vị $\text{m/s}$) bằng bao nhiêu thì công suất phát điện của tuabin gió đạt giá trị lớn nhất?
+		\par Trả lời: \otraloi
+		
+		% CÂU 14
+		\item Một con cá hồi bơi ngược dòng vượt quãng đường $200\text{ km}$ với vận tốc dòng nước là $5\text{ km/h}$. Năng lượng tiêu hao $E$ trong $t$ giờ được xác định bởi công thức $E(v) = c \cdot v^3 \cdot t$ (với $v$ là vận tốc bơi của cá khi nước đứng yên, $c$ là hằng số dương). Hỏi vận tốc bơi của cá bằng bao nhiêu $\text{km/h}$ thì năng lượng tiêu hao sẽ đạt giá trị nhỏ nhất?
+		\par Trả lời: \otraloi
+		
+		% CÂU 15
+		\item Vận tốc của một tên lửa đẩy từ lúc cất cánh ($t = 0\text{ s}$) cho đến khi động cơ ngắt hoạt động được mô hình hóa bởi phương trình: $v(t) = 0.003t^3 - 0.18t^2 + 15$ ($v$ tính bằng $\text{m/s}$). Hỏi tại thời điểm $t$ bằng bao nhiêu giây kể từ lúc cất cánh thì gia tốc của tên lửa đạt giá trị nhỏ nhất?
+		\par Trả lời: \otraloi
+		
+	\end{enumerate}
+	
+	\newpage
+	
+	% =====================
+	% PHẦN 5: TỔNG KẾT BÀI
+	% =====================
+	\section{Tổng kết bài}
+	
+	\begin{tcolorbox}[colback=yellow!10!white, colframe=orange!60!black,
+		fonttitle=\bfseries, title={Quy tắc "bỏ túi" khi tìm số điểm cực trị}]
+		\begin{itemize}
+			\item \textbf{Cắt ngang trục hoành (bội lẻ):} Cho ta điểm cực trị.
+			\item \textbf{Tiếp xúc/không cắt (bội chẵn):} Không tạo ra cực trị (loại bỏ khỏi phép đếm).
+			\item \textbf{Cơ chế đổi dấu:} Luôn vẽ bảng xét dấu hoặc trục số để kiểm soát dấu khi đạo hàm có bậc cao.
+		\end{itemize}
+	\end{tcolorbox}
+	
+	\vspace{3mm}
+	\textbf{Nhiệm vụ tự học:} \textit{Nắm chắc bài học này và làm bài tập được giao để tiếp tục sang các bài tiếp theo}
+	
+\end{document}

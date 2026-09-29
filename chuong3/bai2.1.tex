@@ -1,0 +1,1771 @@
+\documentclass[12pt]{article}
+
+% === CÀI ĐẶT TRANG ===
+\usepackage[margin=2cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T5]{fontenc}
+\usepackage[vietnamese]{babel}
+
+% === TOÁN HỌC ===
+\usepackage{amsmath, amssymb, amsthm}
+
+% === HÌNH VẼ ===
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+% === ĐỊNH DẠNG ===
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage[most]{tcolorbox}
+\usepackage{multicol}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{fancyhdr}
+\usepackage{tocloft}
+\usepackage[hidelinks]{hyperref}
+
+% === TCOLORBOX STYLES ===
+\tcbuselibrary{breakable, skins, fitting}
+
+\newtcolorbox{vidu}[1][1]{
+	colback=blue!5!white, colframe=blue!60!black,
+	fonttitle=\bfseries, title={Ví dụ #1},
+	breakable, enhanced
+}
+
+\newtcolorbox{loigiai}{
+	colback=gray!8!white, colframe=gray!50!black,
+	fonttitle=\bfseries, title={Lời giải},
+	breakable, enhanced
+}
+
+\newtcolorbox{btxanh}[1][]{
+	colback=blue!6!white, colframe=blue!65!black,
+	fonttitle=\bfseries\color{white}, coltitle=white,
+	attach boxed title to top left={yshift=-2mm, xshift=4mm},
+	boxed title style={colback=blue!65!black, rounded corners},breakable, enhanced, #1
+}
+
+\newtcolorbox{btvang}[1][]{
+	colback=yellow!12!white, colframe=orange!75!black,
+	fonttitle=\bfseries, coltitle=orange!80!black,
+	attach boxed title to top left={yshift=-2mm, xshift=4mm},
+	boxed title style={colback=yellow!50!white, colframe=orange!75!black, rounded corners},breakable, enhanced, #1
+}
+
+\newtcolorbox{btdo}[1][]{
+	colback=red!6!white, colframe=red!65!black,
+	fonttitle=\bfseries\color{white}, coltitle=white,
+	attach boxed title to top left={yshift=-2mm, xshift=4mm},
+	boxed title style={colback=red!65!black, rounded corners},breakable, enhanced, #1
+}
+
+% === HEADER/FOOTER ===
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small \textbf{Vector trong không gian}}
+\fancyhead[R]{\small Chương II}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\begin{document}
+	
+	\begin{center}
+		{\Large\bfseries{HỆ TRỤC TỌA ĐỘ VÀ CÁC PHÉP TOÁN VECTOR}}\\[4pt]
+		{\large Bài 2.1: Hệ trục tọa độ và các phép toán vector}
+	\end{center}
+	\vspace{4mm}
+	\hrule
+	\vspace{4mm}
+	
+	% ===========================
+	% PHẦN 1: MỤC TIÊU BÀI HỌC
+	% ===========================
+	\section*{Mục tiêu bài học}
+	\addcontentsline{toc}{section}{Mục tiêu bài học}
+	\begin{itemize}
+		\item Hiểu và vận dụng thành thạo khái niệm hệ trục tọa độ Oxyz.
+		\item Xác định tọa độ điểm, vector; thực hiện các phép toán vector.
+		\item Vận dụng tích vô hướng và các ứng dụng vào bài toán thực tiễn.
+	\end{itemize}
+	
+	% =====================
+	% PHẦN 2: MỤC LỤC
+	% =====================
+	\setcounter{tocdepth}{2}
+	\tableofcontents
+	\newpage
+	
+	% =====================
+	% PHẦN 3: LÝ THUYẾT
+	% =====================
+	\section{Lý thuyết}
+
+	\subsection{Hệ trục tọa độ trong không gian}
+	
+	Trong không gian, hệ trục tọa độ Descartes vuông góc $Oxyz$ được xác định bởi ba trục $Ox, Oy, Oz$ đôi một vuông góc với nhau tại gốc tọa độ $O$.
+	\begin{itemize}
+		\item Các vecto đơn vị trên các trục lần lượt là $\vec{i} (1;0;0), \vec{j} (0;1;0), \vec{k} (0;0;1)$ ($|\vec{i}|=|\vec{j}|=|\vec{k}|=1$).
+		\item Điểm $O(0;0;0)$ được gọi là gốc tọa độ.
+		\item Các mặt phẳng tọa độ là $(Oxy), (Oyz), (Ozx)$ đôi một vuông góc với nhau.
+	\end{itemize}
+	
+	\begin{figure}[H]
+		\centering
+		\begin{tikzpicture}[x={(-0.5cm,-0.5cm)}, y={(1cm,0cm)}, z={(0cm,1cm)}, scale=2]
+			% Trục
+			\draw[->] (0,0,0) -- (1.5,0,0) node[below left]{$x$};
+			\draw[->] (0,0,0) -- (0,1.5,0) node[right]{$y$};
+			\draw[->] (0,0,0) -- (0,0,1.5) node[above]{$z$};
+			% Vecto đơn vị
+			\draw[->, thick, red] (0,0,0) -- (1,0,0) node[midway, below]{$\vec{i}$};
+			\draw[->, thick, blue] (0,0,0) -- (0,1,0) node[midway, right]{$\vec{j}$};
+			\draw[->, thick, green!60!black] (0,0,0) -- (0,0,1) node[midway, left]{$\vec{k}$};
+			\node at (0,0,0) [below right] {$O$};
+		\end{tikzpicture}
+		\caption{Hệ trục tọa độ vuông góc $Oxyz$}
+	\end{figure}
+	
+	\begin{vidu}[1]
+		Cho điểm $M$ trong không gian. Biết $\vec{OM} = 2\vec{i} + 3\vec{j} - 5\vec{k}$. Hãy xác định tọa độ của điểm $M$.
+	\end{vidu}
+	
+	\begin{loigiai}
+		Theo định nghĩa tọa độ điểm trong không gian $Oxyz$, nếu $\vec{OM} = x\vec{i} + y\vec{j} + z\vec{k}$ thì $M(x; y; z)$. 
+		Với $\vec{OM} = 2\vec{i} + 3\vec{j} - 5\vec{k}$, ta suy ra $x=2, y=3, z=-5$.
+		Vậy tọa độ điểm $M(2; 3; -5)$.
+	\end{loigiai}
+	
+	\noindent \textbf{Nhận xét:} 
+	\begin{enumerate}[label=\alph*)]
+		\item Hình chiếu vuông góc của $M(x;y;z)$ lên các trục:
+		$Ox \to (x;0;0)$, $Oy \to (0;y;0)$, $Oz \to (0;0;z)$.
+		\item Hình chiếu vuông góc của $M(x;y;z)$ lên các mặt phẳng:
+		$(Oxy) \to (x;y;0)$, $(Oyz) \to (0;y;z)$, $(Ozx) \to (x;0;z)$.
+		\item Điểm đối xứng của $M(x;y;z)$ lên các mặt phẳng:
+		$Ox \to (x;-y;-z)$, $Oy \to (-x;y;-z)$, $Oz \to (-x;-y;z)$.
+		\item Điểm đối xứng của $M(x;y;z)$ lên các mặt phẳng:
+		$(Oxy) \to (x;y;-z)$, $(Oyz) \to (-x;y;z)$, $(Ozx) \to (x;-y;z)$.
+	\end{enumerate}
+	
+	\subsection{Tọa độ của điểm và vector}
+	\subsubsection{Tọa độ của điểm}
+	Trong không gian $Oxyz$, mỗi điểm $M$ được xác định duy nhất bởi bộ ba số $(x; y; z)$ sao cho $\vec{OM} = x\vec{i} + y\vec{j} + z\vec{k}$. Ta viết $M(x; y; z)$, trong đó:
+	\begin{itemize}
+		\item $x$: hoành độ.
+		\item $y$: tung độ.
+		\item $z$: cao độ.
+	\end{itemize}
+	
+	\subsubsection{Tọa độ của vecto}
+	Vecto $\vec{a}$ được xác định bởi bộ ba số $(a_1; a_2; a_3)$ sao cho $\vec{a} = a_1\vec{i} + a_2\vec{j} + a_3\vec{k}$. Ta viết $\vec{a} = (a_1; a_2; a_3)$.
+	\begin{itemize}
+		\item Hai vecto $\vec{a} = (a_1; a_2; a_3)$ và $\vec{b} = (b_1; b_2; b_3)$ bằng nhau khi và chỉ khi:
+		$\begin{cases} a_1 = b_1 \\ a_2 = b_2 \\ a_3 = b_3 \end{cases}$
+		\item Cho hai điểm $M(x_M; y_M; z_M)$ và $N(x_N; y_N; z_N)$, tọa độ của vecto $\vec{MN}$ là:
+		$\vec{MN} = (x_N - x_M; y_N - y_M; z_N - z_M)$.
+	\end{itemize}
+	
+	\begin{vidu}[2]
+		Trong không gian $Oxyz$, cho hai điểm $A(1; -2; 3)$ và $B(4; 0; -1)$. Tìm tọa độ của vecto $\vec{AB}$.
+	\end{vidu}
+	
+	\begin{loigiai}
+		Áp dụng công thức tọa độ vecto khi biết hai đầu mút:
+		$\vec{AB} = (x_B - x_A; y_B - y_A; z_B - z_A)$
+		$\vec{AB} = (4 - 1; 0 - (-2); -1 - 3)$
+		$\vec{AB} = (3; 2; -4)$.
+	\end{loigiai}
+	
+	\begin{vidu}[3]
+		Cho vecto $\vec{u} = 5\vec{i} - \vec{j} + 2\vec{k}$. Hãy tìm tọa độ của vecto $\vec{u}$.
+	\end{vidu}
+	
+	\begin{loigiai}
+		Biểu diễn vecto theo các vecto đơn vị: $\vec{u} = 5\vec{i} + (-1)\vec{j} + 2\vec{k}$.
+		Suy ra tọa độ của vecto là $\vec{u} = (5; -1; 2)$.
+	\end{loigiai}
+	
+	\subsection{Biểu thức tọa độ các phép toán vector}
+
+	
+	Cho hai vecto $\vec{a} = (a_1; a_2; a_3)$ và $\vec{b} = (b_1; b_2; b_3)$, $k \in \mathbb{R}$.
+	
+	\begin{itemize}
+		\item \textbf{Cộng, trừ vecto:} $\vec{a} \pm \vec{b} = (a_1 \pm b_1; a_2 \pm b_2; a_3 \pm b_3)$.
+		\item \textbf{Nhân một số với vecto:} $k\vec{a} = (ka_1; ka_2; ka_3)$.
+		\item \textbf{Tích vô hướng:} $\vec{a} \cdot \vec{b} = a_1b_1 + a_2b_2 + a_3b_3$.
+		\item \textbf{Độ dài vecto:} $|\vec{a}| = \sqrt{a_1^2 + a_2^2 + a_3^2}$.
+		\item \textbf{Góc giữa hai vecto ($\vec{a}, \vec{b} \neq \vec{0}$):} $\cos(\vec{a}, \vec{b}) = \dfrac{a_1b_1 + a_2b_2 + a_3b_3}{\sqrt{a_1^2 + a_2^2 + a_3^2} \cdot \sqrt{b_1^2 + b_2^2 + b_3^2}}$.
+	\end{itemize}
+	
+	\begin{vidu}[4]
+		Cho $\vec{a} = (1; -2; 3)$ và $\vec{b} = (2; 1; -1)$. Tính tọa độ của vecto $\vec{c} = 2\vec{a} - 3\vec{b}$.
+	\end{vidu}
+	
+	\begin{loigiai}
+		Ta có: $2\vec{a} = (2; -4; 6)$ và $3\vec{b} = (6; 3; -3)$.
+		Khi đó: $\vec{c} = (2-6; -4-3; 6-(-3)) = (-4; -7; 9)$.
+	\end{loigiai}
+	
+	\noindent \textbf{Các công thức bổ trợ:}
+	\begin{enumerate}[label=\alph*)]
+		\item \textbf{Trung điểm:} Cho đoạn thẳng $AB$ với $A(x_A; y_A; z_A), B(x_B; y_B; z_B)$. Trung điểm $I$ của $AB$ có tọa độ:
+		$I\left( \dfrac{x_A+x_B}{2}; \dfrac{y_A+y_B}{2}; \dfrac{z_A+z_B}{2} \right)$.
+		\item \textbf{Trọng tâm tam giác:} Cho $\triangle ABC$ với $A(x_A; y_A; z_A), B(x_B; y_B; z_B), C(x_C; y_C; z_C)$. Trọng tâm $G$ có tọa độ:
+		$G\left( \dfrac{x_A+x_B+x_C}{3}; \dfrac{y_A+y_B+y_C}{3}; \dfrac{z_A+z_B+z_C}{3} \right)$.
+		\item \textbf{Điều kiện vuông góc:} $\vec{a} \perp \vec{b} \iff \vec{a} \cdot \vec{b} = 0 \iff a_1b_1 + a_2b_2 + a_3b_3 = 0$.
+	\end{enumerate}
+	
+	\subsection{Tích vô hướng và ứng dụng}
+	\subsubsection{Khái niệm tích vô hướng}
+	Trong không gian $Oxyz$, tích vô hướng của hai vecto $\vec{a} = (a_1; a_2; a_3)$ và $\vec{b} = (b_1; b_2; b_3)$ là một số thực, được xác định bởi công thức:
+	\[ \vec{a} \cdot \vec{b} = a_1b_1 + a_2b_2 + a_3b_3 \]
+	
+	\subsubsection{Các ứng dụng của tích vô hướng}
+	\begin{enumerate}
+		\item \textbf{Độ dài đoạn thẳng:} Khoảng cách giữa hai điểm $A(x_A; y_A; z_A)$ và $B(x_B; y_B; z_B)$ là:
+		\[ AB = \sqrt{(x_B - x_A)^2 + (y_B - y_A)^2 + (z_B - z_A)^2} \]
+		\item \textbf{Điều kiện vuông góc:} $\vec{a} \perp \vec{b} \iff a_1b_1 + a_2b_2 + a_3b_3 = 0$.
+		\item \textbf{Góc giữa hai vecto:} $\cos(\vec{a}, \vec{b}) = \dfrac{\vec{a} \cdot \vec{b}}{|\vec{a}| \cdot |\vec{b}|} = \dfrac{a_1b_1 + a_2b_2 + a_3b_3}{\sqrt{a_1^2 + a_2^2 + a_3^2} \cdot \sqrt{b_1^2 + b_2^2 + b_3^2}}$.
+	\end{enumerate}
+	
+	\begin{vidu}[5]
+		Cho ba điểm $A(1; 0; 2), B(2; 1; 1)$ và $C(0; 2; 3)$. Tính góc giữa hai vecto $\vec{AB}$ và $\vec{AC}$.
+	\end{vidu}
+	
+	\begin{loigiai}
+		Ta có: $\vec{AB} = (2-1; 1-0; 1-2) = (1; 1; -1)$.
+		$\vec{AC} = (0-1; 2-0; 3-2) = (-1; 2; 1)$.
+		\\
+		Tích vô hướng: $\vec{AB} \cdot \vec{AC} = 1(-1) + 1(2) + (-1)(1) = -1 + 2 - 1 = 0$.
+		\\
+		Vì $\vec{AB} \cdot \vec{AC} = 0$ nên $\vec{AB} \perp \vec{AC}$, suy ra góc giữa hai vecto bằng $90^\circ$.
+	\end{loigiai}
+	
+	\noindent \textbf{Nhận xét về bài toán thực tế:}
+	Tích vô hướng và độ dài vecto được ứng dụng mạnh mẽ trong các bài toán về khoảng cách, xác định vị trí của vật thể chuyển động trong không gian dựa trên tọa độ hóa các đại lượng vật lý (vận tốc, thời gian).
+	
+	% =====================
+	% PHẦN 4: BÀI TẬP
+	% =====================
+	\section{Bài tập tự luận}
+	\subsection{Dạng 1: Xác định tọa độ điểm, vecto cơ bản}
+	
+	\begin{btxanh}
+		\noindent \textbf{Câu 1:} Trong không gian với hệ tọa độ $Oxyz$, cho điểm $M$ thỏa mãn $\vec{OM} = 2\vec{i} + 3\vec{j} - \vec{k}$. Xác định tọa độ điểm $M$. \\
+		\noindent \textbf{Câu 2:} Trong không gian với hệ tọa độ $Oxyz$, cho điểm $M$ thỏa mãn $\vec{OM} = 2\vec{j} + \vec{k}$. Xác định tọa độ điểm $M$. \\
+		\noindent \textbf{Câu 3:} Trong không gian $Oxyz$, cho vecto $\vec{OA} = (-2; 3; -5)$. Xác định tọa độ điểm $A$. \\
+		\noindent \textbf{Câu 4:} Trong không gian $Oxyz$, cho $\vec{a} = \vec{i} - 2\vec{k}$. Xác định tọa độ vecto $\vec{a}$. \\
+		\noindent \textbf{Câu 5:} Trong không gian $Oxyz$, cho $\vec{a} = 2\vec{i} - 3\vec{j} + \vec{k}$. Xác định tọa độ vecto $\vec{a}$. \\
+		\noindent \textbf{Câu 6:} Trong không gian với hệ tọa độ $Oxyz$, cho $\vec{a} = 2\vec{i} + 3\vec{j} - \vec{k}$. Xác định tọa độ vecto $\vec{a}$. \\
+		\noindent \textbf{Câu 7:} Trong không gian với hệ tọa độ $Oxyz$, cho các vecto $\vec{a} = 2\vec{i} + 3\vec{j} - 5\vec{k}$, $\vec{b} = -3\vec{j} + 4\vec{k}$, $\vec{c} = -\vec{i} - 2\vec{j}$. Tìm tọa độ các vecto đó. \\
+		\noindent \textbf{Câu 8:} Trong không gian với hệ tọa độ $Oxyz$, cho $\vec{OM} = 5\vec{i} - \vec{j} + 2\vec{k}$, $\vec{ON} = \vec{i} - 3\vec{k}$. Tìm tọa độ các điểm $M, N$. \\
+		\noindent \textbf{Câu 9:} Trong không gian với hệ tọa độ $Oxyz$, cho $\vec{a} = (-3; 2; -1)$, $\vec{b} = (3; 0; 12)$. Tính $\vec{a}, \vec{b}$ theo các vecto đơn vị $\vec{i}, \vec{j}, \vec{k}$. \\
+		\noindent \textbf{Câu 10:} Trong không gian với hệ tọa độ $Oxyz$, cho $A(-5; -2; 1), B(0; 4; -11)$. Tính $\vec{OA}, \vec{OB}$ theo các vecto đơn vị $\vec{i}, \vec{j}, \vec{k}$.
+	\end{btxanh}
+	
+	\begin{btvang}
+		\noindent \textbf{Câu 1:} Trong không gian $Oxyz$, cho $A(1; 2; -3), B(3; -5; 2)$. Xác định tọa độ vecto $\vec{AB}$. \\
+		\noindent \textbf{Câu 2:} Trong không gian với hệ tọa độ $Oxyz$, cho hai điểm $A, B$ với $\vec{OA} = (2; -1; 3), \vec{OB} = (5; 2; -1)$. Tìm tọa độ vecto $\vec{AB}$. \\
+		\noindent \textbf{Câu 3:} Trong không gian với hệ tọa độ $Oxyz$, cho $M(1; 2; 3), N(3; 4; 7)$. Xác định tọa độ vecto $\vec{MN}$. \\
+		\noindent \textbf{Câu 4:} Trong không gian $Oxyz$, cho hai điểm $A(1; -3; 2)$ và $B(4; 2; -1)$. Xác định tọa độ vecto $\vec{AB}$. \\
+		\noindent \textbf{Câu 5:} Trong không gian $Oxyz$, cho hai điểm $A(1; 1; -1)$ và $B(2; 3; 2)$. Xác định tọa độ vecto $\vec{BA}$. \\
+		\noindent \textbf{Câu 6:} Trong không gian $Oxyz$, cho điểm $A(-2; 3; 5), B(1; 1; -2)$. Xác định tọa độ vecto $\vec{BA}$. \\
+		\noindent \textbf{Câu 7:} Trong không gian với hệ tọa độ $Oxyz$, cho $A(1; 1; 2), B(2; -1; 1), C(3; 2; -3)$. Tìm tọa độ điểm $D$ để $ABCD$ là hình bình hành. \\
+		\noindent \textbf{Câu 8:} Trong không gian với hệ tọa độ $Oxyz$, cho $A(1; 2; -1), B(2; -1; 3), C(-3; 5; 1)$. Tìm tọa độ điểm $D$ để $ABCD$ là hình bình hành. \\
+		\noindent \textbf{Câu 9:} Trong không gian $Oxyz$, cho hình hộp $ABCD.A'B'C'D'$ biết $A(1; 0; 1), B(2; 1; 2), D(1; -1; 1), C'(4; 5; -5)$. Xác định tọa độ $A'$. \\
+		\noindent \textbf{Câu 10:} Trong không gian $Oxyz$, cho các điểm $M(2; 0; 0), N(0; -3; 0), P(0; 0; 4)$. Xác định tọa độ vecto $\vec{MN}$.
+	\end{btvang}
+	
+	\begin{btdo}
+		\noindent \textbf{Câu 1:} Trong không gian $Oxyz$, cho $A(2; -4; 3)$ và $B(2; 2; 7)$. Tìm tọa độ trung điểm $I$ của đoạn thẳng $AB$. \\
+		\noindent \textbf{Câu 2:} Trong không gian $Oxyz$, cho $\triangle ABC$ với $A(5; -2; 0), B(-2; 3; 0), C(0; 2; 3)$. Tìm tọa độ trọng tâm $G$. \\
+		\noindent \textbf{Câu 3:} Trong không gian $Oxyz$, cho $A(1; 0; 3), B(2; 3; -4), C(-3; 1; 2)$. Tìm tọa độ điểm $D$ để $ABCD$ là hình bình hành. \\
+		\noindent \textbf{Câu 4:} Trong không gian $Oxyz$, cho $A(2; -5; 0), B(-1; 1; 3), C(3; 3; 0)$. Tìm tọa độ $D$ trên trục $Ox$ sao cho $AD = BC$. \\
+		\noindent \textbf{Câu 5:} Trong không gian $Oxyz$, cho $M(3; -2; 3), I(1; 0; 4)$. Tìm tọa độ điểm $N$ sao cho $I$ là trung điểm $MN$. \\
+		\noindent \textbf{Câu 6:} Trong không gian $Oxyz$, cho $A(1; -1; 3), B(2; -3; 5), C(-1; -2; 6)$. Tính tọa độ trọng tâm $G$ của $\triangle ABC$. \\
+		\noindent \textbf{Câu 7:} Trong không gian $Oxyz$, cho $A(1; 1; -1), B(2; 3; 2)$. Tìm tọa độ điểm $M$ để $ABCM$ là hình bình hành, biết $C(0; 2; 3)$. \\
+		\noindent \textbf{Câu 8:} Trong không gian $Oxyz$, cho $A(5; -2; 0), B(-2; 3; 0), C(0; 2; 3)$. Chứng minh $A, B, C$ tạo thành tam giác. \\
+		\noindent \textbf{Câu 9:} Trong không gian $Oxyz$, cho $A(1; 1; 1), B(2; 2; 2), C(3; 3; 3)$. Xác định vecto $\vec{AC}$. \\
+		\noindent \textbf{Câu 10:} Trong không gian $Oxyz$, cho $O(0;0;0), A(1; 2; 3), B(2; 4; 6)$. Nhận xét về tính cùng phương của $\vec{OA}, \vec{OB}$.
+	\end{btdo}
+	\subsection{Dạng 2: Phép chiếu vuông góc và đối xứng}
+	\begin{btxanh}
+		\noindent \textbf{Câu 1:} Trong không gian $Oxyz$, xác định tọa độ hình chiếu vuông góc của $A(4; -3; 2)$ lên trục $Oz$. \\
+		\noindent \textbf{Câu 2:} Trong không gian $Oxyz$, xác định tọa độ hình chiếu vuông góc của $A(2; 1; -1)$ lên trục $Oy$. \\
+		\noindent \textbf{Câu 3:} Trong không gian $Oxyz$, xác định tọa độ hình chiếu vuông góc của $M(4; 2; -1)$ lên trục $Oy$. \\
+		\noindent \textbf{Câu 4:} Trong không gian $Oxyz$, xác định tọa độ hình chiếu vuông góc của $A(3; 2; 1)$ lên trục $Ox$. \\
+		\noindent \textbf{Câu 5:} Trong không gian $Oxyz$, xác định tọa độ hình chiếu vuông góc của $M(3; -1; 1)$ lên trục $Oz$. \\
+		\noindent \textbf{Câu 6:} Trong không gian $Oxyz$, tìm điểm đối xứng của $M(1; 2; 3)$ qua mặt phẳng $(Oxy)$. \\
+		\noindent \textbf{Câu 7:} Trong không gian $Oxyz$, tìm điểm đối xứng của $M(2; -1; 4)$ qua trục $Ox$. \\
+		\noindent \textbf{Câu 8:} Trong không gian $Oxyz$, tìm điểm đối xứng của $A(1; 2; 3)$ qua gốc tọa độ $O$.
+	\end{btxanh}
+	
+	\begin{btvang}
+		\noindent \textbf{Câu 1:} Trong không gian $Oxyz$, xác định tọa độ hình chiếu vuông góc của $A(1; 2; 3)$ lên mặt phẳng $(Oyz)$. \\
+		\noindent \textbf{Câu 2:} Trong không gian $Oxyz$, xác định tọa độ hình chiếu vuông góc của $M(-2; 3; 5)$ lên mặt phẳng $(Oxy)$. \\
+		\noindent \textbf{Câu 3:} Trong không gian $Oxyz$, xác định tọa độ hình chiếu vuông góc của $M(1; 2; 4)$ lên mặt phẳng $(Oxz)$. \\
+		\noindent \textbf{Câu 4:} Trong không gian $Oxyz$, xác định hình chiếu vuông góc của $A(2; 3; -1)$ lên trục $Ox$. \\
+		\noindent \textbf{Câu 5:} Trong không gian $Oxyz$, xác định hình chiếu vuông góc của $M(0; 2; -5)$ lên mặt phẳng $(Oyz)$. \\
+		\noindent \textbf{Câu 6:} Trong không gian $Oxyz$, tìm điểm đối xứng của $A(1; -2; 3)$ qua mặt phẳng $(Oxz)$. \\
+		\noindent \textbf{Câu 7:} Trong không gian $Oxyz$, tìm điểm đối xứng của $B(2; 0; -1)$ qua trục $Oy$. \\
+		\noindent \textbf{Câu 8:} Trong không gian $Oxyz$, tìm điểm đối xứng của $C(3; 2; 1)$ qua mặt phẳng $(Oyz)$.
+	\end{btvang}
+	
+	\begin{btdo}
+		\noindent \textbf{Câu 1:} Trong không gian $Oxyz$, xác định tọa độ hình chiếu của $A(2; -1; 3)$ lên mặt phẳng $(Oxy)$. \\
+		\noindent \textbf{Câu 2:} Trong không gian $Oxyz$, xác định tọa độ hình chiếu của $B(-3; 2; 1)$ lên trục $Oz$. \\
+		\noindent \textbf{Câu 3:} Trong không gian $Oxyz$, xác định tọa độ hình chiếu của $C(1; 1; -2)$ lên mặt phẳng $(Oxz)$. \\
+		\noindent \textbf{Câu 4:} Trong không gian $Oxyz$, xác định tọa độ hình chiếu của $M(4; -2; 0)$ lên trục $Ox$. \\
+		\noindent \textbf{Câu 5:} Trong không gian $Oxyz$, xác định tọa độ hình chiếu của $N(0; 5; -3)$ lên mặt phẳng $(Oyz)$. \\
+		\noindent \textbf{Câu 6:} Trong không gian $Oxyz$, tìm điểm đối xứng của $M(2; 3; -1)$ qua trục $Oz$. \\
+		\noindent \textbf{Câu 7:} Trong không gian $Oxyz$, tìm điểm đối xứng của $A(4; -2; 5)$ qua mặt phẳng $(Oxy)$. \\
+		\noindent \textbf{Câu 8:} Trong không gian $Oxyz$, tìm điểm đối xứng của $B(-1; 0; 2)$ qua mặt phẳng $(Oxz)$.
+	\end{btdo}
+	\subsection{Dạng 3: Các phép toán vector}
+	\begin{btxanh}
+		\noindent \textbf{Câu 1:} Trong không gian $Oxyz$, cho $\vec{a} = (2; -1; 3), \vec{b} = (-1; 2; 0), \vec{c} = (3; 1; -2)$. Tìm tọa độ vecto $\vec{d} = 2\vec{a} - \vec{b} + \vec{c}$. \\
+		\noindent \textbf{Câu 2:} Trong không gian $Oxyz$, cho $\vec{a} = (1; 2; -4)$. Tìm tọa độ vecto $\vec{u} = -3\vec{a}$. \\
+		\noindent \textbf{Câu 3:} Trong không gian $Oxyz$, cho $\vec{a} = (-2; 1; 3), \vec{b} = (1; 0; -2), \vec{c} = (2; 2; 1)$. Tìm tọa độ $\vec{d} = \vec{a} - 2\vec{b} + 3\vec{c}$. \\
+		\noindent \textbf{Câu 4:} Trong không gian $Oxyz$, cho $\vec{a} = (4; -2; 1), \vec{b} = (1; -1; 3)$. Tính tọa độ $\vec{u} = 2\vec{a} - 3\vec{b}$. \\
+		\noindent \textbf{Câu 5:} Trong không gian $Oxyz$, cho $\vec{a} = (3; 1; -2), \vec{b} = (0; 2; -1), \vec{c} = (2; -1; 3)$. Tìm $\vec{u} = 3\vec{a} - 2\vec{b} + \vec{c}$. \\
+		\noindent \textbf{Câu 6:} Trong không gian $Oxyz$, cho $\vec{a} = (-1; 3; 2), \vec{b} = (2; -1; 0)$. Tính $\vec{u} = 4\vec{a} + 5\vec{b}$. \\
+		\noindent \textbf{Câu 7:} Trong không gian $Oxyz$, cho $\vec{u} = (1; -2; 4), \vec{v} = (3; 2; -1)$. Tính tọa độ $\vec{a} = 2\vec{u} + \vec{v}$. \\
+		\noindent \textbf{Câu 8:} Trong không gian $Oxyz$, cho $\vec{a} = (3; 0; -2), \vec{b} = (1; 2; 3)$. Tính $\vec{u} = -2\vec{a} + 4\vec{b}$. \\
+		\noindent \textbf{Câu 9:} Trong không gian $Oxyz$, cho $\vec{m} = (-2; 2; 1), \vec{n} = (3; -1; 2)$. Tính tọa độ $\vec{x} = 3\vec{m} - \vec{n}$. \\
+		\noindent \textbf{Câu 10:} Trong không gian $Oxyz$, cho $\vec{a} = (5; -3; 2), \vec{b} = (1; 1; -1)$. Tìm tọa độ $\vec{v} = 2\vec{a} - 4\vec{b}$. \\
+		\noindent \textbf{Câu 11:} Trong không gian $Oxyz$, cho $A(2; -1; 3), B(4; 1; -1)$. Tìm tọa độ trung điểm $I$ của $AB$. \\
+		\noindent \textbf{Câu 12:} Trong không gian $Oxyz$, cho $A(1; 2; 0), B(-1; 3; 2), C(2; 0; -1)$. Tìm tọa độ trọng tâm $G$ của $\triangle ABC$. \\
+		\noindent \textbf{Câu 13:} Trong không gian $Oxyz$, cho $A(2; 0; -1), B(4; 2; 1)$. Tìm điểm $M$ sao cho $\vec{AM} = 2\vec{AB}$. \\
+		\noindent \textbf{Câu 14:} Trong không gian $Oxyz$, cho $A(3; -2; 1), B(-1; 2; 3)$. Tìm điểm $C$ sao cho $B$ là trung điểm $AC$. \\
+		\noindent \textbf{Câu 15:} Trong không gian $Oxyz$, cho $A(1; 1; 1), B(2; 3; 0)$. Tìm $M$ trên trục $Ox$ sao cho $MA + MB$ đạt giá trị nhỏ nhất (lấy giá trị tọa độ đơn giản). \\
+		\noindent \textbf{Câu 16:} Trong không gian $Oxyz$, cho $A(2; -1; 3), B(1; 1; 1)$. Tìm $M$ sao cho $\vec{OM} = 2\vec{OA} - \vec{OB}$. \\
+		\noindent \textbf{Câu 17:} Trong không gian $Oxyz$, cho $A(0; 1; -2), B(3; 0; 1)$. Tìm điểm $C$ sao cho $OABC$ là hình bình hành (với $O$ là gốc tọa độ). \\
+		\noindent \textbf{Câu 18:} Trong không gian $Oxyz$, cho $A(1; -2; 3), B(3; 0; 1)$. Tìm điểm $I$ chia đoạn $AB$ theo tỉ số $k=2$ ($\vec{IA} = 2\vec{IB}$). \\
+		\noindent \textbf{Câu 19:} Trong không gian $Oxyz$, cho $\triangle ABC$ với $A(2; 1; -1), B(0; 2; 3), C(1; -1; 0)$. Tìm tọa độ trọng tâm $G$. \\
+		\noindent \textbf{Câu 20:} Trong không gian $Oxyz$, cho $A(2; -1; 0), B(3; 2; 1)$. Tìm $M$ để $ABCM$ là hình bình hành với $C(1; 0; -1)$.
+	\end{btxanh}
+	\begin{btvang}
+		\noindent \textbf{Câu 1:} Trong không gian $Oxyz$, cho $\vec{a} = (3; -2; 1), \vec{b} = (0; 1; -3), \vec{c} = (-1; 2; 2)$. Tìm tọa độ vecto $\vec{u} = \vec{a} + 3\vec{b} - 2\vec{c}$. \\
+		\noindent \textbf{Câu 2:} Trong không gian $Oxyz$, cho $\vec{a} = (-1; 4; 0)$. Tìm tọa độ vecto $\vec{v} = \frac{1}{2}\vec{a}$. \\
+		\noindent \textbf{Câu 3:} Trong không gian $Oxyz$, cho $\vec{a} = (2; 3; -1), \vec{b} = (-1; 0; 2), \vec{c} = (3; -1; 0)$. Tìm tọa độ $\vec{d} = 2\vec{a} + \vec{b} - 4\vec{c}$. \\
+		\noindent \textbf{Câu 4:} Trong không gian $Oxyz$, cho $\vec{m} = (5; -1; 2), \vec{n} = (2; 3; -4)$. Tính tọa độ $\vec{p} = 3\vec{m} - 2\vec{n}$. \\
+		\noindent \textbf{Câu 5:} Trong không gian $Oxyz$, cho $\vec{a} = (1; -2; 0), \vec{b} = (3; 1; 2), \vec{c} = (0; -1; 3)$. Tìm $\vec{x} = \vec{a} - 3\vec{b} + 2\vec{c}$. \\
+		\noindent \textbf{Câu 6:} Trong không gian $Oxyz$, cho $\vec{a} = (-2; 0; 5), \vec{b} = (1; -3; 2)$. Tính $\vec{y} = 2\vec{a} + 3\vec{b}$. \\
+		\noindent \textbf{Câu 7:} Trong không gian $Oxyz$, cho $\vec{u} = (0; 3; -2), \vec{v} = (2; -1; 1)$. Tính tọa độ $\vec{w} = 4\vec{u} - 2\vec{v}$. \\
+		\noindent \textbf{Câu 8:} Trong không gian $Oxyz$, cho $\vec{a} = (4; -1; 2), \vec{b} = (-2; 3; 0)$. Tính $\vec{z} = -3\vec{a} + 2\vec{b}$. \\
+		\noindent \textbf{Câu 9:} Trong không gian $Oxyz$, cho $\vec{m} = (1; 1; 1), \vec{n} = (-1; 2; 0)$. Tính tọa độ $\vec{k} = 5\vec{m} - 2\vec{n}$. \\
+		\noindent \textbf{Câu 10:} Trong không gian $Oxyz$, cho $\vec{a} = (2; -2; 4), \vec{b} = (3; 1; -1)$. Tìm tọa độ $\vec{t} = \vec{a} + 2\vec{b}$. \\
+		\noindent \textbf{Câu 11:} Trong không gian $Oxyz$, cho $M(0; 2; -3), N(4; -2; 1)$. Tìm tọa độ trung điểm $K$ của $MN$. \\
+		\noindent \textbf{Câu 12:} Trong không gian $Oxyz$, cho $A(3; -1; 2), B(1; 0; -4), C(2; 1; 0)$. Tìm tọa độ trọng tâm $G$ của $\triangle ABC$. \\
+		\noindent \textbf{Câu 13:} Trong không gian $Oxyz$, cho $A(0; 1; -2), B(-2; 3; 1)$. Tìm điểm $P$ sao cho $\vec{AP} = 3\vec{AB}$. \\
+		\noindent \textbf{Câu 14:} Trong không gian $Oxyz$, cho $A(5; 0; -1), B(3; 2; 4)$. Tìm điểm $D$ sao cho $A$ là trung điểm $BD$. \\
+		\noindent \textbf{Câu 15:} Trong không gian $Oxyz$, cho $A(2; 1; 3), B(0; -1; 2)$. Tìm $M$ trên trục $Oy$ sao cho $MA + MB$ đạt giá trị nhỏ nhất. \\
+		\noindent \textbf{Câu 16:} Trong không gian $Oxyz$, cho $A(1; 2; 0), B(-1; 0; 2)$. Tìm $M$ sao cho $\vec{OM} = 3\vec{OA} + 2\vec{OB}$. \\
+		\noindent \textbf{Câu 17:} Trong không gian $Oxyz$, cho $A(2; -1; 0), B(0; 1; 2)$. Tìm điểm $D$ sao cho $OBAD$ là hình bình hành. \\
+		\noindent \textbf{Câu 18:} Trong không gian $Oxyz$, cho $A(0; 0; 2), B(4; -2; 0)$. Tìm điểm $N$ chia đoạn $AB$ theo tỉ số $k=3$ ($\vec{NA} = 3\vec{NB}$). \\
+		\noindent \textbf{Câu 19:} Trong không gian $Oxyz$, cho $\triangle ABC$ với $A(1; 0; -1), B(2; -2; 1), C(0; 1; 2)$. Tìm tọa độ trọng tâm $G$. \\
+		\noindent \textbf{Câu 20:} Trong không gian $Oxyz$, cho $A(-1; 2; 1), B(3; 0; -1)$. Tìm $M$ để $ABNM$ là hình bình hành với $N(2; 1; 0)$.
+	\end{btvang}
+	
+	\begin{btdo}
+		\noindent \textbf{Câu 1:} Trong không gian $Oxyz$, cho $\vec{a} = (-3; 2; 1), \vec{b} = (2; -1; 0), \vec{c} = (1; 0; -2)$. Tìm tọa độ vecto $\vec{u} = 2\vec{a} - 3\vec{b} + \vec{c}$. \\
+		\noindent \textbf{Câu 2:} Trong không gian $Oxyz$, cho $\vec{a} = (0; -4; 6)$. Tìm tọa độ vecto $\vec{v} = -\frac{1}{2}\vec{a}$. \\
+		\noindent \textbf{Câu 3:} Trong không gian $Oxyz$, cho $\vec{a} = (1; -1; 2), \vec{b} = (3; 2; 0), \vec{c} = (-1; 0; 1)$. Tìm tọa độ $\vec{d} = 3\vec{a} - 2\vec{b} + 5\vec{c}$. \\
+		\noindent \textbf{Câu 4:} Trong không gian $Oxyz$, cho $\vec{m} = (-2; 3; 1), \vec{n} = (4; 0; -2)$. Tính tọa độ $\vec{p} = \vec{m} + 4\vec{n}$. \\
+		\noindent \textbf{Câu 5:} Trong không gian $Oxyz$, cho $\vec{a} = (2; -3; 1), \vec{b} = (1; 0; -1), \vec{c} = (0; 2; 4)$. Tìm $\vec{x} = 2\vec{a} + \vec{b} - 3\vec{c}$. \\
+		\noindent \textbf{Câu 6:} Trong không gian $Oxyz$, cho $\vec{a} = (3; -1; 2), \vec{b} = (-2; 4; 0)$. Tính $\vec{y} = -2\vec{a} + 5\vec{b}$. \\
+		\noindent \textbf{Câu 7:} Trong không gian $Oxyz$, cho $\vec{u} = (-1; 1; 2), \vec{v} = (0; 2; -3)$. Tính tọa độ $\vec{w} = 3\vec{u} - 3\vec{v}$. \\
+		\noindent \textbf{Câu 8:} Trong không gian $Oxyz$, cho $\vec{a} = (5; 2; -1), \vec{b} = (1; -3; 4)$. Tính $\vec{z} = \vec{a} - 2\vec{b}$. \\
+		\noindent \textbf{Câu 9:} Trong không gian $Oxyz$, cho $\vec{m} = (0; 2; -1), \vec{n} = (2; -2; 3)$. Tính tọa độ $\vec{k} = 2\vec{m} + 3\vec{n}$. \\
+		\noindent \textbf{Câu 10:} Trong không gian $Oxyz$, cho $\vec{a} = (1; 3; -2), \vec{b} = (-2; 1; 0)$. Tìm tọa độ $\vec{t} = 3\vec{a} - \vec{b}$. \\
+		\noindent \textbf{Câu 11:} Trong không gian $Oxyz$, cho $E(2; -3; 1), F(-4; 1; 5)$. Tìm tọa độ trung điểm $Q$ của $EF$. \\
+		\noindent \textbf{Câu 12:} Trong không gian $Oxyz$, cho $A(0; 0; 3), B(2; -1; 0), C(1; 2; -1)$. Tìm tọa độ trọng tâm $G$ của $\triangle ABC$. \\
+		\noindent \textbf{Câu 13:} Trong không gian $Oxyz$, cho $A(-1; 2; 0), B(3; -1; 2)$. Tìm điểm $S$ sao cho $\vec{AS} = 4\vec{AB}$. \\
+		\noindent \textbf{Câu 14:} Trong không gian $Oxyz$, cho $A(2; 2; 2), B(0; -1; 3)$. Tìm điểm $K$ sao cho $B$ là trung điểm $AK$. \\
+		\noindent \textbf{Câu 15:} Trong không gian $Oxyz$, cho $A(3; 0; 1), B(1; 2; 0)$. Tìm $M$ trên trục $Oz$ sao cho $MA + MB$ đạt giá trị nhỏ nhất. \\
+		\noindent \textbf{Câu 16:} Trong không gian $Oxyz$, cho $A(2; -2; 1), B(0; 1; -1)$. Tìm $M$ sao cho $\vec{OM} = 2\vec{OA} + 3\vec{OB}$. \\
+		\noindent \textbf{Câu 17:} Trong không gian $Oxyz$, cho $A(1; 0; -1), B(2; 1; 0)$. Tìm điểm $C$ sao cho $OCAB$ là hình bình hành. \\
+		\noindent \textbf{Câu 18:} Trong không gian $Oxyz$, cho $A(-1; 3; 0), B(2; 1; 2)$. Tìm điểm $H$ chia đoạn $AB$ theo tỉ số $k=2$ ($\vec{HA} = 2\vec{HB}$). \\
+		\noindent \textbf{Câu 19:} Trong không gian $Oxyz$, cho $\triangle ABC$ với $A(0; 3; -1), B(-2; 0; 2), C(1; 1; 0)$. Tìm tọa độ trọng tâm $G$. \\
+		\noindent \textbf{Câu 20:} Trong không gian $Oxyz$, cho $A(3; -1; 2), B(0; 2; 1)$. Tìm $M$ để $ABPM$ là hình bình hành với $P(1; 0; 0)$.
+	\end{btdo}
+	\subsection{Dạng 4: Tích vô hướng và ứng dụng}
+	
+	\begin{btxanh}
+		\noindent \textbf{Câu 1:} Trong không gian $Oxyz$, cho $\vec{u} = (3; 0; 1)$ và $\vec{v} = (2; 1; 0)$. Tính tích vô hướng $\vec{u} \cdot \vec{v}$. \\
+		\noindent \textbf{Câu 2:} Trong không gian $Oxyz$, cho $A(3; 2; 1), B(-1; 3; 2), C(2; 4; -3)$. Tính tích vô hướng $\vec{AB} \cdot \vec{AC}$. \\
+		\noindent \textbf{Câu 3:} Trong không gian $Oxyz$, cho $|\vec{a}| = 2\sqrt{3}, |\vec{b}| = 3$ và $(\vec{a}, \vec{b}) = 30^\circ$. Tính độ dài vecto $\vec{u} = 3\vec{a} - 2\vec{b}$. \\
+		\noindent \textbf{Câu 4:} Trong không gian $Oxyz$, cho $A(1; 1; 0), B(1; 2; -1), C(0; 1; 1)$. Tính góc giữa hai vecto $\vec{AB}$ và $\vec{AC}$. \\
+		\noindent \textbf{Câu 5:} Trong không gian $Oxyz$, cho $\vec{a} = (1; 2; 0)$ và $\vec{b} = (-1; 3; 0)$. Tính góc giữa hai vecto đó. \\
+		\noindent \textbf{Câu 6:} Trong không gian $Oxyz$, cho $\vec{a} = (2; 1; 2)$ và $\vec{b} = (1; 0; -2)$. Tính $\cos(\vec{a}, \vec{b})$. \\
+		\noindent \textbf{Câu 7:} Trong không gian $Oxyz$, cho $\vec{a} = (2; 1; -1)$ và $\vec{b} = (1; 3; m)$. Tìm $m$ để $(\vec{a}, \vec{b}) = 90^\circ$. \\
+		\noindent \textbf{Câu 8:} Trong không gian $Oxyz$, cho $\vec{u} = (2; 3; -1)$ và $\vec{v} = (5; -4; m)$. Tìm $m$ để $\vec{u} \perp \vec{v}$. \\
+		\noindent \textbf{Câu 9:} Trong không gian $Oxyz$, cho $\vec{u} = (x; 0; 1)$ và $\vec{v} = (\sqrt{2}; \sqrt{2}; 0)$. Tìm $x$ để góc giữa hai vecto bằng $60^\circ$. \\
+		\noindent \textbf{Câu 10:} Trong không gian $Oxyz$, cho $M(2; 3; -1), N(-1; 1; 1)$ và $P(1; m-1; 2)$. Tìm $m$ để tam giác $MNP$ vuông tại $N$. \\
+		\noindent \textbf{Câu 11:} Trong không gian $Oxyz$, cho $\vec{u} = (1; 1; -2), \vec{v} = (1; 0; m)$. Tìm $m$ để góc giữa $\vec{u}, \vec{v}$ bằng $45^\circ$. \\
+		\noindent \textbf{Câu 12:} Trong không gian $Oxyz$, cho $\vec{a}, \vec{b}$ có độ dài lần lượt là $1$ và $2$. Biết $|\vec{a} + \vec{b}| = 3$. Tính góc giữa hai vecto $\vec{a}, \vec{b}$.
+	\end{btxanh}
+	\begin{btvang}
+		\noindent \textbf{Câu 1:} Trong không gian $Oxyz$, cho $\vec{a} = (1; -2; 3), \vec{b} = (2; 1; -1)$. Tính $\vec{a} \cdot \vec{b}$. \\
+		\noindent \textbf{Câu 2:} Trong không gian $Oxyz$, cho $M(1; 0; 2), N(2; -1; 3), P(3; 2; 1)$. Tính tích vô hướng $\vec{MN} \cdot \vec{NP}$. \\
+		\noindent \textbf{Câu 3:} Trong không gian $Oxyz$, cho $|\vec{a}| = 4, |\vec{b}| = 2$ và góc giữa chúng bằng $60^\circ$. Tính $|\vec{a} + \vec{b}|$. \\
+		\noindent \textbf{Câu 4:} Trong không gian $Oxyz$, cho $A(2; 1; -2), B(1; 0; 1), C(3; 2; -1)$. Tính góc giữa $\vec{BA}$ và $\vec{BC}$. \\
+		\noindent \textbf{Câu 5:} Trong không gian $Oxyz$, cho $\vec{x} = (2; -1; 2)$ và $\vec{y} = (1; 1; 0)$. Tính góc giữa hai vecto $\vec{x}$ và $\vec{y}$. \\
+		\noindent \textbf{Câu 6:} Trong không gian $Oxyz$, cho $\vec{a} = (1; 2; -2)$ và $\vec{b} = (2; 0; 1)$. Tính $\cos(\vec{a}, \vec{b})$. \\
+		\noindent \textbf{Câu 7:} Trong không gian $Oxyz$, cho $\vec{a} = (1; -2; 2)$ và $\vec{b} = (2; 2; m)$. Tìm $m$ để $(\vec{a}, \vec{b}) = 90^\circ$. \\
+		\noindent \textbf{Câu 8:} Trong không gian $Oxyz$, cho $\vec{u} = (3; 1; -2)$ và $\vec{v} = (1; -1; m)$. Tìm $m$ để $\vec{u} \perp \vec{v}$. \\
+		\noindent \textbf{Câu 9:} Trong không gian $Oxyz$, cho $\vec{u} = (x; 1; 1)$ và $\vec{v} = (1; 0; 0)$. Tìm $x$ để góc giữa hai vecto bằng $45^\circ$. \\
+		\noindent \textbf{Câu 10:} Trong không gian $Oxyz$, cho $A(1; 2; 0), B(-1; 1; 2), C(m; 0; 1)$. Tìm $m$ để $\triangle ABC$ vuông tại $B$. \\
+		\noindent \textbf{Câu 11:} Trong không gian $Oxyz$, cho $\vec{a} = (2; 1; -1), \vec{b} = (0; 1; m)$. Tìm $m$ để góc giữa $\vec{a}, \vec{b}$ bằng $60^\circ$. \\
+		\noindent \textbf{Câu 12:} Trong không gian $Oxyz$, cho $|\vec{a}| = 2, |\vec{b}| = 3$. Biết $|\vec{a} - \vec{b}| = \sqrt{7}$. Tính góc giữa hai vecto $\vec{a}, \vec{b}$.
+	\end{btvang}
+	
+	\begin{btdo}
+		\noindent \textbf{Câu 1:} Trong không gian $Oxyz$, cho $\vec{u} = (-2; 1; 4)$ và $\vec{v} = (3; 0; 2)$. Tính $\vec{u} \cdot \vec{v}$. \\
+		\noindent \textbf{Câu 2:} Trong không gian $Oxyz$, cho $A(0; 1; 2), B(1; -1; 0), C(2; 0; 1)$. Tính tích vô hướng $\vec{AC} \cdot \vec{BC}$. \\
+		\noindent \textbf{Câu 3:} Trong không gian $Oxyz$, cho $|\vec{a}| = 1, |\vec{b}| = \sqrt{2}$ và $(\vec{a}, \vec{b}) = 45^\circ$. Tính độ dài vecto $\vec{v} = \vec{a} - \vec{b}$. \\
+		\noindent \textbf{Câu 4:} Trong không gian $Oxyz$, cho $A(3; -1; 2), B(4; 1; 1), C(2; 0; 3)$. Tính góc giữa $\vec{AB}$ và $\vec{AC}$. \\
+		\noindent \textbf{Câu 5:} Trong không gian $Oxyz$, cho $\vec{a} = (3; 0; 4)$ và $\vec{b} = (-1; 1; 0)$. Tính góc giữa hai vecto $\vec{a}$ và $\vec{b}$. \\
+		\noindent \textbf{Câu 6:} Trong không gian $Oxyz$, cho $\vec{a} = (1; -1; 1)$ và $\vec{b} = (2; 1; 0)$. Tính $\cos(\vec{a}, \vec{b})$. \\
+		\noindent \textbf{Câu 7:} Trong không gian $Oxyz$, cho $\vec{a} = (1; 2; -2)$ và $\vec{b} = (m; 1; 0)$. Tìm $m$ để $(\vec{a}, \vec{b}) = 90^\circ$. \\
+		\noindent \textbf{Câu 8:} Trong không gian $Oxyz$, cho $\vec{u} = (-1; 2; 3)$ và $\vec{v} = (2; 1; m)$. Tìm $m$ để $\vec{u} \perp \vec{v}$. \\
+		\noindent \textbf{Câu 9:} Trong không gian $Oxyz$, cho $\vec{u} = (1; y; 1)$ và $\vec{v} = (0; 1; 1)$. Tìm $y$ để góc giữa hai vecto bằng $120^\circ$. \\
+		\noindent \textbf{Câu 10:} Trong không gian $Oxyz$, cho $A(2; 1; -1), B(0; 3; 1), C(m; 1; -3)$. Tìm $m$ để $\triangle ABC$ vuông tại $A$. \\
+		\noindent \textbf{Câu 11:} Trong không gian $Oxyz$, cho $\vec{a} = (1; 0; 1), \vec{b} = (0; 1; m)$. Tìm $m$ để góc giữa $\vec{a}, \vec{b}$ bằng $30^\circ$. \\
+		\noindent \textbf{Câu 12:} Trong không gian $Oxyz$, cho hai vecto $\vec{a}, \vec{b}$ thỏa mãn $(\vec{a}, \vec{b}) = 120^\circ, |\vec{a}| = 3, |\vec{b}| = 4$. Tính $|\vec{a} + \vec{b}|$.
+	\end{btdo}
+	
+	\section{Bài tập Trắc nghiệm}
+	\noindent \textbf{Câu 1:} Trong không gian với hệ tọa độ $Oxyz$, điểm nào dưới đây nằm trên mặt phẳng tọa độ $(Oyz)$? \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $M(0; 2; -5)$. & B. $N(1; 0; -3)$. & C. $P(2; 4; 0)$. & D. $Q(1; 2; 3)$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 2:} Trong không gian với hệ trục tọa độ $Oxyz$, cho điểm $A(2; -3; 4)$. Hình chiếu vuông góc của $A$ xuống mặt phẳng $(Oxy)$ là điểm $A'$. Xác định tọa độ $A'$. \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $A'(2; -3; 0)$. & B. $A'(2; 0; 4)$. & C. $A'(0; -3; 4)$. & D. $A'(2; -3; 4)$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 3:} Trong không gian $Oxyz$, hình chiếu vuông góc của điểm $M(-1; 5; 2)$ trên mặt phẳng $(Oxz)$ có tọa độ là: \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $(-1; 0; 2)$. & B. $(0; 5; 2)$. & C. $(-1; 5; 0)$. & D. $(0; 5; 0)$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 4:} Trong không gian $Oxyz$, cho điểm $B(4; -2; -1)$. Tọa độ hình chiếu vuông góc của $B$ lên mặt phẳng $(Oyz)$ là: \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $(0; -2; -1)$. & B. $(4; 0; 0)$. & C. $(4; 0; -1)$. & D. $(4; -2; 0)$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 5:} Trong không gian $Oxyz$, hình chiếu vuông góc của điểm $C(3; -1; 5)$ trên trục $Ox$ là điểm nào dưới đây? \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $(3; 0; 0)$. & B. $(0; -1; 0)$. & C. $(0; 0; 5)$. & D. $(3; -1; 0)$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 6:} Trong không gian với hệ tọa độ $Oxyz$, cho điểm $D(-4; 7; 2)$. Tọa độ hình chiếu vuông góc của $D$ trên trục $Oy$ là: \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $(0; 7; 0)$. & B. $(-4; 0; 0)$. & C. $(0; 0; 2)$. & D. $(-4; 0; 2)$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 7:} Trong không gian $Oxyz$, hình chiếu vuông góc của điểm $E(6; 2; -3)$ trên trục $Oz$ có tọa độ là: \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $(0; 0; -3)$. & B. $(6; 2; 0)$. & C. $(0; 2; -3)$. & D. $(6; 0; 0)$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 8:} Trong không gian $Oxyz$, điểm nào sau đây là hình chiếu vuông góc của điểm $M(2; -5; 1)$ lên mặt phẳng $(Oxz)$? \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $M_1(2; 0; 1)$. & B. $M_2(0; -5; 0)$. & C. $M_3(2; -5; 0)$. & D. $M_4(0; -5; 1)$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 9:} Trong không gian $Oxyz$, cho điểm $K(-2; 3; -4)$. Tọa độ hình chiếu vuông góc của $K$ lên mặt phẳng $(Oxy)$ là: \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $(-2; 3; 0)$. & B. $(0; 3; -4)$. & C. $(-2; 0; -4)$. & D. $(0; 0; -4)$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 10:} Trong không gian $Oxyz$, cho điểm $P(1; -3; 7)$. Hình chiếu vuông góc của $P$ trên mặt phẳng $(Oyz)$ là điểm $P'$. Điểm $P'$ có tọa độ là: \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $(0; -3; 7)$. & B. $(1; 0; 7)$. & C. $(1; -3; 0)$. & D. $(0; 0; 7)$.
+	\end{tabular}
+	\noindent \textbf{Câu 11:} Trong không gian $Oxyz$, cho ba điểm $A(2; 1; -1), B(3; 0; 1), C(1; -1; 2)$. Tìm tọa độ điểm $D$ sao cho tứ giác $ABCD$ là hình bình hành. \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $D(0; 0; 0)$. & B. $D(0; -2; 0)$. & C. $D(2; 0; 0)$. & D. $D(2; 2; -2)$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 12:} Trong không gian với hệ trục tọa độ $Oxyz$, cho ba điểm $A(1; 3; -2), B(2; 0; 1)$ và $C(-2; 4; 3)$. Tìm tọa độ điểm $D$ sao cho tứ giác $ABCD$ là hình bình hành. \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $D(-3; 7; 0)$. & B. $D(-3; 1; 6)$. & C. $D(-1; 7; 0)$. & D. $D(-3; 7; -2)$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 13:} Trong không gian với hệ trục tọa độ $Oxyz$, cho hai điểm $A(2; -1; 3)$ và vecto $\vec{AB} = (1; 2; -1)$. Tọa độ của điểm $B$ là: \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $B(3; 1; 2)$. & B. $B(1; -3; 4)$. & C. $B(3; 1; 4)$. & D. $B(-1; -3; 2)$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 14:} Trong không gian $Oxyz$, cho hình hộp $ABCD.A'B'C'D'$. Biết $A(1; 2; -1), B(3; 0; 1), C(-1; 2; -3)$ và $D'(4; 5; 6)$. Tọa độ điểm $B'$ là: \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $B'(6; 3; 8)$. & B. $B'(10,1,12)$. & C. $B'(6; 5; 8)$. & D. $B'(8; 5; 10)$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 15:} Trong không gian $Oxyz$, cho hình hộp $ABCD.A'B'C'D'$ có $A(2; -1; 0), B(3; 1; 1), D(1; 0; -2)$ và $C'(5; 4; -3)$. Tính tọa độ đỉnh $A'$ của hình hộp. \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $A'(4; 2; -4)$. & B. $A'(4; 3; -5)$. & C. $A'(5;1;-2)$. & D. $A'(3; 3; -5)$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 16:} Trong không gian với hệ tọa độ $Oxyz$, cho hình hộp $ABCD.A'B'C'D'$, biết rằng $A(-2; 1; 1), B(1; 3; -1), D(0; 1; 2)$ và $A'(2; 2; 3)$. Tìm tọa độ điểm $C'$. \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $C'(7; 5; 3)$. & B. $C'(5; 4; 2)$. & C. $C'(7; 4; 1)$. & D. $C'(5; 5; 1)$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 17:} Trong không gian $Oxyz$, cho ba điểm $A(0; 1; 2), B(2; 3; 1), C(1; -1; 3)$. Tìm tọa độ điểm $D$ sao cho $\vec{AD} = \vec{BC}$. \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $D(-1; -3; 4)$. & B. $D(-1; -3; 2)$. & C. $D(1; 3; 0)$. & D. $D(1; -3; 4)$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 18:} Trong không gian $Oxyz$, cho hai điểm $M(1; -2; 3)$ và $N(3; 1; 1)$. Tìm tọa độ điểm $P$ sao cho $N$ là trung điểm của đoạn thẳng $MP$. \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $P(5; 4; -1)$. & B. $P(2; -0.5; 2)$. & C. $P(5; 4; 1)$. & D. $P(2; -1; -1)$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 19:} Trong không gian $Oxyz$, cho tam giác $ABC$ có $A(1; 2; 3), B(2; -1; 0), C(3; 2; 3)$. Tìm tọa độ trọng tâm $G$ của tam giác $ABC$. \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $G(2; 1; 2)$. & B. $G(6; 3; 6)$. & C. $G(2; 3; 2)$. & D. $G(1; 1; 1)$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 20:} Trong không gian $Oxyz$, cho hai điểm $A(1; -2; 3)$ và $B(3; 0; 1)$. Tìm tọa độ vecto $\vec{AB}$. \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $\vec{AB} = (2; 2; -2)$. & B. $\vec{AB} = (4; -2; 4)$. & C. $\vec{AB} = (2; -2; 2)$. & D. $\vec{AB} = (1; 1; -1)$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 21:} Trong không gian $Oxyz$, cho điểm $A(1; -3; 2)$ và $B(3; 1; 0)$. Tìm tọa độ trung điểm $M$ của đoạn thẳng $AB$. \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $M(2; -1; 1)$. & B. $M(4; -2; 2)$. & C. $M(1; 2; -1)$. & D. $M(2; 2; -1)$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 22:} Trong không gian $Oxyz$, cho điểm $M(1; 2; 3)$. Tìm tọa độ điểm $M'$ đối xứng với $M$ qua gốc tọa độ $O$. \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $M'(-1; -2; -3)$. & B. $M'(-1; 2; 3)$. & C. $M'(1; -2; -3)$. & D. $M'(1; 2; -3)$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 23:} Trong không gian $Oxyz$, cho hình bình hành $ABCD$ có $A(1; 1; 1), B(2; 3; 4), C(3; 5; 2)$. Tìm tọa độ đỉnh $D$. \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $D(2; 3; -1)$. & B. $D(2; 3; 1)$. & C. $D(4; 7; 5)$. & D. $D(4; 7; 1)$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 24:} Trong không gian $Oxyz$, cho ba điểm $A(1; 0; 2), B(-1; 1; 3), C(3; 2; 1)$. Tìm tọa độ điểm $D$ sao cho $A$ là trọng tâm của tam giác $BCD$. \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $D(1; -3; 2)$. & B. $D(1; -1; 2)$. & C. $D(1; -3; 4)$. & D. $D(3; -3; 2)$.
+	\end{tabular}
+	
+	\noindent \textbf{Câu 25:} Trong không gian với hệ trục tọa độ $Oxyz$, cho ba vecto $\vec{a} = (1; 2; 3), \vec{b} = (2; 2; -1), \vec{c} = (4; 0; -4)$. Tọa độ của vecto $\vec{d} = \vec{a} - \vec{b} + 2\vec{c}$ là: \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $\vec{d} = (-7; 0; -4)$. & B. $\vec{d} = (-7; 0; 4)$. & C. $\vec{d} = (7; 0; -4)$. & D. $\vec{d} = (7; 0; 4)$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 26:} Trong không gian $Oxyz$, cho $\vec{a} = (2; 3; 2)$ và $\vec{b} = (1; 1; -1)$. Vecto $\vec{a} - \vec{b}$ có tọa độ là: \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $(3; 4; 1)$. & B. $(-1; -2; 3)$. & C. $(3; 5; 1)$. & D. $(1; 2; 3)$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 27:} Trong không gian với hệ trục tọa độ $Oxyz$, cho $\vec{a} = (2; -3; 3), \vec{b} = (0; 2; -1), \vec{c} = (3; -1; 5)$. Tìm tọa độ của vecto $\vec{u} = 2\vec{a} + 3\vec{b} - 2\vec{c}$. \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $(10; -2; 13)$. & B. $(-2; 2; -7)$. & C. $(-2; -2; 7)$. & D. $(-2; 2; 7)$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 28:} Trong không gian với hệ trục tọa độ $Oxyz$, cho $\vec{a} = -\vec{i} + 2\vec{j} - 3\vec{k}$. Tọa độ của vecto $\vec{a}$ là: \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $(-1; 2; -3)$. & B. $(2; -3; -1)$. & C. $(2; -1; -3)$. & D. $(-3; 2; -1)$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 29:} Trong không gian với hệ tọa độ $Oxyz$, cho hai vecto $\vec{x} = (2; 1; -3)$ và $\vec{y} = (1; 0; -1)$. Tìm tọa độ của vecto $\vec{a} = \vec{x} + 2\vec{y}$. \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $\vec{a} = (4; 1; -1)$. & B. $\vec{a} = (3; 1; -4)$. & C. $\vec{a} = (0; 1; -1)$. & D. $\vec{a} = (4; 1; -5)$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 30:} Trong không gian $Oxyz$ với $\vec{i}, \vec{j}, \vec{k}$ lần lượt là các vecto đơn vị trên các trục $Ox, Oy, Oz$. Tính tọa độ của vecto $\vec{i} + \vec{j} - \vec{k}$. \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $( -1; -1; 1)$. & B. $(-1; 1; 1)$. & C. $(1; 1; -1)$. & D. $(1; -1; 1)$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 31:} Trong không gian với hệ tọa độ $Oxyz$, giả sử $\vec{u} = 2\vec{i} + 3\vec{j} - \vec{k}$, khi đó tọa độ vecto $\vec{u}$ là: \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $(-2; 3; 1)$. & B. $(2; 3; -1)$. & C. $(2; -3; -1)$. & D. $(2; 3; 1)$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 32:} Trong không gian $Oxyz$, cho hai vecto $\vec{a} = (1; -2; 3)$ và $\vec{b} = (2; 0; 1)$. Tọa độ của vecto $3\vec{a} - \vec{b}$ là: \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $(1; -6; 8)$. & B. $(1; -6; 2)$. & C. $(5; -6; 8)$. & D. $(1; -2; 2)$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 33:} Trong không gian $Oxyz$, cho ba điểm $A(1; 0; -2), B(2; 1; -1), C(1; -2; 2)$. Tìm tọa độ của vecto $\vec{u} = \vec{AB} + 2\vec{BC}$. \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $(-1; -5; 7)$. & B. $(-1; -5; 5)$. & C. $(1; -5; 7)$. & D. $(3; -5; 7)$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 34:} Trong không gian $Oxyz$, cho $\vec{a} = (2; -1; 3)$. Tính độ dài của vecto $\vec{a}$. \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $|\vec{a}| = \sqrt{14}$. & B. $|\vec{a}| = 14$. & C. $|\vec{a}| = \sqrt{12}$. & D. $|\vec{a}| = 4$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 35:} Trong không gian $Oxyz$, cho hai điểm $A(1; -1; 2)$ và $B(3; 1; 1)$. Tính độ dài đoạn thẳng $AB$. \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $AB = 3$. & B. $AB = \sqrt{3}$. & C. $AB = 9$. & D. $AB = \sqrt{5}$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 36:} Trong không gian $Oxyz$, cho $\vec{u} = \vec{i} - 2\vec{j}$ và $\vec{v} = 2\vec{j} + \vec{k}$. Tìm tọa độ vecto $\vec{u} + \vec{v}$. \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $(1; 0; 1)$. & B. $(1; -4; 1)$. & C. $(-1; 0; 1)$. & D. $(1; 4; 1)$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 37:} Trong không gian $Oxyz$, cho $\vec{a} = (x; 2; -1)$ và $\vec{b} = (3; y; 2)$. Biết $\vec{a} = \vec{b}$, tính giá trị $x + y$. \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $5$. & B. $1$. & C. $-1$. & D. $3$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 38:} Trong không gian $Oxyz$, cho điểm $M(1; -2; 3)$ và vecto $\vec{a} = (2; 1; -1)$. Tìm tọa độ điểm $N$ sao cho $\vec{MN} = \vec{a}$. \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $N(3; -1; 2)$. & B. $N(-1; -3; 4)$. & C. $N(3; -1; 4)$. & D. $N(1; 3; -4)$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 39:} Trong không gian $Oxyz$, cho ba vecto $\vec{a} = (1; 0; -1), \vec{b} = (2; 1; 1), \vec{c} = (0; -2; 1)$. Tìm tọa độ của vecto $\vec{u} = 2\vec{a} - \vec{b} + 3\vec{c}$. \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $(0; -7; 0)$. & B. $(0; -7; -2)$. & C. $(0; -5; 0)$. & D. $(2; -7; 0)$.
+	\end{tabular}
+	
+	\noindent \textbf{Câu 40:} Trong không gian với hệ tọa độ $Oxyz$, cho $\vec{a} = -\vec{i} + 2\vec{j} - 3\vec{k}$. Tọa độ của vecto $\vec{a}$ là: \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $\vec{a}(-1; 2; -3)$. & B. $\vec{a}(2; -3; -1)$. & C. $\vec{a}(-3; 2; -1)$. & D. $\vec{a}(2; -1; -3)$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 41:} Trong không gian $Oxyz$, cho $\vec{a} = (-2; 2; 0), \vec{b} = (2; 2; 0), \vec{c} = (2; 2; 2)$. Giá trị của $|\vec{a} + \vec{b} + \vec{c}|$ bằng: \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $6$. & B. $11$. & C. $2\sqrt{11}$. & D. $2\sqrt{6}$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 42:} Trong không gian $Oxyz$, cho hai điểm $A(0; 1; -1), B(2; 3; 2)$. Vecto $\vec{AB}$ có tọa độ là: \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $(2; 2; 3)$. & B. $(1; 2; 3)$. & C. $(3; 5; 1)$. & D. $(3; 4; 1)$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 43:} Trong không gian $Oxyz$, cho $A(2; -1; 0)$ và $B(1; 1; -3)$. Vecto $\vec{AB}$ có tọa độ là: \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $(3; 0; -3)$. & B. $(-1; 2; -3)$. & C. $(-1; -2; 3)$. & D. $(1; -2; 3)$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 44:} Trong không gian $Oxyz$, cho $A(2; -2; 1), B(1; -1; 3)$. Tọa độ vecto $\vec{AB}$ là: \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $(-1; 1; 2)$. & B. $(-3; 3; -4)$. & C. $(3; -3; 4)$. & D. $(1; -1; -2)$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 45:} Trong không gian với hệ tọa độ $Oxyz$, cho hai điểm $A(1; -3; 1), B(3; 0; -2)$. Tính độ dài $AB$. \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $26$. & B. $22$. & C. $\sqrt{26}$. & D. $\sqrt{22}$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 46:} Trong không gian $Oxyz$, cho hai điểm $A(1; -2; -1), B(1; 4; 3)$. Độ dài đoạn thẳng $AB$ là: \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $2\sqrt{13}$. & B. $\sqrt{6}$. & C. $3$. & D. $2\sqrt{3}$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 47:} Trong không gian $Oxyz$, cho $2$ điểm $A(1; 3; 5), B(2; 2; 3)$. Độ dài đoạn $AB$ bằng: \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $\sqrt{7}$. & B. $\sqrt{8}$. & C. $\sqrt{6}$. & D. $\sqrt{5}$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 48:} Trong không gian với hệ tọa độ $Oxyz$, cho hai điểm $A(3; -2; 3)$ và $B(-1; 2; 5)$. Tìm tọa độ trung điểm $I$ của đoạn thẳng $AB$. \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $I(1; 0; 4)$. & B. $I(2; 0; 8)$. & C. $I(2; -2; -1)$. & D. $I(-2; 2; 1)$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 49:} Trong không gian với hệ tọa độ $Oxyz$, cho $A(1; 3; 2), B(3; -1; 4)$. Tìm tọa độ trung điểm $I$ của $AB$. \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $I(2; -4; 2)$. & B. $I(4; 2; 6)$. & C. $I(-2; -1; -3)$. & D. $I(2; 1; 3)$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 50:} Trong không gian $Oxyz$, cho hai điểm $A(2; -4; 3)$ và $B(2; 2; 7)$. Trung điểm của đoạn thẳng $AB$ có tọa độ là: \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $(2; -1; 5)$. & B. $(2; -2; 5)$. & C. $(4; -2; 10)$. & D. $(0; 6; 4)$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 51:} Trong không gian $Oxyz$, cho hai điểm $M(3; -1; 2)$ và $N(1; 1; 0)$. Tính độ dài của vecto $\vec{MN}$. \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $|\vec{MN}| = 2\sqrt{2}$. & B. $|\vec{MN}| = 2\sqrt{3}$. & C. $|\vec{MN}| = 4$. & D. $|\vec{MN}| = \sqrt{6}$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 52:} Trong không gian $Oxyz$, cho ba điểm $A(1; 2; 3), B(2; 1; 0), C(0; 3; -1)$. Tìm tọa độ trọng tâm $G$ của tam giác $A B C$. \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $G(1; 2; 1)$. & B. $G(1; 2; 2)$. & C. $G(3; 6; 2)$. & D. $G(1; 1; 1)$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 53:} Trong không gian $Oxyz$, cho vecto $\vec{a} = 2\vec{i} - \vec{j} + 3\vec{k}$. Độ dài của vecto $\vec{a}$ bằng: \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $\sqrt{14}$. & B. $14$. & C. $\sqrt{12}$. & D. $\sqrt{13}$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 54:} Trong không gian $Oxyz$, cho hai điểm $A(1; -2; 5)$ và $B(3; 4; 1)$. Tọa độ trung điểm $M$ của đoạn thẳng $AB$ là: \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $M(2; 1; 3)$. & B. $M(4; 2; 6)$. & C. $M(1; 3; -2)$. & D. $M(2; 3; 3)$.
+	\end{tabular}
+	\noindent \textbf{Câu 55:} Trong không gian với hệ tọa độ $Oxyz$, cho $\vec{a} = (1; -2; 2), \vec{b} = (3; 1; -1)$. Tìm tọa độ của vecto $\vec{u} = 2\vec{a} + \vec{b}$. \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $\vec{u} = (5; -3; 3)$. & B. $\vec{u} = (5; -1; 3)$. & C. $\vec{u} = (5; -3; 1)$. & D. $\vec{u} = (5; -1; 1)$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 56:} Trong không gian $Oxyz$, cho hai điểm $A(1; 3; -1)$ và $B(2; 1; 1)$. Tính độ dài của vecto $\vec{AB}$. \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $|\vec{AB}| = 3$. & B. $|\vec{AB}| = \sqrt{5}$. & C. $|\vec{AB}| = \sqrt{3}$. & D. $|\vec{AB}| = 9$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 57:} Trong không gian $Oxyz$, cho $\vec{a} = 3\vec{i} - \vec{k}$. Tọa độ của vecto $\vec{a}$ là: \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $(3; -1; 0)$. & B. $(3; 0; -1)$. & C. $(3; 0; 1)$. & D. $(0; 3; -1)$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 58:} Trong không gian với hệ tọa độ $Oxyz$, cho hai điểm $M(-1; 2; 3)$ and $N(1; 0; 2)$. Tìm tọa độ trung điểm $I$ của đoạn thẳng $MN$. \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $I(0; 1; 2.5)$. & B. $I(0; 1; 1)$. & C. $I(0; 2; 5)$. & D. $I(1; -1; -0.5)$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 59:} Trong không gian $Oxyz$, cho $A(2; 1; -1), B(1; 2; 3)$. Vecto $\vec{BA}$ có tọa độ là: \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $(1; -1; -4)$. & B. $(-1; 1; 4)$. & C. $(3; 3; 2)$. & D. $(1; 1; 2)$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 60:} Trong không gian $Oxyz$, cho ba điểm $A(1; 1; 1), B(2; 3; 0), C(-1; 2; 2)$. Tìm tọa độ trọng tâm $G$ của tam giác $ABC$. \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $G(2; 6; 3)$. & B. $G(2; 2; 1)$. & C. $G\left(\frac{2}{3}; 2; 1\right)$. & D. $G(0; 2; 1)$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 61:} Trong không gian $Oxyz$, cho hai điểm $A(2; -1; 5)$ và $B(1; 2; 3)$. Tính độ dài đoạn thẳng $AB$. \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $AB = \sqrt{14}$. & B. $AB = \sqrt{12}$. & C. $AB = \sqrt{38}$. & D. $AB = 14$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 62:} Trong không gian $Oxyz$, cho $\vec{a} = (1; 1; 0), \vec{b} = (2; -1; 1)$. Tìm tọa độ của vecto $\vec{u} = 3\vec{a} - 2\vec{b}$. \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $(-1; 5; -2)$. & B. $(-1; 1; -2)$. & C. $(7; 1; -2)$. & D. $(-1; 5; 2)$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 63:} Trong không gian $Oxyz$, cho điểm $A(1; 2; -3)$. Tìm hình chiếu vuông góc $A'$ của $A$ lên trục $Oz$. \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $A'(0; 0; -3)$. & B. $A'(1; 2; 0)$. & C. $A'(0; 2; 0)$. & D. $A'(1; 0; 0)$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 64:} Trong không gian $Oxyz$, cho hai điểm $M(2; -1; 3)$ và $N(4; 3; -1)$. Tìm tọa độ của vecto $\vec{MN}$. \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $(2; 4; -4)$. & B. $(2; 2; -2)$. & C. $(6; 2; 2)$. & D. $(-2; -4; 4)$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 65:} Trong không gian $Oxyz$, cho $\vec{u} = \vec{i} + 3\vec{j}$ và $\vec{v} = 2\vec{j} - \vec{k}$. Tìm tọa độ vecto $\vec{w} = \vec{u} - \vec{v}$. \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $(1; 1; 1)$. & B. $(1; 5; -1)$. & C. $(-1; 1; 1)$. & D. $(1; -1; -1)$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 66:} Trong không gian $Oxyz$, cho ba điểm $A(1; 0; 1), B(2; 1; 2), C(3; -1; 1)$. Tìm tọa độ điểm $D$ sao cho $ABCD$ là hình bình hành. \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $D(2; -2; 0)$. & B. $D(2; 0; 0)$. & C. $D(4; 0; 2)$. & D. $D(0; -2; 0)$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 67:} Trong không gian $Oxyz$, cho $\vec{a} = (2; -1; 2)$. Tính độ dài vecto $\vec{a}$. \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $|\vec{a}| = 3$. & B. $|\vec{a}| = 9$. & C. $|\vec{a}| = \sqrt{7}$. & D. $|\vec{a}| = 5$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 68:} Trong không gian $Oxyz$, cho điểm $A(1; -2; 4)$. Tìm tọa độ điểm $A'$ đối xứng với $A$ qua mặt phẳng $(Oxy)$. \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $A'(1; -2; -4)$. & B. $A'(-1; 2; 4)$. & C. $A'(1; 2; 4)$. & D. $A'(-1; -2; 4)$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 69:} Trong không gian $Oxyz$, cho điểm $M(3; -1; 2)$. Tìm tọa độ hình chiếu vuông góc $H$ của $M$ trên mặt phẳng $(Oyz)$. \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $H(0; -1; 2)$. & B. $H(3; 0; 0)$. & C. $H(3; -1; 0)$. & D. $H(0; 0; 2)$.
+	\end{tabular}
+	\noindent \textbf{Câu 70:} Trong không gian với hệ tọa độ $Oxyz$, cho $\vec{u} = (3; 0; 1)$ và $\vec{v} = (2; 1; 0)$. Tính tích vô hướng $\vec{u} \cdot \vec{v}$. \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $\vec{u} \cdot \vec{v} = 8$. & B. $\vec{u} \cdot \vec{v} = 6$. & C. $\vec{u} \cdot \vec{v} = 0$. & D. $\vec{u} \cdot \vec{v} = -6$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 71:} Trong không gian với hệ tọa độ $Oxyz$, cho $\vec{u} = \vec{i} + 3\vec{j}$ và $\vec{v} = (2; -1; 0)$. Tính tích vô hướng $\vec{u} \cdot \vec{v}$. \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $\vec{u} \cdot \vec{v} = -1$. & B. $\vec{u} \cdot \vec{v} = 1$. & C. $\vec{u} \cdot \vec{v} = -5$. & D. $\vec{u} \cdot \vec{v} = 5\sqrt{2}$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 72:} Cho hai vecto $\vec{a} = (1; -2; 3), \vec{b} = (-2; 1; 2)$. Tính tích vô hướng $(\vec{a} + \vec{b}) \cdot \vec{b}$. \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $12$. & B. $2$. & C. $11$. & D. $10$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 73:} Trong không gian $Oxyz$, cho ba điểm $A(1; 2; 3), B(-1; 2; 1), C(3; -1; -2)$. Tính tích vô hướng $\vec{AB} \cdot \vec{AC}$. \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $-6$. & B. $-14$. & C. $14$. & D. $6$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 74:} Trong không gian $Oxyz$, cho tam giác $ABC$ biết $A(1; 0; 3), B(-2; 0; -2), C(3; 0; 1)$. Tính $\cos A$ của tam giác. \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $\cos A = \frac{2}{\sqrt{17}}$. & B. $\cos A = \frac{1}{\sqrt{17}}$. & C. $\cos A = -\frac{2}{\sqrt{17}}$. & D. $\cos A = -\frac{1}{\sqrt{17}}$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 75:} Trong không gian $Oxyz$, góc giữa hai vecto $\vec{i}$ và $\vec{u} = (-\sqrt{3}; 0; 1)$ là: \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $120^\circ$. & B. $60^\circ$. & C. $150^\circ$. & D. $30^\circ$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 76:} Trong không gian $Oxyz$, cho $\vec{a} = (-3; 4; 0), \vec{b} = (5; 0; 12)$. Côsin của góc giữa hai vecto $\vec{a}$ và $\vec{b}$ bằng: \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $\frac{3}{13}$. & B. $\frac{5}{6}$. & C. $-\frac{5}{6}$. & D. $-\frac{3}{13}$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 77:} Trong không gian $Oxyz$, cho tam giác $ABC$ có $A(1; 0; 0), B(0; 0; 1), C(2; 1; 1)$. Diện tích của tam giác $ABC$ bằng: \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $\frac{\sqrt{11}}{2}$. & B. $\frac{\sqrt{7}}{2}$. & C. $\frac{\sqrt{6}}{2}$. & D. $\frac{\sqrt{5}}{2}$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 78:} Cho hai vecto $\vec{u} = (-1; 1; 0), \vec{v} = (0; -1; 0)$. Góc giữa hai vecto $\vec{u}$ và $\vec{v}$ là: \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $120^\circ$. & B. $45^\circ$. & C. $135^\circ$. & D. $60^\circ$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 79:} Trong không gian với hệ tọa độ $Oxyz$, cho tứ diện $ABCD$ với $A(0; 0; 3), B(0; 0; -1), \\C(1; 0; -1), D(0; 1; -1)$. Mệnh đề nào dưới đây sai? \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $AB \perp BD$. & B. $AB \perp BC$. & C. $AB \perp AC$. & D. $AB \perp CD$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 80:} Trong không gian $Oxyz$, cho hai vecto $\vec{a} = (2; 1; -1), \vec{b} = (1; 3; m)$. Tìm $m$ để $(\vec{a}, \vec{b}) = 90^\circ$. \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $m = -5$. & B. $m = 5$. & C. $m = 1$. & D. $m = -2$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 81:} Trong không gian với hệ trục tọa độ $Oxyz$, cho $\vec{u} = (2; -1; 1)$ và $\vec{v} = (0; -3; -m)$. Tìm số thực $m$ sao cho tích vô hướng $\vec{u} \cdot \vec{v} = 1$. \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $m = 4$. & B. $m = 2$. & C. $m = 3$. & D. $m = -2$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 82:} Trong không gian $Oxyz$, cho ba điểm $A(-1; -2; 3), B(0; 3; 1), C(4; 2; 2)$. Côsin của góc $\widehat{BAC}$ bằng: \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $\frac{9}{\sqrt{35}}$. & B. $\frac{9}{2\sqrt{35}}$. & C. $-\frac{9}{2\sqrt{35}}$. & D. $-\frac{9}{\sqrt{35}}$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 83:} Trong không gian $Oxyz$, cho hai vecto $\vec{u} = (1; 1; 1)$ và $\vec{v} = (2; 0; -2)$. Tính tích vô hướng $\vec{u} \cdot \vec{v}$. \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $0$. & B. $2$. & C. $-2$. & D. $4$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 84:} Trong không gian $Oxyz$, cho tam giác $ABC$ vuông tại $A$ có $B(1; 2; 3), C(3; 0; 1)$. Tìm tọa độ trọng tâm $G$ của tam giác biết $A$ thuộc trục $Ox$ và có hoành độ dương. \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $G(2; 1; 2)$. & B. $G\left(\frac{5}{3}; \frac{2}{3}; \frac{4}{3}\right)$. & C. $G(1; 1; 2)$. & D. $G\left(\frac{4}{3}; \frac{2}{3}; \frac{4}{3}\right)$.
+	\end{tabular}
+	
+	\noindent \textbf{Câu 85:} Trong không gian với hệ tọa độ $Oxyz$, cho ba điểm $A(2; -1; 5), B(5; -5; 7), M(x; y; 1)$. Với giá trị nào của $x, y$ thì $A, B, M$ thẳng hàng? \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $x = 4; y = 7$. & B. $x = -4; y = -7$. & C. $x = 4; y = -7$. & D. $x = -4; y = 7$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 86:} Trong không gian $Oxyz$, cho hai điểm $A(2; -2; 1), B(0; 1; 2)$. Tọa độ điểm $M$ thuộc mặt phẳng $(Oxy)$ sao cho ba điểm $A, B, M$ thẳng hàng là: \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $M(4; -5; 0)$. & B. $M(2; -3; 0)$. & C. $M(0; 0; 1)$. & D. $M(4; 5; 0)$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 87:} Trong không gian với hệ tọa độ $Oxyz$, cho các vecto $\vec{u} = 2\vec{i} - 2\vec{j} + \vec{k}, \vec{v} = (m; 2; m+1)$ với $m$ là tham số thực. Có bao nhiêu giá trị của $m$ để $|\vec{u}| = |\vec{v}|$? \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $0$. & B. $1$. & C. $2$. & D. $3$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 88:} Trong không gian với hệ tọa độ $Oxyz$, cho hình hộp $ABCD.A'B'C'D'$ có $A(0;0;0), B(a;0;0), D(0;2a;0), A'(0;0;2a)$ với $a \neq 0$. Độ dài đoạn thẳng $AC'$ là: \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $|a|$. & B. $2|a|$. & C. $3|a|$. & D. $\frac{3}{2}|a|$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 89:} Trong không gian với hệ tọa độ $Oxyz$, cho các vecto $\vec{a} = (2; m-1; 3), \vec{b} = (1; 3; -2n)$. Tìm $m, n$ để các vecto $\vec{a}, \vec{b}$ cùng hướng. \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $m = 7; n = -\frac{3}{4}$. & B. $m = 7; n = -\frac{4}{3}$. & C. $m = 4; n = -3$. & D. $m = 1; n = 0$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 90:} Trong không gian với hệ tọa độ $Oxyz$, cho hình vuông $ABCD, B(3;0;8), D(-5;-4;0)$. Biết đỉnh $A$ thuộc mặt phẳng $(Oxy)$ và có tọa độ là những số nguyên, khi đó $|\vec{CA} + \vec{CB}|$ bằng: \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $10\sqrt{5}$. & B. $6\sqrt{10}$. & C. $10\sqrt{6}$. & D. $5\sqrt{10}$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 91:} Trong mặt phẳng với hệ tọa độ $Oxyz$, Tam giác $ABC$ với $A(1;-3;3), B(2;-4;5), C(a;-2;b)$ nhận điểm $G(1;c;3)$ làm trọng tâm của nó thì giá trị của tổng $a+b+c$ bằng: \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $-5$. & B. $3$. & C. $1$. & D. $-2$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 92:} Trong không gian với hệ tọa độ $Oxyz$, cho $2$ điểm $B(1;2;-3), C(7;4;-2)$. Nếu điểm $E$ thỏa mãn đẳng thức $\vec{CE} = 2\vec{EB}$ thì tọa độ điểm $E$ là: \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $\left(3; \frac{8}{3}; -\frac{8}{3}\right)$. & B. $\left(\frac{8}{3}; 3; -\frac{8}{3}\right)$. & C. $\left(3; 3; -\frac{8}{3}\right)$. & D. $\left(1; 2; \frac{1}{3}\right)$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 93:} Trong không gian $Oxyz$, cho hai điểm $A(3;1;-2), B(2;-3;5)$. Điểm $M$ thuộc đoạn $AB$ sao cho $MA = 2MB$, tọa độ điểm $M$ là: \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $\left(\frac{7}{3}; -\frac{5}{3}; \frac{8}{3}\right)$. & B. $(4; 5; -9)$. & C. $\left(\frac{3}{2}; -5; \frac{17}{2}\right)$. & D. $(1; -7; 12)$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 94:} Trong không gian $Oxyz$, cho ba điểm $A(1; 2; -1), B(2; -1; 3), C(-1; 3; 1)$. Tìm tọa độ điểm $M$ sao cho $\vec{AM} = 2\vec{AB} - 3\vec{BC}$. \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $M(12; -16; 1)$. & B. $M(12; -14; 1)$. & C. $M(10; -16; 3)$. & D. $M(10; -14; 3)$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 95:} Trong không gian $Oxyz$, cho hai vecto $\vec{u} = (2; -1; m)$ và $\vec{v} = (1; m-3; 2)$. Tìm tất cả các giá trị của $m$ để $\vec{u} \perp \vec{v}$. \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $m = -5$. & B. $m = 1$. & C. $m = 5$. & D. $m = -1$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 96:} Trong không gian $Oxyz$, cho ba điểm $A(1; 0; 0), B(0; b; 0), C(0; 0; c)$ với $b, c > 0$. Biết tam giác $ABC$ vuông tại $A$ và có diện tích bằng $\sqrt{6}$. Khi đó giá trị của biểu thức $T = b^2 + c^2$ bằng: \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $12$. & B. $8$. & C. $10$. & D. $24$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 97:} Trong không gian $Oxyz$, cho ba điểm $A(1; 1; 1), B(2; 3; 0), C(-1; 2; 2)$. Tìm tọa độ điểm $D$ trên trục $Ox$ sao cho $A, B, D$ thẳng hàng. \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $D(0; 0; 0)$. & B. Không tồn tại $D$. & C. $D(1; 0; 0)$. & D. $D(2; 0; 0)$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 98:} Trong không gian $Oxyz$, cho hai vecto $\vec{u} = (2; -1; 1)$ và $\vec{v} = (1; 1; -2)$. Tính góc giữa hai vecto $\vec{u}$ và $\vec{v}$. \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $120^\circ$. & B. $60^\circ$. & C. $90^\circ$. & D. $45^\circ$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 99:} Trong không gian $Oxyz$, cho ba điểm $A(1; -2; 3), B(2; 0; 1), C(m; m-1; 2)$. Tìm tất cả các giá trị của $m$ để tam giác $ABC$ cân tại $A$. \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $m = \frac{3}{2}$. & B. $m = 1$. & C. $m = 2$. & D. $m = \frac{1}{2}$.
+	\end{tabular}
+	
+	\noindent \textbf{Câu 100:} Trong không gian $Oxyz$, cho hai vecto $\vec{u} = (2; -1; 3)$ và $\vec{v} = (1; m; -2)$. Tìm tất cả các giá trị của $m$ để tích vô hướng $\vec{u} \cdot \vec{v} = 2$. \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $m = -6$. & B. $m = 6$. & C. $m = -4$. & D. $m = -2$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 101:} Trong không gian $Oxyz$, cho hai điểm $A(1; 2; -1)$ và $B(2; 0; 1)$. Tìm điểm $M$ trên trục $Oy$ sao cho $\vec{AM} \cdot \vec{BM} = 0$. \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $M(0; 2; 0)$. & B. Không tồn tại $M$. & C. $M(0; 1; 0)$. & D. $M(0; 0; 0)$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 102:} Trong không gian $Oxyz$, cho hai vecto $\vec{a}$ và $\vec{b}$ thỏa mãn $|\vec{a}| = 2, |\vec{b}| = 5$ và góc giữa hai vecto $\vec{a}, \vec{b}$ bằng $120^\circ$. Tính độ dài vecto $\vec{a} + \vec{b}$. \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $\sqrt{19}$. & B. $\sqrt{39}$. & C. $3$. & D. $7$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 103:} Trong không gian $Oxyz$, cho ba điểm $A(2; -1; 3), B(1; 0; 4), C(3; -2; 2)$. Tính $\cos \widehat{BAC}$. \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $\cos \widehat{BAC} = 1$. & B. $\cos \widehat{BAC} = -1$. & C. $\cos \widehat{BAC} = \frac{1}{2}$. & D. $\cos \widehat{BAC} = 0$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 104:} Trong không gian $Oxyz$, cho ba điểm $A(1; 1; 1), B(2; 3; -1), C(0; y; 2)$. Tìm $y$ để tam giác $ABC$ vuông tại $A$. \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $y = -2$. & B. $y = 2$. & C. $y = 0$. & D. $y = 1$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 105:} Trong không gian $Oxyz$, cho hai vecto $\vec{u} = (1; \sqrt{2}; -1)$ và $\vec{v} = (-1; \sqrt{2}; 1)$. Tính góc giữa hai vecto $\vec{u}$ và $\vec{v}$. \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $90^\circ$. & B. $60^\circ$. & C. $45^\circ$. & D. $120^\circ$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 106:} Trong không gian $Oxyz$, cho tam giác $ABC$ có $A(1; 0; 0), B(0; 2; 0), C(0; 0; 3)$. Tính tích vô hướng $\vec{AB} \cdot \vec{BC}$. \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $-4$. & B. $4$. & C. $-2$. & D. $0$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 107:} Trong không gian $Oxyz$, cho hai vecto $\vec{a} = (1; m; 2)$ và $\vec{b} = (m+1; 2; 1)$. Tìm $m$ để hai vecto $\vec{a}$ và $\vec{b}$ vuông góc. \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $m = -1$. & B. $m = 1$. & C. $m = -3$. & D. $m = -2$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 108:} Trong không gian $Oxyz$, cho ba điểm $A(1; 2; 0), B(2; 1; 1), C(0; 3; -1)$. Khẳng định nào sau đây đúng? \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $AB \perp AC$. & B. $A, B, C$ thẳng hàng. & C. $AB \perp BC$. & D. $AC \perp BC$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 109:} Trong không gian $Oxyz$, cho hai vecto $\vec{a}$ và $\vec{b}$ cùng có độ dài bằng $2$ và góc giữa chúng bằng $60^\circ$. Tính tích vô hướng $\vec{a} \cdot \vec{b}$. \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $\vec{a} \cdot \vec{b} = 2$. & B. $\vec{a} \cdot \vec{b} = 1$. & C. $\vec{a} \cdot \vec{b} = 4$. & D. $\vec{a} \cdot \vec{b} = 2\sqrt{3}$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 110:} Trong không gian $Oxyz$, cho ba điểm $A(0; 1; 1), B(1; 0; 2), C(-1; 2; 0)$. Tính tích vô hướng $(\vec{AB} + \vec{AC}) \cdot \vec{BC}$. \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $0$. & B. $4$. & C. $-4$. & D. $2$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 111:} Trong không gian $Oxyz$, cho hai vecto $\vec{u} = (1; -1; 2)$ và $\vec{v} = (2; 1; -1)$. Côsin của góc giữa hai vecto $\vec{u}$ and $\vec{v}$ bằng: \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $-\frac{1}{6}$. & B. $\frac{1}{6}$. & C. $-\frac{1}{3}$. & D. $\frac{1}{3}$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 112:} Trong không gian $Oxyz$, cho ba điểm $A(1; 1; 0), B(2; 0; 1), C(0; 2; 1)$. Tính chu vi của tam giác $ABC$. \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $3\sqrt{2}$. & B. $6\sqrt{2}$. & C. $2\sqrt{6}$. & D. $3\sqrt{6}$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 113:} Trong không gian $Oxyz$, cho $\vec{a} = (1; 2; -1)$ và $\vec{b} = (2; -1; 0)$. Tìm tọa độ của vecto $\vec{c}$ cùng phương với $\vec{b}$ sao cho $\vec{a} \cdot \vec{c} = 10$. \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $\vec{c} = (20; -10; 0)$. & B. $\vec{c} = (10; -5; 0)$. & C. $\vec{c} = (4; -2; 0)$. & D. Không tồn tại $\vec{c}$.
+	\end{tabular}
+	
+	\vspace{2mm}
+	\noindent \textbf{Câu 114:} Trong không gian $Oxyz$, cho hai vecto $\vec{u}$ và $\vec{v}$ thỏa mãn $|\vec{u}| = 3, |\vec{v}| = 4$ và $(\vec{u}, \vec{v}) = 150^\circ$. Tính độ dài vecto $2\vec{u} - \vec{v}$. \\
+	\noindent
+	\begin{tabular}{p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+		A. $\sqrt{52 + 24\sqrt{3}}$. & B. $\sqrt{52 - 24\sqrt{3}}$. & C. $\sqrt{52}$. & D. $2$.
+	\end{tabular}
+	
+	\section{Bài tập Đúng, Sai}
+	\noindent \textbf{Câu 1:} Trong không gian $Oxyz$, cho hai điểm $A(0; -1; 1)$, $B(-2; 1; -1)$ và điểm $C$ thỏa mãn $\vec{OC} = -\vec{i} + 3\vec{j} + 2\vec{k}$. \\
+	\noindent a) Điểm $C$ có tọa độ là $C(-1; 3; 2)$. \\
+	\noindent b) Vecto $\vec{AB}$ có tọa độ là $\vec{AB} = (2; -2; 2)$. \\
+	\noindent c) Hình chiếu vuông góc của điểm $C$ lên mặt phẳng $(Oxy)$ có tọa độ là $(-1; 3; 0)$. \\
+	\noindent d) Nếu tứ giác $ABCD$ là hình bình hành thì tọa độ điểm $D$ là $D(1; 1; 4)$.
+	
+	\vspace{4mm}
+	\noindent \textbf{Câu 2:} Trong không gian $Oxyz$, cho hình hộp $ABCD.A'B'C'D'$. Biết các đỉnh có tọa độ là $A(2; 4; 0)$, $B(4; 0; 0)$, $C(-1; 4; -7)$ và $D'(6; 8; 10)$. \\
+	\noindent a) Vecto $\vec{BC}$ có tọa độ là $\vec{BC} = (-5; 4; -7)$. \\
+	\noindent b) Hiệu hai vecto $\vec{BA} - \vec{BC}$ bằng $(3; 0; 7)$. \\
+	\noindent c) Điểm $D$ có tọa độ là $D(3; -8; 7)$. \\
+	\noindent d) Đỉnh $B'$ có tọa độ là $B'(13; 0; 17)$.
+	
+	\vspace{4mm}
+	\noindent \textbf{Câu 3:} Trong không gian $Oxyz$, cho vecto $\vec{u} = (4; 2; 3)$ và điểm $A(1; -1; 2)$. \\
+	\noindent a) Biểu diễn vecto $\vec{u}$ theo các vecto đơn vị là $\vec{u} = 4\vec{i} + 2\vec{j} + 3\vec{k}$. \\
+	\noindent b) Hình chiếu vuông góc của điểm $A$ lên trục $Ox$ có tọa độ là $(0; -1; 2)$. \\
+	\noindent c) Hình chiếu vuông góc của điểm $A$ lên mặt phẳng $(Oxz)$ có tọa độ là $(1; 0; 2)$. \\
+	\noindent d) Nếu $\vec{AB} = \vec{u}$ thì tọa độ điểm $B$ là $B(-5; -1; -5)$.
+	
+	\vspace{4mm}
+	\noindent \textbf{Câu 4:} Trong không gian $Oxyz$, cho ba điểm $A(1; 1; 1)$, $B(2; 3; 0)$ và $C(-1; 2; 2)$. \\
+	\noindent a) Vecto $\vec{AB}$ có tọa độ là $\vec{AB} = (1; 2; -1)$. \\
+	\noindent b) Độ dài đoạn thẳng $AC$ bằng $\sqrt{6}$. \\
+	\noindent c) Trọng tâm $G$ của tam giác $ABC$ có tọa độ là $G\left(\frac{2}{3}; 2; 1\right)$. \\
+	\noindent d) Điểm $M(0; 2; 1)$ là trung điểm của đoạn thẳng $BC$.
+	
+	\vspace{4mm}
+	\noindent \textbf{Câu 5:} Trong không gian $Oxyz$, cho các vecto $\vec{a} = (2; -1; 3)$ và $\vec{b} = (1; 3; -2)$. \\
+	\noindent a) Tọa độ của vecto $\vec{a} + \vec{b}$ là $(3; 2; 1)$. \\
+	\noindent b) Tọa độ của vecto $2\vec{a} - \vec{b}$ là $(3; -5; 8)$. \\
+	\noindent c) Độ dài của vecto $\vec{a}$ bằng $\sqrt{14}$. \\
+	\noindent d) Tích vô hướng $\vec{a} \cdot \vec{b}$ có giá trị bằng $-7$.
+	
+	\noindent \textbf{Câu 6:} Trong không gian $Oxyz$, gọi $\vec{i}, \vec{j}, \vec{k}$ là các vecto đơn vị, cho các điểm $M(2;0;1)$ và $N(3;2;4)$. Các khẳng định sau đúng hay sai? \\
+	\noindent a) $\vec{OM} = 2\vec{i} + \vec{j} + \vec{k}$. \\
+	\noindent b) $\vec{OM} = 2\vec{i} + \vec{k}$. \\
+	\noindent c) $\vec{ON} = 3\vec{i} + 2\vec{j} + 4\vec{k}$. \\
+	\noindent d) $\vec{NO} = -3\vec{i} - 2\vec{j} - 4\vec{k}$.
+	
+	\vspace{4mm}
+	\noindent \textbf{Câu 7:} Trong không gian $Oxyz$, gọi $\vec{i}, \vec{j}, \vec{k}$ là các vecto đơn vị, cho điểm $M(-2;5;0)$. Các khẳng định sau đúng hay sai? \\
+	\noindent a) Hình chiếu vuông góc của $M$ lên trục $Ox$ là $M'(-2;0;0)$. \\
+	\noindent b) Hình chiếu vuông góc của $M$ lên trục $Oy$ là $M'(0;5;0)$. \\
+	\noindent c) Hình chiếu vuông góc của $M$ lên trục $Oz$ là gốc tọa độ $O(0;0;0)$. \\
+	\noindent d) Biểu diễn vecto chỉ vị trí là $\vec{OM} = -2\vec{i} + 5\vec{j}$.
+	
+	\vspace{4mm}
+	\noindent \textbf{Câu 8:} Trong không gian với hệ tọa độ $Oxyz$, giả sử cho hai vecto $\vec{u} = 2\vec{i} + 3\vec{j} - \vec{k}$ và $\vec{a} = -\vec{i} + 2\vec{j} - 3\vec{k}$. Các khẳng định sau đúng hay sai? \\
+	\noindent a) Tọa độ của vecto $\vec{u}$ là $(2; 0; -1)$. \\
+	\noindent b) Tọa độ của vecto $\vec{u}$ là $(2; 3; -1)$. \\
+	\noindent c) Tọa độ của vecto $\vec{a}$ là $(-1; 2; -3)$. \\
+	\noindent d) Tọa độ của vecto $\vec{a}$ là $(-1; 2; 3)$.
+	
+	\vspace{4mm}
+	\noindent \textbf{Câu 9:} Trong không gian $Oxyz$, cho điểm $A(1; 2; -1)$ và $B(3; 0; 2)$. Các khẳng định sau đúng hay sai? \\
+	\noindent a) Vecto $\vec{AB}$ có tọa độ là $(2; -2; 3)$. \\
+	\noindent b) Độ dài đoạn thẳng $AB$ bằng $\sqrt{17}$. \\
+	\noindent c) Điểm $M(2; 1; 0.5)$ là trung điểm của đoạn thẳng $AB$. \\
+	\noindent d) Điểm $A'$ đối xứng với $A$ qua mặt phẳng $(Oxy)$ có tọa độ là $(1; 2; 1)$.
+	
+	\vspace{4mm}
+	\noindent \textbf{Câu 10:} Trong không gian $Oxyz$, cho hai vecto $\vec{u} = (1; -1; 2)$ và $\vec{v} = (2; 1; -1)$. Các khẳng định sau đúng hay sai? \\
+	\noindent a) Tích vô hướng $\vec{u} \cdot \vec{v} = -1$. \\
+	\noindent b) Độ dài của vecto $\vec{u}$ bằng $\sqrt{6}$. \\
+	\noindent c) Hai vecto $\vec{u}$ và $\vec{v}$ vuông góc với nhau. \\
+	\noindent d) $\cos(\vec{u}, \vec{v}) = -\frac{1}{6}$.
+	
+	\noindent \textbf{Câu 11:} Trong không gian $Oxyz$, cho ba điểm $A(-1; -2; 3)$, $B(0; 3; 1)$, $C(4; 2; 2)$. Các khẳng định sau đúng hay sai? \\
+	\noindent a) Tọa độ của vecto $\vec{AB}$ là $(1; 5; -2)$. \\
+	\noindent b) Biểu diễn vecto vị trí là $\vec{OC} = 2\vec{i} + 4\vec{j} + 2\vec{k}$. \\
+	\noindent c) Hai vecto bằng nhau là $\vec{AC} = \vec{BC}$. \\
+	\noindent d) Nếu tứ giác $ABCD$ là hình bình hành thì tọa độ điểm $D$ là $D(3; -3; 4)$.
+	
+	\vspace{4mm}
+	\noindent \textbf{Câu 12:} Trong không gian $Oxyz$, cho điểm $A$ biết $\vec{OA} = \vec{i} + 2\vec{k} - 3\vec{j}$ và vecto $\vec{a} = (2; 1; -1)$. Các khẳng định sau đúng hay sai? \\
+	\noindent a) Tọa độ điểm $A$ là $A(1; 2; -3)$. \\
+	\noindent b) Vecto $\vec{a}$ biểu diễn qua các vecto đơn vị là $\vec{a} = 2\vec{i} + \vec{j} - \vec{k}$. \\
+	\noindent c) Nếu điểm $M(3; -2; 1)$ thì $\vec{AM} = \vec{a}$. \\
+	\noindent d) Hình chiếu vuông góc của $A$ lên mặt phẳng $(Oyz)$ là điểm $H(0; -3; 2)$.
+	
+	\vspace{4mm}
+	\noindent \textbf{Câu 13:} Trong không gian với hệ trục tọa độ $Oxyz$, cho hình hộp $ABCD.A'B'C'D'$ có $A(1; 0; 1)$, $B(2; 1; 2)$, $D(1; -1; 1)$ và $A'(1; 1; -1)$. Các khẳng định sau đúng hay sai? \\
+	\noindent a) Tọa độ điểm $C$ là $C(2; 0; 2)$. \\
+	\noindent b) Tọa độ vecto đường chéo mặt bên là $\vec{B'D'} = (-1; -2; -1)$. \\
+	\noindent c) Tọa độ điểm $B'$ là $B'(2; 1; 0)$. \\
+	\noindent d) Tọa độ vecto đường chéo chính là $\vec{AC'} = (1; 1; -1)$.
+	
+	\vspace{4mm}
+	\noindent \textbf{Câu 14:} Trong không gian với hệ tọa độ $Oxyz$, cho vecto $\vec{u} = \vec{i} + 2\vec{j} - 3\vec{k}$ và điểm $A(2; -1; 4)$. Các khẳng định sau đúng hay sai? \\
+	\noindent a) Tọa độ của vecto $\vec{u}$ là $(1; 2; -3)$. \\
+	\noindent b) Tọa độ của vecto $\vec{OA}$ là $(-2; 1; -4)$. \\
+	\noindent c) Tọa độ hình chiếu của điểm $A$ trên trục $Ox$ là $(2; 0; 0)$. \\
+	\noindent d) Tọa độ điểm $B$ thỏa mãn $\vec{AB} = \vec{u}$ là $B(3; 1; 1)$.
+	
+	\vspace{4mm}
+	\noindent \textbf{Câu 15:} Trong không gian với hệ tọa độ $Oxyz$, cho điểm $A(2; -1; 4)$. Các khẳng định sau đúng hay sai? \\
+	\noindent a) Điểm $B$ nằm trên tia $Ox$ và $OB = 3$ có tọa độ là $B(3; 0; 0)$. \\
+	\noindent b) Tọa độ hình chiếu của $A$ trên mặt phẳng tọa độ $(Oyz)$ là $(0; -1; 4)$. \\
+	\noindent c) Tọa độ vecto $\vec{AB}$ là $(-1; -1; 4)$ với $B(1; -2; 8)$. \\
+	\noindent d) Điểm $C$ đối xứng với $A$ qua gốc tọa độ $O$ có tọa độ là $(-2; 1; -4)$.
+	
+	\vspace{4mm}
+	\noindent \textbf{Câu 16:} Trong không gian $Oxyz$, cho ba điểm $M(1; -1; 0), N(2; 1; -3), P(0; 2; 1)$. Các khẳng định sau đúng hay sai? \\
+	\noindent a) Tọa độ trung điểm của đoạn thẳng $MN$ là $(1.5; 0; -1.5)$. \\
+	\noindent b) Trọng tâm $G$ của tam giác $MNP$ có tọa độ là $(1; 1; -1)$. \\
+	\noindent c) Vecto $\vec{MN}$ có độ dài bằng $\sqrt{14}$. \\
+	\noindent d) Nếu $\vec{PQ} = \vec{MN}$ thì tọa độ điểm $Q$ là $Q(1; 4; -2)$.
+	
+	\vspace{4mm}
+	\noindent \textbf{Câu 17:} Trong không gian $Oxyz$, cho vecto $\vec{a} = (1; -2; 2)$ và $\vec{b} = (2; 1; -1)$. Các khẳng định sau đúng hay sai? \\
+	\noindent a) Tích vô hướng $\vec{a} \cdot \vec{b} = -2$. \\
+	\noindent b) Góc giữa hai vecto $\vec{a}$ và $\vec{b}$ là góc nhọn. \\
+	\noindent c) Độ dài của vecto $\vec{a} + \vec{b}$ bằng $\sqrt{11}$. \\
+	\noindent d) Vecto $\vec{c} = (2; -4; 4)$ cùng phương với vecto $\vec{a}$.
+	
+	\vspace{4mm}
+	\noindent \textbf{Câu 18:} Trong không gian $Oxyz$, cho bốn điểm $A(1; 0; 0), B(0; 2; 0), C(0; 0; 3)$ và $D(1; 2; 3)$. Các khẳng định sau đúng hay sai? \\
+	\noindent a) Diện tích tam giác $ABC$ bằng $\frac{7}{2}$. \\
+	\noindent b) Độ dài đoạn thẳng $AD$ bằng $\sqrt{13}$. \\
+	\noindent c) Ba điểm $A, B, C$ tạo thành một tam giác vuông tại $O$. \\
+	\noindent d) Thể tích của tứ diện $OABC$ bằng $1$.
+	
+	\noindent \textbf{Câu 19:} Trong không gian với hệ tọa độ $Oxyz$, cho hình hộp $ABCD.A'B'C'D'$ có các đỉnh $A(4; 6; -5)$, $B(5; 7; -4)$, $C(5; 6; -4)$ và $D'(2; 0; 2)$. Các khẳng định sau đúng hay sai? \\
+	\noindent a) Tọa độ của vecto $\vec{AB}$ là $(1; 1; 1)$. \\
+	\noindent b) Tọa độ của vecto $\vec{A'B'}$ là $(-1; -1; -1)$. \\
+	\noindent c) Tọa độ điểm $D$ là $D(-4; -4; 5)$. \\
+	\noindent d) Tọa độ điểm $B'$ là $B'(11; 11; -7)$.
+	
+	\vspace{4mm}
+	\noindent \textbf{Câu 20:} Trong không gian với hệ trục $Oxyz$, cho hình hộp $ABCD.A'B'C'D'$ biết tọa độ các điểm $A(0; 0; 0)$, $B(1; 0; 0)$, $C(1; 2; 0)$ và $D'(-1; 3; 5)$. Xét tính đúng sai của các mệnh đề sau: \\
+	\noindent a) Tọa độ của vecto $\vec{BC}$ là $(2; 0; 2)$. \\
+	\noindent b) Hai vecto $\vec{AD}$ và $\vec{BC}$ bằng nhau. \\
+	\noindent c) Tọa độ của đỉnh $D$ là $(-1; 3; 5)$. \\
+	\noindent d) Tọa độ đỉnh $A'$ là $(-1; 1; 5)$.
+	
+	\vspace{4mm}
+	\noindent \textbf{Câu 21:} Trong không gian với hệ tọa độ $Oxyz$, cho ba điểm $A(1; 1; 1)$, $B(2; 3; 2)$ và $C(3; -1; 3)$. Xét tính đúng sai của các mệnh đề sau: \\
+	\noindent a) Tọa độ của vecto $\vec{AB}$ là $(2; -2; 2)$. \\
+	\noindent b) Tam giác $ABC$ vuông tại $A$. \\
+	\noindent c) Nếu $ABCD$ là hình chữ nhật thì $\vec{AB} = \vec{DC}$. \\
+	\noindent d) Nếu cho bốn điểm $A, B, C, D$ lập thành hình chữ nhật thì tọa độ của điểm $D$ là $D(4; 1; 4)$.
+	
+	\vspace{4mm}
+	\noindent \textbf{Câu 22:} Trong không gian $Oxyz$, cho hình hộp $ABCD.A'B'C'D'$ có các đỉnh $A(1; 0; 1)$, $B(2; 1; 2)$, $D(1; -1; 1)$ và $C'(4; 5; -5)$. Xét tính đúng sai của các mệnh đề sau: \\
+	\noindent a) Tọa độ của vecto $\vec{AB}$ là $(1; 1; 1)$. \\
+	\noindent b) Tọa độ của vecto $\vec{AC'}$ là $(3; 5; 6)$. \\
+	\noindent c) Tọa độ đỉnh $C$ là $C(2; 2; 2)$. \\
+	\noindent d) Tọa độ đỉnh $A'$ là $A'(3; 5; -6)$.
+	
+	\vspace{4mm}
+	\noindent \textbf{Câu 23:} Trong không gian $Oxyz$, cho hai vecto $\vec{u} = (2; -1; 3)$ và $\vec{v} = (1; 3; -2)$. Các khẳng định sau đúng hay sai? \\
+	\noindent a) Tích vô hướng $\vec{u} \cdot \vec{v}$ bằng $-7$. \\
+	\noindent b) Độ dài của vecto $\vec{u} + \vec{v}$ bằng $\sqrt{14}$. \\
+	\noindent c) Hai vecto $\vec{u}$ và $\vec{v}$ vuông góc với nhau. \\
+	\noindent d) $\cos(\vec{u}, \vec{v}) = -\frac{7}{14}$.
+	
+	\vspace{4mm}
+	\noindent \textbf{Câu 24:} Trong không gian $Oxyz$, cho ba điểm $A(1; 2; -1)$, $B(2; -1; 3)$ và $C(-1; 3; 1)$. Các khẳng định sau đúng hay sai? \\
+	\noindent a) Tam giác $ABC$ là tam giác cân tại $A$. \\
+	\noindent b) Vecto $\vec{AB}$ vuông góc với vecto $\vec{BC}$. \\
+	\noindent c) Độ dài đoạn thẳng $BC$ bằng $\sqrt{29}$. \\
+	\noindent d) Trọng tâm $G$ của tam giác $ABC$ là $G\left(\frac{2}{3}; \frac{4}{3}; 1\right)$.
+	
+	\vspace{4mm}
+	\noindent \textbf{Câu 25:} Trong không gian $Oxyz$, cho tam giác $ABC$ có các đỉnh $A(1; 0; 1)$, $B(0; 2; 3)$ và $C(2; 1; 0)$. Các khẳng định sau đúng hay sai? \\
+	\noindent a) Diện tích tam giác $ABC$ bằng $\frac{\sqrt{27}}{2}$. \\
+	\noindent b) Vecto $\vec{AB}$ có tọa độ là $(-1; 2; 2)$. \\
+	\noindent c) Độ dài của vecto $\vec{AC}$ là $\sqrt{3}$. \\
+	\noindent d) Trọng tâm $G$ của tam giác $ABC$ là $G(1; 1; 1.3)$.
+	
+	\vspace{4mm}
+	\noindent \textbf{Câu 26:} Trong không gian $Oxyz$, cho hình hộp $ABCD.A'B'C'D'$ có $A(1; 1; 1)$, $B(2; 0; -1)$, $D(0; 2; 1)$ và $A'(1; 1; 3)$. Các khẳng định sau đúng hay sai? \\
+	\noindent a) Tọa độ của điểm $C$ là $C(1; 1; -1)$. \\
+	\noindent b) Tọa độ của điểm $C'$ là $C'(1; 1; 1)$. \\
+	\noindent c) Thể tích của khối hộp $ABCD.A'B'C'D'$ bằng $4$. \\
+	\noindent d) Độ dài của đường chéo $AC'$ bằng $3$.
+	
+	\noindent \textbf{Câu 27:} Trong không gian $Oxyz$, cho ba điểm $A(5; -2; 0)$, $B(-2; 3; 0)$ và $C(0; 2; 3)$. Gọi $M$ là trung điểm của $BC$, $G$ là trọng tâm của tam giác $ABC$ và $E$ là điểm sao cho tứ giác $BGCE$ là hình bình hành. Xét tính đúng sai của các khẳng định sau: \\
+	\noindent a) $M\left(-1; \frac{5}{2}; \frac{3}{2}\right)$. \\
+	\noindent b) $G(1; 1; 1)$. \\
+	\noindent c) $E(3; -4; -2)$. \\
+	\noindent d) Nếu $F$ là hình chiếu của điểm $E$ lên $Ox$ thì $F(3; 0; 0)$.
+	
+	\vspace{4mm}
+	\noindent \textbf{Câu 28:} Trong không gian $Oxyz$, cho hình hộp $ABCD.A'B'C'D'$ có $A(1; 0; 0)$, $B(3; 2; 5)$, $C(7; -3; 9)$ và $A'(5; 0; 1)$. Xét tính đúng sai của các khẳng định sau: \\
+	\noindent a) $\vec{AA'} = (4; 0; -1)$. \\
+	\noindent b) $B'(7; 2; 4)$. \\
+	\noindent c) $D'(9; -5; 5)$. \\
+	\noindent d) Nếu $G$ là trọng tâm tam giác $A'C'D'$ thì $G(25; -8; 14)$.
+	
+	\vspace{4mm}
+	\noindent \textbf{Câu 29:} Xét tính đúng sai của các mệnh đề sau trong không gian $Oxyz$: \\
+	\noindent a) Cho hai điểm $A(2; -4; 3)$ và $B(2; 2; 7)$. Trung điểm của đoạn $AB$ có tọa độ là $(2; -1; 5)$. \\
+	\noindent b) Cho hai điểm $A(1; 1; -2)$ và $B(2; 2; 1)$. Vecto $\vec{AB}$ có tọa độ là $(3; 1; 1)$. \\
+	\noindent c) Cho hai điểm $A(1; 1; -1)$ và $B(2; 3; 2)$. Vecto $\vec{AB}$ có tọa độ là $(1; 2; 3)$. \\
+	\noindent d) Cho vecto $\vec{AO} = 3(\vec{i} + 4\vec{j}) - 2\vec{k} + 5\vec{j}$. Tọa độ của điểm $A$ là $(3; 17; -2)$.
+	
+	\vspace{4mm}
+	\noindent \textbf{Câu 30:} Trong không gian $Oxyz$, cho ba điểm $A(1; 0; -1)$, $B(2; 3; -2)$ và $C(0; -1; 1)$. Xét tính đúng sai của các khẳng định sau: \\
+	\noindent a) Độ dài vecto $\vec{AB}$ bằng $\sqrt{11}$. \\
+	\noindent b) Hai vecto $\vec{AB}$ và $\vec{AC}$ vuông góc với nhau. \\
+	\noindent c) Điểm $M$ thuộc đoạn $BC$ sao cho $MB = 2MC$ có tọa độ là $M\left(\frac{2}{3}; \frac{1}{3}; 0\right)$. \\
+	\noindent d) Trọng tâm $G$ của tam giác $ABC$ có tọa độ là $G(1; 1; -1)$.
+	
+	\vspace{4mm}
+	\noindent \textbf{Câu 31:} Trong không gian $Oxyz$, cho điểm $M(2; -1; 3)$. Xét tính đúng sai của các khẳng định sau: \\
+	\noindent a) Hình chiếu vuông góc của $M$ trên trục $Oz$ là điểm $M_z(0; 0; 3)$. \\
+	\noindent b) Hình chiếu vuông góc của $M$ trên mặt phẳng $(Oxy)$ là điểm $M_{xy}(2; -1; 0)$. \\
+	\noindent c) Điểm đối xứng với $M$ qua mặt phẳng $(Oyz)$ là điểm $M'(-2; -1; 3)$. \\
+	\noindent d) Khoảng cách từ $M$ đến gốc tọa độ $O$ bằng $\sqrt{14}$.
+	
+	\vspace{4mm}
+	\noindent \textbf{Câu 32:} Trong không gian $Oxyz$, cho hai vecto $\vec{a} = (1; 1; -2)$ và $\vec{b} = (2; -1; 1)$. Xét tính đúng sai của các khẳng định sau: \\
+	\noindent a) Tích vô hướng $\vec{a} \cdot \vec{b}$ bằng $-1$. \\
+	\noindent b) Góc giữa hai vecto $\vec{a}$ và $\vec{b}$ bằng $120^\circ$. \\
+	\noindent c) Độ dài của vecto $\vec{a} - \vec{b}$ bằng $\sqrt{11}$. \\
+	\noindent d) Vecto $\vec{c} = (3; 0; -1)$ cùng phương với vecto $\vec{a} + \vec{b}$.
+	
+	\vspace{4mm}
+	\noindent \textbf{Câu 33:} Trong không gian $Oxyz$, cho bốn điểm $A(1; 1; 1), B(2; 3; 4), C(3; 5; 2), D(1; 2; 3)$. Xét tính đúng sai của các khẳng định sau: \\
+	\noindent a) Vecto $\vec{AB}$ có tọa độ là $(1; 2; 3)$. \\
+	\noindent b) Tứ giác $ABCD$ là một hình bình hành. \\
+	\noindent c) Khoảng cách giữa hai điểm $A$ và $D$ bằng $\sqrt{5}$. \\
+	\noindent d) Trọng tâm của tứ diện $ABCD$ có tọa độ là $G(1.75; 2.75; 2.5)$.
+	
+	\vspace{4mm}
+	\noindent \textbf{Câu 34:} Trong không gian $Oxyz$, cho ba điểm $A(0; 1; 2), B(2; 3; 1), C(1; -1; 3)$. Xét tính đúng sai của các khẳng định sau: \\
+	\noindent a) Tam giác $ABC$ là một tam giác vuông tại $A$. \\
+	\noindent b) Chu vi của tam giác $ABC$ bằng $3\sqrt{6}$. \\
+	\noindent c) Điểm $D(3; 1; 2)$ làm cho tứ giác $ABCD$ là hình bình hành. \\
+	\noindent d) Hình chiếu vuông góc của trọng tâm tam giác $ABC$ trên trục $Oy$ là điểm $(0; 1; 0)$.
+	
+	\vspace{4mm}
+	\noindent \textbf{Câu 35:} Xét tính đúng sai của các mệnh đề sau trong không gian $Oxyz$: \\
+	\noindent a) Cho vecto $\vec{OA} = 2\vec{i} + 3\vec{j} + 5\vec{k}$. Điểm $M$ thuộc mặt phẳng $(Oxy)$ thỏa mãn độ dài $AM$ nhỏ nhất có tọa độ là $M(2; 3; 0)$. \\
+	\noindent b) Cho điểm $M(1; -2; 4)$. Khoảng cách từ điểm $M$ đến trục $Ox$ bằng $2\sqrt{5}$. \\
+	\noindent c) Cho hình hộp $ABCD.A'B'C'D'$ biết các đỉnh $A(2; -1; 2)$, $B'(1; 2; 1)$, $C(-2; 3; 2)$ và $D'(3; 0; 1)$. Tọa độ đỉnh $B$ là $B(-1; 2; 2)$. \\
+	\noindent d) Cho tam giác $ABC$ có $A(1; 2; -1), B(2; -1; 3)$ và $C(-4; 7; 5)$. Tọa độ chân đường phân giác trong góc $B$ của tam giác $ABC$ là $\left(\frac{2}{3}; \frac{11}{3}; \frac{1}{3}\right)$.
+	
+	\vspace{4mm}
+	\noindent \textbf{Câu 36:} Xét tính đúng sai của các mệnh đề sau trong không gian $Oxyz$: \\
+	\noindent a) Cho điểm $A(1; 2; 3)$. Khoảng cách từ $A$ đến mặt phẳng $(Oxy)$ bằng $3$. \\
+	\noindent b) Cho hai điểm $M(1; -2; 2)$ và $N(3; 0; 1)$. Khoảng cách từ trung điểm của $MN$ đến trục $Oy$ bằng $\sqrt{5}$. \\
+	\noindent c) Cho hình hộp $ABCD.A'B'C'D'$ biết $A(0; 0; 0), B(1; 1; 0), D(-1; 1; 0)$ và $A'(0; 0; 2)$. Tọa độ đỉnh $C'$ là $C'(0; 2; 2)$. \\
+	\noindent d) Chân đường phân giác trong góc $A$ của tam giác $ABC$ với $A(2; 1; 1), B(1; 2; 3), C(3; 0; 2)$ là $D\left(2; 1; \frac{5}{2}\right)$.
+	
+	\vspace{4mm}
+	\noindent \textbf{Câu 37:} Xét tính đúng sai của các mệnh đề sau trong không gian $Oxyz$: \\
+	\noindent a) Cho vecto $\vec{OB} = \vec{i} - 2\vec{j} + 4\vec{k}$. Điểm $N$ thuộc mặt phẳng $(Oxz)$ sao cho độ dài $BN$ nhỏ nhất có tọa độ là $N(1; 0; 4)$. \\
+	\noindent b) Cho điểm $P(2; 3; -1)$. Khoảng cách từ điểm $P$ đến trục $Oz$ bằng $\sqrt{13}$. \\
+	\noindent c) Cho hình hộp $ABCD.A'B'C'D'$ biết $A(1; 1; 1), B'(2; 3; 2), C(3; 1; 3), D'(0; 0; 0)$. Tọa độ của đỉnh $D$ là $D(2; -1; 2)$. \\
+	\noindent d) Cho tam giác $ABC$ có các đỉnh $A(1; 0; 1), B(2; 2; -1), C(-1; 1; 2)$. Tọa độ chân đường phân giác trong góc $A$ của tam giác $ABC$ là $I\left(\frac{1}{2}; \frac{3}{2}; \frac{1}{2}\right)$.
+	
+	\vspace*{4mm}
+	\noindent \textbf{Câu 38:} Trong không gian $Oxyz$, cho hai vecto $\vec{a} = (2; 3; 2)$ và $\vec{b} = (1; 1; -1)$. Xét tính đúng sai của các khẳng định sau: \\
+	\noindent a) Tọa độ vecto $\vec{a} - \vec{b} = (1; 2; 3)$. \\
+	\noindent b) Tích vô hướng của hai vecto $\vec{a}$ và $\vec{b}$ bằng $6$. \\
+	\noindent c) Hai vecto $\vec{a}$ và $\vec{b}$ không cùng phương. \\
+	\noindent d) Côsin góc giữa vecto $\vec{a}$ và $\vec{b}$ bằng $\frac{\sqrt{51}}{51}$.
+	
+	\vspace{4mm}
+	\noindent \textbf{Câu 39:} Trong không gian $Oxyz$, cho hai vecto $\vec{a} = (-2; 1; -3)$, $\vec{b} = (-1; -3; 2)$ và điểm $A(4; 6; -3)$. Xét tính đúng sai của các khẳng định sau: \\
+	\noindent a) Tọa độ vecto $\vec{a} - 2\vec{b} = (0; 7; -7)$. \\
+	\noindent b) Tọa độ điểm $B(2; 7; -6)$ thì $\vec{a} = \vec{AB}$. \\
+	\noindent c) Hai vecto $\vec{a}$ và $\vec{b}$ cùng phương cùng hướng. \\
+	\noindent d) Góc giữa vecto $\vec{a}$ và $\vec{b}$ bằng $120^\circ$.
+	
+	\vspace{4mm}
+	\noindent \textbf{Câu 40:} Trong không gian $Oxyz$, cho ba vecto $\vec{a} = (-1; 1; 0)$, $\vec{b} = (1; 1; 0)$, $\vec{c} = (1; 1; 1)$. Xét tính đúng sai của các khẳng định sau: \\
+	\noindent a) Độ dài vecto $\vec{a}$ bằng $\sqrt{2}$. \\
+	\noindent b) Vecto $\vec{b}$ vuông góc với vecto $\vec{a}$. \\
+	\noindent c) Vecto $\vec{b}$ vuông góc với vecto $\vec{c}$. \\
+	\noindent d) Tọa độ vecto $3\vec{a} + 2\vec{b} - \vec{c}$ bằng $(-2; 4; -1)$.
+	
+	\vspace{4mm}
+	\noindent \textbf{Câu 41:} Trong không gian $Oxyz$, cho ba điểm $A(4; 2; 1)$, $B(2; 1; 3)$, $C(-1; 3; -2)$. Xét tính đúng sai của các khẳng định sau: \\
+	\noindent a) Tọa độ trọng tâm tam giác $ABC$ bằng $\left(\frac{5}{3}; 2; \frac{2}{3}\right)$. \\
+	\noindent b) Tọa độ trung điểm đoạn thẳng $AB$ bằng $\left(3; \frac{3}{2}; 2\right)$. \\
+	\noindent c) Tứ giác $ABCD$ là hình bình hành thì tọa độ điểm $D = (1; 4; -4)$. \\
+	\noindent d) Ba điểm $A, B, C$ thẳng hàng.
+	
+	\vspace{4mm}
+	\noindent \textbf{Câu 42:} Trong không gian $Oxyz$, cho hai vecto $\vec{u} = (1; 2; -1)$ và $\vec{v} = (2; -1; 3)$. Xét tính đúng sai của các khẳng định sau: \\
+	\noindent a) Tích vô hướng $\vec{u} \cdot \vec{v}$ bằng $-3$. \\
+	\noindent b) Độ dài vecto $\vec{u}$ bằng $\sqrt{6}$. \\
+	\noindent c) Hai vecto $\vec{u}$ và $\vec{v}$ cùng phương. \\
+	\noindent d) Côsin góc giữa hai vecto $\vec{u}$ và $\vec{v}$ bằng $-\frac{3}{2\sqrt{21}}$.
+	
+	\vspace{4mm}
+	\noindent \textbf{Câu 43:} Trong không gian $Oxyz$, cho tam giác $ABC$ có $A(1; 1; 1), B(2; 3; -1), C(0; 1; 2)$. Xét tính đúng sai của các khẳng định sau: \\
+	\noindent a) Tọa độ vecto $\vec{AB} = (1; 2; -2)$. \\
+	\noindent b) Tam giác $ABC$ là tam giác vuông tại $A$. \\
+	\noindent c) Diện tích tam giác $ABC$ bằng $\frac{\sqrt{26}}{2}$. \\
+	\noindent d) Trọng tâm $G$ của tam giác có tọa độ là $G(1; 1.67; 0.67)$.
+	
+	\vspace{4mm}
+	\noindent \textbf{Câu 44:} Trong không gian $Oxyz$, cho hai điểm $M(2; -1; 1)$ và $N(1; 2; -1)$. Xét tính đúng sai của các khẳng định sau: \\
+	\noindent a) Khoảng cách giữa hai điểm $M$ và $N$ bằng $\sqrt{14}$. \\
+	\noindent b) Vecto $\vec{MN}$ có tọa độ là $(-1; 3; -2)$. \\
+	\noindent c) Điểm $P(0; 5; -3)$ thỏa mãn $\vec{MP} = 2\vec{MN}$. \\
+	\noindent d) Hình chiếu vuông góc của $M$ lên mặt phẳng $(Oxy)$ có tọa độ là $(2; -1; 0)$.
+	
+	\vspace{4mm}
+	\noindent \textbf{Câu 45:} Trong không gian $Oxyz$, cho ba điểm $A(3; 5; -1), B(7; x; 1), C(9; 2; y)$. Xét tính đúng sai của các khẳng định sau: \\
+	\noindent a) Ba điểm $A, B, C$ thẳng hàng thì $x + y = 5$. \\
+	\noindent b) Điểm $G\left(\frac{19}{3}; \frac{8}{3}; 3\right)$ là trọng tâm tam giác $ABC$ thì $x = 1; y = 3$. \\
+	\noindent c) Tam giác $ABC$ vuông tại $A$ thì $x = 13, y = -1$. \\
+	\noindent d) Tích vô hướng của $\vec{AB} \cdot \vec{AC} = -3x + 2y + 41$.
+	
+	\vspace{4mm}
+	\noindent \textbf{Câu 46:} Trong không gian $Oxyz$, cho ba vecto $\vec{a} = (1; 2; 3), \vec{b} = (2; 2; -1), \vec{c} = (4; 0; -4)$. Xét tính đúng sai của các khẳng định sau: \\
+	\noindent a) $3\vec{a} = (1; 6; 9)$. \\
+	\noindent b) $\vec{a} + \vec{b} = (3; 4; 2)$. \\
+	\noindent c) $\vec{a} - \vec{c} = (3; -2; -7)$. \\
+	\noindent d) $\vec{a} - \vec{b} + 2\vec{c} = (7; 0; -4)$.
+	
+	\vspace{4mm}
+	\noindent \textbf{Câu 47:} Trong không gian $Oxyz$, cho hai vecto $\vec{a} = -\vec{i} + 3\vec{j} + 4\vec{k}, \vec{b} = 2\vec{i} + 4\vec{j} + \vec{k}$. Xét tính đúng sai của các khẳng định sau: \\
+	\noindent a) Tọa độ vecto $\vec{a} = (-1; 3; 4)$. \\
+	\noindent b) Côsin góc giữa hai vecto $\vec{a}, \vec{b}$ bằng $\frac{1}{2}$. \\
+	\noindent c) Tích vô hướng của hai vecto $\vec{a}, \vec{b}$ bằng $14$. \\
+	\noindent d) Hai vecto $\vec{a}, \vec{b}$ vuông góc với nhau.
+	
+	\vspace{4mm}
+	\noindent \textbf{Câu 48:} Trong không gian $Oxyz$, cho ba vecto $\vec{a} = (2; 1; -2), \vec{b} = (1; 2; -4), \vec{c} = (-1; -3; 3)$. Xét tính đúng sai của các khẳng định sau: \\
+	\noindent a) $\vec{a} = 2\vec{b}$. \\
+	\noindent b) $|\vec{a}| = 3|\vec{b}|$. \\
+	\noindent c) $\vec{a} \cdot \vec{b} = 12$. \\
+	\noindent d) $2\vec{a} - 3\vec{b} + 5\vec{c} = (-4; -19; 23)$.
+	
+	\vspace{4mm}
+	\noindent \textbf{Câu 49:} Trong không gian $Oxyz$, cho bốn vecto $\vec{a} = (2; 3; 1), \vec{b} = (-1; 5; 2), \vec{c} = (4; -1; 3)$ và $\vec{x} = (-3; 22; 5)$. Xét tính đúng sai của các khẳng định sau: \\
+	\noindent a) $\vec{x} = 2\vec{a} + 3\vec{b} - \vec{c}$. \\
+	\noindent b) Hai vecto $\vec{a}$ và $\vec{b}$ cùng phương. \\
+	\noindent c) Hai vecto $\vec{a}$ và $\vec{c}$ không cùng phương. \\
+	\noindent d) Hai vecto $\vec{a}, \vec{b}$ vuông góc với nhau.
+	
+	\vspace{4mm}
+	\noindent \textbf{Câu 50:} Trong không gian $Oxyz$, cho hai điểm $A(1; -1; 2)$ và $B(3; 1; 0)$. Xét tính đúng sai của các khẳng định sau: \\
+	\noindent a) Độ dài đoạn thẳng $AB$ bằng $2\sqrt{3}$. \\
+	\noindent b) Vecto $\vec{AB}$ có tọa độ là $(2; 2; -2)$. \\
+	\noindent c) Điểm $M(2; 0; 1)$ là trung điểm của đoạn thẳng $AB$. \\
+	\noindent d) Điểm $C(0; 0; 0)$ tạo với $A, B$ thành một tam giác vuông tại $C$.
+	
+	\vspace{4mm}
+	\noindent \textbf{Câu 51:} Trong không gian $Oxyz$, cho ba vecto $\vec{u} = (1; 0; 2), \vec{v} = (-2; 1; 3)$ và $\vec{w} = (0; -1; 1)$. Xét tính đúng sai của các khẳng định sau: \\
+	\noindent a) Độ dài vecto $\vec{u}$ bằng $\sqrt{5}$. \\
+	\noindent b) Tích vô hướng $\vec{u} \cdot \vec{v} = 4$. \\
+	\noindent c) Vecto $\vec{u} + 2\vec{v} - \vec{w} = (-3; 3; 7)$. \\
+	\noindent d) Hai vecto $\vec{v}$ và $\vec{w}$ vuông góc với nhau.
+	
+	\vspace{4mm}
+	\noindent \textbf{Câu 52:} Trong không gian $Oxyz$, cho điểm $M(1; 2; -3)$. Xét tính đúng sai của các khẳng định sau: \\
+	\noindent a) Tọa độ vecto vị trí $\vec{OM} = (1; 2; -3)$. \\
+	\noindent b) Khoảng cách từ $M$ đến mặt phẳng $(Oxz)$ bằng $2$. \\
+	\noindent c) Hình chiếu vuông góc của $M$ trên trục $Oy$ là $M_y(0; 2; 0)$. \\
+	\noindent d) Điểm đối xứng với $M$ qua gốc tọa độ $O$ là $M'(-1; -2; 3)$.
+	
+	\vspace{4mm}
+	\noindent \textbf{Câu 53:} Trong không gian $Oxyz$, cho tam giác $ABC$ có $A(2; 0; 0), B(0; 4; 0), C(0; 0; 4)$. Xét tính đúng sai của các khẳng định sau: \\
+	\noindent a) Tam giác $ABC$ là tam giác cân tại $C$. \\
+	\noindent b) Trọng tâm $G$ của tam giác $ABC$ có tọa độ là $G\left(\frac{2}{3}; \frac{4}{3}; \frac{4}{3}\right)$. \\
+	\noindent c) Độ dài cạnh $AB$ bằng $2\sqrt{5}$. \\
+	\noindent d) Diện tích tam giác $ABC$ bằng $6$.
+	
+	\vspace{4mm}
+	\noindent \textbf{Câu 60:} Trong không gian $Oxyz$, cho ba điểm $A(1; 1; -2)$, $B(2; 1; 1)$ và $C(3; 3; 0)$. Xét tính đúng sai của các khẳng định sau: \\
+	\noindent a) Vecto $\vec{AB}$ có tọa độ là $(1; 0; 3)$. \\
+	\noindent b) Độ dài đoạn thẳng $AC$ bằng $3$. \\
+	\noindent c) Tam giác $ABC$ vuông cân tại $A$. \\
+	\noindent d) Trọng tâm $G$ của tam giác $ABC$ có cao độ bằng $-\frac{1}{3}$.
+	
+	\vspace{4mm}
+	\noindent \textbf{Câu 61:} Trong không gian $Oxyz$, cho điểm $M(3; -1; 2)$. Xét tính đúng sai của các khẳng định sau: \\
+	\noindent a) Khoảng cách từ điểm $M$ đến trục $Ox$ bằng $\sqrt{5}$. \\
+	\noindent b) Điểm đối xứng với $M$ qua mặt phẳng $(Oyz)$ là $M'(-3; -1; 2)$. \\
+	\noindent c) Hình chiếu vuông góc của $M$ trên trục $Oy$ là điểm $M_y(0; -1; 0)$. \\
+	\noindent d) Điểm $N(3; -1; 0)$ là hình chiếu vuông góc của $M$ trên mặt phẳng $(Oxy)$.
+	
+	\vspace{4mm}
+	\noindent \textbf{Câu 62:} Trong không gian $Oxyz$, cho hai vecto $\vec{u} = (1; -2; 2)$ và $\vec{v} = (2; 1; m)$. Xét tính đúng sai của các khẳng định sau: \\
+	\noindent a) Với $m = 0$, tích vô hướng $\vec{u} \cdot \vec{v} = 0$. \\
+	\noindent b) Hai vecto $\vec{u}$ và $\vec{v}$ cùng phương khi và chỉ khi $m = 4$. \\
+	\noindent c) Độ dài của vecto $\vec{u}$ bằng $3$. \\
+	\noindent d) Với $m = -1$, góc giữa hai vecto $\vec{u}$ và $\vec{v}$ là góc tù.
+	
+	\vspace{4mm}
+	\noindent \textbf{Câu 63:} Trong không gian $Oxyz$, cho hình bình hành $ABCD$ có ba đỉnh $A(1; 1; 1)$, $B(2; 3; 4)$ và $C(3; 5; 2)$. Xét tính đúng sai của các khẳng định sau: \\
+	\noindent a) Vecto $\vec{AB}$ có tọa độ là $(1; 2; 3)$. \\
+	\noindent b) Tọa độ đỉnh $D$ của hình bình hành là $D(2; 3; -1)$. \\
+	\noindent c) Tâm $I$ của hình bình hành $ABCD$ có tọa độ là $I(2; 3; 1.5)$. \\
+	\noindent d) Diện tích hình bình hành $ABCD$ bằng $\sqrt{155}$.
+	
+	\vspace{4mm}
+	\noindent \textbf{Câu 64:} Trong không gian $Oxyz$, cho tam giác $ABC$ có $A(1; 2; 3)$, $B(2; 1; 0)$ và $C(3; 2; 3)$. Xét tính đúng sai của các khẳng định sau: \\
+	\noindent a) Tam giác $ABC$ là tam giác cân tại $C$. \\
+	\noindent b) Độ dài đường trung tuyến xuất phát từ đỉnh $C$ của tam giác $ABC$ bằng $\sqrt{6}$. \\
+	\noindent c) Trọng tâm $G$ của tam giác $ABC$ có tọa độ là $G(2; 1.67; 2)$. \\
+	\noindent d) Tích vô hướng $\vec{AB} \cdot \vec{AC}$ bằng $0$.
+	
+	\vspace{4mm}
+	\noindent \textbf{Câu 65:} Trong không gian $Oxyz$, cho ba điểm $A(1; 0; 2), B(-1; 1; 3)$ và $C(3; 2; 1)$. Xét tính đúng sai của các khẳng định sau: \\
+	\noindent a) Ba điểm $A, B, C$ thẳng hàng. \\
+	\noindent b) Vecto $\vec{AB}$ có tọa độ là $(-2; 1; 1)$. \\
+	\noindent c) Độ dài đoạn thẳng $BC$ bằng $\sqrt{21}$. \\
+	\noindent d) Điểm $D(5; 1; 0)$ làm cho tứ giác $ABCD$ là hình bình hành.
+	
+	\vspace{4mm}
+	\noindent \textbf{Câu 66:} Trong không gian $Oxyz$, cho điểm $A(2; -1; 3)$. Xét tính đúng sai của các khẳng định sau: \\
+	\noindent a) Khoảng cách từ $A$ đến gốc tọa độ $O$ bằng $\sqrt{14}$. \\
+	\noindent b) Điểm đối xứng với $A$ qua trục $Oy$ là $A'(-2; -1; -3)$. \\
+	\noindent c) Hình chiếu vuông góc của $A$ trên mặt phẳng $(Oxz)$ là điểm $H(2; 0; 3)$. \\
+	\noindent d) Điểm $B$ trên trục $Ox$ sao cho $AB = \sqrt{10}$ có hoành độ bằng $1$ hoặc $3$.
+	
+	\vspace{4mm}
+	\noindent \textbf{Câu 67:} Trong không gian $Oxyz$, cho hai vecto $\vec{a} = (2; -1; 2)$ và $\vec{b} = (1; 1; 0)$. Xét tính đúng sai của các khẳng định sau: \\
+	\noindent a) Tích vô hướng $\vec{a} \cdot \vec{b}$ bằng $1$. \\
+	\noindent b) Độ dài vecto $2\vec{a} - 3\vec{b}$ bằng $\sqrt{14}$. \\
+	\noindent c) Côsin của góc giữa hai vecto $\vec{a}$ và $\vec{b}$ bằng $\frac{1}{3\sqrt{2}}$. \\
+	\noindent d) Vecto $\vec{c} = (-2; 1; -2)$ ngược hướng với vecto $\vec{a}$.
+	
+	\vspace{4mm}
+	\noindent \textbf{Câu 68:} Trong không gian $Oxyz$, cho hình hộp $ABCD.A'B'C'D'$ có $A(1; 1; 1)$, $B(2; 2; 1)$, $D(1; 3; 1)$ và $A'(1; 1; 4)$. Xét tính đúng sai của các khẳng định sau: \\
+	\noindent a) Tọa độ của đỉnh $C$ là $C(2; 3; 1)$. \\
+	\noindent b) Thể tích của khối hộp $ABCD.A'B'C'D'$ bằng $3$. \\
+	\noindent c) Độ dài đường chéo $AC'$ bằng $\sqrt{14}$. \\
+	\noindent d) Tọa độ trọng tâm của tam giác $A'BD$ là $G\left(\frac{4}{3}; 2; 2\right)$.
+	
+	\vspace{4mm}
+	\noindent \textbf{Câu 69:} Trong không gian $Oxyz$, cho ba điểm $A(1; -1; 1), B(2; 1; 3)$ và $C(0; -3; -1)$. Xét tính đúng sai của các khẳng định sau: \\
+	\noindent a) Ba điểm $A, B, C$ thẳng hàng. \\
+	\noindent b) Điểm $C$ nằm giữa hai điểm $A$ và $B$. \\
+	\noindent c) Vecto $\vec{AB}$ có độ dài bằng $3$. \\
+	\noindent d) Điểm $M(1.5; 0; 2)$ là trung điểm của đoạn thẳng $AB$.
+	
+	\section{Bài tập Trả lời ngắn}
+	\noindent \textbf{Câu 1:} Trong không gian với hệ tọa độ $Oxyz$, cho các vecto $\vec{OA} = \vec{i} + 2\vec{k}$, $\vec{OB} = 2\vec{i} + 4\vec{j} - 3\vec{k}$, $\vec{OC} = -2\vec{i} + \vec{j} + \vec{k}$. Tìm tọa độ điểm $D(x; y; z)$ sao cho $ABCD$ là hình bình hành. Tính giá trị biểu thức $P = x + 2y - z$. \\
+	
+	
+	\vspace{3mm}
+	\noindent \textbf{Câu 2:} Trong không gian với hệ tọa độ $Oxyz$, cho các vecto $\vec{a} = 3\vec{i} + 4\vec{k}$ và $\vec{b} = 2\vec{i} - \vec{j}$. Biết tọa độ các vecto được viết dưới dạng $\vec{a} = (x; 0; 4)$ và $\vec{b} = (2; y; 0)$. Tính giá trị biểu thức $P = x^2 + y^2$. \\
+	
+	
+	\vspace{3mm}
+	\noindent \textbf{Câu 3:} Trong không gian với hệ tọa độ $Oxyz$, cho các vecto $\vec{OM} = 3\vec{i} - 2\vec{j} + 5\vec{k}$ và $\vec{ON} = -\vec{i} + 4\vec{j} - 2\vec{k}$. Biết tọa độ các điểm tương ứng là $M(3; -2; a)$ và $N(-1; b; -2)$. Tính giá trị của biểu thức $T = a - 2b$. \\
+	
+	
+	\vspace{3mm}
+	\noindent \textbf{Câu 4:} Trong không gian với hệ tọa độ $Oxyz$, cho $\vec{a} = (2; -4; 1)$ và $\vec{b} = (3; 2; -2)$. Biết các vecto có thể biểu diễn dưới dạng $\vec{a} = 2\vec{i} - y\vec{j} + \vec{k}$ và $\vec{b} = 3\vec{i} + \vec{j} + z\vec{k}$. Tính giá trị biểu thức $P = y^2 + z^2$. \\
+	
+	
+	\vspace{3mm}
+	\noindent \textbf{Câu 5:} Trong không gian với hệ tọa độ $Oxyz$, cho hai điểm $M(2; 0; -3)$ và $N(4; 1; -5)$. Biết các vecto vị trí được biểu diễn dưới dạng $\vec{OM} = 2\vec{i} + y\vec{j} - 3\vec{k}$ và $\vec{ON} = x\vec{i} + \vec{j} - 5\vec{k}$. Tính giá trị biểu thức $P = x^3 - y^3$. \\
+	
+	
+	\vspace{3mm}
+	\noindent \textbf{Câu 6:} Cho hình chóp $S.ABCD$ có đáy $ABCD$ là hình vuông cạnh bằng $4$, $SA = 3$ và $SA \perp (ABCD)$. Chọn hệ trục tọa độ $Oxyz$ có gốc tọa độ trùng với $A$; các điểm $B, D, S$ lần lượt nằm trên các tia $Ox, Oy, Oz$. Gọi tọa độ đỉnh $C$ là $C(x; y; z)$. Tính giá trị biểu thức $P = x^2 + y^2 + z^2$. \\
+	
+	
+	\vspace{3mm}
+	\noindent \textbf{Câu 7:} Cho hình hộp chữ nhật $ABCD.A'B'C'D'$ có các kích thước $AB = 3, AD = 4, AA' = 5$. Chọn hệ trục tọa độ $Oxyz$ có gốc tọa độ $O$ trùng với $A$, các điểm $B, D, A'$ lần lượt thuộc các tia $Ox, Oy, Oz$. Tìm tọa độ đỉnh $C'(x; 4; z)$ và tính giá trị biểu thức $P = x + z$. \\
+	
+	
+	\vspace{3mm}
+	\noindent \textbf{Câu 8:} Cho hình chóp $S.ABCD$ có đáy $ABCD$ là hình vuông cạnh bằng $4$, $SA = 6$ và $SA \perp (ABCD)$. Chọn hệ trục $Oxyz$ có gốc trùng với $A$; các điểm $B, D, S$ lần lượt thuộc các tia $Ox, Oy, Oz$. Gọi $M(x; y; z)$ là trung điểm của cạnh bên $SC$. Tính giá trị biểu thức $T = x + y - z$. \\
+	
+	
+	\vspace{3mm}
+	\noindent \textbf{Câu 9:} Cho hình hộp $ABCD.A'B'C'D'$ có các đỉnh $A(1;0;1), B(2;1;2), D(1;-1;1), C'(4;5;-5)$. Tính độ dài của biểu thức vecto $L = \left| \vec{AC'} + \vec{CA'} + 2\vec{CC'} \right|$. \\
+	
+	
+	\vspace{3mm}
+	\noindent \textbf{Câu 10:} Cho hình hộp chữ nhật $ABCD.A'B'C'D'$ có các kích thước $AB = 6, AD = 5, AA' = 3$. Chọn hệ trục tọa độ $Oxyz$ có gốc $O$ trùng với $A$, các điểm $B, D, A'$ lần lượt thuộc các tia $Ox, Oy, Oz$. Xác định tọa độ của đỉnh $C'(x; y; z)$ và tính giá trị của biểu thức $P = x - y + 2z$. \\
+	
+	
+	\vspace{3mm}
+	\noindent \textbf{Câu 11:} Trong không gian với hệ tọa độ $Oxyz$, cho ba điểm $A(1; 1; 2), B(2; -1; 1), C(3; 2; -3)$. Tìm tọa độ điểm $D(x; y; z)$ để $ABCD$ là hình bình hành. Tính tổng giá trị $S = x + y + z$. \\
+	
+	
+	\vspace{3mm}
+	\noindent \textbf{Câu 12:} Trong không gian $Oxyz$, cho hai vecto $\vec{u} = (2; -1; 1)$ và $\vec{v} = (1; 1; -2)$. Tính góc $\varphi$ giữa hai vecto $\vec{u}$ và $\vec{v}$ (đơn vị: độ). \\
+	
+	\noindent \textbf{Câu 13:} Trong không gian $Oxyz$, cho hai vecto $\vec{a} = (3; 2; 5)$ và $\vec{b} = (3m + 2; 3; 6 - n)$. Tính giá trị biểu thức $P = 6m + 2n$ để hai vecto $\vec{a}, \vec{b}$ bằng nhau. \\
+	
+	
+	\vspace{3mm}
+	\noindent \textbf{Câu 14:} Trong không gian $Oxyz$, cho hai điểm $A(1; 2; 3)$ và $B(2; 1; 1)$. Tìm tọa độ điểm $M(x_0; y_0; z_0)$ thuộc mặt phẳng tọa độ $(Oyz)$ sao cho ba điểm $A, B, M$ thẳng hàng. Tính giá trị của biểu thức $T = x_0 + y_0 + z_0$. \\
+	
+	
+	\vspace{3mm}
+	\noindent \textbf{Câu 15:} Trong không gian $Oxyz$, cho ba điểm $A(1; -1; 1)$, $B(3; 1; 2)$ và $C(-1; 0; 3)$. Có bao nhiêu điểm $D$ sao cho tứ giác $ABCD$ là hình thang có hai cạnh đáy là $AB, CD$ và góc $\widehat{ADC} = 45^\circ$? \\
+	
+	
+	\vspace{3mm}
+	\noindent \textbf{Câu 16:} Trong không gian $Oxyz$, cho tam giác $ABC$ biết $A(2; 0; 0)$, $B(0; 3; 1)$ và $C(-3; 6; 4)$. Gọi $M$ là điểm nằm trên cạnh $BC$ sao cho $MC = 2MB$. Tính độ dài đoạn thẳng $AM$. \\
+	
+	
+	\vspace{3mm}
+	\noindent \textbf{Câu 17:} Trong không gian $Oxyz$, cho ba điểm $A(1; 2; -1)$, $B(2; -1; 3)$ và $C(-2; 3; 3)$. Biết điểm $M(a; b; c)$ là đỉnh thứ tư của hình bình hành $ABCM$. Tính giá trị của biểu thức $P = a^2 + b^2 - c^2$. \\
+	
+	
+	\vspace{3mm}
+	\noindent \textbf{Câu 18:} Trong không gian $Oxyz$, tìm tổng các hoành độ của hai điểm nằm trên trục hoành $Ox$ sao cho khoảng cách từ các điểm đó đến điểm $M(-3; 4; 8)$ bằng đúng $12$. \\
+	
+	
+	\vspace{3mm}
+	\noindent \textbf{Câu 19:} Trong không gian $Oxyz$, cho hai vecto $\vec{a} = (2; 5; -3)$ và $\vec{b} = (0; -4; 0)$. Tính tích vô hướng của hai vecto $\vec{a}$ và $\vec{b}$. \\
+	
+	
+	\vspace{3mm}
+	\noindent \textbf{Câu 20:} Trong không gian $Oxyz$, cho ba vecto $\vec{a} = (1; m; 2)$, $\vec{b} = (m+1; 2; 1)$ và $\vec{c} = (0; m-2; 2)$. Tính tổng các giá trị thực của tham số $m$ để độ dài hai vecto thỏa mãn đẳng thức $|\vec{a} + \vec{b}| = |\vec{c}|$. \\
+	
+	
+	\vspace{3mm}
+	\noindent \textbf{Câu 21:} Trong không gian $Oxyz$, cho hai vecto $\vec{a} = (1; -1; 0)$ và $\vec{b} = (2; 2t-1; 0)$. Xác định giá trị của tham số $t$ để hai vecto $\vec{a}, \vec{b}$ cùng phương. \\
+	
+	
+	\vspace{3mm}
+	\noindent \textbf{Câu 22:} Trong không gian $Oxyz$, cho hai vecto $\vec{a} = (1; 2; -2)$ và $\vec{b} = (-1; -1; 0)$. Tính số đo góc giữa hai vecto $\vec{a}$ và $\vec{b}$ (đơn vị: độ). \\
+	
+	
+	\vspace{3mm}
+	\noindent \textbf{Câu 23:} Trong không gian $Oxyz$, cho hai điểm $A(1; -2; 5)$ và $B(3; 4; 1)$. Tìm cao độ $z_0$ của điểm $M$ thuộc trục $Oz$ sao cho tam giác $MAB$ cân tại $M$. \\
+	
+	
+	\vspace{3mm}
+	\noindent \textbf{Câu 24:} Trong không gian $Oxyz$, cho ba vecto $\vec{a} = (2; 1; -1), \vec{b} = (1; 3; m)$ và $\vec{c} = (1; 1; 0)$. Tìm giá trị của $m$ để vecto $\vec{u} = \vec{a} + \vec{b}$ vuông góc với vecto $\vec{c}$. \\
+	
+	
+	\section{Tổng kết bài}
+	\begin{tcolorbox}[colback=yellow!10!white, colframe=orange!60!black, fonttitle=\bfseries, title={Tóm tắt kiến thức}]
+		\begin{itemize}
+			\item Hệ trục Oxyz, các vector đơn vị.
+			\item Công thức: cộng, trừ, nhân số với vector, tích vô hướng.
+			\item Quy tắc chiếu và đối xứng trên các trục, mặt phẳng.
+		\end{itemize}
+	\end{tcolorbox}
+	
+\end{document}

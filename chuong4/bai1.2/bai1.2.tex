@@ -1,0 +1,1087 @@
+\documentclass[12pt]{article}
+
+% === CÀI ĐẶT TRANG ===
+\usepackage[margin=2cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T5]{fontenc}
+\usepackage[vietnamese]{babel}
+
+% === TOÁN HỌC ===
+\usepackage{amsmath, amssymb, amsthm}
+
+% === HÌNH VẼ ===
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+% === ĐỊNH DẠNG ===
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage[most]{tcolorbox}
+\usepackage{multicol}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{fancyhdr}
+\usepackage{tocloft}
+\usepackage[hidelinks]{hyperref}
+
+% === LỆNH TỰ ĐỊNH NGHĨA ===
+\newcommand{\otraloi}{\underline{\hspace{5cm}}}
+
+% === TCOLORBOX STYLES ===
+\tcbuselibrary{breakable, skins, fitting}
+
+% Định dạng hộp Ví dụ
+\newtcolorbox{vidu}[1][1]{
+	colback=blue!5!white, colframe=blue!60!black,
+	fonttitle=\bfseries, title={Ví dụ #1},
+	breakable, enhanced
+}
+
+% Định dạng hộp Lời giải
+\newtcolorbox{loigiai}{
+	colback=gray!8!white, colframe=gray!50!black,
+	fonttitle=\bfseries, title={Lời giải},
+	breakable, enhanced
+}
+
+% Bài tập xanh – Bắt buộc
+\newtcolorbox{btxanh}[1][]{
+	colback=blue!6!white, colframe=blue!65!black,
+	fonttitle=\bfseries\color{white}, coltitle=white,
+	attach boxed title to top left={yshift=-2mm, xshift=4mm},
+	boxed title style={colback=blue!65!black, rounded corners}, breakable, enhanced, #1
+}
+
+% Bài tập vàng – Bổ sung
+\newtcolorbox{btvang}[1][]{
+	colback=yellow!12!white, colframe=orange!75!black,
+	fonttitle=\bfseries, coltitle=orange!80!black,
+	attach boxed title to top left={yshift=-2mm, xshift=4mm},
+	boxed title style={colback=yellow!50!white, colframe=orange!75!black, rounded corners}, breakable, enhanced, #1
+}
+
+% Bài tập đỏ – Gia cố
+\newtcolorbox{btdo}[1][]{
+	colback=red!6!white, colframe=red!65!black,
+	fonttitle=\bfseries\color{white}, coltitle=white,
+	attach boxed title to top left={yshift=-2mm, xshift=4mm},
+	boxed title style={colback=red!65!black, rounded corners}, breakable, enhanced, #1
+}
+
+% === HEADER/FOOTER ===
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small Tài liệu học tập}
+\fancyhead[R]{\small \textbf{Chuyên đề: Ứng dụng thực tế của nguyên hàm}}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% ================================================
+\begin{document}
+	
+	\begin{center}
+		{\LARGE \textbf{CHUYÊN ĐỀ 2: ỨNG DỤNG THỰC TẾ CỦA NGUYÊN HÀM}}\\[4pt]
+		{\large Môn: Toán \quad Lớp: 12}
+	\end{center}
+	\vspace{4mm}
+	\hrule
+	\vspace{4mm}
+	
+	% ===========================
+	% PHẦN 1: MỤC TIÊU BÀI HỌC
+	% ===========================
+	\section*{Mục tiêu bài học}
+	\addcontentsline{toc}{section}{Mục tiêu bài học}
+	
+	\textbf{1. Kiến thức:}
+	\begin{itemize}
+		\item Hiểu được ý nghĩa thực tiễn của nguyên hàm trong các bài toán Vật lý, Sinh học, Kinh tế...
+		\item Ghi nhớ mối liên hệ giữa các đại lượng (vị trí, vận tốc, gia tốc; tốc độ sinh trưởng và số lượng...).
+	\end{itemize}
+	
+	\noindent \textbf{2. Kĩ năng:}
+	\begin{itemize}
+		\item Chuyển đổi thành thạo ngôn ngữ bài toán thực tế sang mô hình toán học (nguyên hàm).
+		\item Tìm hằng số $C$ thông qua điều kiện ban đầu của bài toán (thời điểm $t = 0$ hoặc thời điểm cho trước).
+	\end{itemize}
+	
+	\noindent \textbf{3. Thái độ / Phẩm chất:}
+	\begin{itemize}
+		\item Cẩn thận trong việc xử lý số liệu, đổi đơn vị đo lường (nếu có).
+		\item Thấy được vẻ đẹp và tính ứng dụng cao của Toán học trong đời sống.
+	\end{itemize}
+	
+	\newpage
+	
+	% =====================
+	% PHẦN 2: MỤC LỤC
+	% =====================
+	\setcounter{tocdepth}{2}
+	\tableofcontents
+	\newpage
+	
+	% =====================
+	% PHẦN 3: LÝ THUYẾT
+	% =====================
+	\section{Lý thuyết trọng tâm}
+	
+	\subsection{Ứng dụng nguyên hàm trong bài toán chuyển động}
+	
+	Trong Vật lý, khi nghiên cứu chuyển động của một vật thể (chất điểm), chúng ta có ba đại lượng cơ bản phụ thuộc vào thời gian $t$:
+	\begin{itemize}
+		\item Quãng đường đi được (hoặc tọa độ vị trí): $s(t)$
+		\item Vận tốc của vật thể: $v(t)$
+		\item Gia tốc của vật thể: $a(t)$
+	\end{itemize}
+	
+	\textbf{1.1.1. Mối liên hệ qua lại giữa các đại lượng}
+	
+	Theo định nghĩa của Đạo hàm trong Vật lý:
+	\begin{itemize}
+		\item Vận tốc là đạo hàm của quãng đường: $v(t) = s'(t)$
+		\item Gia tốc là đạo hàm của vận tốc: $a(t) = v'(t)$
+	\end{itemize}
+	
+	Từ đó, áp dụng định nghĩa của Nguyên hàm, ta thực hiện bài toán ngược lại (biết gia tốc tìm vận tốc, biết vận tốc tìm quãng đường):
+	\begin{tcolorbox}[colback=blue!5!white, colframe=blue!75!black, rounded corners, boxrule=1pt]
+		\textbf{Công thức cốt lõi:}
+		\begin{align*}
+			v(t) &= \int a(t)dt \\
+			s(t) &= \int v(t)dt
+		\end{align*}
+	\end{tcolorbox}
+	
+	\textbf{1.1.2. Phương pháp giải bài toán cơ bản}
+	
+	\begin{itemize}
+		\item \textbf{Bước 1:} Lấy nguyên hàm hàm số đã cho để tìm hàm số bậc cao hơn (từ $a(t) \rightarrow v(t)$ hoặc từ $v(t) \rightarrow s(t)$). Kết quả luôn chứa hằng số $C$.
+		\item \textbf{Bước 2:} Dựa vào \textbf{điều kiện ban đầu} (hoặc dữ kiện tại một thời điểm $t_0$ cụ thể) để tìm ra chính xác giá trị của hằng số $C$. 
+		\item \textbf{Bước 3:} Trả lời câu hỏi của bài toán dựa trên hàm số hoàn chỉnh vừa tìm được.
+	\end{itemize}
+	
+	\textbf{1.1.3. Các "từ khóa" thực tế cần nhớ}
+	\begin{itemize}
+		\item \textit{"Lúc bắt đầu chuyển động", "Lúc bắt đầu đạp phanh"...}: Thường là thời điểm $t = 0$.
+		\item \textit{"Vật bắt đầu chuyển động từ trạng thái nghỉ"}: Nghĩa là $v(0) = 0$.
+		\item \textit{"Vật dừng hẳn"}: Vận tốc bằng 0, tức là giải phương trình $v(t) = 0$ để tìm thời điểm $t$ vật dừng lại.
+	\end{itemize}
+	
+	% --- VÍ DỤ 1 ---
+	\begin{vidu}[1]
+		Một ô tô bắt đầu chuyển động từ trạng thái đứng yên với gia tốc phụ thuộc thời gian theo công thức $a(t) = 2t + 2 \ (m/s^2)$. Tính quãng đường ô tô đi được sau 3 giây kể từ lúc bắt đầu chuyển động.
+	\end{vidu}
+	
+	\begin{loigiai}
+		\textbf{Bước 1: Tìm hàm vận tốc $v(t)$} \\
+		Ta có vận tốc là nguyên hàm của gia tốc:
+		$$v(t) = \int a(t)dt = \int (2t + 2)dt = t^2 + 2t + C_1$$
+		Vì ô tô bắt đầu chuyển động từ trạng thái đứng yên nên tại $t = 0$, ta có $v(0) = 0$.
+		$$0^2 + 2(0) + C_1 = 0 \implies C_1 = 0$$
+		Vậy hàm vận tốc là: $v(t) = t^2 + 2t \ (m/s)$.
+		
+		\textbf{Bước 2: Tìm hàm quãng đường $s(t)$} \\
+		Quãng đường là nguyên hàm của vận tốc:
+		$$s(t) = \int v(t)dt = \int (t^2 + 2t)dt = \frac{t^3}{3} + t^2 + C_2$$
+		Chọn mốc thời gian và không gian lúc bắt đầu chuyển động, tức là $s(0) = 0$.
+		$$\implies C_2 = 0 \implies s(t) = \frac{t^3}{3} + t^2$$
+		
+		\textbf{Bước 3: Tính quãng đường sau 3 giây} \\
+		Thay $t = 3$ vào hàm quãng đường:
+		$$s(3) = \frac{3^3}{3} + 3^2 = 9 + 9 = 18 \ (m)$$
+		Vậy sau 3 giây ô tô đi được $18$ mét.
+	\end{loigiai}
+	
+	% --- VÍ DỤ 2 ---
+	\begin{vidu}[2]
+		Một chiếc xe máy đang chạy với vận tốc $15 \ (m/s)$ thì người lái xe phát hiện chướng ngại vật và đạp phanh. Kể từ thời điểm đó, xe chuyển động chậm dần đều với gia tốc $a = -3 \ (m/s^2)$. Tính quãng đường xe đi được từ lúc đạp phanh đến khi dừng hẳn.
+	\end{vidu}
+	
+	\begin{loigiai}
+		\textbf{Bước 1: Thiết lập hàm vận tốc $v(t)$} \\
+		Chọn gốc thời gian $t=0$ là lúc bắt đầu đạp phanh. 
+		Hàm vận tốc của xe là:
+		$$v(t) = \int a(t)dt = \int -3 dt = -3t + C$$
+		Tại thời điểm bắt đầu phanh ($t=0$), xe đang có vận tốc $15 \ m/s$, do đó:
+		$$v(0) = 15 \implies -3(0) + C = 15 \implies C = 15$$
+		Vậy $v(t) = -3t + 15 \ (m/s)$.
+		
+		\textbf{Bước 2: Tìm thời điểm xe dừng hẳn} \\
+		Khi xe dừng hẳn, vận tốc của xe bằng $0$:
+		$$v(t) = 0 \iff -3t + 15 = 0 \iff t = 5 \ (s)$$
+		Như vậy, xe mất 5 giây để dừng hẳn.
+		
+		\textbf{Bước 3: Tính quãng đường} \\
+		Hàm quãng đường xe đi được từ lúc phanh là:
+		$$s(t) = \int v(t)dt = \int (-3t + 15)dt = -\frac{3t^2}{2} + 15t + C'$$
+		Vì chọn gốc toạ độ là vị trí bắt đầu phanh nên $s(0) = 0 \implies C' = 0$.
+		Vậy $s(t) = -\frac{3t^2}{2} + 15t$.
+		
+		Quãng đường đi được từ lúc phanh đến khi dừng hẳn (tại $t=5$):
+		$$s(5) = -\frac{3(5)^2}{2} + 15(5) = -37,5 + 75 = 37,5 \ (m)$$
+		Vậy xe di chuyển thêm $37,5$ mét trước khi dừng lại hoàn toàn.
+	\end{loigiai}
+	
+	\vspace{5cm} % Placeholder cho nội dung lý thuyết
+	
+	\subsection{Một số bài toán ứng dụng nguyên hàm trong thực tiễn khác}
+	
+	Ngoài các bài toán về chuyển động, nguyên hàm còn được ứng dụng rộng rãi trong Sinh học, Nông nghiệp, Công nghiệp và Kinh tế. Bản chất của các bài toán này đều xuất phát từ một nguyên lý chung:
+	
+	\begin{tcolorbox}[colback=blue!5!white, colframe=blue!75!black, rounded corners, boxrule=1pt]
+		\textbf{Nguyên lý chung:} Nếu một đại lượng $F(t)$ biến thiên theo thời gian $t$ với \textbf{tốc độ thay đổi} là $f(t)$ (nghĩa là $F'(t) = f(t)$), thì ta có thể tính được đại lượng $F(t)$ thông qua công thức:
+		$$F(t) = \int f(t)dt$$
+	\end{tcolorbox}
+	
+	Các đại lượng $F(t)$ thường gặp trong thực tế có thể là:
+	\begin{itemize}
+		\item Chiều cao của cây trồng, khối lượng của con vật sau $t$ ngày/tháng/năm.
+		\item Số lượng vi khuẩn, virus, hoặc dân số của một vùng sau $t$ khoảng thời gian.
+		\item Thể tích nước bơm vào bể, lượng điện tiêu thụ, chi phí sản xuất...
+	\end{itemize}
+	
+	\textbf{Phương pháp giải chung:} Vẫn tuân thủ 3 bước như bài toán chuyển động: \textbf{Lấy nguyên hàm $\rightarrow$ Tìm hằng số C nhờ dữ kiện ban đầu $\rightarrow$ Tính toán theo yêu cầu.}
+	
+	% --- VÍ DỤ 3 ---
+	\begin{vidu}[3]
+		Một nhà vườn ươm một cây cảnh. Tốc độ sinh trưởng chiều cao của cây trong suốt 5 năm đầu được tính xấp xỉ bởi công thức $h'(t) = 1,5t + 5$, trong đó $h(t)$ (cm) là chiều cao của cây khi kết thúc $t$ (năm). Biết cây con khi được đem trồng cao $15$ cm. 
+		\begin{enumerate}[label=\alph*)]
+			\item Tìm công thức chỉ chiều cao của cây sau $t$ năm.
+			\item Sau 4 năm trồng, cây cao bao nhiêu cm?
+		\end{enumerate}
+	\end{vidu}
+	
+	\begin{loigiai}
+		a) Hàm chiều cao $h(t)$ là nguyên hàm của tốc độ sinh trưởng $h'(t)$:
+		$$h(t) = \int h'(t)dt = \int (1,5t + 5)dt = 0,75t^2 + 5t + C$$
+		Tại thời điểm bắt đầu trồng ($t = 0$), cây cao 15 cm, tức là $h(0) = 15$.
+		$$0,75(0)^2 + 5(0) + C = 15 \implies C = 15$$
+		Vậy công thức tính chiều cao của cây là: $h(t) = 0,75t^2 + 5t + 15 \ (cm)$.
+		
+		\vspace{2mm}
+		b) Sau 4 năm trồng, chiều cao của cây là:
+		$$h(4) = 0,75(4)^2 + 5(4) + 15 = 12 + 20 + 15 = 47 \ (cm).$$
+		Vậy sau 4 năm, cây cao $47$ cm.
+	\end{loigiai}
+	
+	% --- VÍ DỤ 4 ---
+	\begin{vidu}[4]
+		Vi khuẩn HP (Helicobacter pylori) gây đau dạ dày sinh sôi tại ngày thứ $t$ với số lượng là $N(t)$. Biết tốc độ phát triển của vi khuẩn là $N'(t) = \dfrac{1000}{t}$ (con/ngày) và tại ngày đầu tiên ($t = 1$) phát hiện bệnh, bệnh nhân có $3000$ con vi khuẩn trong dạ dày. Hỏi sau 10 ngày, số lượng vi khuẩn HP trong dạ dày bệnh nhân là bao nhiêu? (Làm tròn đến hàng đơn vị).
+	\end{vidu}
+	
+	\begin{loigiai}
+		Số lượng vi khuẩn $N(t)$ là nguyên hàm của tốc độ phát triển $N'(t)$:
+		$$N(t) = \int N'(t)dt = \int \frac{1000}{t} dt = 1000\ln|t| + C$$
+		Vì thời gian $t > 0$ nên $N(t) = 1000\ln t + C$.\\
+		Tại ngày đầu tiên ($t = 1$), số vi khuẩn là $3000$:
+		$$N(1) = 3000 \implies 1000\ln(1) + C = 3000 \implies C = 3000 \quad (\text{do } \ln 1 = 0)$$
+		Công thức biểu diễn số lượng vi khuẩn là: $N(t) = 1000\ln t + 3000$.\\
+		Số lượng vi khuẩn sau 10 ngày ($t = 10$) là:
+		$$N(10) = 1000\ln 10 + 3000 \approx 1000 \times 2,302 + 3000 = 5302 \ (\text{con}).$$
+	\end{loigiai}
+	
+	% --- VÍ DỤ 5 ---
+	\begin{vidu}[5]
+		Một máy bơm nước vào một bể chứa (ban đầu bể không có nước). Thể tích nước bơm được sau $t$ giây có tốc độ thay đổi là $V'(t) = 3t^2 + 2t \ (m^3/s)$. Tính thể tích nước có trong bể sau 5 giây kể từ lúc bắt đầu bơm.
+	\end{vidu}
+	
+	\begin{loigiai}
+		Hàm thể tích nước $V(t)$ là nguyên hàm của lưu lượng bơm $V'(t)$:
+		$$V(t) = \int V'(t)dt = \int (3t^2 + 2t)dt = t^3 + t^2 + C$$
+		Vì ban đầu bể không có nước nên tại thời điểm $t = 0 \implies V(0) = 0$.
+		$$0^3 + 0^2 + C = 0 \implies C = 0$$
+		Vậy hàm thể tích nước trong bể là: $V(t) = t^3 + t^2 \ (m^3)$.\\
+		Thể tích nước trong bể sau 5 giây là:
+		$$V(5) = 5^3 + 5^2 = 125 + 25 = 150 \ (m^3).$$
+	\end{loigiai}
+	
+	\vspace{5cm} % Placeholder cho nội dung lý thuyết
+	
+	
+	\newpage
+	
+	% =====================
+	% PHẦN 4: BÀI TẬP TỰ LUẬN
+	% =====================
+	\section{Bài tập tự luận phân dạng}
+	
+	\subsection{Dạng 1: Ứng dụng nguyên hàm trong bài toán chuyển động}
+	
+	\begin{btxanh}[]
+		\textbf{Bài 1.} Một ô tô chuyển động thẳng với vận tốc được tính bằng công thức $v(t) = 3t^2 - 4t + 5 \ (m/s)$, trong đó $t$ là thời gian tính bằng giây kể từ lúc ô tô bắt đầu chuyển động. Giả sử tại thời điểm $t = 0$, quãng đường ô tô đi được là $s(0) = 0$. Hãy thiết lập phương trình quãng đường $s(t)$ và tính quãng đường ô tô đi được sau $4$ giây.
+		
+		\textbf{Bài 2.} Một chiếc xe máy xuất phát từ trạng thái đứng yên (nghĩa là vận tốc ban đầu $v(0) = 0$) và chuyển động thẳng với gia tốc phụ thuộc vào thời gian theo công thức $a(t) = 6t + 4 \ (m/s^2)$. Hãy viết công thức tính vận tốc $v(t)$ của xe và tính vận tốc của chiếc xe máy này tại thời điểm $t = 3$ giây.
+		
+		\textbf{Bài 3.} Một chất điểm chuyển động với gia tốc $a(t) = 12t - 6 \ (m/s^2)$. Biết rằng tại thời điểm ban đầu $t = 0$, chất điểm có vận tốc $v(0) = 5 \ (m/s)$ và quãng đường đi được $s(0) = 0$. Bằng cách lấy nguyên hàm hai lần, hãy tính quãng đường chất điểm đó đi được sau $2$ giây đầu tiên.
+		
+		\textbf{Bài 4.} Một ca nô chuyển động trên mặt hồ với vận tốc được xác định bởi hàm số $v(t) = 2t + \dfrac{4}{t+1} \ (m/s)$, trong đó $t \ge 0$ là thời gian tính bằng giây. Biết tại $t = 0$, quãng đường ca nô đi được là $0 \ m$. Hãy tính quãng đường ca nô đi được sau $3$ giây (làm tròn kết quả đến chữ số thập phân thứ hai, biết $\ln 4 \approx 1,386$).
+		
+		\textbf{Bài 5.} Một vận động viên đua xe đạp bắt đầu tăng tốc với gia tốc được cho bởi công thức $a(t) = e^t + 2 \ (m/s^2)$. Biết tại thời điểm bắt đầu tăng tốc ($t = 0$), vận tốc của xe đạp đang là $10 \ (m/s)$. Viết phương trình biểu diễn vận tốc $v(t)$ của xe đạp và tính vận tốc của xe tại thời điểm $t = 2$ giây (để kết quả dưới dạng chứa $e$).
+	\end{btxanh}
+	
+	\begin{btvang}[title={Mức độ vận dụng}]
+		\textbf{Bài 6.} Một ô tô đang chạy với vận tốc $20 \ (m/s)$ thì người lái xe đạp phanh. Kể từ thời điểm đó, ô tô chuyển động chậm dần đều với vận tốc $v(t) = -4t + 20 \ (m/s)$, trong đó $t$ là thời gian tính bằng giây kể từ lúc đạp phanh. Hỏi từ lúc đạp phanh đến khi dừng hẳn, ô tô còn di chuyển được bao nhiêu mét?
+		
+		\textbf{Bài 7.} Một chiếc xe ô tô đang chạy với vận tốc $72 \ km/h$ thì phát hiện một chướng ngại vật cách đó $45 \ m$. Người lái xe lập tức hãm phanh, xe chuyển động chậm dần đều với gia tốc $a(t) = -5 \ (m/s^2)$. Bằng cách tính quãng đường xe đi được từ lúc phanh đến khi dừng hẳn, hãy cho biết xe ô tô có đâm vào chướng ngại vật hay không?
+		
+		\textbf{Bài 8.} Một viên đạn được bắn thẳng đứng lên trên từ mặt đất. Giả sử vận tốc của viên đạn tại thời điểm $t$ giây (kể từ lúc bắn) được cho bởi công thức $v(t) = 39,2 - 9,8t \ (m/s)$. Tính độ cao cực đại mà viên đạn đạt được so với mặt đất (biết độ cao cực đại đạt được khi vận tốc của viên đạn bằng $0$).
+		
+		\textbf{Bài 9.} Một người đang lái ô tô với vận tốc $15 \ (m/s)$ thì nhìn thấy đèn đỏ ở phía trước. Người này có thời gian phản xạ là $1$ giây (trong $1$ giây đó xe vẫn giữ nguyên vận tốc). Sau đó, người này đạp phanh và xe chuyển động với gia tốc $a(t) = -3 \ (m/s^2)$. Tính tổng quãng đường xe ô tô đi được kể từ lúc người lái xe nhìn thấy đèn đỏ cho đến khi xe dừng lại hoàn toàn.
+		
+		\textbf{Bài 10.} Một vật chuyển động thẳng có vận tốc phụ thuộc vào thời gian theo công thức $v(t) = 18 - 2t^2 \ (m/s)$. Vật bắt đầu chuyển động tại $t = 0$. Hãy tìm thời điểm $t$ mà tại đó vật dừng lại và tính quãng đường vật đi được trong khoảng thời gian đó.
+	\end{btvang}
+	
+	\begin{btdo}[]
+		\textbf{Bài 11.} Một đoàn tàu bắt đầu rời ga và chuyển động nhanh dần đều với gia tốc $a = 2 \ (m/s^2)$ trong $10$ giây đầu tiên. Sau đó, tàu giữ nguyên vận tốc đã đạt được và chuyển động đều trong $30$ giây tiếp theo. Cuối cùng, tàu hãm phanh và chuyển động chậm dần với gia tốc $a = -4 \ (m/s^2)$ cho đến khi dừng hẳn. Tính tổng quãng đường đoàn tàu đã di chuyển.
+		
+		\textbf{Bài 12.} Đồ thị vận tốc $v(t)$ (đơn vị: $m/s$) của một vật chuyển động là một phần của đường parabol có đỉnh là $I(2; 8)$ và đi qua gốc tọa độ $O(0;0)$. Biết trục hoành là trục thời gian $t$ (giây). Hãy lập phương trình vận tốc $v(t)$ và tính quãng đường vật đi được từ thời điểm $t = 0$ đến thời điểm $t = 4$ giây.
+		
+		\textbf{Bài 13.} Hai chất điểm A và B bắt đầu chuyển động cùng một lúc từ cùng một vị trí. Chất điểm A chuyển động với vận tốc không đổi $v_A = 25 \ (m/s)$. Chất điểm B bắt đầu từ trạng thái đứng yên và chuyển động với gia tốc $a_B(t) = 6t \ (m/s^2)$. Hỏi sau bao nhiêu giây kể từ lúc xuất phát thì chất điểm B đuổi kịp chất điểm A?
+		
+		\textbf{Bài 14.} Một ô tô đang chạy với vận tốc $v_0 = 24 \ (m/s)$ thì người lái đạp phanh. Lực phanh không đều làm cho ô tô chuyển động chậm dần với gia tốc $a(t) = -kt \ (m/s^2)$, trong đó $k$ là một hằng số dương và $t$ là thời gian tính bằng giây kể từ lúc phanh. Biết rằng sau $4$ giây kể từ lúc phanh thì xe dừng hẳn. Hãy tìm $k$ và tính quãng đường xe đi được trong $4$ giây đó.
+		
+		\textbf{Bài 15.} Một vật chuyển động thẳng trên trục $Ox$ với vận tốc được cho bởi hàm phân nhánh:
+		$$v(t) = \begin{cases} 4t & \text{nếu } 0 \le t \le 3 \\ 12 - (t - 3)^2 & \text{nếu } t > 3 \end{cases} \quad (m/s)$$
+		Biết rằng tại $t = 0$, vật ở vị trí có tọa độ $x = 0$. Hãy tính tọa độ của vật tại thời điểm vật dừng lại hoàn toàn.
+	\end{btdo}
+	
+	\subsection{Dạng 2: Một số bài toán ứng dụng nguyên hàm trong thực tiễn}
+	
+	\begin{btxanh}[]
+		\textbf{Bài 1. (Nông nghiệp)} Một vườn ươm theo dõi sự phát triển của một giống cây mới. Người ta nhận thấy tốc độ tăng trưởng chiều cao của cây phụ thuộc vào thời gian $t$ (tháng) theo công thức $h'(t) = 2t + 3 \ (cm/\text{tháng})$. Biết rằng khi mới đem trồng ($t = 0$), cây cao $10 \ cm$. Hãy lập công thức tính chiều cao $h(t)$ của cây và tính chiều cao của cây sau $4$ tháng.
+		
+		\textbf{Bài 2. (Thủy lợi)} Một máy bơm nước bắt đầu bơm nước vào một bể chứa (ban đầu bể cạn không có nước). Tốc độ bơm nước tại thời điểm $t$ (giờ) được xác định bởi hàm số $V'(t) = 3t^2 + 4t \ (m^3/h)$. Tính thể tích nước có trong bể sau khi máy bơm hoạt động liên tục trong $2$ giờ.
+		
+		\textbf{Bài 3. (Kinh tế học)} Trong kinh tế, chi phí biên $C'(x)$ là chi phí gia tăng để sản xuất thêm một đơn vị sản phẩm. Giả sử chi phí biên để sản xuất $x$ sản phẩm của một nhà máy là $C'(x) = 2x + 50$ (nghìn đồng). Biết chi phí cố định (chi phí khi không sản xuất sản phẩm nào, $x = 0$) là $1000$ (nghìn đồng). Hãy tìm hàm tổng chi phí $C(x)$ và tính tổng chi phí để sản xuất $100$ sản phẩm.
+		
+		\textbf{Bài 4. (Sinh học)} Sự phát triển của một quần thể vi khuẩn được mô hình hóa với tốc độ tăng trưởng là $N'(t) = 50e^{0,1t}$ (con/giờ), trong đó $t$ là thời gian tính bằng giờ. Biết rằng tại thời điểm ban đầu ($t = 0$), quần thể có $2000$ con vi khuẩn. Hãy viết biểu thức $N(t)$ biểu diễn số lượng vi khuẩn sau $t$ giờ.
+		
+		\textbf{Bài 5. (Vật lý)} Cường độ dòng điện $I(t)$ (đơn vị: Ampe) chạy qua một dây dẫn là đạo hàm của điện lượng $Q(t)$ (đơn vị: Coulomb) truyền qua tiết diện của dây dẫn đó, tức là $I(t) = Q'(t)$. Giả sử $I(t) = 4t^3 - 2t + 5$. Biết tại thời điểm $t = 1$ giây, điện lượng truyền qua dây dẫn là $Q(1) = 8 \ (C)$. Hãy tính điện lượng truyền qua dây dẫn tại thời điểm $t = 2$ giây.
+		
+		\textbf{Bài 6. (Chăn nuôi)} Khối lượng của một chú bê con tăng lên với tốc độ $W'(t) = \dfrac{15}{\sqrt{t+1}} \ (kg/\text{tháng})$, trong đó $t \ge 0$ là thời gian tính bằng tháng kể từ khi bê con được sinh ra. Biết khối lượng lúc mới sinh ($t = 0$) của chú bê là $30 \ kg$. Hỏi sau $3$ tháng, chú bê đó nặng bao nhiêu kilôgam?
+		
+		\textbf{Bài 7. (Dịch tễ học)} Tốc độ lây lan của một loại virus trong một khu vực được ước tính theo công thức $P'(t) = 30t - t^2$ (người/ngày), với $t$ là số ngày kể từ khi phát hiện ca bệnh đầu tiên. Biết tại thời điểm $t = 0$, có đúng $50$ người bị nhiễm bệnh. Hãy tính tổng số người bị nhiễm bệnh trong khu vực đó sau $10$ ngày.
+		
+		\textbf{Bài 8. (Xã hội học)} Tốc độ tăng dân số của một khu đô thị mới được xác định bởi hàm số $f'(t) = \dfrac{2000}{t+1}$ (người/năm), trong đó $t$ là số năm tính từ thời điểm hiện tại ($t = 0$). Biết dân số hiện tại của khu đô thị này là $15000$ người. Tính dân số của khu đô thị sau $5$ năm (làm tròn kết quả đến hàng đơn vị, biết $\ln 6 \approx 1,792$).
+	\end{btxanh}
+	
+	\begin{btvang}[]
+		\textbf{Bài 9. (Vật lý - Định luật làm mát Newton)} Tốc độ giảm nhiệt độ của một động cơ máy móc sau khi tắt máy được mô hình hóa bởi hàm số $T'(t) = -20e^{-0,1t} \ (^\circ\text{C}/\text{phút})$, trong đó $t$ là thời gian tính bằng phút kể từ lúc tắt máy. Biết tại thời điểm tắt máy ($t = 0$), nhiệt độ của động cơ là $250^\circ\text{C}$. Hỏi sau $10$ phút tắt máy, nhiệt độ của động cơ là bao nhiêu? (Giữ nguyên $e$ trong kết quả hoặc làm tròn đến hàng phần mười).
+		
+		\textbf{Bài 10. (Kinh tế - Tối ưu hóa lợi nhuận)} Một công ty sản xuất thiết bị điện tử nhận thấy tốc độ thay đổi lợi nhuận (lợi nhuận biên) khi sản xuất $x$ (trăm sản phẩm) được cho bởi hàm số $P'(x) = 120 - 0,4x$ (triệu đồng/trăm sản phẩm). Biết rằng nếu công ty không sản xuất sản phẩm nào ($x = 0$) thì sẽ lỗ $200$ triệu đồng do chi phí cố định (mặt bằng, nhân công...). Hỏi công ty cần sản xuất bao nhiêu sản phẩm để đạt được lợi nhuận lớn nhất và lợi nhuận lớn nhất đó là bao nhiêu?
+		
+		\textbf{Bài 11. (Công nghiệp - Quản lý rủi ro)} Một bồn chứa hóa chất bị rò rỉ. Tốc độ hóa chất chảy ra ngoài tại thời điểm $t$ (giờ) là $V'(t) = 20 - t \ (\text{lít/giờ})$. Biết bồn có sức chứa tối đa là $150$ lít và ban đầu bồn hoàn toàn trống rỗng (đang được bơm hóa chất vào nhưng lại bị rò rỉ theo tốc độ trên). Hỏi sau bao lâu thì lượng hóa chất rò rỉ ra ngoài đạt chính xác $150$ lít?
+		
+		\textbf{Bài 12. (Công nghệ thông tin)} Tốc độ tải về của một tệp dữ liệu trên máy tính thay đổi theo thời gian $t$ (giây) với công thức $D'(t) = \dfrac{150}{3t + 1} \ (\text{MB/s})$. Biết tại thời điểm bắt đầu tải ($t = 0$), dung lượng đã tải là $0 \text{ MB}$. Hỏi sau bao lâu thì máy tính tải xong tệp dữ liệu có kích thước $50\ln(31) \ (\text{MB})$?
+		
+		\textbf{Bài 13. (Y học - Quá trình lành vết thương)} Diện tích của một vết thương hở đang trong quá trình lành lại giảm với tốc độ $S'(t) = -\dfrac{4}{\sqrt{t + 4}} \ (cm^2/\text{ngày})$, với $t \ge 0$ là số ngày kể từ lúc bệnh nhân bắt đầu dùng thuốc. Biết diện tích vết thương ban đầu (tại $t = 0$) là $8 \ cm^2$. Hỏi sau bao nhiêu ngày dùng thuốc thì vết thương sẽ lành lặn hoàn toàn (tức là diện tích vết thương bằng $0$)?
+		
+		\textbf{Bài 14. (Môi trường - Sinh thái)} Tốc độ lan rộng của một loại bèo tây trên mặt hồ được tính bằng $S'(t) = 2^t \cdot \ln 2 \ (m^2/\text{tuần})$. Biết rằng tại thời điểm ban đầu ($t = 0$), diện tích bèo tây trên mặt hồ là $5 \ m^2$. Hỏi sau bao nhiêu tuần thì diện tích bèo tây bao phủ đúng $36 \ m^2$ mặt hồ?
+		
+		\textbf{Bài 15. (Dịch tễ học - Giới hạn lây nhiễm)} Tốc độ xuất hiện ca nhiễm mới của một dịch bệnh truyền nhiễm tuân theo hàm số $N'(t) = \dfrac{800}{(t+2)^2}$ (người/ngày), với $t \ge 0$ là số ngày kể từ khi công bố dịch. Biết ngày đầu tiên công bố dịch ($t = 0$) đã ghi nhận $100$ ca nhiễm. Bằng cách tính tổng số ca nhiễm $N(t)$, hãy dự đoán số ca nhiễm tối đa của khu vực đó nếu dịch bệnh kéo dài vô tận ($t \to +\infty$).
+		
+		\textbf{Bài 16. (Điện năng)} Công suất tiêu thụ điện của một nhà máy trong một ca làm việc (từ $t = 0$ đến $t = 12$ giờ) được mô phỏng bởi hàm số $P(t) = 20 + 10\sin\left(\dfrac{\pi t}{12}\right) \ (\text{kW})$. Điện năng tiêu thụ $E(t)$ chính là nguyên hàm của công suất $P(t)$. Biết tại $t = 0$, $E(0) = 0$. Hãy tính tổng điện năng nhà máy tiêu thụ trong suốt ca làm việc $12$ giờ đó (lấy $\pi \approx 3,14$).
+	\end{btvang}
+	
+	\begin{btdo}[]
+		\textbf{Bài 17. (Kinh tế - Hàm phân nhánh)} Một công ty thực hiện chiến dịch quảng cáo. Phân tích dữ liệu cho thấy, tốc độ tăng trưởng doanh thu $R'(t)$ (triệu đồng/ngày) biến đổi theo thời gian $t$ (ngày) bằng hàm phân nhánh:
+		$$R'(t) = \begin{cases} 3t^2 + 10 & \text{nếu } 0 \le t \le 4 \\ \dfrac{232}{t - 2} & \text{nếu } t > 4 \end{cases}$$
+		Biết rằng trước khi bắt đầu chiến dịch ($t = 0$), doanh thu cơ sở của công ty là $R(0) = 500$ triệu đồng. Tính doanh thu của công ty sau $6$ ngày thực hiện chiến dịch (biết hàm doanh thu $R(t)$ là hàm số liên tục trên $[0; +\infty)$).
+		
+		\textbf{Bài 18. (Y học - Tích hợp cực trị và Nguyên hàm từng phần)} Nồng độ của một loại thuốc trong máu bệnh nhân thay đổi với tốc độ $C'(t) = 2t \cdot e^{-0,5t} \ (\text{mg/L/giờ})$, trong đó $t$ là thời gian tính bằng giờ kể từ lúc tiêm. Biết tại thời điểm tiêm ($t = 0$), nồng độ thuốc trong máu bằng $0$. Hãy thiết lập hàm nồng độ thuốc $C(t)$ và tính nồng độ thuốc tối đa trong máu bệnh nhân đạt được là bao nhiêu?
+		
+		\textbf{Bài 19. (Thủy lợi - Phương pháp đổi biến số)} Nước được bơm vào một hồ chứa cạn với lưu lượng bơm thay đổi theo thời gian $t$ (giờ) được mô hình hóa bởi hàm số $V'(t) = \dfrac{15t}{\sqrt{t^2 + 16}} \ (m^3/\text{giờ})$. Hỏi sau bao lâu kể từ lúc bắt đầu bơm, thể tích nước trong hồ chứa đạt chính xác $30 \ m^3$?
+		
+		\textbf{Bài 20. (Môi trường - Bài toán chứa tham số)} Mức độ ô nhiễm của một con sông do nước thải công nghiệp đang tăng lên với tốc độ $P'(t) = k \cdot t^2 \ (\text{đơn vị/tháng})$, trong đó $k$ là một hằng số và $t$ là thời gian tính bằng tháng. Khi bắt đầu đo đạc ($t = 0$), mức độ ô nhiễm là $100$ đơn vị. Sau $3$ tháng, mức độ ô nhiễm đo được là $127$ đơn vị. Bằng cách tìm $k$, hãy dự báo mức độ ô nhiễm của con sông sau $6$ tháng.
+		
+		\textbf{Bài 21. (Sinh học - Cạnh tranh quần thể)} Trong một khu bảo tồn, tốc độ phát triển của một đàn nai là $N'(t) = 150 - 3t^2$ (con/năm), trong đó $t$ là thời gian (năm). Tại thời điểm ban đầu ($t = 0$), đàn nai có $500$ con. Hãy xác định thời điểm đàn nai đạt số lượng đông nhất và tính số lượng nai lớn nhất đó trước khi đàn nai bắt đầu suy giảm do thiếu hụt thức ăn.
+		
+		\textbf{Bài 22. (Năng lượng - Tích hợp Lượng giác)} Mức tiêu thụ điện năng của một thành phố thay đổi theo chu kỳ ngày đêm, với tốc độ tiêu thụ (công suất) tại thời điểm $t$ (giờ, $0 \le t \le 24$) là $P(t) = 400 - 150\cos\left(\dfrac{\pi t}{12}\right) \ (\text{MW})$. Lượng điện tiêu thụ $E(t)$ là nguyên hàm của $P(t)$. Biết tại $t = 0$ (nửa đêm), $E(0) = 0$. Hỏi lượng điện tiêu thụ trong khoảng thời gian từ $6$ giờ sáng ($t = 6$) đến $18$ giờ chiều ($t = 18$) là bao nhiêu MWh?
+		
+		\textbf{Bài 23. (Vật lý cơ học - Công của lực biến thiên)} Trong Vật lý, Công $A$ (đơn vị: Joule) sinh ra bởi một lực biến thiên $F(x)$ khi di chuyển vật từ vị trí $x_1$ đến $x_2$ được tính bằng tích phân: $A = \int_{x_1}^{x_2} F(x)dx$, tức là $A = W(x_2) - W(x_1)$ với $W(x)$ là nguyên hàm của $F(x)$. Một lò xo bị nén bởi một lực biến thiên $F(x) = 50x + \dfrac{10}{(x+1)^2} \ (\text{Newton})$. Hãy tính công cần thiết để nén lò xo di chuyển từ vị trí $x = 0 \ (m)$ đến $x = 2 \ (m)$.
+		
+		\textbf{Bài 24. (Bài toán thực tế hai quá trình đối nghịch)} Một bồn chứa đang có sẵn $2000$ lít nước. Người ta mở một vòi bơm nước vào bồn với tốc độ $V_{in}'(t) = 500 \ (\text{lít/giờ})$, đồng thời ở đáy bồn có một lỗ thủng làm nước chảy ra với tốc độ $V_{out}'(t) = 20t^2 \ (\text{lít/giờ})$. Trạng thái này diễn ra cho đến khi bồn cạn nước. Hãy thiết lập hàm số biểu diễn thể tích nước $V(t)$ trong bồn và tìm thể tích nước lớn nhất mà bồn đạt được trong quá trình trên.
+	\end{btdo}
+	
+	\newpage
+	
+	% =====================
+	% PHẦN 5: BÀI TẬP TRẮC NGHIỆM
+	% =====================
+	\section{Câu hỏi Trắc nghiệm tổng hợp}
+	
+	\subsection{Câu trắc nghiệm nhiều phương án lựa chọn}
+	\textit{Thí sinh chọn một phương án đúng duy nhất trong các phương án A, B, C, D.}
+	
+	\begin{enumerate}[label=\textbf{Câu \arabic*.}]
+			
+		% CÂU 1 (Lý thuyết cơ bản)
+		\item Một chất điểm chuyển động với phương trình quãng đường là $s(t)$, vận tốc là $v(t)$ và gia tốc là $a(t)$. Khẳng định nào sau đây là \textbf{đúng}?
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $v(t) = \displaystyle \int s(t)dt$.
+				\item $a(t) = \displaystyle \int v(t)dt$.
+				\item $v(t) = s'(t)$ và $s(t) = \displaystyle \int v(t)dt$.
+				\item $s(t) = a'(t)$ và $v(t) = \displaystyle \int s(t)dt$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 2 (Vận tốc -> Quãng đường cơ bản)
+		\item Một vật chuyển động với vận tốc $v(t) = 3t^2 - 2t \ (m/s)$. Quãng đường vật đó đi được sau $3$ giây kể từ lúc bắt đầu chuyển động (tại $t=0$, $s=0$) là
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $27 \ m$.
+				\item $18 \ m$.
+				\item $36 \ m$.
+				\item $9 \ m$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 3 (Gia tốc -> Vận tốc cơ bản)
+		\item Một chiếc xe máy xuất phát từ trạng thái nghỉ (vận tốc ban đầu bằng $0$) và chuyển động với gia tốc $a(t) = 4t + 1 \ (m/s^2)$. Vận tốc của xe máy tại thời điểm $t = 2$ giây là
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $10 \ m/s$.
+				\item $8 \ m/s$.
+				\item $12 \ m/s$.
+				\item $14 \ m/s$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 4 (Bài toán dừng hẳn)
+		\item Một ô tô đang chạy với vận tốc $10 \ m/s$ thì người lái đạp phanh. Kể từ thời điểm đó, ô tô chuyển động chậm dần đều với vận tốc $v(t) = -2t + 10 \ (m/s)$. Hỏi từ lúc đạp phanh đến khi dừng hẳn, ô tô di chuyển được bao nhiêu mét?
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $20 \ m$.
+				\item $25 \ m$.
+				\item $30 \ m$.
+				\item $50 \ m$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 5 (Đổi đơn vị + Dừng hẳn)
+		\item Một tàu hỏa đang chạy với vận tốc $72 \ km/h$ thì hãm phanh, chuyển động chậm dần đều với gia tốc $a = -4 \ (m/s^2)$. Quãng đường tàu đi được từ lúc hãm phanh đến khi dừng lại hoàn toàn là
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $50 \ m$.
+				\item $100 \ m$.
+				\item $162 \ m$.
+				\item $20 \ m$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 6 (Gia tốc -> Quãng đường (lấy nguyên hàm 2 lần))
+		\item Một chất điểm chuyển động thẳng với gia tốc $a(t) = 6t \ (m/s^2)$. Biết rằng tại thời điểm $t = 0$, chất điểm có vận tốc $v_0 = 2 \ m/s$ và bắt đầu tính quãng đường $s(0) = 0$. Quãng đường chất điểm đi được sau $3$ giây là
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $33 \ m$.
+				\item $29 \ m$.
+				\item $35 \ m$.
+				\item $27 \ m$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 7 (Ném vật lên cao - Ứng dụng khi v=0)
+		\item Một quả bóng được ném thẳng đứng lên trên với vận tốc tại thời điểm $t$ là $v(t) = 20 - 10t \ (m/s)$. Độ cao cực đại mà quả bóng đạt được so với vị trí ném là bao nhiêu? (Biết độ cao cực đại đạt được khi vận tốc bằng $0$).
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $15 \ m$.
+				\item $20 \ m$.
+				\item $25 \ m$.
+				\item $40 \ m$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 8 (Hàm e^t)
+		\item Một vật chuyển động với gia tốc $a(t) = e^t \ (m/s^2)$. Biết tại thời điểm $t = 0$, vật đang ở trạng thái đứng yên. Vận tốc của vật tại thời điểm $t = 2$ giây là
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $e^2 \ (m/s)$.
+				\item $e^2 - 1 \ (m/s)$.
+				\item $e^2 + 1 \ (m/s)$.
+				\item $2e \ (m/s)$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 9 (Hàm Lượng giác)
+		\item Phương trình vận tốc của một vật dao động được cho bởi $v(t) = 2\pi \cos(\pi t) \ (m/s)$. Biết tại thời điểm $t = 0$, vật ở vị trí có tọa độ $s(0) = 0$. Tọa độ của vật tại thời điểm $t = 0,5$ giây là
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $0 \ m$.
+				\item $1 \ m$.
+				\item $2 \ m$.
+				\item $\pi \ m$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 10 (Chứa tham số ẩn)
+		\item Một ô tô chuyển động nhanh dần đều với gia tốc $a = 2 \ (m/s^2)$. Gọi $v_0$ là vận tốc ban đầu của ô tô. Biết rằng sau $4$ giây kể từ lúc tăng tốc, ô tô đi được quãng đường $36 \ m$. Vận tốc ban đầu $v_0$ của ô tô là
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $2 \ m/s$.
+				\item $3 \ m/s$.
+				\item $4 \ m/s$.
+				\item $5 \ m/s$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 11 (Hàm phân nhánh - Giai đoạn chuyển động)
+		\item Một đoàn tàu bắt đầu rời ga, chuyển động nhanh dần với gia tốc $a = 2 \ (m/s^2)$ trong $5$ giây đầu tiên. Kể từ giây thứ $5$ trở đi, tàu giữ nguyên vận tốc vừa đạt được và chuyển động thẳng đều. Quãng đường đoàn tàu đi được sau $10$ giây kể từ lúc rời ga là
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $50 \ m$.
+				\item $75 \ m$.
+				\item $100 \ m$.
+				\item $125 \ m$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 12 (Tìm tham số t từ quãng đường)
+		\item Một ô tô đang chạy với vận tốc $20 \ m/s$ thì đạp phanh, chuyển động chậm dần đều với vận tốc $v(t) = -2t + 20 \ (m/s)$. Kể từ lúc đạp phanh, hỏi mất bao nhiêu giây để ô tô đi được quãng đường $64 \ m$?
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $4$ giây.
+				\item $5$ giây.
+				\item $8$ giây.
+				\item $16$ giây.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 13 (Cực trị - Vận tốc lớn nhất)
+		\item Một chất điểm bắt đầu chuyển động với gia tốc phụ thuộc thời gian theo công thức $a(t) = -2t + 6 \ (m/s^2)$. Biết vận tốc ban đầu của chất điểm tại $t=0$ là $2 \ m/s$. Trong suốt quá trình chuyển động, vận tốc lớn nhất mà chất điểm đạt được là bao nhiêu?
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $9 \ m/s$.
+				\item $11 \ m/s$.
+				\item $12 \ m/s$.
+				\item $6 \ m/s$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 14 (Hai vật gặp nhau)
+		\item Hai chất điểm A và B xuất phát cùng lúc, cùng vị trí. Chất điểm A chuyển động đều với vận tốc $v_A = 10 \ m/s$. Chất điểm B xuất phát từ trạng thái nghỉ, chuyển động nhanh dần với gia tốc $a_B = 4 \ (m/s^2)$. Hỏi sau bao nhiêu giây kể từ lúc xuất phát, chất điểm B đuổi kịp chất điểm A?
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $2,5$ giây.
+				\item $4$ giây.
+				\item $5$ giây.
+				\item $10$ giây.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 15 (Lấy nguyên hàm 2 lần với C1, C2 khác 0)
+		\item Một vật chuyển động thẳng với gia tốc $a(t) = 6t - 4 \ (m/s^2)$. Biết tại thời điểm $t = 1$ (giây), vận tốc của vật là $2 \ (m/s)$ và tọa độ của vật tại $t = 2$ (giây) là $s(2) = 8 \ (m)$. Tọa độ của vật tại thời điểm $t = 3$ (giây) là
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $18 \ m$.
+				\item $20 \ m$.
+				\item $16 \ m$.
+				\item $24 \ m$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 16 (Thời gian phản xạ - Thực tế)
+		\item Người lái xe đang chạy với vận tốc $20 \ m/s$ thì thấy vật cản. Thời gian từ lúc thấy vật cản đến lúc chân đạp phanh là $1$ giây (trong lúc này xe vẫn chạy đều). Sau khi đạp phanh, xe chuyển động với gia tốc $a = -5 \ (m/s^2)$. Tổng quãng đường xe đi được từ lúc thấy vật cản đến lúc dừng hẳn là
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $40 \ m$.
+				\item $50 \ m$.
+				\item $60 \ m$.
+				\item $80 \ m$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 17 (Hàm phân thức cơ bản)
+		\item Một ca nô di chuyển trên sông. Trong khoảng thời gian từ $t = 1$ (giây) đến $t = e$ (giây), vận tốc của ca nô tuân theo công thức $v(t) = 2t + \dfrac{4}{t} \ (m/s)$. Quãng đường ca nô đi được trong khoảng thời gian nói trên là
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $e^2 + 3 \ (m)$.
+				\item $e^2 + 4 \ (m)$.
+				\item $2e + 4 \ (m)$.
+				\item $e^2 - 1 \ (m)$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 18 (Chia đa thức cho đơn thức cơ bản)
+		\item Một thiết bị cơ khí có gia tốc $a(t) = \dfrac{t^3 + 2}{t^2} \ (m/s^2)$ với $t > 0$. Biết vận tốc của thiết bị tại thời điểm $t = 1$ giây là $1 \ m/s$. Vận tốc của thiết bị tại thời điểm $t = 2$ giây là
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $\dfrac{5}{2} \ (m/s)$.
+				\item $\dfrac{7}{2} \ (m/s)$.
+				\item $3 \ (m/s)$.
+				\item $4 \ (m/s)$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 19 (So sánh 2 quãng đường)
+		\item Hai ô tô A và B cùng xuất phát từ vạch đích. Vận tốc của xe A là $v_A(t) = 3t^2 + 2t \ (m/s)$ và vận tốc của xe B là $v_B(t) = 4t + 5 \ (m/s)$. Hỏi sau $2$ giây kể từ lúc xuất phát, khoảng cách giữa hai xe là bao nhiêu?
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $4 \ m$.
+				\item $6 \ m$.
+				\item $8 \ m$.
+				\item $12 \ m$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 20 (Giải tham số v0)
+		\item Một ô tô đang chuyển động với vận tốc $v_0 \ (m/s)$ thì hãm phanh, chuyển động với gia tốc $a = -2 \ (m/s^2)$. Biết rằng từ lúc hãm phanh đến khi dừng hẳn, ô tô đi được chính xác $25 \ m$. Vận tốc ban đầu $v_0$ của ô tô là
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $5 \ m/s$.
+				\item $10 \ m/s$.
+				\item $15 \ m/s$.
+				\item $20 \ m/s$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 21 (Độ cao tối đa - Kết hợp s0)
+		\item Một viên đạn pháo được bắn thẳng đứng lên trời từ một bệ phóng cao $5 \ m$ so với mặt đất. Vận tốc của viên đạn tại thời điểm $t$ là $v(t) = -10t + 30 \ (m/s)$. Tính độ cao lớn nhất mà viên đạn đạt được so với mặt đất.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $45 \ m$.
+				\item $50 \ m$.
+				\item $55 \ m$.
+				\item $40 \ m$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 22 (Hàm số mũ e^t cơ bản)
+		\item Một động cơ phản lực tạo ra vận tốc cho một mô hình máy bay theo công thức $v(t) = e^t + t \ (m/s)$. Kể từ thời điểm $t = 0$, quãng đường máy bay di chuyển được sau $2$ giây là
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $e^2 + 1 \ (m)$.
+				\item $e^2 + 2 \ (m)$.
+				\item $e^2 - 1 \ (m)$.
+				\item $e^2 + 3 \ (m)$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 23 (Hàm lũy thừa hữu tỉ / Căn thức)
+		\item Một hạt vi mô chuyển động trong ống gia tốc với vận tốc $v(t) = 3\sqrt{t} \ (m/s)$. Quãng đường hạt vi mô di chuyển được trong $4$ giây đầu tiên là
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $8 \ m$.
+				\item $12 \ m$.
+				\item $16 \ m$.
+				\item $24 \ m$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 24 (Bài toán phanh xe - Chứa tham số k)
+		\item Một xe tải đang chạy với vận tốc $24 \ m/s$ thì phanh gấp, lực phanh tạo ra gia tốc $a(t) = -k \cdot t \ (m/s^2)$ với $k > 0$. Biết xe dừng hẳn sau $4$ giây kể từ lúc phanh. Quãng đường xe tải đi được trong $4$ giây đó là
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $32 \ m$.
+				\item $48 \ m$.
+				\item $64 \ m$.
+				\item $72 \ m$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 25 (Kinh tế - Lợi nhuận)
+		\item Một xưởng sản xuất ghi nhận tốc độ thay đổi doanh thu là $R'(t) = 100 - 2t$ (triệu đồng/ngày). Biết tại thời điểm bắt đầu ($t=0$), doanh thu bằng $0$. Doanh thu của xưởng sau $10$ ngày hoạt động là
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $800$ triệu đồng.
+				\item $1000$ triệu đồng.
+				\item $1100$ triệu đồng.
+				\item $900$ triệu đồng.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 26 (Chuyển động - Tìm tọa độ)
+		\item Một vật chuyển động trên trục $Ox$ với vận tốc $v(t) = 2t + 5 \ (m/s)$. Biết tại thời điểm $t = 0$, vật đang ở tọa độ $x = 10 \ m$. Tọa độ của vật tại thời điểm $t = 3$ giây là
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $24 \ m$.
+				\item $25 \ m$.
+				\item $34 \ m$.
+				\item $44 \ m$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 27 (Sinh học - Hàm 1/t)
+		\item Tốc độ phát triển của một đàn vi khuẩn từ ngày thứ $1$ đến ngày thứ $e$ được cho bởi $N'(t) = \dfrac{400}{t}$ (con/ngày). Biết tại ngày thứ nhất ($t = 1$), đàn vi khuẩn có $500$ con. Số lượng vi khuẩn vào ngày thứ $e$ là
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $900$ con.
+				\item $400$ con.
+				\item $500e$ con.
+				\item $1300$ con.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 28 (Chuyển động - Hàm căn thức)
+		\item Một chất điểm chuyển động với gia tốc $a(t) = 3\sqrt{t} \ (m/s^2)$ với $t \ge 0$. Biết vận tốc ban đầu của chất điểm tại $t=0$ là $2 \ m/s$. Vận tốc của chất điểm tại thời điểm $t = 4$ giây là
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $16 \ m/s$.
+				\item $18 \ m/s$.
+				\item $20 \ m/s$.
+				\item $24 \ m/s$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 29 (Nông nghiệp - Tốc độ sinh trưởng)
+		\item Tốc độ tăng trưởng chiều cao của một cây bạch đàn là $h'(t) = \dfrac{1}{2}t + 2 \ (cm/\text{tháng})$. Biết lúc mới trồng ($t = 0$), cây cao $15 \ cm$. Chiều cao của cây sau $4$ tháng là
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $23 \ cm$.
+				\item $31 \ cm$.
+				\item $19 \ cm$.
+				\item $27 \ cm$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 30 (Chuyển động - Dừng hẳn)
+		\item Một chiếc xe đang chạy thì đạp phanh, chuyển động chậm dần với vận tốc $v(t) = -5t + 15 \ (m/s)$. Quãng đường xe đi được từ lúc đạp phanh đến khi dừng hẳn là
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $22,5 \ m$.
+				\item $30 \ m$.
+				\item $45 \ m$.
+				\item $15 \ m$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 31 (Công nghiệp - Lưu lượng nước)
+		\item Máy bơm nước vào một bể trống với tốc độ $V'(t) = 3t^2 + 1 \ (m^3/\text{giờ})$. Thể tích nước có trong bể sau $2$ giờ bơm là
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $12 \ m^3$.
+				\item $8 \ m^3$.
+				\item $10 \ m^3$.
+				\item $14 \ m^3$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 32 (Y học - Phương trình f(x) = 0)
+		\item Diện tích một vết thương đang lành giảm dần với tốc độ $S'(t) = -2t \ (cm^2/\text{ngày})$. Biết ban đầu ($t = 0$), diện tích vết thương là $16 \ cm^2$. Hỏi sau bao nhiêu ngày thì vết thương lành hẳn (diện tích bằng $0$)?
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $2$ ngày.
+				\item $4$ ngày.
+				\item $8$ ngày.
+				\item $16$ ngày.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 33 (Chuyển động - Tìm t)
+		\item Một vật chuyển động với vận tốc $v(t) = 6t^2 \ (m/s)$. Biết vật xuất phát từ gốc tọa độ ($s(0)=0$). Hỏi sau bao nhiêu giây thì vật di chuyển được quãng đường $54 \ m$?
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $2$ giây.
+				\item $4$ giây.
+				\item $3$ giây.
+				\item $9$ giây.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 34 (Vật lý - Điện lượng hàm e^t)
+		\item Cường độ dòng điện qua một dây dẫn thay đổi theo hàm số $I(t) = 2e^t \ (\text{Ampe})$. Biết điện lượng $Q(t)$ có đạo hàm là $I(t)$ và tại $t = 0$, $Q(0) = 5 \ (\text{Coulomb})$. Điện lượng truyền qua dây tại thời điểm $t = 1$ giây là
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $2e + 5 \ (C)$.
+				\item $2e \ (C)$.
+				\item $e + 3 \ (C)$.
+				\item $2e + 3 \ (C)$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 35 (Môi trường - Tìm C gián tiếp)
+		\item Mức độ ô nhiễm của một con sông thay đổi với tốc độ $P'(t) = 6t - 2$. Biết tại thời điểm $t = 1$, mức độ ô nhiễm đo được là $20$ đơn vị. Mức độ ô nhiễm tại thời điểm $t = 3$ là
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $40$ đơn vị.
+				\item $38$ đơn vị.
+				\item $42$ đơn vị.
+				\item $36$ đơn vị.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 36 (Kinh tế - Chi phí)
+		\item Chi phí biên để sản xuất $x$ sản phẩm là $C'(x) = 3x^2 + 4x$ (nghìn đồng/sản phẩm). Biết chi phí cố định (khi $x = 0$) là $100$ nghìn đồng. Tổng chi phí để sản xuất $2$ sản phẩm đầu tiên là
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $108$ nghìn đồng.
+				\item $116$ nghìn đồng.
+				\item $124$ nghìn đồng.
+				\item $132$ nghìn đồng.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 37 (Chuyển động - 2 giai đoạn)
+		\item Một xe tải chuyển động với vận tốc $v(t) = 4t \ (m/s)$ trong $2$ giây đầu. Kể từ giây thứ $2$ trở đi, xe giữ nguyên vận tốc và chạy đều trong $3$ giây tiếp theo. Tổng quãng đường xe đi được trong $5$ giây đó là
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $32 \ m$.
+				\item $40 \ m$.
+				\item $24 \ m$.
+				\item $16 \ m$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 38 (Sinh học - Trọng lượng)
+		\item Khối lượng của một con cá tăng với tốc độ $W'(t) = 0,6t^2 + 1 \ (\text{gam/tháng})$. Khi mới sinh ($t = 0$), cá nặng $10 \ \text{gam}$. Khối lượng của cá sau $5$ tháng là
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $30 \ \text{gam}$.
+				\item $35 \ \text{gam}$.
+				\item $40 \ \text{gam}$.
+				\item $45 \ \text{gam}$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 39 (Chuyển động - Tham số a)
+		\item Một xe mô tô đang chạy với vận tốc $12 \ m/s$ thì phanh lại, chuyển động chậm dần đều với gia tốc $a = -k \ (m/s^2)$. Biết sau $3$ giây xe dừng hẳn. Giá trị của $k$ là
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $2$.
+				\item $6$.
+				\item $3$.
+				\item $4$.
+			\end{enumerate}
+		\end{multicols}
+		
+	\end{enumerate}
+	
+	\subsection{Câu trắc nghiệm Đúng/Sai}
+	\textit{Trong mỗi ý a), b), c), d) ở mỗi câu, thí sinh chọn đúng hoặc sai.}
+	
+	\begin{enumerate}[label=\textbf{Câu \arabic*.}, start=1]
+			
+		% CÂU 1 (Tương tự hình ảnh 1 - Bài toán phanh xe có thời gian phản xạ)
+		\item Một đoàn tàu đang chạy với vận tốc $20 \ (m/s)$ thì người lái tàu nhìn thấy một chướng ngại vật trên đường ray cách đó $60 \ m$. Kể từ lúc người lái tàu tác động lên phanh, tàu chuyển động chậm dần đều với gia tốc $a = -4 \ (m/s^2)$. Gọi $t$ là thời gian tính bằng giây kể từ lúc tàu bắt đầu phanh.
+		\begin{enumerate}[label=\alph*)]
+			\item Vận tốc của tàu kể từ lúc phanh được biểu diễn bởi hàm số $v(t) = -4t + 20 \ (m/s)$.
+			\item Kể từ lúc phanh, tàu mất $4$ giây để dừng lại hoàn toàn.
+			\item Nếu người lái tàu phanh ngay lập tức khi thấy chướng ngại vật thì tàu sẽ dừng lại cách chướng ngại vật $10 \ m$.
+			\item Giả sử người lái tàu có thời gian phản xạ là $0,5$ giây (trong $0,5$ giây đó tàu vẫn chạy với vận tốc không đổi) rồi mới đạp phanh. Khi đó, tàu sẽ va chạm với chướng ngại vật.
+		\end{enumerate}
+		
+		% CÂU 2 (Tương tự hình ảnh 2 - Chuyển động lượng giác)
+		\item Một con lắc lò xo dao động trên mặt phẳng ngang. Vận tốc của vật nặng tại thời điểm $t$ (giây) được cho bởi hàm số $v(t) = 2\sin t \ (cm/s)$. Giả sử tại thời điểm $t = 0$, vật nặng đang ở vị trí có tọa độ $s(0) = 0 \ (cm)$.
+		\begin{enumerate}[label=\alph*)]
+			\item Gia tốc của vật nặng tại thời điểm $t = \pi$ (giây) là $-2 \ (cm/s^2)$.
+			\item Phương trình tọa độ của vật nặng là $s(t) = -2\cos t + 2 \ (cm)$.
+			\item Tại thời điểm $t = \dfrac{\pi}{2}$ (giây), vật cách vị trí ban đầu $2 \ cm$.
+			\item Vận tốc của vật nặng luôn tăng trong khoảng thời gian từ $t = 0$ đến $t = \pi$.
+		\end{enumerate}
+		
+		% CÂU 3 (Bài toán ném vật thẳng đứng - Chuyển động có C khác 0)
+		\item Một quả bóng được ném thẳng đứng lên trời từ một ban công cao $5 \ m$ so với mặt đất. Vận tốc của quả bóng tại thời điểm $t$ (giây) là $v(t) = -10t + 20 \ (m/s)$. Chiều dương được chọn là chiều hướng lên trên, gốc tọa độ tại mặt đất.
+		\begin{enumerate}[label=\alph*)]
+			\item Phương trình độ cao của quả bóng so với mặt đất là $h(t) = -5t^2 + 20t \ (m)$.
+			\item Quả bóng đạt độ cao lớn nhất tại thời điểm $t = 2$ giây.
+			\item Độ cao cực đại mà quả bóng đạt được so với mặt đất là $25 \ m$.
+			\item Tại thời điểm $t = 3$ giây, quả bóng đang rơi xuống với tốc độ là $10 \ m/s$.
+		\end{enumerate}
+		
+		% CÂU 4 (Bài toán sinh học - Hàm e^t)
+		\item Sự phát triển của một đàn vi khuẩn trong môi trường nuôi cấy có tốc độ tăng trưởng là $N'(t) = 100e^t$ (con/giờ), trong đó $t \ge 0$ là thời gian tính bằng giờ. Các nhà khoa học ghi nhận tại thời điểm bắt đầu quan sát ($t = 0$), trong mẫu có $500$ con vi khuẩn.
+		\begin{enumerate}[label=\alph*)]
+			\item Hàm số biểu diễn số lượng vi khuẩn sau $t$ giờ là $N(t) = 100e^t + 500$.
+			\item Số lượng vi khuẩn tăng thêm trong $1$ giờ đầu tiên (từ $t=0$ đến $t=1$) là $100e - 100$ con.
+			\item Tại thời điểm $t = 2$ (giờ), tốc độ tăng trưởng của vi khuẩn là $100e^2$ (con/giờ).
+			\item Tại thời điểm $t = 1$ (giờ), số lượng vi khuẩn trong đàn vượt qua mức $700$ con (biết $e \approx 2,718$).
+		\end{enumerate}
+		% CÂU 5 (Phát triển từ Câu 23 - Biến thiên lượng truy cập website)
+		\item Tốc độ truy cập (lượt/giờ) vào một trang web thương mại điện tử trong một ngày giảm giá lớn được mô phỏng bởi hàm số $V'(t) = 12t^3 - 180t^2 + 600t$, với $t$ là số giờ kể từ $0$ giờ ($0 \le t \le 12$). Biết rằng tại thời điểm $t=1$ (1 giờ sáng), hệ thống ghi nhận đã có tổng cộng $1000$ lượt truy cập kể từ $0$ giờ.
+		\begin{enumerate}[label=\alph*)]
+			\item Hàm số biểu diễn tổng số lượt truy cập vào trang web là $V(t) = 3t^4 - 60t^3 + 300t^2 + 757$.
+			\item Tính đến thời điểm $t = 2$ giờ sáng, trang web đã nhận được tổng cộng $1500$ lượt truy cập.
+			\item Tổng số lượt truy cập đạt mức cao nhất vào thời điểm 10 giờ sáng.
+			\item Tốc độ thay đổi lượt truy cập vào trang web là lớn nhất tại thời điểm $12$ giờ trưa.
+		\end{enumerate}
+		
+		% CÂU 6 (Phát triển từ Câu 23 - Doanh thu bán hàng)
+		\item Tốc độ tăng doanh thu của một cửa hàng trong $12$ tháng được mô hình hóa bởi $R'(t) = 8t^3 - 120t^2 + 400t$ (triệu đồng/tháng), với $t$ là số tháng ($1 \le t \le 12$). Theo sổ sách, tổng doanh thu của cửa hàng sau tháng đầu tiên ($t=1$) là $200$ triệu đồng.
+		\begin{enumerate}[label=\alph*)]
+			\item Hàm tổng doanh thu của cửa hàng sau $t$ tháng là $R(t) = 2t^4 - 40t^3 + 200t^2 + 38$.
+			\item Tổng doanh thu tính đến hết tháng thứ $5$ là $1300$ triệu đồng.
+			\item Tổng doanh thu của cửa hàng bị sụt giảm và đạt mức thấp nhất vào tháng thứ $10$.
+			\item Tốc độ tăng doanh thu của cửa hàng đạt mức cao nhất vào tháng thứ $12$.
+		\end{enumerate}
+		
+		% CÂU 7 (Phát triển từ Câu 23 - Sản lượng điện mặt trời)
+		\item Tốc độ sản sinh điện năng của một hệ thống pin mặt trời (kW/h) trong một ngày được xác định bởi $P'(t) = 4t^3 - 60t^2 + 200t$, với $t$ là thời gian tính bằng giờ kể từ $6$ giờ sáng ($0 \le t \le 10$). Biết sau $1$ giờ ($t=1$, tức $7$ giờ sáng), tổng sản lượng điện hệ thống đã tích lũy là $90 \ kWh$.
+		\begin{enumerate}[label=\alph*)]
+			\item Công thức tính tổng sản lượng điện tích lũy là $P(t) = t^4 - 20t^3 + 100t^2 + 9$.
+			\item Tổng sản lượng điện tích lũy sau $5$ giờ hoạt động là $634 \ kWh$.
+			\item Tốc độ sản sinh điện năng của hệ thống giảm liên tục trong khoảng thời gian từ $t=0$ đến $t=10$.
+			\item Tổng sản lượng điện tích lũy đạt mức cao nhất tại thời điểm $t = 5$ (tương ứng $11$ giờ trưa).
+		\end{enumerate}
+		
+		% CÂU 8 (Phát triển từ Câu 24 - Thể tích hồ chứa bị rò rỉ)
+		\item Một bồn chứa nước công nghiệp bị rò rỉ ở đáy. Tốc độ thay đổi thể tích nước trong bồn được mô phỏng bởi $V'(t) = t^2 - 10t$ (lít/giờ), với $t$ là thời gian quan sát tính bằng giờ ($0 \le t \le 10$). Đo đạc thực tế cho thấy sau $3$ giờ quan sát, thể tích nước còn lại trong bồn là $800$ lít.
+		\begin{enumerate}[label=\alph*)]
+			\item Hàm số tính thể tích nước còn lại trong bồn là $V(t) = \frac{t^3}{3} - 5t^2 + 836$.
+			\item Lượng nước trong bồn liên tục giảm trong suốt $10$ giờ quan sát đầu tiên.
+			\item Tốc độ rò rỉ nước ra ngoài môi trường lớn nhất tại thời điểm $t = 5$ giờ.
+			\item Sau $6$ giờ quan sát, thể tích nước còn lại trong bồn đúng bằng $720$ lít.
+		\end{enumerate}
+		
+		% CÂU 9 (Phát triển từ Câu 24 - Sự giảm nhiệt độ của buồng lạnh)
+		\item Nhiệt độ của một buồng lạnh công nghiệp đang trong quá trình hạ nhiệt độ được ghi nhận thay đổi với tốc độ $T'(t) = t^2 - 12t \ (^\circ\text{C/giờ})$, với $0 \le t \le 12$. Biết sau $3$ giờ vận hành, nhiệt độ đo được bên trong buồng là $10^\circ\text{C}$.
+		\begin{enumerate}[label=\alph*)]
+			\item Hàm số biểu diễn nhiệt độ của buồng lạnh là $T(t) = \frac{t^3}{3} - 6t^2 + 55$.
+			\item Nhiệt độ của buồng lạnh đạt mức thấp nhất sau $12$ giờ vận hành.
+			\item Từ giờ thứ $6$ đến giờ thứ $10$, nhiệt độ của buồng lạnh có xu hướng tăng dần.
+			\item Nhiệt độ của buồng lạnh sau $6$ giờ vận hành là $-89^\circ\text{C}$.
+		\end{enumerate}
+		
+		% CÂU 10 (Phát triển từ Câu 24 - Tồn kho nguyên liệu)
+		\item Mức tồn kho của một loại nguyên liệu trong nhà máy thay đổi với tốc độ $I'(t) = t^2 - 14t$ (tấn/ngày) trong $14$ ngày ($0 \le t \le 14$). Số liệu thống kê cho thấy tại ngày thứ $3$, mức tồn kho của nguyên liệu này là $200$ tấn.
+		\begin{enumerate}[label=\alph*)]
+			\item Biểu thức tính mức tồn kho của nguyên liệu là $I(t) = \frac{t^3}{3} - 7t^2 + 254$.
+			\item Mức tồn kho của nguyên liệu này không ngừng tăng lên trong $7$ ngày đầu tiên.
+			\item Ngày có lượng tồn kho bị giảm đi nhiều nhất so với ngày hôm trước là ngày thứ $7$.
+			\item Số lượng tồn kho của nguyên liệu sau $6$ ngày là $74$ tấn.
+		\end{enumerate}
+		
+		% CÂU 11 (Phát triển từ Câu 25 - Tăng trưởng GDP quốc gia)
+		\item Tốc độ gia tăng tổng sản phẩm quốc nội (GDP) của một quốc gia đang phát triển được mô hình hóa bởi hàm số $G'(t) = 15 \cdot e^{0,05t}$ (tỷ USD/năm), với $t$ là số năm kể từ năm gốc 2020. Dữ liệu thực tế ghi nhận năm 2020 ($t=0$), GDP của quốc gia này là $300$ tỷ USD.
+		\begin{enumerate}[label=\alph*)]
+			\item Hàm số dự báo GDP của quốc gia này tại năm thứ $t$ là $G(t) = 300 \cdot e^{0,05t}$.
+			\item Vào năm 2030, tốc độ gia tăng GDP của quốc gia này dự báo đạt $15\sqrt{e}$ tỷ USD/năm.
+			\item Theo mô hình trên, GDP của quốc gia vào năm 2040 được dự báo là $300 \cdot e^{0,1}$ tỷ USD.
+			\item GDP của quốc gia này sẽ tăng gấp đôi so với năm 2020 sau khoảng $14$ năm (biết $\ln 2 \approx 0,69$).
+		\end{enumerate}
+		
+		% CÂU 12 (Phát triển từ Câu 25 - Lợi nhuận doanh nghiệp)
+		\item Tốc độ tăng trưởng lợi nhuận của một công ty khởi nghiệp công nghệ được ước tính là $P'(t) = 2 \cdot e^{0,2t}$ (tỷ đồng/tháng), với $t$ là số tháng kể từ thời điểm ra mắt sản phẩm mới. Lúc ban đầu ($t=0$), lợi nhuận của công ty ghi nhận ở mức $10$ tỷ đồng.
+		\begin{enumerate}[label=\alph*)]
+			\item Biểu thức tính lợi nhuận của công ty sau $t$ tháng là $P(t) = 10 \cdot e^{0,2t} + 10$.
+			\item Sau $5$ tháng, lợi nhuận của công ty dự kiến đạt $10e$ tỷ đồng.
+			\item Tốc độ tăng trưởng lợi nhuận của công ty vào thời điểm tháng thứ $10$ là $2e^2$ tỷ đồng/tháng.
+			\item Để lợi nhuận của công ty vượt mức $40$ tỷ đồng thì cần trải qua ít nhất $7$ tháng kinh doanh (biết $\ln 4 \approx 1,386$).
+		\end{enumerate}
+		
+		% CÂU 13 (Phát triển từ Câu 25 - Số lượng người dùng mạng xã hội)
+		\item Tốc độ gia tăng số lượng người dùng của một nền tảng mạng xã hội mới được biểu diễn bằng hàm số $U'(t) = 50 \cdot e^{0,1t}$ (nghìn người/tháng), trong đó $t$ là số tháng kể từ lúc nền tảng chính thức phát hành ($t=0$). Lúc mới phát hành, mạng xã hội này đã có sẵn $500$ nghìn người dùng đăng ký trước.
+		\begin{enumerate}[label=\alph*)]
+			\item Hàm số biểu diễn tổng số lượng người dùng của mạng xã hội sau $t$ tháng là $U(t) = 500 \cdot e^{0,1t}$.
+			\item Tổng số người dùng của mạng xã hội này sau $10$ tháng phát hành là $500 \cdot e^{0,1}$ nghìn người.
+			\item Tốc độ tăng trưởng số lượng người dùng vào tháng thứ $10$ là khoảng $136$ nghìn người/tháng (biết $e \approx 2,718$).
+			\item Tổng số lượng người dùng sẽ vượt mốc $1,5$ triệu người sau khoảng $11$ tháng (biết $\ln 3 \approx 1,098$).
+		\end{enumerate}
+	\end{enumerate}
+	
+	\subsection{Phần III. Câu trắc nghiệm trả lời ngắn}
+	\textit{Thí sinh ghi đáp án cuối cùng vào ô trống / phiếu trả lời mà không cần giải thích.}
+	
+	\begin{enumerate}[label=\textbf{Câu \arabic*.}, start=1]
+		
+		% Mẫu 1 câu điền khuyết
+		\item Một chất điểm thực hiện chuyển động thẳng trên trục $Ox$, với vận tốc cho bởi công thức $v(t) = 3t^2 + 4t \, (m/s)$. Tại thời điểm bắt đầu chuyển động, chất điểm đang ở tọa độ $x = 1$. Tìm tọa độ của chất điểm sau 1 giây chuyển động.
+		\vspace{0.75cm}
+		
+		% DẠNG CÂU 26 (4 câu)
+		\item Một chất điểm chuyển động thẳng trên trục $Ox$ với vận tốc $v(t) = 6t^2 - 2t \, (m/s)$. Tại thời điểm ban đầu ($t=0$), chất điểm ở tọa độ $x = 5$. Hỏi sau $2$ giây chuyển động, chất điểm ở tọa độ bao nhiêu mét?
+		\vspace{0.75cm}
+		
+		\item Một vật chuyển động thẳng trên trục tọa độ với phương trình vận tốc $v(t) = 4t^3 + 3t^2 \, (m/s)$. Biết rằng tại thời điểm $t = 1$ giây, vật đang ở vị trí có tọa độ $x = 10$. Tìm tọa độ của vật tại thời điểm $t = 2$ giây.
+		\vspace{0.75cm}
+		
+		\item Một tàu lượn siêu tốc di chuyển trên một đường ray thẳng dọc theo trục $Ox$. Vận tốc của tàu lượn được tính bởi $v(t) = 12t - 3t^2 \, (m/s)$. Tại $t = 0$, tàu lượn ở vị trí $x = -2$. Xác định tọa độ của tàu lượn (tính bằng mét) sau $3$ giây.
+		\vspace{0.75cm}
+		
+		\item Một robot di chuyển dọc theo một đường thẳng $Ox$ để kiểm tra đường ống. Vận tốc di chuyển của robot được lập trình theo hàm số $v(t) = e^t + 2t \, (m/s)$. Tại $t=0$, robot đang ở tọa độ $x = 0$. Tính tọa độ của robot (làm tròn đến hàng phần mười) sau $2$ giây (biết $e \approx 2,718$).
+		\vspace{0.75cm}
+		
+		% DẠNG CÂU 33 (3 câu)
+		\item Một vật được ném thẳng đứng lên trên từ mặt đất với vận tốc ban đầu là $30 \, m/s$. Bỏ qua sức cản của không khí và lấy gia tốc rơi tự do $g = 10 \, m/s^2$. Vận tốc của vật tại thời điểm $t$ giây là $v(t) = 30 - 10t \, (m/s)$. Tính tổng quãng đường (theo mét) vật đi được sau $2$ giây đầu tiên.
+		\vspace{0.75cm}
+		
+		\item Một quả bóng bay được phóng thẳng đứng lên cao với vận tốc $v(t) = 19,6 - 9,8t \, (m/s)$. Tính tổng quãng đường (tính bằng mét) mà quả bóng bay di chuyển được sau $3$ giây đầu tiên. (Lưu ý: Quãng đường bao gồm cả lúc đi lên và lúc rơi xuống).
+		\vspace{0.75cm}
+		
+		\item Một tên lửa mô hình được phóng thẳng đứng với vận tốc $v(t) = 40 - 10t \, (m/s)$. Hỏi sau $5$ giây kể từ lúc phóng, tổng quãng đường tên lửa mô hình đã bay được là bao nhiêu mét?
+		\vspace{0.75cm}
+		
+		% DẠNG CÂU 34 (2 câu)
+		\item Một quả pháo hoa được bắn thẳng đứng lên trời từ một tòa tháp cao $15 \, m$ so với mặt đất, với vận tốc xuất phát là $60 \, m/s$. Vận tốc của pháo hoa tại thời điểm $t$ giây là $v(t) = 60 - 10t \, (m/s)$. Hãy xác định độ cao của quả pháo hoa so với mặt đất (theo mét) tại thời điểm $t = 4$ giây.
+		\vspace{0.75cm}
+		
+		\item Một trực thăng đang ở độ cao $120 \, m$ so với mặt đất thì thả một thùng hàng rớt thẳng đứng xuống. Tuy nhiên, do có dù hãm, vận tốc rơi của thùng hàng là $v(t) = -20 - 5t \, (m/s)$ (chiều dương hướng lên trên). Hãy xác định độ cao của thùng hàng so với mặt đất (tính bằng mét) sau $2$ giây kể từ khi thả.
+		\vspace{0.75cm}
+		
+		% DẠNG CÂU 37 (3 câu)
+		\item Gọi $h(t)$ là chiều cao của một cây bạch đàn (tính theo mét) sau khi trồng $t$ năm. Biết rằng sau $1$ năm đầu tiên, cây cao $2 \, m$. Trong các năm tiếp theo, tốc độ phát triển chiều cao của cây là $h'(t) = \dfrac{3}{t} \, (m/\text{năm})$. Tính chiều cao của cây (theo mét) sau $e^2$ năm trồng.
+		\vspace{0.75cm}
+		
+		\item Một giống ngô mới được theo dõi sự tăng trưởng. Tốc độ tăng chiều cao của cây ngô được cho bởi $h'(t) = 10 + \dfrac{20}{\sqrt{t}} \, (cm/\text{tuần})$, với $t$ là số tuần tính từ lúc nảy mầm ($t > 0$). Biết rằng sau tuần thứ nhất ($t=1$), cây ngô cao $40 \, cm$. Hỏi sau $4$ tuần, cây ngô đó cao bao nhiêu centimét?
+		\vspace{0.75cm}
+		
+		\item Một cây măng tre phát triển với tốc độ rất nhanh, được mô phỏng bởi hàm số $h'(t) = 0,2t + 0,5 \, (m/\text{ngày})$. Khi mới bắt đầu đo đạc ($t=0$), măng nhú khỏi mặt đất $0,1 \, m$. Sau bao nhiêu ngày thì măng tre đạt được chiều cao $2,5 \, m$?
+		\vspace{0.75cm}
+		
+		% DẠNG CÂU 40 (3 câu)
+		\item Một quần thể vi khuẩn ban đầu có $1000$ con. Tốc độ tăng trưởng của quần thể này được cho bởi hàm số $N'(t) = k\sqrt{t}$ (con/ngày), với $k$ là hằng số. Biết rằng sau $1$ ngày, số lượng vi khuẩn tăng lên thành $1200$ con. Tính số lượng vi khuẩn của quần thể đó sau $4$ ngày.
+		\vspace{0.75cm}
+		
+		\item Trong một đĩa Petri, số lượng tế bào nấm men thay đổi với tốc độ $M'(t) = A\sqrt{t}$ (tế bào/giờ). Ban đầu ($t=0$), có $2500$ tế bào. Sau $4$ giờ, số lượng tế bào đạt $2660$ tế bào. Hỏi sau $9$ giờ, số lượng tế bào nấm men là bao nhiêu?
+		\vspace{0.75cm}
+		
+		\item Tốc độ lây lan của một loại nấm mốc trên bề mặt tường ẩm được tính bằng $S'(t) = k\sqrt{t} \, (cm^2/\text{ngày})$. Diện tích nấm mốc lúc đầu ($t=0$) là $15 \, cm^2$. Sau $9$ ngày, diện tích vết nấm mốc lan rộng thành $69 \, cm^2$. Hỏi sau $16$ ngày, diện tích nấm mốc trên tường là bao nhiêu $cm^2$?
+		\vspace{0.75cm}
+		
+		% DẠNG CÂU 44 (2 câu)
+		\item Tốc độ phát triển số lượng tảo độc trong một hồ nước được ước tính bởi hàm số $V'(t) = 400 \cdot e^{0,2t}$ (cá thể/ngày), với $t$ là số ngày. Biết lúc bắt đầu quan sát ($t=0$), số lượng tảo độc là $3000$ cá thể. Tính số lượng tảo độc sau $5$ ngày (làm tròn đến hàng đơn vị, biết $e \approx 2,718$).
+		\vspace{0.75cm}
+		
+		\item Sự gia tăng của một đàn ong trong một trang trại tuân theo hàm tốc độ $N'(t) = 500 \cdot 2^t$ (con/tháng), với $t$ là số tháng. Ban đầu đàn ong có $2000$ con. Tính số lượng ong sau $3$ tháng (làm tròn kết quả đến hàng đơn vị, biết $\ln 2 \approx 0,693$).
+		\vspace{0.75cm}
+		
+		% DẠNG CÂU 45 (3 câu)
+		\item Một dự án xây dựng đường giao thông dự kiến hoàn thành trong $200$ ngày. Số lượng nhân công được sử dụng ở ngày thứ $t$ là $m(t) = 400 - t$ (người). Đơn giá trả cho một ngày công của mỗi nhân công là $0,5$ triệu đồng. Hỏi tổng chi phí nhân công lao động cho toàn bộ dự án (từ $t=0$ đến $t=200$) là bao nhiêu triệu đồng?
+		\vspace{0.75cm}
+		
+		\item Trong quá trình thu hoạch trái cây, sản lượng thu hoạch được mỗi ngày thay đổi theo hàm số $q(t) = 150 + 4t - 0,3t^2$ (tấn/ngày), với $t$ là số ngày ($0 \le t \le 10$). Biết giá bán mỗi tấn trái cây là $20$ triệu đồng. Tính tổng doanh thu (triệu đồng) thu được từ bán trái cây trong $10$ ngày thu hoạch đó.
+		\vspace{0.75cm}
+		
+		\item Một xưởng dệt may có tốc độ tiêu thụ điện năng trong $8$ giờ hoạt động mỗi ngày (từ $t=0$ đến $t=8$) là $P(t) = 50 + 2t$ (kW). Giá điện năng mà xưởng phải trả là $2000$ đồng cho mỗi kWh. Tính số tiền (tính bằng nghìn đồng) mà xưởng dệt may phải trả cho tiền điện trong một ngày.
+		\vspace{0.75cm}
+		
+		% DẠNG CÂU 48 (3 câu)
+		\item Mực nước trong một hồ chứa bị ảnh hưởng bởi thủy triều có tốc độ thay đổi là $h'(t) = 0,1(t^2 - 14t + 40) \, (m/\text{giờ})$, với $t \in [0, 24]$. Tại thời điểm $t = 0$, mực nước trong hồ là $10 \, m$. Hàm mực nước $h(t)$ đạt cực đại tại thời điểm $t_1$ (giờ) và đạt cực tiểu tại thời điểm $t_2$ (giờ) trên khoảng $(0, 24)$. Tính tổng $t_1 + t_2$.
+		\vspace{0.75cm}
+		
+		\item Một ao nuôi tôm có hệ thống xả và cấp nước tự động, tốc độ thay đổi mực nước là $v(t) = 0,3(t^2 - 8t + 12) \, (cm/\text{giờ})$, với $t \in [0, 10]$. Biết mực nước ban đầu là $120 \, cm$. Hỏi mực nước trong ao đạt cực tiểu tại thời điểm $t$ bằng bao nhiêu (giờ)?
+		\vspace{0.75cm}
+		
+		\item Tốc độ thay đổi nồng độ ô nhiễm trong một dòng sông được cho bởi $C'(t) = 2(t^2 - 16t + 60) \, (\text{ppm/ngày})$, $t \in [0, 20]$. Nồng độ ô nhiễm sẽ giảm liên tục trong khoảng thời gian từ ngày thứ $a$ đến ngày thứ $b$ ($a < b$). Tính giá trị của $a \times b$.
+		\vspace{0.75cm}
+		
+		% DẠNG CÂU 50 (2 câu)
+		\item Một máy bơm rót dung dịch vào bể phản ứng hóa học. Tốc độ rót là $V'(t) = 3at^2 + 2bt \, (\text{lít/giây})$. Lúc bắt đầu ($t=0$) bể rỗng. Sau $2$ giây, thể tích dung dịch trong bể là $20$ lít. Sau $4$ giây, thể tích dung dịch là $112$ lít. Tính thể tích dung dịch (lít) trong bể sau $5$ giây bơm.
+		\vspace{0.75cm}
+		
+		\item Tốc độ tiêu thụ nhiên liệu của một động cơ tàu thủy đang tăng tốc là $f'(t) = 12mt^2 + 2nt \, (\text{lít/phút})$. Biết rằng tổng nhiên liệu tiêu thụ tính từ lúc bắt đầu ($t=0$) đến phút thứ $1$ là $6$ lít và đến phút thứ $2$ là $36$ lít. Hỏi động cơ sẽ tiêu thụ bao nhiêu lít nhiên liệu sau $3$ phút đầu tiên?
+		\vspace{0.75cm}
+		
+	\end{enumerate}
+	
+	\newpage
+	
+	% =====================
+	% PHẦN 6: TỔNG KẾT BÀI
+	% =====================
+	\section{Tổng kết bài}
+	
+	\begin{tcolorbox}[colback=yellow!10!white, colframe=orange!60!black,
+		fonttitle=\bfseries, title={Tóm tắt sơ đồ tư duy \& Các lỗi thường gặp}]
+		\begin{itemize}
+			\item \textbf{Lỗi quên Hằng số C:} Trong các bài toán thực tế, hằng số $C$ thường đại diện cho giá trị ban đầu (vị trí ban đầu, số lượng ban đầu...). Việc quên $+C$ sẽ dẫn đến sai toàn bộ kết quả phía sau.
+			\item \textbf{Lỗi đơn vị đo lường:} Chú ý đồng nhất đơn vị (ví dụ: vận tốc cho là $km/h$ nhưng thời gian lại tính bằng giây/phút, cần quy đổi trước khi lấy nguyên hàm).
+			\item \textbf{Lỗi biện luận điều kiện vật lý:} Xe dừng hẳn nghĩa là $v(t) = 0$. Cây ngừng cao hoặc sinh vật đạt tối đa thường liên quan đến đạo hàm (tốc độ) bằng 0.
+		\end{itemize}
+	\end{tcolorbox}
+	
+	\vspace{3mm}
+	\textbf{Yêu cầu hoàn thành tự học:} Học sinh hoàn thành các phần bài tập được giao tùy theo năng lực học tập và ghi chú lại những câu hỏi chưa tự giải quyết được để trao đổi vào buổi học tiếp theo.
+	
+\end{document}

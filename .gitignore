@@ -1,0 +1,11 @@
+# Bỏ qua tất cả các file mặc định
+*
+
+# Không bỏ qua thư mục (để Git duyệt vào bên trong tìm kiếm)
+!*/
+
+# Chỉ giữ lại và cho phép theo dõi các file .tex
+!*.tex
+
+# Giữ lại file .gitignore để đẩy lên GitHub
+!.gitignore

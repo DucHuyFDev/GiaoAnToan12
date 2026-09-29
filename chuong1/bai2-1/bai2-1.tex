@@ -1,0 +1,1657 @@
+\documentclass[12pt]{article}
+
+% === CÀI ĐẶT TRANG ===
+\usepackage[margin=2cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T5]{fontenc}
+\usepackage[vietnamese]{babel}
+
+% === TOÁN HỌC ===
+\usepackage{amsmath, amssymb, amsthm}
+
+% === HÌNH VẼ ===
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+% === ĐỊNH DẠNG ===
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage[most]{tcolorbox}
+\usepackage{multicol}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{fancyhdr}
+\usepackage{tocloft}
+\usepackage[hidelinks]{hyperref}
+
+% === LỆNH TỰ ĐỊNH NGHĨA ===
+\newcommand{\otraloi}{\underline{\hspace{5cm}}}
+
+% === TCOLORBOX STYLES ===
+\tcbuselibrary{breakable, skins, fitting}
+
+% Hộp Ví dụ
+\newtcolorbox{vidu}[1][1]{
+	colback=blue!5!white, colframe=blue!60!black,
+	fonttitle=\bfseries, title={Ví dụ #1},
+	breakable, enhanced
+}
+
+% Hộp Lời giải
+\newtcolorbox{loigiai}{
+	colback=gray!8!white, colframe=gray!50!black,
+	fonttitle=\bfseries, title={Lời giải},
+	breakable, enhanced
+}
+
+% Bài tập xanh – Bắt buộc
+\newtcolorbox{btxanh}[1][]{
+	colback=blue!6!white, colframe=blue!65!black,
+	fonttitle=\bfseries\color{white}, coltitle=white,
+	attach boxed title to top left={yshift=-2mm, xshift=4mm},
+	boxed title style={colback=blue!65!black, rounded corners}, breakable, enhanced, #1
+}
+
+% Bài tập vàng – Bổ sung
+\newtcolorbox{btvang}[1][]{
+	colback=yellow!12!white, colframe=orange!75!black,
+	fonttitle=\bfseries, coltitle=orange!80!black,
+	attach boxed title to top left={yshift=-2mm, xshift=4mm},
+	boxed title style={colback=yellow!50!white, colframe=orange!75!black, rounded corners},breakable, enhanced, #1
+}
+
+% Bài tập đỏ – Gia cố
+\newtcolorbox{btdo}[1][]{
+	colback=red!6!white, colframe=red!65!black,
+	fonttitle=\bfseries\color{white}, coltitle=white,
+	attach boxed title to top left={yshift=-2mm, xshift=4mm},
+	boxed title style={colback=red!65!black, rounded corners}, breakable, enhanced, #1
+}
+
+% === HEADER/FOOTER ===
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small Chuyên đề: Giá trị lớn nhất và nhỏ nhất của hàm số}
+\fancyhead[R]{\small Toán 12}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% ================================================
+\begin{document}
+	
+	\begin{center}
+		{\LARGE \textbf{GIÁ TRỊ LỚN NHẤT VÀ NHỎ NHẤT CỦA HÀM SỐ}}\\[6pt]
+		{\large Môn: Toán -- Lớp: 12 \quad Buổi học: Tự học}
+	\end{center}
+	\vspace{4mm}
+	\hrule
+	\vspace{4mm}
+	
+	% ===========================
+	% PHẦN 1: MỤC TIÊU BÀI HỌC
+	% ===========================
+	\section*{Mục tiêu bài học}
+	\addcontentsline{toc}{section}{Mục tiêu bài học}
+	
+	\textbf{1. Kiến thức:}
+	\begin{itemize}
+		\item Hiểu đúng định nghĩa về giá trị lớn nhất (GTLN) và giá trị nhỏ nhất (GTNN) của hàm số trên một tập hợp số $K$ cho trước.
+		\item Nắm vững phương pháp đọc GTLN, GTNN trực quan qua bảng biến thiên và đồ thị của hàm số.
+		\item Thành thạo thuật toán tìm GTLN, GTNN của hàm số liên tục trên một đoạn $[a; b]$ và trên các khoảng, nửa khoảng bằng công thức giải tích.
+	\end{itemize}
+	
+	\textbf{2. Kĩ năng:}
+	\begin{itemize}
+		\item Đọc và phân biệt chính xác điểm cao nhất, điểm thấp nhất của đồ thị để suy ra cực trị và giá trị lớn nhất, nhỏ nhất tương ứng.
+		\item Tính toán nhanh đạo hàm, tìm nghiệm và tính toán các giá trị tại các điểm tới hạn một cách chính xác để so sánh.
+	\end{itemize}
+	
+	\textbf{3. Thái độ / Phẩm chất:}
+	\begin{itemize}
+		\item Phát triển tư duy tự lực cánh sinh thông qua buổi tự học, có ý thức cẩn trọng khi kết luận GTLN, GTNN (luôn kiểm tra sự tồn tại của dấu bằng xảy ra).
+	\end{itemize}
+	
+	\newpage
+	
+	% =====================
+	% PHẦN 2: MỤC LỤC
+	% =====================
+	\setcounter{tocdepth}{2}
+	\tableofcontents
+	\newpage
+	
+	% =====================
+	% PHẦN 3: LÝ THUYẾT
+	% =====================
+	\section{Lý thuyết}
+	
+	\subsection{Định nghĩa giá trị lớn nhất, giá trị nhỏ nhất}
+	
+	Khác với khái niệm cực trị mang tính chất cục bộ (chỉ so sánh trong một lân cận nhỏ), khái niệm giá trị lớn nhất (GTLN) và giá trị nhỏ nhất (GTNN) mang tính chất toàn cục trên toàn bộ tập hợp số $K$ đang xét.
+	
+	\subsubsection{Định nghĩa toán học}
+	Cho hàm số $y = f(x)$ xác định trên tập hợp số $K \subset \mathbb{R}$.
+	
+	\begin{tcolorbox}[colback=blue!5!white, colframe=blue!60!black, title=Giá trị lớn nhất (GTLN)]
+		Số $M$ được gọi là \textbf{giá trị lớn nhất} của hàm số $y = f(x)$ trên tập $K$ nếu thỏa mãn đồng thời hai điều kiện sau:
+		\begin{enumerate}[label=\arabic*.]
+			\item $f(x) \le M$ với mọi $x \in K$.
+			\item Tồn tại ít nhất một điểm $x_0 \in K$ sao cho $f(x_0) = M$.
+		\end{enumerate}
+		Ký hiệu: $M = \max_{x \in K} f(x)$ \quad (hoặc gọi tắt là $\max_{K} f(x) = M$).
+	\end{tcolorbox}
+	
+	\begin{tcolorbox}[colback=red!5!white, colframe=red!60!black, title=Giá trị nhỏ nhất (GTNN)]
+		Số $m$ được gọi là \textbf{giá trị nhỏ nhất} của hàm số $y = f(x)$ trên tập $K$ nếu thỏa mãn đồng thời hai điều kiện sau:
+		\begin{enumerate}[label=\arabic*.]
+			\item $f(x) \ge m$ với mọi $x \in K$.
+			\item Tồn tại ít nhất một điểm $x_0 \in K$ sao cho $f(x_0) = m$.
+		\end{enumerate}
+		Ký hiệu: $m = \min_{x \in K} f(x)$ \quad (hoặc gọi tắt là $\min_{K} f(x) = m$).
+	\end{tcolorbox}
+	
+	\subsubsection{Nhấn mạnh điều kiện xảy ra "dấu bằng"}
+	\textbf{Lưu ý sống còn:} Một giá trị số $M$ (hoặc $m$) chỉ được thừa nhận là GTLN (hoặc GTNN) khi và chỉ khi ta \textbf{chỉ ra được điểm $x_0$ cụ thể} thuộc tập $K$ để tại đó hàm số đạt được giá trị này.
+	*   Nếu $f(x) < M$ với mọi $x \in K$ nhưng không tồn tại điểm $x_0 \in K$ nào để $f(x_0) = M$, thì ta kết luận \textbf{hàm số không có GTLN} trên tập $K$.
+	
+	\begin{figure}[H]
+		\centering
+		\begin{tikzpicture}[scale=1.2, >=stealth]
+			% Minh họa đồ thị có GTLN và GTNN trên đoạn [a, b]
+			\draw[->, gray] (-1,0) -- (4,0) node[right, black] {$x$};
+			\draw[->, gray] (0,-1.5) -- (0,2.5) node[above] {$y$};
+			\node at (0,0) [below left] {$O$};
+			
+			% Đường cong đồ thị
+			\draw[blue, ultra thick] (0.5,-0.8) .. controls (1.2,2.2) and (2.2,-2) .. (3.2,1.8);
+			
+			% Đánh dấu các mốc
+			\draw[dashed, gray] (0.5,0) node[above] {$a$} -- (0.5,-0.8);
+			\draw[dashed, gray] (3.2,0) node[below] {$b$} -- (3.2,1.8);
+			
+			% Đánh dấu GTLN và GTNN nội bộ
+			\filldraw[red] (1.1,1.15) circle (1.5pt) node[above] {\small Cực đại (Cục bộ)};
+			\filldraw[red] (2.3,-0.92) circle (1.5pt) node[below] {\small Cực tiểu (GTNN)};
+			\filldraw[red] (3.2,1.8) circle (1.5pt) node[above right, black] {\small GTLN};
+		\end{tikzpicture}
+		\caption{Minh họa trực quan hình học về giá trị lớn nhất và nhỏ nhất trên đoạn $[a; b]$}
+	\end{figure}
+	
+	\begin{vidu}[1]
+		Cho hàm số $y = f(x)$ có bảng biến thiên dưới đây trên nửa khoảng $K = [-1; 3)$ (lưu ý không lấy điểm mút $x = 3$):
+		\begin{center}
+			\begin{tikzpicture}[scale=0.8, >=stealth]
+				% Khung bảng biến thiên
+				\draw[thick] (0,0) rectangle (9.5,-3);
+				\draw[thick] (0,-0.8) -- (9.5,-0.8);
+				\draw[thick] (0,-1.6) -- (9.5,-1.6);
+				\draw[thick] (1.8,0) -- (1.8,-3);
+				
+				% Nhãn các dòng
+				\node at (0.9,-0.4) {$x$};
+				\node at (0.9,-1.2) {$f'(x)$};
+				\node at (0.9,-2.3) {$f(x)$};
+				
+				% Các giá trị x
+				\node at (2.4,-0.4) {$-1$};
+				\node at (5.6,-0.4) {$1$};
+				\node at (8.8,-0.4) {$3$};
+				
+				% Dấu của đạo hàm
+				\node at (4.0,-1.2) {$+$};
+				\node at (5.6,-1.2) {$0$};
+				\node at (7.2,-1.2) {$-$};
+				
+				% Đường đi biến thiên
+				\node (y1) at (2.4,-2.6) {$2$};
+				\node (y2) at (5.6,-1.9) {$5$};
+				\node (y3) at (8.8,-2.6) {$1$};
+				
+				\draw[->, thick, blue] (y1) -- (y2);
+				\draw[->, thick, blue] (y2) -- (y3);
+			\end{tikzpicture}
+		\end{center}
+		Hãy xác định giá trị lớn nhất và giá trị nhỏ nhất của hàm số trên tập $K = [-1; 3)$.
+	\end{vidu}
+	
+	\begin{loigiai}
+		Quan sát bảng biến thiên trên nửa khoảng $K = [-1; 3)$, ta tiến hành phân tích:
+		\begin{itemize}
+			\item \textbf{Tìm giá trị lớn nhất (GTLN):} 
+			Giá trị cao nhất trên dòng $f(x)$ là số $5$. Giá trị này đạt được tại điểm $x = 1$.
+			Vì $x = 1 \in [-1; 3)$ (thỏa mãn thuộc tập đang xét) nên dấu bằng xảy ra.
+			$$\implies \max_{[-1; 3)} f(x) = f(1) = 5$$
+			
+			\item \textbf{Tìm giá trị nhỏ nhất (GTNN):} 
+			Dựa vào hướng mũi tên, giá trị của hàm số giảm dần từ $5$ hướng về $1$ khi $x$ tiến gần sát về số $3$.
+			Tuy nhiên, vì đầu mút $x = 3$ không thuộc tập hợp $K = [-1; 3)$ nên hàm số không bao giờ đạt được giá trị bằng $1$.
+			Với mọi $x \in [-1; 3)$, ta luôn có $f(x) > 1$ nhưng không có bất kỳ điểm $x_0$ nào để $f(x_0) = 1$. Giá trị thấp nhất tại điểm mút còn lại là $f(-1) = 2 > 1$.
+			
+			Vậy ta kết luận: Hàm số \textbf{không có giá trị nhỏ nhất} trên nửa khoảng $[-1; 3)$.
+		\end{itemize}
+	\end{loigiai}
+	
+	
+	\subsection{Quy trình tìm GTLN, GTNN trên đoạn $[a; b]$}
+	
+	Đối với trường hợp tập hợp cần tìm $K$ là một \textbf{đoạn khép kín} $[a; b]$, toán học có một định lý cực kỳ mạnh mẽ giúp đơn giản hóa quá trình tìm giá trị lớn nhất và nhỏ nhất mà không cần phải lập bảng biến thiên hay vẽ đồ thị.
+	
+	\subsubsection{Cơ sở lý thuyết (Định lý Weierstrass)}
+	\begin{tcolorbox}[colback=blue!5!white, colframe=blue!60!black, title=Định lý Weierstrass]
+		Mọi hàm số $y = f(x)$ liên tục trên đoạn $[a; b]$ đều đạt được giá trị lớn nhất và giá trị nhỏ nhất trên đoạn đó.
+	\end{tcolorbox}
+	
+	Nhờ định lý này, GTLN và GTNN của hàm số liên tục trên đoạn $[a; b]$ chỉ có thể xảy ra ở một trong hai vị trí:
+	*   Tại các điểm đầu mút biên $x = a$ hoặc $x = b$.
+	*   Tại các điểm cực trị (điểm tới hạn $x_i \in (a; b)$ mà tại đó $f'(x_i) = 0$ hoặc đạo hàm không xác định).
+	
+	\subsubsection{Thuật toán tìm nhanh qua 3 bước}
+	Để tìm GTLN, GTNN của hàm số $y = f(x)$ liên tục trên đoạn $[a; b]$, ta thực hiện quy trình sau:
+	
+	\begin{enumerate}[label=\textbf{Bước \arabic*:}, leftmargin=*]
+		\item \textbf{Tìm các điểm tới hạn:} Tính đạo hàm $f'(x)$. Giải phương trình $f'(x) = 0$ và tìm các điểm $x_1, x_2, \dots, x_k$ thuộc khoảng mở $(a; b)$ mà tại đó đạo hàm $f'(x)$ bằng $0$ hoặc không xác định.
+		\item \textbf{Tính toán các giá trị:} Tính các giá trị của hàm số tại:
+		\begin{itemize}
+			\item Hai đầu mút biên: $f(a)$ và $f(b)$.
+			\item Các điểm tới hạn vừa tìm được ở Bước 1: $f(x_1), f(x_2), \dots, f(x_k)$.
+		\end{itemize}
+		\item \textbf{So sánh và Kết luận:} So sánh tất cả các giá trị vừa tính được ở Bước 2.
+		\begin{itemize}
+			\item Số lớn nhất trong các giá trị đó là GTLN: $M = \max_{[a; b]} f(x)$.
+			\item Số nhỏ nhất trong các giá trị đó là GTNN: $m = \min_{[a; b]} f(x)$.
+		\end{itemize}
+	\end{enumerate}
+	
+	\begin{vidu}[2]
+		Tìm giá trị lớn nhất và giá trị nhỏ nhất của hàm số $f(x) = x^3 - 3x^2 - 9x + 5$ trên đoạn $[-2; 4]$.
+	\end{vidu}
+	
+	\begin{loigiai}
+		Hàm số $f(x) = x^3 - 3x^2 - 9x + 5$ là hàm đa thức nên liên tục trên đoạn $[-2; 4]$. Ta thực hiện thuật toán qua 3 bước:
+		
+		\begin{enumerate}[label=\textbf{B\arabic*.}]
+			\item \textbf{Tìm các điểm tới hạn:}
+			Ta có đạo hàm: $f'(x) = 3x^2 - 6x - 9$.
+			$$f'(x) = 0 \iff 3(x^2 - 2x - 3) = 0 \iff \left[\begin{aligned} &x = -1 \\ &x = 3 \end{aligned}\right.$$
+			So sánh điều kiện với đoạn $[-2; 4]$ đang xét:
+			\begin{itemize}
+				\item Điểm $x = -1 \in (-2; 4)$ (thỏa mãn).
+				\item Điểm $x = 3 \in (-2; 4)$ (thỏa mãn).
+			\end{itemize}
+			
+			\item \textbf{Tính toán các giá trị tại các điểm nghi ngờ:}
+			\begin{itemize}
+				\item Tại hai đầu mút biên:
+				$$f(-2) = (-2)^3 - 3(-2)^2 - 9(-2) + 5 = -8 - 12 + 18 + 5 = 3$$
+				$$f(4) = 4^3 - 3(4)^2 - 9(4) + 5 = 64 - 48 - 36 + 5 = -15$$
+				\item Tại các điểm tới hạn trong đoạn:
+				$$f(-1) = (-1)^3 - 3(-1)^2 - 9(-1) + 5 = -1 - 3 + 9 + 5 = 10$$
+				$$f(3) = 3^3 - 3(3)^2 - 9(3) + 5 = 27 - 27 - 27 + 5 = -22$$
+			\end{itemize}
+			
+			\item \textbf{So sánh các giá trị và kết luận:}
+			So sánh tập hợp bốn giá trị vừa tính được: $\{3; -15; 10; -22\}$, ta thấy:
+			\begin{itemize}
+				\item Số lớn nhất trong các số trên là $10$ (đạt được tại $x = -1$).
+				\item Số nhỏ nhất trong các số trên là $-22$ (đạt được tại $x = 3$).
+			\end{itemize}
+			Vậy:
+			$$\max_{[-2; 4]} f(x) = f(-1) = 10$$
+			$$\min_{[-2; 4]} f(x) = f(3) = -22$$
+		\end{enumerate}
+	\end{loigiai}
+	
+	
+	\newpage
+	
+	% =====================
+	% PHẦN 4: BÀI TẬP
+	% =====================
+	\section{Bài tập}
+	
+	\subsection{Bài tập tự luận}
+	
+	\subsubsection{Dạng 1: Tìm giá trị lớn nhất, nhỏ nhất dựa trên đồ thị và bảng biến thiên}
+	
+	% =========================================================
+	% BÀI 1: KHẢO SÁT QUA BẢNG BIẾN THIÊN
+	% =========================================================
+	\noindent\textbf{Bài 1.} Cho hàm số $y = f(x)$ xác định, liên tục trên $\mathbb{R}$ và có bảng biến thiên dưới đây:
+	
+	\begin{center}
+		\begin{tikzpicture}[scale=0.85, >=stealth]
+			% Khung bảng biến thiên
+			\draw[thick] (0,0) rectangle (11.5,-3.2);
+			\draw[thick] (0,-0.9) -- (11.5,-0.9);
+			\draw[thick] (0,-1.8) -- (11.5,-1.8);
+			\draw[thick] (2,0) -- (2,-3.2);
+			
+			% Nhãn dòng
+			\node at (1,-0.45) {$x$}; \node at (1,-1.35) {$y'$}; \node at (1,-2.5) {$y$};
+			
+			% Các giá trị x
+			\node at (2.6,-0.45) {$-\infty$}; \node at (4.7,-0.45) {$-2$}; \node at (6.8,-0.45) {$0$}; \node at (8.9,-0.45) {$2$}; \node at (10.9,-0.45) {$+\infty$};
+			
+			% Các dấu đạo hàm
+			\node at (3.65,-1.35) {$+$}; \node at (4.7,-1.35) {$0$}; \node at (5.75,-1.35) {$-$}; \node at (6.8,-1.35) {$0$}; \node at (7.85,-1.35) {$+$}; \node at (8.9,-1.35) {$0$}; \node at (9.9,-1.35) {$-$};
+			
+			% Các nhánh mũi tên biến thiên
+			\node (y1) at (2.6,-2.9) {$-\infty$}; \node (y2) at (4.7,-2.1) {$4$}; \node (y3) at (6.8,-2.9) {$0$}; \node (y4) at (8.9,-2.1) {$4$}; \node (y5) at (10.9,-2.9) {$-\infty$};
+			\draw[->, thick, blue] (y1) -- (y2); \draw[->, thick, blue] (y2) -- (y3); \draw[->, thick, blue] (y3) -- (y4); \draw[->, thick, blue] (y4) -- (y5);
+		\end{tikzpicture}
+	\end{center}
+	
+	\begin{btxanh}
+		\textbf Dựa vào bảng biến thiên của hàm số $y=f(x)$ ở trên, hãy tìm giá trị lớn nhất và giá trị nhỏ nhất (nếu có) của hàm số trên các khoảng, đoạn sau:
+		\begin{enumerate}[label=\alph*)]
+			\item Trên đoạn $[-2; 2]$.
+			\item Trên khoảng $(-2; 2)$.
+			\item Trên nửa khoảng $[-2; +\infty)$.
+		\end{enumerate}
+	\end{btxanh}
+	
+	\begin{btvang}
+		\textbf Dựa vào bảng biến thiên của hàm số $y=f(x)$ ở trên, hãy tìm giá trị lớn nhất và giá trị nhỏ nhất (nếu có) của hàm số trên các khoảng, đoạn sau:
+		\begin{enumerate}[label=\alph*)]
+			\item Trên đoạn $[0; 2]$.
+			\item Trên nửa khoảng $(-\infty; 2]$.
+			\item Trên khoảng $(-2; +\infty)$.
+		\end{enumerate}
+	\end{btvang}
+	
+	\begin{btdo}
+		\textbf Dựa vào bảng biến thiên của hàm số $y=f(x)$ ở trên, hãy tìm giá trị lớn nhất và giá trị nhỏ nhất (nếu có) của hàm số trên các khoảng, đoạn sau:
+		\begin{enumerate}[label=\alph*)]
+			\item Trên đoạn $[-2; 0]$.
+			\item Trên nửa khoảng $[0; +\infty)$.
+			\item Trên khoảng $(-\infty; 2)$.
+		\end{enumerate}
+	\end{btdo}
+	
+	\newpage
+	
+	% =========================================================
+	% BÀI 2: KHẢO SÁT QUA ĐỒ THỊ
+	% =========================================================
+	\noindent\textbf{Bài 2.} Cho hàm số $y = f(x)$ xác định, liên tục trên đoạn $[-2; 2]$ và có đồ thị như hình vẽ bên dưới:
+	
+	\begin{center}
+		\begin{tikzpicture}[scale=1.2, >=stealth]
+			% Hệ trục tọa độ chuẩn
+			\draw[->, gray, thin] (-3,0) -- (3,0) node[right, black] {$x$};
+			\draw[->, gray, thin] (0,-3.2) -- (0,3.2) node[above, black] {$y$};
+			\node at (0,0) [below left] {$O$};
+			
+			% Lưới tọa độ rõ ràng từng đơn vị để học sinh dễ đọc giá trị nguyên
+			\draw[dashed, step=1, gray!20] (-2.5,-2.5) grid (2.5,2.5);
+			
+			% Đồ thị hàm số bậc ba y = x^3 - 3x đối xứng hoàn hảo qua gốc tọa độ
+			\draw[domain=-2.1:2.1, smooth, variable=\x, blue, ultra thick] plot ({\x},{\x*\x*\x - 3*\x});
+			
+			% Đường gióng tọa độ biên bên trái (-2; -2)
+			\draw[dashed, gray] (-2,0) node[above] {$-2$} -- (-2,-2) -- (0,-2) node[right] {$-2$};
+			\filldraw[black] (-2,-2) circle (1.5pt);
+			
+			% Đường gióng tọa độ cực đại (-1; 2)
+			\draw[dashed, gray] (-1,0) node[below] {$-1$} -- (-1,2) -- (0,2) node[left] {$2$};
+			\filldraw[red] (-1,2) circle (2pt);
+			
+			% Đường gióng tọa độ cực tiểu (1; -2)
+			\draw[dashed, gray] (1,0) node[above] {$1$} -- (1,-2);
+			\filldraw[red] (1,-2) circle (2pt);
+			
+			% Đường gióng tọa độ biên bên phải (2; 2)
+			\draw[dashed, gray] (2,0) node[below] {$2$} -- (2,2) -- (0,2);
+			\filldraw[black] (2,2) circle (1.5pt);
+			
+			\node at (1.5,1.2) [blue] {$(C): y = f(x)$};
+		\end{tikzpicture}
+	\end{center}
+	
+	\begin{btxanh}
+		\textbf{Câu 4.} Dựa vào đồ thị hàm số $y=f(x)$ ở trên, hãy tìm giá trị lớn nhất (GTLN) và giá trị nhỏ nhất (GTNN) của hàm số trên các đoạn sau:
+		\begin{enumerate}[label=\alph*)]
+			\item Trên đoạn $[-1; 1]$.
+			\item Trên đoạn $[0; 2]$.
+			\item Trên đoạn $[-2; 2]$.
+		\end{enumerate}
+	\end{btxanh}
+	
+	\begin{btvang}
+		\textbf{Câu 5.} Dựa vào đồ thị hàm số $y=f(x)$ ở trên, hãy tìm giá trị lớn nhất (GTLN) và giá trị nhỏ nhất (GTNN) của hàm số trên các đoạn sau:
+		\begin{enumerate}[label=\alph*)]
+			\item Trên đoạn $[-2; 0]$.
+			\item Trên đoạn $[-1; 2]$.
+			\item Trên đoạn $[1; 2]$.
+		\end{enumerate}
+	\end{btvang}
+	
+	\begin{btdo}
+		\textbf{Câu 6.} Dựa vào đồ thị hàm số $y=f(x)$ ở trên, hãy tìm giá trị lớn nhất (GTLN) và giá trị nhỏ nhất (GTNN) của hàm số trên các đoạn sau:
+		\begin{enumerate}[label=\alph*)]
+			\item Trên đoạn $[0; 1]$.
+			\item Trên đoạn $[-2; 1]$.
+			\item Trên đoạn $[-1; 0]$.
+		\end{enumerate}
+	\end{btdo}
+	
+	\subsubsection{Dạng 2: Tìm giá trị lớn nhất, nhỏ nhất trên một đoạn bằng công thức}
+	\textit{Đề bài: Tìm giá trị lớn nhất và giá trị nhỏ nhất của các hàm số sau trên các đoạn được chỉ ra:}
+	
+	\begin{btxanh}
+		\textbf{Câu 4.}
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\alph*)]
+				\item $y = x^3 - 3x^2 - 9x + 5$ trên đoạn $[-2; 4]$
+				\item $y = -x^3 + 3x^2 + 1$ trên đoạn $[0; 3]$
+				\item $y = \dfrac{2x - 1}{x + 1}$ trên đoạn $[0; 3]$
+				\item $y = \dfrac{3x + 1}{x - 2}$ trên đoạn $[-1; 1]$
+				\item $y = \dfrac{x^2 - 3x + 3}{x - 1}$ trên đoạn $[2; 4]$
+				\item $y = \dfrac{x^2 + x + 1}{x + 1}$ trên đoạn $[0; 2]$
+			\end{enumerate}
+		\end{multicols}
+	\end{btxanh}
+	
+	\begin{btvang}
+		\textbf{Câu 5.}
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\alph*)]
+				\item $y = x^3 - 3x^2 + 2$ trên đoạn $[-1; 3]$
+				\item $y = -x^3 + 12x + 1$ trên đoạn $[-1; 3]$
+				\item $y = \dfrac{x + 2}{x - 1}$ trên đoạn $[2; 4]$
+				\item $y = \dfrac{2x + 3}{x + 2}$ trên đoạn $[-1; 2]$
+				\item $y = \dfrac{x^2 - 2x + 2}{x - 1}$ trên đoạn $[2; 4]$
+				\item $y = \dfrac{x^2 + 3x + 3}{x + 2}$ trên đoạn $[-1; 1]$
+			\end{enumerate}
+		\end{multicols}
+	\end{btvang}
+	
+	\begin{btdo}
+		\textbf{Câu 6.}
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\alph*)]
+				\item $y = \dfrac{1}{3}x^3 - 2x^2 + 3x + 1$ trên đoạn $[0; 4]$
+				\item $y = -2x^3 + 6x^2 - 1$ trên đoạn $[-1; 2]$
+				\item $y = \dfrac{3x - 1}{x - 1}$ trên đoạn $[2; 5]$
+				\item $y = \dfrac{4 - 2x}{x + 1}$ trên đoạn $[0; 3]$
+				\item $y = \dfrac{x^2 + x + 2}{x - 1}$ trên đoạn $[2; 5]$
+				\item $y = \dfrac{x^2 - x + 4}{x - 2}$ trên đoạn $[3; 6]$
+			\end{enumerate}
+		\end{multicols}
+	\end{btdo}
+	
+	
+	
+	
+	\subsection{Bài tập trắc nghiệm}
+	
+	\begin{enumerate}[label=\textbf{Câu \arabic*.}]
+		
+		% =========================================================
+		% NHÓM 1: 6 CÂU HỎI TRỰC QUAN QUA ĐỒ THỊ (CÂU 1 - 6)
+		% =========================================================
+		
+		\item Cho hàm số $y = f(x)$ liên tục trên đoạn $[-2; 2]$ và có đồ thị như hình vẽ bên dưới. 
+		\begin{center}
+			\begin{tikzpicture}[scale=0.8, >=stealth]
+				\draw[->, gray, thin] (-3,0) -- (3,0) node[right, black] {$x$};
+				\draw[->, gray, thin] (0,-2) -- (0,4) node[above, black] {$y$};
+				\node at (0,0) [below left] {$O$};
+				\draw[dashed, step=1, gray!20] (-2.5,-1.5) grid (2.5,3.5);
+				
+				% Đồ thị y = x^3 - 3x + 1
+				\draw[domain=-2.0:2.0, smooth, variable=\x, blue, ultra thick] plot ({\x},{\x^3 - 3*\x + 1});
+				
+				\draw[dashed, gray] (-2,0) node[above] {$-2$} -- (-2,-1) -- (0,-1) node[right] {$-1$};
+				\draw[dashed, gray] (-1,0) node[below] {$-1$} -- (-1,3) -- (0,3) node[left] {$3$};
+				\draw[dashed, gray] (1,0) node[above] {$1$} -- (1,-1);
+				\draw[dashed, gray] (2,0) node[below] {$2$} -- (2,3);
+				
+				\filldraw[red] (-2,-1) circle (1.5pt);
+				\filldraw[red] (-1,3) circle (2pt);
+				\filldraw[red] (1,-1) circle (2pt);
+				\filldraw[red] (2,3) circle (1.5pt);
+			\end{tikzpicture}
+		\end{center}
+		Giá trị lớn nhất $M$ và giá trị nhỏ nhất $m$ của hàm số đã cho trên đoạn $[-2; 2]$ lần lượt là:
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $M = 3, m = -1$.
+				\item $M = 3, m = 1$.
+				\item $M = 1, m = -1$.
+				\item $M = 2, m = -2$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Cho hàm số $y = f(x)$ liên tục trên đoạn $[0; 3]$ và có đồ thị như hình vẽ bên dưới.
+		\begin{center}
+			\begin{tikzpicture}[scale=0.8, >=stealth]
+				\draw[->, gray, thin] (-2,0) -- (4,0) node[right, black] {$x$};
+				\draw[->, gray, thin] (0,-1) -- (0,3) node[above, black] {$y$};
+				\node at (0,0) [below left] {$O$};
+				\draw[dashed, step=1, gray!20] (-1.5,-0.5) grid (3.5,2.5);
+				
+				% Đồ thị y = 0.5*x^3 - 1.5*x^2 + 2
+				\draw[domain=-1.0:3.0, smooth, variable=\x, blue, ultra thick] plot ({\x},{0.5*\x^3 - 1.5*\x^2 + 2});
+				
+				\draw[dashed, gray] (-1,0) node[below] {$-1$} -- (-1,0);
+				\draw[dashed, gray] (2,0) node[above] {$2$} -- (2,0);
+				\draw[dashed, gray] (3,0) node[below] {$3$} -- (3,2) -- (0,2) node[left] {$2$};
+				
+				\filldraw[red] (-1,0) circle (1.5pt);
+				\filldraw[red] (0,2) circle (2pt);
+				\filldraw[red] (2,0) circle (2pt);
+				\filldraw[red] (3,2) circle (1.5pt);
+			\end{tikzpicture}
+		\end{center}
+		Gọi $M$ và $m$ lần lượt là giá trị lớn nhất và nhỏ nhất của hàm số trên đoạn $[0; 3]$. Tính giá trị của tổng $T = M + m$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $T = 2$.
+				\item $T = 0$.
+				\item $T = 4$.
+				\item $T = 1$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Cho hàm số bậc hai $y = f(x)$ liên tục trên đoạn $[0; 3]$ và có đồ thị là một nhánh parabol như hình vẽ bên dưới.
+		\begin{center}
+			\begin{tikzpicture}[scale=0.8, >=stealth]
+				\draw[->, gray, thin] (-1,0) -- (4,0) node[right, black] {$x$};
+				\draw[->, gray, thin] (0,-2) -- (0,4) node[above, black] {$y$};
+				\node at (0,0) [below left] {$O$};
+				\draw[dashed, step=1, gray!20] (-0.5,-1.5) grid (3.5,3.5);
+				
+				% Đồ thị y = -x^2 + 4x - 1
+				\draw[domain=0.0:3.0, smooth, variable=\x, blue, ultra thick] plot ({\x},{-\x^2 + 4*\x - 1});
+				
+				\draw[dashed, gray] (2,0) node[below] {$2$} -- (2,3) -- (0,3) node[left] {$3$};
+				\draw[dashed, gray] (3,0) node[below] {$3$} -- (3,2) -- (0,2) node[left] {$2$};
+				\filldraw[red] (0,-1) circle (1.5pt) node[right] {$-1$};
+				\filldraw[red] (2,3) circle (2pt);
+				\filldraw[red] (3,2) circle (1.5pt);
+			\end{tikzpicture}
+		\end{center}
+		Giá trị nhỏ nhất $m$ của hàm số đã cho trên đoạn $[0; 3]$ là:
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $m = -1$.
+				\item $m = 3$.
+				\item $m = 2$.
+				\item $m = 0$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Cho hàm số $y = f(x)$ liên tục trên đoạn $[-1; 2]$ và có đồ thị như hình vẽ bên dưới.
+		\begin{center}
+			\begin{tikzpicture}[scale=0.8, >=stealth]
+				\draw[->, gray, thin] (-2,0) -- (3,0) node[right, black] {$x$};
+				\draw[->, gray, thin] (0,-3) -- (0,3) node[above, black] {$y$};
+				\node at (0,0) [below left] {$O$};
+				\draw[dashed, step=1, gray!20] (-1.5,-2.5) grid (2.5,2.5);
+				
+				% Đồ thị y = -x^3 + 3x
+				\draw[domain=-1.0:2.0, smooth, variable=\x, blue, ultra thick] plot ({\x},{-\x^3 + 3*\x});
+				
+				\draw[dashed, gray] (-1,0) node[above] {$-1$} -- (-1,-2) -- (0,-2) node[left] {$-2$};
+				\draw[dashed, gray] (1,0) node[below] {$1$} -- (1,2) -- (0,2) node[right] {$2$};
+				\draw[dashed, gray] (2,0) node[above] {$2$} -- (2,-2);
+				
+				\filldraw[red] (-1,-2) circle (2pt);
+				\filldraw[red] (1,2) circle (2pt);
+				\filldraw[red] (2,-2) circle (1.5pt);
+			\end{tikzpicture}
+		\end{center}
+		Gọi $M, m$ lần lượt là giá trị lớn nhất và nhỏ nhất của hàm số trên đoạn $[-1; 2]$. Tính giá trị của biểu thức $H = M - m$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $H = 4$.
+				\item $H = 0$.
+				\item $H = 2$.
+				\item $H = -4$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 5 (ĐÃ HIỆU CHỈNH - ĐỒ THỊ NHỎ GỌN, RÕ TỌA ĐỘ)
+		\item Cho hàm số $y = f(x)$ liên tục trên đoạn $[-1; 2]$ và có đồ thị như hình vẽ bên dưới.
+		\begin{center}
+			\begin{tikzpicture}[scale=0.9, >=stealth]
+				% Trục tọa độ nhỏ gọn
+				\draw[->, gray, thin] (-2,0) -- (3,0) node[right, black] {$x$};
+				\draw[->, gray, thin] (0,-2) -- (0,4) node[above, black] {$y$};
+				\node at (0,0) [below left] {$O$};
+				
+				% Lưới tọa độ rõ nét từng đơn vị
+				\draw[dashed, step=1, gray!20] (-1.5,-1.5) grid (2.5,3.5);
+				
+				% Đồ thị y = -x^3 + 3x + 1
+				\draw[domain=-1.1:2.1, smooth, variable=\x, blue, ultra thick] plot ({\x},{-\x^3 + 3*\x + 1});
+				
+				% Các đường nét đứt biểu diễn tọa độ cực trị và biên cực kỳ rõ ràng
+				\draw[dashed, gray] (-1,0) node[above] {$-1$} -- (-1,-1) -- (0,-1) node[right] {$-1$};
+				\draw[dashed, gray] (1,0) node[below] {$1$} -- (1,3) -- (0,3) node[left] {$3$};
+				\draw[dashed, gray] (2,0) node[above] {$2$} -- (2,-1);
+				
+				% Đánh dấu các điểm nút quan trọng
+				\filldraw[red] (-1,-1) circle (1.5pt);
+				\filldraw[red] (1,3) circle (2pt);
+				\filldraw[red] (2,-1) circle (1.5pt);
+			\end{tikzpicture}
+		\end{center}
+		Giá trị nhỏ nhất $m$ của hàm số đã cho trên đoạn $[-1; 2]$ bằng bao nhiêu?
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $m = -1$.
+				\item $m = 1$.
+				\item $m = 3$.
+				\item $m = 0$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Cho hàm số có đồ thị gấp khúc dạng chữ V ngược trên đoạn $[-2; 2]$ như hình vẽ dưới đây.
+		\begin{center}
+			\begin{tikzpicture}[scale=0.8, >=stealth]
+				\draw[->, gray, thin] (-3,0) -- (3,0) node[right, black] {$x$};
+				\draw[->, gray, thin] (0,-1) -- (0,3) node[above, black] {$y$};
+				\node at (0,0) [below left] {$O$};
+				\draw[dashed, step=1, gray!20] (-2.5,-0.5) grid (2.5,2.5);
+				
+				% Đồ thị y = -|x| + 2
+				\draw[blue, ultra thick] (-2,0) -- (0,2) -- (2,0);
+				
+				\draw[dashed, gray] (-2,0) node[below] {$-2$};
+				\draw[dashed, gray] (2,0) node[below] {$2$};
+				\filldraw[red] (0,2) circle (2pt) node[right] {$2$};
+				\filldraw[red] (-2,0) circle (1.5pt);
+				\filldraw[red] (2,0) circle (1.5pt);
+			\end{tikzpicture}
+		\end{center}
+		Gọi $M, m$ là giá trị lớn nhất và nhỏ nhất của hàm số đã cho trên đoạn $[-2; 2]$. Tính giá trị của tích $P = M \cdot m$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $P = 0$.
+				\item $P = 4$.
+				\item $P = -4$.
+				\item $P = 2$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% =========================================================
+		% NHÓM 2: 6 CÂU HỎI TRỰC QUAN QUA BBT (CÂU 7 - 12)
+		% =========================================================
+		
+		\item Cho hàm số $y = f(x)$ liên tục trên đoạn $[-2; 3]$ và có bảng biến thiên như sau:
+		\begin{center}
+			\begin{tikzpicture}[scale=0.6, >=stealth]
+				\draw[thick] (0,0) rectangle (9.5,-3.2);
+				\draw[thick] (0,-0.9) -- (9.5,-0.9);
+				\draw[thick] (0,-1.8) -- (9.5,-1.8);
+				\draw[thick] (2,0) -- (2,-3.2);
+				
+				\node at (1,-0.45) {$x$}; \node at (1,-1.35) {$y'$}; \node at (1,-2.5) {$y$};
+				\node at (2.6,-0.45) {$-2$}; \node at (5.75,-0.45) {$1$}; \node at (8.8,-0.45) {$3$};
+				
+				\node at (4.15,-1.35) {$+$}; \node at (5.75,-1.35) {$0$}; \node at (7.25,-1.35) {$-$};
+				
+				\node (y1) at (2.6,-2.9) {$1$}; \node (y2) at (5.75,-2.1) {$5$}; \node (y3) at (8.8,-2.6) {$2$};
+				\draw[->, thick, blue] (y1) -- (y2); \draw[->, thick, blue] (y2) -- (y3);
+			\end{tikzpicture}
+		\end{center}
+		Giá trị lớn nhất của hàm số đã cho trên đoạn $[-2; 3]$ là:
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $5$.
+				\item $2$.
+				\item $1$.
+				\item $-2$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Cho hàm số $y = f(x)$ liên tục trên đoạn $[-1; 2]$ và có bảng biến thiên dưới đây:
+		\begin{center}
+			\begin{tikzpicture}[scale=0.6, >=stealth]
+				\draw[thick] (0,0) rectangle (9.5,-3.2);
+				\draw[thick] (0,-0.9) -- (9.5,-0.9);
+				\draw[thick] (0,-1.8) -- (9.5,-1.8);
+				\draw[thick] (2,0) -- (2,-3.2);
+				
+				\node at (1,-0.45) {$x$}; \node at (1,-1.35) {$y'$}; \node at (1,-2.5) {$y$};
+				\node at (2.6,-0.45) {$-1$}; \node at (5.75,-0.45) {$0$}; \node at (8.8,-0.45) {$2$};
+				
+				\node at (4.15,-1.35) {$-$}; \node at (5.75,-1.35) {$0$}; \node at (7.25,-1.35) {$+$};
+				
+				\node (y1) at (2.6,-2.1) {$4$}; \node (y2) at (5.75,-2.9) {$-3$}; \node (y3) at (8.8,-2.4) {$1$};
+				\draw[->, thick, blue] (y1) -- (y2); \draw[->, thick, blue] (y2) -- (y3);
+			\end{tikzpicture}
+		\end{center}
+		Gọi $M, m$ lần lượt là giá trị lớn nhất và nhỏ nhất của hàm số trên đoạn $[-1; 2]$. Tính giá trị của tích $P = M \cdot m$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $P = -12$.
+				\item $P = 4$.
+				\item $P = -3$.
+				\item $P = 1$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Cho hàm số $y = f(x)$ liên tục trên đoạn $[-2; 2]$ và có bảng biến thiên dưới đây:
+		\begin{center}
+			\begin{tikzpicture}[scale=0.6]
+				\draw[thick] (0,0) rectangle (11.5,-3.2);
+				\draw[thick] (0,-0.9) -- (11.5,-0.9);
+				\draw[thick] (0,-1.8) -- (11.5,-1.8);
+				\draw[thick] (2,0) -- (2,-3.2);
+				
+				\node at (1,-0.45) {$x$}; \node at (1,-1.35) {$y'$}; \node at (1,-2.5) {$y$};
+				\node at (2.6,-0.45) {$-2$}; \node at (4.7,-0.45) {$-1$}; \node at (6.8,-0.45) {$0$}; \node at (8.9,-0.45) {$1$}; \node at (10.9,-0.45) {$2$};
+				
+				\node at (3.65,-1.35) {$-$}; \node at (4.7,-1.35) {$0$}; \node at (5.75,-1.35) {$+$}; \node at (6.8,-1.35) {$0$}; \node at (7.85,-1.35) {$-$}; \node at (8.9,-1.35) {$0$}; \node at (9.9,-1.35) {$+$};
+				
+				\node (y1) at (2.6,-2.1) {$5$}; \node (y2) at (4.7,-2.9) {$1$}; \node (y3) at (6.8,-2.4) {$3$}; \node (y4) at (8.9,-2.9) {$1$}; \node (y5) at (10.9,-2.1) {$5$};
+				\draw[->, thick, blue] (y1) -- (y2); \draw[->, thick, blue] (y2) -- (y3); \draw[->, thick, blue] (y3) -- (y4); \draw[->, thick, blue] (y4) -- (y5);
+			\end{tikzpicture}
+		\end{center}
+		Giá trị nhỏ nhất của hàm số trên đoạn $[-2; 2]$ là:
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $1$.
+				\item $3$.
+				\item $5$.
+				\item $-1$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Cho hàm số $y = f(x)$ liên tục trên đoạn $[0; 4]$ và có bảng biến thiên dưới đây:
+		\begin{center}
+			\begin{tikzpicture}[scale=0.6, >=stealth]
+				\draw[thick] (0,0) rectangle (9.5,-3.2);
+				\draw[thick] (0,-0.9) -- (9.5,-0.9);
+				\draw[thick] (0,-1.8) -- (9.5,-1.8);
+				\draw[thick] (2,0) -- (2,-3.2);
+				
+				\node at (1,-0.45) {$x$}; \node at (1,-1.35) {$y'$}; \node at (1,-2.5) {$y$};
+				\node at (2.6,-0.45) {$0$}; \node at (5.75,-0.45) {$2$}; \node at (8.8,-0.45) {$4$};
+				
+				\node at (4.15,-1.35) {$-$}; \node at (5.75,-1.35) {$0$}; \node at (7.25,-1.35) {$+$};
+				
+				\node (y1) at (2.6,-2.1) {$3$}; \node (y2) at (5.75,-2.9) {$-1$}; \node (y3) at (8.8,-2.4) {$2$};
+				\draw[->, thick, blue] (y1) -- (y2); \draw[->, thick, blue] (y2) -- (y3);
+			\end{tikzpicture}
+		\end{center}
+		Tính tổng $T$ của giá trị lớn nhất và giá trị nhỏ nhất của hàm số trên đoạn $[0; 4]$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $T = 2$.
+				\item $T = 1$.
+				\item $T = 5$.
+				\item $T = -2$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Cho hàm số $y = f(x)$ liên tục trên đoạn $[-3; 2]$ và có bảng biến thiên dưới đây:
+		\begin{center}
+			\begin{tikzpicture}[scale=0.6, >=stealth]
+				\draw[thick] (0,0) rectangle (9.5,-3.2);
+				\draw[thick] (0,-0.9) -- (9.5,-0.9);
+				\draw[thick] (0,-1.8) -- (9.5,-1.8);
+				\draw[thick] (2,0) -- (2,-3.2);
+				
+				\node at (1,-0.45) {$x$}; \node at (1,-1.35) {$y'$}; \node at (1,-2.5) {$y$};
+				\node at (2.6,-0.45) {$-3$}; \node at (5.75,-0.45) {$-1$}; \node at (8.8,-0.45) {$2$};
+				
+				\node at (4.15,-1.35) {$+$}; \node at (5.75,-1.35) {$0$}; \node at (7.25,-1.35) {$-$};
+				
+				\node (y1) at (2.6,-2.9) {$-2$}; \node (y2) at (5.75,-2.1) {$4$}; \node (y3) at (8.8,-3.1) {$-5$};
+				\draw[->, thick, blue] (y1) -- (y2); \draw[->, thick, blue] (y2) -- (y3);
+			\end{tikzpicture}
+		\end{center}
+		Tính giá trị của tích $P = M \cdot m$, với $M$ và $m$ lần lượt là giá trị lớn nhất và nhỏ nhất của hàm số trên đoạn $[-3; 2]$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $P = -20$.
+				\item $P = 10$.
+				\item $P = 8$.
+				\item $P = -8$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Cho hàm số $y = f(x)$ liên tục trên đoạn $[-1; 3]$ và có bảng biến thiên như sau:
+		\begin{center}
+			\begin{tikzpicture}[scale=0.6, >=stealth]
+				\draw[thick] (0,0) rectangle (9.5,-3.2);
+				\draw[thick] (0,-0.9) -- (9.5,-0.9);
+				\draw[thick] (0,-1.8) -- (9.5,-1.8);
+				\draw[thick] (2,0) -- (2,-3.2);
+				
+				\node at (1,-0.45) {$x$}; \node at (1,-1.35) {$y'$}; \node at (1,-2.5) {$y$};
+				\node at (2.6,-0.45) {$-1$}; \node at (5.75,-0.45) {$1$}; \node at (8.8,-0.45) {$3$};
+				
+				\node at (4.15,-1.35) {$-$}; \node at (5.75,-1.35) {$0$}; \node at (7.25,-1.35) {$+$};
+				
+				\node (y1) at (2.6,-2.1) {$6$}; \node (y2) at (5.75,-2.9) {$2$}; \node (y3) at (8.8,-2.4) {$5$};
+				\draw[->, thick, blue] (y1) -- (y2); \draw[->, thick, blue] (y2) -- (y3);
+			\end{tikzpicture}
+		\end{center}
+		Tính giá trị của hiệu $H = M - m$, với $M$ và $m$ lần lượt là giá trị lớn nhất và nhỏ nhất của hàm số trên đoạn $[-1; 3]$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $H = 4$.
+				\item $H = 3$.
+				\item $H = 1$.
+				\item $H = -4$.
+			\end{enumerate}
+		\end{multicols}
+		
+		
+		% CÂU 13
+		\item Cho hàm số $y = f(x)$ liên tục trên $\mathbb{R}$ và có bảng xét dấu đạo hàm $f'(x)$ như sau:
+		\begin{center}
+			\begin{tikzpicture}[scale=0.7, >=stealth]
+				\draw[thick] (0,0) rectangle (9,-2.1);
+				\draw[thick] (0,-1) -- (9,-1);
+				\draw[thick] (2,0) -- (2,-2.1);
+				\node at (1,-0.5) {$x$}; \node at (1,-1.5) {$f'(x)$};
+				\node at (2.6,-0.5) {$-\infty$}; \node at (4.5,-0.5) {$-2$}; \node at (6.8,-0.5) {$2$}; \node at (8.4,-0.5) {$+\infty$};
+				\node at (3.5,-1.5) {$+$}; \node at (4.5,-1.5) {$0$}; \node at (5.65,-1.5) {$-$}; \node at (6.8,-1.5) {$0$}; \node at (7.6,-1.5) {$+$};
+			\end{tikzpicture}
+		\end{center}
+		Mệnh đề nào sau đây là mệnh đề đúng?
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $\max_{(-\infty; 2)} f(x) = f(-2)$.
+				\item $\min_{(-\infty; 2)} f(x) = f(2)$.
+				\item $\min_{(2; +\infty)} f(x) = f(2)$.
+				\item $\max_{[-2; 2]} f(x) = f(2)$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 14
+		\item Cho hàm số $y = f(x)$ liên tục trên $\mathbb{R}$ và có bảng xét dấu đạo hàm $f'(x)$ như sau:
+		\begin{center}
+			\begin{tikzpicture}[scale=0.7, >=stealth]
+				\draw[thick] (0,0) rectangle (9,-2.1);
+				\draw[thick] (0,-1) -- (9,-1);
+				\draw[thick] (2,0) -- (2,-2.1);
+				\node at (1,-0.5) {$x$}; \node at (1,-1.5) {$f'(x)$};
+				\node at (2.6,-0.5) {$-\infty$}; \node at (4.5,-0.5) {$-1$}; \node at (6.8,-0.5) {$1$}; \node at (8.4,-0.5) {$+\infty$};
+				\node at (3.5,-1.5) {$-$}; \node at (4.5,-1.5) {$0$}; \node at (5.65,-1.5) {$+$}; \node at (6.8,-1.5) {$0$}; \node at (7.6,-1.5) {$-$};
+			\end{tikzpicture}
+		\end{center}
+		Mệnh đề nào sau đây là mệnh đề đúng?
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $\max_{[-1; +\infty)} f(x) = f(1)$.
+				\item $\min_{[-1; +\infty)} f(x) = f(-1)$.
+				\item $\max_{(-\infty; 1]} f(x) = f(1)$.
+				\item $\min_{[-1; 1]} f(x) = f(1)$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 15
+		\item Cho hàm số $y = f(x)$ liên tục trên $\mathbb{R}$ và có bảng xét dấu đạo hàm $f'(x)$ như sau:
+		\begin{center}
+			\begin{tikzpicture}[scale=0.7, >=stealth]
+				\draw[thick] (0,0) rectangle (9,-2.1);
+				\draw[thick] (0,-1) -- (9,-1);
+				\draw[thick] (2,0) -- (2,-2.1);
+				\node at (1,-0.5) {$x$}; \node at (1,-1.5) {$f'(x)$};
+				\node at (2.6,-0.5) {$-\infty$}; \node at (4.5,-0.5) {$0$}; \node at (6.8,-0.5) {$3$}; \node at (8.4,-0.5) {$+\infty$};
+				\node at (3.5,-1.5) {$+$}; \node at (4.5,-1.5) {$0$}; \node at (5.65,-1.5) {$-$}; \node at (6.8,-1.5) {$0$}; \node at (7.6,-1.5) {$+$};
+			\end{tikzpicture}
+		\end{center}
+		Mệnh đề nào sau đây là mệnh đề đúng?
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $\max_{(-\infty; 3]} f(x) = f(0)$.
+				\item $\min_{(-\infty; 3]} f(x) = f(3)$.
+				\item $\max_{[0; +\infty)} f(x) = f(0)$.
+				\item $\min_{[0; 3]} f(x) = f(0)$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 16
+		\item Cho hàm số $y = f(x)$ liên tục trên $\mathbb{R}$ và có bảng xét dấu đạo hàm $f'(x)$ như sau:
+		\begin{center}
+			\begin{tikzpicture}[scale=0.7, >=stealth]
+				\draw[thick] (0,0) rectangle (11.5,-2.1);
+				\draw[thick] (0,-1) -- (11.5,-1);
+				\draw[thick] (2,0) -- (2,-2.1);
+				\node at (1,-0.5) {$x$}; \node at (1,-1.5) {$f'(x)$};
+				\node at (2.6,-0.5) {$-\infty$}; \node at (4.6,-0.5) {$-3$}; \node at (6.8,-0.5) {$0$}; \node at (9.0,-0.5) {$3$}; \node at (10.9,-0.5) {$+\infty$};
+				\node at (3.6,-1.5) {$-$}; \node at (4.6,-1.5) {$0$}; \node at (5.7,-1.5) {$+$}; \node at (6.8,-1.5) {$0$}; \node at (7.9,-1.5) {$-$}; \node at (9.0,-1.5) {$0$}; \node at (10.0,-1.5) {$+$};
+			\end{tikzpicture}
+		\end{center}
+		Mệnh đề nào sau đây là mệnh đề đúng?
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $\min_{[0; +\infty)} f(x) = f(3)$.
+				\item $\max_{[0; +\infty)} f(x) = f(0)$.
+				\item $\min_{[-3; 3]} f(x) = f(0)$.
+				\item $\max_{[-3; 3]} f(x) = f(3)$.
+			\end{enumerate}
+		\end{multicols}
+		
+		
+		% CÂU 17 (Câu 20 trong ảnh)
+		\item Giá trị lớn nhất của hàm số $f(x) = x^3 - 3x^2 - 9x + 10$ trên đoạn $[-2; 2]$ bằng bao nhiêu?
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $-12$.
+				\item $10$.
+				\item $15$.
+				\item $-2$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 18 (Câu 22 trong ảnh)
+		\item Trên đoạn $[0; 3]$, hàm số $y = x^3 - 3x + 4$ đạt giá trị nhỏ nhất tại điểm nào?
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $x = 1$.
+				\item $x = 0$.
+				\item $x = 3$.
+				\item $x = 2$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 19 (Câu 23 trong ảnh hiệu chỉnh)
+		\item Giá trị nhỏ nhất của hàm số $y = x^3 - 3x + 5$ trên đoạn $[0; 2]$ là:
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $\min y = 0$.
+				\item $\min y = 3$.
+				\item $\min y = 5$.
+				\item $\min y = 7$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 20
+		\item Tìm giá trị lớn nhất của hàm số $y = -x^3 + 3x^2 + 1$ trên đoạn $[0; 3]$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $1$.
+				\item $5$.
+				\item $4$.
+				\item $3$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 21
+		\item Tìm giá trị nhỏ nhất của hàm số $y = x^3 - 12x + 1$ trên đoạn $[-1; 3]$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $-15$.
+				\item $-8$.
+				\item $12$.
+				\item $-24$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 22
+		\item Tìm giá trị nhỏ nhất của hàm số $y = -x^3 + 3x^2 - 4$ trên đoạn $[-1; 1]$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $-4$.
+				\item $0$.
+				\item $-2$.
+				\item $-1$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 23
+		\item Tìm giá trị lớn nhất của hàm số $y = x^3 - 3x^2 + 5$ trên đoạn $[-1; 3]$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $1$.
+				\item $5$.
+				\item $3$.
+				\item $2$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 24
+		\item Tìm giá trị lớn nhất của hàm số $y = \dfrac{1}{3}x^3 - 2x^2 + 3x + 1$ trên đoạn $[0; 2]$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $1$.
+				\item $\dfrac{7}{3}$.
+				\item $\dfrac{5}{3}$.
+				\item $3$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 25
+		\item Tìm giá trị lớn nhất của hàm số $y = -x^3 + 12x$ trên đoạn $[-1; 3]$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $16$.
+				\item $9$.
+				\item $-11$.
+				\item $12$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 26
+		\item Tìm giá trị nhỏ nhất của hàm số $y = 2x^3 - 6x$ trên đoạn $[-1; 2]$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $-4$.
+				\item $4$.
+				\item $-6$.
+				\item $0$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 27 (Câu 21 trong ảnh)
+		\item Trên đoạn $[1; 5]$, hàm số $y = x + \dfrac{4}{x}$ đạt giá trị nhỏ nhất tại điểm nào dưới đây?
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $x = 5$.
+				\item $x = 2$.
+				\item $x = 1$.
+				\item $x = 4$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 28 (Câu 24 trong ảnh)
+		\item Giá trị nhỏ nhất của hàm số $y = \dfrac{x - 1}{x + 1}$ trên đoạn $[0; 3]$ là:
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $\min_{[0; 3]} y = -3$.
+				\item $\min_{[0; 3]} y = \dfrac{1}{2}$.
+				\item $\min_{[0; 3]} y = -1$.
+				\item $\min_{[0; 3]} y = 1$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 29
+		\item Tìm giá trị lớn nhất của hàm số $y = \dfrac{2x + 1}{x - 1}$ trên đoạn $[2; 4]$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $5$.
+				\item $3$.
+				\item $4$.
+				\item $2$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 30
+		\item Tìm giá trị nhỏ nhất của hàm số $y = \dfrac{x + 2}{x - 1}$ trên đoạn $[2; 4]$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $2$.
+				\item $4$.
+				\item $3$.
+				\item $1$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 31
+		\item Tìm giá trị lớn nhất của hàm số $y = \dfrac{2x + 3}{x + 2}$ trên đoạn $[-1; 2]$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $\dfrac{7}{4}$.
+				\item $1$.
+				\item $2$.
+				\item $\dfrac{5}{4}$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 32
+		\item Tìm giá trị nhỏ nhất của hàm số $y = \dfrac{3x - 1}{x - 1}$ trên đoạn $[2; 5]$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $5$.
+				\item $3.5$.
+				\item $4$.
+				\item $2$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 33
+		\item Tìm giá trị lớn nhất của hàm số $y = \dfrac{4 - 2x}{x + 1}$ trên đoạn $[0; 3]$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $4$.
+				\item $-\dfrac{1}{2}$.
+				\item $2$.
+				\item $0$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 34
+		\item Tìm giá trị nhỏ nhất của hàm số $y = \dfrac{x - 3}{x + 2}$ trên đoạn $[0; 3]$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $-1.5$.
+				\item $0$.
+				\item $-3$.
+				\item $-1$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 35
+		\item Tìm giá trị lớn nhất của hàm số $y = \dfrac{3x + 1}{x - 2}$ trên đoạn $[-1; 1]$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $\dfrac{2}{3}$.
+				\item $-4$.
+				\item $4$.
+				\item $\dfrac{1}{3}$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 36
+		\item Tìm giá trị lớn nhất của hàm số $y = \dfrac{2x - 1}{x + 1}$ trên đoạn $[0; 3]$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $1.25$.
+				\item $-1$.
+				\item $2$.
+				\item $1.5$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 37 (Câu 25 trong ảnh)
+		\item Giá trị lớn nhất và giá trị nhỏ nhất của hàm số $y = \dfrac{2x^2 + 3x + 3}{x + 1}$ trên đoạn $[0; 2]$ lần lượt là:
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $\dfrac{17}{3}$ và $3$.
+				\item $\dfrac{17}{3}$ và $-5$.
+				\item $3$ và $-5$.
+				\item $-3$ và $5$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 38
+		\item Tìm giá trị nhỏ nhất của hàm số $y = \dfrac{x^2 - 3x + 3}{x - 1}$ trên đoạn $[2; 4]$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $1$.
+				\item $\dfrac{7}{3}$.
+				\item $3$.
+				\item $0$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 39
+		\item Tìm giá trị nhỏ nhất của hàm số $y = \dfrac{x^2 + x + 1}{x + 1}$ trên đoạn $[0; 2]$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $1$.
+				\item $\dfrac{7}{3}$.
+				\item $2$.
+				\item $\dfrac{1}{3}$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 40
+		\item Tìm giá trị nhỏ nhất của hàm số $y = \dfrac{x^2 - 2x + 2}{x - 1}$ trên đoạn $[2; 4]$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $2$.
+				\item $\dfrac{10}{3}$.
+				\item $3$.
+				\item $1$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 41
+		\item Tìm giá trị lớn nhất của hàm số $y = \dfrac{x^2 + 3x + 3}{x + 2}$ trên đoạn $[-1; 1]$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $\dfrac{7}{3}$.
+				\item $1$.
+				\item $3$.
+				\item $\dfrac{5}{3}$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 42
+		\item Tìm giá trị nhỏ nhất của hàm số $y = \dfrac{x^2 + x + 2}{x - 1}$ trên đoạn $[2; 5]$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $7$.
+				\item $8$.
+				\item $6$.
+				\item $5$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 43
+		\item Tìm giá trị nhỏ nhất của hàm số $y = \dfrac{x^2 - x + 4}{x - 2}$ trên đoạn $[3; 6]$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $8$.
+				\item $10$.
+				\item $8.5$.
+				\item $6$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 44
+		\item Tìm giá trị nhỏ nhất của hàm số $y = \dfrac{x^2 - x + 1}{x - 1}$ trên đoạn $[2; 4]$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $3$.
+				\item $\dfrac{13}{3}$.
+				\item $4$.
+				\item $2$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 45
+		\item Tìm giá trị nhỏ nhất của hàm số $y = \dfrac{x^2 + 3}{x - 1}$ trên đoạn $[2; 4]$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $6$.
+				\item $7$.
+				\item $\dfrac{19}{3}$.
+				\item $5$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 46
+		\item Tìm giá trị nhỏ nhất của hàm số $y = \dfrac{x^2 + 8}{x - 1}$ trên đoạn $[2; 5]$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $8$.
+				\item $12$.
+				\item $8.25$.
+				\item $6$.
+			\end{enumerate}
+		\end{multicols}
+		
+	\end{enumerate}
+	
+	
+	\subsection{Bài tập đúng sai}
+	
+	\begin{enumerate}[label=\textbf{Câu \arabic*.}]
+		
+		% CÂU 1
+		\item Cho hàm số $y = f(x)$ xác định và liên tục trên đoạn $[-3; 4]$ và có bảng biến thiên như hình vẽ dưới đây:
+		\begin{center}
+			\begin{tikzpicture}[scale=0.65, >=stealth]
+				\draw[thick] (0,0) rectangle (11.5,-3.2);
+				\draw[thick] (0,-0.9) -- (11.5,-0.9);
+				\draw[thick] (0,-1.8) -- (11.5,-1.8);
+				\draw[thick] (2,0) -- (2,-3.2);
+				
+				\node at (1,-0.45) {$x$}; \node at (1,-1.35) {$y'$}; \node at (1,-2.5) {$y$};
+				\node at (2.6,-0.45) {$-3$}; \node at (4.7,-0.45) {$-1$}; \node at (6.8,-0.45) {$2$}; \node at (8.9,-0.45) {$4$}; \node at (10.9,-0.45) {};
+				
+				\node at (3.65,-1.35) {$-$}; \node at (4.7,-1.35) {$0$}; \node at (5.75,-1.35) {$+$}; \node at (6.8,-1.35) {$0$}; \node at (7.85,-1.35) {$-$};
+				
+				\node (y1) at (2.6,-2.1) {$3$}; \node (y2) at (4.7,-2.9) {$2$}; \node (y3) at (6.8,-2.1) {$15$}; \node (y4) at (8.9,-2.9) {$-2$};
+				\draw[->, thick, blue] (y1) -- (y2); \draw[->, thick, blue] (y2) -- (y3); \draw[->, thick, blue] (y3) -- (y4);
+			\end{tikzpicture}
+		\end{center}
+		Xét tính đúng hay sai của các mệnh đề sau:
+		\begin{enumerate}[label=\alph*)]
+			\item Hàm số $y = f(x)$ có giá trị lớn nhất bằng $15$ và giá trị nhỏ nhất bằng $-2$ trên đoạn $[-3; 4]$.
+			\item Hàm số $y = f(x)$ đồng biến trên khoảng $(-1; 2)$.
+			\item Hàm số $y = f(x)$ đạt cực tiểu tại điểm $x = 2$ và đạt cực đại tại điểm $x = 15$.
+			\item Hàm số $y = f(x)$ nghịch biến trên khoảng $(-\infty; -1)$.
+		\end{enumerate}
+		
+		% CÂU 2
+		\item Cho hàm số trùng phương $y = f(x)$ xác định và liên tục trên đoạn $[-2; 2]$ và có bảng biến thiên dưới đây:
+		\begin{center}
+			\begin{tikzpicture}[scale=0.65, >=stealth]
+				\draw[thick] (0,0) rectangle (11.5,-3.2);
+				\draw[thick] (0,-0.9) -- (11.5,-0.9);
+				\draw[thick] (0,-1.8) -- (11.5,-1.8);
+				\draw[thick] (2,0) -- (2,-3.2);
+				
+				\node at (1,-0.45) {$x$}; \node at (1,-1.35) {$y'$}; \node at (1,-2.5) {$y$};
+				\node at (2.6,-0.45) {$-2$}; \node at (4.7,-0.45) {$-1$}; \node at (6.8,-0.45) {$0$}; \node at (8.9,-0.45) {$1$}; \node at (10.9,-0.45) {$2$};
+				
+				\node at (3.65,-1.35) {$+$}; \node at (4.7,-1.35) {$0$}; \node at (5.75,-1.35) {$-$}; \node at (6.8,-1.35) {$0$}; \node at (7.85,-1.35) {$+$}; \node at (8.9,-1.35) {$0$}; \node at (9.9,-1.35) {$-$};
+				
+				\node (y1) at (2.6,-2.9) {$1$}; \node (y2) at (4.7,-2.1) {$5$}; \node (y3) at (6.8,-2.9) {$3$}; \node (y4) at (8.9,-2.1) {$5$}; \node (y5) at (10.9,-2.9) {$0$};
+				\draw[->, thick, blue] (y1) -- (y2); \draw[->, thick, blue] (y2) -- (y3); \draw[->, thick, blue] (y3) -- (y4); \draw[->, thick, blue] (y4) -- (y5);
+			\end{tikzpicture}
+		\end{center}
+		Xét tính đúng hay sai của các mệnh đề sau:
+		\begin{enumerate}[label=\alph*)]
+			\item Hàm số $y = f(x)$ đồng biến trên các khoảng $(-2; -1)$ và $(0; 1)$.
+			\item Giá trị cực đại của hàm số đã cho bằng $3$.
+			\item Giá trị nhỏ nhất $m$ của hàm số trên đoạn $[-2; 2]$ đạt được tại điểm $x = 0$.
+			\item Tọa độ điểm cực đại duy nhất của đồ thị hàm số là điểm $I(0; 3)$.
+		\end{enumerate}
+		
+		% CÂU 3
+		\item Cho hàm số bậc ba $y = f(x)$ xác định và liên tục trên đoạn $[0; 5]$ và có bảng biến thiên dưới đây:
+		\begin{center}
+			\begin{tikzpicture}[scale=0.65, >=stealth]
+				\draw[thick] (0,0) rectangle (11.5,-3.2);
+				\draw[thick] (0,-0.9) -- (11.5,-0.9);
+				\draw[thick] (0,-1.8) -- (11.5,-1.8);
+				\draw[thick] (2,0) -- (2,-3.2);
+				
+				\node at (1,-0.45) {$x$}; \node at (1,-1.35) {$y'$}; \node at (1,-2.5) {$y$};
+				\node at (2.6,-0.45) {$0$}; \node at (4.7,-0.45) {$1$}; \node at (6.8,-0.45) {$3$}; \node at (8.9,-0.45) {$5$}; \node at (10.9,-0.45) {};
+				
+				\node at (3.65,-1.35) {$-$}; \node at (4.7,-1.35) {$0$}; \node at (5.75,-1.35) {$+$}; \node at (6.8,-1.35) {$0$}; \node at (7.85,-1.35) {$-$};
+				
+				\node (y1) at (2.6,-2.1) {$8$}; \node (y2) at (4.7,-2.9) {$3$}; \node (y3) at (6.8,-2.1) {$12$}; \node (y4) at (8.9,-2.9) {$2$};
+				\draw[->, thick, blue] (y1) -- (y2); \draw[->, thick, blue] (y2) -- (y3); \draw[->, thick, blue] (y3) -- (y4);
+			\end{tikzpicture}
+		\end{center}
+		Xét tính đúng hay sai của các mệnh đề sau:
+		\begin{enumerate}[label=\alph*)]
+			\item Hàm số đạt giá trị nhỏ nhất bằng $2$ và đạt giá trị lớn nhất bằng $12$ trên đoạn $[0; 5]$.
+			\item Hàm số đồng biến trên khoảng $(1; 3)$.
+			\item Hàm số đạt cực đại tại điểm $x = 12$ và đạt cực tiểu tại điểm $x = 3$.
+			\item Tổng của giá trị lớn nhất và giá trị nhỏ nhất của hàm số trên đoạn $[0; 5]$ bằng $10$.
+		\end{enumerate}
+		
+		% CÂU 4
+		\item Cho hàm số $y = f(x)$ xác định và liên tục trên $\mathbb{R}$, có bảng xét dấu đạo hàm $f'(x)$ như dưới đây:
+		\begin{center}
+			\begin{tikzpicture}[scale=0.65, >=stealth]
+				\draw[thick] (0,0) rectangle (11.5,-2.1);
+				\draw[thick] (0,-1) -- (11.5,-1);
+				\draw[thick] (2,0) -- (2,-2.1);
+				\node at (1,-0.5) {$x$}; \node at (1,-1.5) {$f'(x)$};
+				\node at (2.6,-0.5) {$-\infty$}; \node at (4.6,-0.5) {$-2$}; \node at (6.8,-0.5) {$1$}; \node at (9.0,-0.5) {$3$}; \node at (10.9,-0.5) {$+\infty$};
+				
+				\node at (3.6,-1.5) {$+$}; \node at (4.6,-1.5) {$0$}; \node at (5.7,-1.5) {$-$}; 
+				\draw[double, thick] (6.8,-1) -- (6.8,-2.1); \node at (6.8,-1.5) {};
+				\node at (7.9,-1.5) {$-$}; \node at (9.0,-1.5) {$0$}; \node at (10.0,-1.5) {$+$};
+			\end{tikzpicture}
+		\end{center}
+		Xét tính đúng hay sai của các mệnh đề sau:
+		\begin{enumerate}[label=\alph*)]
+			\item Hàm số $y = f(x)$ nghịch biến trên khoảng $(-2; 3)$.
+			\item Trên đoạn $[-2; 3]$, hàm số đạt giá trị lớn nhất tại $x = -2$ và đạt giá trị nhỏ nhất tại $x = 3$.
+			\item Trên nửa khoảng $(-2; 3]$, hàm số có giá trị nhỏ nhất là $f(3)$ nhưng không có giá trị lớn nhất.
+			\item Trên khoảng $(-\infty; 3)$, hàm số không có giá trị lớn nhất.
+		\end{enumerate}
+		
+		% CÂU 5
+		\item Cho hàm số $y = f(x)$ xác định và liên tục trên $\mathbb{R}$, có bảng xét dấu đạo hàm $f'(x)$ như dưới đây:
+		\begin{center}
+			\begin{tikzpicture}[scale=0.65, >=stealth]
+				\draw[thick] (0,0) rectangle (11.5,-2.1);
+				\draw[thick] (0,-1) -- (11.5,-1);
+				\draw[thick] (2,0) -- (2,-2.1);
+				\node at (1,-0.5) {$x$}; \node at (1,-1.5) {$f'(x)$};
+				\node at (2.6,-0.5) {$-\infty$}; \node at (4.6,-0.5) {$-3$}; \node at (6.8,-0.5) {$0$}; \node at (9.0,-0.5) {$2$}; \node at (10.9,-0.5) {$+\infty$};
+				
+				\node at (3.6,-1.5) {$-$}; \node at (4.6,-1.5) {$0$}; \node at (5.7,-1.5) {$+$}; 
+				\draw[double, thick] (6.8,-1) -- (6.8,-2.1); \node at (6.8,-1.5) {};
+				\node at (7.9,-1.5) {$+$}; \node at (9.0,-1.5) {$0$}; \node at (10.0,-1.5) {$-$};
+			\end{tikzpicture}
+		\end{center}
+		Xét tính đúng hay sai của các mệnh đề sau:
+		\begin{enumerate}[label=\alph*)]
+			\item Hàm số $y = f(x)$ đồng biến trên khoảng $(-3; 2)$.
+			\item Trên khoảng $(-\infty; 2)$, hàm số đã cho có giá trị nhỏ nhất là $f(-3)$.
+			\item Trên nửa khoảng $[-3; 2)$, hàm số đã cho có giá trị lớn nhất là $f(2)$.
+			\item Trên khoảng $(-3; +\infty)$, hàm số đã cho luôn có cả giá trị lớn nhất và giá trị nhỏ nhất.
+		\end{enumerate}
+		
+		% CÂU 6
+		\item Cho hàm số $y = f(x)$ xác định và liên tục trên $\mathbb{R}$, có bảng xét dấu đạo hàm $f'(x)$ như dưới đây:
+		\begin{center}
+			\begin{tikzpicture}[scale=0.65, >=stealth]
+				\draw[thick] (0,0) rectangle (11.5,-2.1);
+				\draw[thick] (0,-1) -- (11.5,-1);
+				\draw[thick] (2,0) -- (2,-2.1);
+				\node at (1,-0.5) {$x$}; \node at (1,-1.5) {$f'(x)$};
+				\node at (2.6,-0.5) {$-\infty$}; \node at (4.6,-0.5) {$-1$}; \node at (6.8,-0.5) {$1$}; \node at (9.0,-0.5) {$2$}; \node at (10.9,-0.5) {$+\infty$};
+				
+				\node at (3.6,-1.5) {$+$}; \node at (4.6,-1.5) {$0$}; \node at (5.7,-1.5) {$-$}; 
+				\draw[double, thick] (6.8,-1) -- (6.8,-2.1); \node at (6.8,-1.5) {};
+				\node at (7.9,-1.5) {$-$}; \node at (9.0,-1.5) {$0$}; \node at (10.0,-1.5) {$+$};
+			\end{tikzpicture}
+		\end{center}
+		Xét tính đúng hay sai của các mệnh đề sau:
+		\begin{enumerate}[label=\alph*)]
+			\item Hàm số $y = f(x)$ nghịch biến trên khoảng $(-1; 2)$.
+			\item Trên đoạn $[-1; 2]$, hàm số đạt giá trị lớn nhất bằng $f(-1)$ và giá trị nhỏ nhất bằng $f(2)$.
+			\item Trên nửa khoảng $(-1; 2]$, hàm số có giá trị nhỏ nhất là $f(2)$ nhưng không có giá trị lớn nhất.
+			\item Trên khoảng $(-\infty; 2)$, hàm số đã cho không có giá trị lớn nhất.
+		\end{enumerate}
+		
+		
+		% CÂU 7
+		\item Cho hàm số $y = x^3 - 3x + 2$ có đồ thị là đường cong $(C)$. Xét tính đúng hay sai của các mệnh đề sau:
+		\begin{enumerate}[label=\alph*)]
+			\item Tập xác định của hàm số là $\mathbb{D} = \mathbb{R}$.
+			\item Đạo hàm của hàm số là $y' = 3x^2 - 3$.
+			\item Trên đoạn $[0; 2]$, giá trị lớn nhất của hàm số bằng $4$ tại điểm $x = 2$.
+			\item Trên đoạn $[0; 2]$, giá trị nhỏ nhất của hàm số bằng $0$ tại điểm $x = 1$.
+		\end{enumerate}
+		
+		% CÂU 8
+		\item Cho hàm số $y = \dfrac{2x + 1}{x - 1}$ có đồ thị là đường cong $(C)$. Xét tính đúng hay sai của các mệnh đề sau:
+		\begin{enumerate}[label=\alph*)]
+			\item Điều kiện xác định của hàm số là $x \in \mathbb{R} \setminus \{1\}$.
+			\item Đạo hàm của hàm số là $y' = -\dfrac{3}{(x-1)^2}$.
+			\item Trên đoạn $[2; 4]$, giá trị lớn nhất của hàm số bằng $5$ tại điểm $x = 2$.
+			\item Trên đoạn $[2; 4]$, giá trị nhỏ nhất của hàm số bằng $2$ tại điểm $x = 4$.
+		\end{enumerate}
+		
+		% CÂU 9
+		\item Cho hàm số $y = -x^3 + 3x^2 + 1$ có đồ thị là đường cong $(C)$. Xét tính đúng hay sai của các mệnh đề sau:
+		\begin{enumerate}[label=\alph*)]
+			\item Hàm số luôn xác định và liên tục trên toàn bộ trục số thực $\mathbb{R}$.
+			\item Đạo hàm của hàm số là $y' = -3x^2 + 6x$.
+			\item Trên đoạn $[0; 3]$, giá trị lớn nhất của hàm số bằng $5$ tại điểm $x = 2$.
+			\item Trên đoạn $[0; 3]$, giá trị nhỏ nhất của hàm số bằng $0$ tại điểm $x = 3$.
+		\end{enumerate}
+		
+		% CÂU 10
+		\item Cho hàm số $y = \dfrac{x^2 - 3x + 3}{x - 1}$ có đồ thị là đường cong $(C)$. Xét tính đúng hay sai của các mệnh đề sau:
+		\begin{enumerate}[label=\alph*)]
+			\item Hàm số đã cho có điều kiện xác định là $x \neq 1$.
+			\item Đạo hàm của hàm số là $y' = \dfrac{x^2 - 2x}{(x-1)^2}$.
+			\item Trên đoạn $[2; 4]$, giá trị lớn nhất của hàm số bằng $\dfrac{7}{3}$ tại điểm $x = 4$.
+			\item Trên đoạn $[2; 4]$, giá trị nhỏ nhất của hàm số bằng $2$ tại điểm $x = 2$.
+		\end{enumerate}
+		
+		% CÂU 11
+		\item Cho hàm số $y = x^3 - 12x + 1$ có đồ thị là đường cong $(C)$. Xét tính đúng hay sai của các mệnh đề sau:
+		\begin{enumerate}[label=\alph*)]
+			\item Hàm số đã cho là hàm đa thức nên luôn xác định trên $\mathbb{R}$.
+			\item Giá trị đạo hàm của hàm số tại điểm $x = 1$ là $f'(1) = -9$.
+			\item Trên đoạn $[-1; 3]$, giá trị lớn nhất của hàm số bằng $12$ tại điểm $x = -1$.
+			\item Trên đoạn $[-1; 3]$, giá trị nhỏ nhất của hàm số bằng $-8$ tại điểm $x = 3$.
+		\end{enumerate}
+		
+		% CÂU 12
+		\item Cho hàm số $y = \dfrac{x + 2}{x - 1}$ có đồ thị là đường cong $(C)$. Xét tính đúng hay sai của các mệnh đề sau:
+		\begin{enumerate}[label=\alph*)]
+			\item Điều kiện xác định của hàm số đã cho là $x \neq 1$.
+			\item Đạo hàm của hàm số là $y' = -\dfrac{3}{(x-1)^2}$.
+			\item Trên đoạn $[2; 4]$, giá trị lớn nhất của hàm số bằng $4$ tại điểm $x = 2$.
+			\item Trên đoạn $[2; 4]$, giá trị nhỏ nhất của hàm số bằng $2$ tại điểm $x = 4$.
+		\end{enumerate}
+		
+		% CÂU 13
+		\item Cho hàm số $y = \dfrac{1}{3}x^3 - 2x^2 + 3x + 1$ có đồ thị là đường cong $(C)$. Xét tính đúng hay sai của các mệnh đề sau:
+		\begin{enumerate}[label=\alph*)]
+			\item Hàm số đã cho xác định và liên tục trên toàn bộ trục số thực $\mathbb{R}$.
+			\item Đạo hàm của hàm số là $y' = x^2 - 4x + 3$.
+			\item Trên đoạn $[0; 4]$, giá trị lớn nhất của hàm số bằng $\dfrac{7}{3}$ tại điểm $x = 1$.
+			\item Trên đoạn $[0; 4]$, giá trị nhỏ nhất của hàm số bằng $0$ tại điểm $x = 3$.
+		\end{enumerate}
+		
+		% CÂU 14
+		\item Cho hàm số $y = \dfrac{x^2 + x + 1}{x + 1}$ có đồ thị là đường cong $(C)$. Xét tính đúng hay sai của các mệnh đề sau:
+		\begin{enumerate}[label=\alph*)]
+			\item Điều kiện xác định của hàm số đã cho là $x \neq -1$.
+			\item Đạo hàm của hàm số là $y' = \dfrac{x^2 + 2x}{(x+1)^2}$.
+			\item Trên đoạn $[0; 2]$, giá trị lớn nhất của hàm số bằng $\dfrac{7}{3}$ tại điểm $x = 2$.
+			\item Trên đoạn $[0; 2]$, giá trị nhỏ nhất của hàm số bằng $0$ tại điểm $x = 0$.
+		\end{enumerate}
+		
+		% CÂU 15
+		\item Cho hàm số $y = -2x^3 + 6x^2 - 1$ có đồ thị là đường cong $(C)$. Xét tính đúng hay sai của các mệnh đề sau:
+		\begin{enumerate}[label=\alph*)]
+			\item Hàm số luôn xác định trên toàn bộ trục số thực $\mathbb{R}$.
+			\item Giá trị đạo hàm của hàm số tại điểm $x = 1$ bằng $f'(1) = 6$.
+			\item Trên đoạn $[-1; 2]$, giá trị lớn nhất của hàm số bằng $7$ tại điểm $x = 2$.
+			\item Trên đoạn $[-1; 2]$, giá trị nhỏ nhất của hàm số bằng $-5$ tại điểm $x = 0$.
+		\end{enumerate}
+		
+		% CÂU 16
+		\item Cho hàm số $y = \dfrac{x^2 - x + 4}{x - 2}$ có đồ thị là đường cong $(C)$. Xét tính đúng hay sai của các mệnh đề sau:
+		\begin{enumerate}[label=\alph*)]
+			\item Hàm số có điều kiện xác định là $x \neq 2$.
+			\item Đạo hàm của hàm số là $y' = \dfrac{x^2 - 4x}{(x-2)^2}$.
+			\item Trên đoạn $[3; 6]$, giá trị nhỏ nhất của hàm số bằng $8$ tại điểm $x = 4$.
+			\item Trên đoạn $[3; 6]$, giá trị lớn nhất của hàm số bằng $8.5$ tại điểm $x = 6$.
+		\end{enumerate}
+
+		% CÂU 17
+		\item Cho hàm số $y = \ln(x^2 - 2x + 2)$ có đồ thị là đường cong $(C)$. Xét tính đúng hay sai của các mệnh đề sau:
+		\begin{enumerate}[label=\alph*)]
+			\item Hàm số đã cho luôn xác định trên toàn bộ trục số thực $\mathbb{R}$.
+			\item Đạo hàm của hàm số là $y' = \dfrac{2x - 2}{x^2 - 2x + 2}$.
+			\item Trên đoạn $[0; 3]$, giá trị nhỏ nhất của hàm số bằng $0$ tại điểm $x = 1$.
+			\item Trên đoạn $[0; 3]$, giá trị lớn nhất của hàm số bằng $\ln 5$ tại điểm $x = 3$.
+		\end{enumerate}
+		
+		% CÂU 18
+		\item Cho hàm số $y = x - e^x$ có đồ thị là đường cong $(C)$. Xét tính đúng hay sai của các mệnh đề sau:
+		\begin{enumerate}[label=\alph*)]
+			\item Hàm số luôn xác định trên toàn bộ trục số thực $\mathbb{R}$.
+			\item Giá trị đạo hàm của hàm số tại điểm $x = 0$ bằng $f'(0) = 0$.
+			\item Trên đoạn $[-1; 2]$, giá trị lớn nhất của hàm số bằng $-1$ tại điểm $x = 0$.
+			\item Trên đoạn $[-1; 2]$, giá trị nhỏ nhất của hàm số bằng $-1 - \dfrac{1}{e}$ tại điểm $x = -1$.
+		\end{enumerate}
+		
+		% CÂU 19
+		\item Cho hàm số $y = x - \ln x$ có đồ thị là đường cong $(C)$. Xét tính đúng hay sai của các mệnh đề sau:
+		\begin{enumerate}[label=\alph*)]
+			\item Tập xác định của hàm số đã cho là $\mathbb{D} = (0; +\infty)$.
+			\item Đạo hàm của hàm số là $y' = 1 - \dfrac{1}{x}$.
+			\item Trên đoạn $[1; e]$, giá trị nhỏ nhất của hàm số bằng $1$ tại điểm $x = 1$.
+			\item Trên đoạn $[1; e]$, giá trị lớn nhất của hàm số bằng $e$ tại điểm $x = e$.
+		\end{enumerate}
+		
+		% CÂU 20
+		\item Cho hàm số $y = x^2 e^{-x}$ có đồ thị là đường cong $(C)$. Xét tính đúng hay sai của các mệnh đề sau:
+		\begin{enumerate}[label=\alph*)]
+			\item Hàm số luôn xác định trên toàn bộ trục số thực $\mathbb{R}$.
+			\item Đạo hàm của hàm số là $y' = (2x - x^2)e^{-x}$.
+			\item Trên đoạn $[0; 3]$, giá trị nhỏ nhất của hàm số bằng $0$ tại điểm $x = 0$.
+			\item Trên đoạn $[0; 3]$, giá trị lớn nhất của hàm số bằng $\dfrac{9}{e^3}$ tại điểm $x = 3$.
+		\end{enumerate}
+		
+	\end{enumerate}
+	
+	
+	\subsection{Bài tập trả lời ngắn}
+
+	\begin{enumerate}[label=\textbf{Câu \arabic*.}]
+		
+		% CÂU 1 (Dạng câu 105)
+		\item Biết giá trị lớn nhất của hàm số $f(x) = x^3 - 8x^2 + 16x - 9$ trên đoạn $[1; 3]$ bằng $\dfrac{a}{b}$ với $a, b \in \mathbb{Z}^+$ và $\dfrac{a}{b}$ là phân số tối giản. Tính giá trị của tổng $a+b$.
+		\par Trả lời: \otraloi
+		
+		% CÂU 2 (Dạng câu 106)
+		\item Cho hàm số $y = x + \dfrac{1}{x + 2}$. Tìm giá trị nhỏ nhất của hàm số trên đoạn $[-1; 2]$.
+		\par Trả lời: \otraloi
+		
+		% CÂU 3 (Dạng câu 109)
+		\item Tìm giá trị lớn nhất của hàm số $y = \sqrt{x - 2} + \sqrt{4 - x}$ trên miền xác định của nó.
+		\par Trả lời: \otraloi
+		
+		% CÂU 4
+		\item Tìm giá trị lớn nhất của hàm số $y = \sqrt{x - 1} + \sqrt{3 - x}$ trên miền xác định của nó.
+		\par Trả lời: \otraloi
+		
+		% CÂU 5
+		\item Cho hàm số $y = x^3 - 3x^2 + 2$ có đồ thị $(C)$. Tính tổng của giá trị lớn nhất và giá trị nhỏ nhất của hàm số đã cho trên đoạn $[-1; 2]$.
+		\par Trả lời: \otraloi
+		
+		% CÂU 6 (Dạng câu 108)
+		\item Cho hàm số $y = f(x) = \dfrac{x + 1}{\sqrt{x^2 + 1}}$. Tính giá trị lớn nhất của hàm số đã cho trên đoạn $[-1; 2]$ (làm tròn kết quả đến hàng phần trăm).
+		\par Trả lời: \otraloi
+		
+		% CÂU 7
+		\item Tính giá trị lớn nhất của hàm số $y = \dfrac{2x^2 + 3x + 3}{x + 1}$ trên đoạn $[0; 2]$ (làm tròn kết quả đến hàng phần trăm).
+		\par Trả lời: \otraloi
+		
+		% CÂU 8
+		\item Tìm giá trị nhỏ nhất của hàm số $y = \dfrac{3x^2 + 13x + 19}{x + 3}$ trên đoạn $[0; 2]$ (làm tròn kết quả đến hàng phần trăm).
+		\par Trả lời: \otraloi
+		
+		% CÂU 9
+		\item Tìm giá trị lớn nhất của hàm số $y = \dfrac{x^2 - 3x + 3}{x - 1}$ trên đoạn $[2; 4]$ (làm tròn kết quả đến hàng phần trăm).
+		\par Trả lời: \otraloi
+		
+		% CÂU 10
+		\item Tìm giá trị nhỏ nhất của hàm số $f(x) = x^3 - 3x^2 - 9x + 5$ trên đoạn $[-2; 4]$.
+		\par Trả lời: \otraloi
+		
+		% CÂU 11 (Dạng câu 107)
+		\item Tìm giá trị lớn nhất của hàm số $y = \dfrac{1}{x} + \dfrac{1}{x + 1} + \dfrac{1}{x + 2}$ trên đoạn $[-5; -3]$ (làm tròn kết quả đến hàng phần mười).
+		\par Trả lời: \otraloi
+		
+		% CÂU 12
+		\item Tìm giá trị lớn nhất của hàm số $y = -x^3 + 3x^2 + 1$ trên đoạn $[0; 3]$.
+		\par Trả lời: \otraloi
+		
+		% CÂU 13
+		\item Tìm giá trị lớn nhất của hàm số $y = \dfrac{x - 1}{x + 1}$ trên đoạn $[0; 3]$ (viết kết quả dưới dạng số thập phân).
+		\par Trả lời: \otraloi
+		
+		% CÂU 14
+		\item Tìm giá trị nhỏ nhất của hàm số $y = \dfrac{x^2 - x + 4}{x - 2}$ trên đoạn $[3; 6]$.
+		\par Trả lời: \otraloi
+		
+		% CÂU 15
+		\item Tìm giá trị nhỏ nhất của hàm số $y = \ln(x^2 - 4x + 5)$ trên đoạn $[1; 4]$.
+		\par Trả lời: \otraloi
+		
+		% CÂU 16
+		\item Tính giá trị lớn nhất của hàm số lượng giác $y = \sin x + \cos x$ trên đoạn $[0; \pi]$ (làm tròn kết quả đến hàng phần trăm).
+		\par Trả lời: \otraloi
+		
+		% CÂU 17
+		\item Tìm giá trị lớn nhất của hàm số mũ $y = 2x - e^{2x}$ trên đoạn $[-1; 1]$.
+		\par Trả lời: \otraloi
+		
+		% CÂU 18
+		\item Tìm giá trị lớn nhất của hàm số lượng giác $y = 3\sin x - 4\sin^3 x$ trên đoạn $\left[0; \dfrac{\pi}{6}\right]$.
+		\par Trả lời: \otraloi
+		
+		% CÂU 19
+		\item Tìm giá trị nhỏ nhất của hàm số logarit $y = x^2 - 2\ln x$ trên đoạn $[0.5; 2]$.
+		\par Trả lời: \otraloi
+		
+		% CÂU 20
+		\item Tìm giá trị nhỏ nhất của hàm số mũ $y = e^x - x$ trên đoạn $[-1; 1]$.
+		\par Trả lời: \otraloi
+		
+	\end{enumerate}
+	
+	\newpage
+	
+	% =====================
+	% PHẦN 5: TỔNG KẾT BÀI
+	% =====================
+	\section{Tổng kết bài}
+	
+	\begin{tcolorbox}[colback=yellow!10!white, colframe=orange!60!black,
+		fonttitle=\bfseries, title={Quy tắc sống còn khi tìm GTLN, GTNN}]
+		\begin{itemize}
+			\item \textbf{Sự tồn tại của $x_0$:} GTLN hay GTNN chỉ được công nhận nếu tồn tại điểm $x_0 \in K$ sao cho $f(x_0) = M$ (hoặc $f(x_0) = m$).
+			\item \textbf{Cận vô cực ($\pm\infty$):} Nếu tại đầu mút tiến ra vô cực, giá trị hàm số tiến ra $\pm\infty$ thì hàm số không có GTLN (hoặc không có GTNN).
+			\item \textbf{Quy trình trên đoạn $[a;b]$:} Tính $f'(x)$, tìm các nghiệm $x_i \in [a;b]$, tính các giá trị $f(a), f(b), f(x_i)$ rồi so sánh để chọn ra số lớn nhất và số nhỏ nhất.
+		\end{itemize}
+	\end{tcolorbox}
+	
+	\vspace{3mm}
+	\textbf{Nhiệm vụ tự học:} \textit{[Phần giao bài tập tự luyện về nhà cho học sinh]}
+	
+\end{document}

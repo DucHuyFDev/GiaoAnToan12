@@ -1,0 +1,444 @@
+\documentclass[12pt]{article}
+
+% ================================================
+% CÀI ĐẶT TRANG & PHÔNG CHỮ TIẾNG VIỆT
+% ================================================
+\usepackage[margin=2cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T5]{fontenc}
+\usepackage[vietnamese]{babel}
+
+% ================================================
+% TOÁN HỌC & HÌNH VẼ (Vừa đủ cho đề thi)
+% ================================================
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+% ================================================
+% ĐỊNH DẠNG DANH SÁCH & TRÌNH BÀY
+% ================================================
+\usepackage{enumitem}
+\usepackage{multicol}
+\usepackage{fancyhdr}
+\usepackage[hidelinks]{hyperref} % Nạp sau cùng để tránh xung đột
+
+% Thiết lập khoảng cách dòng và danh sách cho đề thi thoáng, đẹp
+\setlist[enumerate]{itemsep=6pt, topsep=4pt}
+\renewcommand{\baselinestretch}{1.15}
+
+% ================================================
+% CẤU HÌNH HEADER & FOOTER ĐỀ THI
+% ================================================
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\textit{Bài kiểm tra thường xuyên 1 — Lớp: 2026 - L01}}
+\fancyhead[R]{\small\textbf{ĐỀ CHÍNH THỨC}}
+\fancyfoot[C]{Trang \thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% ================================================
+% BẮT ĐẦU VĂN BẢN
+% ================================================
+\begin{document}
+	
+	% --- TIÊU ĐỀ ĐỀ THI CHÍNH THỨC ---
+	\begin{center}
+		{\Large \textbf{BÀI KIỂM TRA THƯỜNG XUYÊN 1}} \\[6pt]
+		{\large \textbf{Lớp: 2026 - L01}} \\[6pt]
+		\textit{Thời gian làm bài: 90 phút}
+	\end{center}
+	\vspace{3mm}
+	\hrule
+	\vspace{6mm}
+	
+	% ================================================
+	% ĐỀ CHÍNH THỨC - PHẦN I: TRẮC NGHIỆM ĐƠN (12 CÂU)
+	% ================================================
+	\noindent\textbf{PHẦN I. Câu trắc nghiệm nhiều phương án lựa chọn.} Thí sinh trả lời từ câu 1 đến câu 12. Mỗi câu hỏi thí sinh chỉ chọn một phương án.
+	\vspace{3mm}
+	
+	\begin{enumerate}[label=\textbf{Câu \arabic*.}, leftmargin=*]
+		
+		% CÂU 1: ĐẠO HÀM (Nhận biết đa thức bậc 3)
+		\item Cho hàm số $y = -\dfrac{1}{3}x^3 + 2x^2 - 3x + 1$. Đạo hàm $y'$ của hàm số đã cho là:
+		
+		\begin{center}
+			\begin{tabular}{p{0.47\textwidth} p{0.47\textwidth}}
+				A. $y'=-x^2+4x-3$. &
+				B. $y'=-x^2+4x$. \\[2mm]
+				C. $y'=-x^2+2x-3$. &
+				D. $y'=-3x^2+4x-3$.
+			\end{tabular}
+		\end{center}
+		
+		% CÂU 2: ĐƠN ĐIỆU - Nhận biết qua đồ thị bậc 3
+		\item Cho hàm số $y = f(x)$ liên tục trên $\mathbb{R}$ và có đồ thị như hình vẽ bên dưới.
+		
+		\begin{center}
+			\begin{tikzpicture}[scale=0.8]
+				\draw[->] (-1.5,0) -- (3.5,0) node[right] {$x$};
+				\draw[->] (0,-1) -- (0,5) node[above] {$y$};
+				\node[below, left] at (0,0) {$O$};
+				% Hàm y = -x^3 + 3x^2
+				\draw[domain=-0.9:2.8, smooth, variable=\x, blue, very thick]
+				plot ({\x}, {-\x*\x*\x + 3*\x*\x});
+				\draw[dashed, gray] (2,0) -- (2,4) -- (0,4);
+				\fill (2,4) circle (1.5pt);
+				\fill (0,0) circle (1.5pt);
+				\node[below, red] at (2,0) {$2$};
+				\node[left, red] at (0,4) {$4$};
+			\end{tikzpicture}
+		\end{center}
+		
+		Hàm số đã cho đồng biến trên khoảng nào dưới đây?
+		
+		\begin{center}
+			\begin{tabular}{p{0.47\textwidth} p{0.47\textwidth}}
+				A. $(-\infty;0)$ và $(2;+\infty)$. &
+				B. $(0;4)$. \\[2mm]
+				C. $(2;+\infty)$. &
+				D. $(0;2)$.
+			\end{tabular}
+		\end{center}
+		
+		% CÂU 3: ĐƠN ĐIỆU - Thông hiểu hàm phân thức bậc 1/bậc 1
+		\item Cho hàm số $y = \dfrac{x + 2}{x - 1}$. Phát biểu nào sau đây đúng?
+		\begin{enumerate}[label=\Alph*.]
+			\item Hàm số nghịch biến trên tập hợp $\mathbb{R} \setminus \{1\}$.
+			\item Hàm số nghịch biến trên các khoảng $(-\infty; 1)$ và $(1; +\infty)$.
+			\item Hàm số đồng biến trên các khoảng $(-\infty; 1)$ và $(1; +\infty)$.
+			\item Hàm số nghịch biến trên tập hợp $(-\infty; 1) \cup (1; +\infty)$.
+		\end{enumerate}
+		
+		% CÂU 4: ĐƠN ĐIỆU - Vận dụng hàm bậc 2 / bậc nhất
+		\item Hàm số $y = \dfrac{x^2 + 3}{x + 1}$ nghịch biến trên các khoảng nào dưới đây?
+		\begin{enumerate}[label=\Alph*.]
+			\item $(-3; 1)$.
+			\item $(-\infty; -3)$ và $(1; +\infty)$.
+			\item $(-3; -1)$ và $(-1; 1)$.
+			\item $(-\infty; -1)$ và $(-1; +\infty)$.
+		\end{enumerate}
+		
+		% CÂU 5: CỰC TRỊ - Nhận biết cực trị qua bảng biến thiên
+		\item Cho hàm số $y = f(x)$ liên tục trên $\mathbb{R}$ và có bảng biến thiên dưới đây:
+		\begin{center}
+			\begin{tikzpicture}[xscale=1.1, yscale=0.8]
+				\draw (0,0) rectangle (10,3);
+				\draw (0,1) -- (10,1);
+				\draw (0,2) -- (10,2);
+				\draw (1,0) -- (1,3);
+				
+				\node at (0.5, 2.5) {$x$};
+				\node at (1.5, 2.5) {$-\infty$};
+				\node at (3.5, 2.5) {$-2$};
+				\node at (5.5, 2.5) {$1$};
+				\node at (7.5, 2.5) {$4$};
+				\node at (9.5, 2.5) {$+\infty$};
+				
+				\node at (0.5, 1.5) {$y'$};
+				\node at (2.5, 1.5) {$+$};
+				\node at (3.5, 1.5) {$0$};
+				\node at (4.5, 1.5) {$-$};
+				\node at (5.5, 1.5) {$0$};
+				\node at (6.5, 1.5) {$+$};
+				\node at (7.5, 1.5) {$0$};
+				\node at (8.5, 1.5) {$-$};
+				
+				\node at (0.5, 0.5) {$y$};
+				\node at (1.5, 0.2) {$-\infty$};
+				\node at (3.5, 0.7) {$3$};
+				\node at (5.5, 0.2) {$-1$};
+				\node at (7.5, 0.7) {$5$};
+				\node at (9.5, 0.2) {$-\infty$};
+				
+				\draw[->, thick, blue] (1.8, 0.3) -- (3.2, 0.6);
+				\draw[->, thick, blue] (3.8, 0.6) -- (5.2, 0.3);
+				\draw[->, thick, blue] (5.8, 0.3) -- (7.2, 0.6);
+				\draw[->, thick, blue] (7.8, 0.6) -- (9.2, 0.3);
+			\end{tikzpicture}
+		\end{center}
+		Giá trị cực tiểu của hàm số đã cho bằng:
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\Alph*.]
+				\item $1$.
+				\item $-1$.
+				\item $3$.
+				\item $4$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 6: CỰC TRỊ - Thông hiểu số điểm cực trị của hàm số qua đạo hàm phân tích nhân tử
+		\item Cho hàm số $y = f(x)$ liên tục trên $\mathbb{R}$ và có đạo hàm $f'(x) = x^3(x - 1)^2(x + 3)^5$ với mọi $x \in \mathbb{R}$. Số điểm cực trị của hàm số đã cho là:
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\Alph*.]
+				\item $2$.
+				\item $3$.
+				\item $1$.
+				\item $4$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 7: CỰC TRỊ - Vận dụng tìm đường thẳng đi qua cực trị bậc 3
+		\item Biết đồ thị hàm số $y = x^3 - 3x^2 - 9x + 2$ có hai điểm cực trị $A, B$. Phương trình đường thẳng $AB$ là:
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\Alph*.]
+				\item $y = -8x + 1$.
+				\item $y = 8x - 1$.
+				\item $y = -8x - 1$.
+				\item $y = -8x - 2$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 8: MAX MIN - Nhận biết qua đồ thị hàm số bậc 3
+		\item Cho hàm số $y=f(x)$ liên tục trên đoạn $[-2;2]$ và có đồ thị như hình vẽ dưới đây.
+		
+		\begin{center}
+			\begin{tikzpicture}[scale=0.9]
+				\begin{axis}[
+					axis lines=middle,
+					xmin=-2.5, xmax=2.5,
+					ymin=-1, ymax=5,
+					xtick={-2,-1,1,2},
+					ytick={0,4},
+					grid=both,
+					grid style={gray!20,dashed},
+					width=9cm,
+					height=7cm,
+					samples=200,
+					domain=-2:2,
+					xlabel={$x$},
+					ylabel={$y$},
+					every axis x label/.style={at={(current axis.right of origin)},anchor=west},
+					every axis y label/.style={at={(current axis.above origin)},anchor=south}
+					]
+					
+					\addplot[
+					blue,
+					very thick
+					]
+					{x^3-3*x+2};
+					
+					% Các đường phụ
+					\draw[dashed] (axis cs:-2,0)--(axis cs:-2,0);
+					\draw[dashed] (axis cs:2,0)--(axis cs:2,4);
+					\draw[dashed] (axis cs:-1,0)--(axis cs:-1,4)--(axis cs:0,4);
+					\draw[dashed] (axis cs:1,0)--(axis cs:0,0);
+					
+					% Các điểm nổi bật
+					\addplot[only marks,mark=*,red]
+					coordinates {(-2,0) (-1,4) (1,0) (2,4)};
+					
+				\end{axis}
+			\end{tikzpicture}
+		\end{center}
+		
+		Gọi $M,m$ lần lượt là giá trị lớn nhất và giá trị nhỏ nhất của hàm số trên đoạn $[-2;2]$.
+		Tính giá trị của biểu thức $P=2M-3m$		
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\Alph*.]
+				\item $5$.
+				\item $6$.
+				\item $8$.
+				\item $10$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 9: MAX MIN - Thông hiểu tìm max - min phân thức
+		\item Gọi $M$ và $m$ lần lượt là giá trị lớn nhất và giá trị nhỏ nhất của hàm số $y = \dfrac{x + 3}{x - 1}$ trên đoạn $[2; 4]$. Tính hiệu $M - m$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\Alph*.]
+				\item $\dfrac{2}{3}$.
+				\item $5$.
+				\item $2$.
+				\item $\dfrac{8}{3}$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 10: TIỆM CẬN (Nhận biết giao điểm hai đường tiệm cận)
+		\item Tọa độ giao điểm $I$ của hai đường tiệm cận của đồ thị hàm số $y = \dfrac{1 - 3x}{x + 2}$ là:
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\Alph*.]
+				\item $I(-2; -3)$.
+				\item $I(-2; 1)$.
+				\item $I(2; -3)$.
+				\item $I(-2; -1)$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 11: TÂM ĐỐI XỨNG CỦA HÀM SỐ (Thông hiểu hàm đa thức uốn)
+		\item Đồ thị hàm số bậc ba $y = 2x^3 - 6x^2 + 5$ nhận điểm nào sau đây làm tâm đối xứng?
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\Alph*.]
+				\item $I(1; 5)$.
+				\item $I(-1; -3)$.
+				\item $I(1; 1)$.
+				\item $I(0; 5)$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 12: NHẬN DIỆN ĐỒ THỊ HÀM SỐ (Thông hiểu hàm bậc 2 / bậc nhất có TCĐ, TCX đẹp)
+		\item Đường cong trong hình vẽ dưới đây là đồ thị của hàm số nào?
+		\begin{center}
+			\begin{tikzpicture}[scale=0.8]
+				\draw[->] (-3,0) -- (4,0) node[right] {$x$};
+				\draw[->] (0,-3) -- (0,5) node[above] {$y$};
+				\node[below, left] at (0,0) {$O$};
+				
+				% Các tiệm cận đứng x=1 và tiệm cận xiên y=x dạng nét đứt màu đỏ
+				\draw[red, dashed, thick] (1,-3) -- (1,5);
+				\draw[red, dashed, thick] (-3,-3) -- (4,4);
+				
+				% Vẽ hai nhánh đồ thị hàm bậc 2 / bậc nhất
+				\draw[domain=-3:0.65, smooth, variable=\x, blue, very thick] plot ({\x}, {(\x*\x - \x + 1)/(\x - 1)});
+				\draw[domain=1.35:4, smooth, variable=\x, blue, very thick] plot ({\x}, {(\x*\x - \x + 1)/(\x - 1)});
+				
+				% Thêm điểm (1;0) tọa độ trên trục hoành để định vị tiệm cận đứng x=1
+				\fill (1,0) circle (1.5pt) node[below right] {$1$};
+				
+				% Các điểm mút tọa độ đẹp cực tiểu, cực đại
+				\fill (0,-1) circle (1.5pt) node[left] {$-1$};
+				\fill (2,3) circle (1.5pt);
+				\draw[dashed, gray] (2,0) node[below] {$2$} -- (2,3) -- (0,3) node[left] {$3$};
+			\end{tikzpicture}
+		\end{center}
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\Alph*.]
+				\item $y = \dfrac{x^2 - 2x + 2}{x - 1}$.
+				\item $y = \dfrac{x^2 + 1}{x - 1}$.
+				\item $y = \dfrac{x^2 + x + 1}{x - 1}$.
+				\item $y = \dfrac{x^2 - x + 1}{x - 1}$.
+			\end{enumerate}
+		\end{multicols}
+		
+	\end{enumerate}
+	
+	\vspace{6mm}
+	% ================================================
+	% ĐỀ CHÍNH THỨC - PHẦN II: TRẮC NGHIỆM ĐÚNG SAI
+	% ================================================
+	\vspace{4mm}
+	\noindent\textbf{PHẦN II. Câu trắc nghiệm đúng sai.} Thí sinh trả lời từ câu 1 đến câu 2. Trong mỗi ý a), b), c), d) ở mỗi câu, thí sinh chọn đúng hoặc sai.
+	\vspace{3mm}
+	
+	\begin{enumerate}[label=\textbf{Câu \arabic*.}, leftmargin=*]
+		
+		% CÂU 1 ĐÚNG/SAI: KHẢO SÁT ĐỒ THỊ (Hàm phân thức bậc 1/bậc 1) - ĐÃ CÂN ĐỐI CHỐNG DÍNH CHỮ
+		\item Cho hàm số $y = f(x) = \dfrac{2x - 1}{x + 1}$ có đồ thị như hình vẽ bên dưới.
+		\begin{center}
+			\begin{tikzpicture}[scale=0.9]
+				% Giới hạn khung vẽ đồ thị để hai cung không bị kéo quá dài tràn ra ngoài
+				\begin{scope}
+					\clip (-3.8, -3.2) rectangle (2.8, 4.8);
+					
+					% Tiệm cận đứng và tiệm cận ngang dạng nét đứt màu đỏ
+					\draw[red, dashed, thick] (-1,-3.5) -- (-1,5);
+					\draw[red, dashed, thick] (-4,2) -- (3,2);
+					
+					% Nhánh bên trái tiệm cận đứng (x < -1)
+					\draw[domain=-3.8:-1.2, smooth, variable=\x, blue, very thick] plot ({\x}, {(2*\x - 1)/(\x + 1)});
+					
+					% Nhánh bên phải tiệm cận đứng (x > -1)
+					\draw[domain=-0.8:2.8, smooth, variable=\x, blue, very thick] plot ({\x}, {(2*\x - 1)/(\x + 1)});
+				\end{scope}
+				
+				% Vẽ hệ trục tọa độ đè lên trên cho sắc nét
+				\draw[->] (-3.8, 0) -- (2.8, 0) node[right] {$x$};
+				\draw[->] (0, -3.2) -- (0, 4.8) node[above] {$y$};
+				\node[below left] at (0,0) {$O$};
+				
+				% Các điểm mốc tọa độ đặc biệt (bố trí hướng thông minh chống díu chữ)
+				% Điểm -1 của tiệm cận đứng trên Ox
+				\fill[red] (-1,0) circle (1.5pt) node[above left, red] {$-1$};
+				
+				% Điểm 2 của tiệm cận ngang trên Oy
+				\fill[red] (0,2) circle (1.5pt) node[above right, red] {$2$};
+				
+				% Giao điểm trục hoành (0.5; 0)
+				\fill (0.5,0) circle (1.5pt) node[below right, yshift=-0.5mm] {$0{,}5$};
+				
+				% Giao điểm trục tung (0; -1)
+				\fill (0,-1) circle (1.5pt) node[left] {$-1$};
+			\end{tikzpicture}
+		\end{center}
+		Xét tính đúng hay sai của các mệnh đề sau:
+		\begin{enumerate}[label=\alph*)]
+			\item Hàm số luôn đồng biến trên tập xác định $\mathbb{R} \setminus \{-1\}$.
+			\item Đồ thị hàm số nhận giao điểm hai đường tiệm cận $I(-1; 2)$ làm tâm đối xứng.
+			\item Giao điểm của đồ thị hàm số với trục hoành có hoành độ bằng $0{,}5$.
+			\item Đường tiệm cận ngang của đồ thị hàm số là đường thẳng $y = 2$.
+		\end{enumerate}
+		
+		\vspace{4mm}
+		% CÂU 2 ĐÚNG/SAI: BÀI TOÁN THỰC TẾ (Đơn điệu và Cực trị của tốc độ phản ứng hóa học)
+		\item Nồng độ của một sản phẩm hóa học $C(t)$ (đơn vị: mg/l) sau thời gian $t$ phút kể từ lúc phản ứng bắt đầu ($0 \le t \le 15$) được mô hình hóa bởi hàm số bậc ba:
+		\[ C(t) = -\dfrac{1}{3}t^3 + 4t^2 + 9t \]
+		Tốc độ thay đổi nồng độ sản phẩm tại thời điểm $t$ là đạo hàm bậc nhất của nồng độ theo thời gian: $v(t) = C'(t)$. Xét tính đúng hay sai của các mệnh đề sau:
+		\begin{enumerate}[label=\alph*)]
+			\item Nồng độ sản phẩm $C(t)$ đạt giá trị cực đại tại thời điểm $t = 9$ phút kể từ lúc phản ứng bắt đầu.
+			\item Tốc độ thay đổi nồng độ sản phẩm $v(t)$ luôn luôn giảm trong suốt quá trình phản ứng từ thời điểm $0$ phút đến $15$ phút.
+			\item Tốc độ thay đổi nồng độ sản phẩm đạt cực đại tại thời điểm $t = 4$ phút.
+			\item Tại thời điểm $t = 2$ phút, tốc độ thay đổi nồng độ sản phẩm đang có xu hướng tăng dần.
+		\end{enumerate}
+		
+	\end{enumerate}
+	
+	\vspace{6mm}
+	% ================================================
+	% PHẦN III: TRẢ LỜI NGẮN (4 CÂU)
+	% ================================================
+	\noindent\textbf{PHẦN III. Câu trắc nghiệm trả lời ngắn.} Thí sinh trả lời từ câu 1 đến câu 4.
+	\vspace{3mm}
+	
+	\begin{enumerate}[label=\textbf{Câu \arabic*.}, leftmargin=*]
+		
+		% CÂU 1 TRẢ LỜI NGẮN (Đơn điệu hàm bậc 3 - Tổng các giá trị nguyên)
+		\item Biết hàm số $y = 2x^3 - 15x^2 + 24x + 1$ nghịch biến trên khoảng $(a;b)$. Tính tổng tất cả các số nguyên nằm trong khoảng nghịch biến này.
+		
+		% CÂU 2 TRẢ LỜI NGẮN (Cực trị hàm bậc 2 / bậc 1 - Hiệu hai giá trị cực trị)
+		\item Cho hàm số $y = \dfrac{x^2 - 2x + 2}{x - 1}$ có giá trị cực đại là $y_{CD}$ và giá trị cực tiểu là $y_{CT}$. Tính giá trị của biểu thức $P = y_{CT} - y_{CD}$.
+		
+		% CÂU 3 TRẢ LỜI NGẮN (Toán thực tế tối ưu sản xuất - Lợi nhuận đạt cực đại)
+		\item Lợi nhuận hàng tuần của một doanh nghiệp khi sản xuất $x$ tấn sản phẩm được mô hình hóa bởi hàm số bậc ba:
+		\[ P(x) = -x^3 + 12x^2 + 60x \quad (\text{đơn vị: triệu đồng}) \]
+		Hỏi doanh nghiệp cần sản xuất bao nhiêu tấn sản phẩm mỗi tuần để lợi nhuận đạt giá trị lớn nhất?
+		
+		% CÂU 4 TRẢ LỜI NGẮN (Max-Min hàm bậc 1 / bậc 1 trên đoạn)
+		\item Tìm tổng giá trị lớn nhất $M$ và giá trị nhỏ nhất $m$ của hàm số $y = \dfrac{2x - 1}{x + 1}$ trên đoạn $[0; 2]$.
+		
+	\end{enumerate}
+	
+	\vspace{6mm}
+	% ================================================
+	% ĐỀ CHÍNH THỨC - PHẦN IV: TỰ LUẬN (3 BÀI)
+	% ================================================
+	\vspace{4mm}
+	\noindent\textbf{PHẦN IV. Tự luận.} Thí sinh trình bày bài giải chi tiết từ bài 1 đến bài 3.
+	\vspace{3mm}
+	
+	\begin{enumerate}[label=\textbf{Bài \arabic*.}, leftmargin=*]
+		
+		% BÀI 1: TOÁN THỰC TẾ (1.0 điểm - Tối ưu hóa diện tích gieo trồng thu hoạch)
+		\item \textbf{(1.0 điểm)} Một trang trại hữu cơ ước tính rằng lợi nhuận hàng năm $P$ (đơn vị: triệu đồng) thu được từ việc gieo trồng và thu hoạch rau sạch phụ thuộc vào diện tích canh tác $x$ (hectare) theo phương trình bậc ba:
+		\[ P(x) = -\dfrac{1}{3}x^3 + 6x^2 + 45x \quad (\text{với } x \ge 0) \]
+		Hỏi trang trại cần đưa vào canh tác bao nhiêu hectare rau sạch để lợi nhuận đạt giá trị lớn nhất?
+		
+		\vspace{3mm}
+		% BÀI 2: CỰC TRỊ NÂNG CAO (1.0 điểm - Liên kết hình học phẳng Oxy lớp 10)
+		\item \textbf{(1.0 điểm)} Cho hàm số $y = \dfrac{x^2 - 2x + 2}{x - 1}$ có đồ thị là đường cong $(C)$. Gọi $A, B$ lần lượt là hai điểm cực trị của đồ thị $(C)$.
+		\begin{enumerate}[label=\alph*)]
+			\item Viết phương trình tổng quát của đường thẳng đi qua hai điểm cực trị $A, B$.
+			\item Cho điểm $C(3; -2)$. Tính diện tích tam giác $ABC$.
+		\end{enumerate}
+		
+		\vspace{3mm}
+		% BÀI 3: KHẢO SÁT HÀM SỐ (1.0 điểm - Khảo sát hàm số phân thức cơ bản)
+		\item \textbf{(1.0 điểm)} Khảo sát sự biến thiên (tìm tập xác định, tính đạo hàm, tìm cực trị nếu có, tìm các đường tiệm cận, lập bảng biến thiên) và xác định tọa độ tâm đối xứng của hàm số sau: 
+		\[ y = \dfrac{3x - 1}{x + 1} \]
+		
+	\end{enumerate}
+	
+\end{document}

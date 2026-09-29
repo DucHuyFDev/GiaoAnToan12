@@ -1,0 +1,2356 @@
+\documentclass[12pt]{article}
+
+% === CÀI ĐẶT TRANG ===
+\usepackage[margin=2cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T5]{fontenc}
+\usepackage[vietnamese]{babel}
+
+% === TOÁN HỌC ===
+\usepackage{amsmath, amssymb, amsthm}
+
+% === HÌNH VẼ ===
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+% === ĐỊNH DẠNG ===
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage[most]{tcolorbox}
+\usepackage{multicol}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{fancyhdr}
+\usepackage{titletoc}
+\usepackage{tocloft}
+\usepackage[hidelinks]{hyperref} 
+
+% === LỆNH TỰ ĐỊNH NGHĨA ===
+\newcommand{\otraloi}{\underline{\hspace{5cm}}}
+
+% === TCOLORBOX STYLES ===
+\tcbuselibrary{breakable, skins, fitting}
+
+% Ví dụ
+\newtcolorbox{vidu}[1][1]{
+	colback=blue!5!white, colframe=blue!60!black,
+	fonttitle=\bfseries, title={Ví dụ #1},
+	breakable, enhanced
+}
+
+% Lời giải
+\newtcolorbox{loigiai}{
+	colback=gray!8!white, colframe=gray!50!black,
+	fonttitle=\bfseries, title={Lời giải},
+	breakable, enhanced
+}
+
+% Bài tập xanh – Bắt buộc
+\newtcolorbox{btxanh}[1][]{
+	colback=blue!6!white, colframe=blue!65!black,
+	fonttitle=\bfseries\color{white}, coltitle=white,
+	attach boxed title to top left={yshift=-2mm, xshift=4mm},
+	boxed title style={colback=blue!65!black, rounded corners},breakable, enhanced, #1
+}
+
+% Bài tập vàng – Bổ sung
+\newtcolorbox{btvang}[1][]{
+	colback=yellow!12!white, colframe=orange!75!black,
+	fonttitle=\bfseries, coltitle=orange!80!black,
+	attach boxed title to top left={yshift=-2mm, xshift=4mm},
+	boxed title style={colback=yellow!50!white, colframe=orange!75!black, rounded corners},breakable, enhanced, #1
+}
+
+% Bài tập đỏ – Gia cố
+\newtcolorbox{btdo}[1][]{
+	colback=red!6!white, colframe=red!65!black,
+	fonttitle=\bfseries\color{white}, coltitle=white,
+	attach boxed title to top left={yshift=-2mm, xshift=4mm},
+	boxed title style={colback=red!65!black, rounded corners},breakable, enhanced, #1
+}
+
+% === HEADER/FOOTER ===
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[C]{\small \textbf{Giáo án: Khảo sát sự biến thiên và vẽ đồ thị hàm số}}
+\fancyhead[R]{\small Lớp: 12}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% ================================================
+\begin{document}
+	
+	\begin{center}
+		{\LARGE \textbf{BÀI 4: KHẢO SÁT SỰ BIẾN THIÊN VÀ VẼ ĐỒ THỊ HÀM SỐ}}\\[4pt]
+		{\large Môn: Toán \quad Lớp: 12}
+	\end{center}
+	\vspace{4mm}
+	\hrule
+	\vspace{4mm}
+
+	% ===========================
+	% PHẦN 1: MỤC TIÊU BÀI HỌC
+	% ===========================
+	\section*{Mục tiêu bài học}
+	\addcontentsline{toc}{section}{Mục tiêu bài học}
+	
+	\textbf{1. Kiến thức:}
+	\begin{itemize}
+		\item Nắm vững sơ đồ tổng quát các bước khảo sát sự biến thiên của một hàm số (tìm tập xác định, tính đạo hàm, xét tính đơn điệu, tìm cực trị, giới hạn, tiệm cận và lập bảng biến thiên).
+		\item Ghi nhớ các dạng đồ thị cơ bản của hàm số đa thức bậc ba, hàm số phân thức bậc nhất/bậc nhất và hàm số phân thức bậc hai/bậc nhất.
+		\item Nắm được đặc điểm về tính đối xứng (tâm đối xứng, trục đối xứng) của các đồ thị hàm số thông dụng.
+		\item Hiểu mối liên hệ giữa hình dáng đồ thị, các điểm đặc biệt (cực trị, giao điểm với các trục) và dấu của các hệ số trong phương trình hàm số.
+	\end{itemize}
+	
+	\noindent \textbf{2. Kĩ năng:}
+	\begin{itemize}
+		\item Thực hiện thành thạo và chính xác các bước khảo sát sự biến thiên của hàm số thông qua việc lập bảng biến thiên.
+		\item Quan sát, phân tích được hình dáng đồ thị hoặc bảng biến thiên để nhận diện được hàm số tương ứng.
+		\item Phân tích đặc điểm của đồ thị (chiều hướng của nhánh vô cực, vị trí giao điểm với trục tung/hoành, vị trí điểm cực trị) để lập luận và xác định dấu (âm, dương) của các hệ số trong hàm số.
+	\end{itemize}
+	
+	\noindent \textbf{3. Thái độ / Phẩm chất:}
+	\begin{itemize}
+		\item Rèn luyện tính cẩn thận, tỉ mỉ và tính chính xác cao trong quá trình tính toán đạo hàm, xét dấu và lập bảng biến thiên.
+		\item Phát triển năng lực tư duy trực quan hình học, khả năng suy luận logic khi chuyển đổi giữa biểu thức đại số và đồ thị.
+		\item Chủ động, tích cực và kiên nhẫn trong việc giải quyết các bài toán ngược (từ đồ thị suy ra tính chất của hàm số).
+	\end{itemize}
+	
+	\newpage
+	
+	% =====================
+	% PHẦN 2: MỤC LỤC
+	% =====================
+	\setcounter{tocdepth}{2}
+	\tableofcontents
+	\newpage
+	
+	% =====================
+	% PHẦN 3: LÝ THUYẾT
+	% =====================
+	\section{Lý thuyết}
+	\subsection{Tổng hợp quy trình khảo sát hàm số}
+	
+	Theo định hướng của Chương trình GDPT 2018, để khảo sát sự biến thiên và vẽ đồ thị của một hàm số $y = f(x)$, ta thực hiện theo quy trình gồm 3 bước chuẩn sau đây:
+	
+	\textbf{Bước 1. Tìm tập xác định của hàm số.}
+	
+	\textbf{Bước 2. Xét sự biến thiên của hàm số.}
+	\begin{itemize}
+		\item Tính đạo hàm $y'$. Tìm các nghiệm của phương trình $y' = 0$ và các điểm tại đó đạo hàm không xác định.
+		\item Xét dấu đạo hàm $y'$ để xác định các khoảng đồng biến, nghịch biến và các điểm cực trị (cực đại, cực tiểu) của hàm số (nếu có).
+		\item Tính giới hạn tại vô cực (khi $x \to \pm\infty$), giới hạn vô cực (khi $x \to x_0^\pm$) để tìm phương trình các đường tiệm cận ngang, tiệm cận đứng và tiệm cận xiên (nếu có) của đồ thị.
+		\item Lập bảng biến thiên tổng hợp các kết quả vừa tìm được.
+	\end{itemize}
+	
+	\textbf{Bước 3. Vẽ đồ thị của hàm số.}
+	\begin{itemize}
+		\item Vẽ các đường tiệm cận của đồ thị hàm số (nếu có).
+		\item Xác định tọa độ các điểm đặc biệt: điểm cực trị, giao điểm của đồ thị với trục tung (cho $x=0$, tìm $y$), giao điểm với trục hoành (cho $y=0$, tìm $x$) và một số điểm phụ trợ khác để vẽ đồ thị chính xác hơn.
+		\item Nhận xét về tính đối xứng (tâm đối xứng, trục đối xứng) của đồ thị (nếu cần).
+		\item Vẽ đường cong biểu diễn đồ thị hàm số đi qua các điểm đã xác định, tuân theo chiều biến thiên trên bảng biến thiên.
+	\end{itemize}
+	
+	\begin{figure}[H]
+		\centering
+		\begin{tikzpicture}[scale=0.8]
+			\begin{axis}[
+				axis lines = middle,
+				xlabel = {$x$},
+				ylabel = {$y$},
+				ymin=-3, ymax=4,
+				xmin=-2, xmax=4,
+				grid=both,
+				grid style={dashed, gray!30},
+				samples=100,
+				domain=-1.5:3.5,
+				thick
+				]
+				% Vẽ hàm số y = x^3 - 3x^2 + 2
+				\addplot[blue, thick] {x^3 - 3*x^2 + 2};
+				
+				% Điểm cực đại
+				\addplot[mark=*, red] coordinates {(0,2)} node[above right, text=black] {CĐ $(0;2)$};
+				% Điểm cực tiểu
+				\addplot[mark=*, red] coordinates {(2,-2)} node[below left, text=black] {CT $(2;-2)$};
+				% Tâm đối xứng (điểm uốn)
+				\addplot[mark=*, black] coordinates {(1,0)} node[below right, text=black] {Tâm ĐX $I(1;0)$};
+				
+			\end{axis}
+		\end{tikzpicture}
+		\caption{Minh họa các yếu tố trên đồ thị sau khi thực hiện các bước khảo sát hàm số $y = x^3 - 3x^2 + 2$}
+	\end{figure}
+	
+	\begin{vidu}[1]
+		Khảo sát sự biến thiên của hàm số $y = x^3 - 3x^2 + 2$ (chỉ yêu cầu thực hiện đến bước lập bảng biến thiên).
+	\end{vidu}
+	
+	\begin{loigiai}
+		\textbf{1. Tập xác định:} $D = \mathbb{R}$.\\[4pt]
+		\textbf{2. Sự biến thiên:}\\
+		\textit{a) Đạo hàm:} 
+		$$y' = 3x^2 - 6x$$
+		$$y' = 0 \Leftrightarrow 3x^2 - 6x = 0 \Leftrightarrow \left[ \begin{array}{l} x = 0 \Rightarrow y = 2 \\ x = 2 \Rightarrow y = -2 \end{array} \right.$$
+		
+		\textit{b) Giới hạn tại vô cực:}
+		$$\lim_{x \to -\infty} y = \lim_{x \to -\infty} x^3\left(1 - \frac{3}{x} + \frac{2}{x^3}\right) = -\infty$$
+		$$\lim_{x \to +\infty} y = \lim_{x \to +\infty} x^3\left(1 - \frac{3}{x} + \frac{2}{x^3}\right) = +\infty$$
+		Do đây là hàm đa thức nên đồ thị không có đường tiệm cận.\\[4pt]
+		\textit{c) Bảng biến thiên:}
+		
+		\begin{center}
+			\begin{tikzpicture}[scale=0.9, every node/.style={scale=0.95}]
+				% Kẻ khung bảng
+				\draw (0,0) rectangle (12,3.5);
+				\draw (1.5,0) -- (1.5,3.5);
+				\draw (0,2.5) -- (12,2.5);
+				\draw (0,1.5) -- (12,1.5);
+				
+				% Nội dung cột 1
+				\node at (0.75, 3) {$x$};
+				\node at (0.75, 2) {$y'$};
+				\node at (0.75, 0.75) {$y$};
+				
+				% Nội dung hàng x
+				\node at (2.2, 3) {$-\infty$};
+				\node at (5, 3) {$0$};
+				\node at (8.5, 3) {$2$};
+				\node at (11.3, 3) {$+\infty$};
+				
+				% Nội dung hàng y'
+				\node at (3.6, 2) {$+$};
+				\node at (5, 2) {$0$};
+				\node at (6.75, 2) {$-$};
+				\node at (8.5, 2) {$0$};
+				\node at (9.9, 2) {$+$};
+				
+				% Nội dung hàng y
+				\node at (2.2, 0.3) {$-\infty$};
+				\node at (5, 1.2) {$2$};
+				\node at (8.5, 0.3) {$-2$};
+				\node at (11.3, 1.2) {$+\infty$};
+				
+				% Mũi tên hàng y
+				\draw[->, >=stealth, thick] (2.8, 0.4) -- (4.6, 1.1);
+				\draw[->, >=stealth, thick] (5.4, 1.1) -- (8.1, 0.4);
+				\draw[->, >=stealth, thick] (8.9, 0.4) -- (10.7, 1.1);
+			\end{tikzpicture}
+		\end{center}
+		
+		\textit{d) Kết luận:}
+		\begin{itemize}
+			\item Hàm số đồng biến trên các khoảng $(-\infty; 0)$ và $(2; +\infty)$.
+			\item Hàm số nghịch biến trên khoảng $(0; 2)$.
+			\item Hàm số đạt cực đại tại $x = 0$, giá trị cực đại $y_{\text{CĐ}} = 2$.
+			\item Hàm số đạt cực tiểu tại $x = 2$, giá trị cực tiểu $y_{\text{CT}} = -2$.
+		\end{itemize}
+	\end{loigiai}
+	
+	
+	\subsection{Các dạng hàm số cơ bản, các dạng đồ thị tương ứng và đặc điểm}
+	
+	\subsubsection{Hàm số đa thức bậc ba: $y = ax^3 + bx^2 + cx + d \quad (a \neq 0)$}
+	
+	\begin{itemize}
+		\item \textbf{Tập xác định:} $D = \mathbb{R}$.
+		\item \textbf{Đạo hàm:} $y' = 3ax^2 + 2bx + c$. Phương trình $y' = 0$ là phương trình bậc hai có biệt thức $\Delta' = b^2 - 3ac$.
+		\item \textbf{Tâm đối xứng:} Đồ thị nhận điểm uốn $I(x_0; y_0)$ làm tâm đối xứng, với $x_0$ là nghiệm của phương trình đạo hàm cấp hai $y'' = 0$. Hoặc tọa độ tâm đối xứng chính là trung điểm của đoạn thẳng nối hai điểm cực trị.
+	\end{itemize}
+	
+	\textbf{Bảng tổng hợp các dạng đồ thị hàm số bậc ba:}
+	
+	\begin{center}
+		\renewcommand{\arraystretch}{1.5}
+		\begin{tabular}{|m{4.5cm}|>{\centering\arraybackslash}m{5.5cm}|>{\centering\arraybackslash}m{5.5cm}|}
+			\hline
+			\centering \textbf{Số nghiệm của $y' = 0$} & \textbf{$a > 0$} & \textbf{$a < 0$} \\
+			\hline
+			% Dòng 1
+			$y' = 0$ có 2 nghiệm phân biệt\\[4pt]
+			($\Delta' = b^2 - 3ac > 0$)\\[4pt]
+			(Hàm số có 2 điểm cực trị) 
+			&
+			\begin{tikzpicture}[baseline=(current bounding box.center)]
+				\begin{axis}[
+					width=5cm, height=5cm, axis lines=center,
+					xmin=-2.5, xmax=2.5, ymin=-2.5, ymax=2.5,
+					xtick=\empty, ytick=\empty,
+					xlabel={$x$}, ylabel={$y$},
+					every axis x label/.style={at={(ticklabel* cs:1)},anchor=west},
+					every axis y label/.style={at={(ticklabel* cs:1)},anchor=south},
+					samples=50]
+					\addplot[domain=-2.1:2.1, thick, blue] {x^3 - 3*x};
+					\filldraw[black] (0,0) circle (1.5pt) node[anchor=north west] {$O$};
+					\filldraw[red] (0,0) circle (1.5pt) node[anchor=south east] {$I$};
+				\end{axis}
+			\end{tikzpicture}
+			&
+			\begin{tikzpicture}[baseline=(current bounding box.center)]
+				\begin{axis}[
+					width=5cm, height=5cm, axis lines=center,
+					xmin=-2.5, xmax=2.5, ymin=-2.5, ymax=2.5,
+					xtick=\empty, ytick=\empty,
+					xlabel={$x$}, ylabel={$y$},
+					every axis x label/.style={at={(ticklabel* cs:1)},anchor=west},
+					every axis y label/.style={at={(ticklabel* cs:1)},anchor=south},
+					samples=50]
+					\addplot[domain=-2.1:2.1, thick, blue] {-x^3 + 3*x};
+					\filldraw[black] (0,0) circle (1.5pt) node[anchor=south west] {$O$};
+					\filldraw[red] (0,0) circle (1.5pt) node[anchor=north east] {$I$};
+				\end{axis}
+			\end{tikzpicture}
+			\\
+			\hline
+			% Dòng 2
+			$y' = 0$ có nghiệm kép\\[4pt]
+			($\Delta' = b^2 - 3ac = 0$)\\[4pt]
+			(Hàm số không có cực trị)
+			&
+			\begin{tikzpicture}[baseline=(current bounding box.center)]
+				\begin{axis}[
+					width=5cm, height=5cm, axis lines=center,
+					xmin=-2.5, xmax=2.5, ymin=-2.5, ymax=2.5,
+					xtick=\empty, ytick=\empty,
+					xlabel={$x$}, ylabel={$y$},
+					every axis x label/.style={at={(ticklabel* cs:1)},anchor=west},
+					every axis y label/.style={at={(ticklabel* cs:1)},anchor=south},
+					samples=50]
+					\addplot[domain=-1.3:1.3, thick, blue] {x^3};
+					\filldraw[black] (0,0) circle (1.5pt) node[anchor=north west] {$O$};
+					\node[red, anchor=south east] at (0,0) {$I$};
+				\end{axis}
+			\end{tikzpicture}
+			&
+			\begin{tikzpicture}[baseline=(current bounding box.center)]
+				\begin{axis}[
+					width=5cm, height=5cm, axis lines=center,
+					xmin=-2.5, xmax=2.5, ymin=-2.5, ymax=2.5,
+					xtick=\empty, ytick=\empty,
+					xlabel={$x$}, ylabel={$y$},
+					every axis x label/.style={at={(ticklabel* cs:1)},anchor=west},
+					every axis y label/.style={at={(ticklabel* cs:1)},anchor=south},
+					samples=50]
+					\addplot[domain=-1.3:1.3, thick, blue] {-x^3};
+					\filldraw[black] (0,0) circle (1.5pt) node[anchor=south west] {$O$};
+					\node[red, anchor=north east] at (0,0) {$I$};
+				\end{axis}
+			\end{tikzpicture}
+			\\
+			\hline
+			% Dòng 3
+			$y' = 0$ vô nghiệm\\[4pt]
+			($\Delta' = b^2 - 3ac < 0$)\\[4pt]
+			(Hàm số không có cực trị)
+			&
+			\begin{tikzpicture}[baseline=(current bounding box.center)]
+				\begin{axis}[
+					width=5cm, height=5cm, axis lines=center,
+					xmin=-2.5, xmax=2.5, ymin=-2.5, ymax=2.5,
+					xtick=\empty, ytick=\empty,
+					xlabel={$x$}, ylabel={$y$},
+					every axis x label/.style={at={(ticklabel* cs:1)},anchor=west},
+					every axis y label/.style={at={(ticklabel* cs:1)},anchor=south},
+					samples=50]
+					\addplot[domain=-1.1:1.1, thick, blue] {x^3 + x};
+					\filldraw[black] (0,0) circle (1.5pt) node[anchor=north west] {$O$};
+					\node[red, anchor=south east] at (0,0) {$I$};
+				\end{axis}
+			\end{tikzpicture}
+			&
+			\begin{tikzpicture}[baseline=(current bounding box.center)]
+				\begin{axis}[
+					width=5cm, height=5cm, axis lines=center,
+					xmin=-2.5, xmax=2.5, ymin=-2.5, ymax=2.5,
+					xtick=\empty, ytick=\empty,
+					xlabel={$x$}, ylabel={$y$},
+					every axis x label/.style={at={(ticklabel* cs:1)},anchor=west},
+					every axis y label/.style={at={(ticklabel* cs:1)},anchor=south},
+					samples=50]
+					\addplot[domain=-1.1:1.1, thick, blue] {-x^3 - x};
+					\filldraw[black] (0,0) circle (1.5pt) node[anchor=south west] {$O$};
+					\node[red, anchor=north east] at (0,0) {$I$};
+				\end{axis}
+			\end{tikzpicture}
+			\\
+			\hline
+		\end{tabular}
+	\end{center}
+	
+	\vspace{5mm}
+	\subsubsection{Hàm số phân thức bậc nhất / bậc nhất: $y = \dfrac{ax + b}{cx + d} \quad (c \neq 0, ad - bc \neq 0)$}
+	
+	\begin{itemize}
+		\item \textbf{Tập xác định:} $D = \mathbb{R} \setminus \left\{-\dfrac{d}{c}\right\}$.
+		\item \textbf{Đạo hàm:} $y' = \dfrac{ad - bc}{(cx + d)^2}$. Dấu của $y'$ phụ thuộc vào dấu của định thức $D = ad - bc$.
+		\item \textbf{Tiệm cận:} Tiệm cận đứng $x = -\dfrac{d}{c}$ và tiệm cận ngang $y = \dfrac{a}{c}$.
+		\item \textbf{Tâm đối xứng:} Giao điểm của hai đường tiệm cận $I\left(-\dfrac{d}{c}; \dfrac{a}{c}\right)$ là tâm đối xứng của đồ thị.
+	\end{itemize}
+	
+	\textbf{Bảng tổng hợp các dạng đồ thị:}
+	
+	\begin{center}
+		\renewcommand{\arraystretch}{1.5}
+		\begin{tabular}{|>{\centering\arraybackslash}m{7.5cm}|>{\centering\arraybackslash}m{7.5cm}|}
+			\hline
+			\textbf{$y' > 0 \Leftrightarrow ad - bc > 0$} & \textbf{$y' < 0 \Leftrightarrow ad - bc < 0$} \\
+			\hline
+			\begin{tikzpicture}[baseline=(current bounding box.center)]
+				\begin{axis}[
+					width=6.5cm, height=6.5cm, axis lines=center,
+					xmin=-3, xmax=5, ymin=-3, ymax=5,
+					xtick=\empty, ytick=\empty,
+					xlabel={$x$}, ylabel={$y$},
+					every axis x label/.style={at={(ticklabel* cs:1)},anchor=west},
+					every axis y label/.style={at={(ticklabel* cs:1)},anchor=south},
+					samples=50]
+					\addplot[domain=-3:0.7, thick, blue] {1 - 1/(x-1)};
+					\addplot[domain=1.3:5, thick, blue] {1 - 1/(x-1)};
+					\draw[dashed, red, thick] (1,-3) -- (1,5) node[below right, black] {$\frac{-d}{c}$};
+					\draw[dashed, red, thick] (-3,1) -- (5,1) node[above left, black] {$\frac{a}{c}$};
+					\filldraw[black] (0,0) circle (1.5pt) node[anchor=north east] {$O$};
+					\filldraw[black] (1,1) circle (1.5pt) node[anchor=south west] {$I$};
+				\end{axis}
+			\end{tikzpicture}
+			&
+			\begin{tikzpicture}[baseline=(current bounding box.center)]
+				\begin{axis}[
+					width=6.5cm, height=6.5cm, axis lines=center,
+					xmin=-3, xmax=5, ymin=-3, ymax=5,
+					xtick=\empty, ytick=\empty,
+					xlabel={$x$}, ylabel={$y$},
+					every axis x label/.style={at={(ticklabel* cs:1)},anchor=west},
+					every axis y label/.style={at={(ticklabel* cs:1)},anchor=south},
+					samples=50]
+					\addplot[domain=-3:0.7, thick, blue] {1 + 1/(x-1)};
+					\addplot[domain=1.3:5, thick, blue] {1 + 1/(x-1)};
+					\draw[dashed, red, thick] (1,-3) -- (1,5) node[below right, black] {$\frac{-d}{c}$};
+					\draw[dashed, red, thick] (-3,1) -- (5,1) node[above right, black] {$\frac{a}{c}$};
+					\filldraw[black] (0,0) circle (1.5pt) node[anchor=north east] {$O$};
+					\filldraw[black] (1,1) circle (1.5pt) node[anchor=south west] {$I$};
+				\end{axis}
+			\end{tikzpicture}
+			\\
+			\hline
+		\end{tabular}
+	\end{center}
+	
+	\vspace{5mm}
+	\subsubsection{Hàm số phân thức bậc hai / bậc nhất: $y = \dfrac{ax^2 + bx + c}{mx + n} \quad (a \neq 0, m \neq 0)$}
+	
+	\begin{itemize}
+		\item \textbf{Tập xác định:} $D = \mathbb{R} \setminus \left\{-\dfrac{n}{m}\right\}$.
+		\item \textbf{Đạo hàm:} $y' = \dfrac{2amx^2 + 2anx + bn - cm}{(mx+n)^2}$.
+		\item \textbf{Tiệm cận:} Tiệm cận đứng $x = -\dfrac{n}{m}$. Thực hiện phép chia đa thức để đồ thị có đường tiệm cận xiên $y = Ax + B$.
+		\item \textbf{Tâm đối xứng:} Đồ thị có tâm đối xứng $I$ là giao điểm của đường tiệm cận đứng và tiệm cận xiên. Đồng thời đồ thị nhận các đường phân giác góc tạo bởi hai đường tiệm cận làm trục đối xứng.
+	\end{itemize}
+	
+	\textbf{Bảng tổng hợp các dạng đồ thị:}
+	
+	\begin{center}
+		\renewcommand{\arraystretch}{1.5}
+		\begin{tabular}{|m{4.5cm}|>{\centering\arraybackslash}m{5.5cm}|>{\centering\arraybackslash}m{5.5cm}|}
+			\hline
+			\centering \textbf{Đặc điểm đạo hàm} & \textbf{$am > 0$} & \textbf{$am < 0$} \\
+			\hline
+			% Dòng 1
+			$y' = 0$ có 2 nghiệm phân biệt\\[4pt]
+			(Hàm số có cực trị)
+			&
+			\begin{tikzpicture}[baseline=(current bounding box.center)]
+				\begin{axis}[
+					width=5.5cm, height=5.5cm, axis lines=center,
+					xmin=-3, xmax=5, ymin=-3, ymax=5,
+					xtick=\empty, ytick=\empty,
+					xlabel={$x$}, ylabel={$y$},
+					samples=50]
+					\addplot[domain=-3:0.4, thick, blue] {x-1 + 1/(x-1)};
+					\addplot[domain=1.6:5, thick, blue] {x-1 + 1/(x-1)};
+					\draw[dashed, red, thick] (1,-3) -- (1,5);
+					\addplot[domain=-3:5, dashed, red, thick] {x-1};
+					\filldraw[black] (0,0) circle (1.5pt) node[anchor=north west] {$O$};
+					\filldraw[black] (1,0) circle (1.5pt) node[anchor=south east] {$I$};
+				\end{axis}
+			\end{tikzpicture}
+			&
+			\begin{tikzpicture}[baseline=(current bounding box.center)]
+				\begin{axis}[
+					width=5.5cm, height=5.5cm, axis lines=center,
+					xmin=-3, xmax=5, ymin=-3, ymax=5,
+					xtick=\empty, ytick=\empty,
+					xlabel={$x$}, ylabel={$y$},
+					samples=50]
+					\addplot[domain=-3:0.4, thick, blue] {1-x - 1/(x-1)};
+					\addplot[domain=1.6:5, thick, blue] {1-x - 1/(x-1)};
+					\draw[dashed, red, thick] (1,-3) -- (1,5);
+					\addplot[domain=-2:4, dashed, red, thick] {1-x};
+					\filldraw[black] (0,0) circle (1.5pt) node[anchor=north east] {$O$};
+					\filldraw[black] (1,0) circle (1.5pt) node[anchor=south west] {$I$};
+				\end{axis}
+			\end{tikzpicture}
+			\\
+			\hline
+			% Dòng 2
+			$y' = 0$ vô nghiệm hoặc có nghiệm kép\\[4pt]
+			(Hàm số không có cực trị)
+			&
+			\begin{tikzpicture}[baseline=(current bounding box.center)]
+				\begin{axis}[
+					width=5.5cm, height=5.5cm, axis lines=center,
+					xmin=-3, xmax=5, ymin=-3, ymax=5,
+					xtick=\empty, ytick=\empty,
+					xlabel={$x$}, ylabel={$y$},
+					samples=50]
+					\addplot[domain=-3:0.6, thick, blue] {x-1 - 1/(x-1)};
+					\addplot[domain=1.4:5, thick, blue] {x-1 - 1/(x-1)};
+					\draw[dashed, red, thick] (1,-3) -- (1,5);
+					\addplot[domain=-3:5, dashed, red, thick] {x-1};
+					\filldraw[black] (0,0) circle (1.5pt) node[anchor=north west] {$O$};
+					\filldraw[black] (1,0) circle (1.5pt) node[anchor=south east] {$I$};
+				\end{axis}
+			\end{tikzpicture}
+			&
+			\begin{tikzpicture}[baseline=(current bounding box.center)]
+				\begin{axis}[
+					width=5.5cm, height=5.5cm, axis lines=center,
+					xmin=-3, xmax=5, ymin=-3, ymax=5,
+					xtick=\empty, ytick=\empty,
+					xlabel={$x$}, ylabel={$y$},
+					samples=50]
+					\addplot[domain=-3:0.6, thick, blue] {1-x + 1/(x-1)};
+					\addplot[domain=1.4:5, thick, blue] {1-x + 1/(x-1)};
+					\draw[dashed, red, thick] (1,-3) -- (1,5);
+					\addplot[domain=-2:4, dashed, red, thick] {1-x};
+					\filldraw[black] (0,0) circle (1.5pt) node[anchor=south west] {$O$};
+					\filldraw[black] (1,0) circle (1.5pt) node[anchor=south west] {$I$};
+				\end{axis}
+			\end{tikzpicture}
+			\\
+			\hline
+		\end{tabular}
+	\end{center}
+	
+	% =====================
+	% PHẦN 4: BÀI TẬP
+	% =====================
+	\section{Bài tập}
+	
+	\subsection{Bài tập tự luận}
+	
+	\subsubsection{Dạng 1: Khảo sát sự biến thiên và các đặc điểm của hàm số}
+	
+	\begin{btxanh}
+		Khảo sát sự biến thiên (tìm tập xác định, tính đạo hàm, lập bảng biến thiên), đồng thời xác định các đường tiệm cận (nếu có), tâm đối xứng và trục đối xứng của các hàm số sau đây. \textit{(Không yêu cầu vẽ đồ thị của hàm số)}
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\alph*), itemsep=10pt]
+				\item $y = 2x^3 - 6x$
+				\item $y = -x^3 + 3x^2 - 1$
+				\item $y = x^3 + 3x^2 + 3x + 2$
+				\item $y = -x^3 + 3x + 1$
+				\item $y = \dfrac{2x - 1}{x + 1}$
+				\item $y = \dfrac{x^2 - 2x + 2}{x - 1}$
+			\end{enumerate}
+		\end{multicols}
+	\end{btxanh}
+	
+	\begin{btvang}
+		Khảo sát sự biến thiên (tìm tập xác định, tính đạo hàm, lập bảng biến thiên), đồng thời xác định các đường tiệm cận (nếu có), tâm đối xứng và trục đối xứng của các hàm số sau đây. \textit{(Không yêu cầu vẽ đồ thị của hàm số)}
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\alph*), itemsep=10pt]
+				\item $y = x^3 - 3x^2 + 1$
+				\item $y = -2x^3 - 3x^2 + 1$
+				\item $y = -x^3 + 2$
+				\item $y = x^3 - 6x^2 + 1$
+				\item $y = \dfrac{x + 2}{x - 2}$
+				\item $y = \dfrac{-x^2 + 3x - 1}{x - 2}$
+			\end{enumerate}
+		\end{multicols}
+	\end{btvang}
+	
+	\begin{btdo}
+		Khảo sát sự biến thiên (tìm tập xác định, tính đạo hàm, lập bảng biến thiên), đồng thời xác định các đường tiệm cận (nếu có), tâm đối xứng và trục đối xứng của các hàm số sau đây. \textit{(Không yêu cầu vẽ đồ thị của hàm số)}
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\alph*), itemsep=10pt]
+				\item $y = x^3 - 3x^2 + 4x - 2$
+				\item $y = -\dfrac{1}{3}x^3 + 2x^2 - 4x$
+				\item $y = x^3 + x + 1$
+				\item $y = -x^3 + 6x^2 - 9x + 4$
+				\item $y = \dfrac{-2x + 3}{x - 1}$
+				\item $y = \dfrac{2x^2 - x + 1}{x + 1}$
+			\end{enumerate}
+		\end{multicols}
+	\end{btdo}
+	
+	\subsubsection{Dạng 2: Xác định dấu của các hệ số trong hàm số}
+	
+	\begin{btxanh}
+		Cho đồ thị của hàm số $y = ax^3 + bx^2 + cx + d \ (a \neq 0)$ như các hình vẽ dưới đây. Dựa vào hình dáng đồ thị, giao điểm với các trục tọa độ và các điểm cực trị, hãy xác định dấu (âm, dương) của các hệ số $a, b, c, d$.
+		
+		\vspace{4mm}
+		\noindent
+		\begin{minipage}{0.48\textwidth}
+			\vspace{2mm}
+			\begin{tikzpicture}[baseline=(current bounding box.center)]
+				\begin{axis}[
+					width=6.5cm, height=6cm, axis lines=middle,
+					xmin=-2, xmax=3.5, ymin=-4, ymax=4,
+					xtick=\empty, ytick=\empty,
+					xlabel={$x$}, ylabel={$y$},
+					every axis x label/.style={at={(ticklabel* cs:1)},anchor=west},
+					every axis y label/.style={at={(ticklabel* cs:1)},anchor=south},
+					samples=100]
+					% Đồ thị: a>0, d>0, c<0, b<0
+					\addplot[domain=-1.5:3, thick, blue] {x^3 - 3*x^2 - x + 2};
+					\node[below left] at (0,0) {$O$};
+				\end{axis}
+			\end{tikzpicture}
+		\end{minipage}%
+		\hfill
+		\begin{minipage}{0.48\textwidth}
+			\vspace{2mm}
+			\begin{tikzpicture}[baseline=(current bounding box.center)]
+				\begin{axis}[
+					width=6.5cm,
+					height=4cm,
+					axis lines=middle,
+					xmin=-2.8, xmax=2.8,
+					ymin=-5.5, ymax=5,
+					xtick=\empty,
+					ytick=\empty,
+					xlabel={$x$},
+					ylabel={$y$},
+					every axis x label/.style={
+						at={(ticklabel* cs:1)},
+						anchor=west},
+					every axis y label/.style={
+						at={(ticklabel* cs:1)},
+						anchor=south},
+					samples=250,
+					smooth,
+					clip=false
+					]
+					
+					\addplot[
+					blue,
+					thick,
+					domain=-2.6:2.6
+					]
+					{-x^3 + x^2 + 3*x + 1};
+					
+					\node[below left] at (0,0) {$O$};
+					
+				\end{axis}
+			\end{tikzpicture}
+		\end{minipage}
+	\end{btxanh}
+	
+	\vspace{3mm}
+	
+	\begin{btvang}
+		Cho đồ thị của hàm số $y = ax^3 + bx^2 + cx + d \ (a \neq 0)$ như các hình vẽ dưới đây. Dựa vào hình dáng đồ thị, hãy xác định dấu (âm, dương) của các hệ số $a, b, c, d$.
+		
+		\vspace{4mm}
+		\noindent
+		\begin{minipage}{0.48\textwidth}
+			\vspace{2mm}
+			\begin{tikzpicture}[baseline=(current bounding box.center)]
+				\begin{axis}[
+					width=6.5cm, height=6cm, axis lines=middle,
+					xmin=-3.5, xmax=2, ymin=-2, ymax=6,
+					xtick=\empty, ytick=\empty,
+					xlabel={$x$}, ylabel={$y$},
+					every axis x label/.style={at={(ticklabel* cs:1)},anchor=west},
+					every axis y label/.style={at={(ticklabel* cs:1)},anchor=south},
+					samples=100]
+					% Đồ thị: a>0, d<0, c<0, b>0
+					\addplot[domain=-3:1.2, thick, blue] {x^3 + 3*x^2 - x - 1};
+					\node[above right] at (0,0) {$O$};
+				\end{axis}
+			\end{tikzpicture}
+		\end{minipage}%
+		\hfill
+		\begin{minipage}{0.48\textwidth}
+			\vspace{2mm}
+			\begin{tikzpicture}[baseline=(current bounding box.center)]
+				\begin{axis}[
+					width=6.5cm, height=6cm, axis lines=middle,
+					xmin=-2, xmax=4, ymin=-3, ymax=7,
+					xtick=\empty, ytick=\empty,
+					xlabel={$x$}, ylabel={$y$},
+					every axis x label/.style={at={(ticklabel* cs:1)},anchor=west},
+					every axis y label/.style={at={(ticklabel* cs:1)},anchor=south},
+					samples=100]
+					% Đồ thị: a<0, d<0, c>0, b>0
+					\addplot[domain=-1.2:3.2, thick, blue] {-x^3 + 3*x^2 + 2*x - 2};
+					\node[above left] at (0,0) {$O$};
+				\end{axis}
+			\end{tikzpicture}
+		\end{minipage}
+	\end{btvang}
+	
+	\vspace{3mm}
+	
+	\begin{btdo}
+		Cho đồ thị của hàm số $y = ax^3 + bx^2 + cx + d \ (a \neq 0)$ như các hình vẽ dưới đây. Dựa vào hình dáng đồ thị, hãy xác định dấu (âm, dương) của các hệ số $a, b, c, d$.
+		
+		\vspace{4mm}
+		\noindent
+		\begin{minipage}{0.48\textwidth}
+			\vspace{2mm}
+			\begin{tikzpicture}[baseline=(current bounding box.center)]
+				\begin{axis}[
+					width=6.5cm, height=6cm, axis lines=middle,
+					xmin=-1.5, xmax=3, ymin=-6, ymax=2,
+					xtick=\empty, ytick=\empty,
+					xlabel={$x$}, ylabel={$y$},
+					every axis x label/.style={at={(ticklabel* cs:1)},anchor=west},
+					every axis y label/.style={at={(ticklabel* cs:1)},anchor=south},
+					samples=100]
+					% Đồ thị: a>0, b<0, c<0, d<0
+					\addplot[domain=-1.2:2.7, thick, blue] {x^3 - 1.5*x^2 - 2*x - 1};
+					\node[above right] at (0,0) {$O$};
+				\end{axis}
+			\end{tikzpicture}
+		\end{minipage}%
+		\hfill
+		\begin{minipage}{0.48\textwidth}
+			\vspace{2mm}
+			\begin{tikzpicture}[baseline=(current bounding box.center)]
+				\begin{axis}[
+					width=6.5cm, height=6cm, axis lines=middle,
+					xmin=-4.5, xmax=1.5, ymin=-1, ymax=7,
+					xtick=\empty, ytick=\empty,
+					xlabel={$x$}, ylabel={$y$},
+					every axis x label/.style={at={(ticklabel* cs:1)},anchor=west},
+					every axis y label/.style={at={(ticklabel* cs:1)},anchor=south},
+					samples=100]
+					% Đồ thị: a<0, b<0, c<0, d>0
+					\addplot[domain=-4:0.8, thick, blue] {-x^3 - 6*x^2 - 9*x + 2};
+					\node[below right] at (0,0) {$O$};
+				\end{axis}
+			\end{tikzpicture}
+		\end{minipage}
+	\end{btdo}
+	
+	
+	\subsection{Bài tập trắc nghiệm}
+	
+	\vspace{2mm}
+	% ================== CÂU 1 ==================
+	\noindent\textbf{Câu 1.} Hàm số nào dưới đây có đồ thị như đường cong trong hình bên?
+	\begin{center}
+		\begin{tikzpicture}
+			\begin{axis}[
+				width=0.7\textwidth, height=6cm,
+				axis lines=middle,
+				xmin=-2.5, xmax=2.5, ymin=-4.5, ymax=2.5,
+				xtick={-1, 1}, ytick={-1, -3, 1},
+				tick label style={font=\footnotesize, fill=white, inner sep=1pt},
+				xlabel={$x$}, ylabel={$y$},
+				every axis x label/.style={at={(ticklabel* cs:1)},anchor=west},
+				every axis y label/.style={at={(ticklabel* cs:1)},anchor=south},
+				samples=100]
+				\addplot[domain=-2.2:2.2, thick, black] {x^3 - 3*x - 1};
+				\node[above left] at (0,0) {\footnotesize $O$};
+			\end{axis}
+		\end{tikzpicture}
+	\end{center}
+	
+	\noindent
+	\makebox[0.24\textwidth][l]{\textbf{A.} $y = \dfrac{x^2 - 2x + 3}{x - 1}$.}
+	\makebox[0.24\textwidth][l]{\textbf{B.} $y = \dfrac{x + 1}{x - 1}$.}
+	\makebox[0.24\textwidth][l]{\textbf{C.} $y = x^3 - 3x - 1$.}
+	\makebox[0.24\textwidth][l]{\textbf{D.} $y = x^2 + x - 1$.}
+	
+	\vspace{6mm}
+	% ================== CÂU 2 ==================
+	\noindent\textbf{Câu 2.} Đường cong hình bên là đồ thị của một trong bốn hàm số dưới đây. Hàm số đó là hàm số nào?
+	\begin{center}
+		\begin{tikzpicture}
+			\begin{axis}[
+				width=0.7\textwidth, height=6.5cm,
+				axis lines=middle,
+				xmin=-2.5, xmax=2.5, ymin=-1.5, ymax=5.5,
+				xtick={-1, 1}, ytick={2, 4},
+				tick label style={font=\footnotesize, fill=white, inner sep=1pt},
+				xlabel={$x$}, ylabel={$y$},
+				every axis x label/.style={at={(ticklabel* cs:1)},anchor=west},
+				every axis y label/.style={at={(ticklabel* cs:1)},anchor=south},
+				samples=100]
+				\addplot[domain=-2.1:2.1, thick, black!70!gray] {x^3 - 3*x + 2};
+				\filldraw[black] (0,2) circle (1pt);
+				\filldraw[black] (-1,4) circle (1pt);
+				\filldraw[black] (1,0) circle (1pt);
+				\node[below left] at (0,0) {\footnotesize $O$};
+			\end{axis}
+		\end{tikzpicture}
+	\end{center}
+	
+	\noindent
+	\makebox[0.24\textwidth][l]{\textbf{A.} $y = -x^3 + 3x + 2$.}
+	\makebox[0.24\textwidth][l]{\textbf{B.} $y = x^2 + 1$.}
+	\makebox[0.24\textwidth][l]{\textbf{C.} $y = x^3 + x^2 + 1$.}
+	\makebox[0.24\textwidth][l]{\textbf{D.} $y = x^3 - 3x + 2$.}
+	
+	\vspace{6mm}
+	% ================== CÂU 3 ==================
+	\noindent\textbf{Câu 3.} Cho hàm số phân thức có đồ thị như hình vẽ dưới đây. Hàm số đó là hàm số nào?
+	\begin{center}
+		\begin{tikzpicture}
+			\begin{axis}[
+				width=0.7\textwidth, height=6.5cm,
+				axis lines=middle,
+				xmin=-2.5, xmax=4.5, ymin=-1.5, ymax=5.5,
+				xtick={1}, ytick={2},
+				tick label style={font=\footnotesize, fill=white, inner sep=1pt},
+				xlabel={$x$}, ylabel={$y$},
+				every axis x label/.style={at={(ticklabel* cs:1)},anchor=west},
+				every axis y label/.style={at={(ticklabel* cs:1)},anchor=south},
+				samples=100]
+				\addplot[domain=-2.5:0.8, thick, black] {(2*x-1)/(x-1)};
+				\addplot[domain=1.2:4.5, thick, black] {(2*x-1)/(x-1)};
+				\draw[dashed, thin] (1,-1.5) -- (1,5.5);
+				\draw[dashed, thin] (-2.5,2) -- (4.5,2);
+				\node[below left] at (0,0) {\footnotesize $O$};
+			\end{axis}
+		\end{tikzpicture}
+	\end{center}
+	
+	\noindent
+	\makebox[0.24\textwidth][l]{\textbf{A.} $y = \dfrac{2x - 1}{x - 1}$.}
+	\makebox[0.24\textwidth][l]{\textbf{B.} $y = \dfrac{x + 2}{x - 1}$.}
+	\makebox[0.24\textwidth][l]{\textbf{C.} $y = \dfrac{2x + 1}{x + 1}$.}
+	\makebox[0.24\textwidth][l]{\textbf{D.} $y = \dfrac{x - 1}{2x + 1}$.}
+	
+	\vspace{6mm}
+	% ================== CÂU 4 ==================
+	\noindent\textbf{Câu 4.} Đồ thị hình bên là của hàm số nào sau đây?
+	\begin{center}
+		\begin{tikzpicture}
+			\begin{axis}[
+				width=0.7\textwidth, height=6.5cm,
+				axis lines=middle,
+				xmin=-3, xmax=5, ymin=-3, ymax=4,
+				xtick={-1, 2}, ytick={1},
+				tick label style={font=\footnotesize, fill=white, inner sep=1pt},
+				xlabel={$x$}, ylabel={$y$},
+				every axis x label/.style={at={(ticklabel* cs:1)},anchor=west},
+				every axis y label/.style={at={(ticklabel* cs:1)},anchor=south},
+				samples=100]
+				\addplot[domain=-3:1.75, thick, black] {(x+1)/(x-2)};
+				\addplot[domain=2.25:5, thick, black] {(x+1)/(x-2)};
+				\draw[dashed, thin] (2,-3) -- (2,4);
+				\draw[dashed, thin] (-3,1) -- (5,1);
+				\node[above left] at (0,0) {\footnotesize $O$};
+			\end{axis}
+		\end{tikzpicture}
+	\end{center}
+	
+	\noindent
+	\makebox[0.24\textwidth][l]{\textbf{A.} $y = \dfrac{2x + 1}{x - 2}$.}
+	\makebox[0.24\textwidth][l]{\textbf{B.} $y = \dfrac{x - 1}{x + 2}$.}
+	\makebox[0.24\textwidth][l]{\textbf{C.} $y = \dfrac{x + 1}{x - 2}$.}
+	\makebox[0.24\textwidth][l]{\textbf{D.} $y = \dfrac{-x + 1}{x - 2}$.}
+	
+	\newpage
+	% ================== CÂU 5 ==================
+	\noindent\textbf{Câu 5.} Đường cong trong hình vẽ bên là đồ thị của một hàm số phân thức bậc hai trên bậc nhất. Hàm số đó là:
+	\begin{center}
+		\begin{tikzpicture}
+			\begin{axis}[
+				width=0.7\textwidth, height=7cm,
+				axis lines=middle,
+				xmin=-2.5, xmax=4.5, ymin=-3.5, ymax=5.5,
+				xtick={1, 2}, ytick={-1, 3},
+				tick label style={font=\footnotesize, fill=white, inner sep=1pt},
+				xlabel={$x$}, ylabel={$y$},
+				every axis x label/.style={at={(ticklabel* cs:1)},anchor=west},
+				every axis y label/.style={at={(ticklabel* cs:1)},anchor=south},
+				samples=100]
+				\addplot[domain=-2.5:0.75, thick, black] {x + 1/(x-1)};
+				\addplot[domain=1.25:4.5, thick, black] {x + 1/(x-1)};
+				\draw[dashed, thin] (1,-3.5) -- (1,5.5);
+				\addplot[domain=-2.5:4.5, dashed, thin] {x};
+				\node[above left] at (0,0) {\footnotesize $O$};
+			\end{axis}
+		\end{tikzpicture}
+	\end{center}
+	
+	\noindent
+	\makebox[0.24\textwidth][l]{\textbf{A.} $y = \dfrac{x^2 + x + 1}{x - 1}$.}
+	\makebox[0.24\textwidth][l]{\textbf{B.} $y = \dfrac{x^2 - x + 1}{x - 1}$.}
+	\makebox[0.24\textwidth][l]{\textbf{C.} $y = \dfrac{x^2 - 2x + 2}{x - 1}$.}
+	\makebox[0.24\textwidth][l]{\textbf{D.} $y = \dfrac{x^2 - 1}{x + 1}$.}
+	
+	\vspace{6mm}
+	% ================== CÂU 6 ==================
+	\noindent\textbf{Câu 6.} Đồ thị hàm số nào sau đây có hình dạng như hình vẽ bên?
+	\begin{center}
+		\begin{tikzpicture}
+			\begin{axis}[
+				width=0.7\textwidth, height=6.5cm,
+				axis lines=middle,
+				xmin=-2, xmax=4, ymin=-2, ymax=6,
+				xtick={2, 3}, ytick={4},
+				tick label style={font=\footnotesize, fill=white, inner sep=1pt},
+				xlabel={$x$}, ylabel={$y$},
+				every axis x label/.style={at={(ticklabel* cs:1)},anchor=west},
+				every axis y label/.style={at={(ticklabel* cs:1)},anchor=south},
+				samples=100]
+				\addplot[domain=-1.3:3.3, thick, black] {-x^3 + 3*x^2};
+				\node[below left] at (0,0) {\footnotesize $O$};
+			\end{axis}
+		\end{tikzpicture}
+	\end{center}
+	
+	\noindent
+	\makebox[0.24\textwidth][l]{\textbf{A.} $y = x^3 - 3x^2$.}
+	\makebox[0.24\textwidth][l]{\textbf{B.} $y = -x^3 + 3x$.}
+	\makebox[0.24\textwidth][l]{\textbf{C.} $y = -x^3 + 3x^2$.}
+	\makebox[0.24\textwidth][l]{\textbf{D.} $y = -x^4 + 2x^2$.}
+	
+	
+	\vspace{6mm}
+	% ================== CÂU 7 ==================
+	\noindent\textbf{Câu 7.} Bảng biến thiên dưới đây là bảng biến thiên của hàm số nào trong các hàm số được liệt kê ở bốn phương án A, B, C, D?
+	\begin{center}
+		\begin{tikzpicture}[scale=0.95]
+			% Khung bảng
+			\draw (0,0) rectangle (11,3.5);
+			\draw (1.2,0) -- (1.2,3.5);
+			\draw (0,2.5) -- (11,2.5);
+			\draw (0,1.5) -- (11,1.5);
+			
+			% Cột đầu
+			\node at (0.6, 3) {$x$};
+			\node at (0.6, 2) {$y'$};
+			\node at (0.6, 0.75) {$y$};
+			
+			% Hàng x
+			\node at (2, 3) {$-\infty$};
+			\node at (5, 3) {$-2$};
+			\node at (8, 3) {$1$};
+			\node at (10.2, 3) {$+\infty$};
+			
+			% Hàng y'
+			\node at (3.5, 2) {$+$};
+			\node at (5, 2) {$0$};
+			\node at (6.5, 2) {$-$};
+			\node at (8, 2) {$0$};
+			\node at (9.2, 2) {$+$};
+			
+			% Hàng y
+			\node at (2, 0.3) {$-\infty$};
+			\node at (5, 1.2) {$20$};
+			\node at (8, 0.3) {$-7$};
+			\node at (10.2, 1.2) {$+\infty$};
+			
+			% Mũi tên
+			\draw[->, >=stealth, thick] (2.7, 0.4) -- (4.3, 1.1);
+			\draw[->, >=stealth, thick] (5.7, 1.1) -- (7.3, 0.4);
+			\draw[->, >=stealth, thick] (8.7, 0.4) -- (9.7, 1.1);
+		\end{tikzpicture}
+	\end{center}
+	
+	\noindent
+	\makebox[0.48\textwidth][l]{\textbf{A.} $y = -2x^3 - 3x^2 + 12x$.}
+	\makebox[0.48\textwidth][l]{\textbf{B.} $y = 2x^3 + 3x^2 - 12x$.} \\
+	\makebox[0.48\textwidth][l]{\textbf{C.} $y = -2x^4 - 3x^2 + 12x$.}
+	\makebox[0.48\textwidth][l]{\textbf{D.} $y = 2x^3 - 3x^2 + 12x$.}
+	
+	\vspace{6mm}
+	% ================== CÂU 8 ==================
+	\noindent\textbf{Câu 8.} Bảng biến thiên sau đây là của một trong 4 hàm số được liệt kê dưới đây. Hỏi đó là hàm số nào?
+	\begin{center}
+		\begin{tikzpicture}[scale=0.95]
+			% Khung bảng
+			\draw (0,0) rectangle (11,3.5);
+			\draw (1.2,0) -- (1.2,3.5);
+			\draw (0,2.5) -- (11,2.5);
+			\draw (0,1.5) -- (11,1.5);
+			
+			% Cột đầu
+			\node at (0.6, 3) {$x$};
+			\node at (0.6, 2) {$y'$};
+			\node at (0.6, 0.75) {$y$};
+			
+			% Hàng x
+			\node at (2, 3) {$-\infty$};
+			\node at (5, 3) {$0$};
+			\node at (8, 3) {$2$};
+			\node at (10.2, 3) {$+\infty$};
+			
+			% Hàng y'
+			\node at (3.5, 2) {$+$};
+			\node at (5, 2) {$0$};
+			\node at (6.5, 2) {$-$};
+			\node at (8, 2) {$0$};
+			\node at (9.2, 2) {$+$};
+			
+			% Hàng y
+			\node at (2, 0.3) {$-\infty$};
+			\node at (5, 1.2) {$2$};
+			\node at (8, 0.3) {$-2$};
+			\node at (10.2, 1.2) {$+\infty$};
+			
+			% Mũi tên
+			\draw[->, >=stealth, thick] (2.7, 0.4) -- (4.3, 1.1);
+			\draw[->, >=stealth, thick] (5.7, 1.1) -- (7.3, 0.4);
+			\draw[->, >=stealth, thick] (8.7, 0.4) -- (9.7, 1.1);
+		\end{tikzpicture}
+	\end{center}
+	
+	\noindent
+	\makebox[0.24\textwidth][l]{\textbf{A.} $y = -x^3 - 3x^2 + 2$.}
+	\makebox[0.24\textwidth][l]{\textbf{B.} $y = x^3 - 3x^2 + 2$.}
+	\makebox[0.24\textwidth][l]{\textbf{C.} $y = x^3 + 3x^2 - 2$.}
+	\makebox[0.24\textwidth][l]{\textbf{D.} $y = -x^3 + 3x^2 + 2$.}
+	
+	\vspace{6mm}
+	% ================== CÂU 9 ==================
+	\noindent\textbf{Câu 9.} Cho hàm số $y = f(x)$ có bảng biến thiên như hình vẽ dưới đây. Hàm số đó là hàm số nào?
+	\begin{center}
+		\begin{tikzpicture}[scale=0.95]
+			\draw (0,0) rectangle (11,3.5);
+			\draw (1.2,0) -- (1.2,3.5);
+			\draw (0,2.5) -- (11,2.5);
+			\draw (0,1.5) -- (11,1.5);
+			
+			\node at (0.6, 3) {$x$}; \node at (0.6, 2) {$y'$}; \node at (0.6, 0.75) {$y$};
+			
+			\node at (2, 3) {$-\infty$}; \node at (5, 3) {$-1$}; \node at (8, 3) {$1$}; \node at (10.2, 3) {$+\infty$};
+			\node at (3.5, 2) {$-$}; \node at (5, 2) {$0$}; \node at (6.5, 2) {$+$}; \node at (8, 2) {$0$}; \node at (9.2, 2) {$-$};
+			
+			\node at (2, 1.2) {$+\infty$}; \node at (5, 0.3) {$-1$}; \node at (8, 1.2) {$3$}; \node at (10.2, 0.3) {$-\infty$};
+			
+			\draw[->, >=stealth, thick] (2.7, 1.1) -- (4.3, 0.4);
+			\draw[->, >=stealth, thick] (5.7, 0.4) -- (7.3, 1.1);
+			\draw[->, >=stealth, thick] (8.7, 1.1) -- (9.7, 0.4);
+		\end{tikzpicture}
+	\end{center}
+	
+	\noindent
+	\makebox[0.24\textwidth][l]{\textbf{A.} $y = x^3 - 3x + 1$.}
+	\makebox[0.24\textwidth][l]{\textbf{B.} $y = -x^3 - 3x + 1$.}
+	\makebox[0.24\textwidth][l]{\textbf{C.} $y = -x^3 + 3x + 1$.}
+	\makebox[0.24\textwidth][l]{\textbf{D.} $y = x^3 + 3x - 1$.}
+	
+	\vspace{6mm}
+	% ================== CÂU 10 ==================
+	\noindent\textbf{Câu 10.} Bảng biến thiên dưới đây là của một hàm số phân thức bậc nhất trên bậc nhất. Chọn phương án đúng.
+	\begin{center}
+		\begin{tikzpicture}[scale=0.95]
+			\draw (0,0) rectangle (10,3.5);
+			\draw (1.2,0) -- (1.2,3.5);
+			\draw (0,2.5) -- (10,2.5);
+			\draw (0,1.5) -- (10,1.5);
+			
+			% Sọc kép
+			\draw (5.6,0) -- (5.6,2.5);
+			\draw (5.7,0) -- (5.7,2.5);
+			
+			\node at (0.6, 3) {$x$}; \node at (0.6, 2) {$y'$}; \node at (0.6, 0.75) {$y$};
+			
+			\node at (2.5, 3) {$-\infty$}; \node at (5.65, 3) {$1$}; \node at (8.8, 3) {$+\infty$};
+			\node at (3.5, 2) {$-$}; \node at (7.5, 2) {$-$};
+			
+			\node at (2, 1.2) {$2$}; \node at (5.1, 0.3) {$-\infty$}; 
+			\node at (6.2, 1.2) {$+\infty$}; \node at (9.3, 0.3) {$2$};
+			
+			\draw[->, >=stealth, thick] (2.7, 1.1) -- (4.6, 0.4);
+			\draw[->, >=stealth, thick] (6.6, 1.1) -- (8.6, 0.4);
+		\end{tikzpicture}
+	\end{center}
+	
+	\noindent
+	\makebox[0.24\textwidth][l]{\textbf{A.} $y = \dfrac{2x + 1}{x - 1}$.}
+	\makebox[0.24\textwidth][l]{\textbf{B.} $y = \dfrac{2x - 1}{x + 1}$.}
+	\makebox[0.24\textwidth][l]{\textbf{C.} $y = \dfrac{x + 2}{x - 1}$.}
+	\makebox[0.24\textwidth][l]{\textbf{D.} $y = \dfrac{2x - 3}{x - 1}$.}
+	
+	\newpage
+	% ================== CÂU 11 ==================
+	\noindent\textbf{Câu 11.} Hàm số $y = f(x)$ có bảng biến thiên như sau:
+	\begin{center}
+		\begin{tikzpicture}[scale=0.95]
+			\draw (0,0) rectangle (12,3.5);
+			\draw (1.2,0) -- (1.2,3.5);
+			\draw (0,2.5) -- (12,2.5);
+			\draw (0,1.5) -- (12,1.5);
+			
+			% Sọc kép
+			\draw (7,0) -- (7,2.5);
+			\draw (7.1,0) -- (7.1,2.5);
+			
+			\node at (0.6, 3) {$x$}; \node at (0.6, 2) {$y'$}; \node at (0.6, 0.75) {$y$};
+			
+			\node at (2, 3) {$-\infty$}; \node at (4.5, 3) {$-2$}; \node at (7.05, 3) {$-1$}; \node at (9.5, 3) {$0$}; \node at (11.2, 3) {$+\infty$};
+			
+			\node at (3.25, 2) {$+$}; \node at (4.5, 2) {$0$}; \node at (5.75, 2) {$-$}; 
+			\node at (8.25, 2) {$-$}; \node at (9.5, 2) {$0$}; \node at (10.5, 2) {$+$};
+			
+			\node at (2, 0.3) {$-\infty$}; \node at (4.5, 1.2) {$-5$}; \node at (6.5, 0.3) {$-\infty$};
+			\node at (7.6, 1.2) {$+\infty$}; \node at (9.5, 0.3) {$-1$}; \node at (11.2, 1.2) {$+\infty$};
+			
+			\draw[->, >=stealth, thick] (2.7, 0.4) -- (4, 1.1);
+			\draw[->, >=stealth, thick] (5, 1.1) -- (6, 0.4);
+			\draw[->, >=stealth, thick] (8, 1.1) -- (9, 0.4);
+			\draw[->, >=stealth, thick] (10, 0.4) -- (10.7, 1.1);
+		\end{tikzpicture}
+	\end{center}
+	Hỏi đó là bảng biến thiên của hàm số nào dưới đây?
+	
+	\vspace{2mm}
+	\noindent
+	\makebox[0.48\textwidth][l]{\textbf{A.} $y = \dfrac{x^2 - x - 1}{x + 1}$.}
+	\makebox[0.48\textwidth][l]{\textbf{B.} $y = \dfrac{x^2 + x + 1}{x + 1}$.} \\
+	\makebox[0.48\textwidth][l]{\textbf{C.} $y = \dfrac{x^2 - x + 1}{x - 1}$.}
+	\makebox[0.48\textwidth][l]{\textbf{D.} $y = \dfrac{x^2 + 2x - 1}{x + 1}$.}
+	
+	
+	\vspace{6mm}
+	% ================== CÂU 12 ==================
+	\noindent\textbf{Câu 12.} Số giao điểm của đồ thị hàm số $y = x^3 + 3x^2$ và đồ thị hàm số $y = 3x^2 + 3x$ là
+	\vspace{2mm}
+	
+	\noindent
+	\makebox[0.24\textwidth][l]{\textbf{A.} $3$.}
+	\makebox[0.24\textwidth][l]{\textbf{B.} $1$.}
+	\makebox[0.24\textwidth][l]{\textbf{C.} $2$.}
+	\makebox[0.24\textwidth][l]{\textbf{D.} $0$.}
+	
+	\vspace{6mm}
+	% ================== CÂU 13 ==================
+	\noindent\textbf{Câu 13.} Số giao điểm của đường cong $y = x^3 - 2x^2 + 2x + 1$ và đường thẳng $y = 1 - x$ là
+	\vspace{2mm}
+	
+	\noindent
+	\makebox[0.24\textwidth][l]{\textbf{A.} $1$.}
+	\makebox[0.24\textwidth][l]{\textbf{B.} $2$.}
+	\makebox[0.24\textwidth][l]{\textbf{C.} $3$.}
+	\makebox[0.24\textwidth][l]{\textbf{D.} $0$.}
+	
+	\vspace{6mm}
+	% ================== CÂU 14 ==================
+	\noindent\textbf{Câu 14.} Số giao điểm của đồ thị hàm số $y = \dfrac{2x + 1}{x - 1}$ và đường thẳng $y = x + 1$ là
+	\vspace{2mm}
+	
+	\noindent
+	\makebox[0.24\textwidth][l]{\textbf{A.} $0$.}
+	\makebox[0.24\textwidth][l]{\textbf{B.} $1$.}
+	\makebox[0.24\textwidth][l]{\textbf{C.} $2$.}
+	\makebox[0.24\textwidth][l]{\textbf{D.} $3$.}
+	
+	\vspace{6mm}
+	% ================== CÂU 15 ==================
+	\noindent\textbf{Câu 15.} Số giao điểm của đồ thị hàm số $y = -x^3 + 3x - 2$ với trục hoành là bao nhiêu?
+	\vspace{2mm}
+	
+	\noindent
+	\makebox[0.24\textwidth][l]{\textbf{A.} $1$.}
+	\makebox[0.24\textwidth][l]{\textbf{B.} $2$.}
+	\makebox[0.24\textwidth][l]{\textbf{C.} $3$.}
+	\makebox[0.24\textwidth][l]{\textbf{D.} $0$.}
+	
+	\vspace{6mm}
+	% ================== CÂU 16 ==================
+	\noindent\textbf{Câu 16.} Số giao điểm của đồ thị hàm số $y = \dfrac{x^2 - x + 2}{x + 1}$ và đường thẳng $y = 2x - 1$ là
+	\vspace{2mm}
+	
+	\noindent
+	\makebox[0.24\textwidth][l]{\textbf{A.} $0$.}
+	\makebox[0.24\textwidth][l]{\textbf{B.} $1$.}
+	\makebox[0.24\textwidth][l]{\textbf{C.} $2$.}
+	\makebox[0.24\textwidth][l]{\textbf{D.} $3$.}
+	
+	\vspace{6mm}
+	% ================== CÂU 17 ==================
+	\noindent\textbf{Câu 17.} Đồ thị hàm số $y = x^3 - 3x^2 + 2$ cắt parabol $y = x^2 - 3x + 2$ tại bao nhiêu điểm phân biệt?
+	\vspace{2mm}
+	
+	\noindent
+	\makebox[0.24\textwidth][l]{\textbf{A.} $0$.}
+	\makebox[0.24\textwidth][l]{\textbf{B.} $1$.}
+	\makebox[0.24\textwidth][l]{\textbf{C.} $2$.}
+	\makebox[0.24\textwidth][l]{\textbf{D.} $3$.}
+	
+	
+	\vspace{6mm}
+	% ==============================================================
+	% 5 CÂU HỎI TƯƠNG GIAO DỰA VÀO ĐỒ THỊ
+	% ==============================================================
+	
+	\noindent\textbf{Câu 18.} Cho hàm số $y = f(x)$ liên tục trên đoạn $[-2;4]$ và có đồ thị như hình vẽ bên dưới.
+	\begin{center}
+		\begin{tikzpicture}
+			\begin{axis}[
+				width=0.7\textwidth, height=7.5cm,
+				axis lines=middle,
+				xmin=-3, xmax=5, ymin=-4, ymax=7,
+				xtick={-2, 2, 4}, ytick={-3, 1, 2, 6},
+				tick label style={font=\footnotesize, fill=white, inner sep=1pt},
+				xlabel={$x$}, ylabel={$y$},
+				every axis x label/.style={at={(ticklabel* cs:1)},anchor=west},
+				every axis y label/.style={at={(ticklabel* cs:1)},anchor=south},
+				samples=100]
+				
+				% Hàm f(x) = 1/4 x^3 - 3/4 x^2 + 2 đi qua (-2,-3), (0,2), (2,1), (4,6)
+				\addplot[domain=-2:4, thick, black] {0.25*x^3 - 0.75*x^2 + 2};
+				
+				% Các đường gióng đứt nét
+				\draw[dashed, thin] (-2,0) -- (-2,-3) -- (0,-3);
+				\draw[dashed, thin] (2,0) -- (2,1) -- (0,1);
+				\draw[dashed, thin] (4,0) -- (4,6) -- (0,6);
+				
+				\node[below left] at (0,0) {\footnotesize $O$};
+			\end{axis}
+		\end{tikzpicture}
+	\end{center}
+	
+	Số nghiệm thực của phương trình $3f(x) - 5 = 0$ trên đoạn $[-2;4]$ là
+	\vspace{2mm}
+	
+	\noindent
+	\makebox[0.24\textwidth][l]{\textbf{A.} $2$.}
+	\makebox[0.24\textwidth][l]{\textbf{B.} $1$.}
+	\makebox[0.24\textwidth][l]{\textbf{C.} $0$.}
+	\makebox[0.24\textwidth][l]{\textbf{D.} $3$.}
+	
+	\vspace{6mm}
+	% ================== CÂU 19 ==================
+	\noindent\textbf{Câu 19.} Cho hàm số bậc ba $y = f(x)$ có đồ thị như hình vẽ.
+	\begin{center}
+		\begin{tikzpicture}
+			\begin{axis}[
+				width=0.7\textwidth, height=6.5cm,
+				axis lines=middle,
+				xmin=-2.5, xmax=2.5, ymin=-3.5, ymax=3.5,
+				xtick={-1, 1}, ytick={-2, 2},
+				tick label style={font=\footnotesize, fill=white, inner sep=1pt},
+				xlabel={$x$}, ylabel={$y$},
+				every axis x label/.style={at={(ticklabel* cs:1)},anchor=west},
+				every axis y label/.style={at={(ticklabel* cs:1)},anchor=south},
+				samples=100]
+				
+				\addplot[domain=-2.1:2.1, thick, black] {x^3 - 3*x};
+				\draw[dashed, thin] (-1,0) -- (-1,2) -- (0,2);
+				\draw[dashed, thin] (1,0) -- (1,-2) -- (0,-2);
+				\node[above left] at (0,0) {\footnotesize $O$};
+			\end{axis}
+		\end{tikzpicture}
+	\end{center}
+	Số nghiệm của phương trình $2f(x) + 3 = 0$ là
+	\vspace{2mm}
+	
+	\noindent
+	\makebox[0.24\textwidth][l]{\textbf{A.} $1$.}
+	\makebox[0.24\textwidth][l]{\textbf{B.} $2$.}
+	\makebox[0.24\textwidth][l]{\textbf{C.} $3$.}
+	\makebox[0.24\textwidth][l]{\textbf{D.} $0$.}
+	
+	\vspace{6mm}
+	% ================== CÂU 20 ==================
+	\noindent\textbf{Câu 20.} Cho hàm số $y = f(x)$ có đồ thị như hình bên. 
+	\begin{center}
+		\begin{tikzpicture}
+			\begin{axis}[
+				width=0.7\textwidth, height=6.5cm,
+				axis lines=middle,
+				xmin=-2.5, xmax=4.5, ymin=-2.5, ymax=4.5,
+				xtick={-1, 1}, ytick={1, -1},
+				tick label style={font=\footnotesize, fill=white, inner sep=1pt},
+				xlabel={$x$}, ylabel={$y$},
+				every axis x label/.style={at={(ticklabel* cs:1)},anchor=west},
+				every axis y label/.style={at={(ticklabel* cs:1)},anchor=south},
+				samples=100]
+				
+				\addplot[domain=-2.5:0.7, thick, black] {(x+1)/(x-1)};
+				\addplot[domain=1.3:4.5, thick, black] {(x+1)/(x-1)};
+				\draw[dashed, thin] (1,-2.5) -- (1,4.5);
+				\draw[dashed, thin] (-2.5,1) -- (4.5,1);
+				\node[below left] at (0,0) {\footnotesize $O$};
+			\end{axis}
+		\end{tikzpicture}
+	\end{center}
+	Phương trình $f(x) = 2$ có bao nhiêu nghiệm?
+	\vspace{2mm}
+	
+	\noindent
+	\makebox[0.24\textwidth][l]{\textbf{A.} $0$.}
+	\makebox[0.24\textwidth][l]{\textbf{B.} $1$.}
+	\makebox[0.24\textwidth][l]{\textbf{C.} $2$.}
+	\makebox[0.24\textwidth][l]{\textbf{D.} $3$.}
+	
+	\vspace{6mm}
+	% ================== CÂU 21 ==================
+	\noindent\textbf{Câu 21.} Cho hàm số $y = f(x)$ có đồ thị như hình vẽ.
+	\begin{center}
+		\begin{tikzpicture}
+			\begin{axis}[
+				width=0.7\textwidth, height=6.5cm,
+				axis lines=middle,
+				xmin=-2, xmax=3.5, ymin=-5.5, ymax=2,
+				xtick={2}, ytick={-4},
+				tick label style={font=\footnotesize, fill=white, inner sep=1pt},
+				xlabel={$x$}, ylabel={$y$},
+				every axis x label/.style={at={(ticklabel* cs:1)},anchor=west},
+				every axis y label/.style={at={(ticklabel* cs:1)},anchor=south},
+				samples=100]
+				
+				\addplot[domain=-1.5:3.2, thick, black] {-x^3 + 3*x^2 - 4};
+				\draw[dashed, thin] (2,0) -- (2,-4) -- (0,-4);
+				\node[above right] at (0,0) {\footnotesize $O$};
+			\end{axis}
+		\end{tikzpicture}
+	\end{center}
+	Phương trình $f(x) + 4 = 0$ có bao nhiêu nghiệm thực phân biệt?
+	\vspace{2mm}
+	
+	\noindent
+	\makebox[0.24\textwidth][l]{\textbf{A.} $1$.}
+	\makebox[0.24\textwidth][l]{\textbf{B.} $2$.}
+	\makebox[0.24\textwidth][l]{\textbf{C.} $3$.}
+	\makebox[0.24\textwidth][l]{\textbf{D.} $0$.}
+	
+	\vspace{6mm}
+	% ================== CÂU 22 ==================
+	\noindent\textbf{Câu 22.} Cho hàm số phân thức $y = f(x)$ có đồ thị như hình vẽ.
+	\begin{center}
+		\begin{tikzpicture}
+			\begin{axis}[
+				width=0.7\textwidth, height=7cm,
+				axis lines=middle,
+				xmin=-2.5, xmax=4.5, ymin=-3.5, ymax=5.5,
+				xtick={1, 2}, ytick={-1, 3},
+				tick label style={font=\footnotesize, fill=white, inner sep=1pt},
+				xlabel={$x$}, ylabel={$y$},
+				every axis x label/.style={at={(ticklabel* cs:1)},anchor=west},
+				every axis y label/.style={at={(ticklabel* cs:1)},anchor=south},
+				samples=100]
+				
+				\addplot[domain=-2.5:0.75, thick, black] {x + 1/(x-1)};
+				\addplot[domain=1.25:4.5, thick, black] {x + 1/(x-1)};
+				\draw[dashed, thin] (1,-3.5) -- (1,5.5);
+				\addplot[domain=-2.5:4.5, dashed, thin] {x};
+				\draw[dashed, thin] (2,0) -- (2,3) -- (0,3);
+				\draw[dashed, thin] (-1,0) -- (0,-1); % Điểm cực đại
+				\node[above left] at (0,0) {\footnotesize $O$};
+			\end{axis}
+		\end{tikzpicture}
+	\end{center}
+	Số nghiệm của phương trình $f(x) - 1 = 0$ là
+	\vspace{2mm}
+	
+	\noindent
+	\makebox[0.24\textwidth][l]{\textbf{A.} $0$.}
+	\makebox[0.24\textwidth][l]{\textbf{B.} $1$.}
+	\makebox[0.24\textwidth][l]{\textbf{C.} $2$.}
+	\makebox[0.24\textwidth][l]{\textbf{D.} $3$.}
+	
+	
+	\vspace{8mm}
+	% ==============================================================
+	% 5 CÂU HỎI TƯƠNG GIAO DỰA VÀO BẢNG BIẾN THIÊN
+	% ==============================================================
+	
+	\noindent\textbf{Câu 23.} Cho hàm số $y = f(x)$ xác định, liên tục trên $\mathbb{R}$ và có bảng biến thiên như sau:
+	\begin{center}
+		\begin{tikzpicture}[scale=0.95]
+			\draw (0,0) rectangle (11,3.5);
+			\draw (1.2,0) -- (1.2,3.5);
+			\draw (0,2.5) -- (11,2.5);
+			\draw (0,1.5) -- (11,1.5);
+			
+			\node at (0.6, 3) {$x$};
+			\node at (0.6, 2) {$y'$};
+			\node at (0.6, 0.75) {$y$};
+			
+			\node at (2, 3) {$-\infty$};
+			\node at (4.5, 3) {$-1$};
+			\node at (7.5, 3) {$3$};
+			\node at (10.2, 3) {$+\infty$};
+			
+			\node at (3.25, 2) {$+$};
+			\node at (4.5, 2) {$0$};
+			\node at (6, 2) {$-$};
+			\node at (7.5, 2) {$0$};
+			\node at (9, 2) {$+$};
+			
+			\node at (2, 0.3) {$-\infty$};
+			\node at (4.5, 1.2) {$4$};
+			\node at (7.5, 0.3) {$-2$};
+			\node at (10.2, 1.2) {$+\infty$};
+			
+			\draw[->, >=stealth, thick] (2.7, 0.4) -- (4, 1.1);
+			\draw[->, >=stealth, thick] (5, 1.1) -- (7, 0.4);
+			\draw[->, >=stealth, thick] (8, 0.4) -- (9.7, 1.1);
+		\end{tikzpicture}
+	\end{center}
+	Số nghiệm của phương trình $f(x) - 2023 = 0$ là
+	\vspace{2mm}
+	
+	\noindent
+	\makebox[0.24\textwidth][l]{\textbf{A.} $2$.}
+	\makebox[0.24\textwidth][l]{\textbf{B.} $3$.}
+	\makebox[0.24\textwidth][l]{\textbf{C.} $1$.}
+	\makebox[0.24\textwidth][l]{\textbf{D.} $0$.}
+	
+	\vspace{6mm}
+	% ================== CÂU 24 ==================
+	\noindent\textbf{Câu 24.} Cho hàm số $y = f(x)$ xác định, liên tục trên $\mathbb{R}$ và có bảng biến thiên như sau:
+	\begin{center}
+		\begin{tikzpicture}[scale=0.95]
+			\draw (0,0) rectangle (11,3.5);
+			\draw (1.2,0) -- (1.2,3.5);
+			\draw (0,2.5) -- (11,2.5);
+			\draw (0,1.5) -- (11,1.5);
+			
+			\node at (0.6, 3) {$x$}; \node at (0.6, 2) {$y'$}; \node at (0.6, 0.75) {$y$};
+			
+			\node at (2, 3) {$-\infty$}; \node at (4.5, 3) {$0$}; \node at (7.5, 3) {$2$}; \node at (10.2, 3) {$+\infty$};
+			
+			\node at (3.25, 2) {$-$}; \node at (4.5, 2) {$0$}; \node at (6, 2) {$+$}; \node at (7.5, 2) {$0$}; \node at (9, 2) {$-$};
+			
+			\node at (2, 1.2) {$+\infty$}; \node at (4.5, 0.3) {$-1$}; \node at (7.5, 1.2) {$3$}; \node at (10.2, 0.3) {$-\infty$};
+			
+			\draw[->, >=stealth, thick] (2.7, 1.1) -- (4, 0.4);
+			\draw[->, >=stealth, thick] (5, 0.4) -- (7, 1.1);
+			\draw[->, >=stealth, thick] (8, 1.1) -- (9.7, 0.4);
+		\end{tikzpicture}
+	\end{center}
+	Số nghiệm của phương trình $2f(x) - 3 = 0$ là
+	\vspace{2mm}
+	
+	\noindent
+	\makebox[0.24\textwidth][l]{\textbf{A.} $1$.}
+	\makebox[0.24\textwidth][l]{\textbf{B.} $2$.}
+	\makebox[0.24\textwidth][l]{\textbf{C.} $3$.}
+	\makebox[0.24\textwidth][l]{\textbf{D.} $0$.}
+	
+	\vspace{6mm}
+	% ================== CÂU 25 ==================
+	\noindent\textbf{Câu 25.} Cho hàm số $y = f(x)$ có bảng biến thiên như sau:
+	\begin{center}
+		\begin{tikzpicture}[scale=0.95]
+			\draw (0,0) rectangle (10,3.5);
+			\draw (1.2,0) -- (1.2,3.5);
+			\draw (0,2.5) -- (10,2.5);
+			\draw (0,1.5) -- (10,1.5);
+			
+			% Điểm không xác định
+			\draw (5.6,0) -- (5.6,2.5);
+			\draw (5.7,0) -- (5.7,2.5);
+			
+			\node at (0.6, 3) {$x$}; \node at (0.6, 2) {$y'$}; \node at (0.6, 0.75) {$y$};
+			
+			\node at (2.5, 3) {$-\infty$}; \node at (5.65, 3) {$1$}; \node at (8.8, 3) {$+\infty$};
+			\node at (3.5, 2) {$+$}; \node at (7.5, 2) {$+$};
+			
+			\node at (2, 0.3) {$2$}; \node at (5.1, 1.2) {$+\infty$}; 
+			\node at (6.2, 0.3) {$-\infty$}; \node at (9.3, 1.2) {$2$};
+			
+			\draw[->, >=stealth, thick] (2.7, 0.4) -- (4.6, 1.1);
+			\draw[->, >=stealth, thick] (6.6, 0.4) -- (8.6, 1.1);
+		\end{tikzpicture}
+	\end{center}
+	Phương trình $f(x) - 2 = 0$ có bao nhiêu nghiệm?
+	\vspace{2mm}
+	
+	\noindent
+	\makebox[0.24\textwidth][l]{\textbf{A.} $0$.}
+	\makebox[0.24\textwidth][l]{\textbf{B.} $1$.}
+	\makebox[0.24\textwidth][l]{\textbf{C.} $2$.}
+	\makebox[0.24\textwidth][l]{\textbf{D.} $3$.}
+	
+	\vspace{6mm}
+	\vspace{6mm}
+	% ================== CÂU 26 ==================
+	\noindent\textbf{Câu 26.} Cho hàm số $y = f(x)$ liên tục trên $\mathbb{R} \setminus \{-1\}$ và có bảng biến thiên như sau:
+	\begin{center}
+		\begin{tikzpicture}[scale=0.95]
+			% Khung ngoài và các đường ngang
+			\draw (0,0) rectangle (12,3.5);
+			\draw (1.2,0) -- (1.2,3.5);
+			\draw (0,2.5) -- (12,2.5);
+			\draw (0,1.5) -- (12,1.5);
+			
+			% SỌC KÉP tại x = -1 (CHỈ kẻ từ y=0 đến y=2.5, không cắt lên hàng x)
+			\draw (7.05,0) -- (7.05,2.5);
+			\draw (7.15,0) -- (7.15,2.5);
+			
+			% Hàng 1: x
+			\node at (0.6, 3) {$x$}; 
+			\node at (2.5, 3) {$-\infty$}; 
+			\node at (4.8, 3) {$-2$}; 
+			\node at (7.1, 3) {$-1$}; % Số -1 nằm thông thoáng ở trên
+			\node at (9.4, 3) {$0$}; 
+			\node at (11.2, 3) {$+\infty$};
+			
+			% Hàng 2: y'
+			\node at (0.6, 2) {$y'$}; 
+			\node at (3.65, 2) {$+$}; 
+			\node at (4.8, 2) {$0$}; 
+			\node at (5.95, 2) {$-$}; 
+			\node at (8.25, 2) {$-$}; 
+			\node at (9.4, 2) {$0$}; 
+			\node at (10.3, 2) {$+$};
+			
+			% Hàng 3: y
+			\node at (0.6, 0.75) {$y$}; 
+			\node at (2.5, 0.3) {$-\infty$}; 
+			\node at (4.8, 1.2) {$-3$}; 
+			\node at (6.5, 0.3) {$-\infty$};
+			\node at (7.7, 1.2) {$+\infty$}; 
+			\node at (9.4, 0.3) {$1$}; 
+			\node at (11.2, 1.2) {$+\infty$};
+			
+			% Mũi tên biến thiên
+			\draw[->, >=stealth, thick] (3.2, 0.4) -- (4.3, 1.1);
+			\draw[->, >=stealth, thick] (5.3, 1.1) -- (6.1, 0.4);
+			\draw[->, >=stealth, thick] (8.1, 1.1) -- (8.9, 0.4);
+			\draw[->, >=stealth, thick] (9.9, 0.4) -- (10.6, 1.1);
+		\end{tikzpicture}
+	\end{center}
+	Số nghiệm của phương trình $f(x) + 1 = 0$ là
+	\vspace{2mm}
+	
+	\noindent
+	\makebox[0.24\textwidth][l]{\textbf{A.} $0$.}
+	\makebox[0.24\textwidth][l]{\textbf{B.} $1$.}
+	\makebox[0.24\textwidth][l]{\textbf{C.} $2$.}
+	\makebox[0.24\textwidth][l]{\textbf{D.} $3$.}
+	
+	\vspace{6mm}
+	% ================== CÂU 27 ==================
+	\noindent\textbf{Câu 27.} Cho hàm số $y = f(x)$ xác định và liên tục trên đoạn $[-3; 3]$ có bảng biến thiên như sau:
+	\begin{center}
+		\begin{tikzpicture}[scale=0.95]
+			% Khung ngoài và các đường ngang
+			\draw (0,0) rectangle (11,3.5);
+			\draw (1.2,0) -- (1.2,3.5);
+			\draw (0,2.5) -- (11,2.5);
+			\draw (0,1.5) -- (11,1.5);
+			
+			% CHẶN 2 ĐẦU MÚT (CHỈ kẻ từ y=0 đến y=2.5, để trống chữ ở hàng x)
+			\draw (2.2,0) -- (2.2,2.5);
+			\draw (10,0) -- (10,2.5);
+			
+			% Hàng 1: x
+			\node at (0.6, 3) {$x$}; 
+			\node at (2.2, 3) {$-3$}; 
+			\node at (4.8, 3) {$0$}; 
+			\node at (7.4, 3) {$2$}; 
+			\node at (10, 3) {$3$};
+			
+			% Hàng 2: y'
+			\node at (0.6, 2) {$y'$}; 
+			\node at (3.5, 2) {$+$}; 
+			\node at (4.8, 2) {$0$}; 
+			\node at (6.1, 2) {$-$}; 
+			\node at (7.4, 2) {$0$}; 
+			\node at (8.7, 2) {$+$};
+			
+			% Hàng 3: y
+			\node at (0.6, 0.75) {$y$}; 
+			\node at (2.6, 0.3) {$-4$}; 
+			\node at (4.8, 1.2) {$2$}; 
+			\node at (7.4, 0.3) {$-2$}; 
+			\node at (9.6, 1.2) {$5$};
+			
+			% Mũi tên biến thiên
+			\draw[->, >=stealth, thick] (3.1, 0.4) -- (4.3, 1.1);
+			\draw[->, >=stealth, thick] (5.3, 1.1) -- (6.9, 0.4);
+			\draw[->, >=stealth, thick] (7.9, 0.4) -- (9.1, 1.1);
+		\end{tikzpicture}
+	\end{center}
+	Phương trình $f(x) = 0$ có bao nhiêu nghiệm thực trên đoạn $[-3; 3]$?
+	\vspace{2mm}
+	
+	\noindent
+	\makebox[0.24\textwidth][l]{\textbf{A.} $1$.}
+	\makebox[0.24\textwidth][l]{\textbf{B.} $2$.}
+	\makebox[0.24\textwidth][l]{\textbf{C.} $3$.}
+	\makebox[0.24\textwidth][l]{\textbf{D.} $4$.}
+	
+	\vspace{6mm}
+	% ================== CÂU 28 (Gốc Câu 26) ==================
+	\noindent\textbf{Câu 28.} Cho hàm số $y = ax^3 + 3x + d \ (a, d \in \mathbb{R})$ có đồ thị như hình bên. Mệnh đề nào dưới đây đúng?
+	\begin{center}
+		\begin{tikzpicture}
+			\begin{axis}[
+				width=0.7\textwidth, height=6.2cm,
+				axis lines=middle,
+				xmin=-2.5, xmax=2.5, ymin=-4, ymax=3,
+				xtick=\empty, ytick=\empty,
+				xlabel={$x$}, ylabel={$y$},
+				every axis x label/.style={at={(ticklabel* cs:1)},anchor=west},
+				every axis y label/.style={at={(ticklabel* cs:1)},anchor=south},
+				samples=100]
+				% Đồ thị: a < 0, d < 0 (y = -0.5x^3 + 3x - 1)
+				\addplot[domain=-2.3:2.3, thick, black] {-0.5*x^3 + 3*x - 1};
+				\node[below left] at (0,0) {\footnotesize $O$};
+			\end{axis}
+		\end{tikzpicture}
+	\end{center}
+	
+	\noindent
+	\makebox[0.24\textwidth][l]{\textbf{A.} $a > 0, d > 0$.}
+	\makebox[0.24\textwidth][l]{\textbf{B.} $a < 0, d > 0$.}
+	\makebox[0.24\textwidth][l]{\textbf{C.} $a > 0, d < 0$.}
+	\makebox[0.24\textwidth][l]{\textbf{D.} $a < 0, d < 0$.}
+	
+	\vspace{6mm}
+	% ================== CÂU 29 (Gốc Câu 27) ==================
+	\noindent\textbf{Câu 29.} Cho hàm số $y = ax^3 + bx^2 + cx + d \ (a, b, c, d \in \mathbb{R})$ có đồ thị là đường cong trong hình bên. Có bao nhiêu số dương trong các số $a, b, c, d$?
+	\begin{center}
+		\begin{tikzpicture}
+			\begin{axis}[
+				width=0.7\textwidth, height=6.5cm,
+				axis lines=middle,
+				xmin=-3.5, xmax=1.5, ymin=-3, ymax=5,
+				xtick=\empty, ytick=\empty,
+				xlabel={$x$}, ylabel={$y$},
+				every axis x label/.style={at={(ticklabel* cs:1)},anchor=west},
+				every axis y label/.style={at={(ticklabel* cs:1)},anchor=south},
+				samples=100]
+				% Đồ thị: a < 0, b < 0, c < 0, d > 0 (y = -x^3 - 3*x^2 - 2*x + 2)
+				\addplot[domain=-3.2:1.1, thick, black] {-x^3 - 3*x^2 - 2*x + 2};
+				\node[below left] at (0,0) {\footnotesize $O$};
+			\end{axis}
+		\end{tikzpicture}
+	\end{center}
+	
+	\noindent
+	\makebox[0.24\textwidth][l]{\textbf{A.} $4$.}
+	\makebox[0.24\textwidth][l]{\textbf{B.} $2$.}
+	\makebox[0.24\textwidth][l]{\textbf{C.} $1$.}
+	\makebox[0.24\textwidth][l]{\textbf{D.} $3$.}
+	
+	\vspace{6mm}
+	\vspace{6mm}
+	% ================== CÂU 30 (SỬA ĐỔI) ==================
+	\noindent\textbf{Câu 30.} Hàm số $y = ax^3 + bx^2 + cx + d \ (a, b, c, d \in \mathbb{R})$ có đồ thị như hình vẽ bên dưới:
+	\begin{center}
+		\begin{tikzpicture}
+			\begin{axis}[
+				width=0.7\textwidth, height=6.5cm,
+				axis lines=middle,
+				xmin=-2.5, xmax=2.2, ymin=-1.5, ymax=6.0,
+				xtick={-1.18, 0.84}, xticklabels={$-1$, $1$},
+				ytick={2}, yticklabels={$2$},
+				tick label style={font=\footnotesize, fill=white, inner sep=1pt},
+				xlabel={$x$}, ylabel={$y$},
+				every axis x label/.style={at={(ticklabel* cs:1)},anchor=west},
+				every axis y label/.style={at={(ticklabel* cs:1)},anchor=south},
+				samples=100]
+				
+				% Hàm bậc ba chuẩn xác: y = x^3 + 0.5*x^2 - 3*x + 2
+				\addplot[domain=-2.1:1.6, thick, black] {x^3 + 0.5*x^2 - 3*x + 2};
+				
+				% Đường gióng nét đứt đi qua ĐÚNG điểm cực đại (-1.18, 4.6)
+				\draw[dashed, thin] (-1.18,0) -- (-1.18,4.6) -- (0,4.6);
+				
+				% Đường gióng nét đứt đi qua ĐÚNG điểm cực tiểu (0.84, 0.42)
+				\draw[dashed, thin] (0.84,0) -- (0.84,0.42) -- (0,0.42);
+				
+				\node[below left] at (0,0) {\footnotesize $O$};
+			\end{axis}
+		\end{tikzpicture}
+	\end{center}
+	Khẳng định nào sau đây là đúng?
+	\vspace{2mm}
+	
+	\noindent
+	\makebox[0.48\textwidth][l]{\textbf{A.} $a < 0, b < 0, c < 0, d < 0$.}
+	\makebox[0.48\textwidth][l]{\textbf{B.} $a > 0, b > 0, c > 0, d < 0$.} \\
+	\makebox[0.48\textwidth][l]{\textbf{C.} $a > 0, b > 0, c < 0, d > 0$.}
+	\makebox[0.48\textwidth][l]{\textbf{D.} $a > 0, b < 0, c < 0, d > 0$.}
+	
+	\vspace{6mm}
+	% ================== CÂU 31 ==================
+	\noindent\textbf{Câu 31.} Cho hàm số $y = ax^3 + bx^2 + cx + d \ (a \neq 0)$ có đồ thị như hình vẽ bên dưới. Mệnh đề nào sau đây đúng?
+	\begin{center}
+		\begin{tikzpicture}
+			\begin{axis}[
+				width=0.7\textwidth, height=6.5cm,
+				axis lines=middle,
+				xmin=-2, xmax=3.5, ymin=-5, ymax=2,
+				xtick=\empty, ytick=\empty,
+				xlabel={$x$}, ylabel={$y$},
+				every axis x label/.style={at={(ticklabel* cs:1)},anchor=west},
+				every axis y label/.style={at={(ticklabel* cs:1)},anchor=south},
+				samples=100]
+				% Đồ thị: a > 0, b < 0, c < 0, d < 0 (y = x^3 - 2*x^2 - x - 1)
+				\addplot[domain=-1.3:3.0, thick, black] {x^3 - 2*x^2 - x - 1};
+				\node[above left] at (0,0) {\footnotesize $O$};
+			\end{axis}
+		\end{tikzpicture}
+	\end{center}
+	
+	\noindent
+	\makebox[0.48\textwidth][l]{\textbf{A.} $a > 0, b < 0, c < 0, d < 0$.}
+	\makebox[0.48\textwidth][l]{\textbf{B.} $a > 0, b > 0, c < 0, d > 0$.} \\
+	\makebox[0.48\textwidth][l]{\textbf{C.} $a < 0, b < 0, c > 0, d < 0$.}
+	\makebox[0.48\textwidth][l]{\textbf{D.} $a < 0, b > 0, c > 0, d > 0$.}
+	
+	\vspace{6mm}
+	% ================== CÂU 32 ==================
+	\noindent\textbf{Câu 32.} Cho hàm số $y = ax^3 + bx^2 + cx + d \ (a \neq 0)$ có đồ thị như hình vẽ dưới đây. Mệnh đề nào dưới đây là đúng?
+	\begin{center}
+		\begin{tikzpicture}
+			\begin{axis}[
+				width=0.7\textwidth, height=6.5cm,
+				axis lines=middle,
+				xmin=-1.5, xmax=2.5, ymin=-1, ymax=4,
+				xtick=\empty, ytick=\empty,
+				xlabel={$x$}, ylabel={$y$},
+				every axis x label/.style={at={(ticklabel* cs:1)},anchor=west},
+				every axis y label/.style={at={(ticklabel* cs:1)},anchor=south},
+				samples=100]
+				% Đồ thị: a < 0, b > 0, c < 0, d > 0 (y = -x^3 + 1.5*x^2 - 0.5*x + 1)
+				\addplot[domain=-1.1:2.1, thick, black] {-x^3 + 1.5*x^2 - 0.5*x + 1};
+				\node[below left] at (0,0) {\footnotesize $O$};
+			\end{axis}
+		\end{tikzpicture}
+	\end{center}
+	
+	\noindent
+	\makebox[0.48\textwidth][l]{\textbf{A.} $a < 0, b > 0, c < 0, d > 0$.}
+	\makebox[0.48\textwidth][l]{\textbf{B.} $a < 0, b < 0, c > 0, d > 0$.} \\
+	\makebox[0.48\textwidth][l]{\textbf{C.} $a > 0, b > 0, c < 0, d < 0$.}
+	\makebox[0.48\textwidth][l]{\textbf{D.} $a > 0, b < 0, c > 0, d < 0$.}
+	
+	
+	\subsection{Bài tập đúng sai}
+	
+	\vspace{4mm}
+	% ================== CÂU 1 ==================
+	\noindent\textbf{Câu 1.} Cho hàm số $y = f(x) = ax^3 + bx^2 + cx + d \ (a, b, c, d \in \mathbb{R})$ có đồ thị như hình vẽ dưới đây:
+	\begin{center}
+		\begin{tikzpicture}
+			\begin{axis}[
+				width=0.7\textwidth, height=6.5cm,
+				axis lines=middle,
+				xmin=-1.5, xmax=3.5, ymin=-3.5, ymax=3.5,
+				xtick={1, 2}, ytick={2, -2},
+				tick label style={font=\footnotesize, fill=white, inner sep=1pt},
+				xlabel={$x$}, ylabel={$y$},
+				every axis x label/.style={at={(ticklabel* cs:1)},anchor=west},
+				every axis y label/.style={at={(ticklabel* cs:1)},anchor=south},
+				samples=100]
+				
+				% Đồ thị hàm số y = x^3 - 3*x^2 + 2
+				\addplot[domain=-1.1:3.1, thick, black] {x^3 - 3*x^2 + 2};
+				\draw[dashed, thin] (2,0) -- (2,-2) -- (0,-2);
+				\node[below left] at (0,0) {\footnotesize $O$};
+			\end{axis}
+		\end{tikzpicture}
+	\end{center}
+	\begin{enumerate}[label=\textbf{\alph*)}]
+		\item Hàm số đã cho đồng biến trên khoảng $(0; 2)$.
+		\item Đồ thị hàm số nhận điểm $I(1; 0)$ làm tâm đối xứng.
+		\item Hàm số đạt cực tiểu tại $x = -2$.
+		\item Đồ thị hàm số đã cho là đồ thị của hàm số $y = x^3 - 3x^2 + 2$.
+	\end{enumerate}
+	
+	\vspace{6mm}
+	% ================== CÂU 2 ==================
+	\noindent\textbf{Câu 2.} Cho hàm số $y = f(x) = ax^3 + bx^2 + cx + d \ (a, b, c, d \in \mathbb{R})$ có đồ thị như hình vẽ dưới đây:
+	\begin{center}
+		\begin{tikzpicture}
+			\begin{axis}[
+				width=0.7\textwidth, height=6.5cm,
+				axis lines=middle,
+				xmin=-1, xmax=3, ymin=-2, ymax=4,
+				xtick={1}, ytick={1, 2},
+				tick label style={font=\footnotesize, fill=white, inner sep=1pt},
+				xlabel={$x$}, ylabel={$y$},
+				every axis x label/.style={at={(ticklabel* cs:1)},anchor=west},
+				every axis y label/.style={at={(ticklabel* cs:1)},anchor=south},
+				samples=100]
+				
+				% Đồ thị hàm số y = -(x-1)^3 + 1 = -x^3 + 3x^2 - 3x + 2
+				\addplot[domain=-0.6:2.4, thick, black] {-x^3 + 3*x^2 - 3*x + 2};
+				\draw[dashed, thin] (1,0) -- (1,1) -- (0,1);
+				\node[below left] at (0,0) {\footnotesize $O$};
+			\end{axis}
+		\end{tikzpicture}
+	\end{center}
+	\begin{enumerate}[label=\textbf{\alph*)}]
+		\item Hàm số đã cho nghịch biến trên khoảng $(-\infty; +\infty)$.
+		\item Đồ thị hàm số đã cho có hai điểm cực trị.
+		\item Đồ thị hàm số cắt trục hoành tại duy nhất một điểm.
+		\item Hàm số đã vẽ có phương trình là $y = -x^3 + 3x^2 - 3x + 2$.
+	\end{enumerate}
+	
+	\vspace{6mm}
+	% ================== CÂU 3 ==================
+	\noindent\textbf{Câu 3.} Cho hàm số phân thức $y = f(x) = \dfrac{ax+b}{cx+d} \ (c \neq 0)$ có đồ thị như hình vẽ dưới đây:
+	\begin{center}
+		\begin{tikzpicture}
+			\begin{axis}[
+				width=0.7\textwidth, height=6.5cm,
+				axis lines=middle,
+				xmin=-3, xmax=5, ymin=-3, ymax=5,
+				xtick={1, -1}, ytick={1, -1},
+				tick label style={font=\footnotesize, fill=white, inner sep=1pt},
+				xlabel={$x$}, ylabel={$y$},
+				every axis x label/.style={at={(ticklabel* cs:1)},anchor=west},
+				every axis y label/.style={at={(ticklabel* cs:1)},anchor=south},
+				samples=100]
+				
+				% Đồ thị hàm số y = (x+1)/(x-1)
+				\addplot[domain=-3:0.7, thick, black] {(x+1)/(x-1)};
+				\addplot[domain=1.3:5, thick, black] {(x+1)/(x-1)};
+				\draw[dashed, thin] (1,-3) -- (1,5);
+				\draw[dashed, thin] (-3,1) -- (5,1);
+				\node[below left] at (0,0) {\footnotesize $O$};
+			\end{axis}
+		\end{tikzpicture}
+	\end{center}
+	\begin{enumerate}[label=\textbf{\alph*)}]
+		\item Hàm số đã cho nghịch biến trên từng khoảng xác định của nó.
+		\item Đồ thị hàm số có tiệm cận đứng là đường thẳng $x = 1$ và tiệm cận ngang là đường thẳng $y = 1$.
+		\item Đồ thị hàm số nhận giao điểm hai đường tiệm cận $I(1; 1)$ làm tâm đối xứng.
+		\item Giao điểm của đồ thị hàm số với trục tung là điểm $A(0; 1)$.
+	\end{enumerate}
+	
+	% ================== CÂU 4 ==================
+	\noindent\textbf{Câu 4.} Cho hàm số $y = f(x) = \dfrac{ax+b}{cx+d} \ (c \neq 0)$ có đồ thị như hình vẽ dưới đây:
+	\begin{center}
+		\begin{tikzpicture}
+			\begin{axis}[
+				width=0.7\textwidth, height=6.5cm,
+				axis lines=middle,
+				xmin=-4, xmax=3, ymin=-2, ymax=5,
+				xtick={-1}, ytick={2},
+				tick label style={font=\footnotesize, fill=white, inner sep=1pt},
+				xlabel={$x$}, ylabel={$y$},
+				every axis x label/.style={at={(ticklabel* cs:1)},anchor=west},
+				every axis y label/.style={at={(ticklabel* cs:1)},anchor=south},
+				samples=100]
+				
+				% Đồ thị hàm số y = (2x-1)/(x+1)
+				\addplot[domain=-4:-1.3, thick, black] {(2*x-1)/(x+1)};
+				\addplot[domain=-0.7:3, thick, black] {(2*x-1)/(x+1)};
+				\draw[dashed, thin] (-1,-2) -- (-1,5);
+				\draw[dashed, thin] (-4,2) -- (3,2);
+				\node[below left] at (0,0) {\footnotesize $O$};
+			\end{axis}
+		\end{tikzpicture}
+	\end{center}
+	\begin{enumerate}[label=\textbf{\alph*)}]
+		\item Hàm số đã cho đồng biến trên tập xác định $D = \mathbb{R} \setminus \{-1\}$.
+		\item Đồ thị hàm số có tiệm cận đứng $x = -1$ và tiệm cận ngang $y = 2$.
+		\item Đạo hàm của hàm số đã cho là $y' = \dfrac{3}{(x+1)^2}$.
+		\item Đồ thị hàm số cắt trục hoành tại điểm $M(0; -1)$.
+	\end{enumerate}
+	
+	\vspace{6mm}
+	% ================== CÂU 5 ==================
+	\noindent\textbf{Câu 5.} Cho hàm số phân thức bậc hai trên bậc nhất $y = f(x)$ có đồ thị như hình vẽ bên dưới:
+	\begin{center}
+		\begin{tikzpicture}
+			\begin{axis}[
+				width=0.7\textwidth, height=7cm,
+				axis lines=middle,
+				xmin=-2.5, xmax=4.5, ymin=-3.5, ymax=5.5,
+				xtick={1, 2}, ytick={-1, 1, 3}, % Bổ sung số 1 trên trục tung y
+				tick label style={font=\footnotesize, fill=white, inner sep=1pt},
+				xlabel={$x$}, ylabel={$y$},
+				every axis x label/.style={at={(ticklabel* cs:1)},anchor=west},
+				every axis y label/.style={at={(ticklabel* cs:1)},anchor=south},
+				samples=100]
+				
+				% Đồ thị hàm số y = (x^2 - x + 1)/(x - 1) = x + 1/(x-1)
+				\addplot[domain=-2.5:0.75, thick, black] {x + 1/(x-1)};
+				\addplot[domain=1.25:4.5, thick, black] {x + 1/(x-1)};
+				
+				% Đường tiệm cận đứng x = 1
+				\draw[dashed, thin] (1,-3.5) -- (1,5.5);
+				
+				% Đường tiệm cận xiên y = x
+				\addplot[domain=-2.5:4.5, dashed, thin] {x};
+				
+				% Điểm cực tiểu (2;3) và đường gióng tọa độ
+				\draw[dashed, thin] (2,0) -- (2,3) -- (0,3);
+				
+				% Đường gióng và điểm tâm đối xứng I(1;1)
+				\draw[dashed, thin] (1,1) -- (0,1); % Đường gióng ngang sang y=1
+				
+				\node[above left] at (0,0) {\footnotesize $O$};
+			\end{axis}
+		\end{tikzpicture}
+	\end{center}
+	\begin{enumerate}[label=\textbf{\alph*)}]
+		\item Hàm số đã cho có điểm cực đại là $x = 0$ và điểm cực tiểu là $x = 2$.
+		\item Đồ thị hàm số có tiệm cận đứng là đường thẳng $x = 1$ và tiệm cận xiên là đường thẳng $y = x$.
+		\item Đồ thị hàm số nhận giao điểm hai đường tiệm cận $I(1; 1)$ làm tâm đối xứng.
+		\item Hàm số đã cho đồng biến trên các khoảng $(-\infty; 0)$ và $(2; +\infty)$.
+	\end{enumerate}
+	
+	\vspace{6mm}
+	% ================== CÂU 6 ==================
+	\noindent\textbf{Câu 6.} Cho hàm số bậc ba $y = f(x) = ax^3 + bx^2 + cx + d \ (a, b, c, d \in \mathbb{R}, a \neq 0)$ có bảng biến thiên như sau:
+	\begin{center}
+		\begin{tikzpicture}[scale=0.95]
+			% Khung bảng
+			\draw (0,0) rectangle (11,3.5);
+			\draw (1.2,0) -- (1.2,3.5);
+			\draw (0,2.5) -- (11,2.5);
+			\draw (0,1.5) -- (11,1.5);
+			
+			% Cột đầu
+			\node at (0.6, 3) {$x$}; \node at (0.6, 2) {$y'$}; \node at (0.6, 0.75) {$y$};
+			
+			% Hàng x
+			\node at (2, 3) {$-\infty$}; \node at (5, 3) {$-1$}; \node at (8, 3) {$1$}; \node at (10.2, 3) {$+\infty$};
+			
+			% Hàng y'
+			\node at (3.5, 2) {$-$}; \node at (5, 2) {$0$}; \node at (6.5, 2) {$+$}; \node at (8, 2) {$0$}; \node at (9.2, 2) {$-$};
+			
+			% Hàng y
+			\node at (2, 1.2) {$+\infty$}; \node at (5, 0.3) {$-1$}; \node at (8, 1.2) {$3$}; \node at (10.2, 0.3) {$-\infty$};
+			
+			% Mũi tên
+			\draw[->, >=stealth, thick] (2.7, 1.1) -- (4.3, 0.4);
+			\draw[->, >=stealth, thick] (5.7, 0.4) -- (7.3, 1.1);
+			\draw[->, >=stealth, thick] (8.7, 1.1) -- (9.7, 0.4);
+		\end{tikzpicture}
+	\end{center}
+	\begin{enumerate}[label=\textbf{\alph*)}]
+		\item Hàm số đã cho đạt cực đại tại $x = 1$.
+		\item Đồ thị hàm số đồng biến trên khoảng $(-1; 1)$.
+		\item Giá trị lớn nhất của hàm số đã cho trên $\mathbb{R}$ bằng $3$.
+		\item Các hệ số của hàm số thỏa mãn biểu thức $a + b + c + d = 3$.
+	\end{enumerate}
+	
+	\vspace{6mm}
+	% ================== CÂU 7 ==================
+	\noindent\textbf{Câu 7.} Cho hàm số phân thức $y = f(x) = \dfrac{ax+b}{cx+d} \ (c \neq 0, ad-bc \neq 0)$ có bảng biến thiên dưới đây:
+	\begin{center}
+		\begin{tikzpicture}[scale=0.95]
+			\draw (0,0) rectangle (10,3.5);
+			\draw (1.2,0) -- (1.2,3.5);
+			\draw (0,2.5) -- (10,2.5);
+			\draw (0,1.5) -- (10,1.5);
+			
+			% Sọc kép gián đoạn tại x = -1 (chỉ kẻ từ y=0 đến y=2.5)
+			\draw (5.6,0) -- (5.6,2.5);
+			\draw (5.7,0) -- (5.7,2.5);
+			
+			\node at (0.6, 3) {$x$}; \node at (0.6, 2) {$y'$}; \node at (0.6, 0.75) {$y$};
+			
+			\node at (2.5, 3) {$-\infty$}; \node at (5.65, 3) {$-1$}; \node at (8.8, 3) {$+\infty$};
+			\node at (3.5, 2) {$+$}; \node at (7.5, 2) {$+$};
+			
+			\node at (2, 0.3) {$2$}; \node at (5.1, 1.2) {$+\infty$}; 
+			\node at (6.2, 0.3) {$-\infty$}; \node at (9.3, 1.2) {$2$};
+			
+			\draw[->, >=stealth, thick] (2.7, 0.4) -- (4.6, 1.1);
+			\draw[->, >=stealth, thick] (6.6, 0.4) -- (8.6, 1.1);
+		\end{tikzpicture}
+	\end{center}
+	\begin{enumerate}[label=\textbf{\alph*)}]
+		\item Hàm số đã cho đồng biến trên các khoảng $(-\infty; -1)$ và $(-1; +\infty)$.
+		\item Đồ thị hàm số có tiệm cận ngang là đường thẳng $y = 2$.
+		\item Đồ thị hàm số nhận giao điểm của hai đường tiệm cận $I(-1; 2)$ làm tâm đối xứng.
+		\item Hàm số đã cho có hai điểm cực trị.
+	\end{enumerate}
+	
+	\vspace{6mm}
+	% ================== CÂU 8 ==================
+	\noindent\textbf{Câu 8.} Cho hàm số phân thức bậc hai trên bậc nhất $y = f(x) = \dfrac{ax^2+bx+c}{mx+n} \ (a, m \neq 0)$ có bảng biến thiên dưới đây:
+	\begin{center}
+		\begin{tikzpicture}[scale=0.95]
+			\draw (0,0) rectangle (12,3.5);
+			\draw (1.2,0) -- (1.2,3.5);
+			\draw (0,2.5) -- (12,2.5);
+			\draw (0,1.5) -- (12,1.5);
+			
+			% Sọc kép tại x = -1 (chỉ kẻ từ y=0 đến y=2.5)
+			\draw (7,0) -- (7,2.5);
+			\draw (7.1,0) -- (7.1,2.5);
+			
+			\node at (0.6, 3) {$x$}; \node at (0.6, 2) {$y'$}; \node at (0.6, 0.75) {$y$};
+			
+			\node at (2, 3) {$-\infty$}; \node at (4.5, 3) {$-2$}; \node at (7.05, 3) {$-1$}; \node at (9.5, 3) {$0$}; \node at (11.2, 3) {$+\infty$};
+			
+			\node at (3.25, 2) {$+$}; \node at (4.5, 2) {$0$}; \node at (5.75, 2) {$-$}; 
+			\node at (8.25, 2) {$-$}; \node at (9.5, 2) {$0$}; \node at (10.5, 2) {$+$};
+			
+			\node at (2, 0.3) {$-\infty$}; \node at (4.5, 1.2) {$-3$}; \node at (6.5, 0.3) {$-\infty$};
+			\node at (7.6, 1.2) {$+\infty$}; \node at (9.5, 0.3) {$1$}; \node at (11.2, 1.2) {$+\infty$};
+			
+			\draw[->, >=stealth, thick] (2.7, 0.4) -- (4, 1.1);
+			\draw[->, >=stealth, thick] (5, 1.1) -- (6, 0.4);
+			\draw[->, >=stealth, thick] (8, 1.1) -- (9, 0.4);
+			\draw[->, >=stealth, thick] (10, 0.4) -- (10.7, 1.1);
+		\end{tikzpicture}
+	\end{center}
+	\begin{enumerate}[label=\textbf{\alph*)}]
+		\item Hàm số đã cho đạt cực đại tại điểm $x = -2$.
+		\item Giá trị cực đại lớn hơn giá trị cực tiểu của hàm số đã cho.
+		\item Đồ thị hàm số có tiệm cận xiên là đường thẳng $y = x$.
+		\item Đồ thị hàm số nhận điểm $I(-1; -1)$ làm tâm đối xứng.
+	\end{enumerate}
+	
+	\newpage
+	% ================== CÂU 9 ==================
+	\noindent\textbf{Câu 9.} Cho hàm số $y = f(x) = ax^3 + bx^2 + cx + d \ (a, b, c, d \in \mathbb{R}, a \neq 0)$ luôn đồng biến trên $\mathbb{R}$ và có bảng biến thiên như sau:
+	\begin{center}
+		\begin{tikzpicture}[scale=0.95]
+			\draw (0,0) rectangle (10,3.5);
+			\draw (1.2,0) -- (1.2,3.5);
+			\draw (0,2.5) -- (10,2.5);
+			\draw (0,1.5) -- (10,1.5);
+			
+			\node at (0.6, 3) {$x$}; \node at (0.6, 2) {$y'$}; \node at (0.6, 0.75) {$y$};
+			
+			\node at (2, 3) {$-\infty$}; \node at (5.6, 3) {$0$}; \node at (9.2, 3) {$+\infty$};
+			\node at (3.8, 2) {$+$}; \node at (5.6, 2) {$+$}; \node at (7.4, 2) {$+$};
+			
+			\node at (2, 0.3) {$-\infty$}; \node at (5.6, 0.75) {$1$}; \node at (9.2, 1.2) {$+\infty$};
+			
+			\draw[->, >=stealth, thick] (2.7, 0.4) -- (8.5, 1.1);
+		\end{tikzpicture}
+	\end{center}
+	\begin{enumerate}[label=\textbf{\alph*)}]
+		\item Hàm số đã cho không có điểm cực trị nào.
+		\item Đồ thị hàm số cắt trục hoành tại duy nhất một điểm.
+		\item Hàm số đạt giá trị nhỏ nhất bằng $1$ tại $x = 0$.
+		\item Các hệ số của hàm số thỏa mãn biểu thức $a + b + c + d = 5$.
+	\end{enumerate}
+	
+	
+	\subsection{Phần trắc nghiệm trả lời ngắn}
+	
+	\vspace{4mm}
+	% ================== CÂU 1 ==================
+	\noindent\textbf{Câu 1.} Cho hàm số $y = x^3 - 3x^2 + 1$ có đồ thị $(C)$. Gọi $x_1, x_2$ là hoành độ các điểm $M, N$ trên $(C)$ mà tại đó tiếp tuyến của đồ thị song song với đường thẳng $y = 9x - 2025$. Tính tích $x_1 \cdot x_2$.
+	\vspace{2mm}
+	
+	 
+	
+	\vspace{6mm}
+	% ================== CÂU 3 ==================
+	\noindent\textbf{Câu 3.} Biết rằng đường thẳng $y = -3x + 1$ cắt đồ thị hàm số $y = x^3 + 2x^2 + 1$ tại điểm duy nhất. Kí hiệu $(x_0; y_0)$ là tọa độ của điểm đó. Tìm giá trị của $y_0$.
+	\vspace{2mm}
+	
+	 
+	
+	\vspace{6mm}
+	% ================== CÂU 4 ==================
+	\noindent\textbf{Câu 4.} Biết rằng đường thẳng $y = x + 3$ cắt đồ thị hàm số $y = x^3 - x^2 + 2x + 3$ tại một điểm duy nhất có tọa độ $(x_0; y_0)$. Tìm giá trị của $y_0$.
+	\vspace{2mm}
+	
+	 
+	
+	\vspace{6mm}
+	% ================== CÂU 5 ==================
+	\noindent\textbf{Câu 5.} Cho hàm số bậc ba $y = f(x)$ có đồ thị như hình vẽ bên dưới. 
+	\begin{center}
+		\begin{tikzpicture}
+			\begin{axis}[
+				width=0.7\textwidth, height=6.5cm,
+				axis lines=middle,
+				xmin=-1.5, xmax=3.5, ymin=-0.5, ymax=5.5,
+				xtick={2}, ytick={1, 4},
+				tick label style={font=\footnotesize, fill=white, inner sep=1pt},
+				xlabel={$x$}, ylabel={$y$},
+				every axis x label/.style={at={(ticklabel* cs:1)},anchor=west},
+				every axis y label/.style={at={(ticklabel* cs:1)},anchor=south},
+				samples=100]
+				
+				% Đồ thị hàm y = 0.75x^3 - 2.25x^2 + 4 có cực đại (0;4), cực tiểu (2;1)
+				\addplot[domain=-1.1:3.1, thick, black] {0.75*x^3 - 2.25*x^2 + 4};
+				
+				% Đường gióng cho điểm cực tiểu (2;1)
+				\draw[dashed, thin] (2,0) -- (2,1) -- (0,1);
+				\filldraw[black] (2,1) circle (1.5pt) node[below right] {\scriptsize CT $(2;1)$};
+				\filldraw[black] (0,4) circle (1.5pt) node[above left] {\scriptsize CĐ $(0;4)$};
+				
+				\node[below left] at (0,0) {\footnotesize $O$};
+			\end{axis}
+		\end{tikzpicture}
+	\end{center}
+	Số nghiệm thực phân biệt của phương trình $3f(x) - 10 = 0$ bằng bao nhiêu?
+	\vspace{2mm}
+	
+	 
+	
+	\vspace{6mm}
+	% ================== CÂU 6 ==================
+	\noindent\textbf{Câu 6.} Cho hàm số phân thức $y = \dfrac{2x - 3}{x - 1}$ có đồ thị là $(C)$. Tìm khoảng cách từ tâm đối xứng $I$ của đồ thị $(C)$ đến trục hoành $Ox$.
+	\vspace{2mm}
+	
+	 
+	
+	\vspace{6mm}
+	% ================== CÂU 7 ==================
+	\noindent\textbf{Câu 7.} Tìm hệ số góc của đường tiệm cận xiên của đồ thị hàm số phân thức $y = \dfrac{2x^2 + x + 1}{x + 1}$.
+	\vspace{2mm}
+	
+	 
+	
+	\vspace{6mm}
+	% ================== CÂU 8 ==================
+	\noindent\textbf{Câu 8.} Cho hàm số $y = f(x) = x^3 - 3x^2 + 2$ có đồ thị là $(C)$. Tìm số giao điểm của đồ thị $(C)$ với đường thẳng $y = 2$.
+	\vspace{2mm}
+	
+	 
+	
+	\vspace{6mm}
+	% ================== CÂU 9 ==================
+	\noindent\textbf{Câu 9.} Cho hàm số phân thức bậc hai trên bậc nhất $y = \dfrac{x^2 - x + 1}{x - 1}$ có đồ thị là $(C)$. Đường thẳng $d: y = m$ cắt đồ thị $(C)$ tại hai điểm phân biệt khi và chỉ khi $m \in (-\infty; a) \cup (b; +\infty)$. Tính giá trị của biểu thức $S = a + b$.
+	\vspace{2mm}
+	
+	\vspace{6mm}
+	% ================== CÂU 10 ==================
+	\noindent\textbf{Câu 10.} Cho hàm số $y = ax^3 + bx^2 + cx + d \ (a \neq 0)$ có đồ thị như hình vẽ bên dưới:
+	\begin{center}
+		\begin{tikzpicture}[baseline=(current bounding box.center)]
+			\begin{axis}[
+				width=0.7\textwidth, height=6cm,
+				axis lines=middle,
+				xmin=-1, xmax=3.5, ymin=-1.5, ymax=5.5,
+				xtick=\empty, ytick=\empty,
+				xlabel={$x$}, ylabel={$y$},
+				every axis x label/.style={at={(ticklabel* cs:1)},anchor=west},
+				every axis y label/.style={at={(ticklabel* cs:1)},anchor=south},
+				samples=100]
+				% Đồ thị: a > 0, b < 0, c > 0, d > 0 (y = x^3 - 4.5*x^2 + 6*x + 1)
+				\addplot[domain=-0.4:3.1, thick, black] {x^3 - 4.5*x^2 + 6*x + 1};
+				\node[below left] at (0,0) {\footnotesize $O$};
+			\end{axis}
+		\end{tikzpicture}
+	\end{center}
+	Có bao nhiêu số dương trong ba số $b, c, d$?
+	\vspace{2mm}
+	
+	 
+	
+	\vspace{6mm}
+	% ================== CÂU 11 ==================
+	\noindent\textbf{Câu 11.} Cho hàm số $y = ax^3 + bx^2 + cx + d \ (a \neq 0)$ có đồ thị như hình vẽ bên dưới:
+	\begin{center}
+		\begin{tikzpicture}[baseline=(current bounding box.center)]
+			\begin{axis}[
+				width=0.7\textwidth, height=6cm,
+				axis lines=middle,
+				xmin=-3.5, xmax=1, ymin=-2.5, ymax=3.5,
+				xtick=\empty, ytick=\empty,
+				xlabel={$x$}, ylabel={$y$},
+				every axis x label/.style={at={(ticklabel* cs:1)},anchor=west},
+				every axis y label/.style={at={(ticklabel* cs:1)},anchor=south},
+				samples=100]
+				% Đồ thị: a < 0, b < 0, c < 0, d < 0 (y = -x^3 - 4.5*x^2 - 6*x - 1)
+				\addplot[domain=-3.1:0.4, thick, black] {-x^3 - 4.5*x^2 - 6*x - 1};
+				\node[above right] at (0,0) {\footnotesize $O$};
+			\end{axis}
+		\end{tikzpicture}
+	\end{center}
+	Có bao nhiêu số âm trong ba số $b, c, d$?
+	\vspace{2mm}
+	
+	 
+	
+	\vspace{6mm}
+	% ================== CÂU 12 ==================
+	\noindent\textbf{Câu 12.} Cho hàm số $y = ax^3 + bx^2 + cx + d \ (a \neq 0)$ có đồ thị như hình vẽ bên dưới:
+	\begin{center}
+		\begin{tikzpicture}[baseline=(current bounding box.center)]
+			\begin{axis}[
+				width=0.7\textwidth, height=6cm,
+				axis lines=middle,
+				xmin=-2.5, xmax=3.8, ymin=-7.5, ymax=2.5,
+				xtick=\empty, ytick=\empty,
+				xlabel={$x$}, ylabel={$y$},
+				every axis x label/.style={at={(ticklabel* cs:1)},anchor=west},
+				every axis y label/.style={at={(ticklabel* cs:1)},anchor=south},
+				samples=100]
+				% Đồ thị: a > 0, b < 0, c < 0, d < 0 (y = 0.5*x^3 - 0.75*x^2 - 3*x - 1)
+				\addplot[domain=-2.1:3.6, thick, black] {0.5*x^3 - 0.75*x^2 - 3*x - 1};
+				\node[above left] at (0,0) {\footnotesize $O$};
+			\end{axis}
+		\end{tikzpicture}
+	\end{center}
+	Có bao nhiêu số dương trong ba số $b, c, d$?
+	\vspace{2mm}
+	
+	 
+	
+	\vspace{6mm}
+	% ================== CÂU 13 ==================
+	\noindent\textbf{Câu 13.} Cho hàm số $y = ax^3 + bx^2 + cx + d \ (a \neq 0)$ có đồ thị như hình vẽ bên dưới:
+	\begin{center}
+		\begin{tikzpicture}[baseline=(current bounding box.center)]
+			\begin{axis}[
+				width=0.7\textwidth, height=6cm,
+				axis lines=middle,
+				xmin=-2.5, xmax=3.8, ymin=-2.5, ymax=7.5,
+				xtick=\empty, ytick=\empty,
+				xlabel={$x$}, ylabel={$y$},
+				every axis x label/.style={at={(ticklabel* cs:1)},anchor=west},
+				every axis y label/.style={at={(ticklabel* cs:1)},anchor=south},
+				samples=100]
+				% Đồ thị: a < 0, b > 0, c > 0, d > 0 (y = -0.5*x^3 + 0.75*x^2 + 3*x + 1)
+				\addplot[domain=-2.1:3.6, thick, black] {-0.5*x^3 + 0.75*x^2 + 3*x + 1};
+				\node[below left] at (0,0) {\footnotesize $O$};
+			\end{axis}
+		\end{tikzpicture}
+	\end{center}
+	Có bao nhiêu số dương trong ba số $b, c, d$?
+	\vspace{2mm}
+	
+	 
+	
+	\vspace{6mm}
+	% ================== CÂU 14 ==================
+	\noindent\textbf{Câu 14.} Cho hàm số $y = ax^3 + bx^2 + cx + d \ (a \neq 0)$ có đồ thị như hình vẽ bên dưới:
+	\begin{center}
+		\begin{tikzpicture}[baseline=(current bounding box.center)]
+			\begin{axis}[
+				width=0.7\textwidth, height=6cm,
+				axis lines=middle,
+				xmin=-3.8, xmax=2.5, ymin=-7.5, ymax=2.5,
+				xtick=\empty, ytick=\empty,
+				xlabel={$x$}, ylabel={$y$},
+				every axis x label/.style={at={(ticklabel* cs:1)},anchor=west},
+				every axis y label/.style={at={(ticklabel* cs:1)},anchor=south},
+				samples=100]
+				% Đồ thị: a < 0, b < 0, c > 0, d < 0 (y = -0.5*x^3 - 0.75*x^2 + 3*x - 1)
+				\addplot[domain=-3.6:2.1, thick, black] {-0.5*x^3 - 0.75*x^2 + 3*x - 1};
+				\node[above left] at (0,0) {\footnotesize $O$};
+			\end{axis}
+		\end{tikzpicture}
+	\end{center}
+	Có bao nhiêu số âm trong ba số $b, c, d$?
+	\vspace{2mm}
+	
+	\vspace{6mm}
+	% ================== CÂU 15 ==================
+	\noindent\textbf{Câu 15.} Cho hàm số phân thức bậc nhất trên bậc nhất $y = \dfrac{ax + b}{x + c}$ có đồ thị như hình vẽ bên dưới:
+	\begin{center}
+		\begin{tikzpicture}[baseline=(current bounding box.center)]
+			\begin{axis}[
+				width=0.7\textwidth, height=6cm,
+				axis lines=middle,
+				xmin=-2.5, xmax=4.5, ymin=-1.5, ymax=4.5,
+				xtick={1}, ytick={1, 2},
+				tick label style={font=\footnotesize, fill=white, inner sep=1pt},
+				xlabel={$x$}, ylabel={$y$},
+				every axis x label/.style={at={(ticklabel* cs:1)},anchor=west},
+				every axis y label/.style={at={(ticklabel* cs:1)},anchor=south},
+				samples=100]
+				
+				% Hàm số y = (2x - 1)/(x - 1)
+				\addplot[domain=-2.5:0.8, thick, black] {(2*x-1)/(x-1)};
+				\addplot[domain=1.2:4.5, thick, black] {(2*x-1)/(x-1)};
+				
+				% Đường tiệm cận
+				\draw[dashed, thin] (1,-1.5) -- (1,4.5);
+				\draw[dashed, thin] (-2.5,2) -- (4.5,2);
+				
+				% Giao điểm tiệm cận I(1;2)
+				\node[below left] at (0,0) {\footnotesize $O$};
+			\end{axis}
+		\end{tikzpicture}
+	\end{center}
+	Có bao nhiêu số âm trong ba số $a, b, c$?
+	\vspace{2mm}
+	
+	 
+	
+	\vspace{6mm}
+	% ================== CÂU 16 ==================
+	\noindent\textbf{Câu 16.} Cho hàm số phân thức bậc nhất trên bậc nhất $y = \dfrac{ax + b}{x + c}$ có đồ thị như hình vẽ bên dưới:
+	\begin{center}
+		\begin{tikzpicture}[baseline=(current bounding box.center)]
+			\begin{axis}[
+				width=0.7\textwidth, height=6cm,
+				axis lines=middle,
+				xmin=-4.5, xmax=2.5, ymin=-4.5, ymax=1.5,
+				xtick={-1}, ytick={-1, -2},
+				tick label style={font=\footnotesize, fill=white, inner sep=1pt},
+				xlabel={$x$}, ylabel={$y$},
+				every axis x label/.style={at={(ticklabel* cs:1)},anchor=west},
+				every axis y label/.style={at={(ticklabel* cs:1)},anchor=south},
+				samples=100]
+				
+				% Hàm số y = (-x - 2)/(x + 1)
+				\addplot[domain=-4.5:-1.2, thick, black] {(-x-2)/(x+1)};
+				\addplot[domain=-0.8:2.5, thick, black] {(-x-2)/(x+1)};
+				
+				% Đường tiệm cận
+				\draw[dashed, thin] (-1,-4.5) -- (-1,1.5);
+				\draw[dashed, thin] (-4.5,-1) -- (2.5,-1);
+				
+				\node[above right] at (0,0) {\footnotesize $O$};
+			\end{axis}
+		\end{tikzpicture}
+	\end{center}
+	Có bao nhiêu số dương trong ba số $a, b, c$?
+	\vspace{2mm}
+	
+	 
+	
+	\vspace{6mm}
+	% ================== CÂU 17 ==================
+	\noindent\textbf{Câu 17.} Cho hàm số phân thức bậc hai trên bậc nhất $y = \dfrac{ax^2 + bx + c}{x + d}$ có đồ thị như hình vẽ dưới đây:
+	\begin{center}
+		\begin{tikzpicture}[baseline=(current bounding box.center)]
+			\begin{axis}[
+				width=0.7\textwidth, height=6.5cm,
+				axis lines=middle,
+				xmin=-2.5, xmax=4.5, ymin=-3.5, ymax=5.5,
+				xtick={1, 2}, ytick={-1, 1, 3},
+				tick label style={font=\footnotesize, fill=white, inner sep=1pt},
+				xlabel={$x$}, ylabel={$y$},
+				every axis x label/.style={at={(ticklabel* cs:1)},anchor=west},
+				every axis y label/.style={at={(ticklabel* cs:1)},anchor=south},
+				samples=100]
+				
+				% Đồ thị hàm số y = (x^2 - x + 1)/(x - 1) = x + 1/(x-1)
+				\addplot[domain=-2.5:0.75, thick, black] {x + 1/(x-1)};
+				\addplot[domain=1.25:4.5, thick, black] {x + 1/(x-1)};
+				
+				% Tiệm cận đứng x = 1
+				\draw[dashed, thin] (1,-3.5) -- (1,5.5);
+				
+				% Tiệm cận xiên y = x
+				\addplot[domain=-2.5:4.5, dashed, thin] {x};
+				
+				% Các đường gióng tọa độ
+				\draw[dashed, thin] (2,0) -- (2,3) -- (0,3);
+				\draw[dashed, thin] (1,1) -- (0,1);
+				
+				
+				\node[above left] at (0,0) {\footnotesize $O$};
+			\end{axis}
+		\end{tikzpicture}
+	\end{center}
+	Có bao nhiêu số dương trong bốn số $a, b, c, d$?
+	\vspace{2mm}
+	
+	 
+	
+	% =====================
+	% PHẦN 5: TỔNG KẾT
+	% =====================
+	\section{Tổng kết bài}
+	
+	\begin{tcolorbox}[colback=yellow!10!white, colframe=orange!60!black,
+		fonttitle=\bfseries, title={Kiến thức trọng tâm cần nhớ}]
+		\begin{itemize}
+			\item % Sơ đồ tóm tắt các bước
+			\item % Lưu ý về cách nhìn nhận tâm đối xứng, tiệm cận, cực trị
+		\end{itemize}
+	\end{tcolorbox}
+	
+	\vspace{3mm}
+	\textbf{Bài tập về nhà:} % Nội dung dặn dò bài tập
+	
+\end{document}

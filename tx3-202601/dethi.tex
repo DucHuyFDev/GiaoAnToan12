@@ -1,0 +1,427 @@
+% --- START OF FILE decuoiky_chinhthuc.tex ---
+
+\documentclass[12pt]{article}
+
+% ================================================
+% CÀI ĐẶT TRANG & PHÔNG CHỮ TIẾNG VIỆT
+% ================================================
+\usepackage[margin=2cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T5]{fontenc}
+\usepackage[vietnamese]{babel}
+
+% ================================================
+% TOÁN HỌC & HÌNH VẼ (Đã tích hợp đầy đủ thư viện)
+% ================================================
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+% Nạp sẵn các thư viện TikZ mạnh mẽ cho đồ thị và hình học không gian
+\usetikzlibrary{calc, angles, quotes, intersections, arrows.meta, 3d, patterns, positioning}
+
+% ================================================
+% ĐỊNH DẠNG DANH SÁCH & TRÌNH BÀY
+% ================================================
+\usepackage{enumitem}
+\usepackage{multicol}
+\usepackage{fancyhdr}
+\usepackage[hidelinks]{hyperref} % Nạp sau cùng để tránh xung đột
+
+% Thiết lập khoảng cách dòng và danh sách cho đề thi thoáng, đẹp
+\setlist[enumerate]{itemsep=6pt, topsep=4pt}
+\renewcommand{\baselinestretch}{1.15}
+
+% ================================================
+% CẤU HÌNH HEADER & FOOTER ĐỀ THI CUỐI KỲ
+% ================================================
+\setlength{\headheight}{14.5pt}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\textit{Bài kiểm tra Cuối kỳ I — Lớp: 2026 - L01}}
+\fancyhead[R]{\small\textbf{ĐỀ CHÍNH THỨC}}
+\fancyfoot[C]{Trang \thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% ================================================
+% BẮT ĐẦU VĂN BẢN
+% ================================================
+\begin{document}
+	
+	% --- TIÊU ĐỀ ĐỀ THI CHÍNH THỨC ---
+	\begin{center}
+		{\Large \textbf{BÀI KIỂM TRA CUỐI KỲ I}} \\[6pt]
+		{\large \textbf{Lớp: 2026 - L01}} \\[6pt]
+		\textit{Thời gian làm bài: 90 phút}
+	\end{center}
+	\vspace{3mm}
+	\hrule
+	\vspace{6mm}
+	
+	% ================================================
+	% PHẦN I: TRẮC NGHIỆM ĐƠN (12 CÂU)
+	% ================================================
+	\noindent\textbf{PHẦN I. Câu trắc nghiệm nhiều phương án lựa chọn.} Thí sinh trả lời từ câu 1 đến câu 12. Mỗi câu hỏi thí sinh chỉ chọn một phương án.
+	\vspace{3mm}
+	
+	\begin{enumerate}[label=\textbf{Câu \arabic*.}, leftmargin=*]
+		
+		% --- CÂU 1 (Thống kê: Tính Phương sai với số liệu đẹp nhưng cần cẩn thận) ---
+		\item Khảo sát điểm bài thi đánh giá năng lực (thang điểm 10) của một nhóm 20 thí sinh, ta có bảng số liệu ghép nhóm sau:
+		\begin{center}
+			\renewcommand{\arraystretch}{1.2}
+			\begin{tabular}{|c|c|c|c|}
+				\hline
+				\textbf{Điểm thi} & $[4; 6)$ & $[6; 8)$ & $[8; 10)$ \\
+				\hline
+				\textbf{Số thí sinh} & 5 & 10 & 5 \\
+				\hline
+			\end{tabular}
+		\end{center}
+		Phương sai của mẫu số liệu ghép nhóm trên bằng:
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\Alph*.]
+				\item $1{,}5$.
+				\item $2{,}0$.
+				\item $4{,}0$.
+				\item $1{,}41$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% --- CÂU 2 (Hàm số: Cực trị từ đồ thị đạo hàm f'(x) - Bẫy tiếp xúc) ---
+		\item Cho hàm số $y = f(x)$ liên tục trên $\mathbb{R}$. Biết hàm số đạo hàm $y = f'(x)$ có đồ thị như hình vẽ bên dưới. 
+		\begin{center}
+			\begin{tikzpicture}[scale=0.8]
+				\begin{axis}[
+					axis lines = middle,
+					xlabel = {$x$}, ylabel = {$f'(x)$},
+					ymin = -2, ymax = 4,
+					xmin = -2.5, xmax = 3.5,
+					xtick = {-1, 2}, ytick = \empty,
+					ticklabel style = {fill=white, inner sep=1pt},
+					width=8cm, height=6cm,
+					samples=100,
+					axis line style={->}
+					]
+					% Đồ thị f'(x) = 0.5 * (x+1) * (x-2)^2
+					% Cắt tại -1, tiếp xúc tại 2
+					\addplot [domain=-1.8:3.2, thick, blue, smooth] {0.5 * (x + 1) * (x - 2)^2};
+					
+					\fill (-1,0) circle (1.5pt);
+					\fill (2,0) circle (1.5pt);
+					
+					\node[below left] at (axis cs:0,0) {$O$};
+				\end{axis}
+			\end{tikzpicture}
+		\end{center}
+		Hàm số $y = f(x)$ có bao nhiêu điểm cực trị?
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\Alph*.]
+				\item $2$.
+				\item $3$.
+				\item $1$.
+				\item $0$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% --- CÂU 3 (Vector Oxyz: Tích vô hướng chứa tham số bậc 2) ---
+		\item Trong không gian $Oxyz$, cho hai vecto $\vec{u} = (m; 2; m-2)$ và $\vec{v} = (m; -m; 3)$. Gọi $S$ là tập hợp tất cả các giá trị thực của tham số $m$ để hai vecto $\vec{u}$ và $\vec{v}$ vuông góc với nhau. Tính tổng các phần tử của tập hợp $S$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\Alph*.]
+				\item $-1$.
+				\item $1$.
+				\item $5$.
+				\item $-6$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% --- CÂU 4 (Hàm số: Tiệm cận - Bẫy nghiệm tử trùng nghiệm mẫu) ---
+		\item Gọi $I(a; b)$ là giao điểm của đường tiệm cận đứng và đường tiệm cận ngang của đồ thị hàm số $y = \dfrac{x^2 - 4x + 3}{x^2 - 3x + 2}$. Tính giá trị của biểu thức $T = a + 2b$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\Alph*.]
+				\item $T = 3$.
+				\item $T = 4$.
+				\item $T = 5$.
+				\item $T = 2$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% --- CÂU 5 (Vector không tọa độ: Biểu diễn vecto trong lục giác đều) ---
+		\item Cho hình lục giác đều $ABCDEF$. Mệnh đề nào dưới đây là \textbf{đúng}?
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\Alph*.]
+				\item $\overrightarrow{AC} = \overrightarrow{AB} + \overrightarrow{AD}$.
+				\item $\overrightarrow{AC} = \dfrac{1}{2}\overrightarrow{AB} + \overrightarrow{AD}$.
+				\item $\overrightarrow{AC} = \overrightarrow{AB} + \dfrac{1}{2}\overrightarrow{AD}$.
+				\item $\overrightarrow{AC} = \overrightarrow{AB} - \dfrac{1}{2}\overrightarrow{AD}$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% --- CÂU 6 (Thống kê: Tìm tứ phân vị Q1 ghép nhóm) ---
+		\item Khảo sát thời gian truy cập internet mỗi ngày (giờ) của một nhóm thanh niên, ta được kết quả:
+		\begin{center}
+			\renewcommand{\arraystretch}{1.2}
+			\begin{tabular}{|c|c|c|c|c|}
+				\hline
+				\textbf{Thời gian (giờ)} & $[0; 2)$ & $[2; 4)$ & $[4; 6)$ & $[6; 8)$ \\
+				\hline
+				\textbf{Số người} & 4 & 10 & 8 & 6 \\
+				\hline
+			\end{tabular}
+		\end{center}
+		Tứ phân vị thứ nhất ($Q_1$) của mẫu số liệu ghép nhóm trên bằng:
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\Alph*.]
+				\item $2{,}6$.
+				\item $2{,}5$.
+				\item $3{,}0$.
+				\item $2{,}8$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% --- CÂU 7 (Hàm số: Nhận dạng dấu các hệ số của hàm bậc 3) ---
+		\item Cho hàm số đa thức bậc ba $y = ax^3 + bx^2 + cx + d$ ($a \neq 0$) có đồ thị như hình vẽ bên. Khẳng định nào sau đây là \textbf{đúng}?
+		\begin{center}
+			\begin{tikzpicture}[scale=0.8]
+				\begin{axis}[
+					axis lines = middle,
+					xlabel = {$x$}, ylabel = {$y$},
+					ymin = -3, ymax = 5,
+					xmin = -2, xmax = 4,
+					xtick = \empty, ytick = \empty,
+					width=8cm, height=6.5cm,
+					samples=100,
+					axis line style={->}
+					]
+					% Đồ thị: Nhánh cuối đi lên (a>0). Cắt tung độ âm (d<0). 
+					% Cực trị dương x1>0, x2>0 -> Tổng > 0 (-b/a > 0 => b<0), Tích > 0 (c/a > 0 => c>0).
+					% Chọn hàm: y = x^3 - 4.5x^2 + 6x - 1 (Cực trị tại 1 và 2)
+					\addplot [domain=-0.5:3.5, thick, blue, smooth] {x^3 - 4.5*x^2 + 6*x - 1};
+					
+					\node[below left] at (axis cs:0,0) {$O$};
+				\end{axis}
+			\end{tikzpicture}
+		\end{center}
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\Alph*.]
+				\item $a > 0, b < 0, c < 0, d > 0$.
+				\item $a > 0, b < 0, c > 0, d < 0$.
+				\item $a < 0, b > 0, c > 0, d < 0$.
+				\item $a > 0, b > 0, c < 0, d < 0$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% --- CÂU 8 (Vector Oxyz: Điểm đối xứng và hình chiếu liên hợp) ---
+		\item Trong không gian $Oxyz$, gọi $M_1$ là hình chiếu vuông góc của điểm $M(2; -3; 5)$ lên mặt phẳng tọa độ $(Oxy)$. Tọa độ điểm $M_2$ đối xứng với $M_1$ qua gốc tọa độ $O$ là:
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\Alph*.]
+				\item $M_2(2; -3; 0)$.
+				\item $M_2(-2; 3; -5)$.
+				\item $M_2(-2; 3; 0)$.
+				\item $M_2(0; 0; -5)$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% --- CÂU 9 (Hàm số: Tương giao đồ thị giữa bậc 3 và bậc 2) ---
+		\item Số giao điểm của đồ thị hàm số $y = -x^3 + 3x$ và parabol $y = x^2 - x$ là:
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\Alph*.]
+				\item $1$.
+				\item $2$.
+				\item $3$.
+				\item $0$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% --- CÂU 10 (Vector không tọa độ: Đẳng thức trọng tâm tam giác trong tứ diện) ---
+		\item Cho tứ diện $ABCD$. Gọi $G$ là trọng tâm của tam giác $BCD$. Đẳng thức nào dưới đây biểu diễn đúng vecto $\overrightarrow{AG}$?
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\Alph*.]
+				\item $\overrightarrow{AG} = \dfrac{1}{3} \left( \overrightarrow{AB} + \overrightarrow{AC} + \overrightarrow{AD} \right)$.
+				\item $\overrightarrow{AG} = \dfrac{1}{4} \left( \overrightarrow{AB} + \overrightarrow{AC} + \overrightarrow{AD} \right)$.
+				\item $\overrightarrow{AG} = \dfrac{1}{2} \left( \overrightarrow{AB} + \overrightarrow{AC} + \overrightarrow{AD} \right)$.
+				\item $\overrightarrow{AG} = \overrightarrow{AB} + \overrightarrow{AC} + \overrightarrow{AD}$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% --- CÂU 11 (Hàm số: Max/Min của hàm chứa ẩn ở mẫu) ---
+		\item Gọi $M, m$ lần lượt là giá trị lớn nhất và giá trị nhỏ nhất của hàm số $y = x + \dfrac{4}{x}$ trên đoạn $[1; 3]$. Tính $M + m$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\Alph*.]
+				\item $8$.
+				\item $9$.
+				\item $\dfrac{28}{3}$.
+				\item $5$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% --- CÂU 12 (Vector Oxyz: Khoảng cách từ điểm đến trọng tâm tam giác) ---
+		\item Trong không gian $Oxyz$, cho ba điểm $A(1; 2; 3)$, $B(-1; 4; 2)$ và $C(3; 0; 1)$. Gọi $G$ là trọng tâm tam giác $ABC$. Khoảng cách từ gốc tọa độ $O$ đến điểm $G$ bằng:
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\Alph*.]
+				\item $\sqrt{13}$.
+				\item $9$.
+				\item $3$.
+				\item $\sqrt{5}$.
+			\end{enumerate}
+		\end{multicols}
+		
+	\end{enumerate}
+	
+	\vspace{6mm}
+	% ================================================
+	% PHẦN II: TRẮC NGHIỆM ĐÚNG/SAI (2 CÂU)
+	% ================================================
+	\noindent\textbf{PHẦN II. Câu trắc nghiệm đúng sai.} Thí sinh trả lời từ câu 1 đến câu 2. Trong mỗi ý a), b), c), d) ở mỗi câu, thí sinh chọn đúng hoặc sai.
+	\vspace{3mm}
+	
+	\begin{enumerate}[label=\textbf{Câu \arabic*.}, leftmargin=*]
+		
+		% --- CÂU 1 (Dạng: Bài toán thực tế - Ứng dụng đạo hàm và tiệm cận của hàm phân thức) ---
+		% Tỉ lệ đáp án: a-Đúng, b-Sai, c-Sai, d-Đúng
+		\item Sự phát triển của một loại virus mới trong cơ thể bệnh nhân được theo dõi sát sao. Bác sĩ nhận thấy tổng số lượng tế bào virus (đơn vị: vạn tế bào) trong máu của bệnh nhân sau $t$ ngày kể từ lúc nhiễm bệnh được mô hình hóa bởi hàm số $N(t) = \dfrac{at + b}{t + c}$ (với $t \ge 0$). Biết rằng tại thời điểm bắt đầu phát hiện bệnh ($t=0$), số lượng virus là $20$ vạn tế bào. Sau đúng $1$ ngày, số lượng virus tăng lên thành $40$ vạn tế bào và sau $2$ ngày là $50$ vạn tế bào. 
+		Xét tính đúng hay sai của các mệnh đề sau:
+		\begin{enumerate}[label=\alph*)]
+			\item Giá trị của biểu thức $a - b + c$ bằng $82$.
+			\item Tổng số lượng tế bào virus trong cơ thể bệnh nhân có thể vượt qua mức $80$ vạn tế bào nếu không có sự can thiệp của thuốc.
+			\item Tốc độ gia tăng số lượng virus ở ngày thứ 4 (tức thời điểm $t=4$) là $4$ vạn tế bào/ngày.
+			\item Nếu hệ miễn dịch bắt đầu chiến thắng và tiêu diệt virus khi tốc độ gia tăng virus giảm xuống dưới ngưỡng $1,5$ vạn tế bào/ngày, thì bệnh nhân sẽ bắt đầu hồi phục ở ngày thứ 7.
+		\end{enumerate}
+		
+		\vspace{4mm}
+		% --- CÂU 2 (Dạng: Ứng dụng thực tế Oxyz - Hình hộp chữ nhật, Khoảng cách) ---
+		% Tỉ lệ đáp án: a-Sai, b-Đúng, c-Sai, d-Đúng
+		\item Một phòng máy chủ (server room) của trung tâm dữ liệu có dạng hình hộp chữ nhật với chiều dài $8$ m, chiều rộng $6$ m và chiều cao trần là $4$ m. Người ta thiết lập hệ trục tọa độ không gian $Oxyz$ (đơn vị: mét) với gốc $O$ trùng với một góc của sàn phòng. Các tia $Ox, Oy$ lần lượt dọc theo chiều dài và chiều rộng của sàn, tia $Oz$ hướng thẳng đứng lên trần nhà. Để tối ưu hóa tản nhiệt, một bộ định tuyến trung tâm (router) được treo lơ lửng tại điểm $R$, nằm ngay phía trên tâm của mặt sàn và cách trần nhà đúng $1$ m. 
+		Xét tính đúng hay sai của các mệnh đề sau:
+		\begin{enumerate}[label=\alph*)]
+			\item Tọa độ của bộ định tuyến trung tâm là $R(4; 3; 1)$.
+			\item Khoảng cách từ bộ định tuyến $R$ đến gốc tọa độ $O$ bằng $\sqrt{34}$ m.
+			\item Điểm đối xứng với $R$ qua mặt phẳng sàn $(Oxy)$ có tọa độ là $(-4; -3; -3)$.
+			\item Chiều dài của đường cáp mạng căng thẳng nhất nối từ bộ định tuyến $R$ đến một góc bất kỳ trên trần nhà là $\sqrt{26}$ m.
+		\end{enumerate}
+		
+	\end{enumerate}
+	
+	\vspace{6mm}
+	% ================================================
+	% PHẦN III: TRẢ LỜI NGẮN (4 CÂU)
+	% ================================================
+	\noindent\textbf{PHẦN III. Câu trắc nghiệm trả lời ngắn.} Thí sinh trả lời từ câu 1 đến câu 4.
+	\vspace{3mm}
+	
+	\begin{enumerate}[label=\textbf{Câu \arabic*.}, leftmargin=*]
+		
+		% --- CÂU 1 (Dạng: Hàm số Thực tế - Tối ưu hóa doanh thu 2 nguồn bán) ---
+		% Tương đương mẫu "Câu 33 / Trang trại cam"
+		\item Một cơ sở sản xuất bánh ngọt sản xuất được đúng $500$ hộp bánh mỗi ngày. Nếu cơ sở bán sỉ cho các siêu thị với mức giá $40 + x$ (nghìn đồng/hộp) thì số lượng hộp bánh siêu thị nhập trong ngày là $500 - 20x$ (hộp), với $0 \le x \le 25$. Toàn bộ số hộp bánh không bán sỉ được trong ngày sẽ được cơ sở đem bán lẻ tại cửa hàng với mức giá cố định là $60$ nghìn đồng/hộp và luôn bán hết. Hỏi cơ sở nên tăng giá bán sỉ thêm $x$ bao nhiêu nghìn đồng để tổng doanh thu thu về trong ngày đạt giá trị lớn nhất?
+		\vspace{4mm}
+		
+		% --- CÂU 2 (Dạng: Oxyz Thực tế - Chuyển động thẳng đều) ---
+		% Tương đương mẫu "Câu 75 / Máy bay radar"
+		\item Trong không gian với hệ trục tọa độ $Oxyz$ cho trước (đơn vị đo lấy theo kilomet), radar không lưu phát hiện một chiếc máy bay trực thăng cứu hộ di chuyển với tốc độ và hướng không đổi từ điểm $A(120; 80; 3)$ đến điểm $B(150; 120; 5)$ trong thời gian $15$ phút. Nếu trực thăng tiếp tục giữ nguyên tốc độ và hướng bay thì tọa độ của trực thăng sau $0,5$ giờ tiếp theo là điểm $C(x; y; z)$. Tính giá trị của biểu thức $T = x + y - 10z$.
+		\vspace{4mm}
+		
+		% --- CÂU 3 (Dạng: Hàm số Cơ bản - Tiếp tuyến đồ thị cắt trục tọa độ) ---
+		% Được chắt lọc từ các kỹ năng của 5 đề mẫu
+		\item Cho hàm số $y = -x^3 + 3x^2 - 2$ có đồ thị là đường cong $(C)$. Gọi d phương trình tiếp tuyến của đồ thị $(C)$ tại điểm có hoành độ $x_0 = 1$. Biết tiếp tuyến này cắt trục tung tại điểm $M(0; y_M)$. Tính giá trị của tung độ $y_M$.
+		\vspace{4mm}
+		
+		% --- CÂU 4 (Dạng: Oxyz Nâng cao - Điểm chia đoạn thẳng theo tỉ số) ---	
+		\item Trong không gian $Oxyz$, cho hai điểm $A(1; 4; -2)$ và $B(4; 1; 4)$. Biết rằng trên đường thẳng đi qua hai điểm $A, B$ có đúng hai điểm $M_1$ và $M_2$ thỏa mãn điều kiện độ dài $MA = 2MB$. Gọi $I(a; b; c)$ là trung điểm của đoạn thẳng $M_1M_2$. Tính giá trị của biểu thức $P = a + b + c$.
+		
+		
+	\end{enumerate}
+	
+	\vspace{6mm}
+	% ================================================
+	% PHẦN IV: TỰ LUẬN (2 BÀI)
+	% ================================================
+	% ================================================
+	% ĐỀ CHÍNH THỨC - PHẦN IV: TỰ LUẬN (3 BÀI)
+	% ================================================
+	\noindent\textbf{PHẦN IV. Tự luận.} Thí sinh trình bày bài giải chi tiết.
+	\vspace{3mm}
+	
+	\begin{enumerate}[label=\textbf{Bài \arabic*.}, leftmargin=*]
+		
+		% BÀI 1 TỰ LUẬN: HÀM SỐ CƠ BẢN (TIẾP TUYẾN)
+		\item \textbf{(1,0 điểm)} Cho hàm số $y = \dfrac{x + 2}{x - 1}$ có đồ thị là đường cong $(C)$. Viết phương trình tiếp tuyến của đồ thị $(C)$, biết rằng tiếp tuyến đó vuông góc với đường thẳng $\Delta: y = \dfrac{1}{3}x + 2025$.
+		
+		\vspace{4mm}
+		% BÀI 2 TỰ LUẬN: HÀM SỐ THỰC TẾ (TỐI ƯU SẢN XUẤT)
+		\item \textbf{(1,0 điểm)} Một nhà máy sản xuất bao bì nhận đơn hàng xuất khẩu $240.000$ hộp giấy thân thiện với môi trường. Để hoàn thành đơn hàng, nhà máy sử dụng một số máy dập khuôn tự động hoạt động đồng thời. Biết rằng năng suất của mỗi máy dập là $60$ hộp/giờ. Chi phí chuẩn bị và thiết lập cho mỗi máy đi vào hoạt động là $500.000$ đồng. Chi phí giám sát, kỹ thuật và vận hành nhà xưởng đồng đều ở mức $200.000$ đồng cho mỗi giờ hoạt động. Hỏi nhà máy nên đưa vào hoạt động cùng lúc bao nhiêu máy dập khuôn để tổng chi phí thiết lập máy và chi phí giám sát vận hành cho cả đợt hàng là nhỏ nhất?
+		
+		\vspace{4mm}
+		% BÀI 3 TỰ LUẬN: OXYZ NÂNG CAO (CHÂN ĐƯỜNG PHÂN GIÁC)
+		\item \textbf{(1,0 điểm)} Trong không gian $Oxyz$, cho tam giác $ABC$ có tọa độ các đỉnh là $A(3; 0; 4)$, $B(1; 2; 3)$ và $C(5; 6; 1)$. Gọi $D(a; b; c)$ là chân đường phân giác trong góc $B$ của tam giác $ABC$. Tính giá trị của biểu thức $P = 3a - b + c$.
+		
+	\end{enumerate}
+	
+\end{document}
+
+% =========================================================================
+% BẢNG TỔNG HỢP ĐÁP ÁN ĐỀ CHÍNH THỨC CUỐI KỲ (DÀNH CHO GIÁO VIÊN)
+% =========================================================================
+
+% -------------------------------------------------------------------------
+% PHẦN I. TRẮC NGHIỆM ĐƠN (Mỗi câu đúng 0,25 điểm)
+% -------------------------------------------------------------------------
+% | Câu  1: B  | Câu  2: C  | Câu  3: A  | Câu  4: B  | Câu  5: C  | Câu  6: A  |
+% | Câu  7: B  | Câu  8: C  | Câu  9: C  | Câu 10: A  | Câu 11: B  | Câu 12: C  |
+% -------------------------------------------------------------------------
+
+% -------------------------------------------------------------------------
+% PHẦN II. TRẮC NGHIỆM ĐÚNG/SAI 
+% (Điểm tối đa mỗi câu là 1,0 điểm. Đúng 1 ý: 0,1đ; 2 ý: 0,25đ; 3 ý: 0,5đ; 4 ý: 1,0đ)
+% -------------------------------------------------------------------------
+% CÂU 1 (Virus):  
+% a) SAI 
+% b) SAI  (Số lượng tiến tới tiệm cận ngang 80 nhưng luôn nhỏ hơn 80).
+% c) SAI  (Tốc độ là N'(4) = 10/3 ~ 3,33 vạn/ngày, không phải 4).
+% d) ĐÚNG (N'(t) <= 1,5 <=> t >= 6,94. Bước sang ngày 7 bệnh nhân bắt đầu hồi phục).
+%
+% CÂU 2 (Phòng Server): 
+% a) SAI  (Tọa độ đúng là R(4; 3; 3) vì trần cao 4m, cách trần 1m => cao độ z=3).
+% b) ĐÚNG (Khoảng cách OR = \sqrt{4^2 + 3^2 + 3^2} = \sqrt{34}).
+% c) SAI  (Đối xứng qua (Oxy) chỉ đổi dấu z, tọa độ đúng phải là R'(4; 3; -3)).
+% d) ĐÚNG (Khoảng cách tới góc trần C'(8; 6; 4) là \sqrt{4^2 + 3^2 + 1^2} = \sqrt{26}).
+% -------------------------------------------------------------------------
+
+% -------------------------------------------------------------------------
+% PHẦN III. TRẮC NGHIỆM TRẢ LỜI NGẮN (Mỗi câu đúng 0,25 điểm)
+% -------------------------------------------------------------------------
+% CÂU 1:  22,5   (Giải thích: Doanh thu R(x) = -20x^2 + 900x + 20000. Max tại đỉnh x = 22,5).
+% CÂU 2:  320    (Giải thích: Vecto BC = 2AB => C(210; 200; 9) => T = 210+200-90 = 320).
+% CÂU 3:  -3     (Giải thích: Tiếp tuyến y = 3x - 3 cắt Oy tại y = -3).
+% CÂU 4:  11     (Giải thích: 2 điểm thỏa mãn là M_1(3;2;2) chia trong và M_2(7;-2;10) chia ngoài. Trung điểm I(5;0;6) => P = 11).
+% -------------------------------------------------------------------------
+
+% -------------------------------------------------------------------------
+% PHẦN IV. TỰ LUẬN (Tổng 3,0 điểm)
+% -------------------------------------------------------------------------
+% BÀI 1 (1,0 điểm): Viết phương trình tiếp tuyến.
+% - Tính được tập xác định và đạo hàm y' = -3 / (x-1)^2. (0,25đ)
+% - Lập luận: Tiếp tuyến vuông góc với \Delta có hệ số góc k_1 = 1/3 nên hệ số góc tiếp tuyến là k = -3. (0,25đ)
+% - Giải phương trình y' = -3 <=> -3/(x-1)^2 = -3 <=> (x-1)^2 = 1 <=> x = 2 hoặc x = 0. (0,25đ)
+% - TH1: x=2 => y=4. Phương trình d_1: y = -3(x-2) + 4 <=> y = -3x + 10.
+% - TH2: x=0 => y=-2. Phương trình d_2: y = -3(x-0) - 2 <=> y = -3x - 2.
+% - Kết luận có 2 phương trình tiếp tuyến. (0,25đ)
+%
+% BÀI 2 (1,0 điểm): Tối ưu hóa chi phí nhà máy.
+% - Gọi x là số máy (x > 0). Lập được biểu thức thời gian t = 240000 / (60x) = 4000/x. (0,25đ)
+% - Lập được hàm tổng chi phí: C(x) = 500.000x + 200.000 * (4000/x) = 500.000x + 800.000.000/x. (0,25đ)
+% - Áp dụng đạo hàm C'(x) = 0 hoặc BĐT Cauchy cho 2 số dương: 
+%   500.000x = 800.000.000/x <=> x^2 = 1600. (0,25đ)
+% - Suy ra x = 40. Kết luận: Cần đưa vào 40 máy dập khuôn. (0,25đ)
+%
+% BÀI 3 (1,0 điểm): Chân đường phân giác Oxyz.
+% - Tính đúng độ dài 2 cạnh kề: BA = 3 và BC = 6. (0,25đ)
+% - Nêu được tính chất đường phân giác trong: DA / DC = BA / BC = 1/2. (0,25đ)
+% - Suy ra đẳng thức vecto: 2\overrightarrow{DA} + \overrightarrow{DC} = \vec{0}. (0,25đ)
+% - Tính đúng tọa độ D(11/3; 2; 3) => P = 3(11/3) - 2 + 3 = 12. (0,25đ)
+% =========================================================================
+
+
+

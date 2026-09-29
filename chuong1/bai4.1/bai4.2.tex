@@ -1,0 +1,1357 @@
+\documentclass[12pt]{article}
+
+% === CÀI ĐẶT TRANG ===
+\usepackage[margin=2cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T5]{fontenc}
+\usepackage[vietnamese]{babel}
+
+% === TOÁN HỌC ===
+\usepackage{amsmath, amssymb, amsthm}
+
+% === HÌNH VẼ ===
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+% === ĐỊNH DẠNG ===
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{multicol}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{fancyhdr}
+\usepackage[hidelinks]{hyperref}
+
+% === HEADER/FOOTER ===
+\pagestyle{fancy}
+\fancyhf{}
+
+\fancyhead[L]{\small \textbf{Ứng dụng thực tế của hàm số}}
+\fancyhead[R]{\small Thời lượng: 2 tiết}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% ================================================
+\begin{document}
+	
+	\begin{center}
+		{\LARGE \textbf{BÀI TẬP NÂNG CAO VỀ ỨNG DỤNG THỰC TẾ CỦA HÀM SỐ}}\\[6pt]
+		{\large \textbf{Môn: Toán -- Lớp: 12}}
+	\end{center}
+	\vspace{4mm}
+	\hrule
+	\vspace{4mm}
+	
+	% ================================================
+	% PHẦN 1: MỤC TIÊU BÀI HỌC
+	% ================================================
+	\section*{Mục tiêu bài học}
+	
+	\textbf{1. Kiến thức:}
+	\begin{itemize}
+		\item Học sinh hiểu và biết cách chuyển dịch các bài toán thực tế phức tạp (về kinh tế, hình học, y tế, tối ưu hóa) sang mô hình toán học sử dụng hàm số.
+		\item Nắm vững phương pháp khảo sát hàm số, tìm cực trị và giá trị lớn nhất, giá trị nhỏ nhất của hàm số trong các bài toán nâng cao.
+	\end{itemize}
+	
+	\noindent \textbf{2. Kĩ năng:}
+	\begin{itemize}
+		\item Kĩ năng phân tích đề bài, xác định biến số và thiết lập công thức hàm số từ các điều kiện thực tế.
+		\item Kĩ năng sử dụng công cụ đạo hàm, bảng biến thiên và các bất đẳng thức để tìm phương án tối ưu.
+		\item Kĩ năng trình bày bài toán tự luận logic, chặt chẽ và giải thích được ý nghĩa thực tiễn của kết quả toán học thu được.
+	\end{itemize}
+	
+	\noindent \textbf{3. Thái độ / Phẩm chất:}
+	\begin{itemize}
+		\item Phát triển tư duy logic, tư duy mô hình hóa toán học đối với các hiện tượng thực tế xung quanh.
+		\item Rèn luyện tính kiên trì, cẩn thận khi giải quyết các bài toán có số liệu phức tạp và cấu trúc lạ.
+	\end{itemize}
+	
+	\newpage
+	
+	% ================================================
+	% PHẦN 2: HỆ THỐNG BÀI TẬP TỰ LUẬN
+	% ================================================
+	\section*{Hệ thống bài tập tự luận}
+	
+	% ------------------------------------------------
+	% DẠNG 1
+	% ------------------------------------------------
+	\subsection*{Dạng 1: Xây dựng hàm số và tính toán trực tiếp}
+	\noindent \textbf{Câu 1:} Một thiết bị bay không người lái (drone) thực hiện nhiệm vụ khảo sát có quỹ đạo bay gắn với hệ trục tọa độ $Oxy$ được mô phỏng như hình vẽ, trục $Ox$ gắn với mặt đất. 
+	Đường bay có dạng là một phần của đồ thị hàm phân thức bậc hai trên bậc nhất $y = f(x)$ có đường tiệm cận đứng là $x = 2$. Điểm $G$ là giao điểm của đường tiệm cận xiên của đồ thị hàm số $y = f(x)$ và trục $Ox$ được gọi là điểm giới hạn an toàn. Biết drone bắt đầu cất cánh từ vị trí $A$ cách gốc tọa độ $O$ một khoảng $3$ đơn vị. Khi drone đạt đến vị trí cao nhất (điểm $B$), nó cách điểm xuất phát $2$ đơn vị theo phương song song với trục $Ox$ và cách mặt đất $4$ đơn vị. Hỏi vị trí drone tiếp đất (điểm $C$) cách điểm giới hạn an toàn $G$ một khoảng bằng bao nhiêu?
+	
+	\begin{center}
+		\begin{tikzpicture}[scale=0.6, font=\small, >=stealth]
+			% Vẽ hệ trục tọa độ
+			\draw[->] (-1,0) -- (14,0) node[below] {$x$};
+			\draw[->] (0,-1) -- (0,12) node[right] {$y$};
+			\node[below left] at (0,0) {$O$};
+			
+			% Vẽ tiệm cận đứng x = 2
+			\draw[dashed, thin] (2,-1) -- (2,12);
+			
+			% Vẽ tiệm cận xiên y = -x + 12
+			% (Giao Ox tại x=12, giao Oy tại y=12)
+			\draw[dashed, thin] (1,11) -- (13,-1);
+			
+			% Vẽ đồ thị y = -x + 12 - 9/(x-2)
+			% Cắt Ox tại x = 3 (điểm A) và x = 11 (điểm C)
+			% Đỉnh B tại x = 5, y = 4
+			\draw[thick, purple, smooth, domain=2.8:11.5, samples=150] plot (\x, {-\x + 12 - 9/(\x-2)});
+			
+			% Đánh dấu các điểm
+			\fill (3,0) circle (2pt) node[below left] {$A$};
+			\fill (5,4) circle (2pt) node[above right] {$B$};
+			\fill (11,0) circle (2pt) node[below left] {$C$};
+			\fill (12,0) circle (2pt) node[above right] {$G$};
+			
+			
+		\end{tikzpicture}
+	\end{center}
+	
+	\noindent \textbf{Câu 2:} Tại một khu đô thị sinh thái, người ta thiết kế một hồ cảnh quan và một tuyến đường dạo bộ. Khi thiết lập hệ trục tọa độ $Oxy$ (đơn vị trên các trục là mét) như hình vẽ dưới đây, ban quản lý nhận thấy đường bờ hồ có hình dạng tương đương với một nhánh của đồ thị hàm số $y = \frac{x+11}{x-1}$ và tuyến đường dạo bộ nằm trên đường thẳng $(d): y = -x + 7$. 
+	
+	Để tạo điểm nhấn, kiến trúc sư muốn xây dựng một khu vực nghỉ chân hình vuông nối liền bờ hồ và đường dạo bộ. Do đó, họ quyết định đặt 2 trụ gỗ trên bờ hồ và 2 trụ gỗ trên đường dạo bộ sao cho 4 trụ này tạo thành 4 đỉnh của một hình vuông $ABCD$. Tính khoảng cách giữa hai trụ gỗ được đặt trên bờ hồ (làm tròn kết quả đến hàng phần trăm).
+	
+	\begin{center}
+		\begin{tikzpicture}[scale=0.8, font=\small, >=stealth]
+			% Vẽ hệ trục tọa độ (màu đỏ giống phong cách gốc)
+			\draw[->, red, thin] (-1,0) -- (9,0) node[below, text=black] {$x$};
+			\draw[->, red, thin] (0,-1) -- (0,8) node[left, text=black] {$y$};
+			\node[below left] at (0,0) {$O$};
+			\fill (0,0) circle (1pt);
+			
+			% Đánh dấu giao điểm của d với trục Ox
+			\fill[cyan] (7,0) circle (1.5pt);
+			\node[below] at (7,0) {$7$};
+			
+			% Vẽ đường thẳng (d): y = -x + 7
+			\draw[thick, blue] (0.5, 6.5) -- (8.2, -1.2);
+			
+			% Vẽ nhánh đồ thị y = (x+11)/(x-1) tức là y = 1 + 12/(x-1) (với x > 1)
+			\draw[thick, blue, smooth, domain=2.6:8.5, samples=100] plot (\x, {1 + 12/(\x-1)});
+			
+			% Vẽ hình vuông ABCD
+			% C(4,5) và B(5,4) thuộc (C)
+			% D(3,4) và A(4,3) thuộc (d)
+			\draw[fill=yellow!50!white, thick, gray] (4,3) -- (5,4) -- (4,5) -- (3,4) -- cycle;
+			
+			% Đánh dấu và ghi chú các đỉnh của hình vuông
+			\fill[cyan] (4,3) circle (1.5pt) node[below=2pt] {$A$};
+			\fill[cyan] (5,4) circle (1.5pt) node[right=2pt] {$B$};
+			\fill[cyan] (4,5) circle (1.5pt) node[above right=-1pt] {$C$};
+			\fill[cyan] (3,4) circle (1.5pt) node[left=2pt] {$D$};
+			
+		\end{tikzpicture}
+	\end{center}
+	
+	\noindent \textbf{Câu 3:} Khuôn viên của một khu triển lãm nông nghiệp có dạng hình chữ nhật $ABCD$ với $AB = 120\text{ m}$; $AD = 90\text{ m}$. Ban tổ chức muốn chia khuôn viên thành hai khu: một khu $H_1$ (không tô màu) để trồng rau thủy canh, và một khu $H_2$ (tô màu) để trồng cây trên đất truyền thống. Để tăng tính thẩm mỹ, người ta dùng một đường cong chia khuôn viên thành hai phần như hình vẽ bên với $AH = 30\text{ m}$; $AE = 50\text{ m}$; $AP = 30\text{ m}$ và $EF \parallel AB$; $PQ \parallel AD$.
+	
+	Biết rằng khi xét trong một hệ tọa độ $Oxy$ phù hợp, đường cong phân cách trong hình là một phần của đồ thị hàm số bậc ba. Ngay chính giữa khu triển lãm, ban tổ chức lắp đặt một hệ thống ống dẫn nước thẳng đứng dọc theo đoạn thẳng $MN$ như hình. Biết giá tiền vật tư và nhân công để lắp đặt mỗi mét ống dẫn nước ở phần $H_1$ là 250 nghìn đồng và phần $H_2$ là 150 nghìn đồng. Tổng số tiền để lắp đặt ống dẫn nước trên toàn bộ đoạn $MN$ là bao nhiêu triệu đồng?
+	
+	\begin{center}
+		\begin{tikzpicture}[scale=0.7, font=\small, >=stealth]
+			% Định nghĩa hàm số: y = (1/54)*x^3 - (1/3)*x^2 + 1.5*x + 3 
+			% (đã scale tọa độ chia 10 so với thực tế để vẽ vừa vặn)
+			
+			% Tô màu khu vực H2
+			\fill[yellow!95!orange] (0,0) -- (12,0) -- (12,5) 
+			-- plot[domain=12:0, smooth, samples=100] (\x, {1/54*\x^3 - 1/3*\x^2 + 1.5*\x + 3}) 
+			-- (0,3) -- cycle;
+			
+			% Vẽ khung hình chữ nhật ABCD
+			\draw[thick] (0,0) -- (12,0) -- (12,9) -- (0,9) -- cycle;
+			
+			% Vẽ đường cong phân cách
+			\draw[thick] plot[domain=0:12, smooth, samples=150] (\x, {1/54*\x^3 - 1/3*\x^2 + 1.5*\x + 3});
+			
+			% Vẽ các đường gióng nét đứt
+			\draw[dashed, thin] (0,5) -- (12,5);
+			\draw[dashed, thin] (3,0) -- (3,5);
+			
+			% Vẽ đoạn thẳng MN chính giữa (x = 6)
+			\draw[thick] (6,0) -- (6,9);
+			
+			% Đánh dấu các điểm
+			\fill (0,0) circle (1.5pt) node[below left] {$A$};
+			\fill (12,0) circle (1.5pt) node[below right] {$B$};
+			\fill (12,9) circle (1.5pt) node[above right] {$C$};
+			\fill (0,9) circle (1.5pt) node[above left] {$D$};
+			
+			\fill (0,3) circle (1.5pt) node[left] {$H$};
+			\fill (0,5) circle (1.5pt) node[left] {$E$};
+			\fill (12,5) circle (1.5pt) node[right] {$F$};
+			\fill (3,0) circle (1.5pt) node[below] {$P$};
+			\fill (3,5) circle (1.5pt) node[above] {$Q$};
+			
+			\fill (6,0) circle (1.5pt) node[below] {$M$};
+			\fill (6,9) circle (1.5pt) node[above] {$N$};
+			
+			% Giao điểm I trên đoạn MN (tại x = 6, y = 4)
+			\fill (6,4) circle (1.5pt) node[below right] {$I$};
+			
+			% Tên vùng
+			\node at (9, 6.5) {\large \textbf{$H_1$}};
+			\node at (4.5, 2) {\large \textbf{$H_2$}};
+			
+		\end{tikzpicture}
+	\end{center}
+	
+	\noindent \textbf{Câu 4:} Một phần quỹ đạo bay của một máy bay biểu diễn khi gắn vào hệ trục tọa độ $Oxy$ được mô phỏng như hình bên, đơn vị trên mỗi trục là mét. Biết quỹ đạo bay là một phần đồ thị hàm số bậc ba $y = ax^3 + bx^2 + cx + d$ ($0 \le x < 170$); máy bay xuất phát từ điểm $A$, đi qua các điểm $C, D$ trên cùng một độ cao, đồng thời trong quá trình bay có thời điểm đạt độ cao nhỏ nhất so với mặt đất là $14\text{ m}$. Độ cao lớn nhất mà máy bay đạt được trong quỹ đạo này là bao nhiêu mét so với mặt đất? \textit{(Kết quả làm tròn đến hàng phần chục)}.
+	
+	\begin{center}
+		\begin{tikzpicture}[x=0.045cm, y=0.045cm, font=\small, >=stealth]
+			% Vẽ hệ trục tọa độ
+			\draw[->] (-10,0) -- (185,0) node[below] {$x$};
+			\draw[->] (0,-10) -- (0,110) node[right] {$y$};
+			\node[below left] at (0,0) {$O$};
+			
+			% Các đường gióng nét đứt
+			\draw[dashed, thin] (0,50) node[left] {$50$} -- (150,50);
+			\draw[dashed, thin] (70,0) node[below] {$70$} -- (70,50);
+			\draw[dashed, thin] (150,0) node[below] {$150$} -- (150,50);
+			\draw[dashed, thin] (0,14) node[left] {$14$} -- (30,14);
+			\draw[dashed, thin] (30,0) node[below] {$30$} -- (30,14); % Điểm cực tiểu x=30
+			
+			% Vẽ đồ thị hàm số bậc ba: y = -0.25*(x/10)^3 + 5.5*(x/10)^2 - 26.25*(x/10) + 50
+			% Việc chia 10 bên trong biến \x giúp pdflatex không bị tràn bộ nhớ (Dimension too large)
+			\draw[thick, purple, smooth, domain=0:162, samples=120] 
+			plot (\x, {-0.25*(\x/10)^3 + 5.5*(\x/10)^2 - 26.25*(\x/10) + 50});
+			
+			% Đánh dấu các điểm quan trọng
+			\fill (0,50) circle (1.5pt) node[above right] {$A$};
+			\fill (70,50) circle (1.5pt) node[above right] {$C$};
+			\fill (150,50) circle (1.5pt) node[above right] {$D$};
+			\fill (30,14) circle (1.5pt); % Điểm thấp nhất
+			
+		\end{tikzpicture}
+	\end{center}
+	
+	\noindent \textbf{Câu 5:} Lát cắt của một vùng địa hình gồm đồi núi và hồ nước được mô hình hóa là một phần của đồ thị hàm số bậc ba $y = f(x)$ như hình vẽ dưới đây (đơn vị độ dài trên các trục là kilômét). Biết bề rộng chân đồi $OM = 4\text{ (km)}$, độ rộng của mặt hồ $MN = 1\text{ (km)}$ và đỉnh đồi cao $1313\text{ (m)}$ so với mặt nước hồ (trục $Ox$). Độ sâu lớn nhất của hồ nước là bao nhiêu mét? \textit{(Làm tròn kết quả đến hàng đơn vị của mét)}.
+	
+	\begin{center}
+		\begin{tikzpicture}[xscale=1.8, yscale=3, font=\small, >=stealth]
+			% Vẽ hệ trục tọa độ
+			\draw[->] (-0.5,0) -- (6,0) node[below] {$x$};
+			\draw[->] (0,-0.5) -- (0,1.8) node[right] {$y$};
+			\node[below left] at (0,0) {$O$};
+			
+			% Tô màu Đồi (từ x=0 đến x=4)
+			\fill[green!40!white] (0,0) -- plot[domain=0:4, smooth, samples=100] (\x, {0.1*(\x^3 - 9*\x^2 + 20*\x)}) -- cycle;
+			
+			% Tô màu Hồ nước (từ x=4 đến x=5)
+			\fill[cyan!30!white] (4,0) -- plot[domain=4:5, smooth, samples=50] (\x, {0.1*(\x^3 - 9*\x^2 + 20*\x)}) -- cycle;
+			
+			% Tô màu Núi (từ x=5 đến x=5.6)
+			\fill[brown!40!white] (5,0) -- plot[domain=5:5.6, smooth, samples=50] (\x, {0.1*(\x^3 - 9*\x^2 + 20*\x)}) -- (5.6,0) -- cycle;
+			
+			% Vẽ đường viền đồ thị hàm số y = 0.1(x^3 - 9x^2 + 20x)
+			\draw[thick, black, smooth, domain=0:5.6, samples=150] plot (\x, {0.1*(\x^3 - 9*\x^2 + 20*\x)});
+			
+			% Vẽ lại trục Ox đoạn qua hồ để đè lên các mảng màu
+			\draw (0,0) -- (6,0);
+			
+			% Đánh dấu các điểm
+			\fill (4,0) circle (1pt) node[below left] {$M$};
+			\fill (5,0) circle (1pt) node[below right] {$N$};
+			
+			% Nhãn text
+			\node at (1.5, 0.6) {Đồi};
+			\node[above] at (4.5, 0) {Mặt hồ};
+			\node[left] at (5.5, 0.6) {Núi};
+			
+		\end{tikzpicture}
+	\end{center}
+	
+	\noindent \textbf{Câu 6:} Khi đặt trong mặt phẳng tọa độ $Oxy$ với trục $Ox$ nằm ngang trên mặt đất, trục $Oy$ hướng thẳng lên trên (đơn vị trên các trục là ki-lô-mét), quỹ đạo của một thiết bị bay thử nghiệm bắt đầu xuất phát từ gốc tọa độ $O$ được mô phỏng là một phần đồ thị của hàm số phân thức bậc hai trên bậc nhất $f(x) = \frac{ax^2+bx+c}{x+d}$. Biết đồ thị hàm số $y = f(x)$ cắt trục hoành tại điểm thứ hai có tọa độ $(9{,}6 \,;\, 0)$ và đạt cực đại tại điểm có tọa độ $(8 \,;\, 8)$. Sau khi đi qua điểm cực đại và đang trong quá trình hạ độ cao, tại thời điểm thiết bị bay cách mặt đất $6750$ mét thì hình chiếu của nó trên trục $Ox$ cách gốc tọa độ bao nhiêu ki-lô-mét?
+	
+	\begin{center}
+		\begin{tikzpicture}[scale=0.8, font=\small, >=stealth]
+			% Vẽ hệ trục tọa độ
+			\draw[->] (-1,0) -- (11,0) node[below] {$x$};
+			\draw[->] (0,-1) -- (0,10) node[right] {$y$};
+			\node[below left] at (0,0) {$O$};
+			
+			% Vẽ quỹ đạo bay: y = (1.25x^2 - 12x)/(x - 10)
+			\draw[thick, blue, smooth, domain=0:9.6, samples=150] plot (\x, {(1.25*\x*\x - 12*\x)/(\x - 10)});
+			
+			% Các đường gióng tọa độ cực đại
+			\draw[dashed, thin] (8,0) node[below] {$8$} -- (8,8) -- (0,8) node[left] {$8$};
+			\fill (8,8) circle (1.5pt);
+			
+			% Đánh dấu điểm rơi
+			\fill (9.6,0) circle (1.5pt);
+			\node[below] at (9.6, 0) {$9{,}6$};
+			
+			% Trang trí thêm một chút biểu tượng nhỏ tượng trưng cho thiết bị bay (tùy chọn)
+			\node at (4.5, 6) {Quỹ đạo bay};
+			
+		\end{tikzpicture}
+	\end{center}
+	
+	\noindent \textbf{Câu 7:} Trong hệ trục tọa độ $Oxy$ (đơn vị trên mỗi trục là mét), một đường ống trượt nước tại khu công viên nước được xây dựng theo bản thiết kế như hình vẽ. Ống trượt bắt đầu từ vị trí $A$ và kết thúc tại vị trí $C$, đường cong của mặt cắt ống trượt là một phần của đồ thị hàm số phân thức $f(x) = \frac{ax^2+bx+c}{x+d}$. Biết đồ thị hàm số $y=f(x)$ tiếp xúc với mặt đất (trục $Ox$) tại điểm $B$.
+	
+	\begin{center}
+		\begin{tikzpicture}[scale=0.55, font=\small, >=stealth]
+			
+			% Bục xuất phát (Vẽ trước để nằm dưới các nét khác)
+			\fill[gray!40!white] (-5,-1.2) rectangle (0,0);
+			\draw (-5,-1.2) rectangle (0,0);
+			
+			% Cầu thang lên bục
+			\draw[thick] (-2,0) -- (-1,12) -- (0,12);
+
+			% Vẽ hệ trục tọa độ
+			\draw[->] (-5,0) -- (21,0) node[right] {$x$};
+			\draw[->] (0,0) -- (0,14) node[above] {$y$};
+			
+			% Đồ thị hàm số y = (x-12)^2 / (x+12)
+			\draw[thick, smooth, domain=0:18, samples=150] plot (\x, {(\x-12)*(\x-12)/(\x+12)});
+			
+			% Các điểm A, B, C
+			\fill (0,12) circle (3pt) node[right] {$A$};
+			\fill (12,0) circle (3pt) node[above] {$B$};
+			\fill (18,1.2) circle (3pt) node[above] {$C$};
+			
+			% Gióng tọa độ thẳng đứng cho B và C xuống dưới để ghi kích thước
+			\draw[dashed] (12,0) -- (12,-1.5);
+			\draw[dashed] (18,0) -- (18,-1.5);
+			\draw[dashed] (0,0) -- (0,-1.5);
+			
+			% Mũi tên ghi kích thước khoảng cách ngang
+			\draw[<->] (0,-1) -- (12,-1) node[midway, fill=white] {$12\text{ m}$};
+			\draw[<->] (12,-1) -- (18,-1) node[midway, fill=white] {$6\text{ m}$};
+			
+			% Gióng kích thước độ cao của A
+			\draw[dashed] (0,12) -- (-1.5,12);
+			\draw[<->] (-1,0) -- (-1,12) node[midway, fill=white] {$12\text{ m}$};
+			
+			% Gióng kích thước độ cao của C
+			\draw[dashed] (18,0) -- (18,1.2) -- (19.5,1.2);
+			\draw[<->] (19,0) -- (19,1.2) node[midway, right] {$1{,}2\text{ m}$};
+			
+		\end{tikzpicture}
+	\end{center}
+	
+	Một người chơi bắt đầu trượt từ điểm $A$, hỏi khi người đó di chuyển được một khoảng cách theo phương ngang là $6$ mét kể từ bục xuất phát thì cách mặt đất bao nhiêu mét? \textit{(Kết quả làm tròn đến hàng phần mười)}.
+	
+	
+	
+	\noindent \textbf{Câu 8:} Một tuyến đường sắt trên cao phục vụ ngắm cảnh trong khu du lịch được thiết kế với độ cao uốn lượn để tạo cảm giác thú vị cho du khách. Khi gắn vào hệ trục tọa độ $Oxy$ (đơn vị trên các trục là mét), mặt cắt ngang của quỹ đạo đường ray là một phần của đồ thị hàm số bậc ba $y = f(x) = ax^3 + bx^2 + cx + d$.
+	
+	Biết rằng quỹ đạo xuất phát cắt trục tung tại điểm $A$ có tung độ bằng $52$, sau đó hạ xuống đạt điểm thấp nhất (cực tiểu) chạm mặt đất tại $B(4; 0)$ và đi qua điểm $C(12; 16)$. 
+	
+	Để gia cố sự chắc chắn, các kỹ sư thiết kế một hệ thống các cột đỡ bằng thép vuông góc với mặt đất (trục $Ox$). Tính tổng chiều cao của các cột đỡ được đặt tại các vị trí có hoành độ lần lượt là $x = 2; 6; 8; 10; 12$. \textit{(Kết quả tính bằng mét, làm tròn đến hàng phần mười nếu cần)}.
+	
+	\begin{center}
+		\begin{tikzpicture}[x=0.8cm, y=0.12cm, font=\small, >=stealth]
+			% Vẽ hệ trục tọa độ
+			\draw[->] (-1,0) -- (14.5,0) node[below] {$x$};
+			\draw[->] (0,-4) -- (0,62) node[right] {$y$};
+			\node[below left] at (0,0) {$O$};
+			
+			% Vẽ đồ thị hàm số y = -0.25x^3 + 5.25x^2 - 30x + 52
+			\draw[thick, blue, smooth, domain=0:13, samples=150] plot (\x, {-0.25*\x^3 + 5.25*\x^2 - 30*\x + 52});
+			
+			% Đánh dấu các điểm đặc biệt A, B, C
+			\fill (0,52) circle (1.5pt) node[right] {$A$};
+			\fill (4,0) circle (1.5pt) node[above right] {$B$};
+			\fill (12,16) circle (1.5pt) node[above right] {$C$};
+			
+			% Ghi chú tọa độ trên trục
+			\node[left] at (0,52) {$52$};
+			\node[below] at (4,0) {$4$};
+			
+			% Vẽ các cột đỡ (đường đứt nét)
+			\foreach \x in {2, 6, 8, 10, 12} {
+				\draw[dashed, thin, darkgray] (\x, 0) -- (\x, {-0.25*\x^3 + 5.25*\x^2 - 30*\x + 52});
+				\fill (\x, {-0.25*\x^3 + 5.25*\x^2 - 30*\x + 52}) circle (1pt);
+				\node[below] at (\x, 0) {\x};
+			}
+		\end{tikzpicture}
+	\end{center}
+	
+	\noindent \textbf{Câu 9:} Một chiếc khay đựng đầy nước có dạng hình hộp chữ nhật với kích thước: chiều dài $15\text{ cm}$, chiều rộng $14\text{ cm}$, chiều cao $10\text{ cm}$ (hình a). Để san bớt nước cho đỡ đầy, người ta đổ nước từ chiếc khay thứ nhất đó sang chiếc khay thứ hai có dạng hình chóp cụt tứ giác đều với đáy khay là hình vuông nhỏ có đường chéo dài $n\text{ (cm)}$, miệng khay là hình vuông lớn có đường chéo dài $3n\text{ (cm)}$ (hình b). Sau khi đổ, mực nước ở khay thứ hai cao bằng $\frac{1}{2}$ chiều cao của khay đó và lượng nước trong khay thứ nhất giảm đi $\frac{1}{5}$ so với ban đầu. Thể tích của chiếc khay thứ hai theo đơn vị xăng-ti-mét khối là $a\text{ (cm}^3\text{)}$. Tổng các chữ số của $a$ bằng bao nhiêu?
+	
+	\begin{center}
+		\begin{tikzpicture}[x={(0.866cm,-0.35cm)}, y={(0.4cm,0.4cm)}, z={(0cm,1cm)}, font=\small, >=stealth]
+			
+			% ================= HÌNH A =================
+			% Tọa độ các đỉnh hình hộp chữ nhật (Khay a)
+			% A(0,0,0) là đỉnh trước-trái-dưới
+			\coordinate (A) at (0,0,0);
+			\coordinate (B) at (3.5,0,0);
+			\coordinate (C) at (3.5,2.5,0);
+			\coordinate (D) at (0,2.5,0);
+			\coordinate (E) at (0,0,2.5);
+			\coordinate (F) at (3.5,0,2.5);
+			\coordinate (G) at (3.5,2.5,2.5);
+			\coordinate (H) at (0,2.5,2.5);
+			
+			% Vẽ các cạnh thấy khay a
+			\draw[thick, gray!80!black] (E) -- (F) -- (G) -- (H) -- cycle;
+			\draw[thick, gray!80!black] (A) -- (B) -- (F);
+			\draw[thick, gray!80!black] (B) -- (C) -- (G);
+			\draw[thick, gray!80!black] (E) -- (A);
+			
+			% Vẽ các cạnh khuất khay a (đứt nét)
+			\draw[dashed, thin, gray!60] (A) -- (D);
+			\draw[dashed, thin, gray!60] (C) -- (D);
+			\draw[dashed, thin, gray!60] (H) -- (D);
+			
+			% Điểm góc màu xanh
+			\foreach \p in {A,B,C,F,G,E,H} \fill[blue!70] (\p) circle (2pt);
+			
+			% Nhãn kích thước khay a
+			\node[below] at (1.75,0,0) {$15\text{ cm}$};
+			\node[right] at (3.5,1.25,0) {$14\text{ cm}$};
+			\node[left] at (0,0,1.25) {$10\text{ cm}$};
+			
+			\node[below=1.5cm] at (1.75,0,0) {\textbf{Hình a}};
+			
+			
+			% ================= HÌNH B =================
+			% Dịch chuyển tâm khay b sang bên phải (x_offset = 8, y_offset = 1.2)
+			% Tọa độ đáy nhỏ (Khay b)
+			\coordinate (A2) at (7.7, 0.9, 0);
+			\coordinate (B2) at (8.3, 0.9, 0);
+			\coordinate (C2) at (8.3, 1.5, 0);
+			\coordinate (D2) at (7.7, 1.5, 0);
+			
+			% Tọa độ miệng lớn (Khay b)
+			\coordinate (E2) at (7.1, 0.3, 3);
+			\coordinate (F2) at (8.9, 0.3, 3);
+			\coordinate (G2) at (8.9, 2.1, 3);
+			\coordinate (H2) at (7.1, 2.1, 3);
+			
+			% Vẽ các cạnh thấy khay b
+			\draw[thick, gray!80!black] (E2) -- (F2) -- (G2) -- (H2) -- cycle;
+			\draw[thick, gray!80!black] (A2) -- (B2) -- (F2) -- (E2) -- (A2);
+			\draw[thick, gray!80!black] (B2) -- (C2) -- (G2);
+			
+			% Vẽ các cạnh khuất khay b (đứt nét)
+			\draw[dashed, thin, gray!60] (A2) -- (D2);
+			\draw[dashed, thin, gray!60] (C2) -- (D2);
+			\draw[dashed, thin, gray!60] (H2) -- (D2);
+			
+			% Vẽ đường chéo miệng khay b (đường chéo lớn 3n)
+			\draw[dashed, darkgray] (E2) -- (G2);
+			\node[above=3pt] at (8.0, 1.2, 3) {$3n\text{ (cm)}$};
+			
+			% Vẽ đường chéo đáy khay b (đường chéo nhỏ n)
+			\draw[dashed, darkgray] (A2) -- (C2);
+			\node[below=2pt] at (8.0, 1.2, 0) {$n\text{ (cm)}$};
+			
+			% Điểm góc màu xanh khay b
+			\foreach \p in {A2,B2,C2,F2,G2,E2,H2} \fill[blue!70] (\p) circle (2pt);
+			
+			\node[below=1.5cm] at (8.0, 0.9, 0) {\textbf{Hình b}};
+			
+		\end{tikzpicture}
+	\end{center}
+	
+	
+	% === DẠNG 1.3: QUẦN THỂ - Y TẾ - MÔI TRƯỜNG ===
+	
+	\noindent \textbf{Câu 10:} Một bể chứa nguyên liệu của nhà máy sản xuất nước giải khát ban đầu chứa $1500$ lít nước tinh khiết. Người ta bắt đầu bơm vào bể dung dịch đường pha sẵn có nồng độ $40\text{ gam/lít}$ với tốc độ ổn định $30\text{ lít/phút}$. Giả sử nồng độ đường trong bể sau $t$ phút được xác định bởi một hàm số $f(t)$ trên nửa khoảng $[0; +\infty)$ (đơn vị: $\text{gam/lít}$). Khi thời gian $t$ càng lớn ($t \to +\infty$) thì nồng độ đường trong bể tiến dần đến bao nhiêu $\text{gam/lít}$?
+	
+	\vspace{0.5cm}
+	
+	\noindent \textbf{Câu 11:} Một bể cá cảnh sinh thái ban đầu chứa $500$ lít nước sạch. Sau đó, cứ mỗi phút người ta bơm thêm vào bể $25$ lít nước, đồng thời cho vào bể thêm $75\text{ gam}$ muối khoáng chuyên dụng để dưỡng cá (hòa tan hoàn toàn). Đặt $f(t)$ ($\text{gam/lít}$) là nồng độ muối khoáng trong bể sau $t$ phút ($t \ge 0$). Biết rằng sau khi khảo sát sự biến thiên của hàm số $f(t)$, ta thấy giá trị nồng độ $f(t)$ tăng dần theo thời gian $t$ nhưng không bao giờ vượt quá ngưỡng $p\text{ gam/lít}$. Tìm số $p$.
+	
+	\vspace{0.6cm}
+	\noindent \textbf{Câu 12:} Anh Nam bơm nước vào một chiếc thùng nhựa đựng nước có dạng hình chóp cụt với hai đáy là hai hình chữ nhật, các cạnh bên bằng nhau và có kích thước như hình bên dưới, với tốc độ bơm nước vào thùng là $12$ lít/phút. Vận tốc nước dâng lên ở cạnh bên của thùng nhựa (đơn vị: cm/phút) khi chiều cao mực nước đạt $12\text{ cm}$ bằng bao nhiêu? \textit{(Kết quả làm tròn đến hàng phần trăm)}.
+	
+	\begin{center}
+		\begin{tikzpicture}[scale=0.9, font=\small, >=stealth]
+			
+			% --- ĐỊNH NGHĨA TỌA ĐỘ PHỐI CẢNH CHUẨN XÁC THEO BẢN GỐC ---
+			% Đáy lớn phía trên (A, B, C, D) - nét đậm hình học
+			\coordinate (B) at (0, 3.0);      % đỉnh trước-trái
+			\coordinate (C) at (8.0, 3.0);    % đỉnh trước-phải
+			\coordinate (A) at (3.2, 5.0);    % đỉnh sau-trái
+			\coordinate (D) at (11.2, 5.0);   % đỉnh sau-phải
+			
+			% Đáy nhỏ phía dưới (A', B', C', D') - đồng dạng thu nhỏ và dịch xuống dưới
+			\coordinate (B') at (2.2, 0);     % đỉnh trước-trái-dưới
+			\coordinate (C') at (7.5, 0);     % đỉnh trước-phải-dưới
+			\coordinate (A') at (4.1, 1.2);   % đỉnh sau-trái-dưới
+			\coordinate (D') at (9.4, 1.2);   % đỉnh sau-phải-dưới
+			
+			% --- VẼ CÁC ĐƯỜNG KHUẤT NÉT ĐỨT (MÀU XANH/XÁM SẪM) ---
+			\draw[dashed, thin, blue!50!black] (A) -- (A');
+			\draw[dashed, thin, blue!50!black] (B') -- (A');
+			\draw[dashed, thin, blue!50!black] (D') -- (A');
+			
+			% --- VẼ CÁC CẠNH THẤY NÉT LIỀN (XANH DƯƠNG ĐẬM) ---
+			% Viền khung miệng trên (nét đậm)
+			\draw[line width=1.2pt, blue!85!black] (B) -- (A) -- (D) -- (C) -- cycle;
+			% Các cạnh bên
+			\draw[thick, blue!85!black] (B) -- (B');
+			\draw[thick, blue!85!black] (C) -- (C');
+			\draw[thick, blue!85!black] (D) -- (D');
+			% Cạnh đáy dưới
+			\draw[thick, blue!85!black] (B') -- (C') -- (D');
+			
+			% --- ĐÁNH DẤU CÁC ĐỈNH BẰNG ĐIỂM TRÒN (MÀU ĐỎ) ---
+			\foreach \p in {A,B,C,D,A',B',C',D'} {
+				\fill[red] (\p) circle (2pt);
+			}
+			
+			% --- NHÃN TÊN ĐỈNH (ĐỎ - ĐẶT ĐÚNG VỊ TRÍ NHƯ BẢN GỐC) ---
+			\node[right, red] at (A) {$A$};
+			\node[left, red] at (B) {$B$};
+			\node[below right, red] at (C) {$C$};
+			\node[right, red] at (D) {$D$};
+			\node[below, red] at (A') {$A'$};
+			\node[below left, red] at (B') {$B'$};
+			\node[below, red] at (C') {$C'$};
+			\node[below right, red] at (D') {$D'$};
+			
+			% --- ĐƯỜNG DÓNG KÍCH THƯỚC (NÉT ĐỨT CÓ MŨI TÊN HAI ĐẦU) ---
+			% Kích thước 124cm -> đổi thành 76cm (Cạnh AD đáy trên)
+			\draw[<->, dashed, darkgray, thin] ([shift={(0,0.3)}]A) -- ([shift={(0,0.3)}]D) node[midway, above] {$76\text{ cm}$};
+			
+			% Kích thước 88cm -> đổi thành 57cm (Cạnh BA đáy trên)
+			\draw[<->, dashed, darkgray, thin] ([shift={(-0.2,0.3)}]B) -- ([shift={(-0.2,0.3)}]A) node[midway, above left] {$57\text{ cm}$};
+			
+			% Kích thước 66cm -> đổi thành 45cm (Cạnh C'D' đáy dưới)
+			\draw[<->, dashed, darkgray, thin] ([shift={(0.25,-0.25)}]C') -- ([shift={(0.25,-0.25)}]D') node[midway, below right] {$45\text{ cm}$};
+			
+			% --- ĐƯỜNG CHỈ CHIỀU CAO (24cm) TỪ ĐỈNH B THẲNG XUỐNG ---
+			\draw[dashed, blue, thick, ->] (B) -- (0, -0.6);
+			\node[left, blue] at (0, 1.2) {$24\text{ cm}$};
+			
+		\end{tikzpicture}
+	\end{center}
+	
+	
+	\noindent \textbf{Câu 13.} Giả sử số lượng của một quần thể vi khuẩn lactic trong bồn ủ sữa chua tại một nhà máy sữa được mô hình hóa bằng hàm số $P(t) = \frac{a}{b + e^{-0,5t}}$ (triệu tế bào); trong đó $a, b$ là các số thực dương và thời gian $t$ được tính bằng giờ ($t \ge 0$). Tại thời điểm ban đầu $t = 0$, bồn ủ có $50$ triệu tế bào và số lượng vi khuẩn không ngừng tăng lên với tốc độ $15$ triệu tế bào/giờ. Số lượng của quần thể vi khuẩn này tại thời điểm $t = 6$ giờ là bao nhiêu triệu tế bào \textit{(làm tròn kết quả đến hàng đơn vị)}?
+	
+	\vspace{0.6cm}
+	
+	\noindent \textbf{Câu 14.} Giả sử số lượng xe buýt điện hoạt động trong một thành phố từ đầu năm 2025 đến hết năm 2040 được dự báo theo mô hình logistic là hàm số: $P(t) = \frac{100}{1 + 0,4e^{-0,05t}}$ (chiếc), trong đó $t$ là số năm tính từ đầu năm 2025. Chi phí vận hành và bảo dưỡng bình quân cho mỗi xe buýt điện được mô hình hóa bởi hàm số $C(t) = 40 - 25e^{-0,04t}$ (triệu đồng/xe/năm). Tính tốc độ thay đổi của tổng chi phí vận hành toàn bộ đội xe buýt điện của thành phố (triệu đồng/năm) vào đầu năm 2035 \textit{(làm tròn kết quả đến hàng đơn vị)}.
+	
+	\vspace{0.6cm}
+	\noindent \textbf{Câu 15.} Trong khoảng thời gian từ ngày 01/01/2025 đến hết ngày 31/12/2025, một nhóm nghiên cứu đã quan sát sự phát triển của một quần thể sinh vật ôn đới. Kết quả nghiên cứu chỉ ra rằng, tại ngày thứ $t$ của năm 2025 (tính từ ngày 01/01/2025 là $t = 1$) số cá thể của quần thể này được ước lượng bởi hàm số:
+	$$f(t) = -\frac{1}{400}t^3 + bt^2 + ct + 10000 \quad \text{(con)}$$
+	với $1 \le t \le 365$. Biết rằng ngày 28/08/2025 (ngày thứ 240 của năm) là ngày có số lượng cá thể nhiều nhất với $41680$ con. Hỏi vào ngày 15/10/2025, số lượng cá thể của quần thể này được ước lượng khoảng bao nhiêu nghìn con? \textit{(Kết quả làm tròn đến hàng phần chục)}.
+	
+	\vspace{0.6cm}
+	
+	\noindent \textbf{Câu 16.} Để loại bỏ $x\%$ chất gây ô nhiễm môi trường từ khí thải của một nhà máy ($0 \le x < 100$), người ta ước tính chi phí (triệu đồng) cần bỏ ra được mô hình hóa bởi hàm số có dạng $C(x) = \frac{ax+b}{-x+d}$ có đồ thị như hình vẽ bên dưới. Tính chi phí chênh lệch (tỉ đồng) phải bỏ ra để loại bỏ $95\%$ so với khi loại bỏ $85\%$ chất gây ô nhiễm từ khí thải của nhà máy này.
+	
+	\begin{center}
+		\begin{tikzpicture}[x=2.5cm, y=1.2cm, font=\small, >=stealth]
+			% 1. Vẽ trục tọa độ trước
+			\draw[->] (-1.8,0) -- (2.8,0) node[below] {$x$};
+			\draw[->] (0,-4.0) -- (0,4.0) node[right] {$y$};
+			\node[above left] at (0,0) {$O$}; % Đặt ở góc trên-trái để tránh chạm vào đường cong đi qua gốc tọa độ
+			
+			% 2. Tiệm cận đứng x = 100 (tương ứng X = 1.0)
+			\draw[dashed, thin, gray] (1.0,-3.7) -- (1.0,3.7);
+			\node[below right] at (1.0,0) {$100$};
+			
+			% 3. Tiệm cận ngang y = -150 (tương ứng Y = -1.5)
+			\draw[dashed, thin, gray] (-1.7,-1.5) -- (2.7,-1.5);
+			\node[below left] at (0,-1.5) {$-150$};
+			
+			% 4. Dùng scope và clip để vẽ đồ thị dài hơn mà không lo tràn khung hình
+			\begin{scope}
+				% Giới hạn vùng hiển thị đồ thị trong khoảng Y từ [-3.8, 3.8]
+				\clip (-1.7, -3.8) rectangle (2.7, 3.8);
+				
+				% Nhánh 1: kéo sát gần tiệm cận đứng hơn (đến X = 0.83)
+				\draw[line width=1.2pt, blue, smooth, domain=-1.6:0.83, samples=150] plot (\x, {1.5*\x/(1-\x)});
+				
+				% Nhánh 2: xuất phát sát tiệm cận đứng hơn (từ X = 1.17) giúp hiển thị cực kỳ rõ ràng đường cong đi lên
+				\draw[line width=1.2pt, blue, smooth, domain=1.17:2.6, samples=150] plot (\x, {1.5*\x/(1-\x)});
+			\end{scope}
+			
+		\end{tikzpicture}
+	\end{center}
+	
+	\noindent \textbf{Câu 17.} Biết rằng tốc độ lắp ráp linh kiện điện tử trung bình $S$ (tính bằng sản phẩm trên giờ) của một công nhân học việc sau $t$ tuần đào tạo (kể từ khi bắt đầu học việc) được mô hình hóa bởi một trong hai công thức sau:
+	$$S(t) = \frac{at^2 + b}{ct^2 + d} \quad \text{và} \quad S(t) = \frac{at^2 + b}{ct + d} \quad (a, b, c, d \in \mathbb{R}; \, ac \neq 0)$$
+	
+	Anh B (một công nhân mới chưa từng làm công việc này trước đó) sau $2$ tuần đào tạo thì tốc độ lắp ráp trung bình đạt $4$ sản phẩm/giờ, sau $6$ tuần đạt $20$ sản phẩm/giờ. Dựa vào tính thực tế của các mô hình trên (tốc độ lao động của con người luôn có một giới hạn tối đa nhất định khi thời gian học việc kéo dài), em hãy dự đoán xem sau khóa đào tạo kéo dài $12$ tuần thì tốc độ lắp ráp trung bình của anh B là bao nhiêu sản phẩm/giờ?
+
+	\vspace{0.6cm}
+	\noindent \textbf{Câu 18.} Sau khi một loại thuốc gây mê được tiêm vào cơ thể bệnh nhân để chuẩn bị cho ca phẫu thuật, nồng độ của thuốc trong máu sẽ giảm dần theo thời gian do quá trình đào thải và chuyển hóa của cơ thể. Nồng độ thuốc trong máu của bệnh nhân sau $t$ giờ kể từ khi tiêm được mô hình hóa bởi công thức $C(t) = C_0 \cdot e^{-rt}$ (mg/lít). Trong đó:
+	\begin{itemize}
+		\item $C_0$ là nồng độ thuốc trong máu ngay sau khi tiêm.
+		\item $r$ là hằng số dương đo tốc độ phân hủy của thuốc.
+		\item $e \approx 2{,}718$.
+	\end{itemize}
+	
+	Biết rằng ngay sau khi tiêm, nồng độ thuốc trong máu của bệnh nhân đạt $20\text{ mg/lít}$ và sau đó $3$ giờ nồng độ thuốc giảm còn $12\text{ mg/lít}$. Để đảm bảo bệnh nhân duy trì trạng thái mê an toàn trong suốt tiến trình phẫu thuật, bác sĩ sẽ phải tiêm thêm một liều bổ sung khi nồng độ thuốc trong máu giảm xuống và chạm mức tối thiểu là $4{,}32\text{ mg/lít}$. Theo mô hình trên, khoảng thời gian tối đa kể từ khi tiêm liều đầu tiên đến khi phải tiêm liều bổ sung là bao nhiêu giờ?
+	\vspace{0.6cm}
+	
+	\noindent \textbf{Câu 19.} Trong nghiên cứu động hóa học, tốc độ phân hủy của một chất phản ứng trong môi trường dung dịch tuân theo quy luật động học bậc hai. Người ta nhận thấy nồng độ của chất này, kí hiệu là $y(t)$ (đơn vị: mol/lít), tại thời điểm $t$ giờ kể từ khi phản ứng bắt đầu ($t \ge 0$) luôn thỏa mãn $y(t) > 0$ và có tốc độ thay đổi nồng độ tuân theo phương trình vi phân $y'(t) = -k \cdot y^2(t)$, trong đó $k$ là một hằng số dương đặc trưng cho phản ứng.
+	
+	Biết rằng nồng độ của chất phản ứng tại các thời điểm $t = 1$ giờ và $t = 4$ giờ lần lượt đo được là $2\text{ mol/lít}$ và $1\text{ mol/lít}$. Cho biết hệ thức liên hệ nồng độ có dạng $y(t) = \frac{1}{g(t)}$ với mọi $t \ge 0$. Phản ứng hóa học được xem là hoàn thành và đạt ngưỡng an toàn để xử lý tiếp theo khi nồng độ chất phản ứng giảm xuống mức $0{,}12\text{ mol/lít}$ hoặc thấp hơn. Hỏi sau ít nhất bao nhiêu giờ kể từ lúc bắt đầu phản ứng, phản ứng này được xem là hoàn thành?
+
+	\vspace{0.6cm}
+	\noindent \textbf{Câu 20.} Độ cao $h$ tính bằng ki-lô-mét so với mặt nước biển của một thiết bị đo khí tượng trong khí quyển tính theo áp suất không khí $P$ tại điểm đó và áp suất $P_0$ của không khí tại mặt nước biển được cho bởi công thức $h = -18{,}6 \log \frac{P}{P_0}$. Một khí cầu thám không đang bay lơ lửng ở độ cao $12\text{ km}$ thì nhận lệnh hạ độ cao. Khi hạ xuống đến vị trí mới có độ cao $h_1$, áp suất khí quyển bên ngoài khí cầu đo được tăng lên gấp ba lần so với lúc khí cầu đang ở độ cao $12\text{ km}$. Hỏi khí cầu đã hạ xuống một khoảng cách là bao nhiêu ki-lô-mét so với vị trí ban đầu? \textit{(Kết quả làm tròn đến hàng phần chục)}.
+	
+	\vspace{0.6cm}
+	\noindent \textbf{Câu 21.} Đối với ngành sản xuất rau sạch an toàn, việc kiểm soát lượng thuốc bảo vệ thực vật tồn dư trong đất trồng là một nhiệm vụ quan trọng nhằm đáp ứng các tiêu chuẩn xuất khẩu. Khi nghiên cứu tốc độ phân hủy của một loại thuốc trừ sâu mới trong đất, người ta theo dõi nồng độ thuốc tồn dư $y(t)$ (đơn vị: mg/kg) tại thời điểm $t$ ngày kể từ lúc phun, thỏa mãn hệ thức liên hệ $y(t) = e^{g(t)}$ và phương trình vi phân $y'(t) = k \cdot y(t)$ với $t \ge 0$, trong đó $k$ là hằng số khác không. Biết rằng nồng độ thuốc tồn dư trong đất tại các thời điểm $t = 5$ ngày và $t = 10$ ngày đo được lần lượt là $4\text{ mg/kg}$ và $2\text{ mg/kg}$. Nồng độ thuốc tồn dư trong đất tại thời điểm $25$ ngày bằng bao nhiêu $\text{mg/kg}$? \textit{(Kết quả làm tròn đến hàng phần trăm)}.
+	
+	\newpage
+	% ------------------------------------------------
+	% DẠNG 2
+	% ------------------------------------------------
+	% ========================================================
+	% DẠNG 2: BÀI TOÁN MAX - MIN NÂNG CAO
+	% ========================================================
+	\subsection*{Dạng 2: Bài toán max - min nâng cao}
+
+	
+	\noindent \textbf{Bài 1:} Một phân khu bảo tồn động vật hoang dã được quy hoạch trong một khu rừng quốc gia. Trong mô hình minh họa dưới đây, phân khu này được giới hạn bởi hai trục tọa độ và đường ranh giới tự nhiên là một phần của đồ thị $(C)$ của một hàm số bậc ba. Biết rằng đồ thị $(C)$ đi qua các điểm có tọa độ $A(0; 8{,}1)$, $B(2; 4{,}9)$, $K(6; 8{,}1)$ và $H(9; 0)$.
+	
+	Ngay phía ngoài phân khu có một tuyến đường tuần tra thẳng tắp nằm trên đường thẳng $d: y = -1{,}2x + 18$. Để tối ưu hóa công tác quan sát và bảo vệ, ban quản lý muốn xây dựng một chốt kiểm lâm $M$ nằm trên đường ranh giới $(C)$ sao cho khoảng cách từ chốt $M$ đến tuyến đường tuần tra $d$ là ngắn nhất. Hãy tìm hoành độ của điểm $M$ \textit{(làm tròn kết quả đến hàng phần trăm)}.
+	
+	\begin{center}
+		\begin{tikzpicture}[x=0.55cm, y=0.45cm, font=\small, >=stealth]
+			% 1. Tô màu vùng giới hạn (màu vàng cam rực rỡ, không bị đường d đè qua)
+			\fill[yellow!90!orange] (0,0) -- (0,8.1) 
+			-- plot[domain=0:9, smooth, samples=100] (\x, {-0.1*\x^3 + 1.2*\x^2 - 3.6*\x + 8.1}) 
+			-- (9,0) -- cycle;
+			
+			% 2. Vẽ hệ trục tọa độ
+			\draw[->] (-1,0) -- (16.5,0) node[below] {$x$};
+			\draw[->] (0,-1) -- (0,19.5) node[right] {$y$};
+			\node[below left] at (0,0) {$O$};
+			
+			% 3. Vẽ đồ thị (C) của hàm số bậc ba (nằm hoàn toàn dưới đường d)
+			\draw[thick, black, smooth, domain=0:9, samples=150] plot (\x, {-0.1*\x^3 + 1.2*\x^2 - 3.6*\x + 8.1});
+			\node[left] at (8.3, 2.5) {$(C)$};
+			
+			% 4. Vẽ đường thẳng tuần tra d: y = -1.2x + 18 (không giao cắt với vùng màu vàng)
+			\draw[thick, black] (-0.5, 18.6) -- (15.5, -0.6);
+			\node[above right] at (2.5, 15) {$d$};
+			
+			% 5. Đánh dấu các điểm nút quan trọng
+			\fill (0,8.1) circle (2pt) node[above right] {$A$};
+			\fill (2,4.9) circle (2pt) node[below=2pt] {$B$};
+			\fill (6,8.1) circle (2pt) node[above=2pt] {$K$};
+			\fill (9,0) circle (2pt) node[below] {$H$};
+			
+			% 6. Các đường gióng tọa độ nét đứt cực kỳ thoáng, không trùng lặp
+			\draw[dashed, thin] (2,0) node[below] {$2$} -- (2,4.9) -- (0,4.9) node[left] {$4{,}9$};
+			\draw[dashed, thin] (6,0) node[below] {$6$} -- (6,8.1) -- (0,8.1) node[left] {$8{,}1$};
+			
+			% 7. Giao điểm của đường thẳng d trên trục Ox (x = 15)
+			\fill (15,0) circle (1.5pt);
+			\node[below] at (15,0) {$15$};
+			
+		\end{tikzpicture}
+	\end{center}
+	
+	
+	\noindent \textbf{Bài 2:} Một khu triển lãm nghệ thuật ngoài trời được quy hoạch trên một khu đất bằng phẳng. Một phía của khu đất giáp với đại lộ thẳng tắp (trục Ox), phía còn lại giáp với bờ hồ nước uốn cong được mô hình hóa bởi một phần đồ thị của hàm số:
+	$$f(x) = \frac{-x^2 + 10x - 9}{x}$$
+	như hình vẽ bên dưới. Biết đơn vị trên mỗi trục tọa độ tương ứng với $10\text{ mét}$ ngoài thực tế.
+	
+	Trong khu đất này, ban tổ chức muốn dựng một sân khấu ngoài trời hình chữ nhật $ABCD$ với hai đỉnh $A, B$ nằm trên đường ranh giới bờ hồ (đồ thị hàm số $f(x)$) và cạnh đáy $CD$ nằm trên trục hoành (mép đại lộ). Diện tích lớn nhất của sân khấu hình chữ nhật $ABCD$ có thể đạt được là bao nhiêu mét vuông \textit{(làm tròn kết quả đến hàng đơn vị)}?
+	
+	\begin{center}
+		\begin{tikzpicture}[x=0.9cm, y=0.9cm, font=\small, >=stealth]
+			% 1. Vẽ nền hồ nước xanh dương có sọc ngang
+			\fill[cyan!12!white] (0,0) rectangle (10.5,4.8);
+			\foreach \y in {0.2, 0.4, ..., 4.6} {
+				\draw[cyan!30!blue!20, thin] (0,\y) -- (10.5,\y);
+			}
+			\node[blue!80!black] at (5, 4.3) {Hồ nước};
+			
+			% 2. Tô màu vùng đất ranh giới dưới đường cong (màu xanh lá nhạt)
+			\fill[green!20!gray!15!white] (1,0) -- plot[domain=1:9, smooth, samples=100] (\x, {-\x + 10 - 9/\x}) -- (9,0) -- cycle;
+			
+			% 3. Vẽ hình chữ nhật ABCD mẫu (vẽ đè lên đất)
+			\draw[fill=yellow!15!white, thick] (2,0) -- (2,3.5) -- (4.5,3.5) -- (4.5,0) -- cycle;
+			\fill (2,3.5) circle (1.5pt) node[above left] {$A$};
+			\fill (4.5,3.5) circle (1.5pt) node[above right] {$B$};
+			\fill (4.5,0) circle (1.5pt) node[below right] {$C$};
+			\fill (2,0) circle (1.5pt) node[below left] {$D$};
+			
+			% 4. Vẽ trục tọa độ
+			\draw[->] (-0.5,0) -- (11.0,0) node[below] {$x$};
+			\draw[->] (0,-0.5) -- (0,5.2) node[right] {$y$};
+			\node[below left] at (0,0) {$O$};
+			
+			% 5. Vẽ đồ thị ranh giới f(x) = -x + 10 - 9/x
+			\draw[thick, black, smooth, domain=1:9, samples=150] plot (\x, {-\x + 10 - 9/\x});
+			
+			% Đánh dấu các điểm giao với trục Ox
+			\node[below] at (1,0) {$1$};
+			\node[below] at (9,0) {$9$};
+
+		\end{tikzpicture}
+	\end{center}
+	
+	\noindent \textbf{Bài 3:} Một tấm biển quảng cáo ngoài trời hình vuông $ABCD$ có cạnh bằng $6\text{ m}$. Ở chính giữa tấm biển, người ta thiết kế một hoa văn trang trí gồm một hình vuông ở tâm đồng tâm với $ABCD$ và bốn tam giác cân tô màu nổi bật ở các phía (như hình vẽ bên dưới). Biết rằng bốn tam giác này là bốn tam giác cân bằng nhau. Người ta cần sơn màu cho hình vuông ở giữa và bốn tam giác cân này với chi phí cố định là $750$ nghìn đồng trên mỗi mét vuông ($1\text{ m}^2$). Hỏi cần phải chi trả ít nhất bao nhiêu triệu đồng để hoàn thành việc sơn màu cho các phần hoa văn trang trí kể trên?
+	
+	\begin{center}
+		\begin{tikzpicture}[x=0.8cm, y=0.8cm, font=\small, >=stealth]
+			% 1. Tô màu các tam giác cân trước để nằm dưới các nét vẽ đường biên
+			\fill[red!50!orange!70] (2,6) -- (4,6) -- (3,5) -- cycle;      % Tam giác cân trên (Màu đỏ cam)
+			\fill[yellow!80!orange!70] (2,0) -- (4,0) -- (3,1) -- cycle;   % Tam giác cân dưới (Màu vàng sáng)
+			\fill[purple!40!blue!40] (0,2) -- (0,4) -- (1,3) -- cycle;     % Tam giác cân trái (Màu tím lam)
+			\fill[purple!40!blue!30] (6,2) -- (6,4) -- (5,3) -- cycle;     % Tam giác cân phải (Màu tím hồng)
+			
+			% 2. Tô màu hình vuông tâm (Màu cam nhạt)
+			\fill[orange!60!yellow!75] (1,3) -- (3,5) -- (5,3) -- (3,1) -- cycle;
+			
+			% 3. Vẽ các nét ranh giới của dải hoa văn (Nét đen mảnh sắc nét)
+			\draw[thick, black] (0,2) -- (4,6);
+			\draw[thick, black] (0,4) -- (2,6);
+			\draw[thick, black] (4,0) -- (6,2);
+			\draw[thick, black] (2,0) -- (6,4);
+			
+			\draw[thick, black] (0,4) -- (4,0);
+			\draw[thick, black] (0,2) -- (2,0);
+			\draw[thick, black] (2,6) -- (6,2);
+			\draw[thick, black] (4,6) -- (6,4);
+			
+			% 4. Khung vuông ABCD ngoài cùng (Nét xanh dương đậm nổi bật)
+			\draw[line width=1.5pt, blue!60!black] (0,0) rectangle (6,6);
+			
+			% 5. Đánh dấu các đỉnh của hình vuông lớn ABCD
+			\fill (0,6) circle (2.5pt) node[left] {$A$};
+			\fill (6,6) circle (2.5pt) node[right] {$B$};
+			\fill (6,0) circle (2.5pt) node[right] {$C$};
+			\fill (0,0) circle (2.5pt) node[left] {$D$};
+			
+		\end{tikzpicture}
+	\end{center}
+	
+	\noindent \textbf{Bài 4:} Cho một tấm bìa hình vuông có cạnh bằng $4\text{ m}$. Từ tấm bìa này, để làm một mô hình kim tự tháp Ai Cập, người ta cắt bỏ bốn tam giác cân bằng nhau có cạnh đáy là các cạnh của hình vuông ban đầu, rồi gấp lên và ghép các phần còn lại với nhau để tạo thành một hình chóp tứ giác đều (như hình vẽ mô phỏng bên dưới).
+	
+	\begin{center}
+		\begin{tikzpicture}[scale=0.85, font=\small, >=stealth]
+			% 1. Định nghĩa tọa độ các điểm chính của hình vuông lớn ABCD
+			\coordinate (O) at (0,0);
+			\coordinate (A) at (-3,3);
+			\coordinate (B) at (3,3);
+			\coordinate (C) at (3,-3);
+			\coordinate (D) at (-3,-3);
+			
+			% Trung điểm các cạnh hình vuông lớn
+			\coordinate (I) at (0,3);
+			\coordinate (J) at (-3,0);
+			\coordinate (P_bot) at (0,-3);
+			\coordinate (P_right) at (3,0);
+			
+			% Đỉnh của hình vuông cơ sở trong MNPQ
+			\coordinate (M) at (0,1.5);
+			\coordinate (N) at (-1.5,0);
+			\coordinate (P) at (0,-1.5);
+			\coordinate (Q) at (1.5,0);
+			
+			% Giao điểm K của đường chéo AC và cạnh MN
+			% AC: y = -x, MN: y = x + 1.5 -> K(-0.75, 0.75)
+			\coordinate (K) at (-0.75,0.75);
+			
+			% 2. Vẽ hình vuông lớn ngoại tiếp ABCD (Nét liền đen dày dặn)
+			\draw[thick, black] (A) -- (B) -- (C) -- (D) -- cycle;
+			
+			% 3. Vẽ các trục đối xứng đi qua tâm O (Nét đứt mảnh)
+			\draw[dashed, thin, black] (I) -- (P_bot);
+			\draw[dashed, thin, black] (J) -- (P_right);
+			
+			% 4. Vẽ hai đường chéo lớn AC và BD (Nét đứt mảnh)
+			\draw[dashed, thin, black] (A) -- (C);
+			\draw[dashed, thin, black] (B) -- (D);
+			
+			% 5. Vẽ đáy hình chóp MNPQ (Nét đứt màu đen/xanh đậm)
+			\draw[dashed, thick, blue!60!black] (M) -- (N) -- (P) -- (Q) -- cycle;
+			
+			% 6. Vẽ các nếp gấp từ góc đến các đỉnh của hình vuông trong (Nét đứt màu xanh dương)
+			\draw[dashed, thick, blue] (A) -- (M);
+			\draw[dashed, thick, blue] (B) -- (M);
+			\draw[dashed, thick, blue] (B) -- (Q);
+			\draw[dashed, thick, blue] (C) -- (Q);
+			\draw[dashed, thick, blue] (C) -- (P);
+			\draw[dashed, thick, blue] (D) -- (P);
+			\draw[dashed, thick, blue] (D) -- (N);
+			\draw[dashed, thick, blue] (A) -- (N);
+			
+			% 7. Vẽ các điểm tròn đỏ và nhãn tên khớp hoàn toàn với bản gốc
+			\foreach \p/\l/\pos in {A/A/above left, B/B/above right, C/C/below right, D/D/below left, I/I/above, J/J/left, O/O/below right, M/M/above right, N/N/below left, P/P/below, Q/Q/right, K/K/above right} {
+				\fill[red] (\p) circle (2pt);
+				\node[\pos, red] at (\p) {$\l$};
+			}
+			
+			% Các điểm trung điểm phụ (không nhãn nhưng có chấm đỏ)
+			\fill[red] (P_bot) circle (2pt);
+			
+		\end{tikzpicture}
+	\end{center}
+	
+	Thể tích của mô hình chóp tứ giác đều đạt giá trị lớn nhất khi cạnh đáy của mô hình bằng $\frac{a\sqrt{2}}{b}\text{ (m)}$ (với $a, b \in \mathbb{Z}^+$ và $a, b$ là hai số nguyên tố cùng nhau). Tính giá trị của biểu thức $T = a^2 + b^2$.
+	
+	\vspace*{0.6cm}
+	\noindent \textbf{Bài 5:} Một xưởng sản xuất đồ chơi thủ công sử dụng các tấm bìa carton hình lục giác đều có cạnh bằng $120\text{ cm}$ để làm khay đựng đồ chơi có dạng hình lăng trụ lục giác đều không có nắp. Để làm khay này, từ mỗi đỉnh của tấm bìa lục giác đều, người ta cắt bỏ hai tam giác vuông bằng nhau có một cạnh góc vuông nằm trên cạnh của lục giác đều bằng $x\text{ (cm)}$ (phần tô đậm như hình vẽ mô phỏng bên dưới), rồi gập các phần mép chữ nhật lên tạo thành các mặt bên của hình lăng trụ. Tìm $x$ để khay đựng đồ chơi thu được có thể tích lớn nhất.
+	
+	\begin{center}
+		\begin{tikzpicture}[scale=1.1, font=\small, >=stealth]
+			
+			% ================= MÔ HÌNH 1: LỤC GIÁC PHẲNG CẮT GÓC =================
+			\begin{scope}[shift={(0,0)}]
+				% Tọa độ các đỉnh lục giác ngoài
+				\foreach \i in {0,...,5} {
+					\coordinate (P\i) at ({60*\i}:1.8);
+					\coordinate (Q\i) at ({60*\i}:1.15); % đỉnh lục giác trong
+				}
+				
+				% Các điểm cắt trên cạnh biên (pos=0.18 tương đương tỉ lệ x/a)
+				\path (P0) -- (P1) coordinate[pos=0.18] (T01a) coordinate[pos=0.82] (T01b);
+				\path (P1) -- (P2) coordinate[pos=0.18] (T12a) coordinate[pos=0.82] (T12b);
+				\path (P2) -- (P3) coordinate[pos=0.18] (T23a) coordinate[pos=0.82] (T23b);
+				\path (P3) -- (P4) coordinate[pos=0.18] (T34a) coordinate[pos=0.82] (T34b);
+				\path (P4) -- (P5) coordinate[pos=0.18] (T45a) coordinate[pos=0.82] (T45b);
+				\path (P5) -- (P0) coordinate[pos=0.18] (T50a) coordinate[pos=0.82] (T50b);
+				
+				% Tô màu 12 tam giác vuông cắt bỏ ở các góc
+				\foreach \i/\a/\b in {0/50b/01a, 1/01b/12a, 2/12b/23a, 3/23b/34a, 4/34b/45a, 5/45b/50a} {
+					\fill[gray!50!white] (P\i) -- (T\a) -- (Q\i) -- cycle;
+					\fill[gray!50!white] (P\i) -- (T\b) -- (Q\i) -- cycle;
+				}
+				
+				% Vẽ khung lục giác lớn ngoài cùng
+				\draw[thick] (P0) -- (P1) -- (P2) -- (P3) -- (P4) -- (P5) -- cycle;
+				
+				% Vẽ nếp gấp lục giác nhỏ bên trong (nét đứt)
+				\draw[dashed, thin] (Q0) -- (Q1) -- (Q2) -- (Q3) -- (Q4) -- (Q5) -- cycle;
+				
+				% Vẽ các nếp phân chia đáy và thành bên
+				\foreach \i in {0,...,5} {
+					\draw[thin] (0,0) -- (Q\i);
+				}
+				\foreach \i/\a/\b in {0/50b/01a, 1/01b/12a, 2/12b/23a, 3/23b/34a, 4/34b/45a, 5/45b/50a} {
+					\draw[thin] (Q\i) -- (T\a);
+					\draw[thin] (Q\i) -- (T\b);
+				}
+				
+				% Đánh dấu kích thước x ở cạnh đáy dưới (P4-P5 là cạnh nằm ngang đáy)
+				\draw[<->, thin] ([yshift=-3pt]P4) -- ([yshift=-3pt]T45a);
+				\node[below=3pt] at (-0.75, -1.55) {$x$};
+				
+			\end{scope}
+			
+			% MŨI TÊN CHỈ TIẾN TRÌNH 1
+			\draw[->, line width=1.2pt] (2.1,0) -- (2.8,0);
+			
+			% ================= MÔ HÌNH 2: TẤM BÌA SAU KHI CẮT =================
+			\begin{scope}[shift={(4.5,0)}]
+				\foreach \i in {0,...,5} {
+					\coordinate (P\i) at ({60*\i}:1.8);
+					\coordinate (Q\i) at ({60*\i}:1.15);
+				}
+				\path (P0) -- (P1) coordinate[pos=0.18] (T01a) coordinate[pos=0.82] (T01b);
+				\path (P1) -- (P2) coordinate[pos=0.18] (T12a) coordinate[pos=0.82] (T12b);
+				\path (P2) -- (P3) coordinate[pos=0.18] (T23a) coordinate[pos=0.82] (T23b);
+				\path (P3) -- (P4) coordinate[pos=0.18] (T34a) coordinate[pos=0.82] (T34b);
+				\path (P4) -- (P5) coordinate[pos=0.18] (T45a) coordinate[pos=0.82] (T45b);
+				\path (P5) -- (P0) coordinate[pos=0.18] (T50a) coordinate[pos=0.82] (T50b);
+				
+				% Vẽ đường viền tấm bìa hình sao sau khi cắt bỏ các góc
+				\draw[thick] (T50b) -- (Q0) -- (T01a) -- (T01b) -- (Q1) -- (T12a) -- (T12b) -- (Q2) -- (T23a) -- (T23b) -- (Q3) -- (T34a) -- (T34b) -- (Q4) -- (T45a) -- (T45b) -- (Q5) -- (T50a) -- cycle;
+				
+				% Đường nếp gấp bên trong
+				\draw[dashed, thin] (Q0) -- (Q1) -- (Q2) -- (Q3) -- (Q4) -- (Q5) -- cycle;
+				\foreach \i in {0,...,5} {
+					\draw[thin] (0,0) -- (Q\i);
+				}
+			\end{scope}
+			
+			% MŨI TÊN CHỈ TIẾN TRÌNH 2
+			\draw[->, line width=1.2pt] (6.2,0) -- (6.9,0);
+			
+			% ================= MÔ HÌNH 3: KHAY LĂNG TRỤ 3D SAU KHI GẬP =================
+			\begin{scope}[shift={(8.3,-0.3)}]
+				% Các đỉnh đáy dưới (B0 đến B5) - dẹt góc nhìn 3D
+				\coordinate (B0) at (0.9, -0.4);
+				\coordinate (B1) at (0.45, 0.1);
+				\coordinate (B2) at (-0.45, 0.1);
+				\coordinate (B3) at (-0.9, -0.4);
+				\coordinate (B4) at (-0.45, -0.9);
+				\coordinate (B5) at (0.45, -0.9);
+				
+				% Các đỉnh miệng trên (T0 đến T5) - tịnh tiến lên trên theo chiều cao h = 0.9
+				\coordinate (T0) at (0.9, 0.5);
+				\coordinate (T1) at (0.45, 1.0);
+				\coordinate (T2) at (-0.45, 1.0);
+				\coordinate (T3) at (-0.9, 0.5);
+				\coordinate (T4) at (-0.45, 0.0);
+				\coordinate (T5) at (0.45, 0.0);
+				
+				% Vẽ các cạnh thấy (nét liền)
+				\draw[thick] (T0) -- (T1) -- (T2) -- (T3) -- (T4) -- (T5) -- cycle; % Miệng trên
+				\draw[thick] (T3) -- (B3) -- (B4) -- (B5) -- (B0) -- (T0);        % Đáy và góc trước
+				\draw[thick] (T4) -- (B4);
+				\draw[thick] (T5) -- (B5);
+				
+				% Vẽ các cạnh khuất (nét đứt)
+				\draw[dashed] (B3) -- (B2) -- (B1) -- (B0);
+				\draw[dashed] (T2) -- (B2);
+				\draw[dashed] (T1) -- (B1);
+				
+				% Vẽ các đường chéo đáy lăng trụ (đường đứt nét dóng tâm như ảnh gốc)
+				\draw[dashed, thin, gray] (B0) -- (B3);
+				\draw[dashed, thin, gray] (B1) -- (B4);
+				\draw[dashed, thin, gray] (B2) -- (B5);
+				
+			\end{scope}
+			
+		\end{tikzpicture}
+	\end{center}
+	
+	\noindent \textbf{Bài 6:} Anh Nam tham gia một hoạt động thể thao trải nghiệm tại một khu du lịch sinh thái. Sơ đồ khu vực hồ nước được mô tả bởi một hình chữ nhật có chiều dài $30\text{ m}$, chiều rộng $16\text{ m}$ và một vịnh nhỏ hình bán nguyệt có đường kính $CD = 12\text{ m}$ ở phía trên (như hình vẽ mô phỏng bên dưới). 
+	
+	Nam xuất phát từ điểm $A$, chèo thuyền kayak theo đường thẳng đến điểm $C$, rồi chèo tiếp theo đường thẳng đến một vị trí $M$ bất kỳ trên bờ vịnh bán nguyệt. Ngay sau đó, Nam lên bờ và đi bộ dọc theo đường bờ hồ qua điểm $D$ để quay trở lại vị trí $A$ ban đầu nhằm kết thúc hành trình.
+	
+	\begin{center}
+		\begin{tikzpicture}[x=0.38cm, y=0.38cm, font=\small, >=stealth]
+			% 1. Tô màu xanh nước biển cho lòng hồ nước và vịnh bán nguyệt
+			\fill[cyan!15!white] (0,0) -- (0,5.33) 
+			arc[start angle=180, end angle=0, radius=2] 
+			-- (10,5.33) -- (10,0) -- cycle;
+			
+			% 2. Vẽ đường viền hồ nước (Nét liền đen dày dặn)
+			\draw[thick, black] (0,0) -- (0,5.33);
+			\draw[thick, black] (0,5.33) arc[start angle=180, end angle=0, radius=2];
+			\draw[thick, black] (4,5.33) -- (10,5.33) -- (10,0) -- (0,0);
+			
+			% 3. Vẽ các đường nét đứt biểu diễn hành trình chèo thuyền (AC và CM)
+			\draw[dashed, thick, gray!80!black] (10,0) -- (0,5.33);
+			\draw[dashed, thick, gray!80!black] (0,5.33) -- (1,7.06);
+			
+			% 4. Đánh dấu các điểm nút và nhãn tương tự bản gốc
+			\fill (10,0) circle (2pt) node[below right] {$A$};
+			\fill (0,5.33) circle (2pt) node[left] {$C$};
+			\fill (4,5.33) circle (2pt) node[right] {$D$};
+			\fill (1,7.06) circle (2pt) node[above] {$M$};
+			
+			% 5. Chỉ dẫn kích thước (mũi tên hai đầu)
+			% Kích thước chiều dài đáy 30m
+			\draw[<->] (0,-1) -- (10,-1) node[midway, fill=white] {$30\text{ m}$};
+			
+			% Kích thước chiều rộng phải 16m
+			\draw[<->] (11,0) -- (11,5.33) node[midway, right] {$16\text{ m}$};
+			
+			% Kích thước đường kính vịnh 12m
+			\draw[<->] (0,6) -- (4,6) node[midway, above] {$12\text{ m}$};
+			
+		\end{tikzpicture}
+	\end{center}
+	
+	Biết rằng vận tốc chèo thuyền kayak của Nam là $3{,}6\text{ km/h}$, vận tốc đi bộ dọc bờ hồ là $5{,}4\text{ km/h}$ và các vận tốc này không đổi suốt hành trình. Hỏi thời gian chậm nhất để Nam hoàn thành hành trình dã ngoại kể trên là bao nhiêu phút \textit{(kết quả làm tròn đến hàng phần chục)}?
+	
+	\vspace*{0.6cm}
+	\noindent \textbf{Bài 7:} Bạn Minh dùng một miếng bìa hình vuông $ABCD$ cạnh bằng $32\text{ cm}$ và cắt theo các đường nét đứt (như hình vẽ mô phỏng bên dưới) để làm một chiếc đèn lồng trang trí gồm ba phần: Phần thân của đèn là một hình lăng trụ tứ giác đều, hai đầu của chiếc đèn là hai hình chóp tứ giác đều bằng nhau. Biết $AH = KD$, thể tích lớn nhất của chiếc đèn lồng này bằng bao nhiêu $\text{cm}^3$? \textit{(Không làm tròn kết quả của các phép tính trung gian, chỉ làm tròn kết quả cuối cùng đến hàng đơn vị)}.
+	
+	\begin{center}
+		\begin{tikzpicture}[scale=1.0, font=\small, >=stealth]
+			
+			% ================= PHẦN 1: BẢN VẼ PHẲNG (TRÁI) =================
+			\begin{scope}[shift={(0,0)}]
+				% Tô màu các tam giác màu vàng (Phần cánh chóp)
+				\foreach \x in {0, 1, 2, 3} {
+					\fill[yellow!80!orange!80] (\x,3) -- ({\x+1},3) -- ({\x+0.5},4) -- cycle;
+					\fill[yellow!80!orange!80] (\x,1) -- ({\x+1},1) -- ({\x+0.5},0) -- cycle;
+				}
+				
+				% Khung hình vuông ABCD ngoài cùng
+				\draw[thick, teal] (0,0) rectangle (4,4);
+				
+				% Các đường kẻ ngang ranh giới H và K
+				\draw[thick, teal] (0,3) -- (4,3);
+				\draw[thick, teal] (0,1) -- (4,1);
+				
+				% Các đường thẳng đứng (nét đứt chia thành 4 cột bằng nhau)
+				\draw[dashed, thin, teal] (1,0) -- (1,4);
+				\draw[dashed, thin, teal] (2,0) -- (2,4);
+				\draw[dashed, thin, teal] (3,0) -- (3,4);
+				
+				% Vẽ viền cho các tam giác cân nổi bật
+				\foreach \x in {0, 1, 2, 3} {
+					\draw[thick, teal] (\x,3) -- ({\x+0.5},4) -- ({\x+1},3);
+					\draw[thick, teal] (\x,1) -- ({\x+0.5},0) -- ({\x+1},1);
+				}
+				
+				% Đánh dấu các đỉnh ranh giới phẳng
+				\node[above left, teal] at (0,4) {$A$};
+				\node[above right, teal] at (4,4) {$B$};
+				\node[below right, teal] at (4,0) {$C$};
+				\node[below left, teal] at (0,0) {$D$};
+				
+				\node[left, teal] at (0,3) {$H$};
+				\node[left, teal] at (0,1) {$K$};
+				
+				% Nhãn kích thước biến x
+				\node[left] at (0,3.5) {$x$};
+				\node[left] at (0,0.5) {$x$};
+				
+			\end{scope}
+			
+			% ================= PHẦN 2: ĐÈN LỒNG PHỐI CẢNH 3D (PHẢI) =================
+			\begin{scope}[shift={(6.5,1.5)}]
+				% Định nghĩa tọa độ các đỉnh của lăng trụ và chóp
+				\coordinate (Abot) at (0.4, 0.4);   % Đáy sau-trái
+				\coordinate (Bbot) at (1.3, 0.4);   % Đáy sau-phải
+				\coordinate (Cbot) at (0.9, -0.3);  % Đáy trước-phải
+				\coordinate (Dbot) at (0.0, -0.3);  % Đáy trước-trái
+				
+				\coordinate (Atop) at (0.4, 1.9);   % Miệng sau-trái
+				\coordinate (Btop) at (1.3, 1.9);   % Miệng sau-phải
+				\coordinate (Ctop) at (0.9, 1.2);   % Miệng trước-phải
+				\coordinate (Dtop) at (0.0, 1.2);   % Miệng trước-trái
+				
+				\coordinate (Stop) at (0.65, 2.7);  % Đỉnh chóp trên
+				\coordinate (Sbot) at (0.65, -1.1); % Đỉnh chóp dưới
+				
+				% Vẽ các nét khuất phía sau (nét đứt)
+				\draw[dashed, thick, teal] (Abot) -- (Bbot);
+				\draw[dashed, thick, teal] (Abot) -- (Dbot);
+				\draw[dashed, thick, teal] (Atop) -- (Btop);
+				\draw[dashed, thick, teal] (Atop) -- (Dtop);
+				\draw[dashed, thick, teal] (Abot) -- (Atop);
+				
+				\draw[dashed, thick, teal] (Stop) -- (Atop);
+				\draw[dashed, thick, teal] (Sbot) -- (Abot);
+				
+				% Trục thẳng đứng trung tâm nối hai đỉnh chóp (nét đứt xám)
+				\draw[dashed, thick, gray] (Sbot) -- (Stop);
+				
+				% Vẽ các nét thấy phía trước (nét liền)
+				\draw[thick, teal] (Dbot) -- (Cbot) -- (Bbot);
+				\draw[thick, teal] (Dtop) -- (Ctop) -- (Btop);
+				\draw[thick, teal] (Dbot) -- (Dtop);
+				\draw[thick, teal] (Cbot) -- (Ctop);
+				\draw[thick, teal] (Bbot) -- (Btop);
+				
+				% Các cạnh chóp phía trên
+				\draw[thick, teal] (Stop) -- (Dtop);
+				\draw[thick, teal] (Stop) -- (Ctop);
+				\draw[thick, teal] (Stop) -- (Btop);
+				
+				% Các cạnh chóp phía dưới
+				\draw[thick, teal] (Sbot) -- (Dbot);
+				\draw[thick, teal] (Sbot) -- (Cbot);
+				\draw[thick, teal] (Sbot) -- (Bbot);
+				
+			\end{scope}
+			
+		\end{tikzpicture}
+	\end{center}
+	
+	
+	\noindent \textbf{Bài 8:} Bạn Xuân Anh có một tờ giấy cứng hình chữ nhật $ABCD$ với kích thước $AB = 6\text{ dm}, \, AD = 3\text{ dm}$. Bạn chọn một điểm $M$ thuộc cạnh $BC$ rồi dùng thước kẻ vạch và cắt tờ giấy theo đường thẳng $AM$ để chia tờ giấy thành hai phần:
+	\begin{itemize}
+		\item \textbf{Phần mảnh giấy chứa cạnh $CD$}: Bạn muốn cắt một hình vuông có một đỉnh là $D$, hai cạnh nằm trên hai đường thẳng $DA$ và $DC$, đỉnh đối diện còn lại của hình vuông này nằm trên đường cắt $AM$.
+		\item \textbf{Phần mảnh giấy chứa cạnh $AB$}: Bạn muốn cắt một hình tròn sao cho hình tròn tiếp xúc với cả ba cạnh của tam giác $ABM$ (hình tròn nội tiếp tam giác $ABM$).
+	\end{itemize}
+	Gọi $S$ là tổng diện tích của hình vuông và hình tròn cắt được kể trên (phần tô đậm trong hình vẽ mô phỏng bên dưới). Hỏi khi $M$ di động trên cạnh $BC$, giá trị nhỏ nhất của $S$ bằng bao nhiêu đề-xi-mét vuông \textit{(làm tròn kết quả đến hàng phần trăm)}?
+	
+	\begin{center}
+		\begin{tikzpicture}[x=1.3cm, y=1.3cm, font=\small, >=stealth]
+			
+			% --- 1. TÔ MÀU PHẦN DIỆN TÍCH S (Hình vuông và Hình tròn) ---
+			% Tô màu hình vuông ở góc D (Cạnh s = 18 / 7.8 = 2.3)
+			\fill[blue!15!gray!25!white] (0,3) -- (2.3,3) -- (2.3,0.7) -- (0,0.7) -- cycle;
+			
+			% Tô màu hình tròn nội tiếp tam giác ABM (Tâm I(5.232, 0.768), bán kính r = 0.768)
+			\fill[blue!15!gray!25!white] (5.232, 0.768) circle (0.768);
+			
+			% --- 2. VẼ ĐƯỜNG CẮT AM VÀ CÁC ĐƯỜNG RẠNH GIỚI CHẤT LIỆU ---
+			% Vẽ nét đường cắt AM (M cách B một đoạn y = 1.8)
+			\draw[thick, black] (0,0) -- (6,1.8);
+			
+			% Vẽ ranh giới hình vuông góc D
+			\draw[thick, black] (2.3,3) -- (2.3,0.7) -- (0,0.7);
+			
+			% Vẽ ranh giới hình tròn nội tiếp
+			\draw[thick, black] (5.232, 0.768) circle (0.768);
+			
+			% --- 3. VẼ KHUNG HÌNH CHỮ NHẬT NGOÀI CÙNG ABCD ---
+			\draw[line width=1.0pt, black] (0,0) rectangle (6,3);
+			
+			% --- 4. ĐÁNH DẤU CÁC ĐỈNH VÀ NHÃN ---
+			\fill (0,0) circle (1.5pt) node[below left] {$A$};
+			\fill (6,0) circle (1.5pt) node[below right] {$B$};
+			\fill (6,3) circle (1.5pt) node[above right] {$C$};
+			\fill (0,3) circle (1.5pt) node[above left] {$D$};
+			\fill (6,1.8) circle (1.5pt) node[right] {$M$};
+			
+			% Ghi chú kích thước chiều rộng AD = 3
+			\draw[<->, thin] (-0.3,0) -- (-0.3,3) node[midway, left] {$16\text{ m}$}; 
+			% LƯU Ý: Ở đây mô phỏng kích thước thực tế là 16m tương đương tỉ lệ y, 
+			% nhưng để thống nhất đề bài 32cm, ta ghi nhãn trực tiếp bằng số m thực tế:
+			\node[left=3pt] at (0,2.0) {$16\text{ m}$};
+			\draw[dashed, gray!60] (0,0) -- (-0.5,0);
+			\draw[dashed, gray!60] (0,3) -- (-0.5,3);
+			\draw[<->] (-0.4,0) -- (-0.4,3) node[midway, left] {$16$}; % dóng chiều rộng 16
+			
+			% Ghi chú kích thước chiều dài đáy AB = 32
+			\draw[dashed, gray!60] (0,0) -- (0,-0.5);
+			\draw[dashed, gray!60] (6,0) -- (6,-0.5);
+			\draw[<->] (0,-0.4) -- (6,-0.4) node[midway, below] {$32$}; % dóng chiều dài 32
+			
+		\end{tikzpicture}
+	\end{center}
+	
+	\vspace*{0.6cm}
+	\noindent \textbf{Bài 9:} Ông Bình sở hữu một khu đất hình thang vuông $ABCD$ vuông tại $A$ và $D$, với kích thước $AB = 80\text{ m}, \, DC = 50\text{ m}$ và $AD = 30\text{ m}$. Ông đã quy hoạch một ao trồng sen nuôi cá ở phía dưới, ao được bao bởi cạnh đáy $AB$ và một đường cong $(H)$ chứa các điểm $K$ sao cho tích khoảng cách từ $K$ đến hai cạnh $AD, BC$ luôn bằng $400\sqrt{2}\text{ m}$. Ông Bình xây thêm một nhà kính trồng hoa công nghệ cao ở góc phía trên được tạo bởi hai cạnh $AD, DC$ và đường cong Parabol $(P)$ có đỉnh $A$. Biết phần đất xây nhà kính trồng hoa này có diện tích bằng $S = 300\text{ m}^2$. Để thuận tiện cho việc chăm sóc, ông muốn làm một con đường thẳng đi từ nhà kính trồng hoa đến ao sen nuôi cá. Hãy tính độ dài ngắn nhất của con đường này? \textit{(Đơn vị: mét, làm tròn kết quả đến hàng phần trăm)}.
+	
+	\begin{center}
+		\begin{tikzpicture}[x=0.9cm, y=0.9cm, font=\small, >=stealth]
+			
+			% --- 1. TÔ MÀU CÁC PHÂN KHU (Ao cá và Nhà kính S) ---
+			% Tô màu ao cá (Vùng giới hạn bởi Ox và đường cong H)
+			% Nghiệm của -x + 8 - 8/x = 0 là x = 4 \pm 2\sqrt{2} -> x1 \approx 1.17, x2 \approx 6.83
+			\fill[orange!20!white] (1.17, 0) -- plot[domain=1.17:6.83, smooth, samples=100] (\x, {-\x + 8 - 8/\x}) -- cycle;
+			
+			% Tô màu nhà kính trồng hoa S (Giới hạn bởi AD, DC và Parabol P: y = 4/3 * x^2)
+			\fill[gray!20!white] (0,0) -- (0,3) -- (1.5,3) -- plot[domain=1.5:0, smooth] (\x, {4/3*\x^2}) -- cycle;
+			
+			% --- 2. VẼ ĐƯỜNG CONG RANH GIỚI ---
+			% Đường cong ao cá (H): y = -x + 8 - 8/x
+			\draw[thick, red!80!black, smooth, domain=1.17:6.83, samples=120] plot (\x, {-\x + 8 - 8/\x});
+			\node[above] at (3.5, 2.1) {};
+			
+			% Đường parabol (P): y = 4/3 * x^2
+			\draw[thick, black, smooth, domain=0:1.5] plot (\x, {4/3*\x^2});
+			\node[right] at (1.5, 2.2) {};
+			
+			% --- 3. VẼ KHUNG HÌNH THANG VUÔNG ABCD ---
+			\draw[line width=1.2pt, purple!75!black] (0,0) -- (8,0) -- (5,3) -- (0,3) -- cycle;
+			
+			% --- 4. ĐÁNH DẤU CÁC ĐỈNH VÀ GHI CHÚ ---
+			\fill (0,0) circle (1.5pt) node[below left] {$A$};
+			\fill (8,0) circle (1.5pt) node[below right] {$B$};
+			\fill (5,3) circle (1.5pt) node[above right] {$C$};
+			\fill (0,3) circle (1.5pt) node[above left] {$D$};
+			
+			\node at (3.6, 0.8) {\textbf{Ao cá}};
+			\node at (0.5, 2.0) {\large \textbf{$S$}};
+			
+		\end{tikzpicture}
+	\end{center}
+	
+	
+	\noindent \textbf{Bài 10:} Tại sảnh của một khách sạn, người ta trang trí một cột trụ hình hộp chữ nhật $ABCD.A'B'C'D'$ có đáy là hình vuông cạnh $25\text{ cm}$ và chiều cao $100\text{ cm}$. Mặt $A'B'C'D'$ là mặt đáy đặt trên sàn, còn $ABCD$ là mặt phía trên trần.
+	
+	\begin{center}
+		\begin{tikzpicture}[scale=1.2, font=\small, >=stealth]
+			
+			% --- TỌA ĐỘ CÁC ĐỈNH HÌNH HỘP CHỮ NHẬT ---
+			% Đáy dưới A'B'C'D'
+			\coordinate (Aprime) at (0, 0);       % Trước - trái
+			\coordinate (Bprime) at (2.5, -0.4);  % Trước - phải
+			\coordinate (Cprime) at (4.0, 0.2);   % Sau - phải
+			\coordinate (Dprime) at (1.5, 0.6);   % Sau - trái (khuất)
+			
+			% Đáy trên ABCD
+			\coordinate (A) at (0, 4.5);
+			\coordinate (B) at (2.5, 4.1);
+			\coordinate (C) at (4.0, 4.7);
+			\coordinate (D) at (1.5, 5.1);
+			
+			% --- TÔ MÀU CÁC MẶT BÊN THẤY ---
+			\fill[orange!12!white] (Aprime) -- (Bprime) -- (B) -- (A) -- cycle;
+			\fill[orange!18!white] (Bprime) -- (Cprime) -- (C) -- (B) -- cycle;
+			
+			% --- ĐỊNH NGHĨA CÁC ĐIỂM CHẠM TRÊN CẠNH BÊN ---
+			% Điểm E1 trên BB' (cách B' khoảng 20cm -> tương ứng 0.9 đơn vị TikZ)
+			\coordinate (E1) at (2.5, 0.5);
+			% Điểm F1 trên CC' (cách C' khoảng 28.8cm -> tương ứng 1.3 đơn vị TikZ)
+			\coordinate (F1) at (4.0, 1.5);
+			% Điểm E2 trên BB' (cách B' khoảng 41.6cm -> tương ứng 1.87 đơn vị TikZ)
+			\coordinate (E2) at (2.5, 1.47);
+			% Điểm F2 trên CC' (cách C' khoảng 54.4cm -> tương ứng 2.45 đơn vị TikZ)
+			\coordinate (F2) at (4.0, 2.65);
+			% Điểm G trên DD' (cách D' khoảng 67.2cm -> tương ứng 3.0 đơn vị TikZ)
+			\coordinate (G) at (1.5, 3.6);
+			
+			% --- VẼ CẠNH KHUẤT VÀ ĐƯỜNG ĐI ẨN (NÉT ĐỨT) ---
+			\draw[dashed, thin, gray] (Dprime) -- (Aprime);
+			\draw[dashed, thin, gray] (Dprime) -- (Cprime);
+			\draw[dashed, thin, gray] (D) -- (Dprime);
+			
+			% Đường đi khuất của dải LED ở mặt sau và mặt bên trái
+			\draw[dashed, line width=1.0pt, red!80!black] (F2) -- (G) -- (A);
+			
+			% --- VẼ CÁC ĐƯỜNG THẤY (NÉT LIỀN) ---
+			\draw[thick, black] (A) -- (B) -- (C) -- (D) -- cycle; % Miệng trên
+			\draw[thick, black] (Aprime) -- (Bprime) -- (Cprime);   % Đáy thấy dưới
+			\draw[thick, black] (A) -- (Aprime);                    % Cạnh bên trái ngoài cùng
+			\draw[thick, black] (B) -- (Bprime);                    % Cạnh dọc trước
+			\draw[thick, black] (C) -- (Cprime);                    % Cạnh bên phải ngoài cùng
+			
+			% Đường đi thấy của dải LED ở mặt trước và mặt bên phải
+			\draw[line width=1.2pt, red!80!black] (Aprime) -- (E1) -- (F1) -- (E2) -- (F2);
+			
+			% --- CHỈ DẪN KÍCH THƯỚC ---
+			% Kích thước 80cm -> 100cm (chiều cao cột)
+			\draw[<->] (-0.3, 0) -- (-0.3, 4.5) node[midway, left] {$100\text{ cm}$};
+			
+			% Kích thước 20cm -> 25cm (cạnh đáy)
+			\draw[<->] (0, -0.6) -- (2.5, -1.0) node[midway, below, sloped] {$25\text{ cm}$};
+			
+		\end{tikzpicture}
+	\end{center}
+	
+	Người ta muốn quấn một dải đèn LED trang trí siêu mỏng chạy liên tục trên bề mặt xung quanh của cột trụ, bắt đầu từ chân cột tại điểm $A'$ và kết thúc tại đỉnh cột tại điểm $A$. Đường đi của dải đèn là một đường gấp khúc liên tục, nằm hoàn toàn trên bốn mặt bên của cột (không đi trên hai mặt đáy), không trùng với các cạnh dọc của cột và lần lượt cắt các cạnh dọc theo đúng thứ tự: $BB'$, $CC'$, $BB'$, $CC'$, $DD'$. 
+	
+	Biết rằng dải đèn LED đi qua cạnh $BB'$ tại các điểm cách sàn một khoảng không nhỏ hơn $20\text{ cm}$ và đi qua cạnh $CC'$ tại các điểm cách trần một khoảng không lớn hơn $20\text{ cm}$. Tính độ dài ngắn nhất có thể của dải đèn LED này? \textit{(Kết quả làm tròn đến hàng đơn vị, đơn vị đo là cm)}.
+	
+	\vspace*{0.6cm}
+	
+	\noindent \textbf{Bài 11:} Một xưởng sản xuất đồ chơi thủ công sử dụng các tấm bìa carton hình lục giác đều có cạnh bằng $120\text{ cm}$ để làm khay đựng đồ chơi có dạng hình lăng trụ lục giác đều không có nắp. Để làm khay này, từ mỗi đỉnh của tấm bìa lục giác đều, người ta cắt bỏ hai tam giác vuông bằng nhau có một cạnh góc vuông nằm trên cạnh của lục giác đều bằng $x\text{ (cm)}$ (phần tô đậm như hình vẽ mô phỏng bên dưới), rồi gập các phần mép chữ nhật lên tạo thành các mặt bên của hình lăng trụ. Tìm $x$ để khay đựng đồ chơi thu được có thể tích lớn nhất.
+	
+	\begin{center}
+		\begin{tikzpicture}[scale=1.1, font=\small, >=stealth]
+			
+			% MÔ HÌNH 1: LỤC GIÁC PHẲNG CẮT GÓC
+			\begin{scope}[shift={(0,0)}]
+				\foreach \i in {0,...,5} {
+					\coordinate (P\i) at ({60*\i}:1.8);
+					\coordinate (Q\i) at ({60*\i}:1.15); 
+				}
+				
+				\path (P0) -- (P1) coordinate[pos=0.18] (T01a) coordinate[pos=0.82] (T01b);
+				\path (P1) -- (P2) coordinate[pos=0.18] (T12a) coordinate[pos=0.82] (T12b);
+				\path (P2) -- (P3) coordinate[pos=0.18] (T23a) coordinate[pos=0.82] (T23b);
+				\path (P3) -- (P4) coordinate[pos=0.18] (T34a) coordinate[pos=0.82] (T34b);
+				\path (P4) -- (P5) coordinate[pos=0.18] (T45a) coordinate[pos=0.82] (T45b);
+				\path (P5) -- (P0) coordinate[pos=0.18] (T50a) coordinate[pos=0.82] (T50b);
+				
+				\foreach \i/\a/\b in {0/50b/01a, 1/01b/12a, 2/12b/23a, 3/23b/34a, 4/34b/45a, 5/45b/50a} {
+					\fill[gray!50!white] (P\i) -- (T\a) -- (Q\i) -- cycle;
+					\fill[gray!50!white] (P\i) -- (T\b) -- (Q\i) -- cycle;
+				}
+				
+				\draw[thick] (P0) -- (P1) -- (P2) -- (P3) -- (P4) -- (P5) -- cycle;
+				\draw[dashed, thin] (Q0) -- (Q1) -- (Q2) -- (Q3) -- (Q4) -- (Q5) -- cycle;
+				
+				\foreach \i in {0,...,5} {
+					\draw[thin] (0,0) -- (Q\i);
+				}
+				\foreach \i/\a/\b in {0/50b/01a, 1/01b/12a, 2/12b/23a, 3/23b/34a, 4/34b/45a, 5/45b/50a} {
+					\draw[thin] (Q\i) -- (T\a);
+					\draw[thin] (Q\i) -- (T\b);
+				}
+				
+				\draw[<->, thin] ([yshift=-3pt]P4) -- ([yshift=-3pt]T45a);
+				\node[below=3pt] at (-0.75, -1.55) {$x$};
+			\end{scope}
+			
+			% MŨI TÊN CHỈ TIẾN TRÌNH 1
+			\draw[->, line width=1.2pt] (2.1,0) -- (2.8,0);
+			
+			% MÔ HÌNH 2: TẤM BÌA SAU KHI CẮT
+			\begin{scope}[shift={(4.5,0)}]
+				\foreach \i in {0,...,5} {
+					\coordinate (P\i) at ({60*\i}:1.8);
+					\coordinate (Q\i) at ({60*\i}:1.15);
+				}
+				\path (P0) -- (P1) coordinate[pos=0.18] (T01a) coordinate[pos=0.82] (T01b);
+				\path (P1) -- (P2) coordinate[pos=0.18] (T12a) coordinate[pos=0.82] (T12b);
+				\path (P2) -- (P3) coordinate[pos=0.18] (T23a) coordinate[pos=0.82] (T23b);
+				\path (P3) -- (P4) coordinate[pos=0.18] (T34a) coordinate[pos=0.82] (T34b);
+				\path (P4) -- (P5) coordinate[pos=0.18] (T45a) coordinate[pos=0.82] (T45b);
+				\path (P5) -- (P0) coordinate[pos=0.18] (T50a) coordinate[pos=0.82] (T50b);
+				
+				\draw[thick] (T50b) -- (Q0) -- (T01a) -- (T01b) -- (Q1) -- (T12a) -- (T12b) -- (Q2) -- (T23a) -- (T23b) -- (Q3) -- (T34a) -- (T34b) -- (Q4) -- (T45a) -- (T45b) -- (Q5) -- (T50a) -- cycle;
+				\draw[dashed, thin] (Q0) -- (Q1) -- (Q2) -- (Q3) -- (Q4) -- (Q5) -- cycle;
+				\foreach \i in {0,...,5} {
+					\draw[thin] (0,0) -- (Q\i);
+				}
+			\end{scope}
+			
+			% MŨI TÊN CHỈ TIẾN TRÌNH 2
+			\draw[->, line width=1.2pt] (6.2,0) -- (6.9,0);
+			
+			% MÔ HÌNH 3: KHAY LĂNG TRỤ 3D SAU KHI GẬP
+			\begin{scope}[shift={(8.3,-0.3)}]
+				\coordinate (B0) at (0.9, -0.4);
+				\coordinate (B1) at (0.45, 0.1);
+				\coordinate (B2) at (-0.45, 0.1);
+				\coordinate (B3) at (-0.9, -0.4);
+				\coordinate (B4) at (-0.45, -0.9);
+				\coordinate (B5) at (0.45, -0.9);
+				
+				\coordinate (T0) at (0.9, 0.5);
+				\coordinate (T1) at (0.45, 1.0);
+				\coordinate (T2) at (-0.45, 1.0);
+				\coordinate (T3) at (-0.9, 0.5);
+				\coordinate (T4) at (-0.45, 0.0);
+				\coordinate (T5) at (0.45, 0.0);
+				
+				\draw[thick] (T0) -- (T1) -- (T2) -- (T3) -- (T4) -- (T5) -- cycle;
+				\draw[thick] (T3) -- (B3) -- (B4) -- (B5) -- (B0) -- (T0); 
+				\draw[thick] (T4) -- (B4);
+				\draw[thick] (T5) -- (B5);
+				
+				\draw[dashed] (B3) -- (B2) -- (B1) -- (B0);
+				\draw[dashed] (T2) -- (B2);
+				\draw[dashed] (T1) -- (B1);
+				\draw[dashed, thin, gray] (B0) -- (B3);
+				\draw[dashed, thin, gray] (B1) -- (B4);
+				\draw[dashed, thin, gray] (B2) -- (B5);
+			\end{scope}
+			
+		\end{tikzpicture}
+	\end{center}
+	
+	\vspace{0.6cm}
+	
+	\noindent \textbf{Bài 12:} Một doanh nghiệp cơ khí chuyên chế tạo và cung ứng linh kiện máy nông nghiệp $S$ cho một nhà phân phối. Hai bên ký thỏa thuận hợp đồng dài hạn: nếu đầu tháng nhà phân phối đặt hàng $x\text{ (tấn)}$ sản phẩm $S$ thì giá bán mỗi tấn sản phẩm là $P(x) = 42 - 0{,}01x^2\text{ (triệu đồng)}$ ($x \le 50$). Biết tổng chi phí mà doanh nghiệp cơ khí phải bỏ ra để sản xuất $x$ tấn sản phẩm trong một tháng được mô hình hóa bởi hàm số $C(x) = 50 + 12x\text{ (triệu đồng)}$, đồng thời mỗi tấn sản phẩm bán ra doanh nghiệp phải nộp thuế bảo vệ môi trường cho Nhà nước là $3\text{ triệu đồng}$. Hỏi trong một tháng, nhà phân phối cần đặt hàng bao nhiêu tấn sản phẩm $S$ để doanh nghiệp đạt được tổng lợi nhuận lớn nhất?
+	
+	\vspace{0.6cm}
+	
+	\noindent \textbf{Bài 13:} Một công ty dược phẩm độc quyền sản xuất một loại vắc-xin thế hệ mới. Giả sử khi sản xuất và bán hết $x$ liều vắc-xin ($0 < x < 400$), tổng doanh thu công ty thu được là $F(x) = 600x - x^2\text{ (nghìn đồng)}$ và tổng chi phí sản xuất cố định và biến đổi bỏ ra là $G(x) = x^2 + 200x + 50\text{ (nghìn đồng)}$. Để tăng ngân sách y tế dự phòng, Nhà nước áp dụng mức thuế phụ thu cho mỗi liều vắc-xin bán ra là $t\text{ (nghìn đồng)}$ ($0 < t < 400$). Hỏi mức thuế $t$ trên mỗi liều vắc-xin bằng bao nhiêu nghìn đồng để tổng số tiền thuế Nhà nước thu về đạt giá trị lớn nhất, biết rằng công ty luôn chủ động điều chỉnh sản lượng sản xuất $x$ để tối đa hóa lợi nhuận của mình tương ứng với từng mức thuế đó?
+	\vspace{0.6cm}
+	
+	\noindent \textbf{Bài 14:} Một công ty logistic cần vận chuyển một lô hàng lớn bằng đường bộ đến một đại lý cách kho tổng $120\text{ km}$. Chi phí cho mỗi chuyến xe bao gồm chi phí nhiên liệu và tiền công trả cho tài xế. Khi xe tải di chuyển với vận tốc trung bình $v\text{ (km/h)}$ ($40 \le v \le 80$), chi phí nhiên liệu (tính bằng nghìn đồng) trên mỗi ki-lô-mét đường được tính theo công thức: 
+	$$C(v) = \frac{1}{10}\left(\frac{1200}{v} + 0{,}75v\right)$$
+	Ngoài ra, tiền công thuê tài xế là $150$ nghìn đồng cho mỗi giờ lái xe thực tế. Hỏi để tổng chi phí cho chuyến vận chuyển lô hàng này là nhỏ nhất thì tài xế nên di chuyển với vận tốc trung bình bằng bao nhiêu ki-lô-mét trên giờ?
+	
+	\vspace{0.6cm}
+	
+	\noindent \textbf{Bài 15:} Một trung tâm điện toán đám mây cần xử lý kết xuất đồ họa (render) khối lượng công việc gồm $24000$ khung hình video chất lượng cao trong thời gian giới hạn tối đa là $12$ giờ. Hệ thống kết xuất gồm các máy chủ render hiệu năng cao hoạt động song song với các thông số kinh tế kỹ thuật như sau:
+	\begin{itemize}
+		\item Năng suất hoạt động của mỗi máy chủ: $400$ khung hình/giờ/máy.
+		\item Chi phí khởi tạo và cấp phép phần mềm: $20\text{ triệu đồng}$/máy (chi trả một lần trước khi chạy).
+		\item Chi phí tiêu thụ điện năng và bảo trì: $160$ nghìn đồng/giờ/máy.
+		\item Chi phí kỹ sư giám sát hệ thống trực tiếp: $12\text{ triệu đồng}$/giờ (trả theo số giờ vận hành thực tế của dự án).
+	\end{itemize}
+	Hãy xác định số lượng máy chủ render mà trung tâm cần huy động tối thiểu để tổng chi phí vận hành dự án kết xuất đồ họa trên là thấp nhất?
+	
+	\vspace{0.6cm}
+	
+	\noindent \textbf{Bài 16:} Một công ty du lịch đường thủy khai thác một tuyến tàu cao tốc vận chuyển hành khách khứ hồi giữa đất liền và một đảo du lịch với khoảng cách $50\text{ km}$ (tổng quãng đường di chuyển một chuyến là $100\text{ km}$). Doanh nghiệp cần xác định vận tốc vận hành $v\text{ (km/h)}$ cho tàu ($30 \le v \le 70$) để đạt được lợi nhuận ròng lớn nhất cho mỗi chuyến đi. 
+	
+	Qua các số liệu thống kê kỹ thuật, ta có các thông tin sau:
+	\begin{itemize}
+		\item Chi phí dầu diesel cho toàn bộ hành trình $100\text{ km}$ ước tính theo công thức: $C_d(v) = 0{,}2v^2\text{ (triệu đồng)}$.
+		\item Chi phí khấu hao thiết bị, nhân sự phục vụ cố định trên tàu tính cho mỗi giờ tàu chạy là $50\text{ triệu đồng}$/giờ.
+		\item Lượng khách mua vé đi tàu phụ thuộc vào vận tốc hành trình theo hàm số cầu: $N(v) = 10v$ (khách). Giá vé bình quân cố định cho toàn chặng là $1\text{ triệu đồng}$/khách.
+	\end{itemize}
+	Xác định vận tốc vận hành tối ưu $v$ để lợi nhuận ròng của mỗi chuyến tàu đạt giá trị lớn nhất.
+	
+	\vspace{0.6cm}
+	\noindent \textbf{Bài 17:} Một doanh nghiệp dự kiến sản xuất và kinh doanh $x$ sản phẩm trong một tháng ($x \in \mathbb{N}; \, 50 \le x \le 500$). Tổng doanh thu khi bán hết $x$ sản phẩm đó được dự báo bởi hàm số:
+	$$F(x) = -0{,}0008x^3 + 0{,}25x^2 + 100x + 60000 \quad \text{(nghìn đồng)}$$
+	Chi phí vận hành bình quân (gồm điện, khấu hao máy móc và lương nhân công) cho mỗi sản phẩm sản xuất ra là:
+	$$G(x) = 0{,}0002x^2 + \frac{20000}{x} \quad \text{(nghìn đồng)}$$
+	Ngoài ra, tổng chi phí để mua nguyên vật liệu sản xuất khi chưa được chiết khấu là:
+	$$H(x) = \frac{-2x^2 + 800x + 600000}{17} \quad \text{(nghìn đồng)}$$
+	Nhân dịp kỷ niệm ngày thành lập, đối tác cung cấp nguyên vật liệu thực hiện chương trình khuyến mại giảm $15\%$ tổng tiền mua nguyên vật liệu cho doanh nghiệp đó. Hỏi trong một tháng, doanh nghiệp này cần sản xuất bao nhiêu sản phẩm để tổng lợi nhuận thu được là lớn nhất?
+	\newpage
+	
+\end{document}

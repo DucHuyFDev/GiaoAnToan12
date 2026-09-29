@@ -1,0 +1,3079 @@
+\documentclass[12pt]{article}
+
+% === CÀI ĐẶT TRANG ===
+\usepackage[margin=2cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T5]{fontenc}
+\usepackage[vietnamese]{babel}
+
+% === TOÁN HỌC ===
+\usepackage{amsmath, amssymb, amsthm}
+
+% === HÌNH VẼ ===
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+% === ĐỊNH DẠNG ===
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage[most]{tcolorbox}
+\usepackage{multicol}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{fancyhdr}
+\usepackage{tocloft}
+\usepackage[hidelinks]{hyperref}   % hidelinks: bỏ viền đỏ trong TeXstudio
+
+% === LỆNH TỰ ĐỊNH NGHĨA ===
+\newcommand{\otraloi}{\underline{\hspace{5cm}}}
+
+% === TCOLORBOX STYLES ===
+\tcbuselibrary{breakable, skins, fitting}
+
+% Ví dụ
+\newtcolorbox{vidu}[1][1]{
+	colback=blue!5!white, colframe=blue!60!black,
+	fonttitle=\bfseries, title={Ví dụ #1},
+	breakable, enhanced
+}
+
+% Lời giải
+\newtcolorbox{loigiai}{
+	colback=gray!8!white, colframe=gray!50!black,
+	fonttitle=\bfseries, title={Lời giải},
+	breakable, enhanced
+}
+
+% Bài tập xanh – Bắt buộc
+\newtcolorbox{btxanh}[1][]{
+	colback=blue!6!white, colframe=blue!65!black,
+	fonttitle=\bfseries\color{white}, coltitle=white,
+	attach boxed title to top left={yshift=-2mm, xshift=4mm},
+	boxed title style={colback=blue!65!black, rounded corners},breakable, enhanced, #1
+}
+
+% Bài tập vàng – Bổ sung
+\newtcolorbox{btvang}[1][]{
+	colback=yellow!12!white, colframe=orange!75!black,
+	fonttitle=\bfseries, coltitle=orange!80!black,
+	attach boxed title to top left={yshift=-2mm, xshift=4mm},
+	boxed title style={colback=yellow!50!white, colframe=orange!75!black, rounded corners},breakable, enhanced, #1
+}
+
+% Bài tập đỏ – Gia cố
+\newtcolorbox{btdo}[1][]{
+	colback=red!6!white, colframe=red!65!black,
+	fonttitle=\bfseries\color{white}, coltitle=white,
+	attach boxed title to top left={yshift=-2mm, xshift=4mm},
+	boxed title style={colback=red!65!black, rounded corners},breakable, enhanced, #1
+}
+
+% === HEADER/FOOTER ===
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small \textbf{Chuyên đề: Các số đặc trưng đo mức độ phân tán của MSLGN}}
+\fancyhead[R]{\small Lớp: 12}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% ================================================
+\begin{document}
+	
+	\begin{center}
+		{\LARGE \textbf{CÁC SỐ ĐẶC TRƯNG ĐO MỨC ĐỘ PHÂN TÁN CHO MẪU SỐ LIỆU GHÉP NHÓM}}\\[6pt]
+	\end{center}
+	\vspace{4mm}
+	\hrule
+	\vspace{4mm}
+	
+	% ===========================
+	% PHẦN 1: MỤC TIÊU BÀI HỌC
+	% ===========================
+	\section*{Mục tiêu bài học}
+	\addcontentsline{toc}{section}{Mục tiêu bài học}
+	
+	\textbf{1. Kiến thức:}
+	\begin{itemize}
+		\item Nhận biết và hiểu được khái niệm các số đặc trưng đo mức độ phân tán cho mẫu số liệu ghép nhóm: khoảng biến thiên, khoảng tứ phân vị, phương sai và độ lệch chuẩn.
+		\item Nắm vững công thức tính toán các đại lượng trên.
+		\item Hiểu được ý nghĩa thực tế của từng đại lượng trong việc đánh giá mức độ phân tán của số liệu và rủi ro (nếu có).
+	\end{itemize}
+	
+	\noindent \textbf{2. Kĩ năng:}
+	\begin{itemize}
+		\item Tính toán chính xác khoảng biến thiên, khoảng tứ phân vị, phương sai và độ lệch chuẩn từ bảng tần số ghép nhóm.
+		\item Vận dụng các số đặc trưng này để so sánh mức độ phân tán giữa hai hay nhiều mẫu số liệu.
+		\item Giải quyết các bài toán thực tế liên quan đến phân tích dữ liệu ghép nhóm.
+	\end{itemize}
+	
+	\noindent \textbf{3. Thái độ / Phẩm chất:}
+	\begin{itemize}
+		\item Rèn luyện tính cẩn thận, chính xác trong tính toán số liệu thống kê.
+		\item Hình thành tư duy phân tích, đánh giá khách quan dựa trên dữ liệu.
+	\end{itemize}
+	
+	\newpage
+	
+	% =====================
+	% PHẦN 2: MỤC LỤC
+	% =====================
+	\setcounter{tocdepth}{2}
+	\tableofcontents
+	\newpage
+	
+	% =====================
+	% PHẦN 3: LÝ THUYẾT
+	% =====================
+	\section{Lý thuyết}
+	
+	\subsection{Khoảng biến thiên}
+	
+	\subsubsection{Định nghĩa và cách xác định}
+	\begin{itemize}
+		\item \textbf{Định nghĩa:} Khoảng biến thiên, kí hiệu là $R$, của mẫu số liệu ghép nhóm là hiệu số giữa đầu mút phải của nhóm cuối cùng và đầu mút trái của nhóm đầu tiên có chứa dữ liệu của mẫu số liệu.
+		\item \textbf{Cách xác định:} Xét mẫu số liệu ghép nhóm được cho ở bảng sau:
+		
+		\begin{center}
+			\renewcommand{\arraystretch}{1.3}
+			\begin{tabular}{|c|c|c|c|c|}
+				\hline
+				\textbf{Nhóm} & $[u_1; u_2)$ & $[u_2; u_3)$ & $\dots$ & $[u_k; u_{k+1})$ \\
+				\hline
+				\textbf{Tần số} & $n_1$ & $n_2$ & $\dots$ & $n_k$ \\
+				\hline
+			\end{tabular}
+		\end{center}
+		
+		Nếu tần số của nhóm đầu tiên ($n_1$) và nhóm cuối cùng ($n_k$) đều khác 0 thì khoảng biến thiên của mẫu số liệu ghép nhóm là:
+		\[ R = u_{k+1} - u_1 \]
+	\end{itemize}
+	
+	\subsubsection{Ý nghĩa của khoảng biến thiên}
+	\begin{itemize}
+		\item Khoảng biến thiên của mẫu số liệu ghép nhóm luôn \textit{lớn hơn hoặc bằng} khoảng biến thiên của mẫu số liệu gốc.
+		\item Khoảng biến thiên của mẫu số liệu ghép nhóm là giá trị xấp xỉ khoảng biến thiên của mẫu số liệu gốc và có thể dùng để đo mức độ phân tán của mẫu số liệu.
+		\item \textbf{Hạn chế:} Khoảng biến thiên $R = u_{k+1} - u_1$ chưa phản ánh được đầy đủ mức độ phân tán của phần lớn các số liệu. Hơn nữa, giá trị của $R$ thường tăng vọt khi xuất hiện giá trị ngoại lệ trong mẫu số liệu.
+	\end{itemize}
+	
+	\begin{figure}[H]
+		\centering
+		\begin{tikzpicture}
+			% Trục tọa độ
+			\draw[->, thick] (0,0) -- (10,0) node[right] {$x$};
+			
+			% Các điểm chia nhóm
+			\foreach \x/\l in {1/u_1, 3/u_2, 5/u_3, 7/u_k, 9/u_{k+1}} {
+				\draw[thick] (\x,0.15) -- (\x,-0.15) node[below=5pt] {$\l$};
+			}
+			\node at (6, -0.3) {$\dots$};
+			
+			% Vẽ các cột tượng trưng cho tần số của các nhóm
+			\draw[fill=blue!15, draw=blue!60!black, thick] (1,0) rectangle (3,1.5);
+			\draw[fill=blue!25, draw=blue!60!black, thick] (3,0) rectangle (5,2.5);
+			\draw[fill=blue!20, draw=blue!60!black, thick] (7,0) rectangle (9,1.8);
+			
+			% Khoảng biến thiên R
+			\draw[<->, thick, red] (1, 3.2) -- (9, 3.2) node[midway, fill=white] {\textbf{Khoảng biến thiên } $R = u_{k+1} - u_1$};
+			
+			% Đường gióng
+			\draw[dashed, red] (1, 0) -- (1, 3.2);
+			\draw[dashed, red] (9, 0) -- (9, 3.2);
+		\end{tikzpicture}
+		\caption{Minh họa khoảng biến thiên trên trục số đối với mẫu số liệu ghép nhóm}
+	\end{figure}
+	
+	\begin{vidu}[1]
+		Dữ liệu về tốc độ của 100 xe ô tô lưu thông trên một đoạn đường cao tốc vào giờ cao điểm, được trích xuất từ camera của cơ quan cảnh sát giao thông, được cho trong bảng sau:
+		\begin{center}
+			\renewcommand{\arraystretch}{1.3}
+			\begin{tabular}{|c|c|c|c|c|c|}
+				\hline
+				\textbf{Tốc độ (km/h)} & $[60;70)$ & $[70;80)$ & $[80;90)$ & $[90;100)$ & $[100;110)$ \\
+				\hline
+				\textbf{Số xe} & 10 & 20 & 20 & 35 & 15 \\
+				\hline
+			\end{tabular}
+		\end{center}
+		Hãy tìm khoảng biến thiên của mẫu số liệu ghép nhóm trên và nêu ý nghĩa của kết quả tìm được.
+	\end{vidu}
+	
+	\begin{loigiai}
+		Dựa vào bảng số liệu ghép nhóm, ta thấy:
+		\begin{itemize}
+			\item Nhóm đầu tiên có chứa dữ liệu (tần số khác 0) là nhóm $[60; 70)$ nên đầu mút trái $u_1 = 60$.
+			\item Nhóm cuối cùng có chứa dữ liệu (tần số khác 0) là nhóm $[100; 110)$ nên đầu mút phải $u_{k+1} = 110$.
+		\end{itemize}
+		Khoảng biến thiên của mẫu số liệu ghép nhóm là:
+		\[ R = u_{k+1} - u_1 = 110 - 60 = 50 \text{ (km/h)} \]
+		\textbf{Ý nghĩa:} Kết quả này cho biết chênh lệch giữa tốc độ lớn nhất và tốc độ nhỏ nhất của các xe ô tô lưu thông trên đoạn đường cao tốc vào giờ cao điểm xấp xỉ bằng $50 \text{ km/h}$.
+	\end{loigiai}
+	
+	
+	\subsection{Khoảng tứ phân vị}
+	
+	\subsubsection{Định nghĩa và công thức xác định}
+	\begin{itemize}
+		\item \textbf{Định nghĩa:} Khoảng tứ phân vị của mẫu số liệu ghép nhóm, kí hiệu là $\Delta_Q$, là hiệu giữa tứ phân vị thứ ba $Q_3$ và tứ phân vị thứ nhất $Q_1$ của mẫu số liệu ghép nhóm đó, tức là:
+		\[ \Delta_Q = Q_3 - Q_1 \]
+		
+		\item \textbf{Cách tính tứ phân vị thứ $i$ ($Q_i$):} Tứ phân vị thứ $i$, kí hiệu là $Q_i$ với $i \in \{1, 2, 3\}$, của mẫu số liệu ghép nhóm được xác định bằng công thức:
+		\[ Q_i = u_m + \frac{\frac{i \cdot n}{4} - C}{n_m}(u_{m+1} - u_m) \]
+		Trong đó:
+		\begin{itemize}
+			\item $n = n_1 + n_2 + \dots + n_k$ là cỡ mẫu.
+			\item $[u_m; u_{m+1})$ là nhóm chứa tứ phân vị thứ $i$.
+			\item $n_m$ là tần số của nhóm chứa tứ phân vị thứ $i$.
+			\item $C = n_1 + n_2 + \dots + n_{m-1}$ là tổng tần số của các nhóm đứng trước nhóm chứa $Q_i$ (nếu nhóm chứa $Q_i$ là nhóm đầu tiên thì $C = 0$).
+		\end{itemize}
+	\end{itemize}
+	
+	\subsubsection{Ý nghĩa của khoảng tứ phân vị}
+	\begin{itemize}
+		\item Khoảng tứ phân vị của mẫu số liệu ghép nhóm là giá trị xấp xỉ cho khoảng tứ phân vị của mẫu số liệu gốc, được dùng để đo mức độ phân tán của nửa giữa của mẫu số liệu (tập hợp gồm $50\%$ số liệu nằm chính giữa mẫu số liệu).
+		\item Khoảng tứ phân vị của mẫu số liệu ghép nhóm càng nhỏ thì dữ liệu càng tập trung xung quanh trung vị.
+		\item Khoảng tứ phân vị không bị ảnh hưởng nhiều bởi các giá trị ngoại lệ trong mẫu số liệu, do đó thường được dùng thay cho khoảng biến thiên khi mẫu có giá trị ngoại lệ.
+		\item \textbf{Xác định giá trị ngoại lệ:} Khoảng tứ phân vị được dùng để xác định giá trị ngoại lệ trong mẫu số liệu. Giá trị $x$ trong mẫu số liệu được coi là giá trị ngoại lệ nếu:
+		\[ x > Q_3 + 1,5\Delta_Q \quad \text{hoặc} \quad x < Q_1 - 1,5\Delta_Q \]
+	\end{itemize}
+	
+	\begin{figure}[H]
+		\centering
+		\begin{tikzpicture}
+			% Trục
+			\draw[->, thick] (0,0) -- (10,0);
+			
+			% Box plot
+			\draw[thick, fill=blue!10] (2.5, -0.5) rectangle (7.5, 0.5);
+			\draw[thick] (5, -0.5) -- (5, 0.5); % Q2 (Trung vị)
+			
+			% Râu (whiskers)
+			\draw[thick] (1, 0) -- (2.5, 0);
+			\draw[thick] (7.5, 0) -- (9, 0);
+			\draw[thick] (1, -0.2) -- (1, 0.2);
+			\draw[thick] (9, -0.2) -- (9, 0.2);
+			
+			% Labels
+			\node[below=8pt] at (1,0) {Min};
+			\node[below=8pt] at (2.5,0) {$Q_1$};
+			\node[below=8pt] at (5,0) {$Q_2$};
+			\node[below=8pt] at (7.5,0) {$Q_3$};
+			\node[below=8pt] at (9,0) {Max};
+			
+			% Khoảng tứ phân vị
+			\draw[<->, thick, red] (2.5, 0.8) -- (7.5, 0.8) node[midway, above] {\textbf{Khoảng tứ phân vị } $\Delta_Q = Q_3 - Q_1$};
+			\node[red, align=center] at (5, 0) {$50\%$ số liệu\\ở giữa};
+		\end{tikzpicture}
+		\caption{Minh họa khoảng tứ phân vị (Boxplot) biểu diễn sự tập trung của $50\%$ số liệu ở giữa}
+	\end{figure}
+	
+	\begin{vidu}[2]
+		Một người ghi lại thời gian đàm thoại của một số cuộc gọi cho kết quả như bảng sau:
+		\begin{center}
+			\renewcommand{\arraystretch}{1.3}
+			\begin{tabular}{|c|c|c|c|c|c|}
+				\hline
+				\textbf{Thời gian $t$ (phút)} & $0 \le t < 1$ & $1 \le t < 2$ & $2 \le t < 3$ & $3 \le t < 4$ & $4 \le t < 5$ \\
+				\hline
+				\textbf{Số cuộc gọi} & 8 & 17 & 25 & 20 & 10 \\
+				\hline
+			\end{tabular}
+		\end{center}
+		Tính khoảng tứ phân vị của mẫu số liệu ghép nhóm trên.
+	\end{vidu}
+	
+	\begin{loigiai}
+		Cỡ mẫu là $n = 8 + 17 + 25 + 20 + 10 = 80$.
+		
+		\textbf{Bước 1: Tính tứ phân vị thứ nhất $Q_1$} \\
+		Vị trí của $Q_1$ là $\dfrac{1 \cdot 80}{4} = 20$. \\
+		Ta thấy nhóm chứa tứ phân vị thứ nhất là nhóm $[1; 2)$ vì tổng tần số nhóm trước nó là 8, tổng tần số tính đến nhóm này là $8 + 17 = 25 \ge 20$. \\
+		Áp dụng công thức với nhóm $[1; 2)$, ta có $u_m = 1$, $u_{m+1} = 2$, $n_m = 17$, $C = 8$:
+		\[ Q_1 = 1 + \frac{20 - 8}{17}(2 - 1) = 1 + \frac{12}{17} = \frac{29}{17} \approx 1,71 \]
+		
+		\textbf{Bước 2: Tính tứ phân vị thứ ba $Q_3$} \\
+		Vị trí của $Q_3$ là $\dfrac{3 \cdot 80}{4} = 60$. \\
+		Ta thấy nhóm chứa tứ phân vị thứ ba là nhóm $[3; 4)$ vì tổng tần số các nhóm trước nó là $8 + 17 + 25 = 50$, tổng tần số tính đến nhóm này là $50 + 20 = 70 \ge 60$. \\
+		Áp dụng công thức với nhóm $[3; 4)$, ta có $u_m = 3$, $u_{m+1} = 4$, $n_m = 20$, $C = 50$:
+		\[ Q_3 = 3 + \frac{60 - 50}{20}(4 - 3) = 3 + \frac{10}{20} = 3,5 \]
+		
+		\textbf{Bước 3: Tính khoảng tứ phân vị $\Delta_Q$} \\
+		Khoảng tứ phân vị của mẫu số liệu ghép nhóm là:
+		\[ \Delta_Q = Q_3 - Q_1 = 3,5 - \frac{29}{17} = \frac{61}{34} \approx 1,79 \text{ (phút)} \]
+	\end{loigiai}
+	
+	
+	\subsection{Phương sai và độ lệch chuẩn}
+	
+	\subsubsection{Định nghĩa và công thức tính}
+	\begin{itemize}
+		\item \textbf{Bài toán:} Xét mẫu số liệu ghép nhóm được cho ở bảng sau:
+		\begin{center}
+			\renewcommand{\arraystretch}{1.3}
+			\begin{tabular}{|c|c|c|c|c|}
+				\hline
+				\textbf{Nhóm} & $[a_1; a_2)$ & $[a_2; a_3)$ & $\dots$ & $[a_k; a_{k+1})$ \\
+				\hline
+				\textbf{Tần số} & $m_1$ & $m_2$ & $\dots$ & $m_k$ \\
+				\hline
+			\end{tabular}
+		\end{center}
+		
+		\item \textbf{Phương sai:} Phương sai của mẫu số liệu ghép nhóm, kí hiệu là $s^2$, được tính bởi công thức:
+		\[ s^2 = \frac{1}{n} \left[ m_1(x_1 - \bar{x})^2 + m_2(x_2 - \bar{x})^2 + \dots + m_k(x_k - \bar{x})^2 \right] \]
+		\textit{Công thức tính nhanh (thực hành):}
+		\[ s^2 = \frac{1}{n} \left( m_1x_1^2 + m_2x_2^2 + \dots + m_kx_k^2 \right) - (\bar{x})^2 \]
+		
+		\item \textbf{Độ lệch chuẩn:} Độ lệch chuẩn của mẫu số liệu ghép nhóm, kí hiệu là $S$, là căn bậc hai số học của phương sai:
+		\[ S = \sqrt{s^2} \]
+	\end{itemize}
+
+	\subsubsection{Các bước tính phương sai và độ lệch chuẩn}
+	\begin{itemize}
+		\item \textbf{Bước 1:} Tính giá trị đại diện cho mỗi nhóm $x_i = \dfrac{a_i + a_{i+1}}{2}$ với $i = 1, 2, 3, \dots, k$.
+		\item \textbf{Bước 2:} Tính cỡ mẫu $n = m_1 + m_2 + \dots + m_k$.
+		\item \textbf{Bước 3:} Tính số trung bình của mẫu số liệu ghép nhóm: 
+		\[ \bar{x} = \frac{m_1x_1 + m_2x_2 + \dots + m_kx_k}{n} \]
+		\item \textbf{Bước 4:} Áp dụng công thức tính phương sai $s^2$, từ đó suy ra độ lệch chuẩn $S = \sqrt{s^2}$.
+	\end{itemize}
+	
+	\subsubsection{Ý nghĩa của phương sai và độ lệch chuẩn}
+	\begin{itemize}
+		\item Phương sai và độ lệch chuẩn của mẫu số liệu ghép nhóm là giá trị xấp xỉ cho phương sai và độ lệch chuẩn của mẫu số liệu gốc, được dùng để đo mức độ phân tán của các số liệu xung quanh số trung bình.
+		\item Phương sai và độ lệch chuẩn \textbf{càng lớn} thì dữ liệu \textbf{càng phân tán} (mức độ đồng đều càng thấp, rủi ro càng cao). Ngược lại, phương sai và độ lệch chuẩn \textbf{càng nhỏ} thì dữ liệu \textbf{càng tập trung} xung quanh giá trị trung bình (mức độ đồng đều cao, rủi ro thấp).
+		\item Độ lệch chuẩn có cùng đơn vị đo với dữ liệu gốc, do đó thường được ưu tiên sử dụng hơn phương sai trong việc nhận xét và đánh giá thực tế.
+	\end{itemize}
+	
+	\begin{figure}[H]
+		\centering
+		\begin{tikzpicture}
+			% Trục hoành
+			\draw[->, thick] (-5,0) -- (5,0) node[right] {Giá trị};
+			
+			% Đường trung bình
+			\draw[dashed, thick] (0,0) -- (0,4.5) node[above] {$\bar{x}$ (Trung bình)};
+			
+			% Đồ thị phân tán ít (Độ lệch chuẩn nhỏ)
+			\draw[thick, blue, smooth, domain=-2.5:2.5, samples=100] plot (\x, {4*exp(-(\x*\x)/0.5)});
+			\node[blue, text width=3.5cm, align=center] at (-3, 3) {Độ lệch chuẩn nhỏ \\ (Dữ liệu tập trung, \\ ít phân tán)};
+			\draw[->, blue, thick] (-1.5, 3) -- (-0.8, 3);
+			
+			% Đồ thị phân tán nhiều (Độ lệch chuẩn lớn)
+			\draw[thick, red, smooth, domain=-4.5:4.5, samples=100] plot (\x, {1.5*exp(-(\x*\x)/3)});
+			\node[red, text width=3.5cm, align=center] at (3.5, 1.5) {Độ lệch chuẩn lớn \\ (Dữ liệu phân tán, \\ kém đồng đều)};
+			\draw[->, red, thick] (2, 1.5) -- (1.5, 1.2);
+		\end{tikzpicture}
+		\caption{Minh họa ý nghĩa của độ lệch chuẩn đối với mức độ phân tán của dữ liệu}
+	\end{figure}
+	
+	\begin{vidu}[3]
+		Khảo sát thời gian tự học ở nhà (đơn vị: giờ/tuần) của 25 học sinh lớp 12A, giáo viên thu được bảng số liệu ghép nhóm sau:
+		\begin{center}
+			\renewcommand{\arraystretch}{1.3}
+			\begin{tabular}{|c|c|c|c|c|}
+				\hline
+				\textbf{Thời gian (giờ)} & $[0; 5)$ & $[5; 10)$ & $[10; 15)$ & $[15; 20)$ \\
+				\hline
+				\textbf{Số học sinh} & 4 & 10 & 8 & 3 \\
+				\hline
+			\end{tabular}
+		\end{center}
+		Tính phương sai và độ lệch chuẩn của mẫu số liệu trên (làm tròn kết quả đến hàng phần trăm). Từ đó, nhận xét về mức độ phân tán của thời gian tự học.
+	\end{vidu}
+	
+	\begin{loigiai}
+		\textbf{Bước 1 \& 2:} Ta lập bảng giá trị đại diện và tính cỡ mẫu.
+		Cỡ mẫu $n = 4 + 10 + 8 + 3 = 25$.
+		\begin{center}
+			\renewcommand{\arraystretch}{1.3}
+			\begin{tabular}{|c|c|c|c|c|}
+				\hline
+				\textbf{Nhóm thời gian} & $[0; 5)$ & $[5; 10)$ & $[10; 15)$ & $[15; 20)$ \\
+				\hline
+				\textbf{Giá trị đại diện ($x_i$)} & 2,5 & 7,5 & 12,5 & 17,5 \\
+				\hline
+				\textbf{Tần số ($m_i$)} & 4 & 10 & 8 & 3 \\
+				\hline
+			\end{tabular}
+		\end{center}
+		
+		\textbf{Bước 3:} Tính số trung bình của mẫu số liệu:
+		\[ \bar{x} = \frac{4 \cdot 2,5 + 10 \cdot 7,5 + 8 \cdot 12,5 + 3 \cdot 17,5}{25} = \frac{10 + 75 + 100 + 52,5}{25} = \frac{237,5}{25} = 9,5 \text{ (giờ)} \]
+		
+		\textbf{Bước 4:} Tính phương sai và độ lệch chuẩn.
+		Áp dụng công thức tính phương sai:
+		\begin{align*}
+			s^2 &= \frac{1}{25} \left[ 4 \cdot (2,5 - 9,5)^2 + 10 \cdot (7,5 - 9,5)^2 + 8 \cdot (12,5 - 9,5)^2 + 3 \cdot (17,5 - 9,5)^2 \right] \\
+			&= \frac{1}{25} \left[ 4 \cdot (-7)^2 + 10 \cdot (-2)^2 + 8 \cdot 3^2 + 3 \cdot 8^2 \right] \\
+			&= \frac{1}{25} \left( 196 + 40 + 72 + 192 \right) \\
+			&= \frac{500}{25} = 20
+		\end{align*}
+		
+		Độ lệch chuẩn của mẫu số liệu là:
+		\[ S = \sqrt{s^2} = \sqrt{20} \approx 4,47 \text{ (giờ)} \]
+		
+		\textbf{Nhận xét:} Thời gian tự học trung bình của học sinh là 9,5 giờ/tuần, với độ lệch chuẩn khoảng 4,47 giờ. Độ lệch chuẩn tương đối lớn so với giá trị trung bình, cho thấy thời gian tự học của các học sinh trong lớp khá phân tán (không đồng đều, có sự chênh lệch đáng kể giữa học sinh học ít và học sinh học nhiều).
+	\end{loigiai}
+	
+	
+	\newpage
+	% =====================
+	% PHẦN 4: BÀI TẬP
+	% =====================
+	\section{Bài tập}
+	\subsection{Bài tập tự luận}
+	% --- KHOẢNG BIẾN THIÊN ---
+	\subsubsection{Dạng 1: Tính toán khoảng biến thiên của mẫu số liệu ghép nhóm}
+	
+	\begin{btxanh}[title={Bài 1}]
+		Trung tâm khí tượng thủy văn đã thống kê lượng mưa (đơn vị: mm) trong 40 ngày tại một trạm quan trắc và thu được bảng phân bố tần số ghép nhóm như sau:
+		\begin{center}
+			\renewcommand{\arraystretch}{1.3}
+			\begin{tabular}{|c|c|c|c|c|c|}
+				\hline
+				\textbf{Lượng mưa (mm)} & $[10; 20)$ & $[20; 30)$ & $[30; 40)$ & $[40; 50)$ & $[50; 60)$ \\
+				\hline
+				\textbf{Số ngày} & 5 & 12 & 15 & 8 & 4 \\
+				\hline
+			\end{tabular}
+		\end{center}
+		Hãy tính khoảng biến thiên của mẫu số liệu ghép nhóm trên.
+	\end{btxanh}
+	
+	\begin{btxanh}[title={Bài 2}]
+		Một nhà vườn tiến hành thu hoạch 60 quả bưởi Diễn và tiến hành phân loại theo khối lượng (đơn vị: gam). Kết quả được ghi lại ở bảng sau:
+		\begin{center}
+			\renewcommand{\arraystretch}{1.3}
+			\begin{tabular}{|c|c|c|c|c|c|}
+				\hline
+				\textbf{Khối lượng (gam)} & $[600; 700)$ & $[700; 800)$ & $[800; 900)$ & $[900; 1000)$ & $[1000; 1100)$ \\
+				\hline
+				\textbf{Số quả} & 0 & 14 & 25 & 21 & 0 \\
+				\hline
+			\end{tabular}
+		\end{center}
+		Tính khoảng biến thiên về khối lượng của mẫu số liệu bưởi Diễn nói trên.
+	\end{btxanh}
+	
+	\begin{btvang}[title={Bài 3}]
+		Biểu đồ dưới đây biểu diễn mẫu số liệu ghép nhóm về chiều cao (đơn vị: cm) của 50 cây keo lai sau 1 năm trồng tại một khu rừng thực nghiệm.
+		\begin{center}
+			\begin{tikzpicture}
+				% Trục tọa độ
+				\draw[->, thick] (0,0) -- (9,0) node[right] {Chiều cao (cm)};
+				\draw[->, thick] (0,0) -- (0,5.5) node[above] {Số cây};
+				
+				% Chia vạch trục hoành
+				\foreach \x/\l in {1.5/40, 3/50, 4.5/60, 6/70, 7.5/80} {
+					\draw (\x,0.1) -- (\x,-0.1) node[below] {\l};
+				}
+				
+				% Chia vạch trục tung
+				\foreach \y/\l in {1/5, 2/10, 3/15, 4/20, 5/25} {
+					\draw (0.1,\y) -- (-0.1,\y) node[left] {\l};
+				}
+				
+				% Vẽ các cột
+				\draw[fill=yellow!40, draw=orange, thick] (1.5,0) rectangle (3, 1) node[midway] {5};
+				\draw[fill=yellow!40, draw=orange, thick] (3,0) rectangle (4.5, 4) node[midway] {20};
+				\draw[fill=yellow!40, draw=orange, thick] (4.5,0) rectangle (6, 3) node[midway] {15};
+				\draw[fill=yellow!40, draw=orange, thick] (6,0) rectangle (7.5, 2) node[midway] {10};
+			\end{tikzpicture}
+		\end{center}
+		Lập bảng tần số ghép nhóm cho mẫu số liệu trên và tính khoảng biến thiên của chiều cao các cây keo lai.
+	\end{btvang}
+	
+	\begin{btvang}[title={Bài 4}]
+		Thời gian chạy cự li 100m (đơn vị: giây) của các vận động viên nam trong đợt tuyển chọn được ghi lại dưới dạng mẫu số liệu ghép nhóm sau:
+		\begin{center}
+			\renewcommand{\arraystretch}{1.3}
+			\begin{tabular}{|c|c|c|c|c|c|}
+				\hline
+				\textbf{Thời gian (giây)} & $[10,5; 11,0)$ & $[11,0; 11,5)$ & $[11,5; 12,0)$ & $[12,0; 12,5)$ & $[12,5; 13,0)$ \\
+				\hline
+				\textbf{Số vận động viên} & 2 & 8 & 14 & 5 & 1 \\
+				\hline
+			\end{tabular}
+		\end{center}
+		Xác định khoảng biến thiên của thời gian chạy trong đợt tuyển chọn này.
+	\end{btvang}
+	
+	\begin{btdo}[title={Bài 5}]
+		Một công ty thực hiện khảo sát khoảng cách từ nhà đến nơi làm việc (đơn vị: km) của nhân viên và tổng hợp thành bảng số liệu sau:
+		\begin{center}
+			\renewcommand{\arraystretch}{1.3}
+			\begin{tabular}{|c|c|c|c|c|c|c|}
+				\hline
+				\textbf{Khoảng cách (km)} & $[0; 2)$ & $[2; 4)$ & $[4; 6)$ & $[6; 8)$ & $[8; 10)$ & $[10; 12)$ \\
+				\hline
+				\textbf{Số nhân viên} & 0 & 7 & 22 & 15 & 6 & 0 \\
+				\hline
+			\end{tabular}
+		\end{center}
+		Hãy tính khoảng biến thiên của mẫu số liệu ghép nhóm mô tả khoảng cách di chuyển của các nhân viên.
+	\end{btdo}
+	
+	\begin{btdo}[title={Bài 6}]
+		Thống kê thu nhập theo tháng (đơn vị: triệu đồng) của một nhóm 60 lao động tự do tại một khu vực được cho bởi bảng sau:
+		\begin{center}
+			\renewcommand{\arraystretch}{1.3}
+			\begin{tabular}{|c|c|}
+				\hline
+				\textbf{Thu nhập (triệu đồng)} & \textbf{Số người} \\
+				\hline
+				$[8; 12)$ & 10 \\
+				\hline
+				$[12; 16)$ & 25 \\
+				\hline
+				$[16; 20)$ & 18 \\
+				\hline
+				$[20; 24)$ & 7 \\
+				\hline
+			\end{tabular}
+		\end{center}
+		Xác định khoảng biến thiên về mức thu nhập của nhóm lao động trên.
+	\end{btdo}
+	
+	\subsubsection{Dạng 2: Ý nghĩa thực tế của khoảng biến thiên}
+	
+	\begin{btxanh}[title={Bài 1}]
+		Để so sánh chất lượng pin của hai hãng điện thoại A và B, người ta thử nghiệm và ghi lại thời gian sử dụng liên tục (đơn vị: giờ) của một số điện thoại mỗi hãng. Kết quả được thống kê ở bảng sau:
+		\begin{center}
+			\renewcommand{\arraystretch}{1.3}
+			\begin{tabular}{|c|c|c|c|c|}
+				\hline
+				\textbf{Thời gian (giờ)} & $[10; 12)$ & $[12; 14)$ & $[14; 16)$ & $[16; 18)$ \\
+				\hline
+				\textbf{Số điện thoại hãng A} & 0 & 15 & 25 & 10 \\
+				\hline
+				\textbf{Số điện thoại hãng B} & 5 & 15 & 15 & 5 \\
+				\hline
+			\end{tabular}
+		\end{center}
+		Sử dụng khoảng biến thiên, hãy cho biết thời gian sử dụng pin của điện thoại hãng nào có độ phân tán lớn hơn.
+	\end{btxanh}
+	
+	\begin{btxanh}[title={Bài 2}]
+		Điểm kiểm tra môn Toán (thang điểm 10) của học sinh hai lớp 10A và 10B được giáo viên tổng hợp lại thành bảng số liệu ghép nhóm dưới đây:
+		\begin{center}
+			\renewcommand{\arraystretch}{1.3}
+			\begin{tabular}{|c|c|c|c|c|}
+				\hline
+				\textbf{Điểm số} & $[2; 4)$ & $[4; 6)$ & $[6; 8)$ & $[8; 10]$ \\
+				\hline
+				\textbf{Số học sinh lớp 10A} & 0 & 5 & 25 & 10 \\
+				\hline
+				\textbf{Số học sinh lớp 10B} & 2 & 10 & 18 & 10 \\
+				\hline
+			\end{tabular}
+		\end{center}
+		Tính khoảng biến thiên của mẫu số liệu từng lớp. Dựa vào kết quả đó, em hãy cho biết điểm số của lớp nào đồng đều hơn?
+	\end{btxanh}
+	
+	\begin{btvang}[title={Bài 3}]
+		Khảo sát thời gian chờ (đơn vị: phút) của khách hàng tại hai chi nhánh ngân hàng X và Y, quản lý thu được kết quả như sau:
+		\begin{center}
+			\renewcommand{\arraystretch}{1.3}
+			\begin{tabular}{|c|c|c|c|c|c|}
+				\hline
+				\textbf{Thời gian chờ (phút)} & $[0; 5)$ & $[5; 10)$ & $[10; 15)$ & $[15; 20)$ & $[20; 25)$ \\
+				\hline
+				\textbf{Chi nhánh X} & 0 & 20 & 15 & 5 & 0 \\
+				\hline
+				\textbf{Chi nhánh Y} & 5 & 12 & 18 & 5 & 0 \\
+				\hline
+			\end{tabular}
+		\end{center}
+		Nếu dùng khoảng biến thiên để đánh giá mức độ ổn định về thời gian phục vụ, chi nhánh nào có thời gian chờ của khách hàng ổn định hơn?
+	\end{btvang}
+	
+	\begin{btvang}[title={Bài 4}]
+		Một nông trường trồng hai giống cà chua M và N. Khi thu hoạch, người ta chọn ngẫu nhiên mỗi giống 40 quả và cân khối lượng (đơn vị: gam). Kết quả được ghi lại ở bảng sau:
+		\begin{center}
+			\renewcommand{\arraystretch}{1.3}
+			\begin{tabular}{|c|c|c|c|c|}
+				\hline
+				\textbf{Khối lượng (gam)} & $[150; 160)$ & $[160; 170)$ & $[170; 180)$ & $[180; 190)$ \\
+				\hline
+				\textbf{Giống M (Số quả)} & 5 & 20 & 15 & 0 \\
+				\hline
+				\textbf{Giống N (Số quả)} & 0 & 15 & 20 & 5 \\
+				\hline
+			\end{tabular}
+		\end{center}
+		Sử dụng khoảng biến thiên, hãy so sánh độ phân tán về khối lượng của hai giống cà chua trên.
+	\end{btvang}
+	
+	\begin{btdo}[title={Bài 5}]
+		Một huấn luyện viên bóng rổ thống kê số điểm ghi được trong mỗi trận đấu của hai cầu thủ Hùng và Dũng qua một mùa giải như sau:
+		\begin{center}
+			\renewcommand{\arraystretch}{1.3}
+			\begin{tabular}{|c|c|c|c|c|}
+				\hline
+				\textbf{Số điểm} & $[10; 15)$ & $[15; 20)$ & $[20; 25)$ & $[25; 30)$ \\
+				\hline
+				\textbf{Số trận của Hùng} & 0 & 8 & 10 & 2 \\
+				\hline
+				\textbf{Số trận của Dũng} & 3 & 7 & 8 & 2 \\
+				\hline
+			\end{tabular}
+		\end{center}
+		Hãy tính khoảng biến thiên về số điểm của mỗi cầu thủ. Theo tiêu chí này, phong độ ghi điểm của cầu thủ nào ổn định hơn?
+	\end{btdo}
+	
+	\begin{btdo}[title={Bài 6}]
+		Để lựa chọn tuyến đường vận chuyển hàng hóa, một tài xế xe tải đã ghi lại thời gian di chuyển (đơn vị: phút) qua Tuyến 1 và Tuyến 2 trong nhiều ngày. Dữ liệu được thống kê như sau:
+		\begin{center}
+			\renewcommand{\arraystretch}{1.3}
+			\begin{tabular}{|c|c|c|c|c|}
+				\hline
+				\textbf{Thời gian (phút)} & $[10; 20)$ & $[20; 30)$ & $[30; 40)$ & $[40; 50)$ \\
+				\hline
+				\textbf{Tuyến 1 (Số chuyến)} & 0 & 15 & 20 & 5 \\
+				\hline
+				\textbf{Tuyến 2 (Số chuyến)} & 5 & 12 & 15 & 8 \\
+				\hline
+			\end{tabular}
+		\end{center}
+		Nếu chỉ dựa vào khoảng biến thiên, tài xế nên ưu tiên chọn tuyến đường nào để thời gian giao hàng ít bị biến động nhất?
+	\end{btdo}
+	
+	\subsubsection{Dạng 3: Tính toán khoảng tứ phân vị của mẫu số liệu ghép nhóm}
+	
+	\begin{btxanh}[title={Bài 1}]
+		Một công ty điện tử tiến hành kiểm tra tuổi thọ (đơn vị: nghìn giờ) của một lô bóng đèn LED và thu được kết quả ở bảng phân bố tần số ghép nhóm sau:
+		\begin{center}
+			\renewcommand{\arraystretch}{1.3}
+			\begin{tabular}{|c|c|c|c|c|c|}
+				\hline
+				\textbf{Tuổi thọ (nghìn giờ)} & $[1; 3)$ & $[3; 5)$ & $[5; 7)$ & $[7; 9)$ & $[9; 11)$ \\
+				\hline
+				\textbf{Số bóng đèn} & 5 & 12 & 18 & 10 & 5 \\
+				\hline
+			\end{tabular}
+		\end{center}
+		Hãy tính khoảng tứ phân vị của mẫu số liệu ghép nhóm trên.
+	\end{btxanh}
+	
+	\begin{btxanh}[title={Bài 2}]
+		Thời gian chờ khám bệnh (đơn vị: phút) của các bệnh nhân tại một phòng khám trong một buổi sáng được ghi lại như sau:
+		\begin{center}
+			\renewcommand{\arraystretch}{1.3}
+			\begin{tabular}{|c|c|c|c|c|c|}
+				\hline
+				\textbf{Thời gian chờ (phút)} & $[0; 10)$ & $[10; 20)$ & $[20; 30)$ & $[30; 40)$ & $[40; 50)$ \\
+				\hline
+				\textbf{Số bệnh nhân} & 4 & 16 & 24 & 12 & 4 \\
+				\hline
+			\end{tabular}
+		\end{center}
+		Tìm tứ phân vị thứ nhất, tứ phân vị thứ ba và tính khoảng tứ phân vị của thời gian chờ khám bệnh.
+	\end{btxanh}
+	
+	\begin{btvang}[title={Bài 3}]
+		Biểu đồ dưới đây biểu diễn mẫu số liệu ghép nhóm về khối lượng (đơn vị: gam) của một số quả trứng gà được thu hoạch tại một trang trại.
+		\begin{center}
+			\begin{tikzpicture}
+				% Trục tọa độ
+				\draw[->, thick] (0,0) -- (9,0) node[right] {Khối lượng (gam)};
+				\draw[->, thick] (0,0) -- (0,5) node[above] {Số quả trứng};
+				
+				% Chia vạch trục hoành
+				\foreach \x/\l in {1.5/40, 3/45, 4.5/50, 6/55, 7.5/60} {
+					\draw (\x,0.1) -- (\x,-0.1) node[below] {\l};
+				}
+				
+				% Chia vạch trục tung
+				\foreach \y/\l in {1/4, 2/8, 3/12, 4/16} {
+					\draw (0.1,\y) -- (-0.1,\y) node[left] {\l};
+				}
+				
+				% Vẽ các cột
+				\draw[fill=yellow!40, draw=orange, thick] (1.5,0) rectangle (3, 2) node[midway] {8};
+				\draw[fill=yellow!40, draw=orange, thick] (3,0) rectangle (4.5, 3) node[midway] {12};
+				\draw[fill=yellow!40, draw=orange, thick] (4.5,0) rectangle (6, 3.5) node[midway] {14};
+				\draw[fill=yellow!40, draw=orange, thick] (6,0) rectangle (7.5, 1.5) node[midway] {6};
+			\end{tikzpicture}
+		\end{center}
+		Dựa vào biểu đồ, hãy lập bảng tần số ghép nhóm và tính khoảng tứ phân vị của mẫu số liệu.
+	\end{btvang}
+	
+	\begin{btvang}[title={Bài 4}]
+		Quãng đường từ nhà đến trường (đơn vị: km) của các học sinh khối 12 tại một trường THPT được thể hiện qua biểu đồ tần số ghép nhóm dạng cột dưới đây:
+		\begin{center}
+			\begin{tikzpicture}
+				% Trục tọa độ
+				\draw[->, thick] (0,0) -- (9,0) node[right] {Khoảng cách (km)};
+				\draw[->, thick] (0,0) -- (0,5) node[above] {Số học sinh};
+				
+				% Chia vạch trục hoành
+				\foreach \x/\l in {1.5/0, 3/2, 4.5/4, 6/6, 7.5/8} {
+					\draw (\x,0.1) -- (\x,-0.1) node[below] {\l};
+				}
+				
+				% Chia vạch trục tung
+				\foreach \y/\l in {1/10, 2/20, 3/30, 4/40} {
+					\draw (0.1,\y) -- (-0.1,\y) node[left] {\l};
+				}
+				
+				% Vẽ các cột
+				\draw[fill=yellow!40, draw=orange, thick] (1.5,0) rectangle (3, 1) node[midway] {10};
+				\draw[fill=yellow!40, draw=orange, thick] (3,0) rectangle (4.5, 2.5) node[midway] {25};
+				\draw[fill=yellow!40, draw=orange, thick] (4.5,0) rectangle (6, 3) node[midway] {30};
+				\draw[fill=yellow!40, draw=orange, thick] (6,0) rectangle (7.5, 1.5) node[midway] {15};
+			\end{tikzpicture}
+		\end{center}
+		Hãy xác định tứ phân vị thứ nhất $Q_1$, tứ phân vị thứ ba $Q_3$ và tính giá trị khoảng tứ phân vị $\Delta_Q$.
+	\end{btvang}
+	
+	\begin{btdo}[title={Bài 5}]
+		Một cửa hàng điện máy thống kê doanh thu theo tháng (đơn vị: triệu đồng) của 100 cửa hàng chi nhánh trên toàn quốc và thu được kết quả:
+		\begin{center}
+			\renewcommand{\arraystretch}{1.3}
+			\begin{tabular}{|c|c|c|c|c|c|}
+				\hline
+				\textbf{Doanh thu (triệu đồng)} & $[50; 100)$ & $[100; 150)$ & $[150; 200)$ & $[200; 250)$ & $[250; 300)$ \\
+				\hline
+				\textbf{Số chi nhánh} & 12 & 28 & 35 & 15 & 10 \\
+				\hline
+			\end{tabular}
+		\end{center}
+		Tính khoảng tứ phân vị của mẫu số liệu ghép nhóm về doanh thu này (làm tròn kết quả đến chữ số thập phân thứ hai).
+	\end{btdo}
+	
+	\begin{btdo}[title={Bài 6}]
+		Kết quả thi chứng chỉ ngoại ngữ quốc tế (thang điểm 9.0) của một trung tâm Anh ngữ được phân lớp và thống kê trong bảng sau:
+		\begin{center}
+			\renewcommand{\arraystretch}{1.3}
+			\begin{tabular}{|c|c|c|c|c|c|}
+				\hline
+				\textbf{Điểm số} & $[4,0; 5,0)$ & $[5,0; 6,0)$ & $[6,0; 7,0)$ & $[7,0; 8,0)$ & $[8,0; 9,0)$ \\
+				\hline
+				\textbf{Số học viên} & 8 & 22 & 40 & 25 & 5 \\
+				\hline
+			\end{tabular}
+		\end{center}
+		Hãy xác định khoảng tứ phân vị cho mẫu số liệu điểm thi của các học viên.
+	\end{btdo}
+	
+	\subsubsection{Dạng 4: Ý nghĩa thực tế của khoảng tứ phân vị}
+	
+	\begin{btxanh}[title={Bài 1}]
+		Một mẫu số liệu ghép nhóm thống kê thời gian sử dụng mạng xã hội trong một ngày (đơn vị: giờ) của 50 học sinh có khoảng tứ phân vị là $\Delta_Q = 1,2$ và tứ phân vị thứ ba là $Q_3 = 4,5$. 
+		Một học sinh trong nhóm sử dụng mạng xã hội $6,5$ giờ mỗi ngày. Hỏi thời gian sử dụng của học sinh này có bị coi là giá trị ngoại lệ của mẫu số liệu không? Giải thích.
+	\end{btxanh}
+	
+	\begin{btxanh}[title={Bài 2}]
+		Kết quả đo chiều cao (đơn vị: cm) của 100 cây keo 3 năm tuổi tại một nông trường được cho ở bảng sau:
+		\begin{center}
+			\renewcommand{\arraystretch}{1.3}
+			\begin{tabular}{|c|c|c|c|c|c|}
+				\hline
+				\textbf{Chiều cao (cm)} & $[840; 860)$ & $[860; 880)$ & $[880; 900)$ & $[900; 920)$ & $[920; 940)$ \\
+				\hline
+				\textbf{Số cây} & 5 & 12 & 25 & 44 & 14 \\
+				\hline
+			\end{tabular}
+		\end{center}
+		Tính khoảng tứ phân vị $\Delta_Q$. Nếu trong vườn có một cây keo cao $845$ cm thì chiều cao của cây này có phải là giá trị ngoại lệ không?
+	\end{btxanh}
+	
+	\begin{btvang}[title={Bài 3}]
+		Kiểm tra điện lượng của một số viên pin tiêu chuẩn do hai phân xưởng A và B sản xuất, người ta thu được kết quả như sau (đơn vị: mAh):
+		\begin{center}
+			\renewcommand{\arraystretch}{1.3}
+			\begin{tabular}{|c|c|c|c|c|c|}
+				\hline
+				\textbf{Điện lượng} & $[900; 950)$ & $[950; 1000)$ & $[1000; 1050)$ & $[1050; 1100)$ & $[1100; 1150)$ \\
+				\hline
+				\textbf{Phân xưởng A} & 10 & 20 & 35 & 15 & 5 \\
+				\hline
+				\textbf{Phân xưởng B} & 5 & 15 & 45 & 15 & 5 \\
+				\hline
+			\end{tabular}
+		\end{center}
+		Dựa vào khoảng tứ phân vị, hãy cho biết pin của phân xưởng nào có điện lượng đồng đều hơn (chỉ xét $50\%$ số pin ở khoảng giữ a).
+	\end{btvang}
+	
+	\begin{btvang}[title={Bài 4}]
+		Một mẫu số liệu ghép nhóm có tứ phân vị thứ nhất là $Q_1 = 254,9$ và tứ phân vị thứ ba là $Q_3 = 417,25$. 
+		Hãy tìm điều kiện của $x$ để giá trị $x$ trong mẫu số liệu được xác định là một giá trị ngoại lệ.
+	\end{btvang}
+	
+	\begin{btdo}[title={Bài 5}]
+		Khảo sát cân nặng (đơn vị: gam) của 40 quả cam Canh ở mỗi lô hàng 1 và lô hàng 2 được cho ở bảng sau:
+		\begin{center}
+			\renewcommand{\arraystretch}{1.3}
+			\begin{tabular}{|c|c|c|c|c|c|}
+				\hline
+				\textbf{Cân nặng (gam)} & $[100; 110)$ & $[110; 120)$ & $[120; 130)$ & $[130; 140)$ & $[140; 150)$ \\
+				\hline
+				\textbf{Lô hàng 1 (quả)} & 0 & 10 & 11 & 19 & 0 \\
+				\hline
+				\textbf{Lô hàng 2 (quả)} & 3 & 15 & 12 & 7 & 3 \\
+				\hline
+			\end{tabular}
+		\end{center}
+		Hãy so sánh độ phân tán về cân nặng của cam ở hai lô hàng bằng cách sử dụng cả khoảng biến thiên $R$ và khoảng tứ phân vị $\Delta_Q$. Giải thích tại sao hai đại lượng này lại cho kết quả đánh giá khác nhau?
+	\end{btdo}
+	
+	\begin{btdo}[title={Bài 6}]
+		Thống kê thu nhập theo tháng (đơn vị: triệu đồng) của một nhóm nhân viên công ty A cho kết quả tứ phân vị thứ nhất $Q_1 = 12$ và $\Delta_Q = 4,5$. Một nhân viên có mức lương $25$ triệu đồng/tháng được coi là "ngoại lệ" so với mặt bằng chung. Lập luận này đúng hay sai? Bằng tính toán cụ thể, hãy xác định mức thu nhập tối thiểu để một người được coi là có thu nhập "cao bất thường" (giá trị ngoại lệ phía trên) trong công ty này.
+	\end{btdo}
+	
+	% --- PHƯƠNG SAI & ĐỘ LỆCH CHUẨN ---
+	\subsubsection{Dạng 5: Tính toán phương sai và độ lệch chuẩn của mẫu số liệu ghép nhóm}
+	
+	\begin{btxanh}[title={Bài 1}]
+		Khảo sát thời gian tự học ở nhà (đơn vị: phút/ngày) của 40 học sinh, ta thu được bảng phân bố tần số sau:
+		\begin{center}
+			\renewcommand{\arraystretch}{1.3}
+			\begin{tabular}{|c|c|c|c|c|c|}
+				\hline
+				\textbf{Thời gian (phút)} & $[0; 30)$ & $[30; 60)$ & $[60; 90)$ & $[90; 120)$ & $[120; 150)$ \\
+				\hline
+				\textbf{Số học sinh} & 5 & 10 & 15 & 8 & 2 \\
+				\hline
+			\end{tabular}
+		\end{center}
+		Hãy lập bảng giá trị đại diện và tính phương sai, độ lệch chuẩn của mẫu số liệu trên (làm tròn kết quả đến hàng phần trăm).
+	\end{btxanh}
+	
+	\begin{btxanh}[title={Bài 2}]
+		Chiều cao của 20 cây giống được trồng trong phòng thí nghiệm được cho bởi bảng sau (đơn vị: cm):
+		\begin{center}
+			\renewcommand{\arraystretch}{1.3}
+			\begin{tabular}{|c|c|c|c|c|c|}
+				\hline
+				\textbf{Chiều cao (cm)} & $[40; 45)$ & $[45; 50)$ & $[50; 55)$ & $[55; 60)$ & $[60; 65)$ \\
+				\hline
+				\textbf{Số cây} & 2 & 4 & 8 & 4 & 2 \\
+				\hline
+			\end{tabular}
+		\end{center}
+		Tính giá trị trung bình $\bar{x}$ và độ lệch chuẩn $S$ của chiều cao các cây giống.
+	\end{btxanh}
+	
+	\begin{btvang}[title={Bài 3}]
+		Biểu đồ tần số ghép nhóm dưới đây biểu diễn tuổi thọ (đơn vị: năm) của một số linh kiện điện tử do một nhà máy sản xuất.
+		\begin{center}
+			\begin{tikzpicture}
+				% Trục tọa độ
+				\draw[->, thick] (0,0) -- (9,0) node[right] {Tuổi thọ (năm)};
+				\draw[->, thick] (0,0) -- (0,5.5) node[above] {Số linh kiện};
+				
+				% Chia vạch trục hoành
+				\foreach \x/\l in {1.5/1.0, 3/1.5, 4.5/2.0, 6/2.5, 7.5/3.0} {
+					\draw (\x,0.1) -- (\x,-0.1) node[below] {\l};
+				}
+				
+				% Chia vạch trục tung
+				\foreach \y/\l in {1/5, 2/10, 3/15, 4/20, 5/25} {
+					\draw (0.1,\y) -- (-0.1,\y) node[left] {\l};
+				}
+				
+				% Vẽ các cột
+				\draw[fill=yellow!40, draw=orange, thick] (1.5,0) rectangle (3, 2) node[midway] {10};
+				\draw[fill=yellow!40, draw=orange, thick] (3,0) rectangle (4.5, 5) node[midway] {25};
+				\draw[fill=yellow!40, draw=orange, thick] (4.5,0) rectangle (6, 3) node[midway] {15};
+				\draw[fill=yellow!40, draw=orange, thick] (6,0) rectangle (7.5, 1) node[midway] {5};
+			\end{tikzpicture}
+		\end{center}
+		Từ biểu đồ, lập bảng số liệu và tính phương sai của mẫu số liệu ghép nhóm trên.
+	\end{btvang}
+	
+	\begin{btvang}[title={Bài 4}]
+		Người ta đo đường kính thân của một số cây gỗ (đơn vị: cm) trong một khu rừng và thu được bảng tần số như sau:
+		\begin{center}
+			\renewcommand{\arraystretch}{1.3}
+			\begin{tabular}{|c|c|c|c|c|c|}
+				\hline
+				\textbf{Đường kính (cm)} & $[30; 35)$ & $[35; 40)$ & $[40; 45)$ & $[45; 50)$ & $[50; 55)$ \\
+				\hline
+				\textbf{Tần số} & 5 & 12 & $x$ & 10 & 3 \\
+				\hline
+			\end{tabular}
+		\end{center}
+		Biết cỡ mẫu là $n = 50$. Hãy tìm $x$ và tính độ lệch chuẩn của mẫu số liệu trên.
+	\end{btvang}
+	
+	\begin{btdo}[title={Bài 5}]
+		Một trạm khí tượng thống kê nhiệt độ cao nhất trong ngày (đơn vị: $^\circ$ c) trong 30 ngày của tháng 6, kết quả được ghi lại như sau: 
+		Có 4 ngày nhiệt độ thuộc $[30; 32)$, 8 ngày thuộc $[32; 34)$, 12 ngày thuộc $[34; 36)$ và $a$ ngày thuộc $[36; 38)$. 
+		Tính giá trị trung bình $\bar{x}$ và phương sai $s^2$ của mẫu số liệu.
+	\end{btdo}
+	
+	\begin{btdo}[title={Bài 6}]
+		Lợi nhuận hàng tháng (đơn vị: triệu đồng) của hai cửa hàng A và B trong vòng 20 tháng được tổng hợp bằng hai mẫu số liệu ghép nhóm có cùng các nhóm $[10; 20), [20; 30), [30; 40), [40; 50), [50; 60)$. 
+		Biết cửa hàng A có phương sai lợi nhuận là $s_A^2 = 125,5$ và cửa hàng B có phương sai lợi nhuận là $s_B^2 = 85,2$. Nếu cửa hàng A tăng đều giá bán sản phẩm khiến lợi nhuận mỗi tháng tăng thêm 5 triệu đồng, thì phương sai mới của cửa hàng A là bao nhiêu?
+	\end{btdo}
+	
+	\subsubsection{Dạng 6: Ý nghĩa thực tế của phương sai và độ lệch chuẩn}
+	
+	\begin{btxanh}[title={Bài 1}]
+		Trong bộ môn bắn súng, điểm số của hai xạ thủ X và Y sau nhiều lần bắn được thống kê ở bảng sau:
+		\begin{center}
+			\renewcommand{\arraystretch}{1.3}
+			\begin{tabular}{|c|c|c|c|c|c|}
+				\hline
+				\textbf{Điểm số} & $[6; 7)$ & $[7; 8)$ & $[8; 9)$ & $[9; 10)$ & $[10; 11)$ \\
+				\hline
+				\textbf{Xạ thủ X (Số lần)} & 2 & 4 & 10 & 18 & 6 \\
+				\hline
+				\textbf{Xạ thủ Y (Số lần)} & 0 & 8 & 12 & 14 & 6 \\
+				\hline
+			\end{tabular}
+		\end{center}
+		Tính độ lệch chuẩn về điểm số của mỗi xạ thủ. Dựa vào kết quả đó, xạ thủ nào có thành tích bắn ổn định (đồng đều) hơn?
+	\end{btxanh}
+	
+	\begin{btxanh}[title={Bài 2}]
+		Sản lượng lúa (đơn vị: tạ/h a) của hai giống lúa A và B được khảo sát trên các thửa ruộng khác nhau. Kết quả tính toán cho thấy độ lệch chuẩn sản lượng của giống A là $S_A = 2,5$ tạ/ha, của giống B là $S_B = 1,2$ tạ/ha. 
+		Ý nghĩa của các con số này là gì? Nông dân nên chọn giống lúa nào nếu muốn đảm bảo rủi ro mất mùa là thấp nhất?
+	\end{btxanh}
+	
+	\begin{btvang}[title={Bài 3}]
+		Giá đóng cửa của hai mã cổ phiếu M và N trong 50 phiên giao dịch liên tiếp được cho như sau (đơn vị: nghìn đồng):
+		\begin{center}
+			\renewcommand{\arraystretch}{1.3}
+			\begin{tabular}{|c|c|c|c|c|c|}
+				\hline
+				\textbf{Giá đóng cửa} & $[120; 122)$ & $[122; 124)$ & $[124; 126)$ & $[126; 128)$ & $[128; 130)$ \\
+				\hline
+				\textbf{Cổ phiếu M} & 5 & 10 & 20 & 10 & 5 \\
+				\hline
+				\textbf{Cổ phiếu N} & 10 & 10 & 10 & 10 & 10 \\
+				\hline
+			\end{tabular}
+		\end{center}
+		Sử dụng độ lệch chuẩn để so sánh mức độ rủi ro khi đầu tư vào hai mã cổ phiếu này. Cổ phiếu nào tiềm ẩn rủi ro biến động giá lớn hơn?
+	\end{btvang}
+	
+	\begin{btvang}[title={Bài 4}]
+		Bộ phận kiểm tra chất lượng sản phẩm dùng máy để đo (chính xác đến 0,001 mm) độ dày của một chi tiết máy. Bảng số liệu sau thể hiện độ dày của các chi tiết máy do hai dây chuyền I và II sản xuất:
+		\begin{center}
+			\renewcommand{\arraystretch}{1.3}
+			\begin{tabular}{|c|c|c|c|c|c|}
+				\hline
+				\textbf{Độ dày (mm)} & $[18; 19)$ & $[19; 20)$ & $[20; 21)$ & $[21; 22)$ & $[22; 23)$ \\
+				\hline
+				\textbf{Dây chuyền I} & 3 & 7 & 23 & 25 & 2 \\
+				\hline
+				\textbf{Dây chuyền II} & 0 & 2 & 56 & 2 & 0 \\
+				\hline
+			\end{tabular}
+		\end{center}
+		Dây chuyền nào gia công chi tiết máy với độ chính xác và đồng đều cao hơn? Dùng đại lượng thống kê nào để minh chứng cho nhận định trên?
+	\end{btvang}
+	
+	\begin{btdo}[title={Bài 5}]
+		Một công ty tài chính đang xem xét hai quỹ đầu tư $F_1$ và $F_2$. Tỉ suất sinh lời hàng năm (đơn vị: \%) của hai quỹ được thống kê dưới dạng mẫu ghép nhóm. Kết quả phân tích cho thấy cả hai quỹ đều có tỉ suất sinh lời trung bình là $12\%$/năm. Tuy nhiên, phương sai của $F_1$ là $18$ và của $F_2$ là $45$. 
+		Một nhà đầu tư theo trường phái "an toàn, e ngại rủi ro" nên chọn quỹ nào? Một nhà đầu tư "ưa thích mạo hiểm, tìm kiếm lợi nhuận đột biến" nên cân nhắc quỹ nào? Giải thích chi tiết dưới góc độ thống kê.
+	\end{btdo}
+	
+	\begin{btdo}[title={Bài 6}]
+		Bác sĩ A điều trị 20 bệnh nhân mỡ máu bằng phác đồ mới, kết quả giảm chỉ số Cholesterol được ghi nhận có độ lệch chuẩn $S_A = 0,44$. Bác sĩ B điều trị 20 bệnh nhân bằng phác đồ cũ, kết quả có độ lệch chuẩn $S_B = 0,85$. 
+		Biết mức giảm Cholesterol trung bình của hai phác đồ là như nhau. Việc $S_A < S_B$ có ý nghĩa thực tiễn như thế nào đối với việc dự đoán khả năng phục hồi của một bệnh nhân bất kì nếu áp dụng phác đồ mới?
+	\end{btdo}
+	
+	
+	% --- PHẦN KHÔNG PHÂN KHUNG MÀU ---
+	\vspace{5mm}
+	\subsection{Bài tập trắc nghiệm}
+	\textbf{Câu 1:} Bảng sau thống kê khối lượng một số quả táo được lựa chọn ngẫu nhiên trong một lô hàng.
+	\begin{center}
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|c|}
+			\hline
+			Khối lượng (gam) & $[100; 105)$ & $[105; 110)$ & $[110; 115)$ & $[115; 120)$ & $[120; 125)$ \\
+			\hline
+			Số quả & 12 & 25 & 30 & 18 & 5 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	Khoảng biến thiên của mẫu số liệu ghép nhóm trên là:
+	\begin{multicols}{4}
+		A. 25 gam. \\
+		B. 15 gam. \\
+		C. 5 gam. \\
+		D. 125 gam.
+	\end{multicols}
+	
+	\noindent \textbf{Câu 2:} Một công ty điện lực thống kê điện năng tiêu thụ của các hộ gia đình trong một khu vực vào tháng trước ở bảng sau.
+	\begin{center}
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|c|}
+			\hline
+			Điện năng tiêu thụ (kWh) & $[50; 100)$ & $[100; 150)$ & $[150; 200)$ & $[200; 250)$ & $[250; 300)$ \\
+			\hline
+			Số hộ gia đình & 15 & 45 & 35 & 20 & 5 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	Khoảng biến thiên của mẫu số liệu ghép nhóm trên là:
+	\begin{multicols}{4}
+		A. 50 kWh. \\
+		B. 300 kWh. \\
+		C. 250 kWh. \\
+		D. 200 kWh.
+	\end{multicols}
+	
+	\noindent \textbf{Câu 3:} Người ta thống kê tốc độ của một số xe máy di chuyển qua một trạm kiểm soát trong một khoảng thời gian ở bảng sau.
+	\begin{center}
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|c|}
+			\hline
+			Tốc độ (km/h) & $[30; 40)$ & $[40; 50)$ & $[50; 60)$ & $[60; 70)$ & $[70; 80)$ \\
+			\hline
+			Số xe & 10 & 25 & 40 & 15 & 5 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	Khoảng biến thiên của mẫu số liệu ghép nhóm trên là:
+	\begin{multicols}{4}
+		A. 80 km/h. \\
+		B. 50 km/h. \\
+		C. 10 km/h. \\
+		D. 40 km/h.
+	\end{multicols}
+	
+	\noindent \textbf{Câu 4:} Thời gian hoàn thành bài kiểm tra (đơn vị: phút) của một nhóm học sinh được ghi lại trong bảng tần số ghép nhóm sau.
+	\begin{center}
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|c|}
+			\hline
+			Thời gian (phút) & $[15; 20)$ & $[20; 25)$ & $[25; 30)$ & $[30; 35)$ & $[35; 40)$ \\
+			\hline
+			Số học sinh & 5 & 12 & 18 & 10 & 5 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	Khoảng biến thiên của mẫu số liệu ghép nhóm trên là:
+	\begin{multicols}{4}
+		A. 25 phút. \\
+		B. 40 phút. \\
+		C. 15 phút. \\
+		D. 5 phút.
+	\end{multicols}
+	
+	\noindent \textbf{Câu 5:} Đo chiều cao của một số cây giống tại một vườn ươm, người ta thu được kết quả thống kê như sau.
+	\begin{center}
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|c|}
+			\hline
+			Chiều cao (cm) & $[20; 22)$ & $[22; 24)$ & $[24; 26)$ & $[26; 28)$ & $[28; 30)$ \\
+			\hline
+			Số cây & 8 & 15 & 22 & 10 & 5 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	Khoảng biến thiên của mẫu số liệu ghép nhóm trên là:
+	\begin{multicols}{4}
+		A. 2 cm. \\
+		B. 20 cm. \\
+		C. 30 cm. \\
+		D. 10 cm.
+	\end{multicols}
+	
+	\noindent \textbf{Câu 6:} Bảng sau thống kê tiền công nhật (đơn vị: nghìn đồng) của các công nhân tại một xưởng sản xuất.
+	\begin{center}
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|c|}
+			\hline
+			Tiền công (nghìn đồng) & $[200; 250)$ & $[250; 300)$ & $[300; 350)$ & $[350; 400)$ & $[400; 450)$ \\
+			\hline
+			Số công nhân & 10 & 30 & 45 & 20 & 5 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	Khoảng biến thiên của mẫu số liệu ghép nhóm trên là:
+	\begin{multicols}{4}
+		A. 250 nghìn đồng. \\
+		B. 50 nghìn đồng. \\
+		C. 450 nghìn đồng. \\
+		D. 200 nghìn đồng.
+	\end{multicols}
+	
+	\noindent \textbf{Câu 7:} Kết quả khảo sát về số giờ tự học mỗi ngày của 125 học sinh khối 12 được cho ở biểu đồ sau.
+	\begin{center}
+		\begin{tikzpicture}[scale=0.9]
+			% Trục tung và trục hoành
+			\draw[->, thick] (0,0) -- (8.5,0) node[right, font=\small] {(số giờ)};
+			\draw[->, thick] (0,0) -- (0,5.5) node[above, font=\small] {(số học sinh)};
+			
+			% Vạch chia trục tung
+			\foreach \y/\l in {1/10, 2/20, 3/30, 4/40, 5/50} {
+				\draw (0.1, \y) -- (-0.1, \y) node[left, font=\scriptsize] {\l};
+			}
+			
+			% Vẽ các cột biểu đồ hình chữ nhật và ghi tần số lên đầu cột
+			\draw[fill=gray!50, draw=black] (0.8,0) rectangle (2.2, 1.5) node[above, font=\scriptsize] {15};
+			\draw[fill=gray!50, draw=black] (2.2,0) rectangle (3.6, 3.0) node[above, font=\scriptsize] {30};
+			\draw[fill=gray!50, draw=black] (3.6,0) rectangle (5.0, 4.5) node[above, font=\scriptsize] {45};
+			\draw[fill=gray!50, draw=black] (5.0,0) rectangle (6.4, 2.5) node[above, font=\scriptsize] {25};
+			\draw[fill=gray!50, draw=black] (6.4,0) rectangle (7.8, 1.0) node[above, font=\scriptsize] {10};
+			
+			% Ghi nhãn các khoảng trên trục hoành dưới mỗi cột
+			\node[below, font=\scriptsize] at (1.5, 0) {$[1;2)$};
+			\node[below, font=\scriptsize] at (2.9, 0) {$[2;3)$};
+			\node[below, font=\scriptsize] at (4.3, 0) {$[3;4)$};
+			\node[below, font=\scriptsize] at (5.7, 0) {$[4;5)$};
+			\node[below, font=\scriptsize] at (7.1, 0) {$[5;6)$};
+			\node[below, font=\scriptsize] at (0, 0) {0};
+		\end{tikzpicture}
+	\end{center}
+	Khoảng biến thiên của mẫu số liệu được cho trong biểu đồ trên là:
+	\begin{multicols}{4}
+		A. 1. \\
+		B. 5. \\
+		C. 6. \\
+		D. 45.
+	\end{multicols}
+	
+	\noindent \textbf{Câu 8:} Kết quả khảo sát quãng đường đi học (đơn vị: km) của 100 học sinh được thể hiện qua biểu đồ sau.
+	\begin{center}
+		\begin{tikzpicture}[scale=0.9]
+			% Trục tung và trục hoành
+			\draw[->, thick] (0,0) -- (8.5,0) node[right, font=\small] {(quãng đường)};
+			\draw[->, thick] (0,0) -- (0,4.8) node[above, font=\small] {(số học sinh)};
+			
+			% Vạch chia trục tung
+			\foreach \y/\l in {1/10, 2/20, 3/30, 4/40} {
+				\draw (0.1, \y) -- (-0.1, \y) node[left, font=\scriptsize] {\l};
+			}
+			
+			% Vẽ các cột
+			\draw[fill=gray!50, draw=black] (0.8,0) rectangle (2.2, 1.2) node[above, font=\scriptsize] {12};
+			\draw[fill=gray!50, draw=black] (2.2,0) rectangle (3.6, 2.8) node[above, font=\scriptsize] {28};
+			\draw[fill=gray!50, draw=black] (3.6,0) rectangle (5.0, 3.5) node[above, font=\scriptsize] {35};
+			\draw[fill=gray!50, draw=black] (5.0,0) rectangle (6.4, 1.5) node[above, font=\scriptsize] {15};
+			\draw[fill=gray!50, draw=black] (6.4,0) rectangle (7.8, 1.0) node[above, font=\scriptsize] {10};
+			
+			% Nhãn trục hoành
+			\node[below, font=\scriptsize] at (1.5, 0) {$[0;5)$};
+			\node[below, font=\scriptsize] at (2.9, 0) {$[5;10)$};
+			\node[below, font=\scriptsize] at (4.3, 0) {$[10;15)$};
+			\node[below, font=\scriptsize] at (5.7, 0) {$[15;20)$};
+			\node[below, font=\scriptsize] at (7.1, 0) {$[20;25)$};
+			\node[below, font=\scriptsize] at (0, 0) {0};
+		\end{tikzpicture}
+	\end{center}
+	Khoảng biến thiên của mẫu số liệu được cho trong biểu đồ trên là:
+	\begin{multicols}{4}
+		A. 5. \\
+		B. 25. \\
+		C. 20. \\
+		D. 35.
+	\end{multicols}
+	
+	\noindent \textbf{Câu 9:} Kết quả khảo sát cân nặng lúc sinh của 100 trẻ sơ sinh tại một bệnh viện phụ sản được cho ở biểu đồ sau.
+	\begin{center}
+		\begin{tikzpicture}[scale=0.9]
+			% Trục tung và trục hoành
+			\draw[->, thick] (0,0) -- (8.5,0) node[right, font=\small] {(cân nặng)};
+			\draw[->, thick] (0,0) -- (0,5.2) node[above, font=\small] {(số trẻ sơ sinh)};
+			
+			% Vạch chia trục tung
+			\foreach \y/\l in {1/10, 2/20, 3/30, 4/40} {
+				\draw (0.1, \y) -- (-0.1, \y) node[left, font=\scriptsize] {\l};
+			}
+			
+			% Vẽ các cột
+			\draw[fill=gray!50, draw=black] (0.8,0) rectangle (2.2, 0.8) node[above, font=\scriptsize] {8};
+			\draw[fill=gray!50, draw=black] (2.2,0) rectangle (3.6, 2.2) node[above, font=\scriptsize] {22};
+			\draw[fill=gray!50, draw=black] (3.6,0) rectangle (5.0, 4.0) node[above, font=\scriptsize] {40};
+			\draw[fill=gray!50, draw=black] (5.0,0) rectangle (6.4, 2.5) node[above, font=\scriptsize] {25};
+			\draw[fill=gray!50, draw=black] (6.4,0) rectangle (7.8, 0.5) node[above, font=\scriptsize] {5};
+			
+			% Nhãn trục hoành
+			\node[below, font=\scriptsize] at (1.5, 0) {$[2,5;3,0)$};
+			\node[below, font=\scriptsize] at (2.9, 0) {$[3,0;3,5)$};
+			\node[below, font=\scriptsize] at (4.3, 0) {$[3,5;4,0)$};
+			\node[below, font=\scriptsize] at (5.7, 0) {$[4,0;4,5)$};
+			\node[below, font=\scriptsize] at (7.1, 0) {$[4,5;5,0)$};
+			\node[below, font=\scriptsize] at (0, 0) {0};
+		\end{tikzpicture}
+	\end{center}
+	Khoảng biến thiên của mẫu số liệu được cho trong biểu đồ trên là:
+	\begin{multicols}{4}
+		A. 2,5. \\
+		B. 0,5. \\
+		C. 5,0. \\
+		D. 40.
+	\end{multicols}
+	
+	\noindent \textbf{Câu 10:} Kết quả thống kê về độ tuổi của 120 nhân viên tại một công ty công nghệ được cho ở biểu đồ sau.
+	\begin{center}
+		\begin{tikzpicture}[scale=0.9]
+			% Trục tung và trục hoành
+			\draw[->, thick] (0,0) -- (8.5,0) node[right, font=\small] {(tuổi)};
+			\draw[->, thick] (0,0) -- (0,5.5) node[above, font=\small] {(số nhân viên)};
+			
+			% Vạch chia trục tung
+			\foreach \y/\l in {1/10, 2/20, 3/30, 4/40, 5/50} {
+				\draw (0.1, \y) -- (-0.1, \y) node[left, font=\scriptsize] {\l};
+			}
+			
+			% Vẽ các cột
+			\draw[fill=gray!50, draw=black] (0.8,0) rectangle (2.2, 1.8) node[above, font=\scriptsize] {18};
+			\draw[fill=gray!50, draw=black] (2.2,0) rectangle (3.6, 4.2) node[above, font=\scriptsize] {42};
+			\draw[fill=gray!50, draw=black] (3.6,0) rectangle (5.0, 3.5) node[above, font=\scriptsize] {35};
+			\draw[fill=gray!50, draw=black] (5.0,0) rectangle (6.4, 2.0) node[above, font=\scriptsize] {20};
+			\draw[fill=gray!50, draw=black] (6.4,0) rectangle (7.8, 0.5) node[above, font=\scriptsize] {5};
+			
+			% Nhãn trục hoành
+			\node[below, font=\scriptsize] at (1.5, 0) {$[20;30)$};
+			\node[below, font=\scriptsize] at (2.9, 0) {$[30;40)$};
+			\node[below, font=\scriptsize] at (4.3, 0) {$[40;50)$};
+			\node[below, font=\scriptsize] at (5.7, 0) {$[50;60)$};
+			\node[below, font=\scriptsize] at (7.1, 0) {$[60;70)$};
+			\node[below, font=\scriptsize] at (0, 0) {0};
+		\end{tikzpicture}
+	\end{center}
+	Khoảng biến thiên của mẫu số liệu được cho trong biểu đồ trên là:
+	\begin{multicols}{4}
+		A. 10. \\
+		B. 50. \\
+		C. 70. \\
+		D. 42.
+	\end{multicols}
+	
+	\noindent \textbf{Câu 11:} Kết quả khảo sát thời gian sử dụng liên tục (đơn vị: giờ) của 50 quả pin điện thoại của hai hãng X và Y được cho ở bảng sau:
+	\begin{center}
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|c|}
+			\hline
+			Thời gian (giờ) & $[10; 12)$ & $[12; 14)$ & $[14; 16)$ & $[16; 18)$ & $[18; 20)$ \\
+			\hline
+			Số pin hãng X & 0 & 15 & 20 & 15 & 0 \\
+			\hline
+			Số pin hãng Y & 2 & 10 & 25 & 10 & 3 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	Sử dụng khoảng biến thiên, hãy cho biết thời gian sử dụng pin của 50 quả pin điện thoại của hãng nào có độ phân tán lớn hơn.
+	\begin{itemize}[label=, leftmargin=*]
+		\item A. Không so sánh được.
+		\item B. Hãng Y có thời gian sử dụng pin phân tán lớn hơn hãng X.
+		\item C. Hãng X có thời gian sử dụng pin phân tán lớn hơn hãng Y.
+		\item D. Hãng X có thời gian sử dụng pin phân tán bằng hãng Y.
+	\end{itemize}
+	
+	\vspace{4mm}
+	
+	\noindent \textbf{Câu 12:} Điểm kiểm tra học kì môn Tiếng Anh của học sinh hai lớp 12A và 12B được tổng hợp lại ở bảng sau:
+	\begin{center}
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|c|}
+			\hline
+			Điểm kiểm tra & $[0; 2)$ & $[2; 4)$ & $[4; 6)$ & $[6; 8)$ & $[8; 10]$ \\
+			\hline
+			Số học sinh lớp 12A & 1 & 8 & 15 & 12 & 4 \\
+			\hline
+			Số học sinh lớp 12B & 0 & 10 & 18 & 12 & 0 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	Sử dụng khoảng biến thiên, hãy cho biết điểm kiểm tra của học sinh lớp nào có độ phân tán lớn hơn.
+	\begin{itemize}[label=, leftmargin=*]
+		\item A. Không so sánh được.
+		\item B. Lớp 12B có điểm kiểm tra phân tán lớn hơn lớp 12A.
+		\item C. Lớp 12A có điểm kiểm tra phân tán lớn hơn lớp 12B.
+		\item D. Lớp 12A có điểm kiểm tra phân tán bằng lớp 12B.
+	\end{itemize}
+	
+	\vspace{4mm}
+	
+	\noindent \textbf{Câu 13:} Kết quả thống kê thời gian chờ (đơn vị: phút) của một số khách hàng tại hai chi nhánh ngân hàng A và B được cho ở bảng sau:
+	\begin{center}
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|c|}
+			\hline
+			Thời gian chờ (phút) & $[0; 5)$ & $[5; 10)$ & $[10; 15)$ & $[15; 20)$ & $[20; 25)$ \\
+			\hline
+			Số khách hàng chi nhánh A & 0 & 12 & 20 & 18 & 0 \\
+			\hline
+			Số khách hàng chi nhánh B & 4 & 15 & 16 & 12 & 3 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	Sử dụng khoảng biến thiên, hãy cho biết thời gian chờ của khách hàng tại chi nhánh nào có độ phân tán lớn hơn.
+	\begin{itemize}[label=, leftmargin=*]
+		\item A. Không so sánh được.
+		\item B. Chi nhánh B có thời gian chờ phân tán lớn hơn chi nhánh A.
+		\item C. Chi nhánh A có thời gian chờ phân tán lớn hơn chi nhánh B.
+		\item D. Chi nhánh A có thời gian chờ phân tán bằng chi nhánh B.
+	\end{itemize}
+	
+	\vspace{4mm}
+	
+	\noindent \textbf{Câu 14:} Bảng sau thống kê thu nhập theo ngày (đơn vị: nghìn đồng) của hai nhóm công nhân thời vụ I và II tại một công trường xây dựng:
+	\begin{center}
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|c|}
+			\hline
+			Thu nhập (nghìn đồng) & $[100; 150)$ & $[150; 200)$ & $[200; 250)$ & $[250; 300)$ & $[300; 350)$ \\
+			\hline
+			Số công nhân nhóm I & 5 & 12 & 25 & 15 & 3 \\
+			\hline
+			Số công nhân nhóm II & 0 & 18 & 22 & 10 & 0 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	Sử dụng khoảng biến thiên, hãy cho biết thu nhập ngày của nhóm công nhân nào có độ phân tán lớn hơn.
+	\begin{itemize}[label=, leftmargin=*]
+		\item A. Không so sánh được.
+		\item B. Nhóm II có thu nhập ngày phân tán lớn hơn nhóm I.
+		\item C. Nhóm I có thu nhập ngày phân tán lớn hơn nhóm II.
+		\item D. Nhóm I có thu nhập ngày phân tán bằng nhóm II.
+	\end{itemize}
+	
+	\vspace{4mm}
+	
+	\noindent \textbf{Câu 15:} Người ta đo chiều cao (đơn vị: cm) của một số cây con thuộc hai giống M và N ở một vườn ươm lâm nghiệp, kết quả được cho ở bảng sau:
+	\begin{center}
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|c|}
+			\hline
+			Chiều cao (cm) & $[50; 60)$ & $[60; 70)$ & $[70; 80)$ & $[80; 90)$ & $[90; 100)$ \\
+			\hline
+			Số cây giống M & 0 & 8 & 14 & 12 & 0 \\
+			\hline
+			Số cây giống N & 2 & 10 & 18 & 8 & 2 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	Sử dụng khoảng biến thiên, hãy cho biết chiều cao của giống cây nào có độ phân tán lớn hơn.
+	\begin{itemize}[label=, leftmargin=*]
+		\item A. Không so sánh được.
+		\item B. Giống N có chiều cao phân tán lớn hơn giống M.
+		\item C. Giống M có chiều cao phân tán lớn hơn giống N.
+		\item D. Giống M có chiều cao phân tán bằng giống N.
+	\end{itemize}
+	
+	\noindent \textbf{Câu 16:} Khảo sát về độ tuổi của các nhân viên tại một văn phòng thiết kế đồ họa thu được kết quả ở bảng sau:
+	\begin{center}
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|c|}
+			\hline
+			Độ tuổi (năm) & $[20; 25)$ & $[25; 30)$ & $[30; 35)$ & $[35; 40)$ & $[40; 45)$ \\
+			\hline
+			Số nhân viên & 12 & 18 & 30 & 15 & 5 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	Hãy tìm khoảng tứ phân vị của mẫu số liệu ghép nhóm này? (Làm tròn kết quả đến hàng phần trăm).
+	\begin{multicols}{4}
+		A. 7,78. \\
+		B. 8,22. \\
+		C. 6,54. \\
+		D. 9,12.
+	\end{multicols}
+	
+	\vspace{4mm}
+	
+	\noindent \textbf{Câu 17:} Thống kê thời gian làm việc trung bình mỗi ngày (đơn vị: giờ) của một số lao động tự do thu được kết quả ở bảng sau:
+	\begin{center}
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|c|}
+			\hline
+			Thời gian (giờ) & $[4; 6)$ & $[6; 8)$ & $[8; 10)$ & $[10; 12)$ & $[12; 14)$ \\
+			\hline
+			Số lao động & 8 & 22 & 40 & 20 & 10 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	Hãy tìm khoảng tứ phân vị của mẫu số liệu ghép nhóm này? (Làm tròn kết quả đến hàng phần trăm).
+	\begin{multicols}{4}
+		A. 2,95. \\
+		B. 3,12. \\
+		C. 1,85. \\
+		D. 4,20.
+	\end{multicols}
+	
+	\vspace{4mm}
+	
+	\noindent \textbf{Câu 18:} Khảo sát khối lượng một số quả dưa hấu được thu hoạch tại một nông trường thu được kết quả ở bảng sau:
+	\begin{center}
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|c|}
+			\hline
+			Khối lượng (kg) & $[2,0; 2,5)$ & $[2,5; 3,0)$ & $[3,0; 3,5)$ & $[3,5; 4,0)$ & $[4,0; 4,5)$ \\
+			\hline
+			Số quả dưa hấu & 15 & 25 & 45 & 10 & 5 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	Hãy tìm khoảng tứ phân vị của mẫu số liệu ghép nhóm này? (Làm tròn kết quả đến hàng phần trăm).
+	\begin{multicols}{4}
+		A. 0,69. \\
+		B. 0,55. \\
+		C. 0,82. \\
+		D. 1,12.
+	\end{multicols}
+	
+	\vspace{4mm}
+	
+	\noindent \textbf{Câu 19:} Thời gian di chuyển từ nhà đến nơi làm việc (đơn vị: phút) của các nhân viên tại một tòa nhà văn phòng được tổng hợp ở bảng sau:
+	\begin{center}
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|c|}
+			\hline
+			Thời gian (phút) & $[10; 20)$ & $[20; 30)$ & $[30; 40)$ & $[40; 50)$ & $[50; 60)$ \\
+			\hline
+			Số nhân viên & 10 & 25 & 30 & 25 & 10 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	Hãy tìm khoảng tứ phân vị của mẫu số liệu ghép nhóm này? (Làm tròn kết quả đến hàng phần trăm).
+	\begin{multicols}{4}
+		A. 18. \\
+		B. 20. \\
+		C. 15. \\
+		D. 22.
+	\end{multicols}
+	
+	\vspace{4mm}
+	
+	\noindent \textbf{Câu 20:} Đo chiều cao của một số cây bạch đàn con tại một vườn ươm lâm nghiệp, người ta thu được kết quả ở bảng sau:
+	\begin{center}
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|c|}
+			\hline
+			Chiều cao (cm) & $[50; 60)$ & $[60; 70)$ & $[70; 80)$ & $[80; 90)$ & $[90; 100)$ \\
+			\hline
+			Số cây bạch đàn & 5 & 15 & 25 & 10 & 5 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	Hãy tìm khoảng tứ phân vị của mẫu số liệu ghép nhóm này? (Làm tròn kết quả đến hàng phần trăm).
+	\begin{multicols}{4}
+		A. 13,33. \\
+		B. 15,25. \\
+		C. 10,50. \\
+		D. 12,67.
+	\end{multicols}
+	
+	\vspace{4mm}
+	
+	\noindent \textbf{Câu 21:} Bảng sau thống kê lượng nước tiêu thụ hàng tháng (đơn vị: $\text{m}^3$) của một số hộ gia đình tại một khu dân cư:
+	\begin{center}
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|c|}
+			\hline
+			Lượng nước ($\text{m}^3$) & $[10; 15)$ & $[15; 20)$ & $[20; 25)$ & $[25; 30)$ & $[30; 35)$ \\
+			\hline
+			Số hộ gia đình & 15 & 35 & 40 & 20 & 10 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	Hãy tìm khoảng tứ phân vị của mẫu số liệu ghép nhóm này? (Làm tròn kết quả đến hàng phần trăm).
+	\begin{multicols}{4}
+		A. 7,86. \\
+		B. 8,12. \\
+		C. 6,45. \\
+		D. 9,34.
+	\end{multicols}
+	
+	\noindent \textbf{Câu 22:} Chiều cao của một số cây ngô giống sau 1 tháng gieo trồng thuộc hai giống M và N được cho ở bảng sau. Chọn khẳng định đúng.
+	\begin{center}
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			Chiều cao (cm) & $[180; 190)$ & $[190; 200)$ & $[200; 210)$ & $[210; 220)$ \\
+			\hline
+			Giống M & 5 & 25 & 30 & 10 \\
+			\hline
+			Giống N & 12 & 13 & 20 & 15 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	\begin{itemize}[label=, leftmargin=*]
+		\item A. Chiều cao của giống ngô M đồng đều hơn chiều cao của giống ngô N.
+		\item B. Chiều cao trung bình của giống ngô M nhỏ hơn giống ngô N.
+		\item C. Chiều cao của giống ngô N đồng đều hơn chiều cao của giống ngô M.
+		\item D. Khoảng biến thiên của mẫu số liệu ghép nhóm về chiều cao giống ngô M nhỏ hơn giống ngô N.
+	\end{itemize}
+	
+	\vspace{4mm}
+	
+	\noindent \textbf{Câu 23:} Thời gian hoàn thành một sản phẩm cơ khí (đơn vị: phút) của các công nhân thuộc hai phân xưởng A và B được cho ở bảng sau. Chọn khẳng định đúng.
+	\begin{center}
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			Thời gian (phút) & $[20; 25)$ & $[25; 30)$ & $[30; 35)$ & $[35; 40)$ \\
+			\hline
+			Phân xưởng A & 10 & 12 & 22 & 16 \\
+			\hline
+			Phân xưởng B & 6 & 24 & 26 & 4 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	\begin{itemize}[label=, leftmargin=*]
+		\item A. Thời gian hoàn thành sản phẩm của công nhân phân xưởng B đồng đều hơn phân xưởng A.
+		\item B. Thời gian hoàn thành trung bình của sản phẩm ở phân xưởng A nhỏ hơn phân xưởng B.
+		\item C. Thời gian hoàn thành sản phẩm của công nhân phân xưởng A đồng đều hơn phân xưởng B.
+		\item D. Khoảng biến thiên của mẫu số liệu ghép nhóm ở phân xưởng B lớn hơn phân xưởng A.
+	\end{itemize}
+	
+	\vspace{4mm}
+	
+	\noindent \textbf{Câu 24:} Điểm thi giữa kì môn Vật lí của học sinh hai lớp 12C và 12D được cho ở bảng số liệu ghép nhóm dưới đây. Chọn khẳng định đúng.
+	\begin{center}
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			Điểm số & $[5; 6)$ & $[6; 7)$ & $[7; 8)$ & $[8; 9)$ \\
+			\hline
+			Lớp 12C & 4 & 18 & 20 & 8 \\
+			\hline
+			Lớp 12D & 8 & 10 & 16 & 16 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	\begin{itemize}[label=, leftmargin=*]
+		\item A. Điểm số môn Vật lí của học sinh lớp 12C đồng đều hơn lớp 12D.
+		\item B. Điểm thi trung bình môn Vật lí của lớp 12C nhỏ hơn lớp 12D.
+		\item C. Điểm số môn Vật lí của học sinh lớp 12D đồng đều hơn lớp 12C.
+		\item D. Khoảng biến thiên của điểm thi lớp 12C lớn hơn lớp 12D.
+	\end{itemize}
+	
+	\vspace{4mm}
+	
+	\noindent \textbf{Câu 25:} Khảo sát khối lượng cam chín thu hoạch được từ một số cây của hai trang trại trồng trọt X và Y cho kết quả ở bảng sau. Chọn khẳng định đúng.
+	\begin{center}
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			Khối lượng (gam) & $[100; 120)$ & $[120; 140)$ & $[140; 160)$ & $[160; 180)$ \\
+			\hline
+			Trang trại X & 15 & 15 & 25 & 25 \\
+			\hline
+			Trang trại Y & 10 & 35 & 30 & 5 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	\begin{itemize}[label=, leftmargin=*]
+		\item A. Khối lượng cam thu hoạch ở trang trại Y đồng đều hơn trang trại X.
+		\item B. Khối lượng cam trung bình ở trang trại X nhỏ hơn trang trại Y.
+		\item C. Khối lượng cam thu hoạch ở trang trại X đồng đều hơn trang trại Y.
+		\item D. Khoảng biến thiên của mẫu số liệu ở trang trại Y lớn hơn trang trại X.
+	\end{itemize}
+	
+	\vspace{4mm}
+	
+	\noindent \textbf{Câu 26:} Thời gian sử dụng pin liên tục (đơn vị: giờ) của một số điện thoại thông minh mới xuất xưởng thuộc hai hãng P và Q được cho ở bảng sau. Chọn khẳng định đúng.
+	\begin{center}
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			Thời gian (giờ) & $[12; 14)$ & $[14; 16)$ & $[16; 18)$ & $[18; 20)$ \\
+			\hline
+			Hãng P & 8 & 30 & 32 & 10 \\
+			\hline
+			Hãng Q & 15 & 15 & 20 & 20 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	\begin{itemize}[label=, leftmargin=*]
+		\item A. Thời gian sử dụng pin của điện thoại hãng P đồng đều hơn hãng Q.
+		\item B. Thời gian sử dụng pin trung bình của điện thoại hãng P nhỏ hơn hãng Q.
+		\item C. Thời gian sử dụng pin của điện thoại hãng Q đồng đều hơn hãng P.
+		\item D. Khoảng biến thiên của mẫu số liệu ghép nhóm hãng P nhỏ hơn hãng Q.
+	\end{itemize}
+	
+	\noindent \textbf{Câu 27:} Mỗi ngày ông Bình đều đi bộ để rèn luyện sức khỏe. Quãng đường đi bộ mỗi ngày (đơn vị: km) của ông Bình trong 20 ngày được thống kê lại ở bảng sau:
+	\begin{center}
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			Quãng đường (km) & $[1,0; 2,0)$ & $[2,0; 3,0)$ & $[3,0; 4,0)$ & $[4,0; 5,0)$ \\
+			\hline
+			Số ngày & 4 & 8 & 6 & 2 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	Phương sai của mẫu số liệu ghép nhóm trên là:
+	\begin{multicols}{4}
+		A. 0,81. \\
+		B. 2,80. \\
+		C. 0,90. \\
+		D. 1,22.
+	\end{multicols}
+	
+	\vspace{4mm}
+	
+	\noindent \textbf{Câu 28:} Bạn Chi rất thích nhảy hiện đại. Thời gian tập nhảy mỗi ngày trong thời gian gần đây của bạn Chi được thống kê lại ở bảng sau:
+	\begin{center}
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			Thời gian (phút) & $[10; 20)$ & $[20; 30)$ & $[30; 40)$ & $[40; 50)$ \\
+			\hline
+			Số ngày & 5 & 10 & 3 & 2 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	Phương sai của mẫu số liệu ghép nhóm trên là:
+	\begin{multicols}{4}
+		A. 79. \\
+		B. 26. \\
+		C. 81. \\
+		D. 75.
+	\end{multicols}
+	
+	\vspace{4mm}
+	
+	\noindent \textbf{Câu 29:} Thống kê lượng mưa đo được (đơn vị: mm) tại một trạm quan trắc trong 10 ngày mưa liên tiếp được cho ở bảng sau:
+	\begin{center}
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			Lượng mưa (mm) & $[0; 10)$ & $[10; 20)$ & $[20; 30)$ & $[30; 40)$ \\
+			\hline
+			Số ngày & 2 & 4 & 3 & 1 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	Phương sai của mẫu số liệu ghép nhóm trên là:
+	\begin{multicols}{4}
+		A. 81. \\
+		B. 18. \\
+		C. 90. \\
+		D. 72.
+	\end{multicols}
+	
+	\vspace{4mm}
+	
+	\noindent \textbf{Câu 30:} Cân nặng của một mẫu gồm 20 quả khoai lang thu hoạch tại một nông trường được thống kê ở bảng sau:
+	\begin{center}
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			Cân nặng (gam) & $[100; 120)$ & $[120; 140)$ & $[140; 160)$ & $[160; 180)$ \\
+			\hline
+			Số quả khoai lang & 3 & 7 & 8 & 2 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	Phương sai của mẫu số liệu ghép nhóm trên là:
+	\begin{multicols}{4}
+		A. 299. \\
+		B. 139. \\
+		C. 312. \\
+		D. 280.
+	\end{multicols}
+	
+	\vspace{4mm}
+	
+	\noindent \textbf{Câu 31:} Khảo sát thời gian di chuyển từ nhà đến trường (đơn vị: phút) của 25 học sinh lớp 12 thu được kết quả ở bảng sau:
+	\begin{center}
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			Thời gian (phút) & $[10; 14)$ & $[14; 18)$ & $[18; 22)$ & $[22; 26)$ \\
+			\hline
+			Số học sinh & 5 & 10 & 6 & 4 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	Phương sai của mẫu số liệu ghép nhóm trên là:
+	\begin{multicols}{4}
+		A. 15,21. \\
+		B. 17,44. \\
+		C. 16,50. \\
+		D. 14,88.
+	\end{multicols}
+	
+	\vspace{4mm}
+	
+	\noindent \textbf{Câu 32:} Thống kê tốc độ chạy tối đa (đơn vị: m/s) của 20 vận động viên điền kinh trẻ tuổi được cho ở bảng sau:
+	\begin{center}
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			Tốc độ (m/s) & $[5,0; 6,0)$ & $[6,0; 7,0)$ & $[7,0; 8,0)$ & $[8,0; 9,0)$ \\
+			\hline
+			Số vận động viên & 2 & 8 & 8 & 2 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	Độ lệch chuẩn của mẫu số liệu ghép nhóm trên là:
+	\begin{multicols}{4}
+		A. 0,81 m/s. \\
+		B. 0,65 m/s. \\
+		C. 7,00 m/s. \\
+		D. 1,12 m/s.
+	\end{multicols}
+	
+	\vspace{4mm}
+	
+	\noindent \textbf{Câu 33:} Thời gian tự học ở nhà mỗi ngày (đơn vị: giờ) của một nhóm gồm 30 học sinh lớp 12 được thống kê ở bảng sau:
+	\begin{center}
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			Thời gian (giờ) & $[1; 3)$ & $[3; 5)$ & $[5; 7)$ & $[7; 9)$ \\
+			\hline
+			Số học sinh & 6 & 12 & 9 & 3 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	Độ lệch chuẩn của mẫu số liệu ghép nhóm trên là:
+	\begin{multicols}{4}
+		A. 1,8 giờ. \\
+		B. 3,24 giờ. \\
+		C. 4,6 giờ. \\
+		D. 1,5 giờ.
+	\end{multicols}
+	
+	\vspace{4mm}
+	
+	\noindent \textbf{Câu 34:} Cân nặng của một mẫu gồm 50 quả cam (đơn vị: gam) thu hoạch từ một trang trại được tổng hợp ở bảng sau:
+	\begin{center}
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			Cân nặng (gam) & $[100; 110)$ & $[110; 120)$ & $[120; 130)$ & $[130; 140)$ \\
+			\hline
+			Số quả cam & 10 & 20 & 15 & 5 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	Độ lệch chuẩn của mẫu số liệu ghép nhóm trên là:
+	\begin{multicols}{4}
+		A. 9,0 gam. \\
+		B. 81,0 gam. \\
+		C. 118,0 gam. \\
+		D. 9,5 gam.
+	\end{multicols}
+	
+	\vspace{4mm}
+	
+	\noindent \textbf{Câu 35:} Đo chiều cao (đơn vị: cm) của một mẫu gồm 40 cây non giống trong một vườn lâm nghiệp ta thu được kết quả:
+	\begin{center}
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			Chiều cao (cm) & $[40; 50)$ & $[50; 60)$ & $[60; 70)$ & $[70; 80)$ \\
+			\hline
+			Số cây non & 8 & 12 & 14 & 6 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	Độ lệch chuẩn của mẫu số liệu ghép nhóm trên là:
+	\begin{multicols}{4}
+		A. 9,73 cm. \\
+		B. 94,75 cm. \\
+		C. 59,50 cm. \\
+		D. 8,66 cm.
+	\end{multicols}
+	
+	\vspace{4mm}
+	
+	\noindent \textbf{Câu 36:} Thống kê thời gian chờ nhận thuốc (đơn vị: phút) của một mẫu gồm 25 bệnh nhân tại một bệnh viện công được cho ở bảng sau:
+	\begin{center}
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			Thời gian chờ (phút) & $[10; 15)$ & $[15; 20)$ & $[20; 25)$ & $[25; 30)$ \\
+			\hline
+			Số bệnh nhân & 4 & 10 & 8 & 3 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	Độ lệch chuẩn của mẫu số liệu ghép nhóm trên là:
+	\begin{multicols}{4}
+		A. 4,47 phút. \\
+		B. 20,00 phút. \\
+		C. 19,50 phút. \\
+		D. 4,00 phút.
+	\end{multicols}
+	
+	\noindent \textbf{Câu 37:} Trong 30 ngày, một nhà đầu tư đã theo dõi giá cổ phiếu của hai công ty G và H vào phiên mở cửa mỗi ngày. Thông tin được ghi lại ở hai bảng dưới đây:
+	\begin{center}
+		Giá cổ phiếu của công ty G
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|c|}
+			\hline
+			Giá (nghìn đồng) & $[10; 12)$ & $[12; 14)$ & $[14; 16)$ & $[16; 18)$ & $[18; 20)$ \\
+			\hline
+			Tần số & 3 & 7 & 10 & 7 & 3 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	\begin{center}
+		Giá cổ phiếu của công ty H
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|c|}
+			\hline
+			Giá (nghìn đồng) & $[10; 12)$ & $[12; 14)$ & $[14; 16)$ & $[16; 18)$ & $[18; 20)$ \\
+			\hline
+			Tần số & 6 & 7 & 4 & 7 & 6 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	Chọn câu trả lời đúng nhất biết độ lệch chuẩn càng cao thì tỷ lệ rủi ro càng lớn:
+	\begin{itemize}[label=, leftmargin=*]
+		\item A. Công ty G rủi ro hơn.
+		\item B. Công ty H rủi ro hơn.
+		\item C. Cả hai đều rủi ro như nhau.
+		\item D. Cả hai công ty đều không rủi ro.
+	\end{itemize}
+	
+	\vspace{4mm}
+	
+	\noindent \textbf{Câu 38:} Để đánh giá tính ổn định về sản lượng của hai giống cây trồng A và B, nông trường đã thu hoạch thử nghiệm trên 50 thửa ruộng khác nhau cho mỗi giống và ghi lại sản lượng (đơn vị: tạ/h a) như sau:
+	\begin{center}
+		Sản lượng giống cây A
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|c|}
+			\hline
+			Sản lượng (tạ/h a) & $[40; 42)$ & $[42; 44)$ & $[44; 46)$ & $[46; 48)$ & $[48; 50)$ \\
+			\hline
+			Tần số & 5 & 15 & 20 & 15 & 5 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	\begin{center}
+		Sản lượng giống cây B
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|c|}
+			\hline
+			Sản lượng (tạ/h a) & $[40; 42)$ & $[42; 44)$ & $[44; 46)$ & $[46; 48)$ & $[48; 50)$ \\
+			\hline
+			Tần số & 12 & 8 & 10 & 8 & 12 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	Chọn câu trả lời đúng nhất về mức độ biến động sản lượng của hai giống cây trên:
+	\begin{itemize}[label=, leftmargin=*]
+		\item A. Giống cây A biến động sản lượng lớn hơn.
+		\item B. Giống cây B biến động sản lượng lớn hơn.
+		\item C. Cả hai giống cây biến động sản lượng như nhau.
+		\item D. Cả hai giống cây đều hoàn toàn ổn định.
+	\end{itemize}
+	
+	\vspace{4mm}
+	
+	\noindent \textbf{Câu 39:} Anh An đầu tư số tiền bằng nhau vào hai lĩnh vực kinh doanh A và B. Anh An thống kê số tiền thu được mỗi tháng trong vòng 60 tháng theo mỗi lĩnh vực cho kết quả như sau:
+	\begin{center}
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|c|}
+			\hline
+			Số tiền (triệu đồng) & $[5; 10)$ & $[10; 15)$ & $[15; 20)$ & $[20; 25)$ & $[25; 30)$ \\
+			\hline
+			Số tháng đầu tư vào lĩnh vực A & 4 & 12 & 28 & 12 & 4 \\
+			\hline
+			Số tháng đầu tư vào lĩnh vực B & 15 & 8 & 14 & 8 & 15 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	Đáp án nào sau đây đúng?
+	\begin{itemize}[label=, leftmargin=*]
+		\item A. Đầu tư ở lĩnh vực A rủi ro hơn.
+		\item B. Đầu tư ở lĩnh vực B rủi ro hơn.
+		\item C. Độ lệch chuẩn ở lĩnh vực A lớn hơn 15.
+		\item D. Đầu tư ở hai lĩnh vực A và B rủi ro như nhau.
+	\end{itemize}
+	
+	\vspace{4mm}
+	
+	\noindent \textbf{Câu 40:} Thống kê nhiệt độ cao nhất trong ngày (đơn vị: $^\circ$ c) đo được trong 35 ngày mùa hè tại hai thành phố X và Y cho kết quả dưới đây:
+	\begin{center}
+		Nhiệt độ đo tại thành phố X
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|c|}
+			\hline
+			Nhiệt độ ($^\circ$ c) & $[20; 22)$ & $[22; 24)$ & $[24; 26)$ & $[26; 28)$ & $[28; 30)$ \\
+			\hline
+			Số ngày & 2 & 8 & 15 & 8 & 2 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	\begin{center}
+		Nhiệt độ đo tại thành phố Y
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|c|}
+			\hline
+			Nhiệt độ ($^\circ$ c) & $[20; 22)$ & $[22; 24)$ & $[24; 26)$ & $[26; 28)$ & $[28; 30)$ \\
+			\hline
+			Số ngày & 8 & 4 & 11 & 4 & 8 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	Thành phố nào có thời tiết (nhiệt độ cao nhất) biến động nhiều hơn?
+	\begin{itemize}[label=, leftmargin=*]
+		\item A. Thành phố X biến động nhiều hơn.
+		\item B. Thành phố Y biến động nhiều hơn.
+		\item C. Cả hai thành phố biến động như nhau.
+		\item D. Nhiệt độ cả hai thành phố không hề biến động.
+	\end{itemize}
+	
+	\vspace{4mm}
+	
+	\noindent \textbf{Câu 41:} Kiểm tra chất lượng pin của hai dây chuyền sản xuất M và N, người ta kiểm tra ngẫu nhiên 60 viên pin mỗi dây chuyền và ghi lại tuổi thọ sử dụng (đơn vị: giờ) ở hai bảng dưới đây:
+	\begin{center}
+		Tuổi thọ pin của dây chuyền M
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|c|}
+			\hline
+			Tuổi thọ (giờ) & $[500; 600)$ & $[600; 700)$ & $[700; 800)$ & $[800; 900)$ & $[900; 1000)$ \\
+			\hline
+			Số viên pin & 5 & 12 & 26 & 12 & 5 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	\begin{center}
+		Tuổi thọ pin của dây chuyền N
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|c|}
+			\hline
+			Tuổi thọ (giờ) & $[500; 600)$ & $[600; 700)$ & $[700; 800)$ & $[800; 900)$ & $[900; 1000)$ \\
+			\hline
+			Số viên pin & 15 & 5 & 20 & 5 & 15 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	Dây chuyền nào có chất lượng sản phẩm (tuổi thọ pin) kém ổn định hơn?
+	\begin{itemize}[label=, leftmargin=*]
+		\item A. Dây chuyền M kém ổn định hơn.
+		\item B. Dây chuyền N kém ổn định hơn.
+		\item C. Cả hai dây chuyền ổn định như nhau.
+		\item D. Cả hai dây chuyền đều hoàn hảo.
+	\end{itemize}
+	
+	\vspace{4mm}
+	
+	\noindent \textbf{Câu 42:} Khảo sát tỷ suất sinh lời hàng năm (đơn vị: \%) của hai quỹ đầu tư tài chính X và Y trong vòng 50 năm được tổng hợp lại như sau:
+	\begin{center}
+		Tỉ suất sinh lời của quỹ X
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|c|}
+			\hline
+			Tỉ suất sinh lời (\%) & $[5; 10)$ & $[10; 15)$ & $[15; 20)$ & $[20; 25)$ & $[25; 30)$ \\
+			\hline
+			Tần số & 3 & 10 & 24 & 10 & 3 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	\begin{center}
+		Tỉ suất sinh lời của quỹ Y
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|c|}
+			\hline
+			Tỉ suất sinh lời (\%) & $[5; 10)$ & $[10; 15)$ & $[15; 20)$ & $[20; 25)$ & $[25; 30)$ \\
+			\hline
+			Tần số & 10 & 5 & 20 & 5 & 10 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	Sử dụng độ lệch chuẩn để đánh giá mức độ rủi ro, nhận định nào dưới đây đúng?
+	\begin{itemize}[label=, leftmargin=*]
+		\item A. Đầu tư vào quỹ X rủi ro hơn.
+		\item B. Đầu tư vào quỹ Y rủi ro hơn.
+		\item C. Cả hai quỹ đều rủi ro như nhau.
+		\item D. Đầu tư vào quỹ Y an toàn hơn quỹ X.
+	\end{itemize}
+	
+	\vspace{4mm}
+	
+	\noindent \textbf{Câu 43:} Để lựa chọn tuyến đường đi từ nhà đến cơ quan, anh Bình đã đo thử thời gian di chuyển (đơn vị: phút) qua Tuyến đường 1 và Tuyến đường 2 trong 60 ngày khác nhau. Kết quả thống kê như sau:
+	\begin{center}
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|c|}
+			\hline
+			Thời gian (phút) & $[20; 25)$ & $[25; 30)$ & $[30; 35)$ & $[35; 40)$ & $[40; 45)$ \\
+			\hline
+			Số ngày di chuyển Tuyến 1 & 4 & 14 & 24 & 14 & 4 \\
+			\hline
+			Số ngày di chuyển Tuyến 2 & 12 & 6 & 24 & 6 & 12 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	Nếu muốn chọn tuyến đường có thời gian di chuyển ổn định và ít bị biến động nhất, anh Bình nên ưu tiên tuyến đường nào?
+	\begin{itemize}[label=, leftmargin=*]
+		\item A. Tuyến đường 1.
+		\item B. Tuyến đường 2.
+		\item C. Chọn tuyến đường nào cũng có độ biến động như nhau.
+		\item D. Cả hai tuyến đường đều hoàn toàn ổn định.
+	\end{itemize}
+	
+	\vspace{4mm}
+	
+	\noindent \textbf{Câu 44:} Một nhà phân tích kinh tế theo dõi doanh thu hàng ngày (đơn vị: triệu đồng) của hai chi nhánh cửa hàng A và B trong vòng 40 ngày liên tiếp, số liệu thu được:
+	\begin{center}
+		Doanh thu hàng ngày chi nhánh A
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|c|}
+			\hline
+			Doanh thu (triệu đồng) & $[10; 12)$ & $[12; 14)$ & $[14; 16)$ & $[16; 18)$ & $[18; 20)$ \\
+			\hline
+			Số ngày & 2 & 8 & 20 & 8 & 2 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	\begin{center}
+		Doanh thu hàng ngày chi nhánh B
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|c|}
+			\hline
+			Doanh thu (triệu đồng) & $[10; 12)$ & $[12; 14)$ & $[14; 16)$ & $[16; 18)$ & $[18; 20)$ \\
+			\hline
+			Số ngày & 8 & 4 & 16 & 4 & 8 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	Chi nhánh nào có doanh thu dao động không ổn định hơn?
+	\begin{itemize}[label=, leftmargin=*]
+		\item A. Chi nhánh A.
+		\item B. Chi nhánh B.
+		\item C. Cả hai chi nhánh dao động như nhau.
+		\item D. Doanh thu hai chi nhánh không hề dao động.
+	\end{itemize}
+	
+	\vspace{4mm}
+	
+	\noindent \textbf{Câu 45:} Thống kê tốc độ chạy trung bình (đơn vị: m/s) của hai vận động viên điền kinh Long và Nam trong 40 lần chạy thử nghiệm cự ly ngắn được ghi lại như sau:
+	\begin{center}
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|c|}
+			\hline
+			Tốc độ (m/s) & $[6; 7)$ & $[7; 8)$ & $[8; 9)$ & $[9; 10)$ & $[10; 11)$ \\
+			\hline
+			Số lần chạy của Long & 3 & 9 & 16 & 9 & 3 \\
+			\hline
+			Số lần chạy của Nam & 8 & 4 & 16 & 4 & 8 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	Vận động viên nào có phong độ chạy ổn định hơn?
+	\begin{itemize}[label=, leftmargin=*]
+		\item A. Vận động viên Long ổn định hơn.
+		\item B. Vận động viên Nam ổn định hơn.
+		\item C. Cả hai vận động viên ổn định như nhau.
+		\item D. Không so sánh được phong độ hai vận động viên.
+	\end{itemize}
+	
+	\vspace{4mm}
+	
+	\noindent \textbf{Câu 46:} Đo lượng mưa trung bình tháng (đơn vị: mm) trong vòng 50 năm tại hai vùng khí hậu X và Y thu được bảng số liệu ghép nhóm dưới đây:
+	\begin{center}
+		Lượng mưa trung bình vùng X
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|c|}
+			\hline
+			Lượng mưa (mm) & $[10; 20)$ & $[20; 30)$ & $[30; 40)$ & $[40; 50)$ & $[50; 60)$ \\
+			\hline
+			Số năm & 5 & 10 & 20 & 10 & 5 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	\begin{center}
+		Lượng mưa trung bình vùng Y
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|c|}
+			\hline
+			Lượng mưa (mm) & $[10; 20)$ & $[20; 30)$ & $[30; 40)$ & $[40; 50)$ & $[50; 60)$ \\
+			\hline
+			Số năm & 12 & 5 & 16 & 5 & 12 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	Vùng khí hậu nào có lượng mưa có độ biến động thời tiết cao hơn?
+	\begin{itemize}[label=, leftmargin=*]
+		\item A. Vùng X.
+		\item B. Vùng Y.
+		\item C. Cả hai vùng biến động như nhau.
+		\item D. Lượng mưa ở cả hai vùng không hề biến động.
+	\end{itemize}
+	
+	\vspace{4mm}
+	
+	\noindent \textbf{Câu 47:} Để nâng cao chất lượng phục vụ, người ta tiến hành khảo sát thời gian chờ nhận kết quả (đơn vị: phút) của khách hàng tại hai chi nhánh dịch vụ công P và Q. Số liệu thu được:
+	\begin{center}
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|c|}
+			\hline
+			Thời gian chờ (phút) & $[5; 10)$ & $[10; 15)$ & $[15; 20)$ & $[20; 25)$ & $[25; 30)$ \\
+			\hline
+			Số khách hàng tại chi nhánh P & 2 & 12 & 22 & 12 & 2 \\
+			\hline
+			Số khách hàng tại chi nhánh Q & 10 & 5 & 20 & 5 & 10 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	Chi nhánh nào có chất lượng dịch vụ (thời gian phục vụ chờ đợi) ổn định hơn?
+	\begin{itemize}[label=, leftmargin=*]
+		\item A. Chi nhánh P ổn định hơn.
+		\item B. Chi nhánh Q ổn định hơn.
+		\item C. Cả hai chi nhánh ổn định như nhau.
+		\item D. Không xác định được.
+	\end{itemize}
+	
+	\vspace{4mm}
+	
+	\noindent \textbf{Câu 48:} Khảo sát giá đóng cửa cổ phiếu (đơn vị: nghìn đồng) của hai công ty xuất nhập khẩu U và V trong 40 phiên giao dịch liên tiếp cho kết quả như sau:
+	\begin{center}
+		Giá cổ phiếu của công ty U
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|c|}
+			\hline
+			Giá cổ phiếu & $[80; 82)$ & $[82; 84)$ & $[84; 86)$ & $[86; 88)$ & $[88; 90)$ \\
+			\hline
+			Tần số & 4 & 10 & 12 & 10 & 4 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	\begin{center}
+		Giá cổ phiếu của công ty V
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|c|}
+			\hline
+			Giá cổ phiếu & $[80; 82)$ & $[82; 84)$ & $[84; 86)$ & $[86; 88)$ & $[88; 90)$ \\
+			\hline
+			Tần số & 8 & 6 & 12 & 6 & 8 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	Nếu dựa vào độ lệch chuẩn để đánh giá rủi ro dao động giá, cổ phiếu của công ty nào an toàn hơn?
+	\begin{itemize}[label=, leftmargin=*]
+		\item A. Cổ phiếu công ty U an toàn hơn.
+		\item B. Cổ phiếu công ty V an toàn hơn.
+		\item C. Cả hai cổ phiếu có độ rủi ro như nhau.
+		\item D. Không so sánh được.
+	\end{itemize}
+	
+	
+	\subsection{Câu hỏi trắc nghiệm đúng/sai}
+	
+	\noindent \textbf{Câu 1:} Cho mẫu số liệu thống kê chiều cao (đơn vị: cm) của các học sinh lớp 12A, 12B và 12C của một trường THPT như bảng sau:
+	\begin{center}
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|c|}
+			\hline
+			Chiều cao (cm) & $[150; 155)$ & $[155; 160)$ & $[160; 165)$ & $[165; 170)$ & $[170; 175)$ \\
+			\hline
+			Số học sinh lớp 12A & 2 & 10 & 15 & 8 & 5 \\
+			\hline
+			Số học sinh lớp 12B & 0 & 8 & 20 & 10 & 2 \\
+			\hline
+			Số học sinh lớp 12C & 1 & 12 & 14 & 10 & 3 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	Xét tính đúng/sai của các mệnh đề sau:
+	\begin{itemize}[label=, leftmargin=*]
+		\item  a) Nếu dựa vào khoảng biến thiên thì mẫu số liệu thống kê chiều cao của học sinh lớp 12A phân tán hơn so với lớp 12B.
+		\item  b) Khoảng tứ phân vị của mẫu số liệu thống kê chiều cao của học sinh lớp 12B bằng $5\text{ cm}$.
+		\item  c) Ở lớp 12B có một học sinh có chiều cao là $174\text{ cm}$, chiều cao của học sinh đó là giá trị ngoại lệ của mẫu số liệu lớp 12B.
+		\item  d) Cỡ mẫu của cuộc điều tra ở cả ba lớp 12A, 12B và 12C là bằng nhau.
+	\end{itemize}
+	
+	\vspace{4mm}
+	
+	\noindent \textbf{Câu 2:} Để chuẩn bị mở rộng quy mô sản xuất, một nhà máy đã tiến hành khảo sát tuổi thọ sử dụng liên tục (đơn vị: giờ) của bóng đèn LED do ba hãng X, Y, Z sản xuất. Bảng số liệu sau biểu thị các mẫu số liệu thu được:
+	\begin{center}
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|c|}
+			\hline
+			Tuổi thọ (giờ) & $[1000; 1200)$ & $[1200; 1400)$ & $[1400; 1600)$ & $[1600; 1800)$ & $[1800; 2000)$ \\
+			\hline
+			Số bóng đèn hãng X & 5 & 15 & 20 & 10 & 0 \\
+			\hline
+			Số bóng đèn hãng Y & 0 & 10 & 25 & 10 & 5 \\
+			\hline
+			Số bóng đèn hãng Z & 2 & 8 & 15 & 20 & 5 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	Xét tính đúng/sai của các mệnh đề sau:
+	\begin{itemize}[label=, leftmargin=*]
+		\item  a) Khoảng biến thiên về tuổi thọ của bóng đèn hãng X bằng $800\text{ giờ}$.
+		\item  b) Khoảng biến thiên về tuổi thọ của bóng đèn hãng Y không vượt quá $600\text{ giờ}$.
+		\item  c) Khoảng biến thiên về tuổi thọ của bóng đèn hãng Z lớn hơn khoảng biến thiên về tuổi thọ của bóng đèn hãng X.
+		\item  d) Nếu dựa vào khoảng biến thiên thì bóng đèn hãng Z có tuổi thọ phân tán nhất trong ba hãng.
+	\end{itemize}
+	
+	\vspace{4mm}
+	
+	\noindent \textbf{Câu 3:} Người ta theo dõi sự thay đổi cân nặng (được tính bằng hiệu cân nặng trước và sau ba tháng áp dụng chế độ ăn kiêng, đơn vị: kg) của một số người và cho kết quả ở bảng sau:
+	\begin{center}
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			Thay đổi cân nặng (kg) & $[-2; 0)$ & $[0; 2)$ & $[2; 4)$ & $[4; 6)$ \\
+			\hline
+			Số người nam & 4 & 10 & 12 & 4 \\
+			\hline
+			Số người nữ & 6 & 12 & 10 & 2 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	Xét tính đúng/sai của các mệnh đề sau:
+	\begin{itemize}[label=, leftmargin=*]
+		\item  a) Số người nam có cân nặng giảm (hiệu cân nặng lớn hơn hoặc bằng $0\text{ kg}$) sau thời gian ăn kiêng là 26 người.
+		\item  b) Khoảng biến thiên của mẫu số liệu ghép nhóm về sự thay đổi cân nặng của nam là $R_1 = 8\text{ kg}$.
+		\item  c) Khoảng biến thiên của mẫu số liệu ghép nhóm về sự thay đổi cân nặng của nữ là $R_2 = 6\text{ kg}$.
+		\item  d) Sự thay đổi cân nặng của nhóm nam có khoảng biến thiên lớn hơn so với nhóm nữ.
+	\end{itemize}
+	
+	\vspace{4mm}
+	
+	\noindent \textbf{Câu 4:} Thu nhập theo tháng (đơn vị: triệu đồng) của 30 công nhân lao động ở ba nhà máy A, B, C được tổng hợp ở bảng sau:
+	\begin{center}
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|c|}
+			\hline
+			Thu nhập & $[10; 12)$ & $[12; 14)$ & $[14; 16)$ & $[16; 18)$ & $[18; 20)$ \\
+			\hline
+			Số công nhân nhà máy A & 2 & 8 & 15 & 5 & 0 \\
+			\hline
+			Số công nhân nhà máy B & 0 & 5 & 12 & 10 & 3 \\
+			\hline
+			Số công nhân nhà máy C & 1 & 4 & 10 & 12 & 3 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	Xét tính đúng/sai của các mệnh đề sau:
+	\begin{itemize}[label=, leftmargin=*]
+		\item  a) Trong 30 công nhân ở nhà máy A, hiệu số thu nhập của hai công nhân bất kì không vượt quá $8\text{ triệu đồng}$.
+		\item  b) Trong 30 công nhân ở nhà máy B, hiệu số thu nhập của hai công nhân bất kì không vượt quá $6\text{ triệu đồng}$.
+		\item  c) Nếu dựa vào khoảng biến thiên thì thu nhập của công nhân ở nhà máy C phân tán hơn so với nhà máy A.
+		\item  d) Nếu dựa vào khoảng biến thiên thì thu nhập của công nhân ở nhà máy B phân tán hơn so với nhà máy C.
+	\end{itemize}
+	
+	\noindent \textbf{Câu 5:} Thống kê khối lượng dưa lưới thu hoạch được (đơn vị: kg) tại ba ruộng trồng thử nghiệm X, Y và Z thu được kết quả ở bảng sau:
+	\begin{center}
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|c|}
+			\hline
+			Khối lượng (kg) & $[1,5; 2,0)$ & $[2,0; 2,5)$ & $[2,5; 3,0)$ & $[3,0; 3,5)$ & $[3,5; 4,0)$ \\
+			\hline
+			Số quả ở ruộng X & 5 & 10 & 20 & 15 & 0 \\
+			\hline
+			Số quả ở ruộng Y & 0 & 8 & 22 & 12 & 8 \\
+			\hline
+			Số quả ở ruộng Z & 2 & 8 & 25 & 10 & 5 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	Xét tính đúng/sai của các mệnh đề sau:
+	\begin{itemize}[label=, leftmargin=*]
+		\item  a) Khoảng biến thiên về khối lượng dưa lưới ở ruộng X là $R_X = 2,0\text{ kg}$.
+		\item  b) Khoảng biến thiên về khối lượng dưa lưới ở ruộng Y lớn hơn khoảng biến thiên ở ruộng Z.
+		\item  c) Ruộng Y có khối lượng dưa lưới phân tán nhất nếu tính theo khoảng biến thiên.
+		\item  d) Cả ba ruộng dưa lưới đều có tổng số lượng quả được khảo sát bằng nhau.
+	\end{itemize}
+	
+	\vspace{4mm}
+	
+	\noindent \textbf{Câu 6:} Khảo sát thời gian di chuyển từ nhà đến nơi làm việc (đơn vị: phút) của công nhân tại ba nhà máy A, B và C thu được bảng thống kê sau:
+	\begin{center}
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|c|}
+			\hline
+			Thời gian (phút) & $[10; 20)$ & $[20; 30)$ & $[30; 40)$ & $[40; 50)$ & $[50; 60)$ \\
+			\hline
+			Số công nhân nhà máy A & 12 & 18 & 20 & 10 & 0 \\
+			\hline
+			Số công nhân nhà máy B & 0 & 15 & 30 & 10 & 5 \\
+			\hline
+			Số công nhân nhà máy C & 5 & 10 & 25 & 15 & 5 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	Xét tính đúng/sai của các mệnh đề sau:
+	\begin{itemize}[label=, leftmargin=*]
+		\item  a) Nhà máy A có khoảng biến thiên thời gian di chuyển nhỏ hơn nhà máy B.
+		\item  b) Khoảng biến thiên của mẫu số liệu ghép nhóm của nhà máy C là $50\text{ phút}$.
+		\item  c) Khoảng tứ phân vị của thời gian di chuyển ở nhà máy A bằng $15\text{ phút}$.
+		\item  d) Thời gian di chuyển của công nhân ở nhà máy C có khoảng biến thiên lớn nhất trong ba nhà máy.
+	\end{itemize}
+	
+	\vspace{4mm}
+	
+	\noindent \textbf{Câu 7:} Kết quả thi cuối kì môn Toán (thang điểm 10) của học sinh ba lớp 12M, 12N và 12P được cho ở bảng số liệu ghép nhóm dưới đây:
+	\begin{center}
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|c|c|}
+			\hline
+			Điểm số & $[4; 5)$ & $[5; 6)$ & $[6; 7)$ & $[7; 8)$ & $[8; 9)$ & $[9; 10]$ \\
+			\hline
+			Số học sinh lớp 12M & 1 & 4 & 15 & 12 & 6 & 2 \\
+			\hline
+			Số học sinh lớp 12N & 0 & 8 & 12 & 10 & 8 & 2 \\
+			\hline
+			Số học sinh lớp 12P & 0 & 0 & 10 & 15 & 12 & 3 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	Xét tính đúng/sai của các mệnh đề sau:
+	\begin{itemize}[label=, leftmargin=*]
+		\item  a) Lớp 12M có điểm thi phân tán nhất nếu tính theo khoảng biến thiên.
+		\item  b) Khoảng biến thiên về điểm thi môn Toán của lớp 12P bằng $4$.
+		\item  c) Ở cả ba lớp đều có học sinh đạt điểm giỏi xuất sắc (từ 9 đến 10 điểm).
+		\item  d) Khoảng biến thiên điểm kiểm tra học kì môn Toán của học sinh lớp 12N bằng $5$.
+	\end{itemize}
+	
+	\vspace{4mm}
+	
+	\noindent \textbf{Câu 8:} Một trang trại chăn nuôi thực hiện cân đo khối lượng (đơn vị: kg) của một số lợn con mới sinh thuộc ba giống A, B và C thu được kết quả ở bảng sau:
+	\begin{center}
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|c|}
+			\hline
+			Khối lượng (kg) & $[1,0; 1,2)$ & $[1,2; 1,4)$ & $[1,4; 1,6)$ & $[1,6; 1,8)$ & $[1,8; 2,0)$ \\
+			\hline
+			Số lợn con giống A & 8 & 12 & 20 & 10 & 0 \\
+			\hline
+			Số lợn con giống B & 0 & 15 & 15 & 12 & 8 \\
+			\hline
+			Số lợn con giống C & 4 & 10 & 22 & 12 & 2 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	Xét tính đúng/sai của các mệnh đề sau:
+	\begin{itemize}[label=, leftmargin=*]
+		\item  a) Khoảng biến thiên khối lượng của lợn con giống C là $R_C = 0,8\text{ kg}$.
+		\item  b) Khoảng biến thiên về cân nặng của lợn con giống B lớn hơn lợn con giống A.
+		\item  c) Giống B có cân nặng lợn con mới sinh phân tán nhất trong ba giống dựa theo khoảng biến thiên.
+		\item  d) Số lượng lợn con được khảo sát ở giống A là 50 con.
+	\end{itemize}
+	
+	\vspace{4mm}
+	
+	\noindent \textbf{Câu 9:} Thống kê chiều cao (đơn vị: cm) của 100 cây giống thuộc ba loài thực vật khác nhau gieo trồng trong vườn thí nghiệm thu được kết quả ở bảng sau:
+	\begin{center}
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|c|}
+			\hline
+			Chiều cao (cm) & $[15; 20)$ & $[20; 25)$ & $[25; 30)$ & $[30; 35)$ & $[35; 40)$ \\
+			\hline
+			Số cây của loài 1 & 5 & 25 & 35 & 25 & 10 \\
+			\hline
+			Số cây của loài 2 & 12 & 18 & 30 & 25 & 15 \\
+			\hline
+			Số cây của loài 3 & 0 & 20 & 45 & 25 & 10 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	Xét tính đúng/sai của các mệnh đề sau:
+	\begin{itemize}[label=, leftmargin=*]
+		\item  a) Khoảng biến thiên về chiều cao cây giống loài 3 nhỏ hơn khoảng biến thiên về chiều cao cây loài 1.
+		\item  b) Khoảng tứ phân vị của chiều cao cây giống loài 1 bằng $5\text{ cm}$.
+		\item  c) Cả ba loài thực vật đều có số lượng cây con được đưa vào khảo sát bằng nhau và đạt mức 100 cây.
+		\item  d) Loài 2 có chiều cao cây giống phân tán nhiều hơn loài 3 nếu tính theo khoảng biến thiên.
+	\end{itemize}
+	
+	\vspace{4mm}
+	
+	\noindent \textbf{Câu 10:} Thống kê nhiệt độ cao nhất trong ngày (đơn vị: $^\circ\text{C}$) trong tháng 7 tại ba thành phố X, Y và Z cho kết quả ở bảng sau:
+	\begin{center}
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|c|}
+			\hline
+			Nhiệt độ ($^\circ\text{C}$) & $[30; 32)$ & $[32; 34)$ & $[34; 36)$ & $[36; 38)$ & $[38; 40)$ \\
+			\hline
+			Số ngày ở thành phố X & 2 & 8 & 12 & 6 & 2 \\
+			\hline
+			Số ngày ở thành phố Y & 0 & 5 & 15 & 10 & 0 \\
+			\hline
+			Số ngày ở thành phố Z & 1 & 4 & 10 & 12 & 3 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	Xét tính đúng/sai của các mệnh đề sau:
+	\begin{itemize}[label=, leftmargin=*]
+		\item  a) Thành phố Y có khoảng biến thiên nhiệt độ lớn nhất trong ba thành phố.
+		\item  b) Khoảng biến thiên nhiệt độ của thành phố X bằng $10^\circ\text{C}$.
+		\item  c) Ở cả ba thành phố đều ghi nhận có những ngày nhiệt độ chạm ngưỡng từ $38^\circ\text{C}$ đến $40^\circ\text{C}$.
+		\item  d) Nếu dựa vào khoảng biến thiên thì nhiệt độ của thành phố Y có độ biến động ổn định nhất trong ba thành phố.
+	\end{itemize}
+	
+	\noindent \textbf{Câu 11:} Khảo sát chiều cao (đơn vị: cm) của một số cây con giống thuộc hai giống cây M và N gieo trồng tại một lâm trường, kết quả được tổng hợp ở bảng sau:
+	\begin{center}
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|c|}
+			\hline
+			Chiều cao (cm) & $[10; 20)$ & $[20; 30)$ & $[30; 40)$ & $[40; 50)$ & $[50; 60)$ \\
+			\hline
+			Số cây giống M & 5 & 10 & 20 & 10 & 5 \\
+			\hline
+			Số cây giống N & 0 & 15 & 20 & 15 & 0 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	Xét tính đúng/sai của các mệnh đề sau:
+	\begin{itemize}[label=, leftmargin=*]
+		\item a) Khoảng biến thiên về chiều cao của giống cây M là $50\text{ cm}$.
+		\item b) Khoảng biến thiên về chiều cao của giống cây N là $30\text{ cm}$.
+		\item c) Giống cây M có chiều cao đồng đều hơn giống cây N nếu dựa vào khoảng biến thiên.
+		\item d) Tứ phân vị thứ nhất của giống cây N thuộc nhóm $[20; 30)$.
+	\end{itemize}
+	
+	\vspace{4mm}
+	
+	\noindent \textbf{Câu 12:} Người ta điều tra thời gian làm việc mỗi ngày (đơn vị: giờ) của các nhân viên thuộc ba bộ phận chuyên môn A, B và C trong một doanh nghiệp và thu được kết quả:
+	\begin{center}
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			Thời gian (giờ) & $[4; 6)$ & $[6; 8)$ & $[8; 10)$ & $[10; 12)$ \\
+			\hline
+			Số nhân viên bộ phận A & 2 & 8 & 15 & 5 \\
+			\hline
+			Số nhân viên bộ phận B & 0 & 12 & 14 & 4 \\
+			\hline
+			Số nhân viên bộ phận C & 5 & 10 & 10 & 5 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	Xét tính đúng/sai của các mệnh đề sau:
+	\begin{itemize}[label=, leftmargin=*]
+		\item a) Khoảng biến thiên về thời gian làm việc của nhân viên ở bộ phận B là lớn nhất trong ba bộ phận.
+		\item b) Thời gian làm việc của nhân viên bộ phận B đồng đều hơn bộ phận A nếu so sánh bằng khoảng biến thiên.
+		\item c) Ở bộ phận A, có đúng 20 nhân viên có thời gian làm việc từ 8 giờ trở lên.
+		\item d) Cỡ mẫu khảo sát thời gian làm việc ở mỗi bộ phận là khác nhau.
+	\end{itemize}
+	
+	\vspace{4mm}
+	
+	\noindent \textbf{Câu 13:} Bác sĩ thú y tiến hành đo cân nặng lúc mới sinh (đơn vị: kg) của một số con bê con thuộc hai giống bò ngoại nhập X và Y. Kết quả được cho ở bảng sau:
+	\begin{center}
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|c|}
+			\hline
+			Cân nặng (kg) & $[25; 30)$ & $[30; 35)$ & $[35; 40)$ & $[40; 45)$ & $[45; 50)$ \\
+			\hline
+			Số bê con giống X & 5 & 15 & 20 & 8 & 2 \\
+			\hline
+			Số bê con giống Y & 10 & 10 & 15 & 10 & 5 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	Xét tính đúng/sai của các mệnh đề sau:
+	\begin{itemize}[label=, leftmargin=*]
+		\item a) Số bê con giống X có cân nặng từ $35\text{ kg}$ trở lên là 25 con.
+		\item b) Khoảng biến thiên về cân nặng của hai giống bê con X và Y là bằng nhau.
+		\item c) Khoảng tứ phân vị về cân nặng của giống bê con X nhỏ hơn giống bê con Y.
+		\item d) Có một con bê giống X nặng $49\text{ kg}$, cân nặng của con bê này được xác định là một giá trị ngoại lệ của giống X.
+	\end{itemize}
+	
+	\vspace{4mm}
+	
+	\noindent \textbf{Câu 14:} Khảo sát thời gian đi từ nhà đến trường bằng xe đạp (đơn vị: phút) của học sinh hai trường trung học phổ thông A và B cho kết quả ở bảng sau:
+	\begin{center}
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|c|}
+			\hline
+			Thời gian (phút) & $[10; 15)$ & $[15; 20)$ & $[20; 25)$ & $[25; 30)$ & $[30; 35)$ \\
+			\hline
+			Số học sinh trường A & 8 & 12 & 20 & 15 & 5 \\
+			\hline
+			Số học sinh trường B & 0 & 15 & 30 & 15 & 0 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	Xét tính đúng/sai của các mệnh đề sau:
+	\begin{itemize}[label=, leftmargin=*]
+		\item a) Khoảng biến thiên về thời gian đi học của học sinh trường B nhỏ hơn trường A.
+		\item b) Thời gian đi học của học sinh trường B đồng đều hơn trường A nếu so sánh bằng khoảng biến thiên.
+		\item c) Tứ phân vị thứ nhất $Q_1$ của mẫu số liệu trường B bằng 20.
+		\item d) Trường A có một học sinh đi học mất $34\text{ phút}$, thời gian đi học của học sinh này được xác định là giá trị ngoại lệ của trường A.
+	\end{itemize}
+	
+	\vspace{4mm}
+	
+	\noindent \textbf{Câu 15:} Người ta theo dõi lượng nước tiêu thụ hàng tháng (đơn vị: $\text{m}^3$) của một số hộ gia đình thuộc hai chung cư cao cấp A và B, kết quả được cho ở bảng sau:
+	\begin{center}
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|c|}
+			\hline
+			Lượng nước ($\text{m}^3$) & $[10; 15)$ & $[15; 20)$ & $[20; 25)$ & $[25; 30)$ & $[30; 35)$ \\
+			\hline
+			Số hộ gia đình chung cư A & 12 & 18 & 25 & 10 & 5 \\
+			\hline
+			Số hộ gia đình chung cư B & 5 & 15 & 35 & 12 & 3 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	Xét tính đúng/sai của các mệnh đề sau:
+	\begin{itemize}[label=, leftmargin=*]
+		\item a) Chung cư B có số hộ gia đình tiêu thụ lượng nước tập trung ở nhóm $[20; 25)$ nhiều nhất.
+		\item b) Khoảng biến thiên lượng nước tiêu thụ của hộ gia đình ở chung cư A lớn hơn chung cư B.
+		\item c) Khoảng tứ phân vị của lượng nước tiêu thụ ở chung cư B nhỏ hơn chung cư A.
+		\item d) Cả hai mẫu số liệu khảo sát đều có cỡ mẫu bằng 70.
+	\end{itemize}
+	
+	\vspace{4mm}
+	
+	\noindent \textbf{Câu 16:} Kết quả thi thử tốt nghiệp THPT môn Toán (thang điểm 20) của học sinh hai trường X và Y được thống kê ở bảng sau:
+	\begin{center}
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|c|}
+			\hline
+			Điểm số & $[10; 12)$ & $[12; 14)$ & $[14; 16)$ & $[16; 18)$ & $[18; 20]$ \\
+			\hline
+			Số học sinh trường X & 5 & 10 & 20 & 10 & 5 \\
+			\hline
+			Số học sinh trường Y & 2 & 8 & 15 & 20 & 5 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	Xét tính đúng/sai của các mệnh đề sau:
+	\begin{itemize}[label=, leftmargin=*]
+		\item a) Điểm số môn Toán của học sinh trường Y phân tán hơn học sinh trường X nếu dựa vào khoảng biến thiên.
+		\item b) Số học sinh đạt điểm từ 14 trở lên ở trường X là 35 học sinh.
+		\item c) Tứ phân vị thứ nhất $Q_1$ của điểm số trường X lớn hơn trường Y.
+		\item d) Trường Y có số lượng học sinh đạt điểm cao (từ 16 điểm trở lên) nhiều hơn trường X.
+	\end{itemize}
+	
+	
+	\subsection{Câu hỏi trắc nghiệm trả lời ngắn}
+	
+	\noindent \textbf{Câu 1:} Một nhà máy sản xuất bóng đèn thống kê tuổi thọ (đơn vị: giờ) của 40 bóng đèn được chọn ngẫu nhiên dưới dạng bảng ghép nhóm sau. Hãy xác định khoảng biến thiên của mẫu số liệu này.
+	\begin{center}
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|c|}
+			\hline
+			Tuổi thọ (giờ) & $[1000; 1200)$ & $[1200; 1400)$ & $[1400; 1600)$ & $[1600; 1800)$ & $[1800; 2000)$ \\
+			\hline
+			Số bóng đèn & 5 & 12 & 15 & 6 & 2 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	
+	\vspace{4mm}
+	
+	\noindent \textbf{Câu 2:} Thống kê thời gian chờ (đơn vị: phút) của một số khách hàng tại một chi nhánh ngân hàng được cho ở bảng sau. Tìm khoảng biến thiên của mẫu số liệu ghép nhóm về thời gian chờ.
+	\begin{center}
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|c|}
+			\hline
+			Thời gian chờ (phút) & $[0; 5)$ & $[5; 10)$ & $[10; 15)$ & $[15; 20)$ & $[20; 25)$ \\
+			\hline
+			Số khách hàng & 8 & 15 & 22 & 11 & 4 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	
+	\vspace{4mm}
+	
+	\noindent \textbf{Câu 3:} Kết quả khảo sát điểm số thi học kì môn Ngữ văn của học sinh một khối lớp được ghi nhận ở bảng sau. Hãy xác định khoảng biến thiên của mẫu số liệu ghép nhóm này.
+	\begin{center}
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|c|}
+			\hline
+			Điểm số & $[4; 5)$ & $[5; 6)$ & $[6; 7)$ & $[7; 8)$ & $[8; 9)$ \\
+			\hline
+			Số học sinh & 0 & 12 & 20 & 15 & 0 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	
+	\vspace{4mm}
+	
+	\noindent \textbf{Câu 4:} Thống kê lượng mưa đo được (đơn vị: mm) trong một tháng tại một trạm khí tượng được cho ở bảng ghép nhóm sau. Hãy tìm khoảng biến thiên của lượng mưa trong tháng đó.
+	\begin{center}
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|c|}
+			\hline
+			Lượng mưa (mm) & $[10; 20)$ & $[20; 30)$ & $[30; 40)$ & $[40; 50)$ & $[50; 60)$ \\
+			\hline
+			Số ngày & 3 & 8 & 12 & 5 & 2 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	
+	\vspace{4mm}
+	
+	\noindent \textbf{Câu 5:} Đo chiều cao của một số cây giống bạch đàn (đơn vị: cm) trong vườn ươm lâm nghiệp, người ta thu được bảng số liệu sau. Tìm khoảng biến thiên của chiều cao các cây con.
+	\begin{center}
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|c|}
+			\hline
+			Chiều cao (cm) & $[20; 25)$ & $[25; 30)$ & $[30; 35)$ & $[35; 40)$ & $[40; 45)$ \\
+			\hline
+			Số cây & 6 & 14 & 25 & 10 & 5 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	
+	\vspace{4mm}
+	
+	\noindent \textbf{Câu 6:} Thời gian di chuyển từ nhà đến nơi làm việc bằng xe máy (đơn vị: phút) của các nhân viên tại một văn phòng được cho ở bảng sau. Xác định khoảng biến thiên của thời gian di chuyển.
+	\begin{center}
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|c|}
+			\hline
+			Thời gian (phút) & $[10; 15)$ & $[15; 20)$ & $[20; 25)$ & $[25; 30)$ & $[30; 35)$ \\
+			\hline
+			Số nhân viên & 0 & 10 & 15 & 5 & 0 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	
+	\vspace{4mm}
+	
+	\noindent \textbf{Câu 7:} Thống kê thời gian sử dụng pin liên tục (đơn vị: giờ) của một số viên pin tiểu thuộc thế hệ mới được cho ở bảng sau. Hãy xác định khoảng biến thiên của mẫu số liệu ghép nhóm này.
+	\begin{center}
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|c|}
+			\hline
+			Thời gian (giờ) & $[50; 60)$ & $[60; 70)$ & $[70; 80)$ & $[80; 90)$ & $[90; 100)$ \\
+			\hline
+			Số viên pin & 4 & 16 & 25 & 11 & 4 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	
+	\vspace{4mm}
+	
+	\noindent \textbf{Câu 8:} Đo khối lượng một số quả cam chín (đơn vị: gam) được thu hoạch từ một trang trại cây ăn quả, kết quả được cho ở bảng sau. Xác định khoảng biến thiên của khối lượng cam.
+	\begin{center}
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|c|}
+			\hline
+			Khối lượng (gam) & $[100; 110)$ & $[110; 120)$ & $[120; 130)$ & $[130; 140)$ & $[140; 150)$ \\
+			\hline
+			Số quả cam & 5 & 15 & 22 & 12 & 6 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	
+	\vspace{4mm}
+	
+	\noindent \textbf{Câu 9:} Khảo sát về độ tuổi của các thành viên tham gia một câu lạc bộ thể thao được cho ở bảng phân bố tần số ghép nhóm dưới đây. Hãy tìm khoảng biến thiên của độ tuổi các thành viên.
+	\begin{center}
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|c|}
+			\hline
+			Tuổi (năm) & $[18; 24)$ & $[24; 30)$ & $[30; 36)$ & $[36; 42)$ & $[42; 48)$ \\
+			\hline
+			Số thành viên & 10 & 25 & 30 & 12 & 3 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	
+	\vspace{4mm}
+	
+	\noindent \textbf{Câu 10:} Bảng sau thống kê lượng nước tiêu thụ hàng tháng (đơn vị: $\text{m}^3$) của một số hộ gia đình tại một khu dân cư. Hãy tìm khoảng biến thiên lượng nước tiêu thụ của mẫu số liệu ghép nhóm này.
+	\begin{center}
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|c|}
+			\hline
+			Lượng nước ($\text{m}^3$) & $[5; 10)$ & $[10; 15)$ & $[15; 20)$ & $[20; 25)$ & $[25; 30)$ \\
+			\hline
+			Số hộ gia đình & 0 & 22 & 35 & 13 & 0 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	
+	\vspace{4mm}
+	
+	\noindent \textbf{Câu 11:} Khảo sát về độ tuổi (đơn vị: tuổi) của một số nhân viên làm việc tại một văn phòng thiết kế đồ họa thu được kết quả ở bảng ghép nhóm sau. Hãy tính khoảng tứ phân vị của mẫu số liệu này.
+	\begin{center}
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			Độ tuổi (tuổi) & $[20; 25)$ & $[25; 30)$ & $[30; 35)$ & $[35; 40)$ \\
+			\hline
+			Số nhân viên & 10 & 20 & 20 & 10 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	
+	\vspace{4mm}
+	
+	\noindent \textbf{Câu 12:} Thời gian chạy cự ly $100\text{ m}$ (đơn vị: giây) của một nhóm vận động viên điền kinh trẻ tuổi được cho ở bảng sau. Tính khoảng tứ phân vị của thời gian chạy (làm tròn kết quả đến hàng phần trăm).
+	\begin{center}
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			Thời gian (giây) & $[10; 11)$ & $[11; 12)$ & $[12; 13)$ & $[13; 14)$ \\
+			\hline
+			Số vận động viên & 8 & 12 & 16 & 4 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	
+	\vspace{4mm}
+	
+	\noindent \textbf{Câu 13:} Khối lượng của một số quả thanh long chín thu hoạch được từ một trang trại được tổng hợp ở bảng ghép nhóm sau (đơn vị: gam). Hãy tính khoảng tứ phân vị của mẫu số liệu khối lượng này.
+	\begin{center}
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			Khối lượng (gam) & $[100; 120)$ & $[120; 140)$ & $[140; 160)$ & $[160; 180)$ \\
+			\hline
+			Số quả & 5 & 15 & 15 & 5 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	
+	\vspace{4mm}
+	
+	\noindent \textbf{Câu 14:} Quãng đường đi bộ hàng ngày (đơn vị: km) của một số người dân sinh sống tại một khu đô thị được tổng hợp ở bảng số liệu ghép nhóm dưới đây. Xác định khoảng tứ phân vị của mẫu số liệu quãng đường.
+	\begin{center}
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			Quãng đường (km) & $[0; 5)$ & $[5; 10)$ & $[10; 15)$ & $[15; 20)$ \\
+			\hline
+			Số người & 10 & 25 & 30 & 15 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	
+	\vspace{4mm}
+	
+	\noindent \textbf{Câu 15:} Khảo sát tuổi thọ sử dụng liên tục (đơn vị: nghìn giờ) của một số bóng đèn LED thế hệ mới được cho ở bảng ghép nhóm sau. Tìm khoảng tứ phân vị của mẫu số liệu tuổi thọ bóng đèn.
+	\begin{center}
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			Tuổi thọ (nghìn giờ) & $[1; 3)$ & $[3; 5)$ & $[5; 7)$ & $[7; 9)$ \\
+			\hline
+			Số bóng đèn & 15 & 35 & 40 & 10 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	
+	\vspace{4mm}
+	
+	\noindent \textbf{Câu 16:} Điểm số kiểm tra đánh giá giữa học kì môn Vật lí (thang điểm 20) của một số học sinh khối lớp 12 được tổng hợp lại ở bảng ghép nhóm sau. Tìm khoảng tứ phân vị của điểm số.
+	\begin{center}
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|c|}
+			\hline
+			Điểm số & $[10; 12)$ & $[12; 14)$ & $[14; 16)$ & $[16; 18)$ & $[18; 20]$ \\
+			\hline
+			Số học sinh & 5 & 10 & 20 & 10 & 5 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	
+	\vspace{4mm}
+	
+	\noindent \textbf{Câu 17:} Thống kê thời gian dành cho việc tự học bài ở nhà mỗi ngày (đơn vị: giờ) của một nhóm học sinh khối THPT được cho ở bảng sau. Xác định khoảng tứ phân vị của mẫu số liệu thời gian học bài.
+	\begin{center}
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			Thời gian (giờ) & $[1; 2)$ & $[2; 3)$ & $[3; 4)$ & $[4; 5)$ \\
+			\hline
+			Số học sinh & 10 & 20 & 20 & 10 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	
+	\vspace{4mm}
+	
+	\noindent \textbf{Câu 18:} Thu nhập tháng của các nhân viên văn phòng tại một công ty phần mềm (đơn vị: triệu đồng) được tổng hợp lại ở bảng phân bố tần số ghép nhóm dưới đây. Hãy tìm khoảng tứ phân vị của mẫu số liệu này (làm tròn kết quả đến hàng phần trăm).
+	\begin{center}
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			Lương tháng (triệu đồng) & $[6; 8)$ & $[8; 10)$ & $[10; 12)$ & $[12; 14)$ \\
+			\hline
+			Số nhân viên & 3 & 6 & 8 & 7 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	
+	\vspace{4mm}
+	
+	\noindent \textbf{Câu 19:} Bác sĩ thú y tiến hành đo cân nặng của một số con bê giống mới sinh (đơn vị: kg) của một nông trường chăn nuôi và cho kết quả ở bảng sau. Tính khoảng tứ phân vị của mẫu số liệu cân nặng (làm tròn đến hàng phần trăm).
+	\begin{center}
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			Cân nặng (kg) & $[30; 32)$ & $[32; 34)$ & $[34; 36)$ & $[36; 38)$ \\
+			\hline
+			Số bê con & 5 & 15 & 15 & 5 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	
+	\vspace{4mm}
+	
+	\noindent \textbf{Câu 20:} Thời gian di chuyển đi học bằng phương tiện công cộng (đơn vị: phút) của một số học sinh trung học được ghi nhận ở bảng ghép nhóm sau. Tìm khoảng tứ phân vị của thời gian di chuyển (làm tròn đến hàng phần trăm).
+	\begin{center}
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			Thời gian (phút) & $[10; 15)$ & $[15; 20)$ & $[20; 25)$ & $[25; 30)$ \\
+			\hline
+			Số học sinh & 5 & 15 & 20 & 10 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	
+	\noindent \textbf{Câu 21:} Thời gian hoàn thành một bài viết chính tả (đơn vị: phút) của một số học sinh tiểu học ở hai trường X và Y được ghi lại ở bảng sau. Gọi độ lệch chuẩn thời gian hoàn thành của học sinh trường X và trường Y lần lượt là $S_X$ và $S_Y$. Tính giá trị của $S_X - S_Y$ (làm tròn kết quả đến hàng phần trăm).
+	\begin{center}
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			Thời gian (phút) & $[6; 8)$ & $[8; 10)$ & $[10; 12)$ & $[12; 14)$ \\
+			\hline
+			Số học sinh trường X & 5 & 10 & 10 & 5 \\
+			\hline
+			Số học sinh trường Y & 2 & 13 & 13 & 2 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	
+	\vspace{4mm}
+	
+	\noindent \textbf{Câu 22:} Tiền công nhật theo ngày (đơn vị: nghìn đồng) của các công nhân thời vụ tại hai xưởng cơ khí A và B được cho ở bảng sau. Gọi độ lệch chuẩn về mức lương của công nhân xưởng A và xưởng B lần lượt là $S_A$ và $S_B$. Tính giá trị của $S_B - S_A$ (làm tròn kết quả đến hàng phần trăm).
+	\begin{center}
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			Mức lương (nghìn đồng) & $[100; 120)$ & $[120; 140)$ & $[140; 160)$ & $[160; 180)$ \\
+			\hline
+			Số công nhân xưởng A & 4 & 11 & 11 & 4 \\
+			\hline
+			Số công nhân xưởng B & 8 & 7 & 7 & 8 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	
+	\vspace{4mm}
+	
+	\noindent \textbf{Câu 23:} Thống kê thời gian tự học ở nhà mỗi ngày (đơn vị: giờ) của các học sinh thuộc hai lớp 12A và 12B được ghi nhận ở bảng sau. Gọi độ lệch chuẩn thời gian tự học của lớp 12A và 12B lần lượt là $S_A$ và $S_B$. Tính giá trị của $S_A - S_B$ (làm tròn kết quả đến hàng phần trăm).
+	\begin{center}
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			Thời gian (giờ) & $[1; 3)$ & $[3; 5)$ & $[5; 7)$ & $[7; 9)$ \\
+			\hline
+			Số học sinh lớp 12A & 3 & 7 & 7 & 3 \\
+			\hline
+			Số học sinh lớp 12B & 1 & 9 & 9 & 1 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	
+	\vspace{4mm}
+	
+	\noindent \textbf{Câu 24:} Chiều cao (đơn vị: cm) của một số cây non giống sau hai tháng gieo trồng thuộc hai giống cây M và N được cho ở bảng sau. Gọi độ lệch chuẩn chiều cao của giống M và giống N lần lượt là $S_M$ and $S_N$. Tính giá trị của $S_M - S_N$ (làm tròn kết quả đến hàng phần trăm).
+	\begin{center}
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			Chiều cao (cm) & $[20; 30)$ & $[30; 40)$ & $[40; 50)$ & $[50; 60)$ \\
+			\hline
+			Số cây giống M & 5 & 15 & 15 & 5 \\
+			\hline
+			Số cây giống N & 2 & 18 & 18 & 2 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	
+	\vspace{4mm}
+	
+	\noindent \textbf{Câu 25:} Khảo sát thời gian chờ nhận kết quả xét nghiệm (đơn vị: phút) của một số bệnh nhân tại hai phòng khám tư nhân P và Q được cho ở bảng sau. Gọi độ lệch chuẩn thời gian chờ của phòng khám P và Q lần lượt là $S_P$ và $S_Q$. Tính giá trị của $S_P - S_Q$ (làm tròn kết quả đến hàng phần trăm).
+	\begin{center}
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			Thời gian chờ (phút) & $[5; 10)$ & $[10; 15)$ & $[15; 20)$ & $[20; 25)$ \\
+			\hline
+			Số bệnh nhân phòng khám P & 6 & 9 & 9 & 6 \\
+			\hline
+			Số bệnh nhân phòng khám Q & 2 & 13 & 13 & 2 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	
+	\vspace{4mm}
+	
+	\noindent \textbf{Câu 26:} Tốc độ di chuyển trung bình (đơn vị: m/s) của các vận động viên thuộc hai nhóm tập luyện A và B được cho ở bảng sau. Gọi phương sai tốc độ của nhóm A và nhóm B lần lượt là $s_A^2$ và $s_B^2$. Tính giá trị của $s_A^2 - s_B^2$ (làm tròn kết quả đến hàng phần trăm).
+	\begin{center}
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			Tốc độ (m/s) & $[5; 6)$ & $[6; 7)$ & $[7; 8)$ & $[8; 9)$ \\
+			\hline
+			Số vận động viên nhóm A & 4 & 6 & 6 & 4 \\
+			\hline
+			Số vận động viên nhóm B & 1 & 9 & 9 & 1 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	
+	\vspace{4mm}
+	
+	\noindent \textbf{Câu 27:} Khối lượng (đơn vị: gam) của quả cam ngọt thu hoạch được từ một số cây giống thử nghiệm ở hai trang trại X và Y được cho ở bảng sau. Gọi phương sai khối lượng của trang trại X và Y lần lượt là $s_X^2$ và $s_Y^2$. Tính giá trị của $s_X^2 - s_Y^2$ (làm tròn kết quả đến hàng phần trăm).
+	\begin{center}
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			Khối lượng (gam) & $[100; 110)$ & $[110; 120)$ & $[120; 130)$ & $[130; 140)$ \\
+			\hline
+			Số quả cam trang trại X & 8 & 12 & 12 & 8 \\
+			\hline
+			Số quả cam trang trại Y & 3 & 17 & 17 & 3 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	
+	\vspace{4mm}
+	
+	\noindent \textbf{Câu 28:} Tuổi thọ hoạt động liên tục (đơn vị: giờ) của một số linh kiện bán dẫn do hai dây chuyền lắp ráp M và N sản xuất được cho ở bảng sau. Gọi phương sai tuổi thọ của dây chuyền M và N lần lượt là $s_M^2$ và $s_N^2$. Tính giá trị của $s_M^2 - s_N^2$ (làm tròn kết quả đến hàng phần trăm).
+	\begin{center}
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			Tuổi thọ (giờ) & $[500; 600)$ & $[600; 700)$ & $[700; 800)$ & $[800; 900)$ \\
+			\hline
+			Số linh kiện dây chuyền M & 10 & 15 & 15 & 10 \\
+			\hline
+			Số linh kiện dây chuyền N & 5 & 20 & 20 & 5 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	
+	\vspace{4mm}
+	
+	\noindent \textbf{Câu 29:} Lượng mưa trung bình đo được (đơn vị: mm) của hai khu vực khí hậu A và B trong một thời gian dài được tổng hợp ở bảng sau. Gọi phương sai lượng mưa của khu vực A và B lần lượt là $s_A^2$ và $s_B^2$. Tính giá trị của $s_A^2 - s_B^2$ (làm tròn kết quả đến hàng phần trăm).
+	\begin{center}
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			Lượng mưa (mm) & $[10; 20)$ & $[20; 30)$ & $[30; 40)$ & $[40; 50)$ \\
+			\hline
+			Số ngày ghi nhận khu vực A & 2 & 3 & 3 & 2 \\
+			\hline
+			Số ngày ghi nhận khu vực B & 1 & 4 & 4 & 1 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	
+	\vspace{4mm}
+	
+	\noindent \textbf{Câu 30:} Độ tuổi (đơn vị: năm) của các thành viên tham gia sinh hoạt tại hai câu lạc bộ nghệ thuật X và Y được thống kê ở bảng sau. Gọi phương sai độ tuổi của câu lạc bộ X và Y lần lượt là $s_X^2$ và $s_Y^2$. Tính giá trị của $s_X^2 - s_Y^2$ (làm tròn kết quả đến hàng phần trăm).
+	\begin{center}
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			Độ tuổi (năm) & $[20; 24)$ & $[24; 28)$ & $[28; 32)$ & $[32; 36)$ \\
+			\hline
+			Số thành viên câu lạc bộ X & 5 & 10 & 10 & 5 \\
+			\hline
+			Số thành viên câu lạc bộ Y & 2 & 13 & 13 & 2 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	
+	\vspace{4mm}
+	
+	\noindent \textbf{Câu 31:} Khối lượng (đơn vị: gam) của củ khoai tây thu hoạch được từ hai khoảnh ruộng thực nghiệm M và N được ghi lại ở bảng sau. Gọi độ lệch chuẩn khối lượng của khoảnh ruộng M và N lần lượt là $S_M$ và $S_N$. Tính giá trị của $S_M - S_N$ (làm tròn kết quả đến hàng phần trăm).
+	\begin{center}
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			Khối lượng (gam) & $[80; 100)$ & $[100; 120)$ & $[120; 140)$ & $[140; 160)$ \\
+			\hline
+			Số củ khoai tây khoảnh M & 4 & 6 & 6 & 4 \\
+			\hline
+			Số củ khoai tây khoảnh N & 2 & 8 & 8 & 2 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	
+	\vspace{4mm}
+	
+	\noindent \textbf{Câu 32:} Thời gian di chuyển đi học bằng xe đạp (đơn vị: phút) của học sinh hai xã A và B đến trường trung học phổ thông được cho ở bảng sau. Gọi độ lệch chuẩn thời gian di chuyển của học sinh xã A và xã B lần lượt là $S_A$ và $S_B$. Tính giá trị của $S_A - S_B$ (làm tròn kết quả đến hàng phần trăm).
+	\begin{center}
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			Thời gian (phút) & $[15; 20)$ & $[20; 25)$ & $[25; 30)$ & $[30; 35)$ \\
+			\hline
+			Số học sinh xã A & 5 & 15 & 15 & 5 \\
+			\hline
+			Số học sinh xã B & 2 & 18 & 18 & 2 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	
+	\vspace{4mm}
+	
+	\noindent \textbf{Câu 33:} Điểm thi kiểm tra chất lượng định kỳ môn Toán của học sinh hai lớp 12C và 12D được cho ở bảng sau. Gọi độ lệch chuẩn điểm thi của lớp 12C và 12D lần lượt là $S_C$ và $S_D$. Tính giá trị của $S_C - S_D$ (làm tròn kết quả đến hàng phần trăm).
+	\begin{center}
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			Điểm số & $[10; 12)$ & $[12; 14)$ & $[14; 16)$ & $[16; 18)$ \\
+			\hline
+			Số học sinh lớp 12C & 8 & 12 & 12 & 8 \\
+			\hline
+			Số học sinh lớp 12D & 3 & 17 & 17 & 3 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	
+	\vspace{4mm}
+	
+	\noindent \textbf{Câu 34:} Nhiệt độ môi trường đo được trong ngày (đơn vị: $^\circ$C) vào lúc 12 giờ trưa tại hai vùng đo khí tượng P và Q được tổng hợp ở bảng sau. Gọi độ lệch chuẩn nhiệt độ của vùng P và Q lần lượt là $S_P$ và $S_Q$. Tính giá trị của $S_P - S_Q$ (làm tròn kết quả đến hàng phần trăm).
+	\begin{center}
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			Nhiệt độ ($^\circ$C) & $[20; 22)$ & $[22; 24)$ & $[24; 26)$ & $[26; 28)$ \\
+			\hline
+			Số ngày ghi nhận vùng P & 6 & 9 & 9 & 6 \\
+			\hline
+			Số ngày ghi nhận vùng Q & 1 & 14 & 14 & 1 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	
+	\vspace{4mm}
+	
+	\noindent \textbf{Câu 35:} Lượng nước sinh hoạt tiêu thụ hàng tháng (đơn vị: $\text{m}^3$) của một số hộ gia đình thuộc hai chung cư X và Y được thống kê ở bảng sau. Gọi độ lệch chuẩn lượng nước tiêu thụ của chung cư X và Y lần lượt là $S_X$ và $S_Y$. Tính giá trị của $S_X - S_Y$ (làm tròn kết quả đến hàng phần trăm).
+	\begin{center}
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			Lượng nước ($\text{m}^3$) & $[15; 20)$ & $[20; 25)$ & $[25; 30)$ & $[30; 35)$ \\
+			\hline
+			Số hộ gia đình chung cư X & 10 & 15 & 15 & 10 \\
+			\hline
+			Số hộ gia đình chung cư Y & 4 & 21 & 21 & 4 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	
+	
+	\newpage
+	% =====================
+	% PHẦN 5: TỔNG KẾT
+	% =====================
+	\section{Tổng kết bài}
+	
+	\begin{tcolorbox}[colback=yellow!10!white, colframe=orange!60!black,
+		fonttitle=\bfseries, title={Công thức và định lý cần nhớ}]
+		\begin{itemize}
+			\item \textbf{Khoảng biến thiên:} $R = u_{k+1} - u_1$ (Chỉ phụ thuộc vào nhóm đầu và nhóm cuối).
+			\item \textbf{Tứ phân vị:} $Q_i = u_m + \dfrac{\frac{i \cdot n}{4} - C}{n_m} (u_{m+1} - u_m)$ với $i \in \{1,2,3\}$.
+			\item \textbf{Khoảng tứ phân vị:} $\Delta_Q = Q_3 - Q_1$ (Dùng để xác định giá trị ngoại lệ và đo mức phân tán nửa giữa mẫu).
+			\item \textbf{Phương sai:} $s^2 = \dfrac{1}{n} \left[ n_1(c_1 - \bar{x})^2 + ... + n_k(c_k - \bar{x})^2 \right]$.
+			\item \textbf{Độ lệch chuẩn:} $S = \sqrt{s^2}$ (Cùng đơn vị với số liệu gốc, đại lượng phổ biến nhất để đo mức độ rủi ro, phân tán).
+		\end{itemize}
+	\end{tcolorbox}
+	
+	\vspace{3mm}
+	\textbf{Bài tập về nhà:} 
+	\begin{itemize}
+		\item Hoàn thành các bài tập chưa giải quyết trên lớp thuộc nhóm khung tương ứng với năng lực.
+		\item Ôn tập lại toàn bộ công thức tính các số đặc trưng đo xu hướng trung tâm và đo mức độ phân tán.
+	\end{itemize}
+	
+\end{document}

@@ -1,0 +1,1867 @@
+\documentclass[12pt]{article}
+
+% === CÀI ĐẶT TRANG VÀ PACKAGE BẮT BUỘC ===
+\usepackage[margin=2cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T5]{fontenc}
+\usepackage[vietnamese]{babel}
+
+% === TOÁN HỌC ===
+\usepackage{amsmath, amssymb, amsthm}
+
+% === HÌNH VẼ ===
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+% === ĐỊNH DẠNG ===
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage[most]{tcolorbox}
+\usepackage{multicol}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{fancyhdr}
+\usepackage{tocloft}
+\usepackage[hidelinks]{hyperref}
+
+% === LỆNH TỰ ĐỊNH NGHĨA ===
+\newcommand{\otraloi}{\underline{\hspace{5cm}}}
+
+% === TCOLORBOX STYLES (Cho Ví dụ, Lời giải và Tổng kết) ===
+\tcbuselibrary{breakable, skins, fitting}
+
+% Ví dụ
+\newtcolorbox{vidu}[1][1]{
+	colback=blue!5!white, colframe=blue!60!black,
+	fonttitle=\bfseries, title={Ví dụ #1},
+	breakable, enhanced
+}
+
+% Lời giải
+\newtcolorbox{loigiai}{
+	colback=gray!8!white, colframe=gray!50!black,
+	fonttitle=\bfseries, title={Lời giải},
+	breakable, enhanced
+}
+
+% === HEADER/FOOTER ===
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small \textbf{Tọa độ hóa trong không gian - Bài tập thực tế}}
+\fancyhead[R]{\small Lớp: 12}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% ================================================
+\begin{document}
+	
+	\begin{center}
+		{\large \bfseries{BÀI 2: HỆ TRỤC TỌA ĐỘ VÀ CÁC PHÉP TOÁN)}}\\[4pt]
+		{\Large \bfseries{CHỦ ĐỀ: TỌA ĐỘ HÓA TRONG KHÔNG GIAN VÀ BÀI TOÁN THỰC TẾ}}\\[4pt]
+		{\large Môn: Toán \quad Lớp: 12}
+	\end{center}
+	\vspace{4mm}
+	\hrule
+	\vspace{4mm}
+	
+	% ===========================
+	% PHẦN 1: MỤC TIÊU BÀI HỌC
+	% ===========================
+	\section*{Mục tiêu bài học}
+	\addcontentsline{toc}{section}{Mục tiêu bài học}
+	
+	\textbf{1. Kiến thức:}
+	\begin{itemize}
+		\item Nắm vững phương pháp gắn hệ trục tọa độ $Oxyz$ vào các hình khối không gian (hình hộp, hình chóp, lăng trụ,...) và các mô hình thực tế.
+		\item Biết cách xác định tọa độ các điểm, các vector sau khi đã tọa độ hóa.
+	\end{itemize}
+	
+	\noindent\textbf{2. Kĩ năng:}
+	\begin{itemize}
+		\item Chuyển đổi linh hoạt giữa ngôn ngữ hình học không gian thuần túy và ngôn ngữ tọa độ.
+		\item Vận dụng tọa độ để giải quyết các bài toán về góc, khoảng cách trong thực tế.
+	\end{itemize}
+	
+	\noindent\textbf{3. Thái độ / Phẩm chất:}
+	\begin{itemize}
+		\item Rèn luyện tư duy logic, khả năng mô hình hóa toán học từ các vấn đề thực tiễn.
+	\end{itemize}
+	
+	\newpage
+	
+	% =====================
+	% PHẦN 2: MỤC LỤC
+	% =====================
+	\setcounter{tocdepth}{2}
+	\tableofcontents
+	\newpage
+	
+	% =====================
+	% PHẦN 3: LÝ THUYẾT
+	% =====================
+	\section{Lý thuyết}
+	
+	\subsection{Phương pháp tọa độ hóa trong không gian}
+	
+	Bản chất của phương pháp tọa độ hóa là chuyển một bài toán hình học không gian thuần túy sang ngôn ngữ đại số bằng cách gắn vào không gian đó một hệ trục tọa độ $Oxyz$. 
+	
+	Để việc tính toán đơn giản nhất, mục tiêu tối thượng khi chọn hệ trục là **tạo ra càng nhiều tọa độ bằng 0 càng tốt**. Nguyên tắc chọn hệ trục như sau:
+	
+	\begin{itemize}
+		\item \textbf{Chọn gốc tọa độ $O$:} Ưu tiên đặt gốc $O$ tại điểm có nhiều góc vuông nhất (ví dụ: góc của hình hộp chữ nhật, chân đường cao của hình chóp, tâm của đáy đối với hình chóp đều). Khi đó, tọa độ của $O$ là $(0; 0; 0)$.
+		\item \textbf{Chọn các mặt phẳng tọa độ:} Ưu tiên đặt mặt đáy của hình khối nằm hoàn toàn trên mặt phẳng $(Oxy)$. Khi đó, tất cả các điểm thuộc mặt đáy đều có **cao độ $z = 0$**.
+		\item \textbf{Chọn các trục $Ox, Oy, Oz$:} Cho các cạnh của hình khối nằm trực tiếp trên các trục tọa độ hoặc song song với các trục. Nếu một điểm nằm trên trục $Ox$, nó sẽ có dạng $(x; 0; 0)$ (tức là có tới hai số $0$).
+	\end{itemize}
+	
+	Dưới đây là 2 mô hình tọa độ hóa thường gặp nhất trong các bài toán thực tế và hình học không gian:
+	
+	\textbf{Mô hình 1: Khối lăng trụ đứng, hình hộp chữ nhật, hình lập phương}
+	\begin{itemize}
+		\item \textit{Cách gắn:} Chọn gốc $O$ trùng với một đỉnh ở đáy (ví dụ đỉnh $A$).
+		\item Trục $Ox$ chứa cạnh $AD$, trục $Oy$ chứa cạnh $AB$, trục $Oz$ chứa cạnh bên $AA'$.
+	\end{itemize}
+	
+	\begin{figure}[H]
+		\centering
+		\begin{tikzpicture}[scale=1.5, x={(-0.5cm,-0.5cm)}, y={(1cm,0cm)}, z={(0cm,1cm)}]
+			% Định nghĩa các đỉnh của hình hộp
+			\coordinate (A) at (0,0,0);
+			\coordinate (B) at (0,3,0);
+			\coordinate (D) at (2,0,0);
+			\coordinate (C) at (2,3,0);
+			\coordinate (A1) at (0,0,2.5);
+			\coordinate (B1) at (0,3,2.5);
+			\coordinate (D1) at (2,0,2.5);
+			\coordinate (C1) at (2,3,2.5);
+			
+			% Vẽ các trục tọa độ
+			\draw[->, thick, blue] (A) -- (3.5,0,0) node[right] {$x$};
+			\draw[->, thick, blue] (A) -- (0,4.5,0) node[right] {$y$};
+			\draw[->, thick, blue] (A) -- (0,0,3.5) node[above] {$z$};
+			
+			% Vẽ các cạnh khuất (nét đứt)
+			\draw[dashed, thick] (A) -- (B);
+			\draw[dashed, thick] (A) -- (D);
+			\draw[dashed, thick] (A) -- (A1);
+			
+			% Vẽ các cạnh thấy (nét liền)
+			\draw[thick] (B) -- (C) -- (D);
+			\draw[thick] (A1) -- (B1) -- (C1) -- (D1) -- cycle;
+			\draw[thick] (B) -- (B1);
+			\draw[thick] (C) -- (C1);
+			\draw[thick] (D) -- (D1);
+			
+			% Gắn tên điểm
+			\node[below right] at (A) {$A \equiv O(0;0;0)$};
+			\node[right] at (B) {$B(0;b;0)$};
+			\node[below left] at (D) {$D(a;0;0)$};
+			\node[right] at (C) {$C(a;b;0)$};
+			\node[left] at (A1) {$A'(0;0;c)$};
+			\node[above] at (C1) {$C'(a;b;c)$};
+			
+			% Kí hiệu góc vuông
+			\draw (0.2,0,0) -- (0.2,0.2,0) -- (0,0.2,0);
+			\draw (0,0.2,0) -- (0,0.2,0.2) -- (0,0,0.2);
+			\draw (0.2,0,0) -- (0.2,0,0.2) -- (0,0,0.2);
+		\end{tikzpicture}
+		\caption{Tọa độ hóa Hình hộp chữ nhật / Góc căn phòng}
+	\end{figure}
+	
+	\textbf{Mô hình 2: Hình chóp tứ giác đều (Tâm đáy là chân đường cao)}
+	\begin{itemize}
+		\item \textit{Cách gắn:} Chọn gốc $O$ trùng với tâm của mặt đáy.
+		\item Các trục $Ox, Oy$ song song với các cạnh của hình vuông đáy (hoặc chứa 2 đường chéo). Trục $Oz$ chứa đường cao của hình chóp.
+	\end{itemize}
+	
+	\begin{figure}[H]
+		\centering
+		\begin{tikzpicture}[scale=1.2, x={(-0.6cm,-0.4cm)}, y={(1cm,0cm)}, z={(0cm,1cm)}]
+			% Cạnh đáy là 2a (từ -1 đến 1)
+			\coordinate (O) at (0,0,0);
+			\coordinate (A) at (2,-2,0);
+			\coordinate (B) at (2,2,0);
+			\coordinate (C) at (-2,2,0);
+			\coordinate (D) at (-2,-2,0);
+			\coordinate (S) at (0,0,4);
+			
+			% Trục tọa độ
+			\draw[->, thick, blue] (0,0,0) -- (3.5,0,0) node[right] {$x$};
+			\draw[->, thick, blue] (0,0,0) -- (0,3.5,0) node[right] {$y$};
+			\draw[->, thick, blue] (0,0,0) -- (0,0,5) node[above] {$z$};
+			
+			% Các cạnh đáy (khuất và thấy)
+			\draw[dashed, thick] (A) -- (D) -- (C);
+			\draw[dashed, thick] (A) -- (C);
+			\draw[dashed, thick] (B) -- (D);
+			\draw[thick] (A) -- (B) -- (C);
+			
+			% Cạnh bên
+			\draw[thick] (S) -- (A);
+			\draw[thick] (S) -- (B);
+			\draw[thick] (S) -- (C);
+			\draw[dashed, thick] (S) -- (D);
+			\draw[dashed, thick, red] (O) -- (S); % Đường cao
+			
+			% Gắn tên điểm
+			\node[below] at (O) {$O(0;0;0)$};
+			\node[below left] at (A) {$A(a;-a;0)$};
+			\node[right] at (B) {$B(a;a;0)$};
+			\node[above] at (C) {$C(-a;a;0)$};
+			\node[left] at (D) {$D(-a;-a;0)$};
+			\node[left] at (S) {$S(0;0;h)$};
+			
+			% Kí hiệu vuông góc tại O
+			\draw[red] (0.2,0,0) -- (0.2,0.2,0) -- (0,0.2,0);
+		\end{tikzpicture}
+		\caption{Tọa độ hóa Hình chóp đều (Gắn các trục $Ox, Oy$ song song cạnh đáy)}
+	\end{figure}
+	
+	\begin{vidu}[1]
+		Một thùng hàng có dạng hình hộp chữ nhật với kích thước chiều dài $3$ m, chiều rộng $2$ m và chiều cao $1,5$ m. Chọn một góc dưới đáy thùng hàng làm gốc tọa độ $O$. Đặt hệ trục tọa độ $Oxyz$ sao cho $Ox$, $Oy$ lần lượt dọc theo chiều dài, chiều rộng của đáy và $Oz$ dọc theo chiều cao. Hãy tìm tọa độ của đỉnh xa nhất so với gốc $O$.
+	\end{vidu}
+	
+	\begin{loigiai}
+		Gọi hình hộp chữ nhật tương ứng với thùng hàng là $ABCD.A'B'C'D'$.
+		\begin{itemize}
+			\item Chọn gốc tọa độ $O \equiv A(0; 0; 0)$.
+			\item Chiều dài $AD = 3$ m nằm trên tia $Ox$ $\Rightarrow D(3; 0; 0)$.
+			\item Chiều rộng $AB = 2$ m nằm trên tia $Oy$ $\Rightarrow B(0; 2; 0)$.
+			\item Chiều cao $AA' = 1,5$ m nằm trên tia $Oz$ $\Rightarrow A'(0; 0; 1,5)$.
+		\end{itemize}
+		Điểm thuộc mặt phẳng đáy $(Oxy)$ là $C$, ta có $C(3; 2; 0)$. \\
+		Đỉnh xa gốc $O$ nhất chính là đỉnh $C'$ (đối diện với $A$ qua tâm hình hộp). Điểm $C'$ có hình chiếu vuông góc xuống mặt phẳng đáy là $C(3;2;0)$ và có cao độ bằng với chiều cao $AA' = 1,5$. \\
+		Vậy tọa độ đỉnh xa nhất là $\mathbf{C'(3; 2; 1,5)}$.
+	\end{loigiai}
+	
+	
+	\subsection{Xác định tọa độ các điểm sau khi tọa độ hóa}
+	
+	Sau khi đã gắn hệ trục tọa độ $Oxyz$ vào không gian, để tìm tọa độ $(x; y; z)$ của một điểm $M$ bất kỳ, ta thực hiện phương pháp chiếu vuông góc. Cụ thể như sau:
+	
+	\begin{itemize}
+		\item \textbf{Bước 1 (Tìm hoành độ $x$ và tung độ $y$):} Tìm hình chiếu vuông góc $M'$ của điểm $M$ lên mặt phẳng đáy $(Oxy)$. 
+		\begin{itemize}
+			\item Từ $M'$ kẻ đường vuông góc tới trục $Ox$, cắt $Ox$ tại điểm có giá trị $x$. Độ dài đoạn này bằng $|y|$.
+			\item Từ $M'$ kẻ đường vuông góc tới trục $Oy$, cắt $Oy$ tại điểm có giá trị $y$. Độ dài đoạn này bằng $|x|$.
+		\end{itemize}
+		\item \textbf{Bước 2 (Tìm cao độ $z$):} Tính khoảng cách từ điểm $M$ đến mặt phẳng $(Oxy)$ (tức là độ dài đoạn $MM'$).
+		\begin{itemize}
+			\item Nếu $M$ nằm cùng phía với tia $Oz$ (phía trên mặt phẳng $Oxy$), thì $z = MM'$.
+			\item Nếu $M$ nằm ngược phía với tia $Oz$ (phía dưới mặt phẳng $Oxy$), thì $z = -MM'$.
+		\end{itemize}
+	\end{itemize}
+	
+	\textit{Lưu ý:} Trong phần lớn các bài toán thực tế (như căn phòng, tòa nhà), ta thường đặt toàn bộ vật thể vào góc phần tư thứ nhất (nơi $x, y, z \ge 0$). Khi đó, tọa độ của một điểm chính là khoảng cách từ điểm đó đến 3 mặt phẳng tọa độ: $x = d(M, (Oyz))$, $y = d(M, (Oxz))$, $z = d(M, (Oxy))$.
+	
+	\begin{figure}[H]
+		\centering
+		\begin{tikzpicture}[scale=1.5, x={(-0.5cm,-0.5cm)}, y={(1cm,0cm)}, z={(0cm,1cm)}]
+			% Trục tọa độ
+			\draw[->, thick] (0,0,0) -- (4,0,0) node[right] {$x$};
+			\draw[->, thick] (0,0,0) -- (0,4,0) node[right] {$y$};
+			\draw[->, thick] (0,0,0) -- (0,0,3.5) node[above] {$z$};
+			\node[below] at (0,0,0) {$O$};
+			
+			% Tọa độ điểm M(2, 3, 2.5)
+			\coordinate (M) at (2, 3, 2.5);
+			\coordinate (Mxy) at (2, 3, 0); % Hình chiếu trên Oxy
+			\coordinate (Mx) at (2, 0, 0);  % Hình chiếu trên Ox
+			\coordinate (My) at (0, 3, 0);  % Hình chiếu trên Oy
+			\coordinate (Mz) at (0, 0, 2.5);% Hình chiếu trên Oz
+			
+			% Vẽ các đường dóng nét đứt
+			\draw[dashed, blue, thick] (M) -- (Mxy) node[midway, right] {$|z|$};
+			\draw[dashed, blue, thick] (Mxy) -- (Mx) node[midway, below right] {$|y|$};
+			\draw[dashed, blue, thick] (Mxy) -- (My) node[midway, above left] {$|x|$};
+			\draw[dashed, gray] (M) -- (Mz);
+			\draw[dashed, gray] (Mz) -- (0,3,2.5) -- (M);
+			\draw[dashed, gray] (My) -- (0,3,2.5);
+			\draw[dashed, gray] (Mx) -- (2,0,2.5) -- (M);
+			\draw[dashed, gray] (Mz) -- (2,0,2.5);
+			
+			% Điểm M và các hình chiếu
+			\filldraw[red] (M) circle (1.5pt) node[above right, black] {$M(x;y;z)$};
+			\filldraw[black] (Mxy) circle (1pt) node[below right] {$M'$};
+			\filldraw[black] (Mx) circle (1pt) node[left] {$x$};
+			\filldraw[black] (My) circle (1pt) node[below] {$y$};
+			\filldraw[black] (Mz) circle (1pt) node[left] {$z$};
+			
+			% Ký hiệu vuông góc
+			\draw (2, 0.2, 0) -- (1.8, 0.2, 0) -- (1.8, 0, 0);
+			\draw (0.2, 3, 0) -- (0.2, 2.8, 0) -- (0, 2.8, 0);
+		\end{tikzpicture}
+		\caption{Mô hình xác định tọa độ của điểm $M$ bằng cách chiếu lên các mặt phẳng tọa độ}
+	\end{figure}
+	
+	\begin{vidu}[2]
+		Một căn phòng có dạng hình hộp chữ nhật với chiều dài $6\text{ m}$, chiều rộng $4\text{ m}$ và chiều cao $3\text{ m}$. Người ta gắn một hệ trục tọa độ $Oxyz$ sao cho gốc $O$ trùng với một góc phòng dưới sàn nhà; các tia $Ox, Oy$ lần lượt dọc theo chiều dài, chiều rộng của mặt sàn và tia $Oz$ dọc theo mép tường thẳng đứng. 
+		
+		Một chiếc camera giám sát được treo thả từ trần nhà xuống. Biết vị trí treo trên trần nhà cách bức tường chứa chiều dài $1\text{ m}$, cách bức tường chứa chiều rộng $2\text{ m}$ và camera được thả thấp xuống so với trần nhà một đoạn $0,5\text{ m}$. Hãy xác định tọa độ của chiếc camera.
+	\end{vidu}
+	
+	\begin{loigiai}
+		Gọi vị trí của chiếc camera là điểm $C(x; y; z)$. Dựa vào cách đặt hệ trục tọa độ, toàn bộ căn phòng nằm trong phần không gian có $x, y, z \ge 0$.
+		\begin{itemize}
+			\item \textbf{Xác định tung độ $y$:} Bức tường chứa chiều dài chính là mặt phẳng $(Oxz)$. Khoảng cách từ camera đến bức tường này là $1\text{ m}$. Do đó, $y = d(C, (Oxz)) = 1$.
+			\item \textbf{Xác định hoành độ $x$:} Bức tường chứa chiều rộng chính là mặt phẳng $(Oyz)$. Khoảng cách từ vị trí treo đến bức tường này là $2\text{ m}$. Do đó, $x = d(C, (Oyz)) = 2$.
+			\item \textbf{Xác định cao độ $z$:} Mặt sàn nhà là mặt phẳng $(Oxy)$. Trần nhà có chiều cao $3\text{ m}$ nên phương trình mặt trần là $z = 3$. Camera được thả thấp xuống so với trần nhà $0,5\text{ m}$, nên khoảng cách từ camera xuống sàn nhà là:
+			\[ z = 3 - 0,5 = 2,5 \text{ (m)} \]
+		\end{itemize}
+		Vậy tọa độ của chiếc camera trong hệ trục $Oxyz$ là $\mathbf{C(2; 1; 2,5)}$.
+	\end{loigiai}
+	
+	
+	% =====================
+	% PHẦN 4: BÀI TẬP (KHÔNG DÙNG KHUNG MÀU THEO YÊU CẦU)
+	% =====================
+	\section{Bài tập}
+	\subsection{Phần 1: Câu hỏi Đúng/sai}
+	
+	\begin{enumerate}[label=\textbf{Câu \arabic*:}, leftmargin=*]
+		
+		% ================= CÂU 1 =================
+		\item 
+		Trong không gian $Oxyz$, đơn vị trên mỗi trục tính bằng mét. Một chiếc tàu ngầm bắt đầu lặn từ mặt nước tại vị trí gốc tọa độ $O$ theo một hướng với vận tốc không đổi (xem mặt phẳng $(Oxy)$ trùng với mặt nước). Tàu lặn từ điểm $O(0; 0; 0)$ đến điểm $A(300; 400; -50)$ trong thời gian $10$ phút. 
+		
+		Xét tính đúng sai của các phát biểu sau:
+		\begin{enumerate}[label=\alph*)]
+			\item Trong $10$ phút, quãng đường tàu ngầm di chuyển được xấp xỉ bằng $502\text{ m}$.
+			\item Ở phút thứ $5$, độ sâu của tàu ngầm so với mặt nước là $25\text{ m}$.
+			\item Tọa độ của tàu ngầm sau $15$ phút kể từ lúc bắt đầu lặn là $(450; 600; -75)$.
+			\item Sau $5$ phút tiếp theo kể từ vị trí $A$, tàu ngầm đạt độ sâu $100\text{ m}$ so với mặt nước.
+		\end{enumerate}
+		
+		% ================= CÂU 2 =================
+		\vspace{3mm}
+		\item 
+		Trong không gian $Oxyz$ với đơn vị trên mỗi trục là $1\text{ km}$, một khinh khí cầu bay theo luồng gió với vận tốc có độ lớn và hướng không đổi. Tại thời điểm $t = 0$ (giờ), khinh khí cầu ở vị trí $M(2; 5; 1)$ và sau $2$ giờ nó ở vị trí $N(14; 21; 9)$.
+		
+		\begin{figure}[H]
+			\centering
+			\begin{tikzpicture}[scale=0.8, x={(-0.5cm,-0.5cm)}, y={(1cm,0cm)}, z={(0cm,1cm)}]
+				\draw[->, thick, gray] (0,0,0) -- (4,0,0) node[right] {$x$};
+				\draw[->, thick, gray] (0,0,0) -- (0,5,0) node[right] {$y$};
+				\draw[->, thick, gray] (0,0,0) -- (0,0,4) node[above] {$z$};
+				
+				\coordinate (M) at (1, 2, 1);
+				\coordinate (N) at (3, 4, 3);
+				
+				\draw[->, thick, blue] (M) -- (N) node[midway, above left] {$\vec{v}$};
+				\filldraw[red] (M) circle (2pt) node[below] {$M (t=0)$};
+				\filldraw[red] (N) circle (2pt) node[above right] {$N (t=2)$};
+			\end{tikzpicture}
+			\caption{Mô phỏng quỹ đạo bay của khinh khí cầu}
+		\end{figure}
+		
+		\begin{enumerate}[label=\alph*)]
+			\item Khinh khí cầu bay qua vị trí điểm $P(8; 13; 5)$ vào thời điểm $t = 1$ giờ.
+			\item Vectơ độ dời của khinh khí cầu trong $2$ giờ là $\overrightarrow{MN} = (12; 16; 8)$.
+			\item Tốc độ bay của khinh khí cầu (làm tròn đến hàng đơn vị) là $11\text{ km/h}$.
+			\item Sau $3$ giờ kể từ lúc xuất phát, vị trí của khinh khí cầu là $Q(20; 29; 13)$.
+		\end{enumerate}
+		
+		% ================= CÂU 3 =================
+		\vspace{3mm}
+		\item
+		Trong không gian chọn hệ trục tọa độ $Oxyz$ với đơn vị trên mỗi trục là $100\text{ km}$, mặt phẳng $(Oxy)$ biểu diễn bề mặt Trái Đất giả định (phẳng). Một trạm mặt đất đặt tại gốc $O$ theo dõi một vệ tinh bay với vận tốc và hướng không đổi từ điểm $E(10; 20; 40)$ đến điểm $F(40; -20; 40)$ trong $5$ phút. 
+		
+		\begin{enumerate}[label=\alph*)]
+			\item Quãng đường vệ tinh di chuyển từ $E$ đến $F$ dài $5000\text{ km}$.
+			\item Vệ tinh di chuyển luôn giữ một độ cao cố định so với mặt đất là $4000\text{ km}$.
+			\item Góc $\widehat{EOF}$ được gọi là góc quét của trạm mặt đất. Trong tình huống này, góc $\widehat{EOF}$ là một góc tù.
+			\item Nếu tiếp tục bay với vận tốc đó, tọa độ vệ tinh sau $5$ phút tiếp theo kể từ $F$ là $G(70; -60; 40)$.
+		\end{enumerate}
+		
+		% ================= CÂU 4 =================
+		\vspace{3mm}
+		\item 
+		Trong không gian $Oxyz$ (đơn vị: mét), mặt phẳng $(Oxy)$ là mặt đất. Một flycam giao hàng bắt đầu hạ cánh nghiêng với vận tốc không đổi từ trạm phát ở vị trí $S(10; 20; 50)$ xuống bãi đáp. Sau $10$ giây, flycam ở vị trí $T(25; 0; 30)$.
+		
+		\begin{enumerate}[label=\alph*)]
+			\item Quãng đường flycam di chuyển được trong $10$ giây là $35\text{ m}$.
+			\item Vectơ vận tốc của flycam (quãng đường di chuyển trong 1 giây) là $\vec{v} = (1,5; -2; -2)$.
+			\item Vào giây thứ $25$ kể từ lúc rời $S$, flycam sẽ chạm đất (cao độ $z=0$).
+			\item Tốc độ của flycam xấp xỉ bằng $3,2\text{ m/s}$.
+		\end{enumerate}
+		
+		% ================= CÂU 5 =================
+		\vspace{3mm}
+		\item 
+		Hệ thống phòng thủ không gian phát hiện một thiên thạch lao về phía bề mặt Trái Đất $(Oxy)$. Đơn vị trục là km. Tại thời điểm $t=0$ (giây), thiên thạch ở vị trí $A(200; 300; 1000)$. Tại thời điểm $t=4$ (giây), nó ở vị trí $B(160; 220; 800)$. Giả sử quỹ đạo là đường thẳng và vận tốc không đổi.
+		
+		\begin{enumerate}[label=\alph*)]
+			\item Trong $4$ giây, thiên thạch đã di chuyển được quãng đường dài $120\sqrt{6}\text{ km}$.
+			\item Trung bình mỗi giây, thiên thạch tiến gần về phía mặt phẳng $(Oxy)$ một khoảng $50\text{ km}$.
+			\item Nếu không có biện pháp can thiệp, thiên thạch sẽ va chạm với mặt đất tại thời điểm $t = 20$ (giây).
+			\item Vị trí va chạm với mặt đất dự kiến có tọa độ là $(0; -700; 0)$.
+		\end{enumerate}
+		
+		% ================= CÂU 6 =================
+		\vspace{3mm}
+		\item
+		Một máy bay trực thăng cất cánh từ trung tâm điều phối $O(0;0;0)$. Đơn vị đo là km. Sau khi nhận được tín hiệu SOS từ một tàu cá, trực thăng bay thẳng với vận tốc không đổi đến vị trí $C(60; 80; 2)$. Biết thời gian bay từ $O$ đến $C$ mất đúng $30$ phút.
+		
+		\begin{figure}[H]
+			\centering
+			\begin{tikzpicture}[scale=1, x={(-0.6cm,-0.4cm)}, y={(1cm,0cm)}, z={(0cm,1cm)}]
+				\draw[->, thick, gray] (0,0,0) -- (5,0,0) node[right] {$x$};
+				\draw[->, thick, gray] (0,0,0) -- (0,5,0) node[right] {$y$};
+				\draw[->, thick, gray] (0,0,0) -- (0,0,3) node[above] {$z$};
+				
+				\coordinate (O) at (0, 0, 0);
+				\coordinate (C) at (3, 4, 1.5); % Scale tỷ lệ cho hình
+				\coordinate (Cxy) at (3, 4, 0);
+				
+				\draw[->, thick, red] (O) -- (C) node[midway, above left] {Bay thẳng};
+				\draw[dashed] (C) -- (Cxy) -- (0,4,0);
+				\draw[dashed] (Cxy) -- (3,0,0);
+				
+				\filldraw[black] (O) circle (1.5pt) node[below] {$O$};
+				\filldraw[blue] (C) circle (2pt) node[right] {$C(60;80;2)$};
+			\end{tikzpicture}
+		\end{figure}
+		
+		\begin{enumerate}[label=\alph*)]
+			\item Khoảng cách từ trung tâm điều phối đến vị trí tàu cá là hơn $100\text{ km}$.
+			\item Ở phút thứ $15$, trực thăng đang ở độ cao $1\text{ km}$ so với mặt nước biển $(Oxy)$.
+			\item Tốc độ bay của trực thăng là $200\text{ km/h}$.
+			\item Tọa độ của trực thăng ở phút thứ $10$ là $(20; \frac{80}{3}; \frac{2}{3})$.
+		\end{enumerate}
+		
+		% ================= CÂU 7 =================
+		\vspace{3mm}
+		\item
+		Một thiết bị tự hành ngầm (AUV) đang di chuyển khảo sát rạn san hô dưới đáy biển. Đơn vị tọa độ là mét, mặt phẳng $(Oxy)$ là mặt nước. AUV di chuyển thẳng đều từ điểm $U(10; 20; -40)$ đến điểm $V(70; 100; -40)$ trong thời gian $5$ phút.
+		
+		\begin{enumerate}[label=\alph*)]
+			\item Thiết bị AUV luôn giữ nguyên độ sâu $40\text{ m}$ trong quá trình di chuyển.
+			\item Khoảng cách giữa điểm bắt đầu và điểm kết thúc khảo sát là $100\text{ m}$.
+			\item Nếu thiết bị tiếp tục di chuyển thêm $5$ phút nữa với cùng hướng và vận tốc, nó sẽ đến điểm $W(130; 180; -40)$.
+			\item Gọi $O(0;0;0)$ là vị trí thuyền điều khiển trên mặt nước. Khoảng cách từ thuyền đến AUV tại vị trí $U$ ngắn hơn khoảng cách từ thuyền đến AUV tại vị trí $V$.
+		\end{enumerate}
+		
+		% ================= CÂU 8 =================
+		\vspace{3mm}
+		\item
+		Tại một thao trường, một bệ phóng được đặt tại gốc tọa độ $O$. Một tên lửa thử nghiệm phóng lên quỹ đạo đường thẳng, vận tốc được duy trì ổn định. Sau $12$ giây kể từ lúc rời bệ phóng, radar ghi nhận tên lửa ở vị trí $M(240; 180; 360)$ (đơn vị: mét).
+		
+		\begin{enumerate}[label=\alph*)]
+			\item Tại giây thứ $4$, tên lửa ở vị trí có tọa độ $(80; 60; 120)$.
+			\item Sau $12$ giây, tên lửa bay được quãng đường dài $450\text{ m}$.
+			\item Cao độ của tên lửa tăng thêm $30\text{ m}$ sau mỗi giây bay.
+			\item Giả sử mục tiêu cần đánh chặn ở vị trí $K(600; 450; 900)$. Tên lửa sẽ bắn trúng mục tiêu này đúng vào giây thứ $30$.
+		\end{enumerate}
+			
+		% ================= CÂU 1 (Dạng khoảng cách đến gốc tọa độ) =================
+		\item Trong không gian chọn hệ trục tọa độ $Oxyz$ cho trước, đơn vị đo lấy theo hải lý. Một trạm radar đặt tại gốc $O$ phát hiện một tàu tuần dương di chuyển với vận tốc và hướng không đổi từ điểm $M(30; 40; 0)$ đến điểm $N(60; 80; 0)$ trong thời gian $1,5$ giờ.
+		\begin{enumerate}[label=\alph*)]
+			\item Khoảng cách từ trạm radar đến tàu tại thời điểm phát hiện (điểm $M$) là $50$ hải lý.
+			\item Trong suốt quá trình di chuyển từ $M$ đến $N$, chiếc tàu đang đi theo hướng tiến lại gần trạm radar.
+			\item Quãng đường chiếc tàu đã di chuyển từ $M$ đến $N$ là $50$ hải lý.
+			\item Tốc độ di chuyển của chiếc tàu tuần dương này xấp xỉ bằng $33,33$ hải lý/giờ.
+		\end{enumerate}
+		
+		% ================= CÂU 2 (Dạng chuyển động 2 giai đoạn) =================
+		\vspace{3mm}
+		\item Trong không gian $Oxyz$ (đơn vị đo trên các trục tọa độ là mét), mặt đất được coi là trùng với mặt phẳng $(Oxy)$. Một thiết bị bay không người lái (drone) cất cánh từ $O(0; 0; 0)$ bay thẳng đến điểm $P(10; 15; 20)$, sau đó thiết bị tiếp tục chuyển động thẳng từ $P$ đến điểm $Q(210; 315; 620)$ với tốc độ không đổi $25\text{ m/s}$.
+		\begin{enumerate}[label=\alph*)]
+			\item Khi drone ở vị trí $P$, nó cách điểm xuất phát một khoảng xấp xỉ $26,93\text{ m}$.
+			\item Vectơ độ dời của drone trong giai đoạn hai là $\overrightarrow{PQ} = (200; 300; 600)$.
+			\item Thời gian thiết bị bay bay từ $P$ đến $Q$ là $28$ giây.
+			\item Khi di chuyển từ $P$ đến $Q$ được đúng một nửa đoạn đường, thiết bị bay cách mặt đất một khoảng là $310\text{ m}$.
+		\end{enumerate}
+		
+		% ================= CÂU 3 (Dạng đọc tọa độ từ hình vẽ + tính toán) =================
+		\vspace{3mm}
+		\item Hình vẽ dưới đây mô phỏng vị trí của một chiếc trực thăng cứu hộ trên màn hình radar vào lúc $14$h$00$ phút. Biết các trục tọa độ được tính theo đơn vị km, mặt phẳng $(Oxy)$ là mặt đất phẳng.
+		
+		\begin{figure}[H]
+			\centering
+			\begin{tikzpicture}[scale=0.8, x={(-0.6cm,-0.5cm)}, y={(1cm,0cm)}, z={(0cm,1cm)}]
+				% Trục tọa độ
+				\draw[->, gray, thick] (0,0,0) -- (6,0,0) node[right] {$x$};
+				\draw[->, gray, thick] (0,0,0) -- (0,6,0) node[right] {$y$};
+				\draw[->, gray, thick] (0,0,0) -- (0,0,5) node[above] {$z$};
+				\node[left] at (0,0,0) {$O$};
+				
+				% Tọa độ điểm
+				\coordinate (M) at (3, 4, 3);
+				\coordinate (Mxy) at (3, 4, 0);
+				\coordinate (Mx) at (3, 0, 0);
+				\coordinate (My) at (0, 4, 0);
+				\coordinate (Mz) at (0, 0, 3);
+				
+				% Vẽ nét đứt
+				\draw[dashed] (M) -- (Mxy);
+				\draw[dashed] (Mxy) -- (Mx);
+				\draw[dashed] (Mxy) -- (My);
+				\draw[dashed] (M) -- (Mz);
+				\draw[dashed] (Mz) -- (0,4,3) -- (M);
+				\draw[dashed] (My) -- (0,4,3);
+				
+				% Kí hiệu vuông góc và điểm
+				\node[left] at (Mx) {$120$};
+				\node[below right] at (My) {$160$};
+				\node[left] at (Mz) {$4$};
+		
+				\filldraw[black] (M) circle (2.5pt); 
+				\node[above right] at (M) {Trực thăng};
+				\filldraw[black] (Mx) circle (1.5pt);
+				\filldraw[black] (My) circle (1.5pt);
+				\filldraw[black] (Mz) circle (1.5pt);
+				
+				\draw (3, 0.3, 0) -- (2.7, 0.3, 0) -- (2.7, 0, 0);
+				\draw (0.3, 4, 0) -- (0.3, 3.7, 0) -- (0, 3.7, 0);
+				\draw (0, 0.3, 3) -- (0, 0.3, 2.7) -- (0, 0, 2.7);
+			\end{tikzpicture}
+		\end{figure}
+		
+		\begin{enumerate}[label=\alph*)]
+			\item Tại thời điểm quan sát, trực thăng đang ở độ cao $4\text{ km}$ so với mặt đất.
+			\item Tọa độ của trực thăng lúc $14$h$00$ là $(120; 160; 4)$.
+			\item Trực thăng đang bay tự động theo hướng Đông (dọc theo chiều dương trục $Oy$) với độ cao không đổi. Đến $14$h$30$, radar xác định tọa độ trực thăng là $(120; 340; 4)$. Khi đó vận tốc thực tế của trực thăng so với mặt đất là $360\text{ km/h}$.
+			\item Giả sử vận tốc của gió thổi theo hướng Đông là $15\text{ m/s}$ (tương đương $54\text{ km/h}$). Nếu tắt động cơ, trực thăng chỉ trôi theo gió thì vận tốc của trực thăng so với mặt đất lúc này bằng $0$.
+		\end{enumerate}
+		
+		% ================= CÂU 4 =================
+		\vspace{3mm}
+		\item Trong không gian $Oxyz$, một hệ thống cảnh báo va chạm phát hiện một thiên thạch lao về phía bề mặt Trái Đất. Tại thời điểm ban đầu, thiên thạch ở vị trí $E(100; 200; 300)$. Sau đó 10 giây, nó di chuyển thẳng đến vị trí $F(20; 40; 60)$ (đơn vị: km).
+		\begin{enumerate}[label=\alph*)]
+			\item Khoảng cách từ tâm hệ thống cảnh báo (gốc $O$) đến thiên thạch tại thời điểm ban đầu là xấp xỉ $374\text{ km}$.
+			\item Thiên thạch đang có hướng di chuyển ra xa dần so với tâm hệ thống cảnh báo $O$.
+			\item Trung điểm của đoạn đường $EF$ mà thiên thạch đã đi qua có tọa độ là $(60; 120; 180)$.
+			\item Vận tốc bay của thiên thạch này là $8\sqrt{14}\text{ km/s}$.
+		\end{enumerate}
+		
+		% ================= CÂU 5 =================
+		\vspace{3mm}
+		\item Trong quá trình thử nghiệm, một tàu ngầm không người lái xuất phát từ trạm điều khiển trung tâm $O(0;0;0)$. Tàu ngầm lặn thẳng tới điểm $A(20; 15; -10)$ (đơn vị m). Khi hoàn tất kiểm tra hệ thống tại $A$, tàu tiếp tục lặn theo một đường thẳng đến tọa độ $B(140; 175; -50)$ với vận tốc không đổi $2\text{ m/s}$.
+		\begin{enumerate}[label=\alph*)]
+			\item Khi tàu ngầm ở vị trí $A$, nó cách trạm điều khiển một khoảng bằng $25\text{ m}$.
+			\item Độ dài quãng đường di chuyển từ điểm $A$ đến điểm $B$ của tàu ngầm là $200\text{ m}$.
+			\item Thời gian tàu ngầm di chuyển từ vị trí $A$ đến vị trí $B$ là $100$ giây.
+			\item Tại thời điểm đi được chính giữa đoạn đường $AB$, tàu ngầm đang ở độ sâu $20\text{ m}$ so với mặt nước (mặt phẳng $Oxy$).
+		\end{enumerate}
+		
+		% ================= CÂU 6 =================
+		\vspace{3mm}
+		\item Trong không gian với đơn vị km, hình vẽ mô tả vị trí của một khinh khí cầu đang lơ lửng trên không trung. Bề mặt mặt đất được biểu diễn bởi mặt phẳng $(Oxy)$.
+		
+		\begin{figure}[H]
+			\centering
+			\begin{tikzpicture}[scale=0.8, x={(-0.6cm,-0.5cm)}, y={(1cm,0cm)}, z={(0cm,1cm)}]
+				\draw[->, gray, thick] (0,0,0) -- (5,0,0) node[right] {$x$};
+				\draw[->, gray, thick] (0,0,0) -- (0,5,0) node[right] {$y$};
+				\draw[->, gray, thick] (0,0,0) -- (0,0,5) node[above] {$z$};
+				\node[left] at (0,0,0) {$O$};
+				
+				\coordinate (M) at (2, 4, 2.5);
+				\coordinate (Mxy) at (2, 4, 0);
+				\coordinate (Mx) at (2, 0, 0);
+				\coordinate (My) at (0, 4, 0);
+				\coordinate (Mz) at (0, 0, 2.5);
+				
+				\draw[dashed] (M) -- (Mxy) -- (Mx);
+				\draw[dashed] (Mxy) -- (My);
+				\draw[dashed] (M) -- (Mz);
+				\draw[dashed] (Mz) -- (0,4,2.5) -- (M);
+				\draw[dashed] (My) -- (0,4,2.5);
+				
+				\node[left] at (Mx) {$15$};
+				\node[below right] at (My) {$36$};
+				\node[left] at (Mz) {$2$};
+				
+				\filldraw[black] (M) circle (2.5pt) node[above right] {Khinh khí cầu};
+			\end{tikzpicture}
+		\end{figure}
+		
+		\begin{enumerate}[label=\alph*)]
+			\item Tọa độ của khinh khí cầu tại thời điểm hiện tại là $(15; 36; 2)$.
+			\item Khoảng cách từ khinh khí cầu đến trục $Oz$ (khoảng cách theo phương ngang đến tâm chiếu) là $39\text{ km}$.
+			\item Khinh khí cầu bị một luồng gió thổi đẩy đi theo hướng song song với trục $Ox$ (về phía âm). Sau $2$ giờ, tọa độ của nó là $(-5; 36; 2)$. Vận tốc của luồng gió này là $10\text{ km/h}$.
+			\item Nếu người điều khiển bật mỏ đốt để khinh khí cầu tự bay ngược chiều luồng gió nói trên (hướng dương trục $Ox$) với tốc độ tự thân là $25\text{ km/h}$ trong $1$ giờ, tọa độ mới của nó sẽ là $(30; 36; 2)$.
+		\end{enumerate}
+		
+		% ================= CÂU 7 =================
+		\vspace{3mm}
+		\item Trung tâm vũ trụ theo dõi một mảnh rác không gian di chuyển với vận tốc đều trong hệ tọa độ $Oxyz$ (đơn vị: nghìn km). Radar ghi nhận mảnh rác xuất hiện tại $M(3; 4; 12)$, và sau đúng $5$ giờ mảnh rác ở vị trí $N(-6; -8; -24)$.
+		\begin{enumerate}[label=\alph*)]
+			\item Quãng đường mảnh rác không gian đã bay được là $39$ (nghìn km).
+			\item Quỹ đạo bay của mảnh rác này là một đường thẳng đi qua gốc tọa độ $O$.
+			\item Tốc độ của mảnh rác không gian là $7,8$ nghìn km/h.
+			\item Tại điểm $N$, mảnh rác đang ở gần bề mặt Trái Đất (mặt phẳng $Oxy$) hơn so với lúc ở điểm $M$.
+		\end{enumerate}
+		
+		% ================= CÂU 8 =================
+		\vspace{3mm}
+		\item Một tàu thăm dò đáy biển ROV đang khảo sát một rạn san hô dưới biển sâu. Trạm phát tín hiệu trên mặt nước đặt tại $O(0;0;0)$. Tàu ROV di chuyển thẳng từ điểm $U(50; 120; -30)$ đến điểm $V(150; 360; -90)$ (đơn vị: mét).
+		\begin{enumerate}[label=\alph*)]
+			\item Tại vị trí $U$, tàu ROV cách trạm mặt nước $O$ một khoảng là $130\text{ m}$.
+			\item Khi ROV di chuyển từ $U$ đến $V$, nó đang đi theo hướng chúi xuống sâu hơn vào đáy biển.
+			\item Khi tàu ROV ở chính giữa đoạn đường $UV$, khoảng cách từ tàu đến trạm $O$ bằng trung bình cộng khoảng cách từ $U$ đến $O$ và từ $V$ đến $O$.
+			\item Quãng đường ROV di chuyển từ $U$ đến $V$ dài đúng $260\text{ m}$.
+		\end{enumerate}
+		
+		% ================= CÂU 9 =================
+		\vspace{3mm}
+		\item Hình vẽ sau mô phỏng tọa độ của một chiếc máy bay dân dụng tại thời điểm bắt đầu giảm độ cao để chuẩn bị hạ cánh ($t=0$). Đơn vị trên các trục là km.
+		
+		\begin{figure}[H]
+			\centering
+			\begin{tikzpicture}[scale=0.8, x={(-0.6cm,-0.5cm)}, y={(1cm,0cm)}, z={(0cm,1cm)}]
+				\draw[->, gray, thick] (0,0,0) -- (6,0,0) node[right] {$x$};
+				\draw[->, gray, thick] (0,0,0) -- (0,6,0) node[right] {$y$};
+				\draw[->, gray, thick] (0,0,0) -- (0,0,5) node[above] {$z$};
+				\node[left] at (0,0,0) {$O$};
+				
+				\coordinate (M) at (4, 4, 3.5);
+				\coordinate (Mxy) at (4, 4, 0);
+				\coordinate (Mx) at (4, 0, 0);
+				\coordinate (My) at (0, 4, 0);
+				\coordinate (Mz) at (0, 0, 3.5);
+				
+				\draw[dashed] (M) -- (Mxy) -- (Mx);
+				\draw[dashed] (Mxy) -- (My);
+				\draw[dashed] (M) -- (Mz);
+				
+				\node[left] at (Mx) {$80$};
+				\node[below right] at (My) {$150$};
+				\node[left] at (Mz) {$10$};
+				
+				\filldraw[black] (M) circle (2.5pt) node[above right] {Máy bay};
+			\end{tikzpicture}
+		\end{figure}
+		
+		\begin{enumerate}[label=\alph*)]
+			\item Tại thời điểm $t=0$, máy bay đang ở độ cao $10\text{ km}$ và có tọa độ là $(80; 150; 10)$.
+			\item Khoảng cách theo đường chim bay từ gốc $O$ đến máy bay lúc $t=0$ là $170\text{ km}$.
+			\item Máy bay giảm dần độ cao theo hướng tiến về đường băng đặt dọc theo trục $Oy$. Sau $15$ phút, máy bay đạt đến vị trí có tọa độ $(0; 50; 1)$. Vận tốc hạ cánh (vector độ dời theo phương thẳng đứng) của máy bay là $36\text{ km/h}$.
+			\item Giả sử trong suốt quá trình hạ cánh ở ý c, máy bay bị ảnh hưởng bởi một luồng gió xuôi chiều (cùng hướng dương trục $Oy$) với vận tốc $20\text{ km/h}$. Vận tốc di chuyển tiến tới trước của máy bay (so với mặt đất) là $400\text{ km/h}$.
+		\end{enumerate}
+			
+		% ================= CÂU 10 (Dạng mô hình kiến trúc có hình vẽ) =================
+		\item Hình minh họa dưới đây là sơ đồ một nhà kính trồng hoa công nghệ cao được gắn vào hệ trục tọa độ $Oxyz$ (đơn vị: mét). Bề mặt sàn, các bức tường và hai mặt mái đều là các hình chữ nhật.
+		
+		\begin{figure}[H]
+			\centering
+			\begin{tikzpicture}[scale=0.8, x={(-0.5cm,-0.5cm)}, y={(1cm,0cm)}, z={(0cm,1cm)}]
+				% Các đỉnh phần thân
+				\coordinate (O) at (0,0,0);
+				\coordinate (A) at (8,0,0);
+				\coordinate (B) at (8,6,0);
+				\coordinate (C) at (0,6,0);
+				\coordinate (E) at (0,0,4);
+				\coordinate (F) at (8,0,4);
+				\coordinate (G) at (8,6,4);
+				\coordinate (H) at (0,6,4);
+				% Các đỉnh mái
+				\coordinate (P) at (0,3,6);
+				\coordinate (Q) at (8,3,6);
+				
+				% Trục
+				\draw[->, gray] (O) -- (10,0,0) node[right] {$x$};
+				\draw[->, gray] (O) -- (0,7,0) node[right] {$y$};
+				\draw[->, gray] (O) -- (0,0,7) node[above] {$z$};
+				
+				% Nét đứt (khuất)
+				\draw[dashed] (O) -- (A);
+				\draw[dashed] (O) -- (C);
+				\draw[dashed] (O) -- (E);
+				\draw[dashed] (C) -- (B);
+				\draw[dashed] (C) -- (H);
+				\draw[dashed] (H) -- (Q);
+				
+				% Nét liền (thấy)
+				\draw (A) -- (B) -- (G) -- (F) -- cycle;
+				\draw (E) -- (F) -- (G) -- (H) -- cycle;
+				\draw (E) -- (P) -- (F);
+				\draw (H) -- (P) -- (Q) -- (G);
+				\draw (Q) -- (F); % Sửa nét nối mái
+				\draw (G) -- (Q);
+				
+				% Gắn tên
+				\node[below left] at (O) {$O(0;0;0)$};
+				\node[below] at (A) {$A(8;0;0)$};
+				\node[right] at (B) {$B(8;6;0)$};
+				\node[right] at (C) {$C$};
+				\node[left] at (E) {$E(0;0;4)$};
+				\node[right] at (F) {$F$};
+				\node[right] at (G) {$G(8;6;4)$};
+				\node[left] at (H) {$H$};
+				\node[above] at (P) {$P(0;3;6)$};
+				\node[above] at (Q) {$Q(8;3;6)$};
+			\end{tikzpicture}
+		\end{figure}
+		
+		\begin{enumerate}[label=\alph*)]
+			\item Tọa độ của đỉnh $F$ nằm trên tường nhà kính là $(8; 0; 4)$.
+			\item Tọa độ của điểm $C$ trên mặt sàn nhà kính là $(0; 6; 4)$.
+			\item Chiều cao tổng thể của nhà kính tính từ mặt đất lên đến đỉnh mái là $6\text{ m}$.
+			\item Gọi $\alpha$ là góc nghiêng của mặt mái phía trước $(PQFE)$ so với mặt phẳng ngang $(Oxy)$. Ta có $\cos \alpha \approx 0,832$ (làm tròn đến hàng phần nghìn).
+		\end{enumerate}
+		
+		% ================= CÂU 11 (Dạng mô hình kiến trúc, tự suy luận) =================
+		\vspace{3mm}
+		\item Một chiếc lều cắm trại quân sự có hình dáng tương tự một hình hộp chữ nhật được lợp thêm một mái nhà hình lăng trụ tam giác cân. Lều được gắn vào hệ tọa độ $Oxyz$ (đơn vị: mét). Biết mặt đất trùng với $(Oxy)$, chiều dài lều dọc theo trục $Oy$ là $10\text{ m}$, chiều rộng lều dọc theo trục $Ox$ là $6\text{ m}$. Chiều cao của các bức tường thẳng đứng là $2,5\text{ m}$ và đỉnh lều nằm ở chính giữa chiều rộng với tổng độ cao là $4,5\text{ m}$.
+		\begin{enumerate}[label=\alph*)]
+			\item Tọa độ của đỉnh mái lều phía trước (nằm trên mặt phẳng $Oxz$) là $(3; 0; 4,5)$.
+			\item Điểm nằm xa gốc tọa độ $O(0;0;0)$ nhất trên mặt sàn của lều có tọa độ là $(10; 6; 0)$.
+			\item Vector pháp tuyến của mặt phẳng chứa vách lều phía sau (đối diện mặt $Oxz$) là $\vec{n} = (0; 1; 0)$.
+			\item Thể tích phần không gian bên trong chiếc lều là $210\text{ m}^3$.
+		\end{enumerate}
+		
+		% ================= CÂU 12 (Dạng mô hình kiến trúc, tự suy luận) =================
+		\vspace{3mm}
+		\item Tại một khu công nghiệp, người ta xây dựng một nhà kho. Trong hệ trục $Oxyz$, mặt sàn nhà kho là hình chữ nhật $ABCD$ nằm trên $(Oxy)$ với $A$ trùng gốc $O$. Kích thước nhà kho gồm chiều sâu $AB = 30\text{ m}$ (dọc trục $Ox$), mặt tiền $AD = 20\text{ m}$ (dọc trục $Oy$). Nhà kho có thiết kế mái lệch: vách tường bên trái cao $6\text{ m}$, vách tường bên phải cao $9\text{ m}$, tạo thành một mặt phẳng mái nghiêng duy nhất.
+		\begin{enumerate}[label=\alph*)]
+			\item Tọa độ của đỉnh tường cao nhất bên phải, nằm ở phía sau nhà kho là $(30; 20; 9)$.
+			\item Trung điểm của mái nhà kho có cao độ bằng $7,5\text{ m}$.
+			\item Phương trình mặt phẳng chứa mái nhà kho cắt trục $Oz$ tại điểm có cao độ $z = 6$.
+			\item Diện tích bề mặt mái nhà kho lớn hơn $600\text{ m}^2$.
+		\end{enumerate}
+		
+		% ================= CÂU 13 (Dạng tọa độ di chuyển có hướng gió - Có hình vẽ) =================
+		\vspace{3mm}
+		\item Hình vẽ sau mô tả vị trí của một thiết bị bay khảo sát (UAV) vào thời điểm 08h00 sáng. Trong không gian $Oxyz$, mặt đất là $(Oxy)$, các đơn vị trên trục tọa độ tính bằng km. Trục $Ox$ chỉ hướng Nam, trục $Oy$ chỉ hướng Đông.
+		
+		\begin{figure}[H]
+			\centering
+			\begin{tikzpicture}[scale=0.8, x={(-0.6cm,-0.5cm)}, y={(1cm,0cm)}, z={(0cm,1cm)}]
+				% Trục
+				\draw[->, thick] (0,0,0) -- (6,0,0) node[right] {$y$ (Đông)};
+				\draw[->, thick] (0,0,0) -- (0,5,0) node[below] {$x$ (Nam)};
+				\draw[->, thick] (0,0,0) -- (0,0,5) node[above] {$z$};
+				
+				% Tọa độ
+				\coordinate (M) at (0, 3, 4); % Nằm trên yz, x=0 -> Wait, Ox is South (y of tikz), Oy is East (x of tikz). 
+				% Let's adjust mathematically: x (South) = 40 (0.4 in graph), y (East) = 120 (1.2). z = 5.
+				\coordinate (UAV) at (4, 2, 4);
+				\coordinate (UAVxy) at (4, 2, 0);
+				\coordinate (UAVx) at (4, 0, 0);
+				\coordinate (UAVy) at (0, 2, 0);
+				\coordinate (UAVz) at (0, 0, 4);
+				
+				\draw[dashed] (UAV) -- (UAVxy) -- (UAVx);
+				\draw[dashed] (UAVxy) -- (UAVy);
+				\draw[dashed] (UAV) -- (UAVz);
+				\draw[dashed] (UAVz) -- (4,0,4) -- (UAV);
+				\draw[dashed] (UAVz) -- (0,2,4) -- (UAV);
+				
+				\node[left] at (UAVy) {$40$};
+				\node[below right] at (UAVx) {$120$};
+				\node[left] at (UAVz) {$0,5$};
+				
+				\filldraw[black] (UAV) circle (2pt) node[above right] {UAV};
+				\filldraw[black] (0,0,0) circle (1pt) node[left] {$O$};
+			\end{tikzpicture}
+		\end{figure}
+		
+		\begin{enumerate}[label=\alph*)]
+			\item Lúc 08h00, UAV đang ở độ cao $500\text{ m}$ so với mặt đất.
+			\item Tọa độ của UAV lúc 08h00 là $(40; 120; 0,5)$.
+			\item UAV được lập trình bay tự động về hướng Bắc (ngược chiều trục chỉ hướng Nam) với vận tốc $60\text{ km/h}$, độ cao không đổi. Tại khu vực đó có gió thổi về hướng Đông với vận tốc $5\text{ m/s}$ (tương đương $18\text{ km/h}$). Nếu vận tốc thực là tổng hợp của vận tốc UAV và sức gió thì lúc 08h30 tọa độ của UAV là $(10; 129; 0,5)$.
+			\item Vận tốc thực tế của UAV so với mặt đất xấp xỉ $62,64\text{ km/h}$.
+		\end{enumerate}
+		
+		% ================= CÂU 14 (Dạng tọa độ di chuyển ngược chiều/thay đổi hướng) =================
+		\vspace{3mm}
+		\item Tại trạm kiểm soát không lưu, màn hình radar xác định gốc tọa độ $O$ là trung tâm đài quan sát. Trục $Ox$ hướng về phía Nam, trục $Oy$ hướng về phía Đông. Đơn vị đo là km. Một trực thăng tuần tra đang ở vị trí $H(50; 80; 1,2)$ lúc 14h00.
+		\begin{enumerate}[label=\alph*)]
+			\item Hình chiếu vuông góc của trực thăng xuống mặt đất có tọa độ là $(0; 80; 1,2)$.
+			\item Khoảng cách theo đường chim bay từ đài quan sát $O$ đến trực thăng lúc 14h00 dài xấp xỉ $94,3\text{ km}$.
+			\item Trực thăng bay tuần tra theo hướng Đông với vận tốc của động cơ là $180\text{ km/h}$. Tuy nhiên, gió đang thổi ngược lại (hướng Tây) với tốc độ $10\text{ m/s}$. Tọa độ của trực thăng lúc 15h00 (sau 1 giờ bay) là $(50; 224; 1,2)$.
+			\item Sau khi đến vị trí ở ý c, trực thăng đổi hướng bay thẳng về phía Nam với tốc độ thực tế so với mặt đất là $150\text{ km/h}$ trong $30$ phút. Tọa độ của trực thăng sau khi bay xong chặng này là $(125; 224; 1,2)$.
+		\end{enumerate}
+		
+		% ================= CÂU 15 (Dạng khinh khí cầu trôi tự do, không động cơ) =================
+		\vspace{3mm}
+		\item Một trạm khí tượng thả một khinh khí cầu đo thời tiết từ gốc tọa độ $O(0;0;0)$. Đơn vị đo là km. Trục $Ox$ hướng về phía Bắc, trục $Oy$ hướng về phía Tây. Vào lúc 10h00, khinh khí cầu bay lên tới vị trí $K(15; 20; 6)$ và bị hỏng động cơ giữ vị trí, bắt đầu trôi tự do hoàn toàn theo chiều gió. 
+		\begin{enumerate}[label=\alph*)]
+			\item Lúc 10h00, khinh khí cầu đang ở độ cao $6\text{ km}$ và cách trạm gốc $O$ một khoảng là $25\text{ km}$.
+			\item Biết gió thổi ổn định theo hướng Đông Nam (tức là gió làm giảm tọa độ $x$, giảm tọa độ $y$) với vận tốc gió theo phương $Ox$ là $-10\text{ km/h}$, theo phương $Oy$ là $-15\text{ km/h}$, và khinh khí cầu bị rơi tự do làm giảm độ cao với tốc độ $2\text{ km/h}$. Vectơ vận tốc của khinh khí cầu lúc này là $\vec{v} = (-10; -15; -2)$.
+			\item Vào lúc 11h00, tọa độ của khinh khí cầu là $(5; 5; 4)$.
+			\item Chạm đất là lúc cao độ $z=0$. Với điều kiện thời tiết không đổi, khinh khí cầu sẽ chạm đất vào đúng 13h00.
+		\end{enumerate}
+			
+		% ================= CÂU 16 (Dạng định vị tọa độ theo hướng Đông/Tây/Nam/Bắc) =================
+		\item Hai chiếc flycam đang bay ghi hình tại một lễ hội. Chiếc thứ nhất cách điểm điều khiển trung tâm $6\text{ km}$ về phía nam, $8\text{ km}$ về phía đông và đang ở độ cao $10\text{ km}$. Chiếc thứ hai cách điểm điều khiển $3\text{ km}$ về phía bắc, $4\text{ km}$ về phía tây và đang ở độ cao $2\text{ km}$. Chọn hệ trục $Oxyz$ với gốc $O$ đặt tại điểm điều khiển trung tâm, mặt phẳng $(Oxy)$ trùng với mặt đất, tia $Ox$ hướng về phía nam, tia $Oy$ hướng về phía đông và tia $Oz$ hướng thẳng đứng lên trời. Đơn vị đo lấy theo kilômét.
+		
+		\begin{figure}[H]
+			\centering
+			\begin{tikzpicture}[scale=1.2, x={(-0.6cm,-0.4cm)}, y={(1cm,0cm)}, z={(0cm,1cm)}]
+				% Trục
+				\draw[->, thick] (0,0,0) -- (3,0,0) node[right] {Nam ($x$)};
+				\draw[dashed, gray] (0,0,0) -- (-2.5,0,0) node[left, black] {Bắc};
+				\draw[->, thick] (0,0,0) -- (0,3,0) node[below] {Đông ($y$)};
+				\draw[dashed, gray] (0,0,0) -- (0,-2.5,0) node[above left, black] {Tây};
+				\draw[->, thick] (0,0,0) -- (0,0,3) node[above] {$z$};
+				
+				% Các điểm minh họa (tọa độ thu nhỏ để vừa hình)
+				\coordinate (F1) at (2, 2.5, 1.5); % Đại diện flycam 1 (x, y dương)
+				\coordinate (F1xy) at (2, 2.5, 0);
+				\coordinate (F2) at (-1.5, -1.5, 2); % Đại diện flycam 2 (x, y âm)
+				\coordinate (F2xy) at (-1.5, -1.5, 0);
+				
+				\draw[dashed] (F1) -- (F1xy) -- (2,0,0);
+				\draw[dashed] (F1xy) -- (0,2.5,0);
+				\draw[dashed] (F2) -- (F2xy) -- (-1.5,0,0);
+				\draw[dashed] (F2xy) -- (0,-1.5,0);
+				
+				\filldraw[blue] (F1) circle (2pt) node[right] {Flycam 1};
+				\filldraw[red] (F2) circle (2pt) node[left] {Flycam 2};
+				\filldraw[black] (0,0,0) circle (1.5pt) node[below right] {$O$};
+			\end{tikzpicture}
+		\end{figure}
+		
+		\begin{enumerate}[label=\alph*)]
+			\item Với hệ tọa độ đã chọn, tọa độ của chiếc flycam thứ nhất là $(6; 8; 10)$.
+			\item Với hệ tọa độ đã chọn, tọa độ của chiếc flycam thứ hai là $(3; -4; 2)$.
+			\item Khoảng cách từ điểm điều khiển $O$ đến chiếc flycam thứ nhất là $10\sqrt{2}\text{ km}$.
+			\item Khoảng cách giữa hai chiếc flycam đang bay trên không là $17\text{ km}$.
+		\end{enumerate}
+		
+		% ================= CÂU 17 (Dạng bài toán trạm Radar phát hiện mục tiêu) =================
+		\vspace{3mm}
+		\item Trong không gian, xét hệ tọa độ $Oxyz$ có gốc $O$ trùng với vị trí một ngọn hải đăng trên đảo, mặt phẳng $(Oxy)$ trùng với mặt biển. Tia $Ox$ hướng về phía nam, tia $Oy$ hướng về phía đông, tia $Oz$ hướng thẳng lên trời. Đơn vị đo trong không gian lấy theo kilômét. Một hệ thống radar đặt tại hải đăng $O$ có phạm vi theo dõi là $50\text{ km}$. Một chiếc tàu ngầm (mục tiêu $S$) đang lặn ở độ sâu $20\text{ km}$, cách đảo $30\text{ km}$ về phía nam và $40\text{ km}$ về phía tây. Một con tàu du lịch (mục tiêu $D$) đang ở trên mặt biển, cách đảo $25\text{ km}$ về phía bắc và $40\text{ km}$ về phía đông.
+		\begin{enumerate}[label=\alph*)]
+			\item Tọa độ của tàu du lịch $D$ là $(-25; 40; 0)$.
+			\item Khoảng cách từ hệ thống radar đến tàu ngầm $S$ là $10\sqrt{29}\text{ km}$.
+			\item Hệ thống radar tại ngọn hải đăng phát hiện được tàu ngầm $S$ trong phạm vi quan sát.
+			\item Một xuồng tuần tra $C$ của lực lượng biên phòng đang ở vị trí cách đảo $30\text{ km}$ về phía bắc. Để radar vẫn có thể theo dõi được xuồng tuần tra này, nó chỉ được phép di chuyển về phía đông tối đa $40\text{ km}$ tính từ trục $Ox$.
+		\end{enumerate}
+		
+		% ================= CÂU 18 (Dạng đổi hướng trục tọa độ để đánh lừa) =================
+		\vspace{3mm}
+		\item Tại một khu mỏ khai thác khoáng sản, kỹ sư lập một hệ trục tọa độ $Oxyz$ với tâm $O$ đặt tại trạm chỉ huy trên mặt đất. Để thuận tiện cho bản đồ mỏ, kỹ sư quy ước: tia $Ox$ hướng về phía \textbf{đông}, tia $Oy$ hướng về phía \textbf{bắc} và tia $Oz$ hướng thẳng lên trên mặt đất. Đơn vị đo là trăm mét. Một người thợ mỏ đang làm việc tại hầm ngầm cách trạm chỉ huy $5$ trăm mét về phía đông, $12$ trăm mét về phía bắc và ở độ sâu $3$ trăm mét. Cùng lúc đó, một máy bay chở hàng đang lơ lửng cách trạm chỉ huy $4$ trăm mét về phía tây, đúng trên trục đông-tây và ở độ cao $5$ trăm mét.
+		\begin{enumerate}[label=\alph*)]
+			\item Tọa độ của người thợ mỏ trong hệ trục này là $(5; 12; 3)$.
+			\item Tọa độ của máy bay chở hàng là $(-4; 0; 5)$.
+			\item Khoảng cách từ máy bay chở hàng đến trạm chỉ huy mặt đất là $500\text{ m}$.
+			\item Độ dài đoạn thẳng nối trực tiếp từ máy bay chở hàng tới vị trí người thợ mỏ dưới lòng đất là $17$ trăm mét.
+		\end{enumerate}
+		
+		% ================= CÂU 19 (Dạng đánh giá khoảng cách an toàn không gian) =================
+		\vspace{3mm}
+		\item Hệ thống phòng không đặt tại gốc tọa độ $O$ có một vòm bảo vệ với bán kính $120\text{ km}$. Quy ước tia $Ox$ hướng về phía nam, $Oy$ hướng về phía đông, $Oz$ hướng lên trên và $(Oxy)$ là mặt đất (đơn vị: km). Radar phát hiện hai vật thể bay: Vật thể $A$ cách trung tâm $60\text{ km}$ về phía bắc, $80\text{ km}$ về phía tây và ở độ cao $10\text{ km}$; Vật thể $B$ cách trung tâm $100\text{ km}$ về phía đông, không lệch hướng bắc-nam và ở độ cao $20\text{ km}$.
+		\begin{enumerate}[label=\alph*)]
+			\item Tọa độ của vật thể $A$ là $(-60; -80; 10)$.
+			\item Khoảng cách từ tâm hệ thống đến vật thể $B$ là $\sqrt{10400}\text{ km}$.
+			\item Cả hai vật thể bay $A$ và $B$ đều đã tiến vào bên trong vòm bảo vệ phòng không.
+			\item Nếu một bầy chim di cư bay dọc theo chính xác trục chỉ hướng Bắc ở độ cao $5\text{ km}$. Để không lọt vào vòm bảo vệ, bầy chim phải ở cách tâm $O$ một khoảng xa hơn $\sqrt{14375}\text{ km}$ theo hướng bắc.
+		\end{enumerate}
+		
+		% ================= CÂU 20 (Dạng Trạm không gian - Các trục quy ước tương đối) =================
+		\vspace{3mm}
+		\item Một trạm không gian quốc tế $O$ đang trôi dạt trong vũ trụ. Các phi hành gia thiết lập một hệ trục tọa độ tương đối gắn với trạm: tia $Ox$ hướng thẳng về \textbf{phía trước} mũi trạm, tia $Oy$ hướng sang cánh \textbf{bên phải}, tia $Oz$ hướng thẳng lên \textbf{trần} của trạm (đơn vị: km). Vệ tinh liên lạc $S_1$ nằm cách trạm $10\text{ km}$ về phía trước, $20\text{ km}$ về phía bên trái và $30\text{ km}$ phía trên trần. Vệ tinh quan sát $S_2$ nằm cách trạm $15\text{ km}$ về phía sau, $5\text{ km}$ về phía bên phải và $10\text{ km}$ phía dưới sàn.
+		\begin{enumerate}[label=\alph*)]
+			\item Tọa độ của vệ tinh $S_1$ là $(10; 20; 30)$.
+			\item Với điểm mút là $S_2$, tọa độ của vectơ $\overrightarrow{S_1 S_2}$ là $(-25; 25; -40)$.
+			\item Khoảng cách từ trạm không gian $O$ đến vệ tinh $S_1$ là $10\sqrt{14}\text{ km}$.
+			\item Khoảng cách giữa hai vệ tinh $S_1$ và $S_2$ lớn hơn $50\text{ km}$.
+		\end{enumerate}
+			
+		% ================= CÂU 21 (Dạng khối hình cơ bản gắn tọa độ giống Rubik) =================
+		\item Một khối thủy tinh đặc trang trí có dạng hình lập phương được gắn vào hệ trục tọa độ $Oxyz$ tạo thành hình lập phương $OABC.O'A'B'C'$ có độ dài cạnh bằng $5$ (đơn vị: cm). Biết gốc tọa độ trùng với đỉnh $O$, các đỉnh $A, C, O'$ lần lượt nằm trên các tia $Ox, Oy, Oz$. Gọi $I$ là tâm của khối thủy tinh này.
+		
+		\begin{figure}[H]
+			\centering
+			\begin{tikzpicture}[scale=1, x={(-0.6cm,-0.5cm)}, y={(1cm,0cm)}, z={(0cm,1cm)}]
+				% Trục tọa độ (màu xám, nét mảnh)
+				\draw[->, gray, thin] (0,0,0) -- (7.5,0,0) node[right, black] {$x$};
+				\draw[->, gray, thin] (0,0,0) -- (0,7.5,0) node[right, black] {$y$};
+				\draw[->, gray, thin] (0,0,0) -- (0,0,6.5) node[above, black] {$z$};
+				
+				% Khai báo tọa độ các đỉnh của hình lập phương cạnh bằng 5
+				\coordinate (O) at (0,0,0);
+				\coordinate (A) at (5,0,0);
+				\coordinate (C) at (0,5,0);
+				\coordinate (B) at (5,5,0);
+				\coordinate (O1) at (0,0,5);
+				\coordinate (A1) at (5,0,5);
+				\coordinate (C1) at (0,5,5);
+				\coordinate (B1) at (5,5,5);
+				
+				% Vẽ các cạnh khuất (nét đứt)
+				\draw[dashed, semithick] (O) -- (C);
+				\draw[dashed, semithick] (O) -- (O1);
+				
+				% Vẽ các cạnh thấy (nét liền)
+				\draw[semithick] (O) -- (A);
+				\draw[semithick] (A) -- (B) -- (C);
+				\draw[semithick] (A) -- (A1);
+				\draw[semithick] (B) -- (B1);
+				\draw[semithick] (C) -- (C1);
+				\draw[semithick] (O1) -- (A1) -- (B1) -- (C1) -- cycle;
+				
+				% Vẽ 2 đường chéo theo đúng hình mẫu
+				\draw[semithick] (O) -- (B1);
+				\draw[semithick] (B) -- (C1);
+				
+				% Gắn tên các đỉnh (Dùng tham số dịch chuyển để không chạm vạch)
+				\node[below right=2pt] at (O) {$O(0;0;0)$};
+				\node[below=3pt] at (A) {$A$};
+				\node[below right=2pt] at (B) {$B$};
+				\node[right=3pt] at (C) {$C$};
+				\node[left=3pt] at (O1) {$O'$};
+				\node[below=3pt] at (A1) {$A'$};
+				\node[right=3pt] at (B1) {$B'$};
+				\node[above=3pt] at (C1) {$C'$};
+				
+				% Gắn độ dài cạnh "5" nằm ngay ngắn dưới cạnh OC
+				\path (O) -- (C) node[midway, below=5pt] {\textbf{5}};
+			\end{tikzpicture}
+		\end{figure}
+		
+		\begin{enumerate}[label=\alph*)]
+			\item Tọa độ điểm $B(5; 5; 0)$ suy ra vectơ $\overrightarrow{OB} = 5\vec{i} + 5\vec{j} + 0\vec{k}$.
+			\item Tọa độ tâm $I$ của khối thủy tinh là $I(2,5; 2,5; 5)$.
+			\item Tọa độ của điểm $A'$ là $(5; 0; 5)$.
+			\item Độ dài của vectơ $\overrightarrow{OC'}$ bằng $5\sqrt{3}$.
+		\end{enumerate}
+		
+		% ================= CÂU 22 (Dạng treo vật thể trong phòng giống quạt trần) =================
+		\vspace{3mm}
+		\item Một phòng chiếu phim gia đình có thiết kế dạng hình hộp chữ nhật với chiều dài $6\text{ m}$, chiều rộng $4\text{ m}$ và chiều cao $3\text{ m}$. Một chiếc máy chiếu được treo trên trần nhà tại vị trí chính giữa trần. Xét hệ trục tọa độ $Oxyz$ có gốc $O$ trùng với một góc phòng, mặt phẳng $(Oxy)$ trùng với mặt sàn, tia $Ox$ dọc theo chiều dài và tia $Oy$ dọc theo chiều rộng (các vectơ đơn vị có độ dài $1\text{ m}$). Biết rằng giá treo từ trần xuống đến thấu kính máy chiếu dài $0,4\text{ m}$. Giả sử xem thấu kính máy chiếu là điểm $P$.
+		\begin{enumerate}[label=\alph*)]
+			\item Tọa độ của thấu kính máy chiếu là $P(3; 2; 2,6)$.
+			\item Khoảng cách từ thấu kính máy chiếu đến mặt sàn là $3\text{ m}$.
+			\item Khoảng cách từ thấu kính máy chiếu đến bức tường chứa chiều dài của căn phòng là $2\text{ m}$.
+			\item Một công tắc thông minh gắn trên tường tại vị trí $S(0; 2; 1,2)$. Khoảng cách từ công tắc $S$ đến thấu kính $P$ nhỏ hơn $4\text{ m}$.
+		\end{enumerate}
+		
+		% ================= CÂU 23 (Dạng chuyển động tham số t giống máy bay) =================
+		\vspace{3mm}
+		\item Một chiếc tàu ngầm $S$ bắt đầu nổi lên từ đáy biển. Xét hệ trục tọa độ $Oxyz$ có gốc tọa độ $O$ là một trạm nghiên cứu trên mặt nước (mặt phẳng $Oxy$), tia $Ox$ hướng Đông, tia $Oy$ hướng Bắc, tia $Oz$ hướng thẳng đứng lên trên, đơn vị trên mỗi trục là kilômét. Vectơ $\vec{r}$ chỉ vị trí của tàu ngầm tại thời điểm $t$ giờ sau khi bắt đầu nổi ($t \ge 0$) có tọa độ là $\vec{r} = (6+t; 6+2t; -3+2t)$. Một phao tiêu tín hiệu được neo cố định tại vị trí $B(10; 10; 0)$. Gọi $M$ là vị trí của tàu ngầm tại thời điểm $t$.
+		
+		\begin{figure}[H]
+			\centering
+			\begin{tikzpicture}[scale=0.8, x={(-0.6cm,-0.4cm)}, y={(1cm,0cm)}, z={(0cm,1cm)}]
+				% Mặt biển
+				\fill[cyan!10] (-2,-1,0) -- (6,-1,0) -- (8,5,0) -- (0,5,0) -- cycle;
+				
+				\draw[->, thick] (0,0,0) -- (5,0,0) node[right] {$x$ (Đông)};
+				\draw[->, thick] (0,0,0) -- (0,5,0) node[right] {$y$ (Bắc)};
+				\draw[->, thick] (0,0,-4) -- (0,0,3) node[above] {$z$};
+				\node[left] at (0,0,0) {$O$};
+				
+				\coordinate (S0) at (2, 2, -3);
+				\coordinate (M) at (3, 4, -1);
+				\coordinate (B) at (4, 4, 0);
+				
+				\draw[->, red, thick] (S0) -- (M) node[midway, below right] {Quỹ đạo nổi};
+				\draw[dashed] (M) -- (6,10,5); % tia tiếp tục
+				\draw[dashed, blue] (M) -- (B);
+				
+				\filldraw[black] (S0) circle (2pt) node[below] {$S_0$};
+				\filldraw[black] (M) circle (2pt) node[left] {$M$};
+				\filldraw[blue] (B) circle (2pt) node[above] {$B(10;10;0)$};
+			\end{tikzpicture}
+		\end{figure}
+		
+		\begin{enumerate}[label=\alph*)]
+			\item Tọa độ điểm $M$ tại thời điểm $t$ giờ là $M(6+t; 6+2t; -3+2t)$.
+			\item Vị trí ban đầu của tàu ngầm lúc bắt đầu nổi ($t=0$) là điểm có tọa độ $(6; 6; 0)$.
+			\item Tọa độ của vectơ $\overrightarrow{MB}$ là $(4-t; 4-2t; 3-2t)$.
+			\item Tàu ngầm $S$ đạt khoảng cách gần nhất so với phao tiêu $B$ khi $t = 2$ giờ. Khoảng cách gần nhất đó đúng bằng $5\text{ km}$.
+		\end{enumerate}
+		
+		% ================= CÂU 24 (Dạng khối hình cơ bản biến thể) =================
+		\vspace{3mm}
+		\item Một thùng container chở hàng được mô phỏng bởi hình hộp chữ nhật $ABCD.A'B'C'D'$ trong không gian $Oxyz$. Biết các đỉnh có tọa độ là $A(0;0;0)$, $B(6;0;0)$, $D(0; 2,5; 0)$ và $A'(0; 0; 2,5)$ (đơn vị đo là mét). Gọi $K$ là tâm của mặt bên $BCC'B'$.
+		\begin{enumerate}[label=\alph*)]
+			\item Tọa độ của đỉnh $C$ nằm trên mặt đáy là $(6; 2,5; 0)$.
+			\item Điểm $K$ có tọa độ là $K(6; 1,25; 1,25)$.
+			\item Độ dài đường chéo không gian $AC'$ của thùng container là đúng $7\text{ m}$.
+			\item Vectơ $\overrightarrow{BD'}$ có tọa độ là $(-6; 2,5; 2,5)$.
+		\end{enumerate}
+		
+		% ================= CÂU 25 (Dạng treo vật thể biến thể) =================
+		\vspace{3mm}
+		\item Sảnh chờ của một khách sạn có hình hộp chữ nhật với chiều dài $15\text{ m}$, chiều rộng $10\text{ m}$ và trần nhà cao $5\text{ m}$. Một cụm đèn chùm pha lê cỡ lớn được treo chính giữa trần nhà. Chọn hệ tọa độ $Oxyz$ sao cho gốc $O$ ở một góc sảnh, mặt phẳng $(Oxy)$ là mặt sàn, các tia $Ox, Oy$ dọc theo chiều dài và chiều rộng của sảnh. Chiều dài phần thả xuống của đèn chùm (từ trần đến điểm thấp nhất của đèn) là $1,5\text{ m}$. Gọi $C$ là điểm thấp nhất của đèn chùm.
+		\begin{enumerate}[label=\alph*)]
+			\item Tọa độ điểm $C$ là $(7,5; 5; 3,5)$.
+			\item Khoảng cách từ điểm thấp nhất của đèn chùm đến mặt sàn là $1,5\text{ m}$.
+			\item Khoảng cách từ đèn chùm đến bức tường gần nó nhất là $5\text{ m}$.
+			\item Một robot vệ sinh đang đứng ở góc sảnh $R(15; 0; 0)$. Vectơ hướng chiếu tia laser từ robot lên điểm $C$ của đèn chùm là $\overrightarrow{RC} = (-7,5; 5; 3,5)$.
+		\end{enumerate}
+		
+		% ================= CÂU 26 (Dạng chuyển động tham số biến thể) =================
+		\vspace{3mm}
+		\item Một thiết bị bay không người lái (drone) cứu hộ cất cánh từ một căn cứ trên núi. Xét hệ tọa độ $Oxyz$ với gốc $O$ là đài quan sát, $(Oxy)$ là mặt phẳng ngang, $Oz$ hướng thẳng đứng lên trời, đơn vị đo là $100\text{ m}$. Drone cất cánh từ bãi đáp $G$ và có vectơ vị trí tại thời điểm $t$ (phút) là $\vec{r}(t) = (2+t; -1+2t; 3t)$. Một người leo núi đang gặp nạn tại vị trí $D(12; 9; 10)$. Gọi $M$ là vị trí của drone tại thời điểm $t$.
+		\begin{enumerate}[label=\alph*)]
+			\item Tọa độ bãi đáp $G$ (nơi cất cánh lúc $t=0$) là $G(2; -1; 0)$.
+			\item Vị trí $M$ tại thời điểm $t$ là $M(2+t; -1+2t; 3t)$.
+			\item Tọa độ của vectơ $\overrightarrow{MD}$ là $(10-t; 10-2t; 10-3t)$.
+			\item Thời điểm drone bay đến vị trí gần người leo núi nhất là vào phút thứ 3 sau khi cất cánh.
+		\end{enumerate}
+		
+		% ================= CÂU 27 (Dạng khối hình + Vật bên trong) =================
+		\vspace{3mm}
+		\item Một bể cá cảnh cỡ lớn có dạng hình hộp chữ nhật được gắn tọa độ $Oxyz$ (đơn vị: mét). Bể có chiều dài $3\text{ m}$ (dọc theo $Ox$), chiều rộng $2\text{ m}$ (dọc theo $Oy$) và chiều cao $1,5\text{ m}$ (dọc theo $Oz$). Gốc $O$ trùng với một góc đáy bể. Người ta đặt một rương kho báu trang trí nhỏ ở chính giữa đáy bể. Trên mặt nước (nước ngập đầy bằng mép bể), người ta thả một vòng tròn thức ăn nổi ngay thẳng đứng phía trên rương kho báu.
+		\begin{enumerate}[label=\alph*)]
+			\item Tọa độ của rương kho báu là $(1,5; 1; 0)$.
+			\item Tọa độ của vòng tròn thức ăn trên mặt nước là $(1,5; 1; 1,5)$.
+			\item Một con cá bơi theo đường thẳng từ gốc tọa độ $O$ đến vòng tròn thức ăn $F$. Vectơ di chuyển của con cá là $\overrightarrow{OF} = \frac{3}{2}\vec{i} + \vec{j} + \frac{3}{2}\vec{k}$.
+			\item Khoảng cách từ gốc tọa độ $O$ đến góc bể đối diện với nó nằm ở phía trên mặt nước là đúng $4\text{ m}$.
+		\end{enumerate}
+			
+		% ================= CÂU 35 (Dạng tương tự Câu 23 - Hình học không gian tĩnh, điểm cách đều) =================
+		\item Tại một lễ hội ánh sáng nghệ thuật, ban tổ chức thiết lập một không gian trình diễn 3D. Chọn hệ trục tọa độ $Oxyz$ với mặt phẳng $(Oxy)$ trùng với mặt sân phẳng. Gốc tọa độ $O$ là vị trí đặt máy chiếu laser chính. Điểm $A$ là vị trí tập kết của bầy drone (thiết bị bay) nằm trên tia $Ox$. Một quả cầu led khổng lồ $B$ được treo cố định trên tia $Oz$. Một quả cầu led khác $C$ đang lơ lửng trong không gian (thuộc góc phần tám thứ nhất có $x,y,z>0$) để tạo thành các điểm phản chiếu. Biết tọa độ điểm $A(60; 0; 0)$, khoảng cách giữa các vị trí $OC = AC = BC = 100$ và $OB = 80$ (các đơn vị trong không gian tính bằng mét).
+		
+		\begin{figure}[H]
+			\centering
+			\begin{tikzpicture}[scale=0.7, x={(-0.6cm,-0.5cm)}, y={(1cm,0cm)}, z={(0cm,1cm)}]
+				% Trục tọa độ
+				\draw[->, thick] (0,0,0) -- (8,0,0) node[below] {$x$};
+				\draw[->, thick] (0,0,0) -- (0,11,0) node[right] {$y$};
+				\draw[->, thick] (0,0,0) -- (0,0,10) node[above] {$z$};
+				
+				% Khai báo tọa độ chuẩn theo đúng tỷ lệ toán học của đề bài (chia 10)
+				\coordinate (O) at (0,0,0);
+				\coordinate (A) at (6,0,0);
+				\coordinate (B) at (0,0,8);
+				\coordinate (C) at (3, 8.66, 4); % 8.66 xấp xỉ 5\sqrt{3}
+				
+				% Vẽ các đường nét đứt (khoảng cách) trước để chìm xuống dưới
+				\draw[dashed, blue, thick] (O) -- (C) node[midway, below right] {};
+				\draw[dashed, blue, thick] (A) -- (C) node[midway, above left] {};
+				\draw[dashed, blue, thick] (B) -- (C) node[midway, above right] {};
+				
+				% Vẽ đoạn OA, OB (nằm trên trục)
+				\draw[thick] (O) -- (A);
+				\draw[thick] (O) -- (B);
+				
+				% Gắn nhãn điểm
+				\node[above left] at (O) {$O$};
+				\node[below left] at (A) {$A$};
+				\node[left=3pt] at (B) {$B$};
+				\node[right=3pt] at (C) {$C$};
+				
+				% Vẽ các điểm (Vẽ sau cùng để nổi lên trên các đường nét đứt)
+				\filldraw[black] (O) circle (2pt);
+				\filldraw[black] (A) circle (2pt);
+				\shade[ball color=yellow] (B) circle (0.25cm);
+				\shade[ball color=orange] (C) circle (0.25cm);
+			\end{tikzpicture}
+		\end{figure}
+		
+		\begin{enumerate}[label=\alph*)]
+			\item Tọa độ của quả cầu $B$ là $(0; 0; 80)$.
+			\item Tọa độ của quả cầu $C$ là $C(a; b; c)$. Khi đó giá trị của biểu thức $a + b + c$ bằng $30 + 10\sqrt{73} + 40$.
+			\item Số đo của góc $\widehat{OBC}$ lớn hơn $45^\circ$.
+			\item Tâm của mặt cầu đi qua 4 điểm $O, A, B, C$ nằm cách mặt sân $(Oxy)$ một khoảng là $40\text{ m}$.
+		\end{enumerate}
+		
+		% ================= CÂU 36 (Dạng tương tự Câu 23 - Khối tứ diện) =================
+		\vspace{3mm}
+		\item Trong một buổi diễn tập cứu hỏa, lực lượng chức năng triển khai lưới an toàn. Hệ trục $Oxyz$ được thiết lập với gốc $O$ là bệ phóng bọt chữa cháy, mặt đất là $(Oxy)$ (đơn vị: mét). Điểm $M$ thuộc tia $Ox$ là cột neo thứ nhất, điểm $N$ lơ lửng thuộc tia $Oz$ là cần cẩu neo thứ hai. Một trực thăng lơ lửng tại vị trí $P$ thả dây cáp hỗ trợ. Biết $M(30; 0; 0)$, $N(0; 0; 40)$. Điểm $P$ có hoành độ dương, tung độ dương và thỏa mãn $OP = MP = NP = 50$.
+		\begin{enumerate}[label=\alph*)]
+			\item Khoảng cách từ cột neo $M$ đến cần cẩu neo $N$ là $50\text{ m}$.
+			\item Tọa độ của trực thăng $P$ là $(15; 10\sqrt{11}; 20)$.
+			\item Cosin của góc tạo bởi hai vectơ $\overrightarrow{OP}$ và $\overrightarrow{OM}$ bằng $0,3$.
+			\item Thể tích của khối tứ diện tạo bởi $O, M, N, P$ là $2000\sqrt{11} \text{ m}^3$.
+		\end{enumerate}
+		
+		% ================= CÂU 37 (Dạng tương tự Câu 26 - Động học 3D, đổi hướng và vận tốc) =================
+		\vspace{3mm}
+		\item Trong không gian với hệ trục tọa độ $Oxyz$ (đơn vị đo trên mỗi trục là km, mặt nước biển là mặt phẳng $(Oxy)$). Một chiếc tàu ngầm hạt nhân bắt đầu di chuyển từ điểm $A(100; 200; -50)$ với vận tốc không đổi $40\text{ km/h}$ theo hướng về điểm $B(400; 600; -50)$. Khi tới $B$, tàu ngầm thay đổi hướng lặn sâu xuống theo hướng về điểm $C(700; 1000; -450)$ với vận tốc giữ nguyên là $40\text{ km/h}$. Tàu di chuyển theo hướng mới trong $12,5$ giờ (tức là mới tới điểm $D$ thuộc đoạn $BC$) thì bất ngờ gặp một dòng hải lưu ngầm cực mạnh khiến hướng lặn của nó bị lệch đi $60^\circ$ theo phương nằm ngang (tức là nếu $\vec{u}$ là vectơ chỉ phương của đoạn đường từ $D$ trở đi, $\vec{v}$ là hình chiếu vuông góc của $\vec{u}$ lên mặt phẳng $(Oxy)$ thì góc lượng giác $(\vec{u}; \vec{v}) = 60^\circ$ - hướng đâm sâu xuống dưới) và vận tốc giảm chỉ còn $20\text{ km/h}$. Tàu tiếp tục lặn theo hướng lệch này trong $5$ giờ nữa.
+		\begin{enumerate}[label=\alph*)]
+			\item Thời gian tàu ngầm di chuyển từ $A$ đến $B$ là $12,5$ giờ.
+			\item Khi bắt đầu gặp dòng hải lưu tại $D$, tàu ngầm đang ở độ sâu $250\text{ km}$ so với mặt nước biển.
+			\item Gọi $E(a;b;c)$ là vị trí cuối cùng của tàu ngầm trong hành trình này. Khi đó $a+b+c = 525 + 50\sqrt{3}$ (làm tròn đến hàng phần mười).
+			\item Tổng quãng đường tàu ngầm đã di chuyển trong toàn bộ hành trình dài đúng $1100\text{ km}$.
+		\end{enumerate}
+		
+		% ================= CÂU 38 (Dạng tương tự Câu 26 - Chuyển động không gian) =================
+		\vspace{3mm}
+		\item Tại một trạm vũ trụ ngoài không gian được gán hệ trục $Oxyz$ (đơn vị: nghìn km). Một tàu thăm dò xuất phát từ trạm $O(0;0;0)$ bay thẳng đều tới trạm trung chuyển $M(3; 4; 12)$ với tốc độ $26$ (nghìn km/ngày). Đến $M$, tàu bẻ lái bay thẳng về phía hành tinh $N(-3; 12; 27)$ với tốc độ tăng lên thành $34$ (nghìn km/ngày). Tuy nhiên, sau khi bay được $0,5$ ngày từ $M$ (đến vị trí $K$), tàu gặp vùng nhiễu loạn từ trường nên động cơ chính hỏng, tàu bị lệch quỹ đạo, rơi tự do với vận tốc mới $\vec{v} = (2; -4; -5)$ (nghìn km/ngày) trong suốt $2$ ngày tiếp theo trước khi khởi động lại được động cơ.
+		\begin{enumerate}[label=\alph*)]
+			\item Thời gian tàu bay từ $O$ đến $M$ là đúng $0,5$ ngày.
+			\item Tọa độ của điểm $K$ (nơi tàu bắt đầu hỏng động cơ) là $(0; 8; 19,5)$.
+			\item Vị trí của tàu thăm dò sau khi trôi dạt 2 ngày có tọa độ là $(4; 0; 9,5)$.
+			\item Khoảng cách từ vị trí tàu sau khi trôi dạt so với hành tinh $N$ ngắn hơn khoảng cách từ điểm $K$ đến hành tinh $N$.
+		\end{enumerate}
+		
+		% ================= CÂU 39 (Dạng tương tự Câu 26 - Chuyển động máy bay có gió bão) =================
+		\vspace{3mm}
+		\item Một chiếc máy bay vận tải cất cánh từ sân bay $P(10; 20; 0)$ bay thẳng đến điểm thả hàng $Q(130; 180; 0)$ với vận tốc không đổi $300\text{ km/h}$. Tới $Q$, máy bay lấy độ cao bay thẳng về căn cứ $R(130; 180; 100)$ với vận tốc $200\text{ km/h}$. Tuy nhiên, khi đang bay lên và cách mặt đất $40\text{ km}$ (tại điểm $S$), máy bay bị một luồng gió bão thổi tạt ngang làm quỹ đạo lệch hoàn toàn sang hướng song song với trục $Ox$ (chiều âm) và vận tốc bị giảm xuống còn $150\text{ km/h}$. Máy bay giữ nguyên tình trạng bay ngang này trong $24$ phút. (Đơn vị tọa độ là km).
+		\begin{enumerate}[label=\alph*)]
+			\item Tổng thời gian bay từ $P$ đến $Q$, rồi từ $Q$ lên đến $S$ là $48$ phút.
+			\item Tọa độ của máy bay tại thời điểm bắt đầu bị gió tạt ngang là $S(130; 180; 40)$.
+			\item Vị trí của máy bay sau khi bị gió tạt $24$ phút là $T(70; 180; 40)$.
+			\item Nếu từ vị trí $T$, máy bay muốn bay thẳng về điểm $P$ trong $30$ phút thì cần vận tốc bay có độ lớn xấp xỉ $351\text{ km/h}$.
+		\end{enumerate}
+		
+		% ================= CÂU 40 (Dạng tương tự Câu 29 - Mô hình kiến trúc dời gốc tọa độ) =================
+		\vspace{3mm}
+		\item Một nhà xưởng công nghiệp có dạng hình lăng trụ đứng $ABCD.A'B'C'D'$ với đáy là hình chữ nhật và phần mái dốc chữ V ngược tạo bởi hai hình chữ nhật ghép lại có đỉnh chung là đường thẳng $MN$. Các kích thước của nhà xưởng lần lượt là chiều sâu $AD = 20\text{ m}$, mặt tiền $AB = 10\text{ m}$, chiều cao tường $AA' = 6\text{ m}$. Đỉnh mái $M$ nằm chính giữa chiều rộng $A'B'$ và cao hơn tường $3\text{ m}$. Người ta mô hình hóa nhà xưởng bằng cách chọn hệ trục tọa độ có gốc tọa độ là điểm $O$ thuộc đoạn $AD$ sao cho $OA = 5\text{ m}$ và các trục tọa độ tương ứng như hình vẽ dưới đây (trục $Ox$ hướng về $A$).
+		
+		\begin{figure}[H]
+			\centering
+			\begin{tikzpicture}[scale=4, x={(-0.7cm,-0.2cm)}, y={(1cm,0cm)}, z={(0cm,1cm)}]
+				% Trục tọa độ (vẽ mảnh và xám để không lấn lướt hình chính)
+				\draw[->, gray] (0,0,0) -- (1.0,0,0) node[below left, black] {$x$};
+				\draw[->, gray] (0,0,0) -- (0,1.3,0) node[below right, black] {$y$};
+				\draw[->, gray] (0,0,0) -- (0,0,1.2) node[above, black] {$z$};
+				
+				% Khai báo điểm (Tọa độ thực tế chia 10 để vẽ mượt)
+				% Trục x hướng về A, O nằm trên AD, OA=5, OD=15
+				\coordinate (O) at (0,0,0);
+				\coordinate (A) at (0.5, 0, 0);
+				\coordinate (D) at (-1.5, 0, 0);
+				\coordinate (B) at (0.5, 1.0, 0);  % AB = 10
+				\coordinate (C) at (-1.5, 1.0, 0);
+				
+				\coordinate (A1) at (0.5, 0, 0.6); % AA' = 6
+				\coordinate (D1) at (-1.5, 0, 0.6);
+				\coordinate (B1) at (0.5, 1.0, 0.6);
+				\coordinate (C1) at (-1.5, 1.0, 0.6);
+				
+				% Đỉnh mái (nằm giữa chiều rộng 1.0, cao hơn tường 0.3)
+				\coordinate (M) at (0.5, 0.5, 0.9);
+				\coordinate (N) at (-1.5, 0.5, 0.9);
+				
+				% Vẽ các đường khuất (nét đứt)
+				\draw[dashed, semithick] (A) -- (D) -- (C);
+				\draw[dashed, semithick] (D) -- (D1);
+				\draw[dashed, semithick] (A1) -- (D1) -- (C1); % Mép mái và thanh ngang sau
+				\draw[dashed, semithick] (D1) -- (N); % Cạnh mái tam giác sau
+				
+				% Vẽ các đường thấy (nét liền)
+				\draw[semithick] (A) -- (B) -- (C);
+				\draw[semithick] (A) -- (A1);
+				\draw[semithick] (B) -- (B1);
+				\draw[semithick] (C) -- (C1);
+				\draw[semithick] (A1) -- (B1); % Thanh ngang mặt tiền
+				\draw[semithick] (A1) -- (M) -- (B1); % Mái chữ V mặt tiền
+				\draw[semithick] (B1) -- (C1); % Mép mái phải
+				\draw[semithick] (C1) -- (N); % Cạnh mái tam giác sau (nhìn thấy viền)
+				\draw[semithick] (M) -- (N); % Đỉnh nóc nhà
+				
+				% Gắn nhãn điểm (canh lề cẩn thận không đè nét)
+				\node[below left=2pt] at (O) {$O$};
+				\node[below left=1pt] at (A) {$A$};
+				\node[right=2pt] at (B) {$B$};
+				\node[right=2pt] at (C) {$C$};
+				\node[left=2pt] at (D) {$D$};
+				
+				\node[left=2pt] at (A1) {$A'$};
+				\node[right=2pt] at (B1) {$B'$};
+				\node[right=2pt] at (C1) {$C'$};
+				\node[left=2pt] at (D1) {$D'$};
+				
+				\node[above=2pt] at (M) {$M$};
+				\node[above=2pt] at (N) {$N$};
+				
+				% Chấm điểm O để nhấn mạnh mốc tọa độ
+				\filldraw[black] (O) circle (0.3pt);
+			\end{tikzpicture}
+		\end{figure}
+		
+		\begin{enumerate}[label=\alph*)]
+			\item Tọa độ của điểm đỉnh mái $N$ nằm ở phía sau nhà xưởng là $(-15; 5; 9)$.
+			\item Vectơ $\overrightarrow{OC}$ có tọa độ là $(-15; 10; 0)$.
+			\item Người ta muốn kéo một đường dây cáp điện từ gốc $O$, đi bám sát mặt sàn dọc theo đoạn $OA$, leo thẳng đứng lên đỉnh $A'$, rồi đi bám trên mặt phẳng mái dốc tới đỉnh $M$. Chiều dài tối thiểu của đoạn cáp này là $11 + \sqrt{34} \text{ m}$.
+			\item Toàn bộ hai mặt mái của xưởng được lợp bằng tôn chống nóng. Giá thi công trọn gói mỗi mét vuông tôn là $200.000$ đồng. Số tiền cần bỏ ra để lợp mái xưởng là $40.000.000$ đồng.
+		\end{enumerate}
+		
+		% ================= CÂU 41 (Dạng tương tự Câu 29 - Trạm y tế dã chiến) =================
+		\vspace{3mm}
+		\item Một trạm y tế dã chiến có hình lăng trụ đứng với đáy là một ngũ giác (như hình ngôi nhà). Chiều dài của trạm là $15\text{ m}$. Bề ngang mặt tiền là $8\text{ m}$. Tường hai bên cao $3\text{ m}$, và đỉnh mái tam giác cân ở giữa cao $5\text{ m}$ so với mặt đất. Hệ trục $Oxyz$ được gắn vào trạm sao cho gốc $O$ nằm trên đoạn giao giữa mặt tiền và mặt đất, cách mép tường bên trái $2\text{ m}$ (trục $Oy$ dọc theo bề ngang $8\text{ m}$, trục $Ox$ hướng dọc theo chiều dài $15\text{ m}$ ra phía sau trạm, trục $Oz$ hướng lên trời).
+		\begin{enumerate}[label=\alph*)]
+			\item Tọa độ điểm cao nhất của mặt tiền (đỉnh mái trước) là $P(0; 2; 5)$.
+			\item Tọa độ của mép tường bên phải phía sau trạm là $Q(15; 6; 0)$.
+			\item Một đường ống làm mát cần nối từ điểm $O$, đi dọc trên mặt tường tiền sảnh thẳng tới đỉnh mái $P$. Độ dài đường ống này là $\sqrt{29}\text{ m}$.
+			\item Thể tích không gian bên trong trạm y tế dã chiến là $480 \text{ m}^3$.
+		\end{enumerate}
+		
+		% ================= CÂU 42 (Dạng tương tự Câu 29 - Hầm chứa ngầm) =================
+		\vspace{3mm}
+		\item Một hầm chứa đạn dược dưới lòng đất được thiết kế dạng hình hộp chữ nhật kết hợp với mái bằng. Hầm có chiều dài $50\text{ m}$, chiều rộng $20\text{ m}$ và chiều cao $10\text{ m}$. Hệ trục tọa độ $Oxyz$ được kỹ sư thiết lập vô cùng đặc biệt: Gốc $O$ nằm \textbf{chính giữa} mặt sàn đáy của hầm. Mặt phẳng $(Oxy)$ trùng với mặt sàn, trục $Ox$ song song với chiều dài, trục $Oy$ song song với chiều rộng, trục $Oz$ thẳng đứng hướng lên trần hầm.
+		\begin{enumerate}[label=\alph*)]
+			\item Tọa độ của $4$ góc trên mặt sàn hầm lần lượt là $(\pm 25; \pm 10; 0)$.
+			\item Điểm cách xa gốc tọa độ $O$ nhất nằm trong hầm có khoảng cách là $5\sqrt{33}\text{ m}$.
+			\item Một cảm biến báo khói được gắn tại tâm của trần hầm có tọa độ là $(0; 0; 10)$. Khoảng cách từ cảm biến này đến một góc bất kỳ trên sàn hầm là xấp xỉ $28,7\text{ m}$.
+			\item Người ta dán màng phim phản quang dọc theo một đường chéo vắt ngang qua bức tường chứa chiều dài của hầm. Độ dài của dải màng phim này là $10\sqrt{26}\text{ m}$.
+		\end{enumerate}
+		
+	\end{enumerate}
+	
+	\vspace{5mm}
+	\subsection{Phần 2: Câu hỏi trả lời ngắn}
+	
+	\begin{enumerate}[label=\textbf{Câu \arabic*:}, leftmargin=*]
+		
+		% CÂU 1
+		\item Trong không gian với hệ tọa độ $Oxyz$ (đơn vị đo lấy theo km), một trạm radar phát hiện một tàu ngầm di chuyển thẳng với tốc độ và hướng không đổi từ điểm $M(120; 150; -4)$ đến điểm $N(140; 180; -6)$ trong 15 phút. Nếu tàu ngầm tiếp tục giữ nguyên tốc độ và hướng di chuyển thì tọa độ của nó sau 30 phút tiếp theo là $P(x; y; z)$. Khi đó $x + y + z$ bằng bao nhiêu?
+		
+		\begin{figure}[H]
+			\centering
+			\begin{tikzpicture}[scale=0.8, x={(-0.6cm,-0.4cm)}, y={(1cm,0cm)}, z={(0cm,1cm)}]
+				\draw[->, gray] (0,0,0) -- (3,0,0) node[below] {$x$};
+				\draw[->, gray] (0,0,0) -- (0,5,0) node[right] {$y$};
+				\draw[->, gray] (0,0,0) -- (0,0,3) node[above] {$z$};
+				
+				\coordinate (M) at (1, 1, 1);
+				\coordinate (N) at (2, 3, 1.5);
+				\coordinate (P) at (4, 7, 2.5);
+				
+				\draw[->, thick, blue] (M) -- (N);
+				\draw[->, thick, dashed, red] (N) -- (P);
+				
+				\filldraw[black] (M) circle (2pt) node[left] {$M$};
+				\filldraw[black] (N) circle (2pt) node[above left] {$N$};
+				\filldraw[black] (P) circle (2pt) node[right] {$P$};
+			\end{tikzpicture}
+		\end{figure}
+		
+		% CÂU 2
+		\item Một nhà kho bảo quản đông lạnh có thiết kế dạng hình hộp chữ nhật với chiều dài là $12\text{ m}$, chiều rộng là $8\text{ m}$ và chiều cao là $4\text{ m}$. Một cảm biến nhiệt độ được treo tại chính giữa trần nhà của nhà kho. Xét hệ trục tọa độ $Oxyz$ có gốc $O$ trùng với một góc đáy của nhà kho, mặt phẳng $(Oxy)$ trùng với mặt sàn, các tia $Ox, Oy$ lần lượt dọc theo chiều dài và chiều rộng (đơn vị đo được lấy theo mét). Khi đó, tọa độ của điểm treo cảm biến là $S(x; y; z)$, hãy tính $x + y + z$.
+		
+		\begin{figure}[H]
+			\centering
+			\begin{tikzpicture}[scale=0.6, x={(-0.6cm,-0.4cm)}, y={(1cm,0cm)}, z={(0cm,1cm)}]
+				\draw[->, thick] (0,0,0) -- (6,0,0) node[below] {$x$};
+				\draw[->, thick] (0,0,0) -- (0,8,0) node[right] {$y$};
+				\draw[->, thick] (0,0,0) -- (0,0,5) node[above] {$z$};
+				
+				\coordinate (O) at (0,0,0);
+				\coordinate (A) at (4,0,0);
+				\coordinate (B) at (4,6,0);
+				\coordinate (C) at (0,6,0);
+				\coordinate (O1) at (0,0,3);
+				\coordinate (A1) at (4,0,3);
+				\coordinate (B1) at (4,6,3);
+				\coordinate (C1) at (0,6,3);
+				\coordinate (S) at (2,3,3); % Tâm trần
+				
+				\draw[dashed] (O) -- (A) (O) -- (C) (O) -- (O1);
+				\draw (A) -- (B) -- (C);
+				\draw (A1) -- (B1) -- (C1) -- (O1) -- cycle;
+				\draw (A) -- (A1) (B) -- (B1) (C) -- (C1);
+				\draw[dashed, blue] (O1) -- (B1) (A1) -- (C1);
+				
+				\filldraw[red] (S) circle (2.5pt) node[above] {$S$};
+				\node[below left] at (O) {$O$};
+			\end{tikzpicture}
+		\end{figure}
+		
+		% CÂU 3
+		\item Hình dưới đây mô tả một sân bóng chuyền tiêu chuẩn. Ta chọn hệ trục $Oxyz$ cho sân đó (đơn vị trên mỗi trục là mét) sao cho mặt sân trùng với mặt phẳng $(Oxy)$, chiều dài sân dọc theo trục $Ox$, chiều rộng sân dọc theo trục $Oy$. Lưới bóng chuyền được căng ngang chính giữa sân, chia chiều dài sân thành hai phần bằng nhau. Cột lưới cao $2,43\text{ m}$. Gọi $A$ là chân cột lưới nằm trên trục $Ox$, $B$ là đỉnh cột lưới nằm ở mép sân đối diện. Khi đó, tọa độ của vectơ $\overrightarrow{AB} = (a; b; c)$, hãy tính: $a + b + c$ (kết quả làm tròn đến hàng phần trăm).
+		
+		\begin{figure}[H]
+			\centering
+			\begin{tikzpicture}[scale=0.3, x={(-0.6cm,-0.4cm)}, y={(1cm,0cm)}, z={(0cm,1cm)}]
+				% Sân
+				\draw[fill=green!40!black, opacity=0.6, draw=black] (0,0,0) -- (16,0,0) -- (16,8,0) -- (0,8,0) -- cycle;
+				\draw[white, thick, dashed] (8,0,0) -- (8,8,0); % Vạch giữa sân
+				
+				% Trục
+				\draw[->, thick] (0,0,0) -- (20,0,0) node[below] {$x$};
+				\draw[->, thick] (0,0,0) -- (0,11,0) node[right] {$y$};
+				\draw[->, thick] (0,0,0) -- (0,0,6) node[above] {$z$};
+				
+				\coordinate (O) at (0,0,0);
+				\coordinate (A) at (8,0,0);
+				\coordinate (C) at (8,8,0);
+				\coordinate (B) at (8,8,4); % Đỉnh cột đối diện
+				\coordinate (A_top) at (8,0,4); % Đỉnh cột bên A
+				
+				% Lưới và cột
+				\draw[ultra thick, black] (A) -- (A_top);
+				\draw[ultra thick, black] (C) -- (B);
+				\draw[fill=gray!50, opacity=0.7] (8,0,2.5) rectangle (8,8,4); % Lưới
+				
+				% Nhãn
+				\node[above left] at (O) {$O$};
+				\node[below left] at (A) {$A$};
+				\node[above right] at (B) {$B$};
+			\end{tikzpicture}
+		\end{figure}
+		
+		% CÂU 4
+		\item Một tên lửa đang cất cánh từ bệ phóng. Với hệ tọa độ $Oxyz$ được thiết lập như hình bên dưới (mặt phẳng $Oxy$ là mặt đất), cho biết $M$ là vị trí của tên lửa, $OM = 50\text{ km}$, $\widehat{NOB} = 45^\circ$, $\widehat{MOC} = 60^\circ$ (trong đó $N$ là hình chiếu vuông góc của $M$ lên mặt phẳng $(Oxy)$, điểm $C$ nằm trên trục $Oz$). Khi đó, tọa độ điểm $M(a; b; c)$. Tính giá trị của biểu thức $P = a^2 + b^2 + c^2$.
+		
+		\begin{figure}[H]
+			\centering
+			\begin{tikzpicture}[scale=1.5, x={(-0.6cm,-0.4cm)}, y={(1cm,0cm)}, z={(0cm,1cm)}]
+				\fill[gray!20] (0,0,0) -- (3,0,0) -- (3,3,0) -- (0,3,0) -- cycle;
+				\draw[->, thick] (0,0,0) -- (3,0,0) node[below] {$x$};
+				\draw[->, thick] (0,0,0) -- (0,3,0) node[right] {$y$ ($B$)};
+				\draw[->, thick] (0,0,0) -- (0,0,3) node[above] {$z$ ($C$)};
+				
+				\coordinate (O) at (0,0,0);
+				\coordinate (N) at (2,2,0);
+				\coordinate (M) at (2,2,2.5);
+				\coordinate (C) at (0,0,2.5);
+				
+				\draw[dashed] (O) -- (N) -- (M);
+				\draw[dashed] (N) -- (2,0,0);
+				\draw[dashed] (N) -- (0,2,0);
+				\draw[dashed] (M) -- (C);
+				
+				\draw[->, ultra thick, blue] (O) -- (M) node[right, black] {$M$};
+
+				
+				\node[above left] at (O) {$O$};
+				\node[below right] at (N) {$N$};
+			\end{tikzpicture}
+		\end{figure}
+		
+		% CÂU 5
+		\item Một chiếc cần cẩu đang kéo căng sợi dây cáp $AB$ trong khu vực cảng biển, trên đó đã thiết lập hệ tọa độ $Oxyz$ như hình bên với độ dài đơn vị trên các trục tọa độ bằng $1\text{ (m)}$. Trụ cần cẩu đặt dọc theo trục $Oz$. Biết $OA = 12\text{ m}$, xe kéo đang ở vị trí $B$ trên mặt phẳng $(Oxy)$ với $OB = 20\text{ m}$ và góc tạo bởi đoạn $OB$ với chiều dương trục $Ox$ là $30^\circ$. Biết vectơ $\overrightarrow{AB} = a\vec{i} + b\vec{j} + c\vec{k}$. Hỏi giá trị của $b$ bằng bao nhiêu? (làm tròn kết quả đến hàng phần mười).
+		
+		\begin{figure}[H]
+			\centering
+			\begin{tikzpicture}[scale=0.2, x={(-0.4cm,-0.4cm)}, y={(1cm,0cm)}, z={(0cm,1cm)}]
+				% Vẽ 3 trục tọa độ
+				\draw[->, thick, gray] (0,0,0) -- (22,0,0) node[below left, black] {$x$};
+				\draw[->, thick, gray] (0,0,0) -- (0,20,0) node[right, black] {$y$};
+				\draw[->, thick, gray] (0,0,0) -- (0,0,16) node[above, black] {$z$};
+				
+				% Khai báo tọa độ các điểm
+				\coordinate (O) at (0,0,0);
+				\coordinate (A) at (0,0,12);
+				% B nằm trên (Oxy), OB=20, góc 30 độ -> x = 20*cos(30) = 17.32; y = 20*sin(30) = 10
+				\coordinate (B) at (17.32, 10, 0); 
+				
+				% Vẽ trụ cần cẩu dọc theo Oz
+				\draw[line width=4pt, gray] (O) -- (0,0,14); 
+				
+				% Nét đứt hình chiếu OB
+				\draw[dashed, thick] (O) -- (B);
+				
+				% Dây cáp AB
+				\draw[ultra thick, black] (A) -- (B); 
+				
+				% Ký hiệu góc 30 độ (vẽ bằng điểm 3D thực tế để không bị lệch phối cảnh)
+				% Điểm trên Ox: (5,0,0). Điểm trên OB: (5*cos30, 5*sin30, 0) = (4.33, 2.5, 0)
+				\draw[thin] (5,0,0) to[bend right=15] (4.33, 2.5, 0);
+				\node at (7.5, 1.5, 0) {$30^\circ$};
+				
+				% Nhãn các điểm
+				\node[above left] at (O) {$O$};
+				\node[left=2pt] at (A) {$A$};
+				\node[below right] at (B) {$B$};
+			\end{tikzpicture}
+		\end{figure}
+		
+		% CÂU 6
+		\item Trong không gian với hệ tọa độ $Oxyz$ (đơn vị đo lấy theo km), một thiết bị thăm dò không gian di chuyển với tốc độ và hướng không đổi từ vị trí $A(30; 50; 80)$ đến vị trí $B(50; 90; 100)$ trong vòng 2 giờ. Nếu thiết bị tiếp tục quỹ đạo này, hãy tính tổng các tọa độ $x+y+z$ của điểm $C$ là vị trí của thiết bị sau 4 giờ tiếp theo kể từ khi qua điểm $B$.
+		
+		\begin{figure}[H]
+			\centering
+			\begin{tikzpicture}[scale=0.7, x={(-0.6cm,-0.4cm)}, y={(1cm,0cm)}, z={(0cm,1cm)}]
+				\draw[->, gray] (0,0,0) -- (4,0,0) node[below] {$x$};
+				\draw[->, gray] (0,0,0) -- (0,6,0) node[right] {$y$};
+				\draw[->, gray] (0,0,0) -- (0,0,4) node[above] {$z$};
+				
+				\coordinate (A) at (0.5, 1, 1);
+				\coordinate (B) at (1.5, 3, 2);
+				\coordinate (C) at (3.5, 7, 4);
+				
+				\draw[->, thick, blue] (A) -- (B);
+				\draw[->, thick, dashed, red] (B) -- (C);
+				
+				\filldraw[black] (A) circle (2pt) node[left] {$A$};
+				\filldraw[black] (B) circle (2pt) node[above left] {$B$};
+				\filldraw[black] (C) circle (2pt) node[right] {$C$};
+			\end{tikzpicture}
+		\end{figure}
+		
+		% CÂU 7
+		\item Một bể bơi hình hộp chữ nhật có kích thước bề mặt là $50\text{ m} \times 25\text{ m}$ và độ sâu đồng đều là $2\text{ m}$. Người ta thiết lập hệ trục tọa độ $Oxyz$ sao cho gốc $O$ trùng với một góc trên mặt hồ, mặt phẳng $(Oxy)$ trùng với mặt nước, tia $Oz$ hướng thẳng đứng xuống dưới đáy hồ. Các tia $Ox, Oy$ dọc theo chiều dài và chiều rộng của hồ. Một miệng cống thoát nước được đặt ở vị trí chính giữa đáy hồ. Xác định tọa độ $(x; y; z)$ của cống thoát nước và tính $x + y - z$.
+		
+		\begin{figure}[H]
+			\centering
+			% Chú ý: Trục z hướng xuống dưới
+			\begin{tikzpicture}[scale=0.15, x={(-0.6cm,-0.4cm)}, y={(1cm,0cm)}, z={(0cm,-1cm)}]
+				\draw[->, thick] (0,0,0) -- (30,0,0) node[below left] {$x$};
+				\draw[->, thick] (0,0,0) -- (0,40,0) node[right] {$y$};
+				\draw[->, thick] (0,0,0) -- (0,0,10) node[below] {$z$};
+				
+				\coordinate (O) at (0,0,0);
+				\coordinate (X) at (20,0,0);
+				\coordinate (Y) at (0,30,0);
+				\coordinate (XY) at (20,30,0);
+				
+				\coordinate (O_d) at (0,0,6);
+				\coordinate (X_d) at (20,0,6);
+				\coordinate (Y_d) at (0,30,6);
+				\coordinate (XY_d) at (20,30,6);
+				\coordinate (Center) at (10,15,6);
+				
+				% Mặt nước (Oxy)
+				\draw[thick, fill=cyan!20, opacity=0.7] (O) -- (X) -- (XY) -- (Y) -- cycle;
+				
+				% Các đường viền đứng
+				\draw[thick] (X) -- (X_d);
+				\draw[thick] (XY) -- (XY_d);
+				\draw[thick] (Y) -- (Y_d);
+				\draw[dashed] (O) -- (O_d);
+				
+				% Viền đáy
+				\draw[thick] (X_d) -- (XY_d) -- (Y_d);
+				\draw[dashed] (Y_d) -- (O_d) -- (X_d);
+				
+				% Điểm cống
+				\filldraw[red] (Center) circle (4pt) node[above right, black] {Cống};
+				\node[above left] at (O) {$O$};
+			\end{tikzpicture}
+		\end{figure}
+		
+		% CÂU 8
+		\item Khung thành bóng đá dành cho $11$ người có kích thước tiêu chuẩn bên trong là: chiều rộng $7,32\text{ m}$ và chiều cao $2,44\text{ m}$. Gắn hệ trục tọa độ $Oxyz$ sao cho gốc $O$ trùng với chân cột dọc bên trái, mặt phẳng $(Oxy)$ trùng với mặt cỏ, tia $Oy$ hướng dọc theo vạch vôi ngang khung thành sang chân cột bên phải, tia $Oz$ hướng dọc theo cột dọc bên trái lên trên. Một con nhện chăng tơ một đường thẳng từ chân cột dọc bên phải (điểm $M$) đến góc chữ A bên trái (điểm $N$, giao giữa xà ngang và cột dọc trái). Tìm tọa độ của vectơ $\overrightarrow{MN}$ và tính độ dài đoạn tơ (làm tròn đến hàng phần trăm).
+		
+		\begin{figure}[H]
+			\centering
+			\begin{tikzpicture}[scale=0.7, x={(-0.5cm,-0.4cm)}, y={(1cm,0cm)}, z={(0cm,1cm)}]
+				% Vẽ 3 trục tọa độ chuẩn
+				\draw[->, thick, gray] (0,0,0) -- (3,0,0) node[below left, black] {$x$};
+				\draw[->, thick, gray] (0,0,0) -- (0,10,0) node[right, black] {$y$};
+				\draw[->, thick, gray] (0,0,0) -- (0,0,4) node[above, black] {$z$};
+				
+				% Tọa độ các điểm trên mặt phẳng (Oyz)
+				\coordinate (O) at (0,0,0);
+				\coordinate (M) at (0,7.32,0);
+				\coordinate (N) at (0,0,2.44);
+				\coordinate (P) at (0,7.32,2.44);
+				
+				% Vẽ khung thành
+				\draw[ultra thick, black] (O) -- (N) -- (P) -- (M); 
+				
+				% Vẽ đường tơ nhện
+				\draw[thick, dashed, red] (M) -- (N); 
+				
+				% Nhãn các điểm
+				\node[below left] at (O) {$O$};
+				\node[below] at (M) {$M$};
+				\node[left] at (N) {$N$};
+			\end{tikzpicture}
+		\end{figure}
+		
+		% CÂU 9
+		\item Một flycam khảo sát địa hình bay lên từ gốc tọa độ $O$. Tại thời điểm $t$, vectơ vị trí $\overrightarrow{OM}$ của flycam có độ dài $100\text{ m}$. Góc tạo bởi $\overrightarrow{OM}$ và mặt phẳng mặt đất $(Oxy)$ là $30^\circ$. Biết hình chiếu vuông góc $H$ của $M$ lên mặt phẳng $(Oxy)$ tạo với trục dương $Oy$ một góc $60^\circ$ (hoành độ và tung độ của $M$ đều dương). Tính cao độ $z$ của flycam.
+		
+		\begin{figure}[H]
+			\centering
+			\begin{tikzpicture}[scale=1.5, x={(-0.6cm,-0.4cm)}, y={(1cm,0cm)}, z={(0cm,1cm)}]
+				\draw[->, thick] (0,0,0) -- (3,0,0) node[below] {$x$};
+				\draw[->, thick] (0,0,0) -- (0,3,0) node[right] {$y$};
+				\draw[->, thick] (0,0,0) -- (0,0,3) node[above] {$z$};
+				
+				\coordinate (O) at (0,0,0);
+				\coordinate (H) at (1.5, 2.59, 0); 
+				\coordinate (M) at (1.5, 2.59, 1.73);
+				
+				\draw[dashed] (O) -- (H) -- (M);
+				\draw[dashed] (M) -- (0,0,1.73);
+				\draw[->, ultra thick, red] (O) -- (M) node[above right, black] {$M$};
+				
+				\node[above left] at (O) {$O$};
+				\node[below right] at (H) {$H$};
+			\end{tikzpicture}
+		\end{figure}
+		
+		% CÂU 10
+		\item Trong một bối cảnh sân khấu, một sợi dây cáp được dùng để kéo một tấm phông bạt. Trục cuốn cáp đặt tại điểm $P$ trên trục $Oz$ với $OP = 8\text{ m}$. Đầu kia của sợi cáp móc vào điểm $Q$ trên sàn sân khấu (mặt phẳng $Oxy$). Điểm $Q$ cách gốc $O$ một khoảng $6\text{ m}$ và đoạn $OQ$ tạo với phần âm của trục $Ox$ một góc $45^\circ$ (tung độ của $Q$ dương). Tìm bình phương độ dài của đoạn cáp $PQ$.
+		
+		\begin{figure}[H]
+			\centering
+			\begin{tikzpicture}[scale=0.3, x={(-0.6cm,-0.4cm)}, y={(1cm,0cm)}, z={(0cm,1cm)}]
+				\draw[->, thick] (0,0,0) -- (8,0,0) node[below] {$x$};
+				\draw[dashed] (0,0,0) -- (-8,0,0) node[above left] {};
+				\draw[->, thick] (0,0,0) -- (0,8,0) node[right] {$y$};
+				\draw[->, thick] (0,0,0) -- (0,0,10) node[above] {$z$};
+				
+				\coordinate (O) at (0,0,0);
+				\coordinate (P) at (0,0,8);
+				\coordinate (Q) at (-4.24, 4.24, 0);
+				
+				\draw[ultra thick, black] (P) -- (Q);
+				\draw[dashed] (O) -- (Q);
+				
+				% Arc không chứa số
+				\draw (-2,0,0) arc (180:135:2);
+				
+				\node[above left] at (O) {$O$};
+				\node[right] at (P) {$P$};
+				\node[left] at (Q) {$Q$};
+			\end{tikzpicture}
+		\end{figure}
+			
+		% CÂU 11 (Tương tự Câu 6)
+		\item Tại một vùng biển, người ta chọn hệ tọa độ $Oxyz$ với mặt phẳng $(Oxy)$ là mặt nước, gốc $O$ là vị trí tàu cứu hộ (đơn vị trên các trục là km). Một khoang mang trở về từ vũ trụ hạ cánh theo quỹ đạo đường thẳng từ điểm $A(4; 5; 20)$ đi qua điểm $B(8; 10; 10)$ và chạm mặt nước tại vị trí $C$. Hỏi khoảng cách từ điểm chạm nước $C$ đến tàu cứu hộ $O$ bằng bao nhiêu km?
+		
+		\begin{figure}[H]
+			\centering
+			\begin{tikzpicture}[scale=0.3, x={(-0.6cm,-0.4cm)}, y={(1cm,0cm)}, z={(0cm,1cm)}]
+				% Mặt nước (Oxy)
+				\draw[fill=cyan!10, draw=gray, thick] (-5,-2,0) -- (18,-2,0) -- (20,18,0) -- (-3,18,0) -- cycle;
+				
+				\draw[->, thick, gray] (0,0,0) -- (16,0,0) node[below left, black] {$x$};
+				\draw[->, thick, gray] (0,0,0) -- (0,18,0) node[below right, black] {$y$};
+				\draw[->, thick, gray] (0,0,0) -- (0,0,22) node[above, black] {$z$};
+				
+				\coordinate (O) at (0,0,0);
+				\coordinate (A) at (4,5,20);
+				\coordinate (B) at (8,10,10);
+				\coordinate (C) at (12,15,0); % Điểm chạm mặt nước
+				
+				% Nét đứt hình chiếu
+				\draw[dashed, gray] (A) -- (4,5,0) -- (O);
+				\draw[dashed, gray] (C) -- (O);
+				
+				% Quỹ đạo
+				\draw[->, ultra thick, red] (A) -- (B);
+				\draw[->, ultra thick, red, dashed] (B) -- (C);
+				
+				\filldraw[black] (O) circle (4pt) node[below left] {$O$};
+				\filldraw[black] (A) circle (3pt) node[left] {$A$};
+				\filldraw[black] (B) circle (3pt) node[right] {$B$};
+				\filldraw[black] (C) circle (4pt) node[above right] {$C$};
+			\end{tikzpicture}
+		\end{figure}
+		
+		% CÂU 12 (Tương tự Câu 7)
+		\vspace{3mm}
+		\item Một thiết bị ngầm dò tìm di chuyển theo đường thẳng từ điểm $M(10; 20; -5)$ đến điểm $N(25; 40; -15)$ trong 10 phút. Sau khi đến $N$, thiết bị quay đầu di chuyển ngược lại theo đường thẳng từ $N$ đi qua $M$ để về trạm thu hồi $P(x; y; z)$ với vận tốc không đổi như lúc đi. Biết thời gian từ lúc thiết bị rời $N$ đến khi tới trạm $P$ là 40 phút. Tính giá trị biểu thức $T = x + y + z$.
+		
+		\begin{figure}[H]
+			\centering
+			\begin{tikzpicture}[scale=0.15, x={(-0.6cm,-0.4cm)}, y={(1cm,0cm)}, z={(0cm,1cm)}]
+				\draw[->, thick, gray] (0,0,0) -- (30,0,0) node[below, black] {$x$};
+				\draw[->, thick, gray] (0,0,0) -- (0,50,0) node[right, black] {$y$};
+				\draw[->, thick, gray] (0,0,0) -- (0,0,-20) node[right, black] {$z$};
+				
+				\coordinate (P) at (-35, -40, 25); % Vị trí thực tế nằm ngoài phần hiển thị của trục để tạo cảm giác không gian
+				\coordinate (M) at (10, 20, -5);
+				\coordinate (N) at (25, 40, -15);
+				
+				\draw[->, ultra thick, blue] (M) -- (N);
+				% Vẽ nét đứt lệch một chút để thể hiện đường quay về không đè lên đường đi
+				\draw[->, ultra thick, dashed, red] (24, 39, -15) -- (-20, -19.5, 12); 
+				\node[red, above left] at (-20, -20, 10) {Hướng về trạm $P$};
+				
+				\filldraw[black] (M) circle (6pt) node[above left] {$M$};
+				\filldraw[black] (N) circle (6pt) node[below right] {$N$};
+			\end{tikzpicture}
+		\end{figure}
+		
+		% CÂU 13 (Tương tự Câu 8)
+		\vspace{3mm}
+		\item Trong không gian với hệ trục tọa độ cho trước (đơn vị: km), một radar theo dõi một thiết bị bay khả nghi di chuyển thẳng đều từ $A(10; 10; 10)$ đến điểm $B$ trong 14 phút. Nếu giữ nguyên vận tốc và hướng bay, 7 phút tiếp theo thiết bị sẽ đến $C(40; 55; 100)$. Một tên lửa đánh chặn được đặt tại căn cứ $E(-60; 160; 70)$. Hệ thống tính toán để phóng tên lửa từ $E$ thẳng tới $B$ nhằm tiêu diệt mục tiêu đúng tại $B$. Biết vận tốc tên lửa gấp 3 lần vận tốc thiết bị bay mục tiêu. Hỏi sau bao nhiêu phút kể từ lúc mục tiêu rời $A$ thì căn cứ phải nhấn nút phóng tên lửa?
+		
+		% CÂU 14 (Chủ đề đường thẳng cắt mặt phẳng)
+		\vspace{3mm}
+		\item Trong kỹ thuật đo đạc hầm lò, một tia laser được phát ra từ điểm $S(1; 2; 3)$ hướng thẳng đến tâm bia ngắm tại $T(7; 14; -9)$ (đơn vị: mét). Tia laser xuyên qua một vách ngăn bằng kính trong suốt được đặt trùng với mặt phẳng $(Oxy)$. Gọi $I(x; y; z)$ là tọa độ điểm tia laser xuyên qua mặt kính. Tính giá trị của biểu thức $P = x + y + z$.
+		
+		\begin{figure}[H]
+			\centering
+			\begin{tikzpicture}[scale=0.5, x={(-0.6cm,-0.4cm)}, y={(1cm,0cm)}, z={(0cm,1cm)}]
+				% Mặt kính (Oxy)
+				\draw[fill=blue!10, draw=blue, thick, opacity=0.8] (-2,-2,0) -- (6,-2,0) -- (8,6,0) -- (0,6,0) -- cycle;
+				
+				\draw[->, thick, gray] (0,0,0) -- (7,0,0) node[below, black] {$x$};
+				\draw[->, thick, gray] (0,0,0) -- (0,7,0) node[right, black] {$y$};
+				\draw[->, thick, gray] (0,0,-4) -- (0,0,4) node[above, black] {$z$};
+				
+				\coordinate (S) at (1, 2, 3);
+				\coordinate (I) at (2.5, 5, 0);
+				\coordinate (T) at (4.5, 9, -4); % Rút gọn tỷ lệ vector để dễ vẽ
+				
+				\draw[->, ultra thick, red] (S) -- (I);
+				\draw[->, ultra thick, dashed, red] (I) -- (T);
+				
+				\filldraw[black] (S) circle (3pt) node[right] {$S$};
+				\filldraw[black] (I) circle (3pt) node[above left] {$I$};
+				\filldraw[black] (T) circle (3pt) node[right] {$T$};
+			\end{tikzpicture}
+		\end{figure}
+		
+		% CÂU 15 (Chủ đề vận tốc và khoảng cách)
+		\vspace{3mm}
+		\item Một quả khinh khí cầu bắt đầu bay lên từ điểm xuất phát $O(0;0;0)$. Do sức đẩy của khí nóng và sức gió, khinh khí cầu di chuyển thẳng đều với vectơ vận tốc $\vec{v} = (2; 3; 6)$ (đơn vị: m/s). Hỏi sau khoảng thời gian đúng 2 phút kể từ lúc rời đất, khinh khí cầu cách điểm xuất phát một khoảng bao nhiêu mét?
+			
+		% CÂU 16
+		\item Một khu cắm trại xây dựng các lều gỗ có dạng hình lăng trụ đứng với mặt đáy là hình chữ nhật. Xét hệ trục tọa độ $Oxyz$ (đơn vị: mét) với mặt đất là mặt phẳng $(Oxy)$. Bốn góc của mặt sàn lều đặt tại $O(0; 0; 0)$, $A(6; 0; 0)$, $B(6; 8; 0)$ và $C(0; 8; 0)$. Phần mái nhà dốc chữ V ngược có sống lưng là đoạn thẳng $EF$ song song với trục $Oy$. Biết $E(3; 0; 4)$ và $F(3; 8; 4)$. Gọi $\alpha$ là góc giữa đường thẳng chứa cạnh mái $OE$ và đường chéo mặt sàn $OB$. Tính giá trị của biểu thức $T = 100 \cos \alpha$.
+		
+		\begin{figure}[H]
+			\centering
+			\begin{tikzpicture}[scale=0.5, x={(-0.6cm,-0.4cm)}, y={(1cm,0cm)}, z={(0cm,1cm)}]
+				\draw[->, thick, gray] (0,0,0) -- (9,0,0) node[below] {$x$};
+				\draw[->, thick, gray] (0,0,0) -- (0,10,0) node[right] {$y$};
+				\draw[->, thick, gray] (0,0,0) -- (0,0,6) node[above] {$z$};
+				
+				\coordinate (O) at (0,0,0);
+				\coordinate (A) at (6,0,0);
+				\coordinate (B) at (6,8,0);
+				\coordinate (C) at (0,8,0);
+				\coordinate (E) at (3,0,4);
+				\coordinate (F) at (3,8,4);
+				
+				\draw[dashed, semithick] (O) -- (A);
+				\draw[dashed, semithick] (O) -- (C);
+				\draw[dashed, semithick] (O) -- (E);
+				\draw[dashed, thick, red] (O) -- (B);
+				
+				\draw[semithick] (A) -- (B) -- (C);
+				\draw[semithick] (A) -- (E) -- (F) -- (B);
+				\draw[semithick] (C) -- (F);
+				\draw[semithick] (E) -- (F); 
+				
+				\node[above left] at (O) {$O$};
+				\node[below left] at (A) {$A$};
+				\node[right] at (B) {$B$};
+				\node[above left] at (C) {$C$};
+				\node[above] at (E) {$E$};
+				\node[above] at (F) {$F$};
+			\end{tikzpicture}
+		\end{figure}
+		
+		% CÂU 17
+		\vspace{3mm}
+		\item Hệ thống liên lạc vô tuyến tại một khu vực biển gồm trạm điều khiển trên bờ đặt tại $O(0; 0; 0)$ và một căn cứ nổi trên mặt nước đặt tại $A(15; 20; 0)$ (đơn vị tọa độ là km). Một thiết bị bay không người lái (drone) làm nhiệm vụ tiếp sóng đang bay duy trì ở độ cao cố định $30\text{ km}$ so với mặt nước biển (tương ứng với mặt phẳng $z = 30$). Tín hiệu được truyền thẳng từ trạm $O$ lên drone $M$, sau đó lập tức truyền thẳng từ $M$ xuống căn cứ $A$. Hỏi quãng đường truyền tín hiệu ngắn nhất $(OM + MA)$ bằng bao nhiêu km?
+		
+		\begin{figure}[H]
+			\centering
+			\begin{tikzpicture}[scale=0.1, x={(-0.6cm,-0.4cm)}, y={(1cm,0cm)}, z={(0cm,1cm)}]
+				\draw[->, thick, gray] (0,0,0) -- (25,0,0) node[below] {$x$};
+				\draw[->, thick, gray] (0,0,0) -- (0,30,0) node[right] {$y$};
+				\draw[->, thick, gray] (0,0,0) -- (0,0,45) node[above] {$z$};
+				
+				\coordinate (O) at (0,0,0);
+				\coordinate (A) at (15,20,0);
+				\coordinate (M) at (7.5, 10, 30);
+				
+				% Mặt phẳng z=30
+				\draw[fill=blue!10, draw=blue, opacity=0.6, thick] (-10,-10,30) -- (25,-10,30) -- (25,30,30) -- (-10,30,30) -- cycle;
+				
+				\draw[dashed, red, ultra thick] (O) -- (M) -- (A);
+				
+				\filldraw[black] (O) circle (10pt) node[below left] {$O$};
+				\filldraw[black] (A) circle (10pt) node[right] {$A$};
+				\filldraw[black] (M) circle (10pt) node[above] {$M$};
+				\node[blue, right] at (25,10,30) {Mặt phẳng $z=30$};
+			\end{tikzpicture}
+		\end{figure}
+		
+		% CÂU 18
+		\vspace{3mm}
+		\item Một sân khấu lập phương trong suốt $OABC.O'A'B'C'$ có độ dài các cạnh bằng $6\text{ m}$. Chọn hệ tọa độ $Oxyz$ với gốc $O(0;0;0)$, các đỉnh $A(6;0;0)$, $C(0;6;0)$ và $O'(0;0;6)$. Một dây đèn LED trang trí thẳng căng được nối từ điểm $M$ nằm trên đường chéo $OA'$ đến điểm $N$ nằm trên đường chéo $CO'$ sao cho độ dài đoạn $OM$ luôn bằng độ dài đoạn $CN$. Tìm bình phương độ dài ngắn nhất của dây đèn LED $MN$.
+		
+		\begin{figure}[H]
+			\centering
+			\begin{tikzpicture}[scale=0.6, x={(-0.6cm,-0.5cm)}, y={(1cm,0cm)}, z={(0cm,1cm)}]
+				\coordinate (O) at (0,0,0);
+				\coordinate (A) at (6,0,0);
+				\coordinate (B) at (6,6,0);
+				\coordinate (C) at (0,6,0);
+				\coordinate (O1) at (0,0,6);
+				\coordinate (A1) at (6,0,6);
+				\coordinate (B1) at (6,6,6);
+				\coordinate (C1) at (0,6,6);
+				
+				\draw[dashed, semithick] (O) -- (A);
+				\draw[dashed, semithick] (O) -- (C);
+				\draw[dashed, semithick] (O) -- (O1);
+				
+				\draw[semithick] (A) -- (B) -- (C);
+				\draw[semithick] (A1) -- (B1) -- (C1) -- (O1) -- cycle;
+				\draw[semithick] (A) -- (A1);
+				\draw[semithick] (B) -- (B1);
+				\draw[semithick] (C) -- (C1);
+				
+				\draw[dashed, blue, thick] (O) -- (A1);
+				\draw[dashed, blue, thick] (C) -- (O1);
+				
+				\coordinate (M) at (2.5, 0, 2.5);
+				\coordinate (N) at (0, 3.5, 2.5);
+				
+				\draw[ultra thick, red] (M) -- (N);
+				
+				\node[below left=2pt] at (O) {$O$};
+				\node[below] at (A) {$A$};
+				\node[right] at (C) {$C$};
+				\node[left] at (O1) {$O'$};
+				\node[right] at (A1) {$A'$};
+				
+				\filldraw[black] (M) circle (2pt) node[below right] {$M$};
+				\filldraw[black] (N) circle (2pt) node[above left] {$N$};
+			\end{tikzpicture}
+		\end{figure}
+		
+		% CÂU 19
+		\vspace{3mm}
+		\item Trong một tiết mục biểu diễn ánh sáng, máy chiếu laser được đặt tại vị trí $S(2; 3; 5)$ (đơn vị: mét). Tia laser bắn thẳng đến một tấm gương phẳng đặt trải dài trên mặt sàn $(Oxy)$. Tia sáng chạm mặt gương tại điểm $I(4; 5; 0)$, phản xạ lại theo đúng định luật phản xạ ánh sáng (tia phản xạ đối xứng với tia tới qua pháp tuyến của mặt gương tại điểm tới). Tia phản xạ tiếp tục truyền đi và đập vào một bức tường màn hình dạng mặt phẳng $x = 10$ tại điểm $K(x; y; z)$. Hãy tính giá trị của tổng $x + y + z$.
+		
+		\begin{figure}[H]
+			\centering
+			\begin{tikzpicture}[scale=0.3, x={(-0.6cm,-0.4cm)}, y={(1cm,0cm)}, z={(0cm,1cm)}]
+				\draw[->, thick, gray] (0,0,0) -- (12,0,0) node[below] {$x$};
+				\draw[->, thick, gray] (0,0,0) -- (0,15,0) node[right] {$y$};
+				\draw[->, thick, gray] (0,0,0) -- (0,0,18) node[above] {$z$};
+				
+				\coordinate (O) at (0,0,0);
+				\coordinate (S) at (2,3,5);
+				\coordinate (I) at (4,5,0);
+				\coordinate (K) at (10,11,15);
+				
+				% Màn hình x=10
+				\draw[fill=green!10, draw=green!50!black, opacity=0.7, thick] (10,0,0) -- (10,14,0) -- (10,14,17) -- (10,0,17) -- cycle;
+				
+				\draw[->, red, ultra thick] (S) -- (I);
+				\draw[->, red, ultra thick, dashed] (I) -- (K);
+				
+				% Pháp tuyến
+				\draw[dashed, thick] (I) -- (4,5,6) node[above, black] {Pháp tuyến};
+				
+				\filldraw[black] (S) circle (4pt) node[left] {$S$};
+				\filldraw[black] (I) circle (4pt) node[below right] {$I$};
+				\filldraw[black] (K) circle (4pt) node[right] {$K$};
+				\node[green!50!black, right] at (10,2,15) {Màn hình $x=10$};
+			\end{tikzpicture}
+		\end{figure}
+		
+		% CÂU 20
+		\vspace{3mm}
+		\item Một chiếc flycam cứu hộ đang bay lơ lửng tại vị trí $M(30; 40; 120)$ (đơn vị: mét) thì thả một gói hàng tiếp tế xuống đất. Do tác động của một luồng gió mạnh và ổn định, gói hàng không rơi thẳng đứng mà rơi theo quỹ đạo là một đường thẳng vuông góc với mặt phẳng sườn dốc của một ngọn đồi gần đó. Biết mặt phẳng sườn dốc đồi có phương trình $(P): x + 2y + 2z = 0$. Gói hàng chạm mặt đất phẳng $(Oxy)$ tại điểm $K(a; b; 0)$. Tìm khoảng cách từ điểm chạm đất $K$ đến gốc tọa độ $O$ (làm tròn kết quả đến hàng phần mười).
+		
+		\begin{figure}[H]
+			\centering
+			\begin{tikzpicture}[scale=0.04, x={(-0.6cm,-0.4cm)}, y={(1cm,0cm)}, z={(0cm,1cm)}]
+				\draw[->, thick, gray] (0,0,0) -- (60,0,0) node[below] {$x$};
+				\draw[->, thick, gray] (0,0,0) -- (0,80,0) node[right] {$y$};
+				\draw[->, thick, gray] (0,0,0) -- (0,0,140) node[above] {$z$};
+				
+				\coordinate (O) at (0,0,0);
+				\coordinate (M) at (30,40,120);
+				\coordinate (K) at (-30,-80,0);
+				
+				\draw[->, ultra thick, red, dashed] (M) -- (K) node[midway, right, black] {Quỹ đạo rơi};
+				
+				% Vector pháp tuyến tượng trưng của mặt phẳng đồi
+				\draw[->, ultra thick, blue] (M) -- +(15, 30, 30) node[above, black] {$\vec{n}_{(P)}$};
+				
+				\filldraw[black] (M) circle (30pt) node[left] {$M$};
+				\filldraw[black] (K) circle (30pt) node[below] {$K$};
+				\filldraw[black] (O) circle (20pt) node[below right] {$O$};
+			\end{tikzpicture}
+		\end{figure}
+		
+			
+		% CÂU 21 (Gốc là Câu 18 - Chim bói cá)
+		\item Với hệ trục tọa độ $Oxyz$ sao cho $O$ nằm trên mặt nước, mặt phẳng $(Oxy)$ là mặt nước, trục $Oz$ hướng lên trên (đơn vị đo: mét), một con chim bói cá đang ở vị trí cách mặt nước $2\text{ m}$, cách mặt phẳng $(Oxz)$, $(Oyz)$ lần lượt là $3\text{ m}$ và $1\text{ m}$ phóng thẳng xuống vị trí con cá, biết con cá cách mặt nước $50\text{ cm}$, cách mặt phẳng $(Oxz)$, $(Oyz)$ lần lượt là $1\text{ m}$ và $1,5\text{ m}$. Tọa độ điểm $B$ lúc chim bói cá vừa tiếp xúc với mặt nước là $(a; b; c)$ (như hình vẽ). Giá trị của $T = 5a + 15b + 25c$ bằng bao nhiêu?
+		
+		\begin{figure}[H]
+			\centering
+			\begin{tikzpicture}[scale=1.2, x={(-0.5cm,-0.4cm)}, y={(1cm,0cm)}, z={(0cm,1cm)}]
+				% Mặt nước (Oxy)
+				\draw[fill=cyan!20, draw=cyan!60!blue, thick] (-1,-1,0) -- (3,-1,0) -- (4,4,0) -- (0,4,0) -- cycle;
+				
+				% Hệ trục tọa độ
+				\draw[->, thick] (0,0,0) -- (2.5,0,0) node[below] {$x$};
+				\draw[->, thick] (0,0,0) -- (0,4,0) node[above] {$y$};
+				\draw[->, thick] (0,0,0) -- (0,0,3) node[right] {$z$};
+				\node[above left] at (0,0,0) {$O$};
+				
+				% Tọa độ các điểm (thu nhỏ z một chút để hình cân đối)
+				\coordinate (C) at (1,3,2);
+				\coordinate (A) at (1.5,1,-0.5);
+				\coordinate (B) at (1.4, 1.4, 0); % Điểm giao trên mặt nước
+				
+				% Quỹ đạo bay
+				\draw[thick, black] (C) -- (B);
+				\draw[dashed, thick, black] (B) -- (A);
+				
+				% Hiệu ứng gợn sóng tại điểm chạm B
+				\draw[cyan!70!black] (B) ellipse (0.3 and 0.1);
+				\draw[cyan!70!black] (B) ellipse (0.5 and 0.18);
+				
+				% Các điểm và nhãn
+				\filldraw[black] (C) circle (1.2pt) node[below right] {$C$};
+				\filldraw[black] (A) circle (1.2pt) node[left] {$A$};
+				\filldraw[black] (B) circle (1.2pt) node[right] {$B$};
+			\end{tikzpicture}
+		\end{figure}
+
+		
+		% CÂU 22 (Gốc là Câu 20 - Lăng trụ và Chóp)
+		\vspace{3mm}
+		\item Một vật không gian có dạng được mô tả như hình vẽ bên dưới. Biết rằng hình lăng trụ đứng $ABC.A'B'C'$ có $AC = 6$, $BC = 12$ và $CC' = 4$. Hình chóp $S.ABC$ có đáy là $\Delta ABC$ vuông tại $A$ và $SA = 5$. Điểm $M$ là trung điểm của $BC$ và $SG \perp (ABC)$ tại điểm $G$ là trọng tâm của $\Delta ABC$. Góc giữa hai vectơ $\overrightarrow{A'M}$ và $\overrightarrow{SC'}$ bằng bao nhiêu độ? (kết quả làm tròn đến hàng đơn vị).
+		
+		\begin{figure}[H]
+			\centering
+			\begin{tikzpicture}[scale=0.7, line join=round, line cap=round]
+				% Khai báo tọa độ 2D thủ công để tránh dùng thư viện calc gây lỗi biên dịch
+				\coordinate (A1) at (0,0);
+				\coordinate (B1) at (2,-2);
+				\coordinate (C1) at (7,0);
+				
+				\coordinate (A) at (0,3);
+				\coordinate (B) at (2,1);
+				\coordinate (C) at (7,3);
+				
+				% M là trung điểm BC
+				\coordinate (M) at (4.5, 2); 
+				% G là trọng tâm, AG = 2/3 AM
+				\coordinate (G) at (3, 2.333); 
+				% S nằm thẳng đứng trên G
+				\coordinate (S) at (3, 6);
+				
+				% Nét đứt
+				\draw[dashed] (A1) -- (C1);
+				\draw[dashed] (A) -- (M);
+				\draw[dashed] (S) -- (G);
+				
+				% Nét liền
+				\draw[thick] (A) -- (B) -- (C) -- cycle;
+				\draw[thick] (A1) -- (B1) -- (C1);
+				\draw[thick] (A) -- (A1) (B) -- (B1) (C) -- (C1);
+				\draw[thick] (S) -- (A) (S) -- (B) (S) -- (C);
+				
+				% Ký hiệu vuông góc tại G
+				\draw[dashed] (3, 2.333) -- (3, 2.6) -- (3.2, 2.6) -- (3.2, 2.333);
+				
+				% Nhãn các đỉnh
+				\node[above left] at (A) {$A$};
+				\node[below left] at (B) {$B$};
+				\node[above right] at (C) {$C$};
+				\node[below left] at (A1) {$A'$};
+				\node[below right] at (B1) {$B'$};
+				\node[below right] at (C1) {$C'$};
+				\node[above left] at (S) {$S$};
+				\node[below right] at (M) {$M$};
+				\node[left=2pt] at (G) {$G$};
+				
+				\filldraw[black] (M) circle (1.5pt);
+				\filldraw[black] (G) circle (1.5pt);
+			\end{tikzpicture}
+		\end{figure}
+	\end{enumerate}
+	
+	
+	% =====================
+	% PHẦN 5: TỔNG KẾT
+	% =====================
+	\newpage
+	\section{Tổng kết bài}
+	
+	\begin{tcolorbox}[colback=yellow!10!white, colframe=orange!60!black,
+		fonttitle=\bfseries, title={Kiến thức trọng tâm cần nhớ}]
+		\begin{itemize}
+			\item \textbf{Cách chọn hệ trục tọa độ:} Ưu tiên chọn gốc $O$ tại các vị trí có 3 đường thẳng vuông góc đôi một (ví dụ: góc nhà, đỉnh của hình hộp, tâm đáy của hình chóp đều...).
+			\item \textbf{Xác định tọa độ điểm $M$:} 
+			\begin{itemize}
+				\item Kẻ $M M_1 \perp (Oxy)$ $\Rightarrow$ $M_1(x_M; y_M; 0)$ và $|z_M| = MM_1$.
+				\item Kẻ $M_1 M_2 \perp Ox$ $\Rightarrow M_2(x_M; 0; 0)$ và $|y_M| = M_1 M_2$.
+				\item \textit{Chú ý dấu của tọa độ dựa vào chiều dương của các trục.}
+			\end{itemize}
+		\end{itemize}
+	\end{tcolorbox}
+
+	
+\end{document}

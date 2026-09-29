@@ -1,0 +1,2386 @@
+\documentclass[12pt]{article}
+
+% === CÀI ĐẶT TRANG ===
+\usepackage[margin=2cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T5]{fontenc}
+\usepackage[vietnamese]{babel}
+
+% === TOÁN HỌC ===
+\usepackage{amsmath, amssymb, amsthm}
+
+% === HÌNH VẼ ===
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+% === ĐỊNH DẠNG ===
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage[most]{tcolorbox}
+\usepackage{multicol}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{fancyhdr}
+\usepackage{tocloft}
+\usepackage[hidelinks]{hyperref}
+
+% === LỆNH TỰ ĐỊNH NGHĨA ===
+\newcommand{\otraloi}{\underline{\hspace{5cm}}}
+
+% === TCOLORBOX STYLES ===
+\tcbuselibrary{breakable, skins, fitting}
+
+% Định dạng hộp Ví dụ
+\newtcolorbox{vidu}[1][1]{
+	colback=blue!5!white, colframe=blue!60!black,
+	fonttitle=\bfseries, title={Ví dụ #1},
+	breakable, enhanced
+}
+
+% Định dạng hộp Lời giải
+\newtcolorbox{loigiai}{
+	colback=gray!8!white, colframe=gray!50!black,
+	fonttitle=\bfseries, title={Lời giải},
+	breakable, enhanced
+}
+
+% Bài tập xanh – Bắt buộc
+\newtcolorbox{btxanh}[1][]{
+	colback=blue!6!white, colframe=blue!65!black,
+	fonttitle=\bfseries\color{white}, coltitle=white,
+	attach boxed title to top left={yshift=-2mm, xshift=4mm},
+	boxed title style={colback=blue!65!black, rounded corners}, breakable, enhanced, #1
+}
+
+% Bài tập vàng – Bổ sung
+\newtcolorbox{btvang}[1][]{
+	colback=yellow!12!white, colframe=orange!75!black,
+	fonttitle=\bfseries, coltitle=orange!80!black,
+	attach boxed title to top left={yshift=-2mm, xshift=4mm},
+	boxed title style={colback=yellow!50!white, colframe=orange!75!black, rounded corners}, breakable, enhanced, #1
+}
+
+% Bài tập đỏ – Gia cố
+\newtcolorbox{btdo}[1][]{
+	colback=red!6!white, colframe=red!65!black,
+	fonttitle=\bfseries\color{white}, coltitle=white,
+	attach boxed title to top left={yshift=-2mm, xshift=4mm},
+	boxed title style={colback=red!65!black, rounded corners}, breakable, enhanced, #1
+}
+
+% === HEADER/FOOTER ===
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small Tài liệu học tập}
+\fancyhead[C]{\small \textbf{Chuyên đề: Tính đơn điệu và cực trị}}
+\fancyhead[R]{\small Buổi: Tự học}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% ================================================
+\begin{document}
+	
+	\begin{center}
+		{\LARGE \textbf{TÍNH ĐƠN ĐIỆU VÀ CỰC TRỊ CỦA HÀM SỐ}}\\[4pt]
+		{\large Môn: Toán \quad Lớp: 12 \quad Thời lượng: Buổi tự học}
+	\end{center}
+	\vspace{4mm}
+	\hrule
+	\vspace{4mm}
+	
+	% ===========================
+	% PHẦN 1: MỤC TIÊU BÀI HỌC
+	% ===========================
+	\section*{Mục tiêu bài học}
+	\addcontentsline{toc}{section}{Mục tiêu bài học}
+	
+	\textbf{1. Kiến thức:}
+	\begin{itemize}
+		\item Nắm vững định nghĩa về khoảng đồng biến, nghịch biến và các điểm cực trị của hàm số.
+		\item Phân biệt rõ các khái niệm: giá trị cực trị, điểm cực trị của hàm số và điểm cực trị của đồ thị hàm số.
+		\item Nắm vững quy tắc xét tính đơn điệu và tìm cực trị bằng đạo hàm.
+	\end{itemize}
+	
+	\textbf{2. Kĩ năng:}
+	\begin{itemize}
+		\item Đọc vị và xác định chính xác các khoảng đơn điệu, điểm cực trị thông qua bảng biến thiên và đồ thị.
+		\item Tính toán thành thạo đạo hàm của các hàm số cơ bản và xác định các điểm làm cho đạo hàm bằng $0$ hoặc không xác định để tìm cực trị.
+	\end{itemize}
+	
+	\textbf{3. Thái độ / Phẩm chất:}
+	\begin{itemize}
+		\item Phát triển năng lực tự học, cẩn thận và tư duy logic qua quá trình tự phân tích đồ thị và bảng số liệu.
+	\end{itemize}
+	
+	\newpage
+	
+	% =====================
+	% PHẦN 2: MỤC LỤC
+	% =====================
+	\setcounter{tocdepth}{2}
+	\tableofcontents
+	\newpage
+	
+	% =====================
+	% PHẦN 3: LÝ THUYẾT
+	% =====================
+	\section{Lý thuyết}
+	
+	\subsection{Ôn tập kiến thức đạo hàm cơ bản}
+	
+	Để phục vụ tốt cho việc khảo sát tính đơn điệu và tìm cực trị của hàm số, chúng ta cần hệ thống lại các công thức tính đạo hàm và các ứng dụng vật lý, hình học cơ bản của đạo hàm.
+	
+	\subsubsection{Các phép toán và công thức đạo hàm cơ bản}
+	
+	\textbf{a) Các phép toán đạo hàm:}
+	Giả sử $u = u(x)$ và $v = v(x)$ là các hàm số có đạo hàm tại điểm $x$ thuộc khoảng xác định.
+	\begin{itemize}
+		\item Đạo hàm của tổng, hiệu: $(u \pm v)' = u' \pm v'$
+		\item Đạo hàm của tích: $(u \cdot v)' = u' \cdot v + u \cdot v'$
+		\item Đạo hàm của thương: $\left(\dfrac{u}{v}\right)' = \dfrac{u' \cdot v - u \cdot v'}{v^2}$ \quad (với $v(x) \neq 0$)
+		\item Hệ quả đặc biệt: $(k \cdot u)' = k \cdot u'$ (với $k$ là hằng số) và $\left(\dfrac{1}{v}\right)' = -\dfrac{v'}{v^2}$
+		\item Đạo hàm hàm hợp: Nếu $y = f(u)$ và $u = u(x)$ thì $y'_x = y'_u \cdot u'_x$
+	\end{itemize}
+	
+	\textbf{b) Bảng công thức đạo hàm các hàm số sơ cấp:}
+	
+	\begin{center}
+		\small
+		\renewcommand{\arraystretch}{1.8}
+		\begin{tabular}{p{5cm} p{7cm} p{4cm}}
+			\toprule
+			\textbf{Hàm số sơ cấp cơ bản} & \textbf{Hàm hợp $u = u(x)$} & \textbf{Điều kiện xác định} \\
+			\midrule
+			$(C)' = 0$ & & $C$ là hằng số \\
+			$(x)' = 1$ & $(u)' = u'$ & \\
+			$(x^\alpha)' = \alpha \cdot x^{\alpha - 1}$ & $(u^\alpha)' = \alpha \cdot u^{\alpha - 1} \cdot u'$ & $x > 0$ với $\alpha$ thực \\
+			$\left(\dfrac{1}{x}\right)' = -\dfrac{1}{x^2}$ & $\left(\dfrac{1}{u}\right)' = -\dfrac{u'}{u^2}$ & $x \neq 0$ \\
+			$(\sqrt{x})' = \dfrac{1}{2\sqrt{x}}$ & $(\sqrt{u})' = \dfrac{u'}{2\sqrt{u}}$ & $x > 0$ \\
+			$(e^x)' = e^x$ & $(e^u)' = u' \cdot e^u$ & \\
+			$(a^x)' = a^x \ln a$ & $(a^u)' = u' \cdot a^u \ln a$ & $0 < a \neq 1$ \\
+			$(\ln x)' = \dfrac{1}{x}$ & $(\ln u)' = \dfrac{u'}{u}$ & $x > 0$ \\
+			$(\log_a x)' = \dfrac{1}{x \ln a}$ & $(\log_a u)' = \dfrac{u'}{u \ln a}$ & $x > 0$, $0 < a \neq 1$ \\
+			\bottomrule
+		\end{tabular}
+	\end{center}
+	
+	\begin{vidu}[1]
+		Tính đạo hàm của các hàm số sau:
+		\begin{enumerate}[label=\alph*)]
+			\item $f(x) = x^4 - 3x^2 + \sqrt{x} - \dfrac{2}{x}$ \quad (với $x > 0$)
+			\item $g(x) = \dfrac{2x - 3}{x + 1}$ \quad (với $x \neq -1$)
+			\item $h(x) = e^{x^2 - 3x} + \ln(2x + 1)$ \quad (với $x > -\dfrac{1}{2}$)
+		\end{enumerate}
+	\end{vidu}
+	
+	\begin{loigiai}
+		\begin{enumerate}[label=\alph*)]
+			\item Áp dụng công thức đạo hàm tổng hiệu và các hàm sơ cấp cơ bản:
+			$$f'(x) = (x^4)' - 3(x^2)' + (\sqrt{x})' - 2\left(\dfrac{1}{x}\right)'$$
+			$$f'(x) = 4x^3 - 6x + \dfrac{1}{2\sqrt{x}} + \dfrac{2}{x^2}$$
+			
+			\item Áp dụng quy tắc đạo hàm của thương số $\left(\dfrac{u}{v}\right)' = \dfrac{u'v - uv'}{v^2}$:
+			$$g'(x) = \dfrac{(2x-3)'(x+1) - (2x-3)(x+1)'}{(x+1)^2}$$
+			$$g'(x) = \dfrac{2(x+1) - (2x-3) \cdot 1}{(x+1)^2} = \dfrac{2x + 2 - 2x + 3}{(x+1)^2} = \dfrac{5}{(x+1)^2}$$
+			
+			\item Áp dụng đạo hàm hàm hợp đối với hàm số mũ và hàm logarit:
+			$$h'(x) = (x^2 - 3x)' \cdot e^{x^2 - 3x} + \dfrac{(2x+1)'}{2x+1}$$
+			$$h'(x) = (2x - 3)e^{x^2 - 3x} + \dfrac{2}{2x+1}$$
+		\end{enumerate}
+	\end{loigiai}
+	
+	\subsubsection{Ứng dụng của đạo hàm}
+	
+	\textbf{a) Ý nghĩa vật lý (Bài toán chuyển động):}
+	Một chất điểm chuyển động thẳng xác định bởi phương trình chuyển động $s = s(t)$, trong đó $t$ là thời gian và $s(t)$ là quãng đường đi được tại thời điểm $t$.
+	\begin{itemize}
+		\item \textbf{Vận tốc tức thời} của chất điểm tại thời điểm $t$ là đạo hàm bậc nhất của quãng đường theo thời gian:
+		$$v(t) = s'(t)$$
+		\item \textbf{Gia tốc tức thời} của chất điểm tại thời điểm $t$ là đạo hàm bậc nhất của vận tốc (hoặc đạo hàm bậc hai của quãng đường) theo thời gian:
+		$$a(t) = v'(t) = s''(t)$$
+	\end{itemize}
+	
+	\begin{vidu}[2]
+		Một vật chuyển động thẳng có phương trình quãng đường cho bởi $s(t) = t^3 - 6t^2 + 15t + 2$ (trong đó $t$ tính bằng giây, $s$ tính bằng mét).
+		\begin{enumerate}[label=\alph*)]
+			\item Tìm biểu thức vận tốc $v(t)$ và gia tốc $a(t)$ của vật tại thời điểm $t$.
+			\item Tính vận tốc của vật tại thời điểm gia tốc bị triệt tiêu ($a(t) = 0$).
+		\end{enumerate}
+	\end{vidu}
+	
+	\begin{loigiai}
+		\begin{enumerate}[label=\alph*)]
+			\item Biểu thức vận tốc tức thời tại thời điểm $t$ là:
+			$$v(t) = s'(t) = (t^3 - 6t^2 + 15t + 2)' = 3t^2 - 12t + 15 \quad (\text{m/s})$$
+			Biểu thức gia tốc tức thời tại thời điểm $t$ là:
+			$$a(t) = v'(t) = (3t^2 - 12t + 15)' = 6t - 12 \quad (\text{m/s}^2)$$
+			
+			\item Gia tốc của vật bị triệt tiêu khi:
+			$$a(t) = 0 \iff 6t - 12 = 0 \iff t = 2 \quad (\text{giây})$$
+			Tại thời điểm $t = 2$ giây, vận tốc của vật đạt giá trị là:
+			$$v(2) = 3 \cdot (2)^2 - 12 \cdot 2 + 15 = 12 - 24 + 15 = 3 \quad (\text{m/s})$$
+		\end{enumerate}
+	\end{loigiai}
+	
+	\textbf{b) Ý nghĩa hình học (Tiếp tuyến của đồ thị hàm số):}
+	Cho hàm số $y = f(x)$ có đồ thị là đường cong $(C)$. Phương trình tiếp tuyến của đồ thị $(C)$ tại tiếp điểm $M_0(x_0; y_0)$ có dạng:
+	$$y = f'(x_0)(x - x_0) + y_0$$
+	Trong đó:
+	\begin{itemize}
+		\item $x_0$ là hoành độ tiếp điểm.
+		\item $y_0 = f(x_0)$ là tung độ tiếp điểm.
+		\item $k = f'(x_0)$ là hệ số góc của tiếp tuyến.
+	\end{itemize}
+	
+	\begin{vidu}[3]
+		Cho hàm số $y = x^3 - 3x^2 + 2$ có đồ thị là $(C)$. Viết phương trình tiếp tuyến của đồ thị $(C)$ tại điểm có hoành độ $x_0 = 3$.
+	\end{vidu}
+	
+	\begin{loigiai}
+		Để viết phương trình tiếp tuyến, ta cần xác định ba yếu tố: hoành độ tiếp điểm, tung độ tiếp điểm và hệ số góc tại tiếp điểm đó.
+		\begin{itemize}
+			\item Hoành độ tiếp điểm đã cho: $x_0 = 3$.
+			\item Tung độ tiếp điểm:
+			$$y_0 = f(3) = 3^3 - 3 \cdot 3^2 + 2 = 27 - 27 + 2 = 2$$
+			\item Tìm hệ số góc của tiếp tuyến:
+			Ta có đạo hàm: $y' = 3x^2 - 6x$.
+			Hệ số góc của tiếp tuyến tại $x_0 = 3$ là:
+			$$k = y'(3) = 3 \cdot 3^2 - 6 \cdot 3 = 27 - 18 = 9$$
+		\end{itemize}
+		Phương trình tiếp tuyến của đồ thị $(C)$ tại điểm có hoành độ $x_0 = 3$ là:
+		$$y = 9(x - 3) + 2 \iff y = 9x - 27 + 2 \iff y = 9x - 25$$
+		Vậy phương trình tiếp tuyến cần tìm là $y = 9x - 25$.
+	\end{loigiai}
+	
+	
+	\subsection{Khái niệm tính đơn điệu, cực trị của hàm số}
+	
+	Để hiểu một cách đơn giản nhất về tính đơn điệu và cực trị, chúng ta hãy tưởng tượng đồ thị hàm số giống như một con đường nhấp nhô trên một địa hình mà ta luôn đi từ \textbf{trái sang phải}.
+	
+	\subsubsection{Tính đơn điệu (Đồng biến, nghịch biến)}
+	Khi ta đi từ trái sang phải dọc theo trục hoành $Ox$:
+	\begin{itemize}
+		\item Nếu đồ thị có xu hướng \textbf{đi lên} (giá trị $y$ tăng dần), ta nói hàm số \textbf{đồng biến} (hoặc tăng).
+		\item Nếu đồ thị có xu hướng \textbf{đi xuống} (giá trị $y$ giảm dần), ta nói hàm số \textbf{nghịch biến} (hoặc giảm).
+	\end{itemize}
+	
+	\textbf{Định nghĩa trực quan:}
+	\begin{itemize}
+		\item Hàm số đồng biến trên một khoảng nếu với mọi $x_1 < x_2$ trên khoảng đó thì $f(x_1) < f(x_2)$.
+		\item Hàm số nghịch biến trên một khoảng nếu với mọi $x_1 < x_2$ trên khoảng đó thì $f(x_1) > f(x_2)$.
+	\end{itemize}
+	
+	\subsubsection{Cực trị (Cực đại và Cực tiểu)}
+	Khi đi trên con đường đồ thị này, ta sẽ đi qua các "đỉnh đồi" và "thung lũng":
+	\begin{itemize}
+		\item \textbf{Cực đại (Đỉnh đồi):} Điểm cao hơn tất cả các điểm xung quanh nó. Khi đi qua điểm này, đồ thị chuyển trạng thái từ \textbf{đi lên} (đồng biến) sang \textbf{đi xuống} (nghịch biến). Đạo hàm $y'$ đổi dấu từ dương $(+)$ sang âm $(-)$.
+		\item \textbf{Cực tiểu (Thung lũng):} Điểm thấp hơn tất cả các điểm xung quanh nó. Khi đi qua điểm này, đồ thị chuyển trạng thái từ \textbf{đi xuống} (nghịch biến) sang \textbf{đi lên} (đồng biến). Đạo hàm $y'$ đổi dấu từ âm $(-) $ sang dương $(+)$.
+	\end{itemize}
+	
+	Dưới đây là đồ thị minh họa trực quan cho hàm số $y = \dfrac{x^3}{3} - x + 0.5$:
+	
+	\begin{figure}[H]
+		\centering
+		\begin{tikzpicture}[scale=1.2, >=stealth]
+			% Vẽ hệ trục tọa độ
+			\draw[->, gray, thin] (-2.5,0) -- (2.5,0) node[right, black] {$x$};
+			\draw[->, gray, thin] (0,-1.5) -- (0,2.5) node[above, black] {$y$};
+			\node at (0,0) [below left] {$O$};
+			
+			% Vẽ lưới tọa độ mờ
+			\draw[dashed, step=0.5, gray!30] (-2.2,-1.2) grid (2.2,2.2);
+			
+			% Vẽ đồ thị hàm số y = x^3/3 - x + 0.5
+			\draw[domain=-2.0:2.0, smooth, variable=\x, blue, ultra thick] plot ({\x},{\x^3/3 - \x + 0.5});
+			
+			% Xác định và ký hiệu các điểm cực trị trên đồ thị
+			% Cực đại tại x = -1, y = 1.17 (7/6)
+			\coordinate (CD) at (-1, 1.167);
+			\filldraw[red] (CD) circle (2pt) node[above left, black] {Cực đại $A\left(-1; \frac{7}{6}\right)$};
+			\draw[dashed, gray] (-1,0) node[below, black] {$-1$} -- (CD) -- (0,1.167) node[right, black] {$\frac{7}{6}$};
+			
+			% Cực tiểu tại x = 1, y = -0.17 (-1/6)
+			\coordinate (CT) at (1, -0.167);
+			\filldraw[red] (CT) circle (2pt) node[below right, black] {Cực tiểu $B\left(1; -\frac{1}{6}\right)$};
+			\draw[dashed, gray] (1,0) node[above, black] {$1$} -- (CT) -- (0,-0.167) node[left, black] {$-\frac{1}{6}$};
+			
+			% Thêm mũi tên hướng đi của đồ thị để minh họa đồng/nghịch biến
+			\draw[->, thick, green!60!black] (-1.8, 0.2) -- (-1.4, 0.8) node[midway, left] {Đi lên};
+			\draw[->, thick, orange] (-0.5, 0.9) -- (0.5, 0.1) node[midway, above right] {Đi xuống};
+			\draw[->, thick, green!60!black] (1.4, 0.2) -- (1.8, 0.8) node[midway, right] {Đi lên};
+		\end{tikzpicture}
+		\caption{Đồ thị hàm số có các điểm cực trị và hướng chuyển động đồng biến, nghịch biến}
+	\end{figure}
+	
+	Để theo dõi một cách khoa học các khoảng đi lên, đi xuống và các giá trị cực trị của hàm số, ta sử dụng \textbf{Bảng biến thiên}. Dưới đây là bảng biến thiên của hàm số trên:
+	
+	\begin{figure}[H]
+		\centering
+		\begin{tikzpicture}[scale=1, >=stealth]
+			% --- Khung ngoài bảng biến thiên ---
+			\draw[thick] (0,0) rectangle (12,-3.5);
+			\draw[thick] (0,-1) -- (12,-1);
+			\draw[thick] (0,-2) -- (12,-2);
+			\draw[thick] (2.5,0) -- (2.5,-3.5);
+			
+			% --- Ký tự cột tiêu đề ---
+			\node at (1.25,-0.5) {\textbf{$x$}};
+			\node at (1.25,-1.5) {\textbf{$y'$}};
+			\node at (1.25,-2.75) {\textbf{$y$}};
+			
+			% --- Cột giá trị x ---
+			\node at (3,-0.5) {$-\infty$};
+			\node at (5.5,-0.5) {$-1$};
+			\node at (8.5,-0.5) {$1$};
+			\node at (11.5,-0.5) {$+\infty$};
+			
+			% --- Cột giá trị y' ---
+			\node at (4.25,-1.5) {\large $+$};
+			\node at (5.5,-1.5) {$0$};
+			\node at (7,-1.5) {\large $-$};
+			\node at (8.5,-1.5) {$0$};
+			\node at (10,-1.5) {\large $+$};
+			
+			% --- Cột giá trị y và mũi tên biến thiên ---
+			\node (yminus) at (3,-3.1) {$-\infty$};
+			\node (ymax) at (5.5,-2.3) {$\dfrac{7}{6}$};
+			\node (ymin) at (8.5,-3.1) {$-\dfrac{1}{6}$};
+			\node (yplus) at (11.5,-2.3) {$+\infty$};
+			
+			% Vẽ mũi tên chỉ hướng tăng giảm của y
+			\draw[->, ultra thick, blue] (yminus) -- (ymax);
+			\draw[->, ultra thick, blue] (ymax) -- (ymin);
+			\draw[->, ultra thick, blue] (ymin) -- (yplus);
+			
+			% Thêm nhãn phụ cho học sinh dễ hình dung
+			\node at (4.25,-2.5) [scale=0.8, green!50!black] {\textit{Đồng biến}};
+			\node at (7,-2.5) [scale=0.8, orange] {\textit{Nghịch biến}};
+			\node at (10,-2.5) [scale=0.8, green!50!black] {\textit{Đồng biến}};
+		\end{tikzpicture}
+		\caption{Bảng biến thiên của hàm số $y = \dfrac{x^3}{3} - x + 0.5$}
+	\end{figure}
+	
+	\begin{vidu}[2]
+		Dựa vào hình vẽ đồ thị và bảng biến thiên của hàm số $y = \dfrac{x^3}{3} - x + 0.5$ đã cho ở trên, hãy xác định:
+		\begin{enumerate}[label=\alph*)]
+			\item Các khoảng đồng biến và khoảng nghịch biến của hàm số.
+			\item Điểm cực đại, điểm cực tiểu của hàm số; giá trị cực đại, giá trị cực tiểu tương ứng và tọa độ các điểm cực trị tương ứng trên đồ thị.
+		\end{enumerate}
+	\end{vidu}
+	
+	\begin{loigiai}
+		Thông qua việc phân tích bảng biến thiên và đồ thị một cách trực quan, ta thu được kết quả:
+		\begin{enumerate}[label=\alph*)]
+			\item \textbf{Khoảng đơn điệu:}
+			\begin{itemize}
+				\item Trên các khoảng $(-\infty; -1)$ và $(1; +\infty)$, đồ thị đi lên từ trái sang phải, đồng thời đạo hàm $y' > 0$. Vậy hàm số \textbf{đồng biến} trên $(-\infty; -1)$ và $(1; +\infty)$.
+				\item Trên khoảng $(-1; 1)$, đồ thị đi xuống từ trái sang phải, đồng thời đạo hàm $y' < 0$. Vậy hàm số \textbf{nghịch biến} trên khoảng $(-1; 1)$.
+			\end{itemize}
+			
+			\item \textbf{Cực trị của hàm số:}
+			\begin{itemize}
+				\item \textbf{Tại đỉnh đồi (Điểm cực đại):} Đồ thị đạt cực đại tại điểm $x = -1$ (đây gọi là \textit{điểm cực đại của hàm số}). Giá trị cực đại tương ứng là $y_{\text{CĐ}} = \dfrac{7}{6}$ (hay còn gọi là \textit{cực đại} của hàm số). Điểm cực đại biểu diễn trên hệ trục tọa độ là $A\left(-1; \dfrac{7}{6}\right)$ (\textit{điểm cực đại của đồ thị hàm số}).
+				
+				\item \textbf{Tại thung lũng (Điểm cực tiểu):} Đồ thị đạt cực tiểu tại điểm $x = 1$ (đây gọi là \textit{điểm cực tiểu của hàm số}). Giá trị cực tiểu tương ứng là $y_{\text{CT}} = -\dfrac{1}{6}$ (hay còn gọi là \textit{cực tiểu} của hàm số). Điểm cực tiểu biểu diễn trên hệ trục tọa độ là $B\left(1; -\dfrac{1}{6}\right)$ (\textit{điểm cực tiểu của đồ thị hàm số}).
+			\end{itemize}
+		\end{enumerate}
+	\end{loigiai}
+	
+	
+	\subsection{Phân biệt các khái niệm về cực trị}
+	
+	Một trong những nguyên nhân phổ biến nhất khiến học sinh mất điểm đáng tiếc trong các bài kiểm tra là sự nhầm lẫn giữa các thuật ngữ cực trị có tên gọi gần giống nhau. Để không bao giờ bị nhầm lẫn, chúng ta cần phân biệt rõ ba khái niệm cốt lõi sau thông qua bảng so sánh đối chiếu:
+	
+	\subsubsection{Bảng so sánh phân biệt các khái niệm cực trị}
+	
+	\begin{center}
+		\small
+		\renewcommand{\arraystretch}{1.6}
+		\begin{tabular}{p{4.2cm} p{3.8cm} p{4.2cm} p{3.8cm}}
+			\toprule
+			\textbf{Thuật ngữ chính xác} & \textbf{Ký hiệu toán học} & \textbf{Nhận diện trên BBT} & \textbf{Bản chất vật lý/hình học} \\
+			\midrule
+			\textbf{Điểm cực trị của HÀM SỐ} & Là các giá trị $x$ \newline (Ví dụ: $x_{\text{CĐ}}$, $x_{\text{CT}}$) & Nằm ở \textbf{dòng $x$}, tại đó đạo hàm $y'$ đổi dấu. & Là tọa độ vị trí trên trục hoành mà tại đó hàm số đổi chiều biến thiên. \\
+			\midrule
+			\textbf{Giá trị cực trị của HÀM SỐ} \newline (hoặc gọi tắt là \textbf{Cực trị}) & Là các giá trị $y$ \newline (Ví dụ: $y_{\text{CĐ}}$, $y_{\text{CT}}$) & Nằm ở \textbf{dòng $y$}, là đỉnh cao hoặc đáy thấp của mũi tên. & Là độ cao hoặc độ sâu tương đối của đồ thị tại điểm cực trị. \\
+			\midrule
+			\textbf{Điểm cực trị của ĐỒ THỊ HÀM SỐ} & Là một cặp tọa độ $M(x; y)$ \newline (Ví dụ: $M(x_0; y_0)$) & Kết hợp cả \textbf{dòng $x$ và dòng $y$} tương ứng để viết tọa độ. & Là một điểm cụ thể, có thực nằm vẽ trên mặt phẳng tọa độ $Oxy$. \\
+			\bottomrule
+		\end{tabular}
+	\end{center}
+	
+	\vspace{3mm}
+	\textbf{Mẹo nhớ nhanh:}
+	\begin{itemize}
+		\item Hỏi về \textbf{HÀM SỐ} $\rightarrow$ Trả lời $x$ (hoặc $y$ nếu hỏi cụ thể về "giá trị").
+		\item Hỏi về \textbf{ĐỒ THỊ} $\rightarrow$ Bắt buộc phải trả lời đầy đủ cặp tọa độ $(x; y)$.
+	\end{itemize}
+	
+	\begin{vidu}[3]
+		Cho hàm số $y = -x^3 + 3x^2 - 4$ có bảng biến thiên được cho như dưới đây:
+		
+		\begin{figure}[H]
+			\centering
+			\begin{tikzpicture}[scale=1, >=stealth]
+				% Khung bảng biến thiên
+				\draw[thick] (0,0) rectangle (11,-3.5);
+				\draw[thick] (0,-1) -- (11,-1);
+				\draw[thick] (0,-2) -- (11,-2);
+				\draw[thick] (2.2,0) -- (2.2,-3.5);
+				
+				% Tiêu đề cột
+				\node at (1.1,-0.5) {$x$};
+				\node at (1.1,-1.5) {$y'$};
+				\node at (1.1,-2.75) {$y$};
+				
+				% Các giá trị x
+				\node at (2.8,-0.5) {$-\infty$};
+				\node at (5.2,-0.5) {$0$};
+				\node at (8.0,-0.5) {$2$};
+				\node at (10.4,-0.5) {$+\infty$};
+				
+				% Các giá trị y'
+				\node at (4.0,-1.5) {\large $-$};
+				\node at (5.2,-1.5) {$0$};
+				\node at (6.6,-1.5) {\large $+$};
+				\node at (8.0,-1.5) {$0$};
+				\node at (9.2,-1.5) {\large $-$};
+				
+				% Các giá trị y và mũi tên
+				\node (y1) at (2.8,-2.3) {$+\infty$};
+				\node (y2) at (5.2,-3.1) {$-4$};
+				\node (y3) at (8.0,-2.3) {$0$};
+				\node (y4) at (10.4,-3.1) {$-\infty$};
+				
+				\draw[->, ultra thick, blue] (y1) -- (y2);
+				\draw[->, ultra thick, blue] (y2) -- (y3);
+				\draw[->, ultra thick, blue] (y3) -- (y4);
+			\end{tikzpicture}
+		\end{figure}
+		
+		Dựa vào bảng biến thiên trên, hãy chỉ ra các khái niệm cực trị tương ứng của hàm số đã cho.
+	\end{vidu}
+	
+	\begin{loigiai}
+		Dựa vào bảng biến thiên của hàm số $y = -x^3 + 3x^2 - 4$, ta phân định rõ ràng các khái niệm cực trị như sau:
+		
+		\begin{enumerate}[label=\arabic*.]
+			\item \textbf{Điểm cực trị của hàm số (chỉ trả lời $x$):}
+			\begin{itemize}
+				\item Điểm cực tiểu của hàm số là: $x = 0$.
+				\item Điểm cực đại của hàm số là: $x = 2$.
+			\end{itemize}
+			
+			\item \textbf{Giá trị cực trị của hàm số (chỉ trả lời $y$):}
+			\begin{itemize}
+				\item Giá trị cực tiểu của hàm số (hoặc cực tiểu của hàm số) là: $y_{\text{CT}} = -4$ (đạt được khi $x = 0$).
+				\item Giá trị cực đại của hàm số (hoặc cực đại của hàm số) là: $y_{\text{CĐ}} = 0$ (đạt được khi $x = 2$).
+			\end{itemize}
+			
+			\item \textbf{Điểm cực trị của đồ thị hàm số (trả lời tọa độ $(x;y)$):}
+			\begin{itemize}
+				\item Điểm cực tiểu của đồ thị hàm số là điểm: $M(0; -4)$.
+				\item Điểm cực đại của đồ thị hàm số là điểm: $N(2; 0)$.
+			\end{itemize}
+		\end{enumerate}
+	\end{loigiai}
+	
+	
+	\subsection{Xác định tính đơn điệu và cực trị qua bảng biến thiên và đồ thị}
+	
+	Việc làm chủ kỹ năng đọc hiểu bảng biến thiên (BBT) và đồ thị hàm số là bước đi đầu tiên và quan trọng nhất trong các đề thi chuyên đề Giải tích. Dưới đây là quy trình đọc nhanh được hệ thống hóa trực quan.
+	
+	\subsubsection{Phương pháp đọc bảng biến thiên (BBT)}
+	Khi quan sát một bảng biến thiên, ta chia làm hai nhiệm vụ:
+	\begin{itemize}
+		\item \textbf{Tìm khoảng đơn điệu:}
+		\begin{itemize}
+			\item Nhìn vào \textbf{dòng $y'$}: Khoảng nào có dấu $+$ là đồng biến, khoảng nào có dấu $-$ là nghịch biến.
+			\item Nhìn vào \textbf{dòng $y$}: Khoảng nào có mũi tên đi lên là đồng biến, mũi tên đi xuống là nghịch biến.
+			\item \textit{Chú ý:} Các khoảng kết luận phải là khoảng của $x$ (nằm trên dòng $x$), không được lấy giá trị ở dòng $y$.
+		\end{itemize}
+		\item \textbf{Tìm điểm cực trị:}
+		\begin{itemize}
+			\item \textbf{Cực đại:} Điểm $x_0$ mà tại đó $y'$ đổi dấu từ $+$ sang $-$ (mũi tên từ đi lên chuyển sang đi xuống).
+			\item \textbf{Cực tiểu:} Điểm $x_0$ mà tại đó $y'$ đổi dấu từ $-$ sang $+$ (mũi tên từ đi xuống chuyển sang đi lên).
+		\end{itemize}
+	\end{itemize}
+	
+	\begin{vidu}[4]
+		Cho hàm số $y = f(x)$ liên tục trên $\mathbb{R}$ và có bảng biến thiên như sau:
+		
+		\begin{figure}[H]
+			\centering
+			\begin{tikzpicture}[scale=1, >=stealth]
+				% Khung bảng biến thiên
+				\draw[thick] (0,0) rectangle (13,-3.8);
+				\draw[thick] (0,-1) -- (13,-1);
+				\draw[thick] (0,-2) -- (13,-2);
+				\draw[thick] (2.2,0) -- (2.2,-3.8);
+				
+				% Tiêu đề cột
+				\node at (1.1,-0.5) {$x$};
+				\node at (1.1,-1.5) {$y'$};
+				\node at (1.1,-2.9) {$y$};
+				
+				% Các giá trị x
+				\node at (2.8,-0.5) {$-\infty$};
+				\node at (5.0,-0.5) {$-1$};
+				\node at (7.6,-0.5) {$0$};
+				\node at (10.2,-0.5) {$1$};
+				\node at (12.4,-0.5) {$+\infty$};
+				
+				% Các giá trị y'
+				\node at (3.9,-1.5) {\large $+$};
+				\node at (5.0,-1.5) {$0$};
+				\node at (6.3,-1.5) {\large $-$};
+				\node at (7.6,-1.5) {$0$};
+				\node at (8.9,-1.5) {\large $+$};
+				\node at (10.2,-1.5) {$0$};
+				\node at (11.3,-1.5) {\large $-$};
+				
+				% Các giá trị y và mũi tên
+				\node (y1) at (2.8,-3.4) {$-\infty$};
+				\node (y2) at (5.0,-2.4) {$4$};
+				\node (y3) at (7.6,-3.4) {$3$};
+				\node (y4) at (10.2,-2.4) {$4$};
+				\node (y5) at (12.4,-3.4) {$-\infty$};
+				
+				\draw[->, ultra thick, blue] (y1) -- (y2);
+				\draw[->, ultra thick, blue] (y2) -- (y3);
+				\draw[->, ultra thick, blue] (y3) -- (y4);
+				\draw[->, ultra thick, blue] (y4) -- (y5);
+			\end{tikzpicture}
+		\end{figure}
+		
+		Từ bảng biến thiên trên, hãy tìm các khoảng đơn điệu và các điểm cực trị của hàm số.
+	\end{vidu}
+	
+	\begin{loigiai}
+		Áp dụng đúng phương pháp đọc dòng $x$ và dòng $y'$:
+		\begin{enumerate}[label=-]
+			\item \textbf{Khoảng đồng biến:} Hàm số đồng biến trên các khoảng $(-\infty; -1)$ và $(0; 1)$ vì trên các khoảng này đạo hàm $y' > 0$ (mũi tên đi lên).
+			\item \textbf{Khoảng nghịch biến:} Hàm số nghịch biến trên các khoảng $(-1; 0)$ và $(1; +\infty)$ vì trên các khoảng này đạo hàm $y' < 0$ (mũi tên đi xuống).
+			\item \textbf{Cực trị:}
+			\begin{itemize}
+				\item Hàm số đạt \textbf{cực đại} tại hai điểm: $x = -1$ và $x = 1$ (tại đây $y'$ đổi dấu từ $+$ sang $-$). Giá trị cực đại tương ứng là $y_{\text{CĐ}} = 4$.
+				\item Hàm số đạt \textbf{cực tiểu} tại điểm: $x = 0$ (tại đây $y'$ đổi dấu từ $-$ sang $+$). Giá trị cực tiểu tương ứng là $y_{\text{CT}} = 3$.
+			\end{itemize}
+		\end{enumerate}
+	\end{loigiai}
+	
+	\subsubsection{Phương pháp đọc đồ thị hàm số $y = f(x)$}
+	Khi đề bài cho đồ thị $y = f(x)$ trực quan trên mặt phẳng tọa độ $Oxy$:
+	\begin{itemize}
+		\item \textbf{Khoảng đồng biến:} Là các khoảng trên trục $Ox$ ứng với phần đồ thị có dạng \textbf{đi lên} (từ trái qua phải).
+		\item \textbf{Khoảng nghịch biến:} Là các khoảng trên trục $Ox$ ứng với phần đồ thị có dạng \textbf{đi xuống} (từ trái qua phải).
+		\item \textbf{Điểm cực đại:} Là các điểm "đỉnh lồi" phía trên của đồ thị. Tọa độ đỉnh lồi $M(x_0; y_0)$ cho ta điểm cực đại của hàm số là $x_0$ và giá trị cực đại là $y_0$.
+		\item \textbf{Điểm cực tiểu:} Là các điểm "đáy lõm" phía dưới của đồ thị. Tọa độ đáy lõm $N(x_1; y_1)$ cho ta điểm cực tiểu của hàm số là $x_1$ và giá trị cực tiểu là $y_1$.
+	\end{itemize}
+	
+	\begin{vidu}[5]
+		Cho hàm số $y = f(x)$ liên tục trên $\mathbb{R}$ có đồ thị $(C)$ như hình vẽ dưới đây:
+		
+		\begin{figure}[H]
+			\centering
+			\begin{tikzpicture}[scale=1.2, >=stealth]
+				% Trục tọa độ
+				\draw[->, gray, thin] (-3,0) -- (3,0) node[right, black] {$x$};
+				\draw[->, gray, thin] (0,-3) -- (0,3) node[above, black] {$y$};
+				\node at (0,0) [below left] {$O$};
+				
+				% Lưới mờ
+				\draw[dashed, step=1, gray!20] (-2.5,-2.5) grid (2.5,2.5);
+				
+				% Đồ thị hàm bậc ba y = x^3 - 3x
+				\draw[domain=-2.1:2.1, smooth, variable=\x, red, ultra thick] plot ({\x},{\x^3 - 3*\x});
+				
+				% Điểm cực đại (-1; 2)
+				\coordinate (CD) at (-1,2);
+				\filldraw[black] (CD) circle (2pt);
+				\draw[dashed, gray] (-1,0) node[below, black] {$-1$} -- (CD) -- (0,2) node[right, black] {$2$};
+				
+				% Điểm cực tiểu (1; -2)
+				\coordinate (CT) at (1,-2);
+				\filldraw[black] (CT) circle (2pt);
+				\draw[dashed, gray] (1,0) node[above, black] {$1$} -- (CT) -- (0,-2) node[left, black] {$-2$};
+			\end{tikzpicture}
+			\caption{Đồ thị hàm số $y = f(x)$}
+		\end{figure}
+		
+		Dựa vào đồ thị, hãy tìm các khoảng đơn điệu và tọa độ các điểm cực trị của đồ thị hàm số.
+	\end{vidu}
+	
+	\begin{loigiai}
+		Quan sát đồ thị hàm số theo hướng chuyển động từ trái qua phải:
+		\begin{enumerate}[label=-]
+			\item \textbf{Sự biến thiên:}
+			\begin{itemize}
+				\item Trên nhánh đồ thị từ $-\infty$ đến hoành độ $x = -1$, đồ thị đi lên $\rightarrow$ Hàm số đồng biến trên $(-\infty; -1)$.
+				\item Trên nhánh đồ thị từ hoành độ $x = -1$ đến $x = 1$, đồ thị đi xuống $\rightarrow$ Hàm số nghịch biến trên $(-1; 1)$.
+				\item Trên nhánh đồ thị từ hoành độ $x = 1$ ra $+\infty$, đồ thị đi lên $\rightarrow$ Hàm số đồng biến trên $(1; +\infty)$.
+			\end{itemize}
+			\item \textbf{Cực trị:}
+			\begin{itemize}
+				\item Điểm cực đại (đỉnh lồi) của đồ thị là điểm có tọa độ $A(-1; 2)$. Điều này nghĩa là hàm số đạt cực đại tại $x = -1$ và giá trị cực đại đạt được là $y_{\text{CĐ}} = 2$.
+				\item Điểm cực tiểu (đáy lõm) của đồ thị là điểm có tọa độ $B(1; -2)$. Điều này nghĩa là hàm số đạt cực tiểu tại $x = 1$ và giá trị cực tiểu đạt được là $y_{\text{CT}} = -2$.
+			\end{itemize}
+		\end{enumerate}
+	\end{loigiai}
+	
+	
+	\subsection{Xác định tính đơn điệu và cực trị qua công thức}
+	
+	Để xét tính đơn điệu và tìm cực trị của hàm số $y = f(x)$ cho bởi công thức, ta thực hiện theo quy trình **3 bước** sau:
+	
+	\subsubsection{Quy trình 3 bước thực hiện}
+	\begin{enumerate}[label=\textbf{Bước \arabic*:}]
+		\item \textbf{Tính toán ban đầu:} Tìm Tập xác định (TXĐ) của hàm số. Tính đạo hàm $y' = f'(x)$.
+		\item \textbf{Tìm điểm tới hạn:} Giải phương trình $y' = 0$ và tìm các điểm $x$ làm cho $y'$ không xác định (nhưng hàm số vẫn liên tục).
+		\item \textbf{Lập bảng biến thiên \& Kết luận:} Lập bảng xét dấu $y'$ để kết luận:
+		\begin{itemize}
+			\item Khoảng $y' > 0$: Hàm số đồng biến. Khoảng $y' < 0$: Hàm số nghịch biến.
+			\item $y'$ đổi dấu từ $(+)$ sang $(-)$ qua $x_0$: $x_0$ là điểm cực đại.
+			\item $y'$ đổi dấu từ $(-)$ sang $(+)$ qua $x_0$: $x_0$ là điểm cực tiểu.
+		\end{itemize}
+	\end{enumerate}
+	
+	\begin{vidu}[6]
+		Xét tính đơn điệu và tìm cực trị của hàm số: $y = x^3 - 3x^2 + 4$.
+	\end{vidu}
+	
+	\begin{loigiai}
+		\begin{enumerate}[label=\textbf{B\arabic*.}]
+			\item \textbf{Tập xác định:} $\mathbb{D} = \mathbb{R}$. Đạo hàm: $y' = 3x^2 - 6x$.
+			\item \textbf{Tìm nghiệm:} $y' = 0 \iff 3x(x - 2) = 0 \iff \left[\begin{aligned} &x = 0 \\ &x = 2 \end{aligned}\right.$
+			\item \textbf{Bảng biến thiên:}
+			\begin{figure}[H]
+				\centering
+				\begin{tikzpicture}[scale=0.9, >=stealth]
+					\draw[thick] (0,0) rectangle (10,-3.2);
+					\draw[thick] (0,-0.9) -- (10,-0.9);
+					\draw[thick] (0,-1.8) -- (10,-1.8);
+					\draw[thick] (1.8,0) -- (1.8,-3.2);
+					
+					\node at (0.9,-0.45) {$x$}; \node at (0.9,-1.35) {$y'$}; \node at (0.9,-2.5) {$y$};
+					\node at (2.4,-0.45) {$-\infty$}; \node at (4.2,-0.45) {$0$}; \node at (6.8,-0.45) {$2$}; \node at (9.4,-0.45) {$+\infty$};
+					
+					\node at (3.3,-1.35) {$+$}; \node at (4.2,-1.35) {$0$}; \node at (5.5,-1.35) {$-$}; \node at (6.8,-1.35) {$0$}; \node at (8.1,-1.35) {$+$};
+					
+					\node (y1) at (2.4,-2.9) {$-\infty$}; \node (y2) at (4.2,-2.15) {$4$}; \node (y3) at (6.8,-2.9) {$0$}; \node (y4) at (9.4,-2.15) {$+\infty$};
+					\draw[->, thick, blue] (y1) -- (y2); \draw[->, thick, blue] (y2) -- (y3); \draw[->, thick, blue] (y3) -- (y4);
+				\end{tikzpicture}
+			\end{figure}
+			
+			\textbf{Kết luận:}
+			\begin{itemize}
+				\item Hàm số đồng biến trên các khoảng $(-\infty; 0)$ và $(2; +\infty)$; nghịch biến trên khoảng $(0; 2)$.
+				\item Hàm số đạt cực đại tại $x = 0$, giá trị cực đại $y_{\text{CĐ}} = 4$.
+				\item Hàm số đạt cực tiểu tại $x = 2$, giá trị cực tiểu $y_{\text{CT}} = 0$.
+			\end{itemize}
+		\end{enumerate}
+	\end{loigiai}
+	
+	\newpage
+	
+	% =====================
+	% PHẦN 4: BÀI TẬP
+	% =====================
+	\section{Bài tập tự luận}
+	
+	\subsection{Dạng 1: Xác định tính đơn điệu và cực trị dựa trên đồ thị và bảng biến thiên}
+	
+	\subsubsection{Bài 1. Xác định tính đơn điệu và cực trị dựa trên đồ thị hàm số}
+	\textit{Đề bài: Cho đồ thị của các hàm số $y = f(x)$ dưới đây. Hãy tìm các khoảng đồng biến, nghịch biến và tọa độ các điểm cực đại, cực tiểu của mỗi đồ thị hàm số.}
+	
+	\begin{btxanh}
+		\begin{center}
+			\renewcommand{\arraystretch}{2}
+			\begin{tabular}{cc}
+				% Hình a
+				\begin{tabular}{c}
+					\begin{tikzpicture}[scale=0.7, >=stealth]
+						\draw[->] (-2.2,0) -- (2.2,0) node[right] {\tiny $x$};
+						\draw[->] (0,-1.5) -- (0,2.5) node[above] {\tiny $y$};
+						\draw[domain=-1.6:1.6, smooth, variable=\x, blue, thick] plot ({\x},{\x*\x - 1});
+						\node at (0,0) [above left] {\tiny $O$};
+						\filldraw[red] (0,-1) circle (1.5pt) node[below left, black] {\tiny $-1$};
+						
+					\end{tikzpicture}
+				\end{tabular} & 
+				% Hình b
+				\begin{tabular}{c}
+					\begin{tikzpicture}[scale=0.7, >=stealth]
+						\draw[->] (-2.2,0) -- (2.2,0) node[right] {\tiny $x$};
+						\draw[->] (0,-1) -- (0,3) node[above] {\tiny $y$};
+						\draw[domain=-1.6:1.6, smooth, variable=\x, blue, thick] plot ({\x},{2 - \x*\x});
+						\node at (0,0) [below left] {\tiny $O$};
+						\filldraw[red] (0,2) circle (1.5pt) node[above right, black] {\tiny $2$};
+					
+					\end{tikzpicture}
+				\end{tabular} \\
+				% Hình c
+				\begin{tabular}{c}
+					\begin{tikzpicture}[scale=0.7, >=stealth]
+						\draw[->] (-2.2,0) -- (2.2,0) node[right] {\tiny $x$};
+						\draw[->] (0,-2.2) -- (0,2.2) node[above] {\tiny $y$};
+						\draw[domain=-1.4:1.4, smooth, variable=\x, blue, thick] plot ({\x},{\x^3 - 1.2*\x});
+						\node at (0,0) [below left] {\tiny $O$};
+						\filldraw[red] (-0.63, 0.5) circle (1.5pt);
+						\filldraw[red] (0.63, -0.5) circle (1.5pt);
+						\draw[dashed, gray] (-0.63,0) node[below] {\tiny $-0.6$} -- (-0.63,0.5) -- (0,0.5) node[right] {\tiny $0.5$};
+						\draw[dashed, gray] (0.63,0) node[above] {\tiny $0.6$} -- (0.63,-0.5) -- (0,-0.5) node[left] {\tiny $-0.5$};
+						
+					\end{tikzpicture}
+				\end{tabular} & 
+				% Hình d
+				\begin{tabular}{c}
+					\begin{tikzpicture}[scale=0.7, >=stealth]
+						\draw[->] (-1,0) -- (3,0) node[right] {\tiny $x$};
+						\draw[->] (0,-1) -- (0,3) node[above] {\tiny $y$};
+						\draw[domain=-0.6:2.6, smooth, variable=\x, blue, thick] plot ({\x},{-\x^3 + 3*\x^2 - 1});
+						\node at (0,0) [below left] {\tiny $O$};
+						\filldraw[red] (0,-1) circle (1.5pt) node[left] {\tiny $-1$};
+						\filldraw[red] (2,3) circle (1.5pt);
+						\draw[dashed, gray] (2,0) node[below] {\tiny $2$} -- (2,3) -- (0,3) node[left] {\tiny $3$};
+						
+					\end{tikzpicture}
+				\end{tabular}
+			\end{tabular}
+		\end{center}
+	\end{btxanh}
+	
+	\begin{btvang}
+		\begin{center}
+			\renewcommand{\arraystretch}{2}
+			\begin{tabular}{cc}
+				% Hình a
+				\begin{tabular}{c}
+					\begin{tikzpicture}[scale=0.7, >=stealth]
+						\draw[->] (-2.2,0) -- (2.2,0) node[right] {\tiny $x$};
+						\draw[->] (0,-1.5) -- (0,2.5) node[above] {\tiny $y$};
+						\draw[domain=-1.6:1.6, smooth, variable=\x, blue, thick] plot ({\x},{\x*\x});
+						\node at (0,0) [below] {\tiny $O$};
+						
+					\end{tikzpicture}
+				\end{tabular} & 
+				% Hình b
+				\begin{tabular}{c}
+					\begin{tikzpicture}[scale=0.7, >=stealth]
+						\draw[->] (-1,0) -- (3,0) node[right] {\tiny $x$};
+						\draw[->] (0,-1.5) -- (0,2.5) node[above] {\tiny $y$};
+						\draw[domain=-0.6:2.6, smooth, variable=\x, blue, thick] plot ({\x},{(\x-1)^2 - 1});
+						\node at (0,0) [below left] {\tiny $O$};
+						\filldraw[red] (1,-1) circle (1.5pt);
+						\draw[dashed, gray] (1,0) node[above] {\tiny $1$} -- (1,-1) -- (0,-1) node[left] {\tiny $-1$};
+						
+					\end{tikzpicture}
+				\end{tabular} \\
+				% Hình c
+				\begin{tabular}{c}
+					\begin{tikzpicture}[scale=0.7, >=stealth]
+						\draw[->] (-1,0) -- (3,0) node[right] {\tiny $x$};
+						\draw[->] (0,-2.5) -- (0,1.5) node[above] {\tiny $y$};
+						\draw[domain=-0.5:2.5, smooth, variable=\x, blue, thick] plot ({\x},{\x^3 - 3*\x^2 + 1});
+						\node at (0,0) [above left] {\tiny $O$};
+						\filldraw[red] (0,1) circle (1.5pt) node[right] {\tiny $1$};
+						\filldraw[red] (2,-3) circle (1.5pt);
+						\draw[dashed, gray] (2,0) node[above] {\tiny $2$} -- (2,-3) -- (0,-3) node[left] {\tiny $-3$};
+						
+					\end{tikzpicture}
+				\end{tabular} & 
+				% Hình d
+				\begin{tabular}{c}
+					\begin{tikzpicture}[scale=0.7, >=stealth]
+						\draw[->] (-2.2,0) -- (2.2,0) node[right] {\tiny $x$};
+						\draw[->] (0,-1.5) -- (0,2.5) node[above] {\tiny $y$};
+						\draw[domain=-1.4:1.4, smooth, variable=\x, blue, thick] plot ({\x},{1.5 - \x^4});
+						\node at (0,0) [below left] {\tiny $O$};
+						\filldraw[red] (0,1.5) circle (1.5pt) node[right] {\tiny $1.5$};
+						
+					\end{tikzpicture}
+				\end{tabular}
+			\end{tabular}
+		\end{center}
+	\end{btvang}
+	
+	\begin{btdo}
+		\begin{center}
+			\renewcommand{\arraystretch}{2}
+			\begin{tabular}{cc}
+				% Hình a
+				\begin{tabular}{c}
+					\begin{tikzpicture}[scale=0.7, >=stealth]
+						\draw[->] (-2.5,0) -- (1.5,0) node[right] {\tiny $x$};
+						\draw[->] (0,-1) -- (0,3) node[above] {\tiny $y$};
+						\draw[domain=-2.1:0.5, smooth, variable=\x, blue, thick] plot ({\x},{(\x+1)^2 + 1});
+						\node at (0,0) [below right] {\tiny $O$};
+						\filldraw[red] (-1,1) circle (1.5pt);
+						\draw[dashed, gray] (-1,0) node[below] {\tiny $-1$} -- (-1,1) -- (0,1) node[right] {\tiny $1$};
+						
+					\end{tikzpicture}
+				\end{tabular} & 
+				% Hình b
+				\begin{tabular}{c}
+					\begin{tikzpicture}[scale=0.7, >=stealth]
+						\draw[->] (-1.5,0) -- (2.5,0) node[right] {\tiny $x$};
+						\draw[->] (0,-2.5) -- (0,1.5) node[above] {\tiny $y$};
+						\draw[domain=-1.1:2.1, smooth, variable=\x, blue, thick] plot ({\x},{-(\x-1)^2 - 1});
+						\node at (0,0) [above left] {\tiny $O$};
+						\filldraw[red] (1,-1) circle (1.5pt);
+						\draw[dashed, gray] (1,0) node[above] {\tiny $1$} -- (1,-1) -- (0,-1) node[left] {\tiny $-1$};
+						
+					\end{tikzpicture}
+				\end{tabular} \\
+				% Hình c
+				\begin{tabular}{c}
+					\begin{tikzpicture}[scale=0.7, >=stealth]
+						\draw[->] (-1,0) -- (3,0) node[right] {\tiny $x$};
+						\draw[->] (0,-1.5) -- (0,2.5) node[above] {\tiny $y$};
+						\draw[domain=-0.4:2.4, smooth, variable=\x, blue, thick] plot ({\x},{\x^3 - 3*\x^2 + 2});
+						\node at (0,0) [below left] {\tiny $O$};
+						\filldraw[red] (0,2) circle (1.5pt) node[right] {\tiny $2$};
+						\filldraw[red] (2,-2) circle (1.5pt);
+						\draw[dashed, gray] (2,0) node[above] {\tiny $2$} -- (2,-2) -- (0,-2) node[left] {\tiny $-2$};
+						
+					\end{tikzpicture}
+				\end{tabular} & 
+				% Hình d
+				\begin{tabular}{c}
+					\begin{tikzpicture}[scale=0.7, >=stealth]
+						\draw[->] (-2.2,0) -- (2.2,0) node[right] {\tiny $x$};
+						\draw[->] (0,-2.5) -- (0,1.5) node[above] {\tiny $y$};
+						\draw[domain=-1.5:1.5, smooth, variable=\x, blue, thick] plot ({\x},{\x^4 - 2});
+						\node at (0,0) [above left] {\tiny $O$};
+						\filldraw[red] (0,-2) circle (1.5pt) node[right] {\tiny $-2$};
+						
+					\end{tikzpicture}
+				\end{tabular}
+			\end{tabular}
+		\end{center}
+	\end{btdo}
+	
+	\newpage
+	
+	\subsubsection{Bài 2. Xác định tính đơn điệu và cực trị dựa trên bảng biến thiên}
+	\textit{Đề bài: Cho bảng biến thiên của các hàm số dưới đây. Hãy tìm các khoảng đồng biến, nghịch biến và các điểm cực đại, cực tiểu của mỗi hàm số.}
+	
+	\begin{btxanh}
+		\begin{center}
+			\renewcommand{\arraystretch}{1.5}
+			\begin{tabular}{cc}
+				% BBT a
+				\begin{tabular}{c}
+					\begin{tikzpicture}[scale=0.55]
+						\draw (0,0) rectangle (9,-3); \draw (0,-1) -- (9,-1); \draw (0,-2) -- (9,-2); \draw (1.5,0) -- (1.5,-3);
+						\node at (0.75,-0.5) {\tiny $x$}; \node at (0.75,-1.5) {\tiny $y'$}; \node at (0.75,-2.5) {\tiny $y$};
+						\node at (2,-0.5) {\tiny $-\infty$}; \node at (5,-0.5) {\tiny $1$}; \node at (8,-0.5) {\tiny $+\infty$};
+						\node at (3.5,-1.5) {\tiny $+$}; \node at (5,-1.5) {\tiny $0$}; \node at (6.5,-1.5) {\tiny $-$};
+						\node (y1) at (2,-2.7) {\tiny $-\infty$}; \node (y2) at (5,-2.3) {\tiny $4$}; \node (y3) at (8,-2.7) {\tiny $-\infty$};
+						\draw[->, blue, thick] (y1) -- (y2); \draw[->, blue, thick] (y2) -- (y3);
+					\end{tikzpicture}
+				\end{tabular} & 
+				% BBT b
+				\begin{tabular}{c}
+					\begin{tikzpicture}[scale=0.55]
+						\draw (0,0) rectangle (9,-3); \draw (0,-1) -- (9,-1); \draw (0,-2) -- (9,-2); \draw (1.5,0) -- (1.5,-3);
+						\node at (0.75,-0.5) {\tiny $x$}; \node at (0.75,-1.5) {\tiny $y'$}; \node at (0.75,-2.5) {\tiny $y$};
+						\node at (2,-0.5) {\tiny $-\infty$}; \node at (5,-0.5) {\tiny $-2$}; \node at (8,-0.5) {\tiny $+\infty$};
+						\node at (3.5,-1.5) {\tiny $-$}; \node at (5,-1.5) {\tiny $0$}; \node at (6.5,-1.5) {\tiny $+$};
+						\node (y1) at (2,-2.3) {\tiny $+\infty$}; \node (y2) at (5,-2.7) {\tiny $-3$}; \node (y3) at (8,-2.3) {\tiny $+\infty$};
+						\draw[->, blue, thick] (y1) -- (y2); \draw[->, blue, thick] (y2) -- (y3);
+					\end{tikzpicture}
+				\end{tabular} \\
+				% BBT c
+				\begin{tabular}{c}
+					\begin{tikzpicture}[scale=0.55]
+						\draw (0,0) rectangle (9.5,-3); \draw (0,-1) -- (9.5,-1); \draw (0,-2) -- (9.5,-2); \draw (1.5,0) -- (1.5,-3);
+						\node at (0.75,-0.5) {\tiny $x$}; \node at (0.75,-1.5) {\tiny $y'$}; \node at (0.75,-2.5) {\tiny $y$};
+						\node at (2,-0.5) {\tiny $-\infty$}; \node at (4.2,-0.5) {\tiny $0$}; \node at (6.8,-0.5) {\tiny $2$}; \node at (9,-0.5) {\tiny $+\infty$};
+						\node at (3.1,-1.5) {\tiny $+$}; \node at (4.2,-1.5) {\tiny $0$}; \node at (5.5,-1.5) {\tiny $-$}; \node at (6.8,-1.5) {\tiny $0$}; \node at (7.9,-1.5) {\tiny $+$};
+						\node (y1) at (2,-2.7) {\tiny $-\infty$}; \node (y2) at (4.2,-2.3) {\tiny $1$}; \node (y3) at (6.8,-2.7) {\tiny $-3$}; \node (y4) at (9,-2.3) {\tiny $+\infty$};
+						\draw[->, blue, thick] (y1) -- (y2); \draw[->, blue, thick] (y2) -- (y3); \draw[->, blue, thick] (y3) -- (y4);
+					\end{tikzpicture}
+				\end{tabular} & 
+				% BBT d
+				\begin{tabular}{c}
+					\begin{tikzpicture}[scale=0.55]
+						\draw (0,0) rectangle (9.5,-3); \draw (0,-1) -- (9.5,-1); \draw (0,-2) -- (9.5,-2); \draw (1.5,0) -- (1.5,-3);
+						\node at (0.75,-0.5) {\tiny $x$}; \node at (0.75,-1.5) {\tiny $y'$}; \node at (0.75,-2.5) {\tiny $y$};
+						\node at (2,-0.5) {\tiny $-\infty$}; \node at (4.2,-0.5) {\tiny $-1$}; \node at (6.8,-0.5) {\tiny $3$}; \node at (9,-0.5) {\tiny $+\infty$};
+						\node at (3.1,-1.5) {\tiny $-$}; \node at (4.2,-1.5) {\tiny $0$}; \node at (5.5,-1.5) {\tiny $+$}; \node at (6.8,-1.5) {\tiny $0$}; \node at (7.9,-1.5) {\tiny $-$};
+						\node (y1) at (2,-2.3) {\tiny $+\infty$}; \node (y2) at (4.2,-2.7) {\tiny $-1$}; \node (y3) at (6.8,-2.3) {\tiny $5$}; \node (y4) at (9,-2.7) {\tiny $-\infty$};
+						\draw[->, blue, thick] (y1) -- (y2); \draw[->, blue, thick] (y2) -- (y3); \draw[->, blue, thick] (y3) -- (y4);
+					\end{tikzpicture}
+				\end{tabular}
+			\end{tabular}
+		\end{center}
+	\end{btxanh}
+	
+	\begin{btvang}
+		\begin{center}
+			\renewcommand{\arraystretch}{1.5}
+			\begin{tabular}{cc}
+				% BBT a
+				\begin{tabular}{c}
+					\begin{tikzpicture}[scale=0.55]
+						\draw (0,0) rectangle (9,-3); \draw (0,-1) -- (9,-1); \draw (0,-2) -- (9,-2); \draw (1.5,0) -- (1.5,-3);
+						\node at (0.75,-0.5) {\tiny $x$}; \node at (0.75,-1.5) {\tiny $y'$}; \node at (0.75,-2.5) {\tiny $y$};
+						\node at (2,-0.5) {\tiny $-\infty$}; \node at (5,-0.5) {\tiny $0$}; \node at (8,-0.5) {\tiny $+\infty$};
+						\node at (3.5,-1.5) {\tiny $+$}; \node at (5,-1.5) {\tiny $0$}; \node at (6.5,-1.5) {\tiny $-$};
+						\node (y1) at (2,-2.7) {\tiny $-\infty$}; \node (y2) at (5,-2.3) {\tiny $1$}; \node (y3) at (8,-2.7) {\tiny $-\infty$};
+						\draw[->, blue, thick] (y1) -- (y2); \draw[->, blue, thick] (y2) -- (y3);
+					\end{tikzpicture}
+				\end{tabular} & 
+				% BBT b
+				\begin{tabular}{c}
+					\begin{tikzpicture}[scale=0.55]
+						\draw (0,0) rectangle (9,-3); \draw (0,-1) -- (9,-1); \draw (0,-2) -- (9,-2); \draw (1.5,0) -- (1.5,-3);
+						\node at (0.75,-0.5) {\tiny $x$}; \node at (0.75,-1.5) {\tiny $y'$}; \node at (0.75,-2.5) {\tiny $y$};
+						\node at (2,-0.5) {\tiny $-\infty$}; \node at (5,-0.5) {\tiny $3$}; \node at (8,-0.5) {\tiny $+\infty$};
+						\node at (3.5,-1.5) {\tiny $-$}; \node at (5,-1.5) {\tiny $0$}; \node at (6.5,-1.5) {\tiny $+$};
+						\node (y1) at (2,-2.3) {\tiny $+\infty$}; \node (y2) at (5,-2.7) {\tiny $-2$}; \node (y3) at (8,-2.3) {\tiny $+\infty$};
+						\draw[->, blue, thick] (y1) -- (y2); \draw[->, blue, thick] (y2) -- (y3);
+					\end{tikzpicture}
+				\end{tabular} \\
+				% BBT c
+				\begin{tabular}{c}
+					\begin{tikzpicture}[scale=0.55]
+						\draw (0,0) rectangle (9.5,-3); \draw (0,-1) -- (9.5,-1); \draw (0,-2) -- (9.5,-2); \draw (1.5,0) -- (1.5,-3);
+						\node at (0.75,-0.5) {\tiny $x$}; \node at (0.75,-1.5) {\tiny $y'$}; \node at (0.75,-2.5) {\tiny $y$};
+						\node at (2,-0.5) {\tiny $-\infty$}; \node at (4.2,-0.5) {\tiny $-3$}; \node at (6.8,-0.5) {\tiny $0$}; \node at (9,-0.5) {\tiny $+\infty$};
+						\node at (3.1,-1.5) {\tiny $+$}; \node at (4.2,-1.5) {\tiny $0$}; \node at (5.5,-1.5) {\tiny $-$}; \node at (6.8,-1.5) {\tiny $0$}; \node at (7.9,-1.5) {\tiny $+$};
+						\node (y1) at (2,-2.7) {\tiny $-\infty$}; \node (y2) at (4.2,-2.3) {\tiny $5$}; \node (y3) at (6.8,-2.7) {\tiny $0$}; \node (y4) at (9,-2.3) {\tiny $+\infty$};
+						\draw[->, blue, thick] (y1) -- (y2); \draw[->, blue, thick] (y2) -- (y3); \draw[->, blue, thick] (y3) -- (y4);
+					\end{tikzpicture}
+				\end{tabular} & 
+				% BBT d
+				\begin{tabular}{c}
+					\begin{tikzpicture}[scale=0.55]
+						\draw (0,0) rectangle (9.5,-3); \draw (0,-1) -- (9.5,-1); \draw (0,-2) -- (9.5,-2); \draw (1.5,0) -- (1.5,-3);
+						\node at (0.75,-0.5) {\tiny $x$}; \node at (0.75,-1.5) {\tiny $y'$}; \node at (0.75,-2.5) {\tiny $y$};
+						\node at (2,-0.5) {\tiny $-\infty$}; \node at (4.2,-0.5) {\tiny $-2$}; \node at (6.8,-0.5) {\tiny $2$}; \node at (9,-0.5) {\tiny $+\infty$};
+						\node at (3.1,-1.5) {\tiny $-$}; \node at (4.2,-1.5) {\tiny $0$}; \node at (5.5,-1.5) {\tiny $+$}; \node at (6.8,-1.5) {\tiny $0$}; \node at (7.9,-1.5) {\tiny $-$};
+						\node (y1) at (2,-2.3) {\tiny $+\infty$}; \node (y2) at (4.2,-2.7) {\tiny $-4$}; \node (y3) at (6.8,-2.3) {\tiny $4$}; \node (y4) at (9,-2.7) {\tiny $-\infty$};
+						\draw[->, blue, thick] (y1) -- (y2); \draw[->, blue, thick] (y2) -- (y3); \draw[->, blue, thick] (y3) -- (y4);
+					\end{tikzpicture}
+				\end{tabular}
+			\end{tabular}
+		\end{center}
+	\end{btvang}
+	
+	\begin{btdo}
+		\begin{center}
+			\renewcommand{\arraystretch}{1.5}
+			\begin{tabular}{cc}
+				% BBT a
+				\begin{tabular}{c}
+					\begin{tikzpicture}[scale=0.55]
+						\draw (0,0) rectangle (9,-3); \draw (0,-1) -- (9,-1); \draw (0,-2) -- (9,-2); \draw (1.5,0) -- (1.5,-3);
+						\node at (0.75,-0.5) {\tiny $x$}; \node at (0.75,-1.5) {\tiny $y'$}; \node at (0.75,-2.5) {\tiny $y$};
+						\node at (2,-0.5) {\tiny $-\infty$}; \node at (5,-0.5) {\tiny $-1$}; \node at (8,-0.5) {\tiny $+\infty$};
+						\node at (3.5,-1.5) {\tiny $+$}; \node at (5,-1.5) {\tiny $0$}; \node at (6.5,-1.5) {\tiny $-$};
+						\node (y1) at (2,-2.7) {\tiny $-\infty$}; \node (y2) at (5,-2.3) {\tiny $3$}; \node (y3) at (8,-2.7) {\tiny $-\infty$};
+						\draw[->, blue, thick] (y1) -- (y2); \draw[->, blue, thick] (y2) -- (y3);
+					\end{tikzpicture}
+				\end{tabular} & 
+				% BBT b
+				\begin{tabular}{c}
+					\begin{tikzpicture}[scale=0.55]
+						\draw (0,0) rectangle (9,-3); \draw (0,-1) -- (9,-1); \draw (0,-2) -- (9,-2); \draw (1.5,0) -- (1.5,-3);
+						\node at (0.75,-0.5) {\tiny $x$}; \node at (0.75,-1.5) {\tiny $y'$}; \node at (0.75,-2.5) {\tiny $y$};
+						\node at (2,-0.5) {\tiny $-\infty$}; \node at (5,-0.5) {\tiny $4$}; \node at (8,-0.5) {\tiny $+\infty$};
+						\node at (3.5,-1.5) {\tiny $-$}; \node at (5,-1.5) {\tiny $0$}; \node at (6.5,-1.5) {\tiny $+$};
+						\node (y1) at (2,-2.3) {\tiny $+\infty$}; \node (y2) at (5,-2.7) {\tiny $-5$}; \node (y3) at (8,-2.3) {\tiny $+\infty$};
+						\draw[->, blue, thick] (y1) -- (y2); \draw[->, blue, thick] (y2) -- (y3);
+					\end{tikzpicture}
+				\end{tabular} \\
+				% BBT c
+				\begin{tabular}{c}
+					\begin{tikzpicture}[scale=0.55]
+						\draw (0,0) rectangle (9.5,-3); \draw (0,-1) -- (9.5,-1); \draw (0,-2) -- (9.5,-2); \draw (1.5,0) -- (1.5,-3);
+						\node at (0.75,-0.5) {\tiny $x$}; \node at (0.75,-1.5) {\tiny $y'$}; \node at (0.75,-2.5) {\tiny $y$};
+						\node at (2,-0.5) {\tiny $-\infty$}; \node at (4.2,-0.5) {\tiny $-4$}; \node at (6.8,-0.5) {\tiny $1$}; \node at (9,-0.5) {\tiny $+\infty$};
+						\node at (3.1,-1.5) {\tiny $+$}; \node at (4.2,-1.5) {\tiny $0$}; \node at (5.5,-1.5) {\tiny $-$}; \node at (6.8,-1.5) {\tiny $0$}; \node at (7.9,-1.5) {\tiny $+$};
+						\node (y1) at (2,-2.7) {\tiny $-\infty$}; \node (y2) at (4.2,-2.3) {\tiny $2$}; \node (y3) at (6.8,-2.7) {\tiny $-2$}; \node (y4) at (9,-2.3) {\tiny $+\infty$};
+						\draw[->, blue, thick] (y1) -- (y2); \draw[->, blue, thick] (y2) -- (y3); \draw[->, blue, thick] (y3) -- (y4);
+					\end{tikzpicture}
+				\end{tabular} & 
+				% BBT d
+				\begin{tabular}{c}
+					\begin{tikzpicture}[scale=0.55]
+						\draw (0,0) rectangle (9.5,-3); \draw (0,-1) -- (9.5,-1); \draw (0,-2) -- (9.5,-2); \draw (1.5,0) -- (1.5,-3);
+						\node at (0.75,-0.5) {\tiny $x$}; \node at (0.75,-1.5) {\tiny $y'$}; \node at (0.75,-2.5) {\tiny $y$};
+						\node at (2,-0.5) {\tiny $-\infty$}; \node at (4.2,-0.5) {\tiny $-5$}; \node at (6.8,-0.5) {\tiny $5$}; \node at (9,-0.5) {\tiny $+\infty$};
+						\node at (3.1,-1.5) {\tiny $-$}; \node at (4.2,-1.5) {\tiny $0$}; \node at (5.5,-1.5) {\tiny $+$}; \node at (6.8,-1.5) {\tiny $0$}; \node at (7.9,-1.5) {\tiny $-$};
+						\node (y1) at (2,-2.3) {\tiny $+\infty$}; \node (y2) at (4.2,-2.7) {\tiny $-3$}; \node (y3) at (6.8,-2.3) {\tiny $3$}; \node (y4) at (9,-2.7) {\tiny $-\infty$};
+						\draw[->, blue, thick] (y1) -- (y2); \draw[->, blue, thick] (y2) -- (y3); \draw[->, blue, thick] (y3) -- (y4);
+					\end{tikzpicture}
+				\end{tabular}
+			\end{tabular}
+		\end{center}
+	\end{btdo}
+	
+	\subsection{Dạng 2: Xác định tính đơn điệu và cực trị qua công thức}
+	\textit{Đề bài: Tìm các khoảng đơn điệu và các điểm cực trị của các hàm số sau:}
+	
+	\begin{btxanh}
+		\textbf{Câu 4.}
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\alph*)]
+				\item $y = x^3 - 3x^2 + 1$
+				\item $y = -x^3 + 3x + 2$
+				\item $y = \dfrac{2x - 1}{x + 1}$
+				\item $y = \dfrac{3 - x}{x - 2}$
+				\item $y = \dfrac{x^2 - 3x + 3}{x - 1}$
+				\item $y = \dfrac{x^2 + x + 1}{x + 1}$
+			\end{enumerate}
+		\end{multicols}
+	\end{btxanh}
+	
+	\begin{btvang}
+		\textbf{Câu 5.}
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\alph*)]
+				\item $y = x^3 - 3x^2 - 9x + 5$
+				\item $y = -x^3 + 3x^2 - 4$
+				\item $y = \dfrac{x + 2}{x - 1}$
+				\item $y = \dfrac{2x + 3}{x + 2}$
+				\item $y = \dfrac{x^2 - 2x + 2}{x - 1}$
+				\item $y = \dfrac{x^2 + 3x + 3}{x + 2}$
+			\end{enumerate}
+		\end{multicols}
+	\end{btvang}
+	
+	\begin{btdo}
+		\textbf{Câu 6.}
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\alph*)]
+				\item $y = \dfrac{1}{3}x^3 - 2x^2 + 3x + 1$
+				\item $y = -x^3 + 12x - 5$
+				\item $y = \dfrac{3x - 1}{x - 1}$
+				\item $y = \dfrac{4 - 2x}{x + 1}$
+				\item $y = \dfrac{x^2 + x + 2}{x - 1}$
+				\item $y = \dfrac{x^2 - x + 4}{x - 2}$
+			\end{enumerate}
+		\end{multicols}
+	\end{btdo}
+	
+	\subsection{Dạng 3: Xác định tính đơn điệu và cực trị của hàm số nâng cao}
+	\textit{Đề bài: Tìm các khoảng đơn điệu và các điểm cực trị của các hàm số  sau:}
+	
+	\begin{btxanh}
+		\textbf{Câu 7.}
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\alph*)]
+				\item $y = \sqrt{x^2 - 4x + 3}$
+				\item $y = x - 2\sqrt{x}$
+				\item $y = x - \ln x$
+				\item $y = \ln(x^2 - 2x + 3)$
+				\item $y = |x^2 - 4x + 3|$
+				\item $y = x^3 - 3|x| + 2$
+			\end{enumerate}
+		\end{multicols}
+	\end{btxanh}
+	
+	\begin{btvang}
+		\textbf{Câu 8.}
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\alph*)]
+				\item $y = \sqrt{4x - x^2}$
+				\item $y = x + \sqrt{1 - x^2}$
+				\item $y = x^2 - 2\ln x$
+				\item $y = \ln(x^2 + 2x + 2)$
+				\item $y = |x^2 - 2x - 3|$
+				\item $y = |x|^3 - 3x^2 + 1$
+			\end{enumerate}
+		\end{multicols}
+	\end{btvang}
+	
+	\begin{btdo}
+		\textbf{Câu 9.}
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\alph*)]
+				\item $y = \sqrt{x^2 - 2x + 5}$
+				\item $y = (x - 1)\sqrt{x}$
+				\item $y = \dfrac{\ln x}{x}$
+				\item $y = \ln(x^2 - 4x + 5)$
+				\item $y = |x^2 - 3x + 2|$
+				\item $y = |x|^3 - 3|x| + 2$
+			\end{enumerate}
+		\end{multicols}
+	\end{btdo}
+	
+	
+	\subsection{Dạng 4: Bài tập thực tế ứng dụng đạo hàm}
+	
+	\begin{btxanh}
+		\textbf{Bài 1.} Một chất điểm chuyển động trong $15$ giây đầu tiên có phương trình quãng đường cho bởi:
+		$$s(t) = \dfrac{1}{12}t^4 - \dfrac{4}{3}t^3 + 8t^2 + 5t$$
+		trong đó $t \ge 0$ tính bằng giây ($\text{s}$) và $s(t)$ tính bằng mét ($\text{m}$).
+		\begin{enumerate}[label=\alph*)]
+			\item Trong $15$ giây đầu tiên, vận tốc của chất điểm tăng hay giảm?
+			\item Vận tốc của chất điểm nhỏ nhất và lớn nhất lần lượt bằng bao nhiêu?
+		\end{enumerate}
+		
+		\textbf{Bài 2.} Một chất điểm chuyển động trong $8$ giây đầu tiên có phương trình quãng đường:
+		$$s(t) = -\dfrac{1}{3}t^3 + 4t^2$$
+		với $t \ge 0$ (giây) là khoảng thời gian tính từ khi vật bắt đầu chuyển động và $s$ (mét) là quãng đường đi được.
+		\begin{enumerate}[label=\alph*)]
+			\item Trong $8$ giây đầu tiên, vận tốc của chất điểm tăng hay giảm?
+			\item Trong $8$ giây đầu tiên, vận tốc của chất điểm đạt giá trị lớn nhất bằng bao nhiêu?
+		\end{enumerate}
+		
+		\textbf{Bài 3.} Một chuyển động thẳng xác định bởi phương trình quãng đường:
+		$$s(t) = \dfrac{1}{3}t^3 - 4t^2 + 12t + 5$$
+		với $t \ge 0$ tính bằng giây và $s$ tính bằng mét.
+		\begin{enumerate}[label=\alph*)]
+			\item Trong khoảng thời gian nào vận tốc của vật tăng?
+			\item Trong khoảng thời gian nào vận tốc của vật giảm?
+			\item Tính gia tốc của vật tại thời điểm $6$ giây kể từ khi bắt đầu chuyển động.
+		\end{enumerate}
+		
+		\textbf{Bài 4.} Công suất tiêu thụ $P$ (đơn vị $\text{W}$) của một thiết bị điện xoay chiều được xác định bởi công thức:
+		$$P(I) = 18I^2 - \dfrac{2}{3}I^3$$
+		với $I$ (đơn vị $\text{A}$) là cường độ dòng điện hiệu dụng chạy qua thiết bị, $0 \le I \le 24$.
+		\begin{enumerate}[label=\alph*)]
+			\item Công suất $P$ tăng khi cường độ dòng điện thuộc khoảng nào?
+			\item Công suất $P$ giảm khi cường độ dòng điện thuộc khoảng nào?
+			\item Công suất của thiết bị đạt giá trị lớn nhất bằng bao nhiêu?
+		\end{enumerate}
+	\end{btxanh}
+	
+	\begin{btvang}
+		\textbf{Bài 5.} Một chất điểm chuyển động trong $15$ giây đầu tiên có phương trình quãng đường cho bởi:
+		$$s(t) = \dfrac{1}{12}t^4 - \dfrac{5}{3}t^3 + 13t^2 + 8t$$
+		trong đó $t \ge 0$ tính bằng giây ($\text{s}$) và $s(t)$ tính bằng mét ($\text{m}$).
+		\begin{enumerate}[label=\alph*)]
+			\item Trong $15$ giây đầu tiên, vận tốc của chất điểm tăng hay giảm?
+			\item Vận tốc của chất điểm nhỏ nhất và lớn nhất lần lượt bằng bao nhiêu?
+		\end{enumerate}
+		
+		\textbf{Bài 6.} Một chất điểm chuyển động trong $10$ giây đầu tiên có phương trình quãng đường:
+		$$s(t) = -\dfrac{1}{3}t^3 + 5t^2$$
+		với $t \ge 0$ (giây) là khoảng thời gian tính từ khi vật bắt đầu chuyển động và $s$ (mét) là quãng đường đi được.
+		\begin{enumerate}[label=\alph*)]
+			\item Trong $10$ giây đầu tiên, vận tốc của chất điểm tăng hay giảm?
+			\item Trong $10$ giây đầu tiên, vận tốc của chất điểm lớn nhất bằng bao nhiêu?
+		\end{enumerate}
+		
+		\textbf{Bài 7.} Một chuyển động thẳng xác định bởi phương trình quãng đường:
+		$$s(t) = \dfrac{1}{3}t^3 - 5t^2 + 16t + 3$$
+		với $t \ge 0$ tính bằng giây và $s$ tính bằng mét.
+		\begin{enumerate}[label=\alph*)]
+			\item Trong khoảng thời gian nào vận tốc của vật tăng?
+			\item Trong khoảng thời gian nào vận tốc của vật giảm?
+			\item Tính gia tốc của vật tại thời điểm $8$ giây kể từ khi bắt đầu chuyển động.
+		\end{enumerate}
+		
+		\textbf{Bài 8 (Ứng dụng Năng lượng).} Công suất phát điện $P$ (đơn vị $\text{W}$) của một tuabin gió phụ thuộc vào tốc độ gió $v$ (m/s) được mô hình hóa bởi công thức:
+		$$P(v) = 9v^2 - 0.3v^3$$
+		với $0 \le v \le 25$ ($\text{m/s}$).
+		\begin{enumerate}[label=\alph*)]
+			\item Khi tốc độ gió nằm trong khoảng nào thì công suất phát điện của tuabin tăng?
+			\item Khi tốc độ gió nằm trong khoảng nào thì công suất phát điện của tuabin giảm?
+			\item Tìm công suất phát điện lớn nhất của tuabin gió này.
+		\end{enumerate}
+	\end{btvang}
+	
+	\begin{btdo}
+		\textbf{Bài 9.} Một chất điểm chuyển động trong $10$ giây đầu tiên có phương trình quãng đường cho bởi:
+		$$s(t) = \dfrac{1}{12}t^4 - 2t^3 + 18t^2 + 15t$$
+		trong đó $t \ge 0$ tính bằng giây ($\text{s}$) và $s(t)$ tính bằng mét ($\text{m}$).
+		\begin{enumerate}[label=\alph*)]
+			\item Trong $10$ giây đầu tiên, vận tốc của chất điểm tăng hay giảm?
+			\item Vận tốc của chất điểm nhỏ nhất và lớn nhất lần lượt bằng bao nhiêu?
+		\end{enumerate}
+		
+		\textbf{Bài 10.} Một chất điểm chuyển động trong $6$ giây đầu tiên có phương trình quãng đường:
+		$$s(t) = -\dfrac{1}{3}t^3 + 3t^2$$
+		với $t \ge 0$ (giây) là khoảng thời gian tính từ khi vật bắt đầu chuyển động và $s$ (mét) là quãng đường đi được.
+		\begin{enumerate}[label=\alph*)]
+			\item Trong $6$ giây đầu tiên, vận tốc của chất điểm tăng hay giảm?
+			\item Trong $6$ giây đầu tiên, vận tốc của chất điểm đạt giá trị lớn nhất bằng bao nhiêu?
+		\end{enumerate}
+		
+		\textbf{Bài 11.} Một chuyển động thẳng xác định bởi phương trình quãng đường:
+		$$s(t) = \dfrac{1}{3}t^3 - 2t^2 + 3t + 4$$
+		với $t \ge 0$ tính bằng giây và $s$ tính bằng mét.
+		\begin{enumerate}[label=\alph*)]
+			\item Trong khoảng thời gian nào vận tốc của vật tăng?
+			\item Trong khoảng thời gian nào vận tốc của vật giảm?
+			\item Tính gia tốc của vật tại thời điểm $4$ giây kể từ khi bắt đầu chuyển động.
+		\end{enumerate}
+		
+		\textbf{Bài 12 (Ứng dụng Hóa sinh).} Tốc độ phản ứng hóa học phân hủy một hợp chất hữu cơ $R$ (đơn vị: $\text{mol/l}\cdot\text{s}$) phụ thuộc vào nhiệt độ môi trường $T$ ($^\circ\text{C}$) theo công thức thực nghiệm:
+		$$R(T) = 6T^2 - 0.1T^3$$
+		với $0 \le T \le 50$ ($^\circ\text{C}$).
+		\begin{enumerate}[label=\alph*)]
+			\item Hỏi tốc độ phản ứng $R$ tăng khi nhiệt độ thuộc khoảng nào?
+			\item Hỏi tốc độ phản ứng $R$ giảm khi nhiệt độ thuộc khoảng nào?
+			\item Xác định nhiệt độ tối ưu để phản ứng hóa học xảy ra với tốc độ lớn nhất.
+		\end{enumerate}
+	\end{btdo}
+	
+	\section{Bài tập TN/DS/TLN}
+	\subsection{Bài tập trắc nghiệm}
+	
+	\begin{enumerate}[label=\textbf{Câu \arabic*.}]
+		
+		% CÂU 1
+		\item Cho hàm số $y = f(x)$ xác định trên $\mathbb{R}$ và có đồ thị như hình vẽ bên dưới.
+		\begin{center}
+			\begin{tikzpicture}[scale=0.7, >=stealth]
+				\draw[->] (-2.5,0) -- (2.5,0) node[right] {$x$};
+				\draw[->] (0,-3.5) -- (0,2) node[above] {$y$};
+				\node at (0,0) [below left] {$O$};
+				
+				\draw[domain=-2.1:2.1, smooth, variable=\x, blue, ultra thick] plot ({\x},{0.5*\x^3 - 1.5*\x - 1});
+				
+				\draw[dashed, gray] (-1,0) node[above] {$-1$} -- (-1,-2) -- (0,-2) node[right] {$-2$};
+				\draw[dashed, gray] (1,0) node[below] {$1$} -- (1,0) -- (1,-2);
+				\draw[dashed, gray] (-2,0) node[below] {$-2$} -- (-2,-2);
+				\draw[dashed, gray] (2,0) node[above] {$2$} -- (2,0) -- (2,-2);
+				\draw[dashed, gray] (-2,-2) -- (2,-2) node[right] {$-3$};
+				\filldraw[red] (-1,-2) circle (1.5pt);
+				\filldraw[red] (1,-2) circle (1.5pt);
+			\end{tikzpicture}
+		\end{center}
+		Mệnh đề nào dưới đây \textbf{sai}?
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item Hàm số đã cho nghịch biến trên khoảng $(-\infty; -1)$.
+				\item Hàm số đã cho đồng biến trên khoảng $(-1; 1)$.
+				\item Hàm số đã cho nghịch biến trên khoảng $(-1; +\infty)$.
+				\item Hàm số đã cho đồng biến trên khoảng $(0; 1)$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 2
+		\item Cho hàm số $y = f(x)$ liên tục trên $\mathbb{R}$ và có đồ thị như hình vẽ bên dưới.
+		\begin{center}
+			\begin{tikzpicture}[scale=0.7, >=stealth]
+				\draw[->] (-1.5,0) -- (3.5,0) node[right] {$x$};
+				\draw[->] (0,-1.5) -- (0,3.5) node[above] {$y$};
+				\node at (0,0) [below left] {$O$};
+				
+				\draw[domain=-0.8:2.8, smooth, variable=\x, blue, ultra thick] plot ({\x},{-(\x-1)^2 + 3});
+				
+				\draw[dashed, gray] (1,0) node[below] {$1$} -- (1,3) -- (0,3) node[left] {$3$};
+				\filldraw[red] (1,3) circle (1.5pt);
+			\end{tikzpicture}
+		\end{center}
+		Mệnh đề nào dưới đây đúng?
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item Hàm số nghịch biến trên khoảng $(-\infty; 1)$.
+				\item Hàm số đồng biến trên khoảng $(1; +\infty)$.
+				\item Hàm số nghịch biến trên khoảng $(1; +\infty)$.
+				\item Hàm số nghịch biến trên khoảng $(-\infty; 3)$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 3
+		\item Cho hàm số trùng phương $y = f(x)$ liên tục trên $\mathbb{R}$ và có đồ thị như hình vẽ bên dưới.
+		\begin{center}
+			\begin{tikzpicture}[scale=0.7, >=stealth]
+				\draw[->] (-2.5,0) -- (2.5,0) node[right] {$x$};
+				\draw[->] (0,-1.5) -- (0,2.5) node[above] {$y$};
+				\node at (0,0) [below left] {$O$};
+				
+				\draw[domain=-1.7:1.7, smooth, variable=\x, blue, ultra thick] plot ({\x},{\x^4 - 2*\x^2 + 1});
+				
+				\draw[dashed, gray] (-1,0) node[below] {$-1$} -- (-1,0);
+				\draw[dashed, gray] (1,0) node[below] {$1$} -- (1,0);
+				\draw[dashed, gray] (0,1) node[left] {$1$} -- (0,1);
+				\filldraw[red] (-1,0) circle (1.5pt);
+				\filldraw[red] (1,0) circle (1.5pt);
+				\filldraw[red] (0,1) circle (1.5pt);
+			\end{tikzpicture}
+		\end{center}
+		Hỏi hàm số đồng biến trên khoảng nào dưới đây?
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $(-1; 0)$ và $(1; +\infty)$.
+				\item $(-\infty; -1)$ và $(0; 1)$.
+				\item $(-1; 1)$.
+				\item $(-\infty; 0)$ và $(1; +\infty)$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 4
+		\item Cho hàm số trùng phương $y = f(x)$ liên tục trên $\mathbb{R}$ và có đồ thị như hình vẽ bên dưới.
+		\begin{center}
+			\begin{tikzpicture}[scale=0.7, >=stealth]
+				\draw[->] (-2.5,0) -- (2.5,0) node[right] {$x$};
+				\draw[->] (0,-2.5) -- (0,1.5) node[above] {$y$};
+				\node at (0,0) [below left] {$O$};
+				
+				\draw[domain=-1.7:1.7, smooth, variable=\x, blue, ultra thick] plot ({\x},{-\x^4 + 2*\x^2 - 1});
+				
+				\draw[dashed, gray] (-1,0) node[above] {$-1$} -- (-1,0);
+				\draw[dashed, gray] (1,0) node[above] {$1$} -- (1,0);
+				\draw[dashed, gray] (0,-1) node[left] {$-1$} -- (0,-1);
+				\filldraw[red] (-1,0) circle (1.5pt);
+				\filldraw[red] (1,0) circle (1.5pt);
+				\filldraw[red] (0,-1) circle (1.5pt);
+			\end{tikzpicture}
+		\end{center}
+		Tọa độ các điểm cực đại của đồ thị hàm số đã cho là:
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $x = 1$ và $x = -1$.
+				\item $M(1; 0)$ và $N(-1; 0)$.
+				\item $P(0; -1)$.
+				\item $y = 0$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 5
+		\item Cho hàm số bậc ba $y = f(x)$ liên tục trên $\mathbb{R}$ có đồ thị như hình vẽ bên dưới.
+		\begin{center}
+			\begin{tikzpicture}[scale=0.7, >=stealth]
+				\draw[->] (-3,0) -- (3,0) node[right] {$x$};
+				\draw[->] (0,-2.5) -- (0,2.5) node[above] {$y$};
+				\node at (0,0) [below left] {$O$};
+				
+				\draw[domain=-2.2:2.2, smooth, variable=\x, blue, ultra thick] plot ({\x},{0.25*\x^3 - 3*0.25*\x});
+				
+				\draw[dashed, gray] (-1.73,0) node[below] {$-\sqrt{3}$} -- (-1.73,-0.87) -- (0,-0.87) node[right] {\tiny $-\frac{\sqrt{3}}{2}$};
+				\draw[dashed, gray] (1.73,0) node[above] {$\sqrt{3}$} -- (1.73,0.87) -- (0,0.87) node[left] {\tiny $\frac{\sqrt{3}}{2}$};
+				\filldraw[red] (-1.73,-0.87) circle (1.5pt);
+				\filldraw[red] (1.73,0.87) circle (1.5pt);
+			\end{tikzpicture}
+		\end{center}
+		Khẳng định nào dưới đây đúng?
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item Hàm số đạt cực tiểu tại $x = -\sqrt{3}$.
+				\item Hàm số đạt cực đại tại $x = -\sqrt{3}$.
+				\item Giá trị cực tiểu của hàm số là $y = \frac{\sqrt{3}}{2}$.
+				\item Giá trị cực đại của hàm số là $x = \sqrt{3}$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 6
+		\item Cho hàm số $y = f(x)$ liên tục trên $\mathbb{R}$ có đồ thị như hình vẽ dưới đây.
+		\begin{center}
+			\begin{tikzpicture}[scale=0.7, >=stealth]
+				\draw[->] (-1.5,0) -- (3.5,0) node[right] {$x$};
+				\draw[->] (0,-2.5) -- (0,2.5) node[above] {$y$};
+				\node at (0,0) [below left] {$O$};
+				
+				\draw[domain=-0.8:2.8, smooth, variable=\x, blue, ultra thick] plot ({\x},{\x^3 - 3*\x^2 + 2});
+				
+				\draw[dashed, gray] (2,0) node[above] {$2$} -- (2,-2) -- (0,-2) node[left] {$-2$};
+				\filldraw[red] (0,2) circle (1.5pt) node[right] {$2$};
+				\filldraw[red] (2,-2) circle (1.5pt);
+			\end{tikzpicture}
+		\end{center}
+		Số điểm cực trị của hàm số đã cho là:
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $0$.
+				\item $1$.
+				\item $2$.
+				\item $3$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 7
+		\item Cho hàm số $y = f(x)$ có tập xác định là $\mathbb{R} \setminus \{1\}$ và có đồ thị như hình vẽ bên dưới.
+		\begin{center}
+			\begin{tikzpicture}[scale=0.7, >=stealth]
+				\draw[->] (-2.5,0) -- (3.5,0) node[right] {$x$};
+				\draw[->] (0,-2.5) -- (0,2.5) node[above] {$y$};
+				\node at (0,0) [below left] {$O$};
+				
+				% Tiệm cận đứng x = 1
+				\draw[dashed, red, thick] (1,-2.5) -- (1,2.5) node[above] {\tiny $x=1$};
+				
+				% Nhánh trái
+				\draw[domain=-2.2:0.7, smooth, variable=\x, blue, ultra thick] plot ({\x},{1/(\x - 1)});
+				% Nhánh phải
+				\draw[domain=1.3:3.2, smooth, variable=\x, blue, ultra thick] plot ({\x},{1/(\x - 1)});
+			\end{tikzpicture}
+		\end{center}
+		Khẳng định nào sau đây là đúng về tính đơn điệu của hàm số?
+		\begin{enumerate}[label=\textbf{\Alph*.}]
+			\item Hàm số nghịch biến trên $\mathbb{R} \setminus \{1\}$.
+			\item Hàm số nghịch biến trên các khoảng $(-\infty; 1)$ và $(1; +\infty)$.
+			\item Hàm số đồng biến trên các khoảng $(-\infty; 1)$ và $(1; +\infty)$.
+			\item Hàm số nghịch biến trên khoảng $(-\infty; 1) \cup (1; +\infty)$.
+		\end{enumerate}
+		
+		% CÂU 8
+		\item Cho hàm số $y = f(x)$ liên tục trên $\mathbb{R}$ và có đồ thị là đường gấp khúc nét liền như hình vẽ dưới đây.
+		\begin{center}
+			\begin{tikzpicture}[scale=0.7, >=stealth]
+				\draw[->] (-2.5,0) -- (2.5,0) node[right] {$x$};
+				\draw[->] (0,-1) -- (0,3) node[above] {$y$};
+				\node at (0,0) [below left] {$O$};
+				
+				% Đường gấp khúc y = -|x| + 2
+				\draw[blue, ultra thick] (-2,0) -- (0,2) -- (2,0);
+				\filldraw[red] (0,2) circle (1.5pt) node[right] {$2$};
+			\end{tikzpicture}
+		\end{center}
+		Khẳng định nào sau đây là đúng?
+		\begin{enumerate}[label=\textbf{\Alph*.}]
+			\item Hàm số không đạt cực trị tại $x = 0$ do không có đạo hàm tại đó.
+			\item Hàm số đạt cực đại tại điểm $x = 0$.
+			\item Hàm số nghịch biến trên khoảng $(-\infty; 0)$.
+			\item Hàm số đồng biến trên khoảng $(0; +\infty)$.
+		\end{enumerate}
+		% CÂU 9
+		\item Cho hàm số $y = f(x)$ có bảng biến thiên như sau:
+		\begin{center}
+			\begin{tikzpicture}[scale=0.65, >=stealth]
+				\draw[thick] (0,0) rectangle (10.5,-3.2);
+				\draw[thick] (0,-0.9) -- (10.5,-0.9);
+				\draw[thick] (0,-1.8) -- (10.5,-1.8);
+				\draw[thick] (2,0) -- (2,-3.2);
+				
+				\node at (1,-0.45) {$x$}; \node at (1,-1.35) {$y'$}; \node at (1,-2.5) {$y$};
+				\node at (2.6,-0.45) {$-\infty$}; \node at (5.0,-0.45) {$-2$}; \node at (7.8,-0.45) {$2$}; \node at (9.8,-0.45) {$+\infty$};
+				
+				\node at (3.8,-1.35) {$+$}; \node at (5.0,-1.35) {$0$}; \node at (6.4,-1.35) {$-$}; \node at (7.8,-1.35) {$0$}; \node at (8.8,-1.35) {$+$};
+				
+				\node (y1) at (2.6,-2.9) {$-\infty$}; \node (y2) at (5.0,-2.1) {$5$}; \node (y3) at (7.8,-2.9) {$-3$}; \node (y4) at (9.8,-2.1) {$+\infty$};
+				\draw[->, thick, blue] (y1) -- (y2); \draw[->, thick, blue] (y2) -- (y3); \draw[->, thick, blue] (y3) -- (y4);
+			\end{tikzpicture}
+		\end{center}
+		Hàm số đã cho đồng biến trên khoảng nào dưới đây?
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $(-2; 2)$.
+				\item $(0; 2)$.
+				\item $(-\infty; -2)$.
+				\item $(-2; +\infty)$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 10
+		\item Cho hàm số $y = f(x)$ có bảng biến thiên như sau:
+		\begin{center}
+			\begin{tikzpicture}[scale=0.65, >=stealth]
+				\draw[thick] (0,0) rectangle (9.5,-3.2);
+				\draw[thick] (0,-0.9) -- (9.5,-0.9);
+				\draw[thick] (0,-1.8) -- (9.5,-1.8);
+				\draw[thick] (2,0) -- (2,-3.2);
+				
+				\node at (1,-0.45) {$x$}; \node at (1,-1.35) {$y'$}; \node at (1,-2.5) {$y$};
+				\node at (2.6,-0.45) {$-\infty$}; \node at (5.75,-0.45) {$3$}; \node at (8.8,-0.45) {$+\infty$};
+				
+				\node at (4.15,-1.35) {$-$}; \node at (5.75,-1.35) {$0$}; \node at (7.25,-1.35) {$+$};
+				
+				\node (y1) at (2.6,-2.1) {$+\infty$}; \node (y2) at (5.75,-2.9) {$1$}; \node (y3) at (8.8,-2.1) {$+\infty$};
+				\draw[->, thick, blue] (y1) -- (y2); \draw[->, thick, blue] (y2) -- (y3);
+			\end{tikzpicture}
+		\end{center}
+		Hàm số đã cho đạt cực tiểu tại điểm nào?
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $x = 1$.
+				\item $x = 3$.
+				\item $x = 0$.
+				\item $y = 1$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 11
+		\item Cho hàm số $y = f(x)$ liên tục trên các khoảng xác định và có bảng biến thiên như sau:
+		\begin{center}
+			\begin{tikzpicture}[scale=0.65, >=stealth]
+				\draw[thick] (0,0) rectangle (9.5,-3.2);
+				\draw[thick] (0,-0.9) -- (9.5,-0.9);
+				\draw[thick] (0,-1.8) -- (9.5,-1.8);
+				\draw[thick] (2,0) -- (2,-3.2);
+				
+				\node at (1,-0.45) {$x$}; \node at (1,-1.35) {$y'$}; \node at (1,-2.5) {$y$};
+				\node at (2.6,-0.45) {$-\infty$}; \node at (5.75,-0.45) {$2$}; \node at (8.8,-0.45) {$+\infty$};
+				
+				\node at (4.15,-1.35) {$-$}; 
+				\draw[double, thick] (5.75,-0.9) -- (5.75,-1.8); \node at (5.75,-1.35) {};
+				\node at (7.25,-1.35) {$-$};
+				
+				\node (y1) at (2.6,-2.1) {$1$}; \node (y2_l) at (5.3,-2.9) {$-\infty$};
+				\node (y2_r) at (6.2,-2.1) {$+\infty$}; \node (y3) at (8.8,-2.9) {$1$};
+				\draw[double, thick] (5.75,-1.8) -- (5.75,-3.2);
+				
+				\draw[->, thick, blue] (y1) -- (y2_l); \draw[->, thick, blue] (y2_r) -- (y3);
+			\end{tikzpicture}
+		\end{center}
+		Phát biểu nào sau đây đúng về tính đơn điệu của hàm số đã cho?
+		\begin{enumerate}[label=\textbf{\Alph*.}]
+			\item Hàm số đồng biến trên các khoảng $(-\infty; 2)$ và $(2; +\infty)$.
+			\item Hàm số nghịch biến trên $\mathbb{R} \setminus \{2\}$.
+			\item Hàm số nghịch biến trên các khoảng $(-\infty; 2)$ và $(2; +\infty)$.
+			\item Hàm số nghịch biến trên khoảng $(-\infty; 2) \cup (2; +\infty)$.
+		\end{enumerate}
+		
+		% CÂU 12
+		\item Cho hàm số trùng phương $y = f(x)$ có bảng biến thiên như sau:
+		\begin{center}
+			\begin{tikzpicture}[scale=0.65, >=stealth]
+				\draw[thick] (0,0) rectangle (11.5,-3.2);
+				\draw[thick] (0,-0.9) -- (11.5,-0.9);
+				\draw[thick] (0,-1.8) -- (11.5,-1.8);
+				\draw[thick] (2,0) -- (2,-3.2);
+				
+				\node at (1,-0.45) {$x$}; \node at (1,-1.35) {$y'$}; \node at (1,-2.5) {$y$};
+				\node at (2.6,-0.45) {$-\infty$}; \node at (4.7,-0.45) {$-2$}; \node at (6.8,-0.45) {$0$}; \node at (8.9,-0.45) {$2$}; \node at (10.9,-0.45) {$+\infty$};
+				
+				\node at (3.65,-1.35) {$+$}; \node at (4.7,-1.35) {$0$}; \node at (5.75,-1.35) {$-$}; \node at (6.8,-1.35) {$0$}; \node at (7.85,-1.35) {$+$}; \node at (8.9,-1.35) {$0$}; \node at (9.9,-1.35) {$-$};
+				
+				\node (y1) at (2.6,-2.9) {$-\infty$}; \node (y2) at (4.7,-2.1) {$4$}; \node (y3) at (6.8,-2.9) {$1$}; \node (y4) at (8.9,-2.1) {$4$}; \node (y5) at (10.9,-2.9) {$-\infty$};
+				\draw[->, thick, blue] (y1) -- (y2); \draw[->, thick, blue] (y2) -- (y3); \draw[->, thick, blue] (y3) -- (y4); \draw[->, thick, blue] (y4) -- (y5);
+			\end{tikzpicture}
+		\end{center}
+		Giá trị cực đại của hàm số đã cho bằng bao nhiêu?
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $x = 2$.
+				\item $y = 1$.
+				\item $y = 4$.
+				\item $x = 0$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 13
+		\item Cho hàm số $y = f(x)$ liên tục trên $\mathbb{R}$ và có bảng biến thiên như sau:
+		\begin{center}
+			\begin{tikzpicture}[scale=0.65, >=stealth]
+				\draw[thick] (0,0) rectangle (9.5,-3.2);
+				\draw[thick] (0,-0.9) -- (9.5,-0.9);
+				\draw[thick] (0,-1.8) -- (9.5,-1.8);
+				\draw[thick] (2,0) -- (2,-3.2);
+				
+				\node at (1,-0.45) {$x$}; \node at (1,-1.35) {$y'$}; \node at (1,-2.5) {$y$};
+				\node at (2.6,-0.45) {$-\infty$}; \node at (5.75,-0.45) {$0$}; \node at (8.8,-0.45) {$+\infty$};
+				
+				\node at (4.15,-1.35) {$-$}; \node at (5.75,-1.35) {$||$}; \node at (7.25,-1.35) {$+$};
+				
+				\node (y1) at (2.6,-2.1) {$+\infty$}; \node (y2) at (5.75,-2.9) {$2$}; \node (y3) at (8.8,-2.1) {$+\infty$};
+				\draw[->, thick, blue] (y1) -- (y2); \draw[->, thick, blue] (y2) -- (y3);
+			\end{tikzpicture}
+		\end{center}
+		Khẳng định nào sau đây là đúng?
+		\begin{enumerate}[label=\textbf{\Alph*.}]
+			\item Hàm số không đạt cực trị tại $x = 0$ vì đạo hàm không xác định tại đó.
+			\item Hàm số nghịch biến trên khoảng $(0; +\infty)$.
+			\item Hàm số đạt cực tiểu tại $x = 0$.
+			\item Hàm số đạt cực đại tại $x = 0$.
+		\end{enumerate}
+		
+		% CÂU 14 (TRICK KHOẢNG CON 1)
+		\item Cho hàm số $y = f(x)$ có bảng biến thiên như sau:
+		\begin{center}
+			\begin{tikzpicture}[scale=0.65, >=stealth]
+				\draw[thick] (0,0) rectangle (11.5,-3.2);
+				\draw[thick] (0,-0.9) -- (11.5,-0.9);
+				\draw[thick] (0,-1.8) -- (11.5,-1.8);
+				\draw[thick] (2,0) -- (2,-3.2);
+				
+				\node at (1,-0.45) {$x$}; \node at (1,-1.35) {$y'$}; \node at (1,-2.5) {$y$};
+				\node at (2.6,-0.45) {$-\infty$}; \node at (4.7,-0.45) {$-2$}; \node at (6.8,-0.45) {$1$}; \node at (8.9,-0.45) {$4$}; \node at (10.9,-0.45) {$+\infty$};
+				
+				\node at (3.65,-1.35) {$+$}; \node at (4.7,-1.35) {$0$}; \node at (5.75,-1.35) {$-$}; \node at (6.8,-1.35) {$0$}; \node at (7.85,-1.35) {$+$}; \node at (8.9,-1.35) {$0$}; \node at (9.9,-1.35) {$-$};
+				
+				\node (y1) at (2.6,-2.9) {$-\infty$}; \node (y2) at (4.7,-2.1) {$3$}; \node (y3) at (6.8,-2.9) {$-1$}; \node (y4) at (8.9,-2.1) {$5$}; \node (y5) at (10.9,-2.9) {$-\infty$};
+				\draw[->, thick, blue] (y1) -- (y2); \draw[->, thick, blue] (y2) -- (y3); \draw[->, thick, blue] (y3) -- (y4); \draw[->, thick, blue] (y4) -- (y5);
+			\end{tikzpicture}
+		\end{center}
+		Hàm số đã cho đồng biến trên khoảng nào dưới đây?
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $(-2; 1)$.
+				\item $(2; 3)$.
+				\item $(0; 2)$.
+				\item $(1; 5)$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 15 (TRICK KHOẢNG CON 2)
+		\item Cho hàm số trùng phương $y = f(x)$ có bảng biến thiên như sau:
+		\begin{center}
+			\begin{tikzpicture}[scale=0.65, >=stealth]
+				\draw[thick] (0,0) rectangle (11.5,-3.2);
+				\draw[thick] (0,-0.9) -- (11.5,-0.9);
+				\draw[thick] (0,-1.8) -- (11.5,-1.8);
+				\draw[thick] (2,0) -- (2,-3.2);
+				
+				\node at (1,-0.45) {$x$}; \node at (1,-1.35) {$y'$}; \node at (1,-2.5) {$y$};
+				\node at (2.6,-0.45) {$-\infty$}; \node at (4.7,-0.45) {$-1$}; \node at (6.8,-0.45) {$0$}; \node at (8.9,-0.45) {$2$}; \node at (10.9,-0.45) {$+\infty$};
+				
+				\node at (3.65,-1.35) {$-$}; \node at (4.7,-1.35) {$0$}; \node at (5.75,-1.35) {$+$}; \node at (6.8,-1.35) {$0$}; \node at (7.85,-1.35) {$-$}; \node at (8.9,-1.35) {$0$}; \node at (9.9,-1.35) {$+$};
+				
+				\node (y1) at (2.6,-2.1) {$+\infty$}; \node (y2) at (4.7,-2.9) {$-2$}; \node (y3) at (6.8,-2.1) {$1$}; \node (y4) at (8.9,-2.9) {$-3$}; \node (y5) at (10.9,-2.1) {$+\infty$};
+				\draw[->, thick, blue] (y1) -- (y2); \draw[->, thick, blue] (y2) -- (y3); \draw[->, thick, blue] (y3) -- (y4); \draw[->, thick, blue] (y4) -- (y5);
+			\end{tikzpicture}
+		\end{center}
+		Hàm số đã cho nghịch biến trên khoảng nào dưới đây?
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $(-1; 0)$.
+				\item $(2; +\infty)$.
+				\item $(0; 1)$.
+				\item $(-2; 1)$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 16 (TRICK KHOẢNG CON 3)
+		\item Cho hàm số $y = f(x)$ có bảng biến thiên như sau:
+		\begin{center}
+			\begin{tikzpicture}[scale=0.65, >=stealth]
+				\draw[thick] (0,0) rectangle (9.5,-3.2);
+				\draw[thick] (0,-0.9) -- (9.5,-0.9);
+				\draw[thick] (0,-1.8) -- (9.5,-1.8);
+				\draw[thick] (2,0) -- (2,-3.2);
+				
+				\node at (1,-0.45) {$x$}; \node at (1,-1.35) {$y'$}; \node at (1,-2.5) {$y$};
+				\node at (2.6,-0.45) {$-\infty$}; \node at (5.75,-0.45) {$-3$}; \node at (7.5,-0.45) {$3$}; \node at (8.8,-0.45) {$+\infty$};
+				
+				\node at (4.15,-1.35) {$-$}; \node at (5.75,-1.35) {$0$}; \node at (6.625,-1.35) {$+$}; \node at (7.5,-1.35) {$0$}; \node at (8.15,-1.35) {$-$};
+				
+				\node (y1) at (2.6,-2.1) {$+\infty$}; \node (y2) at (5.75,-2.9) {$-5$}; \node (y3) at (7.5,-2.1) {$5$}; \node (y4) at (8.8,-2.9) {$-\infty$};
+				\draw[->, thick, blue] (y1) -- (y2); \draw[->, thick, blue] (y2) -- (y3); \draw[->, thick, blue] (y3) -- (y4);
+			\end{tikzpicture}
+		\end{center}
+		Hàm số đã cho đồng biến trên khoảng nào dưới đây?
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $(-\infty; -3)$.
+				\item $(3; +\infty)$.
+				\item $(-1; 2)$.
+				\item $(-4; 0)$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 17
+		\item Cho hàm số $y = \dfrac{1}{3}x^3 + x^2 + 3x - 5$. Khẳng định nào sau đây là khẳng định đúng?
+		\begin{enumerate}[label=\textbf{\Alph*.}]
+			\item Hàm số luôn đồng biến trên $\mathbb{R}$.
+			\item Hàm số luôn nghịch biến trên $\mathbb{R}$.
+			\item Hàm số đồng biến trên khoảng $(-\infty; -1)$ và nghịch biến trên khoảng $(-1; +\infty)$.
+			\item Hàm số nghịch biến trên khoảng $(-\infty; -1)$ và đồng biến trên khoảng $(-1; +\infty)$.
+		\end{enumerate}
+		
+		% CÂU 18
+		\item Cho hàm số $y = \dfrac{2x + 5}{x + 1}$. Khẳng định nào sau đây là khẳng định đúng?
+		\begin{enumerate}[label=\textbf{\Alph*.}]
+			\item Hàm số nghịch biến trên tập xác định $\mathbb{R} \setminus \{-1\}$.
+			\item Hàm số nghịch biến trên khoảng $(-\infty; -1) \cup (-1; +\infty)$.
+			\item Hàm số nghịch biến trên các khoảng $(-\infty; -1)$ và $(-1; +\infty)$.
+			\item Hàm số đồng biến trên các khoảng $(-\infty; -1)$ và $(-1; +\infty)$.
+		\end{enumerate}
+		
+		% CÂU 19
+		\item Cho hàm số $y = -x^3 + 3x^2 + 9x - 1$. Khẳng định nào sau đây là khẳng định đúng?
+		\begin{enumerate}[label=\textbf{\Alph*.}]
+			\item Hàm số nghịch biến trên khoảng $(-1; 3)$.
+			\item Hàm số đồng biến trên khoảng $(-1; 3)$.
+			\item Hàm số đồng biến trên các khoảng $(-\infty; -1)$ và $(3; +\infty)$.
+			\item Hàm số nghịch biến trên tập số thực $\mathbb{R}$.
+		\end{enumerate}
+		
+		% CÂU 20
+		\item Cho hàm số $y = x^4 - 2x^2 + 3$. Hàm số đã cho đồng biến trên các khoảng nào dưới đây?
+		\begin{enumerate}[label=\textbf{\Alph*.}]
+			\item $(-\infty; -1)$ và $(0; 1)$.
+			\item $(-1; 1)$.
+			\item $(-1; 0)$ và $(1; +\infty)$.
+			\item $(-\infty; 0)$.
+		\end{enumerate}
+		
+		% CÂU 21
+		\item Cho hàm số $y = \dfrac{x - 3}{x + 2}$. Mệnh đề nào dưới đây là đúng?
+		\begin{enumerate}[label=\textbf{\Alph*.}]
+			\item Hàm số luôn đồng biến trên $\mathbb{R} \setminus \{-2\}$.
+			\item Hàm số đồng biến trên các khoảng $(-\infty; -2)$ và $(-2; +\infty)$.
+			\item Hàm số đồng biến trên tập hợp $(-\infty; -2) \cup (-2; +\infty)$.
+			\item Hàm số nghịch biến trên các khoảng $(-\infty; -2)$ và $(-2; +\infty)$.
+		\end{enumerate}
+		
+		
+		% CÂU 22
+		\item Hỏi hàm số $y = \dfrac{x^2 - 4x + 5}{x - 2}$ nghịch biến trên các khoảng nào?
+		\begin{enumerate}[label=\textbf{\Alph*.}]
+			\item $(-\infty; 1)$ và $(3; +\infty)$.
+			\item $(1; 3)$.
+			\item $(1; 2)$ và $(2; 3)$.
+			\item $(-\infty; 2)$ và $(2; +\infty)$.
+		\end{enumerate}
+		
+		% CÂU 23
+		\item Hỏi hàm số $y = \dfrac{x^2 + 2x + 2}{x + 1}$ đồng biến trên các khoảng nào dưới đây?
+		\begin{enumerate}[label=\textbf{\Alph*.}]
+			\item $(-\infty; -2)$ và $(0; +\infty)$.
+			\item $(-2; 0)$.
+			\item $(-2; -1)$ và $(-1; 0)$.
+			\item $(-\infty; -1)$ và $(-1; +\infty)$.
+		\end{enumerate}
+		
+		% CÂU 24
+		\item Cho hàm số $y = \dfrac{x^2+4x+5}{x+2}$. Khẳng định nào sau đây là khẳng định đúng?
+		\begin{enumerate}[label=\textbf{\Alph*.}]
+			\item Hàm số nghịch biến trên khoảng $(-3; -1)$.
+			\item Hàm số nghịch biến trên các khoảng $(-3; -2)$ và $(-2; -1)$.
+			\item Hàm số đồng biến trên các khoảng $(-3; -2)$ và $(-2; -1)$.
+			\item Hàm số nghịch biến trên khoảng $(-\infty; -2)$.
+		\end{enumerate}
+		
+		% CÂU 25 (TRICK KHOẢNG CON)
+		\item Cho hàm số $y = 2x^3 - 3x^2 - 12x + 1$. Hàm số đã cho đồng biến trên khoảng nào dưới đây?
+		\begin{enumerate}[label=\textbf{\Alph*.}]
+			\item $(-1; 2)$.
+			\item $(-2; 1)$.
+			\item $(3; 5)$.
+			\item $(0; 3)$.
+		\end{enumerate}
+		
+		% CÂU 26 (TRICK KHOẢNG CON)
+		\item Cho hàm số $y = -x^3 + 3x^2 + 24x + 5$. Hàm số đã cho đồng biến trên khoảng nào dưới đây?
+		\begin{enumerate}[label=\textbf{\Alph*.}]
+			\item $(-\infty; -2)$.
+			\item $(4; +\infty)$.
+			\item $(0; 3)$.
+			\item $(-3; 2)$.
+		\end{enumerate}
+		
+		% CÂU 27 (TRICK KHOẢNG CON)
+		\item Cho hàm số $y = \dfrac{x + 3}{x - 2}$. Hàm số đã cho nghịch biến trên khoảng nào dưới đây?
+		\begin{enumerate}[label=\textbf{\Alph*.}]
+			\item $(0; 3)$.
+			\item $(1; 5)$.
+			\item $(3; 4)$.
+			\item $(-\infty; 3)$.
+		\end{enumerate}
+		
+		% CÂU 28 (TRICK KHOẢNG CON)
+		\item Cho hàm số $y = \dfrac{x^2 - x + 1}{x - 1}$. Hàm số đã cho đồng biến trên khoảng nào dưới đây?
+		\begin{enumerate}[label=\textbf{\Alph*.}]
+			\item $(0; 1)$.
+			\item $(1; 2)$.
+			\item $(3; 4)$.
+			\item $(0; 2)$.
+		\end{enumerate}
+		
+		% CÂU 29 (TRICK KHOẢNG CON)
+		\item Cho hàm số $y = \dfrac{x^2 + x + 4}{x + 1}$. Hàm số đã cho nghịch biến trên khoảng nào dưới đây?
+		\begin{enumerate}[label=\textbf{\Alph*.}]
+			\item $(-\infty; -3)$.
+			\item $(-2; -1.5)$.
+			\item $(1; 3)$.
+			\item $(-1; 2)$.
+		\end{enumerate}
+		
+		% CÂU 30
+		\item Cho hàm số $y = -2x^2 + 8x - 1$. Mệnh đề nào sau đây là mệnh đề đúng?
+		\begin{enumerate}[label=\textbf{\Alph*.}]
+			\item Hàm số nghịch biến trên khoảng $(-\infty; 2)$.
+			\item Hàm số đồng biến trên khoảng $(-\infty; 2)$.
+			\item Hàm số đồng biến trên khoảng $(2; +\infty)$.
+			\item Hàm số đồng biến trên tập số thực $\mathbb{R}$.
+		\end{enumerate}
+		
+		% CÂU 31
+		\item Hỏi hàm số $y = \dfrac{x^2 - 3x + 6}{x - 1}$ nghịch biến trên các khoảng nào dưới đây?
+		\begin{enumerate}[label=\textbf{\Alph*.}]
+			\item $(-1; 3)$.
+			\item $(-\infty; -1)$ và $(3; +\infty)$.
+			\item $(-1; 1)$ và $(1; 3)$.
+			\item $(-\infty; 1)$ và $(1; +\infty)$.
+		\end{enumerate}
+		
+		% CÂU 32
+		\item Hỏi hàm số $y = \dfrac{x^2 - 6x + 10}{x - 3}$ đồng biến trên các khoảng nào dưới đây?
+		\begin{enumerate}[label=\textbf{\Alph*.}]
+			\item $(2; 4)$.
+			\item $(-\infty; 2)$ và $(4; +\infty)$.
+			\item $(2; 3)$ và $(3; 4)$.
+			\item $(-\infty; 3)$ và $(3; +\infty)$.
+		\end{enumerate}
+		
+		% CÂU 33
+		\item Hàm số $y = \dfrac{x^2 - 4x + 8}{x - 2}$ đồng biến trên các khoảng nào dưới đây?
+		\begin{enumerate}[label=\textbf{\Alph*.}]
+			\item $(0; 4)$.
+			\item $(0; 2)$ và $(2; 4)$.
+			\item $(-\infty; 0)$ và $(4; +\infty)$.
+			\item $(-\infty; 2)$ và $(2; +\infty)$.
+		\end{enumerate}
+		
+		% CÂU 34 (TRICK KHOẢNG CON)
+		\item Cho hàm số $y = \dfrac{2x^2 - x + 2}{2x - 1}$. Hàm số đã cho nghịch biến trên khoảng nào dưới đây?
+		\begin{enumerate}[label=\textbf{\Alph*.}]
+			\item $(-0.5; 1.5)$.
+			\item $(0.6; 1.2)$.
+			\item $(1.5; 3)$.
+			\item $(-\infty; -0.5)$.
+		\end{enumerate}
+		
+		% CÂU 35 (TRICK KHOẢNG CON)
+		\item Cho hàm số $y = -x^3 + 12x - 4$. Hàm số đã cho đồng biến trên khoảng nào dưới đây?
+		\begin{enumerate}[label=\textbf{\Alph*.}]
+			\item $(-\infty; -2)$.
+			\item $(2; 5)$.
+			\item $(0; 1)$.
+			\item $(-3; 1)$.
+		\end{enumerate}
+		
+		% CÂU 36
+		\item Hỏi hàm số $y = \dfrac{x^2 + 6x + 13}{x + 3}$ nghịch biến trên các khoảng nào dưới đây?
+		\begin{enumerate}[label=\textbf{\Alph*.}]
+			\item $(-5; -1)$.
+			\item $(-\infty; -5)$ và $(-1; +\infty)$.
+			\item $(-5; -3)$ và $(-3; -1)$.
+			\item $(-\infty; -3)$ và $(-3; +\infty)$.
+		\end{enumerate}
+		
+		% CÂU 37 (TRICK KHOẢNG CON)
+		\item Cho hàm số $y = x^3 - 6x^2 + 9x + 2$. Hàm số đã cho nghịch biến trên khoảng nào dưới đây?
+		\begin{enumerate}[label=\textbf{\Alph*.}]
+			\item $(-\infty; 1)$.
+			\item $(1.5; 2.5)$.
+			\item $(3; +\infty)$.
+			\item $(0; 2)$.
+		\end{enumerate}
+		
+		% CÂU 38
+		\item Biết đồ thị hàm số $y = x^3 - 3x^2 + 2$ có hai điểm cực trị $A, B$. Khi đó phương trình đường thẳng $AB$ là:
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $y = -2x + 2$.
+				\item $y = 2x - 2$.
+				\item $y = -x + 2$.
+				\item $y = -2x$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 39
+		\item Biết đồ thị hàm số $y = x^3 - 3x^2 - 9x + 1$ có hai điểm cực trị $A, B$. Phương trình đường thẳng đi qua hai điểm cực trị đó là:
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $y = -8x + 2$.
+				\item $y = -8x - 2$.
+				\item $y = 8x - 2$.
+				\item $y = -4x - 2$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 40
+		\item Đường thẳng đi qua hai điểm cực trị của đồ thị hàm số $y = 2x^3 - 3x^2 - 12x + 5$ có phương trình là:
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $y = -9x + 3$.
+				\item $y = -9x - 3$.
+				\item $y = 9x + 3$.
+				\item $y = -3x + 1$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 41
+		\item Đồ thị hàm số $y = x^3 - 3x^2 - 9x + 5$ có tọa độ điểm cực tiểu là:
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $(-1; 10)$.
+				\item $(3; -22)$.
+				\item $(3; -27)$.
+				\item $(-1; 5)$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 42
+		\item Tọa độ điểm cực đại của đồ thị hàm số $y = x^3 - 3x^2 + 4$ là:
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $(2; 0)$.
+				\item $(0; 4)$.
+				\item $(0; 0)$.
+				\item $(2; 4)$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 43
+		\item Đồ thị hàm số $y = -x^3 + 3x + 1$ có tọa độ điểm cực đại là:
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $(-1; -1)$.
+				\item $(1; 3)$.
+				\item $(1; 1)$.
+				\item $(-1; 3)$.
+			\end{enumerate}
+		\end{multicols}
+		
+	\end{enumerate}
+	
+	
+	\subsection{Bài tập đúng sai}
+	
+	\begin{enumerate}[label=\textbf{Câu \arabic*.}]
+		
+		% CÂU 1
+		\item Cho hàm số $y = f(x)$ liên tục trên $\mathbb{R}$ và có bảng biến thiên như sau:
+		\begin{center}
+			\begin{tikzpicture}[scale=0.65, >=stealth]
+				\draw[thick] (0,0) rectangle (10.5,-3.2);
+				\draw[thick] (0,-0.9) -- (10.5,-0.9);
+				\draw[thick] (0,-1.8) -- (10.5,-1.8);
+				\draw[thick] (2,0) -- (2,-3.2);
+				
+				\node at (1,-0.45) {$x$}; \node at (1,-1.35) {$y'$}; \node at (1,-2.5) {$y$};
+				\node at (2.6,-0.45) {$-\infty$}; \node at (5.0,-0.45) {$-2$}; \node at (7.8,-0.45) {$2$}; \node at (9.8,-0.45) {$+\infty$};
+				
+				\node at (3.8,-1.35) {$+$}; \node at (5.0,-1.35) {$0$}; \node at (6.4,-1.35) {$-$}; \node at (7.8,-1.35) {$0$}; \node at (8.8,-1.35) {$+$};
+				
+				\node (y1) at (2.6,-2.9) {$-\infty$}; \node (y2) at (5.0,-2.1) {$5$}; \node (y3) at (7.8,-2.9) {$-3$}; \node (y4) at (9.8,-2.1) {$+\infty$};
+				\draw[->, thick, blue] (y1) -- (y2); \draw[->, thick, blue] (y2) -- (y3); \draw[->, thick, blue] (y3) -- (y4);
+			\end{tikzpicture}
+		\end{center}
+		Xét tính đúng hay sai của các mệnh đề sau:
+		\begin{enumerate}[label=\alph*)]
+			\item Hàm số đã cho nghịch biến trên khoảng $(-2; 2)$.
+			\item So sánh hai giá trị cực trị của hàm số, ta có $f(-1) < f(1)$.
+			\item Điểm cực tiểu của hàm số đã cho bằng $-3$.
+			\item Đường thẳng đi qua hai điểm cực trị của đồ thị hàm số có hệ số góc bằng $-2$.
+		\end{enumerate}
+		
+		% CÂU 2
+		\item Cho hàm số $y = x^3 - 3x^2 + 1$ có đồ thị là đường cong $(C)$. Gọi $A, B$ là hai điểm cực trị của đồ thị $(C)$. Xét tính đúng hay sai của các mệnh đề sau:
+		\begin{enumerate}[label=\alph*)]
+			\item Hàm số đã cho đạt cực đại tại $x = 0$ và đạt cực tiểu tại $x = 2$.
+			\item Hai điểm cực trị $A, B$ của đồ thị hàm số nằm về hai phía khác nhau đối với trục hoành $Ox$.
+			\item Phương trình đường thẳng đi qua hai điểm cực trị $A, B$ là $y = -2x + 1$.
+			\item Diện tích tam giác $OAB$ (với $O$ là gốc tọa độ) bằng $1$.
+		\end{enumerate}
+		
+		% CÂU 3
+		\item Cho hàm số bậc ba $y = x^3 - 3x^2 - 9x + 2$ có hai điểm cực trị là $x_1$ và $x_2$. Gọi $A, B$ lần lượt là các điểm cực trị tương ứng của đồ thị hàm số. Xét tính đúng hay sai của các mệnh đề sau:
+		\begin{enumerate}[label=\alph*)]
+			\item Tổng hoành độ hai điểm cực trị của hàm số bằng $x_1 + x_2 = 2$.
+			\item Tích hai giá trị cực trị của hàm số bằng $-175$.
+			\item Đường thẳng $AB$ đi qua hai điểm cực trị song song với đường thẳng $d: y = -8x + 5$.
+			\item Điểm cực đại của đồ thị hàm số có tọa độ là $(3; -25)$.
+		\end{enumerate}
+		
+		% CÂU 4
+		\item Cho hàm số $y = -x^3 + 3x$ có đồ thị $(C)$. Gọi $A$ và $B$ là hai điểm cực trị của đồ thị $(C)$, và điểm $C(0; 3)$. Xét tính đúng hay sai của các mệnh đề sau:
+		\begin{enumerate}[label=\alph*)]
+			\item Khoảng cách giữa hai điểm cực trị $A$ và $B$ bằng $2\sqrt{5}$.
+			\item Đường trung trực của đoạn thẳng $AB$ đi qua gốc tọa độ $O$.
+			\item Tam giác $ABC$ là tam giác cân tại đỉnh $C$.
+			\item Diện tích tam giác $ABC$ bằng $3$.
+		\end{enumerate}
+		
+		% CÂU 5
+		\item Cho hàm số $y = x^3 - 3x + 2$ có đồ thị là đường cong $(C)$. Gọi $A, B$ là hai điểm cực trị của đồ thị $(C)$ và điểm $C(1; 4)$. Xét tính đúng hay sai của các mệnh đề sau:
+		\begin{enumerate}[label=\alph*)]
+			\item Hệ số góc của đường thẳng đi qua hai điểm cực trị $A, B$ là $k = -2$.
+			\item Tam giác $ABC$ là tam giác vuông tại đỉnh $C$.
+			\item Bán kính đường tròn ngoại tiếp tam giác $ABC$ bằng $\sqrt{5}$.
+			\item Chu vi của tam giác $ABC$ bằng $6 + 2\sqrt{5}$.
+		\end{enumerate}
+		
+		% CÂU 6
+		\item Cho hàm số $y = \dfrac{1}{3}x^3 - 2x^2 + 3x + 1$ có đồ thị $(C)$. Gọi $d$ là đường thẳng đi qua hai điểm cực trị của đồ thị $(C)$. Xét tính đúng hay sai của các mệnh đề sau:
+		\begin{enumerate}[label=\alph*)]
+			\item Hoành độ của các điểm cực trị là nghiệm của phương trình bậc hai $x^2 - 4x + 3 = 0$.
+			\item Đường thẳng $d$ đi qua hai điểm cực trị song song với đường thẳng $\Delta: y = -\dfrac{2}{3}x + 3$.
+			\item Khoảng cách từ gốc tọa độ $O$ đến đường thẳng $d$ bằng $\dfrac{9}{\sqrt{13}}$.
+			\item Đồ thị hàm số đã cho có điểm cực tiểu nằm trên đường thẳng nằm ngang $y = 1$.
+		\end{enumerate}
+		
+		% CÂU 7
+		\item Cho hàm số $y = \dfrac{x^2 - 3x + 5}{x + 1}$ có đồ thị là đường cong $(C)$. Xét tính đúng hay sai của các mệnh đề sau:
+		\begin{enumerate}[label=\alph*)]
+			\item Phương trình đạo hàm $y' = 0$ có hai nghiệm nguyên phân biệt.
+			\item Hàm số đã cho đồng biến trên khoảng $(2; +\infty)$.
+			\item So sánh hai giá trị của hàm số, ta có $f(3) > f(5)$.
+			\item Đường thẳng đi qua hai điểm cực trị của đồ thị $(C)$ cắt hai trục tọa độ tạo thành một tam giác có diện tích bằng $3$.
+		\end{enumerate}
+		
+		% CÂU 8
+		\item Cho hàm số trùng phương $y = x^4 - 2x^2 + 3$ có đồ thị là đường cong $(C)$. Gọi $A, B, C$ là ba điểm cực trị của đồ thị $(C)$. Xét tính đúng hay sai của các mệnh đề sau:
+		\begin{enumerate}[label=\alph*)]
+			\item Hàm số đã cho nghịch biến trên khoảng $(-\infty; -3)$.
+			\item Hàm số đã cho đồng biến trên khoảng $\left(-\dfrac{1}{2}; 0\right)$.
+			\item Đồ thị $(C)$ của hàm số đã cho có $2$ điểm cực tiểu.
+			\item Ba điểm cực trị $A, B, C$ tạo thành một tam giác cân có diện tích bằng $1$.
+		\end{enumerate}
+		
+		% CÂU 9
+		\item Cho hàm số bậc ba $y = f(x)$ liên tục trên $\mathbb{R}$ và có đồ thị như hình vẽ bên dưới:
+		\begin{center}
+			\begin{tikzpicture}[scale=0.8, >=stealth]
+				\draw[->] (-1.5,0) -- (3.5,0) node[right] {$x$};
+				\draw[->] (0,-2) -- (0,3.5) node[above] {$y$};
+				\node at (0,0) [below left] {$O$};
+				
+				\draw[domain=-0.8:2.8, smooth, variable=\x, blue, ultra thick] plot ({\x},{\x^3 - 3*\x^2 + 3});
+				
+				\draw[dashed, gray] (2,0) node[above] {$2$} -- (2,-1) -- (0,-1) node[left] {$-1$};
+				\filldraw[red] (0,3) circle (1.5pt) node[right] {$3$};
+				\filldraw[red] (2,-1) circle (1.5pt);
+			\end{tikzpicture}
+		\end{center}
+		Xét tính đúng hay sai của các mệnh đề sau:
+		\begin{enumerate}[label=\alph*)]
+			\item Hàm số đã cho nghịch biến trên khoảng $(0; 2)$.
+			\item Đạo hàm $f'(x) > 0$ với mọi $x \in (-\infty; 0) \cup (2; +\infty)$.
+			\item Tọa độ điểm cực đại của đồ thị hàm số đã cho là $(0; 3)$.
+			\item Đường thẳng đi qua hai điểm cực trị của đồ thị hàm số song song với đường thẳng $y = -2x + 5$.
+		\end{enumerate}
+		
+		% CÂU 10
+		\item Cho hàm số bậc ba $y = x^3 - 3x^2 + 1$ có đồ thị là đường cong $(C)$. Gọi $A, B$ là hai điểm cực trị của đồ thị $(C)$. Xét tính đúng hay sai của các mệnh đề sau:
+		\begin{enumerate}[label=\alph*)]
+			\item Tích hai hoành độ cực trị của hàm số bằng $0$.
+			\item Hàm số đạt cực đại tại điểm $x = 0$.
+			\item So sánh giá trị của hàm số, ta có $f(-2) < f(-1) < f(0)$.
+			\item Đường tròn có đường kính là đoạn thẳng $AB$ đi qua điểm $M(0; -3)$.
+		\end{enumerate}
+		
+		% CÂU 11
+		\item Cho hàm số $y = \dfrac{x^2 - x + 1}{x - 1}$ có đồ thị là đường cong $(C)$. Gọi $A, B$ là hai điểm cực trị của đồ thị $(C)$. Xét tính đúng hay sai của các mệnh đề sau:
+		\begin{enumerate}[label=\alph*)]
+			\item Tập xác định của hàm số là $\mathbb{D} = \mathbb{R} \setminus \{1\}$.
+			\item Giá trị cực tiểu của hàm số đã cho lớn hơn giá trị cực đại của nó.
+			\item So sánh giá trị của hàm số, ta có $f(2) < f(3) < f(4)$.
+			\item Đường thẳng $AB$ đi qua hai điểm cực trị vuông góc với đường thẳng $y = -\dfrac{1}{2}x + 2025$.
+		\end{enumerate}
+		
+		% CÂU 12
+		\item Cho hàm số bậc ba $y = f(x)$ liên tục trên $\mathbb{R}$ và có bảng biến thiên dưới đây:
+		\begin{center}
+			\begin{tikzpicture}[scale=0.65, >=stealth]
+				\draw[thick] (0,0) rectangle (10.5,-3.2);
+				\draw[thick] (0,-0.9) -- (10.5,-0.9);
+				\draw[thick] (0,-1.8) -- (10.5,-1.8);
+				\draw[thick] (2,0) -- (2,-3.2);
+				
+				\node at (1,-0.45) {$x$}; \node at (1,-1.35) {$y'$}; \node at (1,-2.5) {$y$};
+				\node at (2.6,-0.45) {$-\infty$}; \node at (5.0,-0.45) {$-1$}; \node at (7.8,-0.45) {$3$}; \node at (9.8,-0.45) {$+\infty$};
+				
+				\node at (3.8,-1.35) {$-$}; \node at (5.0,-1.35) {$0$}; \node at (6.4,-1.35) {$+$}; \node at (7.8,-1.35) {$0$}; \node at (8.8,-1.35) {$-$};
+				
+				\node (y1) at (2.6,-2.1) {$+\infty$}; \node (y2) at (5.0,-2.9) {$2$}; \node (y3) at (7.8,-2.1) {$10$}; \node (y4) at (9.8,-2.9) {$-\infty$};
+				\draw[->, thick, blue] (y1) -- (y2); \draw[->, thick, blue] (y2) -- (y3); \draw[->, thick, blue] (y3) -- (y4);
+			\end{tikzpicture}
+		\end{center}
+		Xét tính đúng hay sai của các mệnh đề sau:
+		\begin{enumerate}[label=\alph*)]
+			\item Hàm số đã cho nghịch biến trên khoảng $(3; +\infty)$.
+			\item Điểm cực tiểu của hàm số đã cho là $x = -1$.
+			\item So sánh giá trị của hàm số, ta có $f(0) < f(2)$.
+			\item Điểm cực đại $M(3; 10)$ và điểm cực tiểu $N(-1; 2)$ của đồ thị hàm số nằm ở hai phía đối với đường thẳng $y = 3x - 1$.
+		\end{enumerate}
+		
+		% CÂU 13
+		\item Cho hàm số bậc ba $y = x^3 - 3x^2 - 9x + 5$ có đồ thị là đường cong $(C)$. Gọi $A, B$ là hai điểm cực trị của đồ thị $(C)$. Xét tính đúng hay sai của các mệnh đề sau:
+		\begin{enumerate}[label=\alph*)]
+			\item Khoảng cách giữa các hoành độ cực trị của hàm số bằng $4$.
+			\item Hàm số đã cho nghịch biến trên khoảng $(-1; 3)$.
+			\item So sánh giá trị của hàm số, ta có $f(-0.5) > f(1) > f(2.5)$.
+			\item Khoảng cách từ gốc tọa độ $O$ đến đường thẳng đi qua hai điểm cực trị $A, B$ bằng $\dfrac{2}{\sqrt{65}}$.
+		\end{enumerate}
+		
+		% CÂU 14
+		\item Cho hàm số $y = \dfrac{x^2 - 4x + 5}{x - 2}$ có đồ thị là đường cong $(C)$. Gọi $A, B$ là hai điểm cực trị của đồ thị $(C)$. Xét tính đúng hay sai của các mệnh đề sau:
+		\begin{enumerate}[label=\alph*)]
+			\item Hàm số đã cho đồng biến trên các khoảng $(-\infty; 1)$ và $(3; +\infty)$.
+			\item Đồ thị $(C)$ có điểm cực tiểu là $B(3; 2)$.
+			\item So sánh giá trị của hàm số, ta có $f(4) > f(3) > f(1)$.
+			\item Diện tích của tam giác tạo bởi hai điểm cực trị $A, B$ và gốc tọa độ $O$ bằng $4$.
+		\end{enumerate}
+		
+		% CÂU 15
+		\item Cho hàm số trùng phương $y = -x^4 + 2x^2 + 3$ có đồ thị là đường cong $(C)$. Gọi $A, B, C$ là ba điểm cực trị của đồ thị $(C)$. Xét tính đúng hay sai của các mệnh đề sau:
+		\begin{enumerate}[label=\alph*)]
+			\item Hàm số đã cho đồng biến trên các khoảng $(-\infty; -1)$ và $(0; 1)$.
+			\item Giá trị cực đại của hàm số đã cho bằng $4$.
+			\item So sánh giá trị của hàm số, ta có $f(0.5) > f(0.2)$.
+			\item Ba điểm cực trị $A, B, C$ tạo thành một tam giác có bán kính đường tròn ngoại tiếp bằng $\dfrac{5}{2}$.
+		\end{enumerate}
+		
+		% CÂU 16
+		\item Cho hàm số bậc ba $y = f(x)$ liên tục trên $\mathbb{R}$ và có đồ thị như hình vẽ bên dưới:
+		\begin{center}
+			\begin{tikzpicture}[scale=0.8, >=stealth]
+				\draw[->] (-2.5,0) -- (2.5,0) node[right] {$x$};
+				\draw[->] (0,-2.5) -- (0,2.5) node[above] {$y$};
+				\node at (0,0) [below left] {$O$};
+				
+				\draw[domain=-2.1:2.1, smooth, variable=\x, blue, ultra thick] plot ({\x},{\x^3 - 3*\x});
+				
+				\draw[dashed, gray] (-1,0) node[above] {$-1$} -- (-1,2) -- (0,2) node[right] {$2$};
+				\draw[dashed, gray] (1,0) node[below] {$1$} -- (1,-2) -- (0,-2) node[left] {$-2$};
+				\filldraw[red] (-1,2) circle (1.5pt);
+				\filldraw[red] (1,-2) circle (1.5pt);
+			\end{tikzpicture}
+		\end{center}
+		Xét tính đúng hay sai của các mệnh đề sau:
+		\begin{enumerate}[label=\alph*)]
+			\item Hàm số đã cho đồng biến trên các khoảng $(-\infty; -1)$ và $(1; +\infty)$.
+			\item Đồ thị hàm số đã cho đi qua gốc tọa độ $O(0; 0)$.
+			\item So sánh giá trị của hàm số, ta có $f(1.5) > f(2)$.
+			\item Đường thẳng đi qua hai điểm cực trị cắt trục tung tại điểm $M(0; 0)$.
+		\end{enumerate}
+		
+		% CÂU 17
+		\item Cho hàm số $y = \dfrac{x^2 + 2x + 2}{x + 1}$ có đồ thị là đường cong $(C)$. Gọi $A, B$ là hai điểm cực trị của đồ thị $(C)$. Xét tính đúng hay sai của các mệnh đề sau:
+		\begin{enumerate}[label=\alph*)]
+			\item Hàm số đã cho đồng biến trên khoảng $(0; +\infty)$.
+			\item Giá trị cực tiểu của hàm số đã cho lớn hơn giá trị cực đại của nó.
+			\item So sánh giá trị của hàm số, ta có $f(2) > f(1)$.
+			\item Đường thẳng đi qua hai điểm cực trị $A, B$ cắt trục hoành tại điểm $M(-1; 0)$.
+		\end{enumerate}
+		
+		% CÂU 18
+		\item Cho hàm số bậc ba $y = -x^3 + 3x^2 - 4$ có đồ thị là đường cong $(C)$. Gọi $A, B$ là hai điểm cực trị của đồ thị $(C)$. Xét tính đúng hay sai của các mệnh đề sau:
+		\begin{enumerate}[label=\alph*)]
+			\item Hàm số đã cho đạt cực tiểu tại điểm $x = 0$.
+			\item Các điểm cực trị $A, B$ của đồ thị $(C)$ đều nằm dưới hoặc nằm trên trục hoành $Ox$.
+			\item So sánh giá trị của hàm số, ta có $f(0.5) < f(1.5)$.
+			\item Khoảng cách giữa hai điểm cực trị $A, B$ bằng $2\sqrt{5}$.
+		\end{enumerate}
+		
+		% CÂU 19
+		\item Cho hàm số $y = \dfrac{x^2 - 3x + 6}{x - 1}$ có đồ thị là đường cong $(C)$. Gọi $A, B$ là hai điểm cực trị của đồ thị $(C)$. Xét tính đúng hay sai của các mệnh đề sau:
+		\begin{enumerate}[label=\alph*)]
+			\item Hàm số đã cho nghịch biến trên khoảng $(1; 3)$.
+			\item Đồ thị $(C)$ có điểm cực tiểu là $B(3; 3)$.
+			\item So sánh giá trị của hàm số, ta có $f(-2) < f(-1.5)$.
+			\item Trung điểm $I$ của đoạn thẳng nối hai cực trị $A, B$ có tọa độ là $(1; -1)$.
+		\end{enumerate}
+		
+		% CÂU 20
+		\item Cho hàm số bậc ba $y = f(x)$ liên tục trên $\mathbb{R}$ và có đồ thị như hình vẽ dưới đây:
+		\begin{center}
+			\begin{tikzpicture}[scale=0.8, >=stealth]
+				\draw[->] (-3,0) -- (3,0) node[right] {$x$};
+				\draw[->] (0,-2.5) -- (0,2.5) node[above] {$y$};
+				\node at (0,0) [below left] {$O$};
+				
+				\draw[domain=-2.2:2.2, smooth, variable=\x, blue, ultra thick] plot ({\x},{-0.25*\x^3 + 3*0.25*\x});
+				
+				\draw[dashed, gray] (-2,0) node[below] {$-2$} -- (-2,-1) -- (0,-1) node[right] {$-1$};
+				\draw[dashed, gray] (2,0) node[above] {$2$} -- (2,1) -- (0,1) node[left] {$1$};
+				\filldraw[red] (-2,-1) circle (1.5pt);
+				\filldraw[red] (2,1) circle (1.5pt);
+			\end{tikzpicture}
+		\end{center}
+		Xét tính đúng hay sai của các mệnh đề sau:
+		\begin{enumerate}[label=\alph*)]
+			\item Hàm số đã cho đồng biến trên khoảng $(-\infty; -2)$.
+			\item Hệ số góc của tiếp tuyến tại gốc tọa độ $O(0; 0)$ của đồ thị hàm số có giá trị âm.
+			\item So sánh giá trị của hàm số, ta có $f(-1) > f(1)$.
+			\item Đường thẳng đi qua hai điểm cực trị của đồ thị vuông góc với đường phân giác của góc phần tư thứ nhất.
+		\end{enumerate}
+		
+		% CÂU 21
+		\item Cho hàm số $y = \dfrac{x^2 - 4x + 8}{x - 2}$ có đồ thị là đường cong $(C)$. Gọi $A, B$ là hai điểm cực trị của đồ thị $(C)$. Xét tính đúng hay sai của các mệnh đề sau:
+		\begin{enumerate}[label=\alph*)]
+			\item Hàm số đạt cực tiểu tại điểm $x = 4$.
+			\item Đồ thị $(C)$ cắt trục tung tại chính điểm cực đại của nó.
+			\item So sánh giá trị của hàm số, ta có $f(5) > f(6)$.
+			\item Đường thẳng đi qua hai điểm cực trị $A, B$ cắt trục hoành tại điểm có hoành độ bằng $2$.
+		\end{enumerate}
+		
+		% CÂU 22
+		\item Một chất điểm chuyển động dọc theo trục $Ox$. Tọa độ của chất điểm tại thời điểm $t$ được xác định bởi hàm số quãng đường:
+		$$s(t) = -\dfrac{1}{3}t^3 + 3t^2 + 7t \quad (t \ge 0)$$
+		trong đó $t$ tính bằng giây ($\text{s}$) và $s(t)$ tính bằng mét ($\text{m}$). Biết rằng vận tốc $v(t) = s'(t)$ và gia tốc $a(t) = v'(t)$. Xét tính đúng hay sai của các mệnh đề sau:
+		\begin{enumerate}[label=\alph*)]
+			\item Vận tốc tức thời của chất điểm tại thời điểm $t = 2$ giây bằng $15$ $\text{m/s}$.
+			\item Gia tốc tức thời của chất điểm tại thời điểm $t = 2$ giây bằng $2$ $\text{m/s}^2$.
+			\item Trong khoảng thời gian từ $0$ đến $3$ giây ($t \in (0; 3)$), vận tốc của chất điểm tăng.
+			\item Chất điểm đạt vận tốc lớn nhất tại thời điểm $t = 6$ giây.
+		\end{enumerate}
+		
+		% CÂU 23
+		\item Một vật chuyển động thẳng có phương trình xác định bởi:
+		$$s(t) = \dfrac{1}{3}t^3 - 3t^2 + 5t + 10 \quad (t \ge 0)$$
+		trong đó $t$ tính bằng giây và $s(t)$ tính bằng mét. Xét tính đúng hay sai của các mệnh đề sau:
+		\begin{enumerate}[label=\alph*)]
+			\item Vận tốc tức thời của vật bằng $0$ tại các thời điểm $t = 1$ giây và $t = 5$ giây.
+			\item Phương trình biểu diễn gia tốc tức thời của vật là $a(t) = 2t - 6$ ($\text{m/s}^2$).
+			\item Vận tốc của vật tăng khi $t > 3$ giây.
+			\item Vận tốc của vật giảm trong suốt khoảng thời gian từ $1$ giây đến $5$ giây ($t \in (1; 5)$).
+		\end{enumerate}
+		
+		% CÂU 24
+		\item Một vật chuyển động thẳng trong khoảng thời gian $10$ giây kể từ lúc bắt đầu chuyển động, quãng đường đi được xác định bởi hàm số:
+		$$s(t) = -t^3 + 12t^2 \quad (t \in [0; 10])$$
+		trong đó $t$ tính bằng giây và $s(t)$ tính bằng mét. Xét tính đúng hay sai của các mệnh đề sau:
+		\begin{enumerate}[label=\alph*)]
+			\item Vận tốc tức thời của chất điểm tại thời điểm bắt đầu chuyển động ($t = 0$) bằng $0$ $\text{m/s}$.
+			\item Gia tốc tức thời của chất điểm tại thời điểm $t = 1$ giây bằng $18$ $\text{m/s}^2$.
+			\item Trong khoảng thời gian $t \in (0; 4)$ giây, vận tốc của chất điểm tăng.
+			\item Tại thời điểm vận tốc đạt giá trị lớn nhất, gia tốc của vật đạt giá trị bằng $12$ $\text{m/s}^2$.
+		\end{enumerate}
+		
+		% CÂU 25
+		\item Một chiếc xe chuyển động trên một đường thẳng có phương trình quãng đường là:
+		$$s(t) = \dfrac{1}{3}t^3 - 2t^2 + 3t + 4 \quad (t \ge 0)$$
+		trong đó $t$ tính bằng giây và $s(t)$ tính bằng mét. Xét tính đúng hay sai của các mệnh đề sau:
+		\begin{enumerate}[label=\alph*)]
+			\item Vận tốc của vật tại thời điểm $t = 3$ giây bằng $0$ $\text{m/s}$.
+			\item Vật chuyển động lùi (vận tốc mang giá trị âm) trong khoảng thời gian từ $1$ giây đến $3$ giây ($t \in (1; 3)$).
+			\item Vận tốc tức thời của vật luôn luôn giảm trên toàn bộ quá trình chuyển động từ $t = 0$ trở đi.
+			\item Gia tốc tức thời của vật tại thời điểm vật dừng lại lần thứ nhất ($t = 1$ giây) bằng $-2$ $\text{m/s}^2$.
+		\end{enumerate}
+		
+	\end{enumerate}
+	
+	
+	\subsection{Bài tập trả lời ngắn}
+	
+	\begin{enumerate}[label=\textbf{Câu \arabic*.}]
+		
+		% CÂU 1
+		\item Biết hàm số $y = \dfrac{x^2 - 2x + 5}{x - 1}$ đồng biến trên khoảng $(a; +\infty)$. Tính giá trị của $a$.
+		\par Trả lời: \otraloi
+		
+		% CÂU 2
+		\item Độ giảm huyết áp của một bệnh nhân được cho bởi công thức $G(x) = 0.025x^2(30 - x)$ trong đó $x$ là liều lượng thuốc được tiêm cho bệnh nhân (tính bằng miligam, $0 < x < 30$). Biết liều lượng thuốc cần tiêm nằm trong khoảng $(a; b)$ thì huyết áp của bệnh nhân giảm. Tính giá trị của tổng $a+b$.
+		\par Trả lời: \otraloi
+		
+		% CÂU 3
+		\item Một con cá hồi bơi ngược dòng để vượt khoảng cách $300\text{ km}$. Vận tốc dòng nước là $6\text{ km/h}$. Nếu vận tốc bơi của cá khi nước đứng yên là $v$ ($\text{km/h}$, $v > 6$) thì năng lượng tiêu hao $E$ (đơn vị Jun) của cá trong $t$ giờ được xác định bởi công thức $E(v) = c \cdot v^3 \cdot t$ (với $c$ là một hằng số dương). Biết khi vận tốc bơi nằm trong khoảng $(a; b)$ thì năng lượng tiêu hao của cá giảm khi vận tốc bơi tăng. Tính giá trị của tổng $a+b$.
+		\par Trả lời: \otraloi
+		
+		% CÂU 4
+		\item Vận tốc của tàu con thoi từ lúc cất cánh ($t=0\text{ s}$) đến khi tên lửa đẩy được phóng đi ($t = 126\text{ s}$) cho bởi hàm số: $v(t) = 0.001302t^3 - 0.09029t^2 + 23$ ($v$ tính bằng $\text{ft/s}$). Gọi $(a; b)$ là khoảng thời gian gia tốc của tàu con thoi giảm tính từ lúc cất cánh. Tính giá trị của tổng $T = a + b$ (làm tròn kết quả đến hàng đơn vị).
+		\par Trả lời: \otraloi
+		
+		% CÂU 5
+		\item Biết đồ thị hàm số $y = 0.25x^3 - 0.75x^2 + 1$ có hai điểm cực trị $A, B$. Hệ số góc của đường thẳng $AB$ đi qua hai điểm cực trị này bằng bao nhiêu (viết kết quả dưới dạng số thập phân)?
+		\par Trả lời: \otraloi
+		
+		% CÂU 6
+		\item Cho hàm số $y = x^3 - 3x + 2$ có đồ thị $(C)$ và hai điểm cực trị $A, B$. Khoảng cách từ điểm $M(0; 4)$ đến đường thẳng $AB$ đi qua hai điểm cực trị bằng bao nhiêu (làm tròn kết quả đến hàng phần mười)?
+		\par Trả lời: \otraloi
+		
+		% CÂU 7
+		\item Công suất phát điện $P$ (đơn vị $\text{W}$) của một tuabin gió phụ thuộc vào tốc độ gió $v$ ($\text{m/s}$) được cho bởi công thức $P(v) = 6v^2 - 0.2v^3$ với $0 \le v \le 25$. Tìm tốc độ gió $v$ (đơn vị $\text{m/s}$) để tuabin đạt công suất phát điện lớn nhất.
+		\par Trả lời: \otraloi
+		
+		% CÂU 8
+		\item Tốc độ phản ứng hóa học phân hủy một hợp chất hữu cơ $R$ phụ thuộc vào nhiệt độ môi trường $T$ ($^\circ\text{C}$) theo công thức thực nghiệm $R(T) = 9T^2 - 0.2T^3$ với $0 \le T \le 40$. Hỏi tại nhiệt độ bằng bao nhiêu $^\circ\text{C}$ thì tốc độ phản ứng bắt đầu giảm khi nhiệt độ tiếp tục tăng?
+		\par Trả lời: \otraloi
+		
+		% CÂU 9
+		\item Biết hàm số $y = \dfrac{x^2 - 3x + 6}{x - 1}$ nghịch biến trên khoảng $(1; b)$. Tính giá trị của $b$.
+		\par Trả lời: \otraloi
+		
+		% CÂU 10
+		\item Cho hàm số trùng phương $y = -x^4 + 2x^2 + 1$ có ba điểm cực trị $A, B, C$ tạo thành một tam giác. Tính diện tích $S$ của tam giác này.
+		\par Trả lời: \otraloi
+		
+		
+		% CÂU 11
+		\item Cho hàm số $y = \dfrac{1}{3}x^3 - x^2 - 3x + 5$. Tính tổng hoành độ hai điểm cực trị của hàm số này.
+		\par Trả lời: \otraloi
+		
+		% CÂU 12
+		\item Cho hàm số $y = x^3 - 3x^2 - 9x + 2$. Tính tích hoành độ hai điểm cực trị của hàm số này.
+		\par Trả lời: \otraloi
+		
+		% CÂU 13
+		\item Tìm giá trị cực đại của hàm số $y = -x^3 + 3x + 1$.
+		\par Trả lời: \otraloi
+		
+		% CÂU 14
+		\item Tìm điểm cực tiểu của hàm số $y = \dfrac{x^2 - 4x + 5}{x - 2}$.
+		\par Trả lời: \otraloi
+		
+		% CÂU 15
+		\item Tìm giá trị cực đại của hàm số $y = \dfrac{x^2 + 2x + 2}{x + 1}$.
+		\par Trả lời: \otraloi
+		
+		% CÂU 16
+		\item Đường thẳng đi qua hai điểm cực trị của đồ thị hàm số $y = x^3 - 3x^2 + 2$ cắt trục tung tại điểm có tung độ bằng bao nhiêu?
+		\par Trả lời: \otraloi
+		
+		% CÂU 17
+		\item Cho đồ thị hàm số $y = x^3 - 3x + 1$ có hai điểm cực trị $A, B$. Tính độ dài đoạn thẳng $AB$ (làm tròn kết quả đến hàng phần mười).
+		\par Trả lời: \otraloi
+		
+		% CÂU 18
+		\item Cho đồ thị hàm số $y = x^3 - 3x^2 + 2$ có hai điểm cực trị $A, B$. Tính diện tích của tam giác $OAB$ với $O$ là gốc tọa độ.
+		\par Trả lời: \otraloi
+		
+		% CÂU 19
+		\item Tính khoảng cách giữa giá trị cực đại và giá trị cực tiểu của hàm số $y = x^3 - 3x^2 - 9x + 1$.
+		\par Trả lời: \otraloi
+		
+		% CÂU 20
+		\item Cho hàm số $y = x^4 - 8x^2 + 1$. Hàm số đạt cực đại tại điểm nào?
+		\par Trả lời: \otraloi
+		
+		% CÂU 21
+		\item Biết hàm số $y = -x^3 + 3x^2 + 9x - 1$ đồng biến trên khoảng $(a; b)$. Tính hiệu $b - a$.
+		\par Trả lời: \otraloi
+		
+		% CÂU 22
+		\item Cho hàm số $y = \dfrac{2x - 1}{x + 1}$. Tính giá trị đạo hàm của hàm số tại điểm $x = 0$.
+		\par Trả lời: \otraloi
+		
+		% CÂU 23
+		\item Cho hàm số $y = \dfrac{x^2 - x + 1}{x - 1}$ có hai điểm cực trị $A, B$. Tìm hoành độ trung điểm $I$ của đoạn thẳng $AB$.
+		\par Trả lời: \otraloi
+		
+		% CÂU 24
+		\item Một vật chuyển động có phương trình quãng đường $s(t) = -t^3 + 6t^2 + 15t$ ($t \ge 0$, $t$ tính bằng giây, $s$ tính bằng mét). Tìm vận tốc lớn nhất (đơn vị: $\text{m/s}$) của vật trong suốt quá trình chuyển động thẳng này.
+		\par Trả lời: \otraloi
+		
+		% CÂU 25
+		\item Công suất $P$ (đơn vị $\text{W}$) của một máy phát điện gió hoạt động theo tốc độ gió $v$ ($\text{m/s}$) là $P(v) = 12v^2 - 0.4v^3$ với $0 \le v \le 30$. Hỏi tốc độ gió $v$ (đơn vị $\text{m/s}$) bằng bao nhiêu thì công suất phát điện đạt giá trị lớn nhất?
+		\par Trả lời: \otraloi
+		
+		% CÂU 26
+		\item Tìm giá trị cực tiểu của hàm số $y = x^3 - 12x + 5$.
+		\par Trả lời: \otraloi
+		
+		% CÂU 27
+		\item Cho hàm số $y = \dfrac{x^2 - 3x + 6}{x - 1}$ có đồ thị $(C)$. Biết khoảng cách giữa hoành độ hai điểm cực trị $A, B$ của đồ thị $(C)$ bằng $d$. Tính giá trị của $d$.
+		\par Trả lời: \otraloi
+		
+		% CÂU 28
+		\item Tốc độ phản ứng phân hủy hóa học một chất hữu cơ tuân theo công thức thực nghiệm $R(T) = 1.5T^2 - 0.05T^3$ với $0 \le T \le 30$ ($T$ là nhiệt độ tính bằng $^\circ\text{C}$). Tìm nhiệt độ $T$ (đơn vị $^\circ\text{C}$) để tốc độ phản ứng đạt giá trị lớn nhất.
+		\par Trả lời: \otraloi
+		
+		% CÂU 29
+		\item Cho đồ thị hàm số $y = x^4 - 2x^2$ có ba điểm cực trị $A, B, C$. Tính diện tích $S$ của tam giác $ABC$.
+		\par Trả lời: \otraloi
+		
+		% CÂU 30
+		\item Tìm tung độ giao điểm của đồ thị hàm số $y = \dfrac{x^2 - 4x + 6}{x - 2}$ với trục tung $Oy$.
+		\par Trả lời: \otraloi
+		
+	\end{enumerate}
+	
+	\newpage
+	
+	% =====================
+	% PHẦN 5: TỔNG KẾT BÀI
+	% =====================
+	\section{Tổng kết bài}
+	
+	\begin{tcolorbox}[colback=yellow!10!white, colframe=orange!60!black,
+		fonttitle=\bfseries, title={Tóm tắt sơ đồ tư duy \& Các lỗi thường gặp}]
+		\begin{itemize}
+			\item \textbf{Cực trị:} Cần chú ý phân biệt từ ngữ hỏi về $x_0$ (điểm cực trị hàm số), $y_0$ (giá trị cực trị) hay $M(x_0; y_0)$ (điểm cực trị đồ thị).
+			\item \textbf{Đơn điệu:} Các khoảng đơn điệu luôn được viết dưới dạng các khoảng rời nhau (sử dụng dấu phẩy hoặc chữ "và", tuyệt đối không dùng ký hiệu hội $\cup$).
+			\item \textbf{Điều kiện đạo hàm:} Đạo hàm đổi dấu khi đi qua điểm nào thì điểm đó mới là cực trị.
+		\end{itemize}
+	\end{tcolorbox}
+	
+	\vspace{3mm}
+	\textbf{Yêu cầu hoàn thành tự học:} Học sinh hoàn thành các phần bài tập được giao tùy theo năng lực học tập và ghi chú lại những câu hỏi chưa tự giải quyết được để trao đổi vào buổi học tiếp theo.
+	
+\end{document}

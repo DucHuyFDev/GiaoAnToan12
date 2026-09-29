@@ -1,0 +1,3243 @@
+\documentclass[12pt]{article}
+
+% === CÀI ĐẶT TRANG ===
+\usepackage[margin=2cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T5]{fontenc}
+\usepackage[vietnamese]{babel}
+
+% === TOÁN HỌC ===
+\usepackage{amsmath, amssymb, amsthm}
+
+% === HÌNH VẼ ===
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+% === ĐỊNH DẠNG ===
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage[most]{tcolorbox}
+\usepackage{multicol}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{fancyhdr}
+\usepackage{tocloft}
+\usepackage[hidelinks]{hyperref}
+
+% === LỆNH TỰ ĐỊNH NGHĨA ===
+\newcommand{\otraloi}{\underline{\hspace{5cm}}}
+\setlength{\parindent}{0pt} % Tắt lùi đầu dòng toàn giáo án
+
+% === TCOLORBOX STYLES ===
+\tcbuselibrary{breakable, skins, fitting}
+
+% Ví dụ và Lời giải
+\newtcolorbox{vidu}[1][1]{
+	colback=blue!3!white, colframe=blue!55!black,
+	fonttitle=\bfseries, title={Ví dụ #1},
+	breakable, enhanced
+}
+
+\newtcolorbox{loigiai}{
+	colback=gray!4!white, colframe=gray!40!black,
+	fonttitle=\bfseries, title={Lời giải chi tiết},
+	breakable, enhanced
+}
+
+% Hộp phương pháp giải nhanh
+\newtcolorbox{phuongphap}[1][Mẹo giải nhanh Casio / Quy tắc nhận diện]{
+	colback=orange!5!white, colframe=orange!75!black,
+	fonttitle=\bfseries, title={#1},
+	breakable, enhanced
+}
+
+% --- KHUNG BÀI TẬP TỰ LUẬN PHÂN MÀU ---
+% Bài tập xanh – Bắt buộc
+\newtcolorbox{btxanh}[1][]{
+	colback=blue!4!white, colframe=blue!60!black,
+	fonttitle=\bfseries\color{white}, coltitle=white,
+	attach boxed title to top left={yshift=-2mm, xshift=4mm},
+	boxed title style={colback=blue!60!black, rounded corners}, breakable, enhanced, #1
+}
+
+% Bài tập vàng – Bổ sung
+\newtcolorbox{btvang}[1][]{
+	colback=yellow!10!white, colframe=orange!70!black,
+	fonttitle=\bfseries, coltitle=orange!80!black,
+	attach boxed title to top left={yshift=-2mm, xshift=4mm},
+	boxed title style={colback=yellow!40!white, colframe=orange!70!black, rounded corners}, breakable, enhanced, #1
+}
+
+% Bài tập đỏ – Gia cố
+\newtcolorbox{btdo}[1][]{
+	colback=red!4!white, colframe=red!60!black,
+	fonttitle=\bfseries\color{white}, coltitle=white,
+	attach boxed title to top left={yshift=-2mm, xshift=4mm},
+	boxed title style={colback=red!60!black, rounded corners}, breakable, enhanced, #1
+}
+
+% === HEADER/FOOTER ===
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small Giáo án Toán 12}
+\fancyhead[C]{\small \textbf{Chủ đề: Đường tiệm cận của đồ thị hàm số}}
+\fancyhead[R]{\small Lớp: 12}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% ================================================
+\begin{document}
+	
+	\begin{center}
+		{\LARGE \textbf{ĐƯỜNG TIỆM CẬN CỦA ĐỒ THỊ HÀM SỐ}}\\[6pt]
+		{\large Môn: Toán 12 \quad Thời lượng: 1 tiết}
+	\end{center}
+	\vspace{4mm}
+	\hrule
+	\vspace{4mm}
+	
+	% ===========================
+	% PHẦN 1: MỤC TIÊU BÀI HỌC
+	% ===========================
+	\section*{Mục tiêu bài học}
+	\addcontentsline{toc}{section}{Mục tiêu bài học}
+	
+	\textbf{1. Kiến thức:}
+	\begin{itemize}
+		\item Nắm vững định nghĩa và ý nghĩa hình học của đường tiệm cận đứng (TCĐ), đường tiệm cận ngang (TCN) và đường tiệm cận xiên (TCX).
+		\item Biết cách xác định nhanh các đường tiệm cận của đồ thị hàm số phân thức bậc nhất/bậc nhất, bậc hai/bậc nhất bằng cả tự luận và máy tính Casio.
+	\end{itemize}
+	
+	\textbf{2. Kĩ năng:}
+	\begin{itemize}
+		\item Kĩ năng tính giới hạn vô cực ($\lim_{x \to x_0^{\pm}} f(x) = \pm\infty$ và $\lim_{x \to \pm\infty} f(x) = y_0$) để xác định tiệm cận.
+		\item Vận dụng thành thạo kĩ năng chia đa thức và bấm máy tính để tìm nhanh phương trình tiệm cận xiên $y = ax + b$.
+	\end{itemize}
+	
+	\textbf{3. Thái độ:}
+	\begin{itemize}
+		\item Tư duy hình học trực quan tốt, cẩn thận trong việc đối chiếu nghiệm của tử và mẫu để tránh bẫy triệt tiêu nghiệm.
+	\end{itemize}
+	
+	\newpage
+	
+	% =====================
+	% PHẦN 2: MỤC LỤC
+	% =====================
+	\setcounter{tocdepth}{2}
+	\tableofcontents
+	\newpage
+	
+	% =====================
+	% PHẦN 3: LÝ THUYẾT
+	% =====================
+	\section{Lý thuyết và Phương pháp giải nhanh}
+	
+	\subsection{Đường tiệm cận ngang (TCN)}
+	
+	Đường tiệm cận ngang của đồ thị hàm số biểu diễn giới hạn của hàm số khi biến số $x$ tiến ra vô cực ($+\infty$ hoặc $-\infty$).
+	
+	\begin{phuongphap}[Định nghĩa toán học]
+		Đường thẳng $y = y_0$ được gọi là đường \textbf{tiệm cận ngang} của đồ thị hàm số $y = f(x)$ nếu thỏa mãn ít nhất một trong các điều kiện sau:
+		\[ \lim_{x \to +\infty} f(x) = y_0 \quad \text{hoặc} \quad \lim_{x \to -\infty} f(x) = y_0 \]
+	\end{phuongphap}
+	
+	% === HÌNH VẼ MINH HỌA LÝ THUYẾT TỔNG QUÁT ===
+	\begin{figure}[H]
+		\centering
+		\begin{tikzpicture}
+			\begin{axis}[
+				axis lines = middle,
+				xlabel = {$x$},
+				ylabel = {$y$},
+				xmin = -1, xmax = 8,
+				ymin = -1, ymax = 5,
+				xtick = \empty,
+				ytick = {3},
+				yticklabels = {$y_0$},
+				axis line style={->},
+				width = 10cm, height = 6.5cm,
+				clip = false
+				]
+				% Đường tiệm cận ngang y = y0 (với y0 = 3)
+				\addplot [
+				domain=-1:8, 
+				dashed, 
+				color=black!60, 
+				thick
+				] {3};
+				
+				% Đồ thị hàm số y = f(x) tiếp cận y0 từ phía dưới (hàm mũ giảm dần khoảng cách)
+				\addplot [
+				domain=0.2:8, 
+				samples=100, 
+				color=blue,
+				thick
+				] {3 - 2.8*exp(-0.5*x)};
+				
+				% Nhãn cho đồ thị và đường tiệm cận
+				\node[blue, right] at (axis cs:3.5, 2.2) {$y = f(x)$};
+				\node[black!80, above] at (axis cs:6, 3) {$y = y_0$ (Tiệm cận ngang)};
+				
+				% Mũi tên chỉ hướng biến x tiến ra dương vô cực
+				\draw[->, thick, black!40] (axis cs:2, 0.4) -- (axis cs:6, 0.4) node[midway, below] {$x \to +\infty$};
+			\end{axis}
+		\end{tikzpicture}
+		\caption{Minh họa hình học của đường tiệm cận ngang $y = y_0$ khi $x$ tiến ra $+\infty$}
+	\end{figure}
+	
+	\begin{phuongphap}[Quy tắc so sánh bậc của Tử số $P(x)$ và Mẫu số $Q(x)$]
+		Xét hàm số phân thức $y = \frac{P(x)}{Q(x)}$:
+		\begin{itemize}
+			\item \textbf{Bậc Tử < Bậc Mẫu:} Đồ thị luôn có đúng một TCN là trục hoành $y = 0$.
+			\item \textbf{Bậc Tử = Bậc Mẫu:} TCN là đường thẳng $y = \frac{a_0}{b_0}$ (tỷ số của hai hệ số đứng trước lũy thừa bậc cao nhất ở tử và mẫu).
+			\item \textbf{Bậc Tử > Bậc Mẫu:} Đồ thị không có tiệm cận ngang.
+		\end{itemize}
+	\end{phuongphap}
+	
+	\begin{vidu}[1]
+		Tìm các đường tiệm cận ngang của đồ thị các hàm số sau:
+		\begin{enumerate}[label=\textbf{\alph*)}]
+			\item $y = f(x) = \frac{2x - 1}{x + 1}$
+			\item $y = g(x) = \frac{\sqrt{4x^2 + 1}}{x - 1}$
+		\end{enumerate}
+	\end{vidu}
+	
+	\begin{loigiai}
+		Theo định nghĩa, đường thẳng $y = y_0$ là tiệm cận ngang của đồ thị hàm số nếu ít nhất một trong các điều kiện sau được thỏa mãn:
+		\[ \lim_{x \to +\infty} f(x) = y_0 \quad \text{hoặc} \quad \lim_{x \to -\infty} f(x) = y_0 \]
+		
+		\textbf{a) Khảo sát hàm số $y = \frac{2x - 1}{x + 1}$}
+		
+		Tập xác định của hàm số là $D = \mathbb{R} \setminus \{-1\}$. Ta tiến hành tính giới hạn của hàm số khi $x$ tiến ra vô cực:
+		\begin{itemize}
+			\item Khi $x \to +\infty$:
+			\[ \lim_{x \to +\infty} \frac{2x - 1}{x + 1} = \lim_{x \to +\infty} \frac{x\left(2 - \frac{1}{x}\right)}{x\left(1 + \frac{1}{x}\right)} = \lim_{x \to +\infty} \frac{2 - \frac{1}{x}}{1 + \frac{1}{x}} = \frac{2 - 0}{1 + 0} = 2 \]
+			\item Khi $x \to -\infty$:
+			\[ \lim_{x \to -\infty} \frac{2x - 1}{x + 1} = \lim_{x \to -\infty} \frac{x\left(2 - \frac{1}{x}\right)}{x\left(1 + \frac{1}{x}\right)} = \lim_{x \to -\infty} \frac{2 - \frac{1}{x}}{1 + \frac{1}{x}} = \frac{2 - 0}{1 + 0} = 2 \]
+		\end{itemize}
+		Do $\lim\limits_{x \to +\infty} f(x) = \lim\limits_{x \to -\infty} f(x) = 2$, ta kết luận: Đường thẳng $y = 2$ là đường tiệm cận ngang duy nhất của đồ thị hàm số $y = \frac{2x - 1}{x + 1}$.
+		
+		\begin{figure}[H]
+			\centering
+			\begin{tikzpicture}
+				\begin{axis}[
+					axis lines = middle,
+					xlabel = {$x$},
+					ylabel = {$y$},
+					xmin = -7, xmax = 5,
+					ymin = -3, ymax = 7,
+					xtick = {-6, -5, -4, -3, -2, -1, 1, 2, 3, 4},
+					ytick = {-2, -1, 1, 2, 3, 4, 5, 6},
+					grid = both,
+					grid style = {dashed, gray!30},
+					width = 11cm, height = 7.5cm,
+					legend pos = north west
+					]
+					% Đồ thị nhánh bên trái (x < -1)
+					\addplot [
+					domain=-7:-1.2, 
+					samples=100, 
+					color=blue,
+					thick
+					] {(2*x - 1)/(x + 1)};
+					
+					% Đồ thị nhánh bên phải (x > -1)
+					\addplot [
+					domain=-0.8:5, 
+					samples=100, 
+					color=blue,
+					thick
+					] {(2*x - 1)/(x + 1)};
+					
+					% Tiệm cận ngang y = 2
+					\addplot [
+					domain=-7:5, 
+					dashed, 
+					color=red, 
+					thick
+					] {2};
+					
+					% Tiệm cận đứng x = -1
+					\draw [dashed, color=black!50, thick] (axis cs:-1, -3) -- (axis cs:-1, 7);
+					
+					\node[red, above] at (axis cs:3, 2) {$y = 2$ (TCN)};
+					\node[black!50, right] at (axis cs:-1, 5) {$x = -1$};
+				\end{axis}
+			\end{tikzpicture}
+			\caption{Đồ thị hàm số $y = \frac{2x - 1}{x + 1}$ và đường tiệm cận ngang $y = 2$}
+		\end{figure}
+		
+		\textbf{b) Khảo sát hàm số $y = \frac{\sqrt{4x^2 + 1}}{x - 1}$}
+		
+		Tập xác định của hàm số là $D = \mathbb{R} \setminus \{1\}$. Khi $x$ tiến ra vô cực, ta lưu ý hằng đẳng thức $\sqrt{x^2} = |x|$:
+		\begin{itemize}
+			\item Khi $x \to +\infty$ (do $x > 0$ nên $|x| = x$):
+			\[ \lim_{x \to +\infty} \frac{\sqrt{4x^2 + 1}}{x - 1} = \lim_{x \to +\infty} \frac{\sqrt{x^2\left(4 + \frac{1}{x^2}\right)}}{x\left(1 - \frac{1}{x}\right)} = \lim_{x \to +\infty} \frac{x\sqrt{4 + \frac{1}{x^2}}}{x\left(1 - \frac{1}{x}\right)} = \lim_{x \to +\infty} \frac{\sqrt{4 + \frac{1}{x^2}}}{1 - \frac{1}{x}} = 2 \]
+			\item Khi $x \to -\infty$ (do $x < 0$ nên $|x| = -x$):
+			\[ \lim_{x \to -\infty} \frac{\sqrt{4x^2 + 1}}{x - 1} = \lim_{x \to -\infty} \frac{\sqrt{x^2\left(4 + \frac{1}{x^2}\right)}}{x\left(1 - \frac{1}{x}\right)} = \lim_{x \to -\infty} \frac{-x\sqrt{4 + \frac{1}{x^2}}}{x\left(1 - \frac{1}{x}\right)} = \lim_{x \to -\infty} \frac{-\sqrt{4 + \frac{1}{x^2}}}{1 - \frac{1}{x}} = -2 \]
+		\end{itemize}
+		Vì $\lim\limits_{x \to +\infty} g(x) = 2$ và $\lim\limits_{x \to -\infty} g(x) = -2$, đồ thị hàm số có hai đường tiệm cận ngang khác nhau là các đường thẳng:
+		\[ y = 2 \quad (\text{khi } x \to +\infty) \quad \text{và} \quad y = -2 \quad (\text{khi } x \to -\infty) \]
+		
+		\textbf{Nhận xét quan trọng:} Đối với các hàm số chứa căn thức bậc hai dạng $\sqrt{x^2}$, học sinh cần đặc biệt lưu ý việc đổi dấu của biến $x$ khi tính giới hạn về $-\infty$. Đây là sai lầm phổ biến nhất dẫn đến việc bỏ sót đường tiệm cận ngang $y = -2$.
+	\end{loigiai}
+	
+	
+	\subsection{Đường tiệm cận đứng (TCĐ)}
+	
+	Đường tiệm cận đứng của đồ thị hàm số biểu diễn xu hướng đồ thị đi ra vô cực ($\pm\infty$) khi biến số $x$ tiến dần đến một giá trị hữu hạn $x_0$.
+	
+	\begin{phuongphap}[Định nghĩa toán học]
+		Đường thẳng $x = x_0$ được gọi là đường \textbf{tiệm cận đứng} của đồ thị hàm số $y = f(x)$ nếu thỏa mãn ít nhất một trong các điều kiện sau:
+		\[ 
+		\lim_{x \to x_0^+} f(x) = +\infty, \quad \lim_{x \to x_0^+} f(x) = -\infty, \quad \lim_{x \to x_0^-} f(x) = +\infty, \quad \lim_{x \to x_0^-} f(x) = -\infty 
+		\]
+	\end{phuongphap}
+	
+	% === HÌNH VẼ MINH HỌA LÝ THUYẾT TỔNG QUÁT ===
+	\begin{figure}[H]
+		\centering
+		\begin{tikzpicture}
+			\begin{axis}[
+				axis lines = middle,
+				xlabel = {$x$},
+				ylabel = {$y$},
+				xmin = -1, xmax = 5,
+				ymin = -6, ymax = 6,
+				xtick = {2},
+				xticklabels = {$x_0$},
+				ytick = \empty,
+				axis line style={->},
+				width = 10cm, height = 7cm,
+				clip = false
+				]
+				% Đường tiệm cận đứng x = x0 (ở đây chọn x0 = 2)
+				\draw [dashed, color=black!60, thick] (axis cs:2, -6) -- (axis cs:2, 6);
+				
+				% Nhánh đồ thị phía bên phải (x -> 2+, y -> +inf)
+				\addplot [
+				domain=2.2:4.5, 
+				samples=100, 
+				color=blue,
+				thick
+				] {1.2/(x-2) + 0.5};
+				
+				% Nhánh đồ thị phía bên trái (x -> 2-, y -> -inf)
+				\addplot [
+				domain=0.2:1.8, 
+				samples=100, 
+				color=blue,
+				thick
+				] {1.2/(x-2) + 0.5};
+				
+				\node[blue, right] at (axis cs:3.2, 3.5) {$y = f(x)$};
+				\node[black!80, right] at (axis cs:2, 5) {$x = x_0$ (Tiệm cận đứng)};
+			\end{axis}
+		\end{tikzpicture}
+		\caption{Minh họa hình học của đường tiệm cận đứng $x = x_0$}
+	\end{figure}
+	
+	\begin{phuongphap}[Quy tắc xác định nhanh cho hàm phân thức $y = \frac{P(x)}{Q(x)}$]
+		Để tìm tiệm cận đứng của đồ thị hàm số phân thức, ta thực hiện các bước sau:
+		\begin{itemize}
+			\item \textbf{Bước 1:} Tìm các nghiệm của mẫu số bằng cách giải phương trình $Q(x) = 0$. Giả sử hệ phương trình có các nghiệm $x = x_1, x = x_2, \dots$
+			\item \textbf{Bước 2:} Thay lần lượt các nghiệm này vào tử số $P(x)$ để kiểm chứng:
+			\begin{itemize}
+				\item \textbf{Trường hợp 1:} Nếu $P(x_i) \ne 0$, ta kết luận đường thẳng $x = x_i$ \textbf{chắc chắn} là đường tiệm cận đứng của đồ thị hàm số.
+				\item \textbf{Trường hợp 2:} Nếu $P(x_i) = 0$ (nghiệm trùng giữa tử và mẫu), ta phải phân tích cả tử và mẫu thành nhân tử để rút gọn đại lượng trùng $(x - x_i)$. Sau đó, tính giới hạn giới hạn tại điểm gián đoạn:
+				\[ \lim_{x \to x_i} \frac{P(x)}{Q(x)} \]
+				Nếu giới hạn này cho ra kết quả \textbf{vô cực} ($\pm\infty$) thì đường thẳng $x = x_i$ vẫn là TCĐ. Nếu giới hạn cho ra một \textbf{số thực hữu hạn} $L$ thì đường thẳng $x = x_i$ không phải là TCĐ (đồ thị bị khuyết một điểm tại tọa độ $(x_i; L)$, gọi là điểm gián đoạn bỏ được).
+			\end{itemize}
+		\end{itemize}
+	\end{phuongphap}
+	
+	\begin{vidu}[2]
+		Tìm phương trình các đường tiệm cận đứng của đồ thị hàm số:
+		\[ y = f(x) = \frac{x^2 - 3x + 2}{x^2 - 4} \]
+	\end{vidu}
+	
+	\begin{loigiai}
+		Tập xác định của hàm số là $D = \mathbb{R} \setminus \{-2; 2\}$.
+		
+		Phương trình mẫu số: $x^2 - 4 = 0 \Leftrightarrow x = 2$ hoặc $x = -2$. Ta xét từng trường hợp nghiệm:
+		
+		\begin{itemize}
+			\item \textbf{Xét tại điểm $x = -2$:}
+			Thay $x = -2$ vào tử số $P(x) = x^2 - 3x + 2$, ta được:
+			\[ P(-2) = (-2)^2 - 3(-2) + 2 = 12 \ne 0 \]
+			Vì tử số khác $0$ và mẫu số bằng $0$ tại $x = -2$, ta có:
+			\[ \lim_{x \to -2^+} \frac{x^2 - 3x + 2}{x^2 - 4} = -\infty \quad \text{và} \quad \lim_{x \to -2^-} \frac{x^2 - 3x + 2}{x^2 - 4} = +\infty \]
+			Do đó, đường thẳng $x = -2$ là đường tiệm cận đứng của đồ thị hàm số.
+			
+			\item \textbf{Xét tại điểm $x = 2$:}
+			Thay $x = 2$ vào tử số, ta được $P(2) = 2^2 - 3(2) + 2 = 0$. Đây là trường hợp trùng nghiệm. Ta tiến hành phân tích đa thức thành nhân tử để rút gọn hàm số với $x \ne 2$:
+			\[ y = \frac{x^2 - 3x + 2}{x^2 - 4} = \frac{(x - 1)(x - 2)}{(x - 2)(x + 2)} = \frac{x - 1}{x + 2} \]
+			Tính giới hạn của hàm số khi $x$ dần tới $2$:
+			\[ \lim_{x \to 2} y = \lim_{x \to 2} \frac{x - 1}{x + 2} = \frac{2 - 1}{2 + 2} = \frac{1}{4} \]
+			Vì giới hạn này là một số thực hữu hạn ($L = \frac{1}{4}$) chứ không phải vô cực, đường thẳng $x = 2$ \textbf{không phải} là đường tiệm cận đứng của đồ thị hàm số. Tại điểm $M\left(2; \frac{1}{4}\right)$, đồ thị bị khuyết một điểm (như hình vẽ bên dưới).
+		\end{itemize}
+		Vậy đồ thị hàm số đã cho chỉ có duy nhất một đường tiệm cận đứng là $x = -2$.
+		
+		\begin{figure}[H]
+			\centering
+			\begin{tikzpicture}
+				\begin{axis}[
+					axis lines = middle,
+					xlabel = {$x$},
+					ylabel = {$y$},
+					xmin = -8, xmax = 6,
+					ymin = -4, ymax = 5,
+					xtick = {-2, 2},
+					ytick = {1},
+					grid = both,
+					grid style = {dashed, gray!30},
+					width = 11cm, height = 7.5cm,
+					clip = false
+					]
+					% Đồ thị nhánh bên trái đường tiệm cận đứng (x < -2)
+					\addplot [
+					domain=-8:-2.3, 
+					samples=100, 
+					color=blue,
+					thick
+					] {(x - 1)/(x + 2)};
+					
+					% Đồ thị nhánh bên phải đường tiệm cận đứng (x > -2) và né điểm x = 2
+					\addplot [
+					domain=-1.7:1.9, 
+					samples=100, 
+					color=blue,
+					thick
+					] {(x - 1)/(x + 2)};
+					
+					\addplot [
+					domain=2.1:6, 
+					samples=100, 
+					color=blue,
+					thick
+					] {(x - 1)/(x + 2)};
+					
+					% Đường tiệm cận đứng x = -2
+					\draw [dashed, color=red, thick] (axis cs:-2, -4) -- (axis cs:-2, 5);
+					
+					% Đường tiệm cận ngang y = 1 (phục vụ góc nhìn trực quan)
+					\addplot [
+					domain=-8:6, 
+					dashed, 
+					color=black!40, 
+					thick
+					] {1};
+					
+					% Điểm khuyết (hole) tại tọa độ (2, 0.25)
+					\draw [blue, thick, fill=white] (axis cs:2, 0.25) circle (2.5pt);
+					
+					\node[red, right] at (axis cs:-2, 4) {$x = -2$ (TCĐ)};
+					\node[black!60, above] at (axis cs:4, 1) {$y = 1$};
+					\node[blue, above] at (axis cs:2.7, 0.3) {$\left(2; \frac{1}{4}\right)$};
+				\end{axis}
+			\end{tikzpicture}
+			\caption{Đồ thị hàm số $y = \frac{x^2 - 3x + 2}{x^2 - 4}$ có duy nhất một TCĐ $x = -2$}
+		\end{figure}
+	\end{loigiai}
+	
+	\subsection{Đường tiệm cận xiên (TCX)}
+	
+	Đường tiệm cận xiên xuất hiện ở các đồ thị hàm số không có tiệm cận ngang khi $x$ tiến ra vô cực (bậc của tử số cao hơn bậc của mẫu số đúng $1$ bậc đối với hàm phân thức). Về mặt hình học, đồ thị hàm số sẽ "ôm sát" một đường thẳng nghiêng thay vì đường thẳng nằm ngang.
+	
+	\begin{phuongphap}[Định nghĩa toán học]
+		Đường thẳng $y = ax + b$ ($a \ne 0$) được gọi là đường \textbf{tiệm cận xiên} (khi $x \to +\infty$ hoặc khi $x \to -\infty$) của đồ thị hàm số $y = f(x)$ nếu:
+		\[ \lim_{x \to +\infty} [f(x) - (ax + b)] = 0 \quad \text{hoặc} \quad \lim_{x \to -\infty} [f(x) - (ax + b)] = 0 \]
+	\end{phuongphap}
+	
+	\textbf{Bản chất hình học:} 
+	Xét điểm $M(x; f(x))$ thuộc đồ thị $(C)$ và điểm $N(x; ax + b)$ thuộc đường thẳng $\Delta: y = ax + b$ có cùng hoành độ $x$. 
+	\begin{itemize}
+		\item Khoảng cách thẳng đứng giữa đồ thị và đường thẳng $\Delta$ chính là độ dài đoạn thẳng $MN = |f(x) - (ax + b)|$.
+		\item Khi $x \to +\infty$ (hoặc $x \to -\infty$), nếu khoảng cách này tiến dần về $0$ (tức là $MN \to 0$) thì đồ thị $(C)$ và đường thẳng $\Delta$ ngày càng sát lại gần nhau. Khi đó, $\Delta$ đóng vai trò là tiệm cận xiên.
+	\end{itemize}
+	
+	% === HÌNH VẼ MINH HỌA LÝ THUYẾT TỔNG QUÁT ===
+	\begin{figure}[H]
+		\centering
+		\begin{tikzpicture}
+			\begin{axis}[
+				axis lines = middle,
+				xlabel = {$x$},
+				ylabel = {$y$},
+				xmin = -1, xmax = 8,
+				ymin = -1, ymax = 6,
+				xtick = \empty,
+				ytick = \empty,
+				axis line style={->},
+				width = 10cm, height = 6.5cm,
+				clip = false
+				]
+				% Đường tiệm cận xiên y = ax + b (chọn y = 0.5x + 1)
+				\addplot [
+				domain=-1:8, 
+				dashed, 
+				color=black!60, 
+				thick
+				] {0.5*x + 1};
+				
+				% Đồ thị hàm số y = f(x) tiếp cận y = ax+b từ phía trên
+				\addplot [
+				domain=0.2:8, 
+				samples=100, 
+				color=blue,
+				thick
+				] {0.5*x + 1 + 3*exp(-0.6*x)};
+				
+				% Nhãn cho đồ thị và đường tiệm cận
+				\node[blue, right] at (axis cs:4, 3.8) {$y = f(x)$};
+				\node[black!80, below right] at (axis cs:5.5, 3.75) {$y = ax + b$};
+				
+				% Minh họa khoảng cách thẳng đứng MN tại điểm x_0
+				\draw[dashed, black!40] (axis cs:1.5, 0) -- (axis cs:1.5, 3);
+				\draw[<->, >=stealth, red, thick] (axis cs:1.5, 1.75) -- (axis cs:1.5, 2.97) node[midway, right, scale=0.8] {$MN \to 0$};
+				
+				\filldraw[black] (axis cs:1.5, 1.75) circle (1.5pt) node[below right, scale=0.8] {$N$};
+				\filldraw[black] (axis cs:1.5, 2.97) circle (1.5pt) node[above right, scale=0.8] {$M$};
+				\filldraw[black] (axis cs:1.5, 0) circle (1.2pt) node[below, scale=0.8] {$x_0$};
+				
+				% Mũi tên chỉ hướng biến x tiến ra dương vô cực
+				\draw[->, thick, black!40] (axis cs:3, 0.4) -- (axis cs:7, 0.4) node[midway, below] {$x \to +\infty$};
+			\end{axis}
+		\end{tikzpicture}
+		\caption{Ý nghĩa hình học của đường tiệm cận xiên $y = ax + b$ khi $x \to +\infty$}
+	\end{figure}
+	
+	\begin{vidu}[3]
+		Tìm các đường tiệm cận xiên của đồ thị các hàm số sau:
+		\begin{enumerate}[label=\textbf{\alph*)}]
+			\item $y = f(x) = \frac{2x^2 + x - 3}{x + 1}$
+			\item $y = g(x) = \sqrt{x^2 + 2x}$
+		\end{enumerate}
+	\end{vidu}
+	
+	\begin{loigiai}
+		Theo định nghĩa, đường thẳng $y = ax + b$ ($a \ne 0$) là đường tiệm cận xiên của đồ thị hàm số $y = f(x)$ khi và chỉ khi:
+		\[ \lim_{x \to +\infty} [f(x) - (ax + b)] = 0 \quad \text{hoặc} \quad \lim_{x \to -\infty} [f(x) - (ax + b)] = 0 \]
+		Trong đó, các hệ số $a, b$ được xác định bằng công thức giới hạn:
+		\[ a = \lim_{x \to \pm\infty} \frac{f(x)}{x} \quad \text{và} \quad b = \lim_{x \to \pm\infty} [f(x) - ax] \]
+		
+		\textbf{a) Khảo sát hàm số $y = \frac{2x^2 + x - 3}{x + 1}$ bằng phương pháp chia đa thức}
+		
+		Tập xác định của hàm số là $D = \mathbb{R} \setminus \{-1\}$. Thực hiện phép chia tử số cho mẫu số, ta có:
+		\[ 2x^2 + x - 3 = 2x(x + 1) - (x + 1) - 2 = (2x - 1)(x + 1) - 2 \]
+		Từ đó, ta biến đổi hàm số về dạng phân tích:
+		\[ y = \frac{(2x - 1)(x + 1) - 2}{x + 1} = 2x - 1 - \frac{2}{x + 1} \]
+		Ta tính giới hạn của phần dư khi $x \to \pm\infty$:
+		\[ \lim_{x \to \pm\infty} [y - (2x - 1)] = \lim_{x \to \pm\infty} \left( -\frac{2}{x + 1} \right) = 0 \]
+		Vì giới hạn của phần dư bằng $0$ khi $x$ tiến ra vô cực, ta kết luận: Đường thẳng $y = 2x - 1$ là đường tiệm cận xiên duy nhất của đồ thị hàm số $y = \frac{2x^2 + x - 3}{x + 1}$.
+		
+		\begin{figure}[H]
+			\centering
+			\begin{tikzpicture}
+				\begin{axis}[
+					axis lines = middle,
+					xlabel = {$x$},
+					ylabel = {$y$},
+					xmin = -6, xmax = 4,
+					ymin = -15, ymax = 10,
+					xtick = {-5, -4, -3, -2, -1, 1, 2, 3},
+					ytick = {-12, -9, -6, -3, 3, 6, 9},
+					grid = both,
+					grid style = {dashed, gray!30},
+					width = 11cm, height = 7.5cm,
+					legend pos = north west
+					]
+					% Đồ thị nhánh trái đường tiệm cận đứng (x < -1)
+					\addplot [
+					domain=-6:-1.25, 
+					samples=100, 
+					color=blue,
+					thick
+					] {(2*x^2 + x - 3)/(x + 1)};
+					
+					% Đồ thị nhánh phải đường tiệm cận đứng (x > -1)
+					\addplot [
+					domain=-0.75:4, 
+					samples=100, 
+					color=blue,
+					thick
+					] {(2*x^2 + x - 3)/(x + 1)};
+					
+					% Tiệm cận xiên y = 2x - 1
+					\addplot [
+					domain=-6:4, 
+					dashed, 
+					color=red, 
+					thick
+					] {2*x - 1};
+					
+					% Tiệm cận đứng x = -1
+					\draw [dashed, color=black!50, thick] (axis cs:-1, -15) -- (axis cs:-1, 10);
+					
+					\node[red, sloped, above] at (axis cs:1.8, 3.5) {$y = 2x - 1$ (TCX)};
+					\node[black!60, right] at (axis cs:-1, 7) {$x = -1$};
+				\end{axis}
+			\end{tikzpicture}
+			\caption{Đồ thị hàm số $y = \frac{2x^2 + x - 3}{x + 1}$ có TCĐ $x = -1$ và TCX $y = 2x - 1$}
+		\end{figure}
+		
+		\textbf{b) Khảo sát hàm số $y = \sqrt{x^2 + 2x}$ bằng phương pháp giới hạn (tương đương bấm máy Casio)}
+		
+		Tập xác định của hàm số là $D = (-\infty; -2] \cup [0; +\infty)$. Do hàm chứa căn thức, ta tiến hành khảo sát giới hạn riêng biệt ở hai hướng $+\infty$ và $-\infty$.
+		
+		\begin{itemize}
+			\item \textbf{Hướng thứ nhất: Khi $x \to +\infty$} (Bấm máy Casio: nhập biểu thức và gán $x = 10^5$):
+			\[ a_1 = \lim_{x \to +\infty} \frac{\sqrt{x^2 + 2x}}{x} = \lim_{x \to +\infty} \frac{x\sqrt{1 + \frac{2}{x}}}{x} = \lim_{x \to +\infty} \sqrt{1 + \frac{2}{x}} = 1 \]
+			\[ b_1 = \lim_{x \to +\infty} \left( \sqrt{x^2 + 2x} - x \right) = \lim_{x \to +\infty} \frac{(x^2 + 2x) - x^2}{\sqrt{x^2 + 2x} + x} = \lim_{x \to +\infty} \frac{2x}{x\left( \sqrt{1 + \frac{2}{x}} + 1 \right)} = 1 \]
+			Do đó, ta có đường tiệm cận xiên thứ nhất khi $x \to +\infty$ là đường thẳng: $y = x + 1$.
+			
+			\item \textbf{Hướng thứ hai: Khi $x \to -\infty$} (Bấm máy Casio: nhập biểu thức và gán $x = -10^5$):
+			\[ a_2 = \lim_{x \to -\infty} \frac{\sqrt{x^2 + 2x}}{x} = \lim_{x \to -\infty} \frac{-x\sqrt{1 + \frac{2}{x}}}{x} = \lim_{x \to -\infty} -\sqrt{1 + \frac{2}{x}} = -1 \]
+			\[ b_2 = \lim_{x \to -\infty} \left( \sqrt{x^2 + 2x} - (-1)x \right) = \lim_{x \to -\infty} \left( \sqrt{x^2 + 2x} + x \right) \]
+			Nhân liên hợp cho biểu thức trên:
+			\[ b_2 = \lim_{x \to -\infty} \frac{(x^2 + 2x) - x^2}{\sqrt{x^2 + 2x} - x} = \lim_{x \to -\infty} \frac{2x}{-x\sqrt{1 + \frac{2}{x}} - x} = \lim_{x \to -\infty} \frac{2}{-\sqrt{1 + \frac{2}{x}} - 1} = -1 \]
+			Do đó, ta có đường tiệm cận xiên thứ hai khi $x \to -\infty$ là đường thẳng: $y = -x - 1$.
+		\end{itemize}
+		
+		\textbf{Bản chất toán học giải thích nhanh:} Ta có hằng đẳng thức đáng nhớ:
+		\[ y = \sqrt{x^2 + 2x} = \sqrt{(x + 1)^2 - 1} \]
+		Khi $x \to \pm\infty$, giá trị hằng số $1$ bên trong căn trở nên không đáng kể, do đó đồ thị hàm số sẽ tiệm cận rất sát vào đồ thị hàm trị tuyệt đối $y = |x + 1|$. 
+		\begin{itemize}
+			\item Khi $x \to +\infty \Rightarrow y \approx x + 1$.
+			\item Khi $x \to -\infty \Rightarrow y \approx -(x + 1) = -x - 1$.
+		\end{itemize}
+		Đây là cách nhận diện tư duy cực kỳ sâu sắc giúp học sinh nhẩm nhanh phương trình đường tiệm cận xiên của các hàm chứa căn thức bậc hai.
+	\end{loigiai}
+	
+	\newpage
+	
+	% =====================
+	% PHẦN 4: BÀI TẬP
+	% =====================
+	\section{Bài tập luyện tập}
+	
+	\subsection{Câu hỏi tự luận}
+	
+	\subsubsection{Dạng 1: Xác định tiệm cận qua công thức của hàm số}
+	
+	\begin{btxanh}
+		\noindent \textbf{Bài 1.} Tìm phương trình tất cả các đường tiệm cận (đứng, ngang, xiên nếu có) của đồ thị các hàm số sau:
+		\begin{multicols}{3}
+			\begin{enumerate}[label=\textbf{\arabic*)}]
+				\item $y = \frac{4x - 1}{x - 2}$
+				\item $y = \frac{2 - x}{3x + 1}$
+				\item $y = \frac{5x}{x + 3}$
+				\item $y = \frac{3}{2x - 4}$
+				\item $y = \frac{-x + 2}{4 - x}$
+				\item $y = \frac{3x - 7}{2x + 5}$
+				\item $y = \frac{x^2 + 2x - 3}{x}$
+				\item $y = \frac{2x^2 - x + 1}{x - 1}$
+				\item $y = x - 3 + \frac{2}{x + 2}$
+				\item $y = -2x + 1 - \frac{1}{x - 3}$
+				\item $y = \frac{-x^2 + 3x - 1}{x + 1}$
+				\item $y = \frac{3x^2}{x - 2}$
+				\item $y = \frac{\sqrt{x^2 + 1}}{x}$
+				\item $y = \frac{x}{\sqrt{x^2 + 4}}$
+				\item $y = \frac{\sqrt{x - 1}}{x - 2}$
+			\end{enumerate}
+		\end{multicols}
+	\end{btxanh}
+	
+	\vspace{0.8cm}
+	
+	\begin{btvang}
+		\noindent \textbf{Bài 2.} Tìm phương trình tất cả các đường tiệm cận (đứng, ngang, xiên nếu có) của đồ thị các hàm số sau:
+		\begin{multicols}{3}
+			\begin{enumerate}[label=\textbf{\arabic*)}]
+				\item $y = \frac{x^2 - 4x + 3}{x^2 - 9}$
+				\item $y = \frac{x^2 - 1}{x^2 + 2x - 3}$
+				\item $y = \frac{x - 2}{x^2 - 4}$
+				\item $y = \frac{x^2 + x - 2}{x^2 - x - 2}$
+				\item $y = \frac{2x - 4}{x^2 - 3x + 2}$
+				\item $y = \frac{x^3 - 1}{x^2 - 1}$
+				\item $y = \frac{x^3 - 8}{x^2 - 4}$
+				\item $y = \frac{2x^2 - 3x + 1}{x^2 - 1}$
+				\item $y = \frac{x^2 - x}{x^2 - 2x + 1}$
+				\item $y = \frac{x^2 + 4x + 4}{x^2 - 4}$
+				\item $y = \frac{3x^2 - x - 2}{x^2 - x}$
+				\item $y = \frac{x^3 + 1}{x^2 - x}$
+				\item $y = \frac{\sqrt{4x^2 - 1}}{x - 2}$
+				\item $y = \frac{x - 1}{\sqrt{x^2 - 1}}$
+				\item $y = \frac{x}{\sqrt{x^2 - 3x + 2}}$
+			\end{enumerate}
+		\end{multicols}
+	\end{btvang}
+	
+	\vspace{0.8cm}
+	
+	\begin{btdo}
+		\noindent \textbf{Bài 3.} Tìm phương trình tất cả các đường tiệm cận (đứng, ngang, xiên nếu có) của đồ thị các hàm số sau:
+		\begin{multicols}{3}
+			\begin{enumerate}[label=\textbf{\arabic*)}]
+				\item $y = \frac{x^3 - 3x + 2}{x^2 - 2x + 1}$
+				\item $y = \frac{x^3 - x^2 - x + 1}{x^2 - 3x + 2}$
+				\item $y = \frac{2x^3 - x^2 - 2x + 1}{x^2 - 1}$
+				\item $y = \frac{x^4 - 1}{x^3 - x^2}$
+				\item $y = \frac{x^3 + x^2 - 2x}{x^2 + 3x + 2}$
+				\item $y = \frac{x^3 - 8}{x^3 - 2x^2 - x + 2}$
+				\item $y = \frac{x^2 - 2x + 1}{x^3 - 1}$
+				\item $y = \frac{2x^3 + x^2 - 3x}{x^2 - x}$
+				\item $y = \frac{x^3 + 3x^2 + 2x}{x^2 + x - 2}$
+				\item $y = \frac{x^3 - 4x}{x^3 - 3x^2 + 2x}$
+				\item $y = \frac{x^4 - 16}{x^3 - 2x^2}$
+				\item $y = \frac{x^3 + x^2 - x - 1}{x^2 - 1}$
+				\item $y = \sqrt{x^2 + 3x} - x$
+				\item $y = \frac{\sqrt{x^2 - x + 1} - x}{x - 1}$
+				\item $y = x + \frac{1}{\sqrt{x^2 - 1}}$
+			\end{enumerate}
+		\end{multicols}
+	\end{btdo}
+	
+	\subsubsection{Dạng 2: Tìm tiệm cận thông qua Bảng biến thiên và Đồ thị (Tự luận)}
+	
+	\begin{btxanh}
+		\textbf{Bài 4.} Tìm phương trình các đường tiệm cận của đồ thị hàm số $y=f(x)$ dựa vào bảng biến thiên được cho dưới đây:
+		\vspace{0.3cm}
+		
+		\noindent
+		\begin{minipage}{0.48\textwidth}
+			\textbf{a)} 
+			\begin{center}
+				\begin{tikzpicture}[scale=0.85, every node/.style={scale=0.9}]
+					\draw (0,0) rectangle (7,-3);
+					\draw (0,-0.8) -- (7,-0.8);
+					\draw (0,-1.6) -- (7,-1.6);
+					\draw (1.2,0) -- (1.2,-3);
+					\node at (0.6, -0.4) {$x$};
+					\node at (0.6, -1.2) {$y'$};
+					\node at (0.6, -2.3) {$y$};
+					
+					\node at (1.8, -0.4) {$-\infty$};
+					\node at (4.1, -0.4) {$2$};
+					\node at (6.4, -0.4) {$+\infty$};
+					
+					\node at (2.95, -1.2) {$-$};
+					\node at (5.25, -1.2) {$-$};
+					
+					% Kẻ sọc đôi chuẩn xác từ dưới hàng x
+					\draw (4.05, -0.8) -- (4.05, -3);
+					\draw (4.15, -0.8) -- (4.15, -3);
+					
+					\node at (1.6, -1.9) {$1$};
+					\node at (3.6, -2.7) {$-\infty$};
+					\draw[->, thick] (1.9, -2.0) -- (3.3, -2.6);
+					
+					\node at (4.6, -1.9) {$+\infty$};
+					\node at (6.6, -2.7) {$1$};
+					\draw[->, thick] (4.9, -2.0) -- (6.3, -2.6);
+				\end{tikzpicture}
+			\end{center}
+		\end{minipage}
+		\hfill
+		\begin{minipage}{0.48\textwidth}
+			\textbf{b)}
+			\begin{center}
+				\begin{tikzpicture}[scale=0.85, every node/.style={scale=0.9}]
+					\draw (0,0) rectangle (7,-3);
+					\draw (0,-0.8) -- (7,-0.8);
+					\draw (0,-1.6) -- (7,-1.6);
+					\draw (1.2,0) -- (1.2,-3);
+					\node at (0.6, -0.4) {$x$};
+					\node at (0.6, -1.2) {$y'$};
+					\node at (0.6, -2.3) {$y$};
+					
+					\node at (1.8, -0.4) {$-\infty$};
+					\node at (4.1, -0.4) {$-1$};
+					\node at (6.4, -0.4) {$+\infty$};
+					
+					\node at (2.95, -1.2) {$+$};
+					\node at (5.25, -1.2) {$+$};
+					
+					% Kẻ sọc đôi chuẩn xác từ dưới hàng x
+					\draw (4.05, -0.8) -- (4.05, -3);
+					\draw (4.15, -0.8) -- (4.15, -3);
+					
+					\node at (1.6, -2.7) {$-2$};
+					\node at (3.6, -1.9) {$+\infty$};
+					\draw[->, thick] (1.9, -2.6) -- (3.3, -2.0);
+					
+					\node at (4.6, -2.7) {$-\infty$};
+					\node at (6.6, -1.9) {$2$};
+					\draw[->, thick] (4.9, -2.6) -- (6.3, -2.0);
+				\end{tikzpicture}
+			\end{center}
+		\end{minipage}
+		
+		\vspace{0.5cm}
+		\noindent
+		\begin{minipage}{0.48\textwidth}
+			\textbf{c)} 
+			\begin{center}
+				\begin{tikzpicture}[scale=0.85, every node/.style={scale=0.9}]
+					\draw (0,0) rectangle (7,-3);
+					\draw (0,-0.8) -- (7,-0.8);
+					\draw (0,-1.6) -- (7,-1.6);
+					\draw (1.2,0) -- (1.2,-3);
+					\node at (0.6, -0.4) {$x$};
+					\node at (0.6, -1.2) {$y'$};
+					\node at (0.6, -2.3) {$y$};
+					
+					\node at (1.8, -0.4) {$-\infty$};
+					\node at (4.1, -0.4) {$0$};
+					\node at (6.4, -0.4) {$+\infty$};
+					
+					\node at (2.95, -1.2) {$-$};
+					\node at (4.1, -1.2) {$0$};
+					\node at (5.25, -1.2) {$+$};
+					
+					\node at (1.6, -1.9) {$3$};
+					\node at (4.1, -2.7) {$-1$};
+					\draw[->, thick] (2.0, -2.0) -- (3.8, -2.6);
+					
+					\node at (6.6, -1.9) {$3$};
+					\draw[->, thick] (4.4, -2.6) -- (6.2, -2.0);
+				\end{tikzpicture}
+			\end{center}
+		\end{minipage}
+		\hfill
+		\begin{minipage}{0.48\textwidth}
+			\textbf{d)}
+			\begin{center}
+				\begin{tikzpicture}[scale=0.85, every node/.style={scale=0.9}]
+					\draw (0,0) rectangle (7,-3);
+					\draw (0,-0.8) -- (7,-0.8);
+					\draw (0,-1.6) -- (7,-1.6);
+					\draw (1.2,0) -- (1.2,-3);
+					\node at (0.6, -0.4) {$x$};
+					\node at (0.6, -1.2) {$y'$};
+					\node at (0.6, -2.3) {$y$};
+					
+					\node at (1.8, -0.4) {$-\infty$};
+					\node at (4.1, -0.4) {$1$};
+					\node at (6.4, -0.4) {$+\infty$};
+					
+					\node at (2.95, -1.2) {$+$};
+					\node at (5.25, -1.2) {$-$};
+					
+					% Kẻ sọc đôi chuẩn xác từ dưới hàng x
+					\draw (4.05, -0.8) -- (4.05, -3);
+					\draw (4.15, -0.8) -- (4.15, -3);
+					
+					\node at (1.6, -2.7) {$-\infty$};
+					\node at (3.6, -1.9) {$+\infty$};
+					\draw[->, thick] (1.9, -2.6) -- (3.3, -2.0);
+					
+					\node at (4.6, -1.9) {$+\infty$};
+					\node at (6.6, -2.7) {$0$};
+					\draw[->, thick] (4.9, -2.0) -- (6.3, -2.6);
+				\end{tikzpicture}
+			\end{center}
+		\end{minipage}
+		
+		\vspace{0.6cm}
+		\textbf{Bài 5.} Tìm phương trình các đường tiệm cận của đồ thị hàm số $y=f(x)$ được biểu diễn bằng hình vẽ sau:
+		\vspace{0.3cm}
+		
+		\noindent
+		\begin{minipage}{0.48\textwidth}
+			\textbf{a)} 
+			\begin{center}
+				\begin{tikzpicture}
+					\begin{axis}[
+						width=6.5cm, height=5.5cm,
+						axis lines=center,
+						xmin=-4, xmax=4, ymin=-4, ymax=4,
+						xtick={-1, 1}, ytick={-1, 2},
+						xlabel={$x$}, ylabel={$y$},
+						every axis x label/.style={at={(ticklabel* cs:1)},anchor=west},
+						every axis y label/.style={at={(ticklabel* cs:1)},anchor=south},
+						restrict y to domain=-10:10,
+						]
+						\addplot [domain=-4:-1.3, samples=50, blue, thick] {(2*x-1)/(x+1)};
+						\addplot [domain=-0.7:4, samples=50, blue, thick] {(2*x-1)/(x+1)};
+						\draw[dashed, red, thick] (axis cs:-1,-4) -- (axis cs:-1,4);
+						\draw[dashed, red, thick] (axis cs:-4,2) -- (axis cs:4,2);
+						\draw[dashed, black!60] (axis cs:1,0) -- (axis cs:1,0.5) -- (axis cs:0,0.5);
+						\filldraw (axis cs:1,0.5) circle (1pt);
+					\end{axis}
+				\end{tikzpicture}
+			\end{center}
+		\end{minipage}
+		\hfill
+		\begin{minipage}{0.48\textwidth}
+			\textbf{b)}
+			\begin{center}
+				\begin{tikzpicture}
+					\begin{axis}[
+						width=6.5cm, height=5.5cm,
+						axis lines=center,
+						xmin=-2, xmax=6, ymin=-4, ymax=6,
+						xtick={1, 2, 3}, ytick={-1, 1},
+						xlabel={$x$}, ylabel={$y$},
+						every axis x label/.style={at={(ticklabel* cs:1)},anchor=west},
+						every axis y label/.style={at={(ticklabel* cs:1)},anchor=south},
+						restrict y to domain=-10:10,
+						]
+						\addplot [domain=-2:1.7, samples=50, blue, thick] {(-x+3)/(x-2)};
+						\addplot [domain=2.3:6, samples=50, blue, thick] {(-x+3)/(x-2)};
+						\draw[dashed, red, thick] (axis cs:2,-4) -- (axis cs:2,6);
+						\draw[dashed, red, thick] (axis cs:-2,-1) -- (axis cs:6,-1);
+						\draw[dashed, black!60] (axis cs:3,0) -- (axis cs:3,0) -- (axis cs:0,0);
+						\filldraw (axis cs:3,0) circle (1pt);
+					\end{axis}
+				\end{tikzpicture}
+			\end{center}
+		\end{minipage}
+		
+		\vspace{0.5cm}
+		\noindent
+		\begin{minipage}{0.48\textwidth}
+			\textbf{c)} 
+			\begin{center}
+				\begin{tikzpicture}
+					\begin{axis}[
+						width=6.5cm, height=5.5cm,
+						axis lines=center,
+						xmin=-4, xmax=4, ymin=-5, ymax=5,
+						xtick={1, 2}, ytick={-2, 2},
+						xlabel={$x$}, ylabel={$y$},
+						every axis x label/.style={at={(ticklabel* cs:1)},anchor=west},
+						every axis y label/.style={at={(ticklabel* cs:1)},anchor=south},
+						restrict y to domain=-15:15,
+						]
+						\addplot [domain=-4:0.7, samples=50, blue, thick] {(x^2-2*x+2)/(x-1)};
+						\addplot [domain=1.3:4, samples=50, blue, thick] {(x^2-2*x+2)/(x-1)};
+						\draw[dashed, red, thick] (axis cs:1,-5) -- (axis cs:1,5);
+						\draw[dashed, red, thick] (axis cs:-4,-5) -- (axis cs:4,3);
+						\draw[dashed, black!60] (axis cs:2,0) -- (axis cs:2,2) -- (axis cs:0,2);
+						\filldraw (axis cs:2,2) circle (1pt);
+						\filldraw (axis cs:0,-2) circle (1pt);
+					\end{axis}
+				\end{tikzpicture}
+			\end{center}
+		\end{minipage}
+		\hfill
+		\begin{minipage}{0.48\textwidth}
+			\textbf{d)}
+			\begin{center}
+				\begin{tikzpicture}
+					\begin{axis}[
+						width=6.5cm, height=5.5cm,
+						axis lines=center,
+						xmin=-5, xmax=3, ymin=-4, ymax=6,
+						xtick={-2, -1}, ytick={2, 3},
+						xlabel={$x$}, ylabel={$y$},
+						every axis x label/.style={at={(ticklabel* cs:1)},anchor=west},
+						every axis y label/.style={at={(ticklabel* cs:1)},anchor=south},
+						restrict y to domain=-15:15,
+						]
+						\addplot [domain=-5:-1.3, samples=50, blue, thick] {(-x^2-2*x-2)/(x+1)};
+						\addplot [domain=-0.7:3, samples=50, blue, thick] {(-x^2-2*x-2)/(x+1)};
+						\draw[dashed, red, thick] (axis cs:-1,-4) -- (axis cs:-1,6);
+						\draw[dashed, red, thick] (axis cs:-5,4) -- (axis cs:3,-4);
+						\draw[dashed, black!60] (axis cs:-2,0) -- (axis cs:-2,2) -- (axis cs:0,2);
+						\filldraw (axis cs:-2,2) circle (1pt);
+					\end{axis}
+				\end{tikzpicture}
+			\end{center}
+		\end{minipage}
+		
+	\end{btxanh}
+	
+	\vspace{0.8cm}
+	
+	\begin{btvang}
+		\textbf{Bài 6.} Tìm phương trình các đường tiệm cận của đồ thị hàm số $y=f(x)$ dựa vào bảng biến thiên được cho dưới đây:
+		\vspace{0.3cm}
+		
+		\noindent
+		\begin{minipage}{0.48\textwidth}
+			\textbf{a)} 
+			\begin{center}
+				\begin{tikzpicture}[scale=0.85, every node/.style={scale=0.9}]
+					\draw (0,0) rectangle (7,-3);
+					\draw (0,-0.8) -- (7,-0.8);
+					\draw (0,-1.6) -- (7,-1.6);
+					\draw (1.2,0) -- (1.2,-3);
+					\node at (0.6, -0.4) {$x$};
+					\node at (0.6, -1.2) {$y'$};
+					\node at (0.6, -2.3) {$y$};
+					
+					\node at (1.8, -0.4) {$-\infty$};
+					\node at (4.1, -0.4) {$-2$};
+					\node at (6.4, -0.4) {$+\infty$};
+					
+					\node at (2.95, -1.2) {$+$};
+					\node at (5.25, -1.2) {$-$};
+					
+					% Kẻ sọc đôi chuẩn xác từ dưới hàng x
+					\draw (4.05, -0.8) -- (4.05, -3);
+					\draw (4.15, -0.8) -- (4.15, -3);
+					
+					\node at (1.6, -2.7) {$-1$};
+					\node at (3.6, -1.9) {$+\infty$};
+					\draw[->, thick] (1.9, -2.6) -- (3.3, -2.0);
+					
+					\node at (4.6, -1.9) {$+\infty$};
+					\node at (6.6, -2.7) {$-1$};
+					\draw[->, thick] (4.9, -2.0) -- (6.3, -2.6);
+				\end{tikzpicture}
+			\end{center}
+		\end{minipage}
+		\hfill
+		\begin{minipage}{0.48\textwidth}
+			\textbf{b)}
+			\begin{center}
+				\begin{tikzpicture}[scale=0.85, every node/.style={scale=0.9}]
+					\draw (0,0) rectangle (7,-3);
+					\draw (0,-0.8) -- (7,-0.8);
+					\draw (0,-1.6) -- (7,-1.6);
+					\draw (1.2,0) -- (1.2,-3);
+					\node at (0.6, -0.4) {$x$};
+					\node at (0.6, -1.2) {$y'$};
+					\node at (0.6, -2.3) {$y$};
+					
+					\node at (1.8, -0.4) {$-\infty$};
+					\node at (4.1, -0.4) {$1$};
+					\node at (6.4, -0.4) {$+\infty$};
+					
+					\node at (2.95, -1.2) {$-$};
+					\node at (5.25, -1.2) {$-$};
+					
+					% Kẻ sọc đôi chuẩn xác từ dưới hàng x
+					\draw (4.05, -0.8) -- (4.05, -3);
+					\draw (4.15, -0.8) -- (4.15, -3);
+					
+					\node at (1.6, -1.9) {$0$};
+					\node at (3.6, -2.7) {$-\infty$};
+					\draw[->, thick] (1.9, -2.0) -- (3.3, -2.6);
+					
+					\node at (4.6, -1.9) {$+\infty$};
+					\node at (6.6, -2.7) {$0$};
+					\draw[->, thick] (4.9, -2.0) -- (6.3, -2.6);
+				\end{tikzpicture}
+			\end{center}
+		\end{minipage}
+		
+		\vspace{0.5cm}
+		\noindent
+		\begin{minipage}{0.48\textwidth}
+			\textbf{c)} 
+			\begin{center}
+				\begin{tikzpicture}[scale=0.85, every node/.style={scale=0.9}]
+					\draw (0,0) rectangle (7,-3);
+					\draw (0,-0.8) -- (7,-0.8);
+					\draw (0,-1.6) -- (7,-1.6);
+					\draw (1.2,0) -- (1.2,-3);
+					\node at (0.6, -0.4) {$x$};
+					\node at (0.6, -1.2) {$y'$};
+					\node at (0.6, -2.3) {$y$};
+					
+					\node at (1.8, -0.4) {$-\infty$};
+					\node at (4.1, -0.4) {$0$};
+					\node at (6.4, -0.4) {$+\infty$};
+					
+					\node at (2.95, -1.2) {$+$};
+					\node at (4.1, -1.2) {$0$};
+					\node at (5.25, -1.2) {$-$};
+					
+					\node at (1.6, -2.7) {$2$};
+					\node at (4.1, -1.9) {$5$};
+					\draw[->, thick] (2.0, -2.6) -- (3.8, -2.0);
+					
+					\node at (6.6, -2.7) {$2$};
+					\draw[->, thick] (4.4, -2.0) -- (6.2, -2.6);
+				\end{tikzpicture}
+			\end{center}
+		\end{minipage}
+		\hfill
+		\begin{minipage}{0.48\textwidth}
+			\textbf{d)}
+			\begin{center}
+				\begin{tikzpicture}[scale=0.85, every node/.style={scale=0.9}]
+					\draw (0,0) rectangle (8,-3);
+					\draw (0,-0.8) -- (8,-0.8);
+					\draw (0,-1.6) -- (8,-1.6);
+					\draw (1.2,0) -- (1.2,-3);
+					\node at (0.6, -0.4) {$x$};
+					\node at (0.6, -1.2) {$y'$};
+					\node at (0.6, -2.3) {$y$};
+					
+					\node at (1.8, -0.4) {$-\infty$};
+					\node at (3.5, -0.4) {$-1$};
+					\node at (5.5, -0.4) {$1$};
+					\node at (7.3, -0.4) {$+\infty$};
+					
+					\node at (2.6, -1.2) {$+$};
+					\node at (4.5, -1.2) {$-$};
+					\node at (6.4, -1.2) {$+$};
+					
+					% Kẻ sọc đôi chuẩn xác từ dưới hàng x tại x=-1
+					\draw (3.45, -0.8) -- (3.45, -3);
+					\draw (3.55, -0.8) -- (3.55, -3);
+					
+					% Kẻ sọc đôi chuẩn xác từ dưới hàng x tại x=1
+					\draw (5.45, -0.8) -- (5.45, -3);
+					\draw (5.55, -0.8) -- (5.55, -3);
+					
+					\node at (1.6, -2.7) {$-1$};
+					\node at (3.2, -1.9) {$+\infty$};
+					\draw[->, thick] (2.0, -2.6) -- (2.9, -2.0);
+					
+					\node at (3.9, -1.9) {$+\infty$};
+					\node at (5.1, -2.7) {$-\infty$};
+					\draw[->, thick] (4.2, -2.0) -- (4.8, -2.6);
+					
+					\node at (5.9, -2.7) {$-\infty$};
+					\node at (7.5, -1.9) {$1$};
+					\draw[->, thick] (6.2, -2.6) -- (7.1, -2.0);
+				\end{tikzpicture}
+			\end{center}
+		\end{minipage}
+		
+		\vspace{0.6cm}
+		\textbf{Bài 7.} Tìm phương trình các đường tiệm cận của đồ thị hàm số $y=f(x)$ được biểu diễn bằng hình vẽ sau:
+		\vspace{0.3cm}
+		
+		\noindent
+		\begin{minipage}{0.48\textwidth}
+			\textbf{a)} 
+			\begin{center}
+				\begin{tikzpicture}
+					\begin{axis}[
+						width=6.5cm, height=5.5cm,
+						axis lines=center,
+						xmin=-4, xmax=4, ymin=-3, ymax=4,
+						xtick={-1, 1}, ytick={1, 2},
+						xlabel={$x$}, ylabel={$y$},
+						every axis x label/.style={at={(ticklabel* cs:1)},anchor=west},
+						every axis y label/.style={at={(ticklabel* cs:1)},anchor=south},
+						restrict y to domain=-10:10,
+						]
+						\addplot [domain=-4:-1.2, samples=50, blue, thick] {1/(x^2-1) + 1};
+						\addplot [domain=-0.8:0.8, samples=50, blue, thick] {1/(x^2-1) + 1};
+						\addplot [domain=1.2:4, samples=50, blue, thick] {1/(x^2-1) + 1};
+						\draw[dashed, red, thick] (axis cs:-1,-3) -- (axis cs:-1,4);
+						\draw[dashed, red, thick] (axis cs:1,-3) -- (axis cs:1,4);
+						\draw[dashed, red, thick] (axis cs:-4,1) -- (axis cs:4,1);
+					\end{axis}
+				\end{tikzpicture}
+			\end{center}
+		\end{minipage}
+		\hfill
+		\begin{minipage}{0.48\textwidth}
+			\textbf{b)}
+			\begin{center}
+				\begin{tikzpicture}
+					\begin{axis}[
+						width=6.5cm, height=5.5cm,
+						axis lines=center,
+						xmin=-4, xmax=4, ymin=-5, ymax=5,
+						xtick={-1, 1}, ytick={-2, 2},
+						xlabel={$x$}, ylabel={$y$},
+						every axis x label/.style={at={(ticklabel* cs:1)},anchor=west},
+						every axis y label/.style={at={(ticklabel* cs:1)},anchor=south},
+						restrict y to domain=-15:15,
+						]
+						\addplot [domain=-4:-0.3, samples=50, blue, thick] {(x^2+1)/x};
+						\addplot [domain=0.3:4, samples=50, blue, thick] {(x^2+1)/x};
+						\draw[dashed, red, thick] (axis cs:0,-5) -- (axis cs:0,5);
+						\draw[dashed, red, thick] (axis cs:-4,-4) -- (axis cs:4,4);
+						\draw[dashed, black!60] (axis cs:1,0) -- (axis cs:1,2) -- (axis cs:0,2);
+						\filldraw (axis cs:1,2) circle (1pt);
+						\draw[dashed, black!60] (axis cs:-1,0) -- (axis cs:-1,-2) -- (axis cs:0,-2);
+						\filldraw (axis cs:-1,-2) circle (1pt);
+					\end{axis}
+				\end{tikzpicture}
+			\end{center}
+		\end{minipage}
+		
+		\vspace{0.5cm}
+		\noindent
+		\begin{minipage}{0.48\textwidth}
+			\textbf{c)} 
+			\begin{center}
+				\begin{tikzpicture}
+					\begin{axis}[
+						width=6.5cm, height=5.5cm,
+						axis lines=center,
+						xmin=-4, xmax=4, ymin=-3, ymax=3,
+						xtick={-1, 1}, ytick={-1, 1},
+						xlabel={$x$}, ylabel={$y$},
+						every axis x label/.style={at={(ticklabel* cs:1)},anchor=west},
+						every axis y label/.style={at={(ticklabel* cs:1)},anchor=south},
+						]
+						\addplot [domain=-4:4, samples=100, blue, thick] {2*x/(x^2+1)};
+						\draw[dashed, red, thick] (axis cs:-4,0) -- (axis cs:4,0);
+						\draw[dashed, black!60] (axis cs:1,0) -- (axis cs:1,1) -- (axis cs:0,1);
+						\filldraw (axis cs:1,1) circle (1pt);
+						\draw[dashed, black!60] (axis cs:-1,0) -- (axis cs:-1,-1) -- (axis cs:0,-1);
+						\filldraw (axis cs:-1,-1) circle (1pt);
+					\end{axis}
+				\end{tikzpicture}
+			\end{center}
+		\end{minipage}
+		\hfill
+		\begin{minipage}{0.48\textwidth}
+			\textbf{d)}
+			\begin{center}
+				\begin{tikzpicture}
+					\begin{axis}[
+						width=6.5cm, height=5.5cm,
+						axis lines=center,
+						xmin=-3, xmax=5, ymin=-5, ymax=5,
+						xtick={1, 2, 3}, ytick={-2, 2, 4},
+						xlabel={$x$}, ylabel={$y$},
+						every axis x label/.style={at={(ticklabel* cs:1)},anchor=west},
+						every axis y label/.style={at={(ticklabel* cs:1)},anchor=south},
+						restrict y to domain=-15:15,
+						]
+						\addplot [domain=-3:1.7, samples=50, blue, thick] {(x^2-2*x+2)/(x-2)};
+						\addplot [domain=2.3:5, samples=50, blue, thick] {(x^2-2*x+2)/(x-2)};
+						\draw[dashed, red, thick] (axis cs:2,-5) -- (axis cs:2,5);
+						\draw[dashed, red, thick] (axis cs:-3,-3) -- (axis cs:5,5);
+						\draw[dashed, black!60] (axis cs:3,0) -- (axis cs:3,5);
+						\filldraw (axis cs:3,5) circle (1pt);
+						\draw[dashed, black!60] (axis cs:1,0) -- (axis cs:1,-1) -- (axis cs:0,-1);
+						\filldraw (axis cs:1,-1) circle (1pt);
+					\end{axis}
+				\end{tikzpicture}
+			\end{center}
+		\end{minipage}
+		
+	\end{btvang}
+	
+	\vspace{0.8cm}
+	
+	\begin{btdo}
+		\textbf{Bài 8.} Tìm phương trình các đường tiệm cận của đồ thị hàm số $y=f(x)$ dựa vào bảng biến thiên được cho dưới đây:
+		\vspace{0.3cm}
+		
+		\noindent
+		\begin{minipage}{0.48\textwidth}
+			\textbf{a)} 
+			\begin{center}
+				\begin{tikzpicture}[scale=0.85, every node/.style={scale=0.9}]
+					\draw (0,0) rectangle (7,-3);
+					\draw (0,-0.8) -- (7,-0.8);
+					\draw (0,-1.6) -- (7,-1.6);
+					\draw (1.2,0) -- (1.2,-3);
+					\node at (0.6, -0.4) {$x$};
+					\node at (0.6, -1.2) {$y'$};
+					\node at (0.6, -2.3) {$y$};
+					
+					\node at (1.8, -0.4) {$-3$};
+					\node at (4.1, -0.4) {$0$};
+					\node at (6.4, -0.4) {$+\infty$};
+					
+					\node at (2.95, -1.2) {$-$};
+					\node at (5.25, -1.2) {$+$};
+					
+					% Kẻ sọc đôi chuẩn xác từ dưới hàng x
+					\draw (4.05, -0.8) -- (4.05, -3);
+					\draw (4.15, -0.8) -- (4.15, -3);
+					
+					\node at (2.0, -1.9) {$4$};
+					\node at (3.6, -2.7) {$-\infty$};
+					\draw[->, thick] (2.3, -2.0) -- (3.3, -2.6);
+					
+					\node at (4.6, -2.7) {$-\infty$};
+					\node at (6.6, -1.9) {$-1$};
+					\draw[->, thick] (4.9, -2.6) -- (6.3, -2.0);
+				\end{tikzpicture}
+			\end{center}
+		\end{minipage}
+		\hfill
+		\begin{minipage}{0.48\textwidth}
+			\textbf{b)}
+			\begin{center}
+				\begin{tikzpicture}[scale=0.85, every node/.style={scale=0.9}]
+					\draw (0,0) rectangle (8,-3);
+					\draw (0,-0.8) -- (8,-0.8);
+					\draw (0,-1.6) -- (8,-1.6);
+					\draw (1.2,0) -- (1.2,-3);
+					\node at (0.6, -0.4) {$x$};
+					\node at (0.6, -1.2) {$y'$};
+					\node at (0.6, -2.3) {$y$};
+					
+					\node at (1.8, -0.4) {$-\infty$};
+					\node at (3.5, -0.4) {$-2$};
+					\node at (5.5, -0.4) {$2$};
+					\node at (7.3, -0.4) {$+\infty$};
+					
+					\node at (2.6, -1.2) {$+$};
+					\node at (4.5, -1.2) {$-$};
+					\node at (6.4, -1.2) {$+$};
+					
+					% Kẻ sọc đôi chuẩn xác từ dưới hàng x tại x=-2
+					\draw (3.45, -0.8) -- (3.45, -3);
+					\draw (3.55, -0.8) -- (3.55, -3);
+					
+					\node at (5.5, -1.2) {$0$};
+					
+					\node at (1.6, -2.7) {$1$};
+					\node at (3.2, -1.9) {$+\infty$};
+					\draw[->, thick] (2.0, -2.6) -- (2.9, -2.0);
+					
+					\node at (3.9, -1.9) {$+\infty$};
+					\node at (5.5, -2.7) {$-3$};
+					\draw[->, thick] (4.2, -2.0) -- (5.2, -2.6);
+					
+					\node at (7.5, -1.9) {$1$};
+					\draw[->, thick] (5.8, -2.6) -- (7.1, -2.0);
+				\end{tikzpicture}
+			\end{center}
+		\end{minipage}
+		
+		\vspace{0.5cm}
+		\noindent
+		\begin{minipage}{0.48\textwidth}
+			\textbf{c)} 
+			\begin{center}
+				\begin{tikzpicture}[scale=0.85, every node/.style={scale=0.9}]
+					\draw (0,0) rectangle (7,-3);
+					\draw (0,-0.8) -- (7,-0.8);
+					\draw (0,-1.6) -- (7,-1.6);
+					\draw (1.2,0) -- (1.2,-3);
+					\node at (0.6, -0.4) {$x$};
+					\node at (0.6, -1.2) {$y'$};
+					\node at (0.6, -2.3) {$y$};
+					
+					\node at (1.8, -0.4) {$-\infty$};
+					\node at (4.1, -0.4) {$3$};
+					\node at (6.4, -0.4) {$+\infty$};
+					
+					\node at (2.95, -1.2) {$-$};
+					\node at (5.25, -1.2) {$+$};
+					
+					% Kẻ sọc đôi chuẩn xác từ dưới hàng x
+					\draw (4.05, -0.8) -- (4.05, -3);
+					\draw (4.15, -0.8) -- (4.15, -3);
+					
+					\node at (1.6, -1.9) {$2$};
+					\node at (3.6, -2.7) {$-\infty$};
+					\draw[->, thick] (2.0, -2.0) -- (3.3, -2.6);
+					
+					\node at (4.6, -2.7) {$5$};
+					\node at (6.6, -1.9) {$+\infty$};
+					\draw[->, thick] (4.9, -2.6) -- (6.2, -2.0);
+				\end{tikzpicture}
+			\end{center}
+		\end{minipage}
+		\hfill
+		\begin{minipage}{0.48\textwidth}
+			\textbf{d)}
+			\begin{center}
+				\begin{tikzpicture}[scale=0.85, every node/.style={scale=0.9}]
+					\draw (0,0) rectangle (7,-3);
+					\draw (0,-0.8) -- (7,-0.8);
+					\draw (0,-1.6) -- (7,-1.6);
+					\draw (1.2,0) -- (1.2,-3);
+					\node at (0.6, -0.4) {$x$};
+					\node at (0.6, -1.2) {$y'$};
+					\node at (0.6, -2.3) {$y$};
+					
+					\node at (1.8, -0.4) {$-\infty$};
+					\node at (4.1, -0.4) {$0$};
+					\node at (6.4, -0.4) {$+\infty$};
+					
+					\node at (2.95, -1.2) {$+$};
+					\node at (4.1, -1.2) {$0$};
+					\node at (5.25, -1.2) {$-$};
+					
+					\node at (1.6, -2.7) {$-1$};
+					\node at (4.1, -1.9) {$3$};
+					\draw[->, thick] (2.0, -2.6) -- (3.8, -2.0);
+					
+					\node at (6.6, -2.7) {$1$};
+					\draw[->, thick] (4.4, -2.0) -- (6.2, -2.6);
+				\end{tikzpicture}
+			\end{center}
+		\end{minipage}
+		
+		\vspace{0.6cm}
+		\textbf{Bài 9.} Tìm phương trình các đường tiệm cận của đồ thị hàm số $y=f(x)$ được biểu diễn bằng hình vẽ sau:
+		\vspace{0.3cm}
+		
+		\noindent
+		\begin{minipage}{0.48\textwidth}
+			\textbf{a)} 
+			\begin{center}
+				\begin{tikzpicture}
+					\begin{axis}[
+						width=6.5cm, height=5.5cm,
+						axis lines=center,
+						xmin=-4, xmax=4, ymin=-5, ymax=3,
+						xtick={-1, 1}, ytick={-2},
+						xlabel={$x$}, ylabel={$y$},
+						every axis x label/.style={at={(ticklabel* cs:1)},anchor=west},
+						every axis y label/.style={at={(ticklabel* cs:1)},anchor=south},
+						restrict y to domain=-10:10,
+						]
+						\addplot [domain=-4:-1.3, samples=50, blue, thick] {(-2*x)/(x+1)};
+						\addplot [domain=-0.7:4, samples=50, blue, thick] {(-2*x)/(x+1)};
+						\draw[dashed, red, thick] (axis cs:-1,-5) -- (axis cs:-1,3);
+						\draw[dashed, red, thick] (axis cs:-4,-2) -- (axis cs:4,-2);
+						\filldraw (axis cs:0,0) circle (1pt);
+					\end{axis}
+				\end{tikzpicture}
+			\end{center}
+		\end{minipage}
+		\hfill
+		\begin{minipage}{0.48\textwidth}
+			\textbf{b)}
+			\begin{center}
+				\begin{tikzpicture}
+					\begin{axis}[
+						width=6.5cm, height=5.5cm,
+						axis lines=center,
+						xmin=-4, xmax=3, ymin=-5, ymax=4,
+						xtick={-2, -1}, ytick={-4},
+						xlabel={$x$}, ylabel={$y$},
+						every axis x label/.style={at={(ticklabel* cs:1)},anchor=west},
+						every axis y label/.style={at={(ticklabel* cs:1)},anchor=south},
+						restrict y to domain=-15:15,
+						]
+						\addplot [domain=-4:-1.3, samples=50, blue, thick] {(x^2)/(x+1)};
+						\addplot [domain=-0.7:3, samples=50, blue, thick] {(x^2)/(x+1)};
+						\draw[dashed, red, thick] (axis cs:-1,-5) -- (axis cs:-1,4);
+						\draw[dashed, red, thick] (axis cs:-4,-5) -- (axis cs:3,2);
+						\draw[dashed, black!60] (axis cs:-2,0) -- (axis cs:-2,-4) -- (axis cs:0,-4);
+						\filldraw (axis cs:-2,-4) circle (1pt);
+						\filldraw (axis cs:0,0) circle (1pt);
+					\end{axis}
+				\end{tikzpicture}
+			\end{center}
+		\end{minipage}
+		
+		\vspace{0.5cm}
+		\noindent
+		\begin{minipage}{0.48\textwidth}
+			\textbf{c)} 
+			\begin{center}
+				\begin{tikzpicture}
+					\begin{axis}[
+						width=6.5cm, height=5.5cm,
+						axis lines=center,
+						xmin=-2, xmax=4, ymin=-2, ymax=6,
+						xtick={1}, ytick={0, 1},
+						xlabel={$x$}, ylabel={$y$},
+						every axis x label/.style={at={(ticklabel* cs:1)},anchor=west},
+						every axis y label/.style={at={(ticklabel* cs:1)},anchor=south},
+						restrict y to domain=-5:15,
+						]
+						\addplot [domain=-2:0.7, samples=50, blue, thick] {1/((x-1)^2)};
+						\addplot [domain=1.3:4, samples=50, blue, thick] {1/((x-1)^2)};
+						\draw[dashed, red, thick] (axis cs:1,-2) -- (axis cs:1,6);
+						\draw[dashed, red, thick] (axis cs:-2,0) -- (axis cs:4,0);
+						\draw[dashed, black!60] (axis cs:0,1) -- (axis cs:2,1) -- (axis cs:2,0);
+						\filldraw (axis cs:0,1) circle (1pt);
+					\end{axis}
+				\end{tikzpicture}
+			\end{center}
+		\end{minipage}
+		\hfill
+		\begin{minipage}{0.48\textwidth}
+			\textbf{d)}
+			\begin{center}
+				\begin{tikzpicture}
+					\begin{axis}[
+						width=6.5cm, height=5.5cm,
+						axis lines=center,
+						xmin=-1, xmax=6, ymin=-2, ymax=9,
+						xtick={1, 2, 3}, ytick={-1, 7},
+						xlabel={$x$}, ylabel={$y$},
+						every axis x label/.style={at={(ticklabel* cs:1)},anchor=west},
+						every axis y label/.style={at={(ticklabel* cs:1)},anchor=south},
+						restrict y to domain=-15:15,
+						]
+						\addplot [domain=-1:1.7, samples=50, blue, thick] {(x^2-x+1)/(x-2)};
+						\addplot [domain=2.3:6, samples=50, blue, thick] {(x^2-x+1)/(x-2)};
+						\draw[dashed, red, thick] (axis cs:2,-2) -- (axis cs:2,9);
+						\draw[dashed, red, thick] (axis cs:-1,0) -- (axis cs:6,7);
+						\draw[dashed, black!60] (axis cs:3,0) -- (axis cs:3,7) -- (axis cs:0,7);
+						\filldraw (axis cs:3,7) circle (1pt);
+						\draw[dashed, black!60] (axis cs:1,0) -- (axis cs:1,-1) -- (axis cs:0,-1);
+						\filldraw (axis cs:1,-1) circle (1pt);
+					\end{axis}
+				\end{tikzpicture}
+			\end{center}
+		\end{minipage}
+		
+	\end{btdo}
+	
+	
+	
+	\subsection{Câu hỏi trắc nghiệm khách quan}
+	
+	\noindent \textbf{Câu 1.} Cho hàm số $y = \frac{ax+b}{cx+d}$ ($c \ne 0, ad - bc \ne 0$) có đồ thị như hình vẽ dưới đây.
+	\begin{center}
+		\begin{tikzpicture}
+			\begin{axis}[
+				width=7cm, height=6cm,
+				axis lines=center,
+				xmin=-4, xmax=4, ymin=-4, ymax=6,
+				xtick={1, 2}, ytick={-1, 2},
+				xlabel={$x$}, ylabel={$y$},
+				every axis x label/.style={at={(ticklabel* cs:1)},anchor=west},
+				every axis y label/.style={at={(ticklabel* cs:1)},anchor=south},
+				restrict y to domain=-10:10,
+				]
+				\addplot [domain=-4:0.7, samples=50, blue, thick] {(2*x+1)/(x-1)};
+				\addplot [domain=1.3:4, samples=50, blue, thick] {(2*x+1)/(x-1)};
+				\draw[dashed, black!80, thick] (axis cs:1,-4) -- (axis cs:1,6);
+				\draw[dashed, black!80, thick] (axis cs:-4,2) -- (axis cs:4,2);
+			\end{axis}
+		\end{tikzpicture}
+	\end{center}
+	Đường tiệm cận đứng của đồ thị hàm số đã cho có phương trình là:
+	\begin{multicols}{4}
+		\begin{enumerate}[label=\textbf{\Alph*.}]
+			\item $x = 1$.
+			\item $x = -1$.
+			\item $y = 2$.
+			\item $x = 2$.
+		\end{enumerate}
+	\end{multicols}
+	
+	\vspace{0.4cm}
+	\noindent \textbf{Câu 2.} Cho hàm số $y = \frac{ax+b}{cx+d}$ ($c \ne 0, ad - bc \ne 0$) có đồ thị như hình vẽ dưới đây.
+	\begin{center}
+		\begin{tikzpicture}
+			\begin{axis}[
+				width=7cm, height=6cm,
+				axis lines=center,
+				xmin=-6, xmax=3, ymin=-5, ymax=4,
+				xtick={-2}, ytick={-1, 1},
+				xlabel={$x$}, ylabel={$y$},
+				every axis x label/.style={at={(ticklabel* cs:1)},anchor=west},
+				every axis y label/.style={at={(ticklabel* cs:1)},anchor=south},
+				restrict y to domain=-10:10,
+				]
+				\addplot [domain=-6:-2.3, samples=50, blue, thick] {(-x+2)/(x+2)};
+				\addplot [domain=-1.7:3, samples=50, blue, thick] {(-x+2)/(x+2)};
+				\draw[dashed, black!80, thick] (axis cs:-2,-5) -- (axis cs:-2,4);
+				\draw[dashed, black!80, thick] (axis cs:-6,-1) -- (axis cs:3,-1);
+			\end{axis}
+		\end{tikzpicture}
+	\end{center}
+	Đường tiệm cận ngang của đồ thị hàm số đã cho có phương trình là:
+	\begin{multicols}{4}
+		\begin{enumerate}[label=\textbf{\Alph*.}]
+			\item $x = -2$.
+			\item $y = 1$.
+			\item $y = -1$.
+			\item $x = -1$.
+		\end{enumerate}
+	\end{multicols}
+	
+	\vspace{0.4cm}
+	\noindent \textbf{Câu 3.} Cho hàm số $y = f(x)$ xác định trên $\mathbb{R} \setminus \{1\}$ và có đồ thị như hình vẽ dưới đây.
+	\begin{center}
+		\begin{tikzpicture}
+			\begin{axis}[
+				width=7cm, height=6cm,
+				axis lines=center,
+				xmin=-4, xmax=5, ymin=-5, ymax=6,
+				xtick={1, 2}, ytick={-1, 1, 2},
+				xlabel={$x$}, ylabel={$y$},
+				every axis x label/.style={at={(ticklabel* cs:1)},anchor=west},
+				every axis y label/.style={at={(ticklabel* cs:1)},anchor=south},
+				restrict y to domain=-10:10,
+				]
+				\addplot [domain=-4:0.6, samples=50, blue, thick] {x - 1 - 2/(x-1)};
+				\addplot [domain=1.4:5, samples=50, blue, thick] {x - 1 - 2/(x-1)};
+				\draw[dashed, black!80, thick] (axis cs:1,-5) -- (axis cs:1,6);
+				\draw[dashed, black!80, thick] (axis cs:-4,-5) -- (axis cs:5,4);
+				\node[above, sloped] at (axis cs:-2, -3) {$y = x - 1$};
+			\end{axis}
+		\end{tikzpicture}
+	\end{center}
+	Phương trình đường tiệm cận xiên của đồ thị hàm số đã cho là:
+	\begin{multicols}{4}
+		\begin{enumerate}[label=\textbf{\Alph*.}]
+			\item $y = x + 1$.
+			\item $y = x - 1$.
+			\item $y = -x + 1$.
+			\item $y = x$.
+		\end{enumerate}
+	\end{multicols}
+	
+	\vspace{0.4cm}
+	\noindent \textbf{Câu 4.} Cho hàm số $y = \frac{ax+b}{cx+d}$ ($c \ne 0, ad - bc \ne 0$) có đồ thị như hình vẽ dưới đây.
+	\begin{center}
+		\begin{tikzpicture}
+			\begin{axis}[
+				width=7cm, height=6cm,
+				axis lines=center,
+				xmin=-5, xmax=4, ymin=-5, ymax=7,
+				xtick={-1, 1}, ytick={3},
+				xlabel={$x$}, ylabel={$y$},
+				every axis x label/.style={at={(ticklabel* cs:1)},anchor=west},
+				every axis y label/.style={at={(ticklabel* cs:1)},anchor=south},
+				restrict y to domain=-10:10,
+				]
+				\addplot [domain=-5:-1.3, samples=50, blue, thick] {(3*x)/(x+1)};
+				\addplot [domain=-0.7:4, samples=50, blue, thick] {(3*x)/(x+1)};
+				\draw[dashed, black!80, thick] (axis cs:-1,-5) -- (axis cs:-1,7);
+				\draw[dashed, black!80, thick] (axis cs:-5,3) -- (axis cs:4,3);
+			\end{axis}
+		\end{tikzpicture}
+	\end{center}
+	Đường tiệm cận ngang của đồ thị hàm số đã cho là đường thẳng:
+	\begin{multicols}{4}
+		\begin{enumerate}[label=\textbf{\Alph*.}]
+			\item $y = -1$.
+			\item $y = 3$.
+			\item $x = -1$.
+			\item $x = 3$.
+		\end{enumerate}
+	\end{multicols}
+	
+	\vspace{0.4cm}
+	\noindent \textbf{Câu 5.} Cho hàm số $y = \frac{ax+b}{cx+d}$ ($c \ne 0, ad - bc \ne 0$) có đồ thị như hình vẽ dưới đây.
+	\begin{center}
+		\begin{tikzpicture}
+			\begin{axis}[
+				width=7cm, height=6cm,
+				axis lines=center,
+				xmin=-3, xmax=6, ymin=-5, ymax=4,
+				xtick={2}, ytick={-1},
+				xlabel={$x$}, ylabel={$y$},
+				every axis x label/.style={at={(ticklabel* cs:1)},anchor=west},
+				every axis y label/.style={at={(ticklabel* cs:1)},anchor=south},
+				restrict y to domain=-10:10,
+				]
+				\addplot [domain=-3:1.7, samples=50, blue, thick] {(-2*x+1)/(2*x-4)};
+				\addplot [domain=2.3:6, samples=50, blue, thick] {(-2*x+1)/(2*x-4)};
+				\draw[dashed, black!80, thick] (axis cs:2,-5) -- (axis cs:2,4);
+				\draw[dashed, black!80, thick] (axis cs:-3,-1) -- (axis cs:6,-1);
+			\end{axis}
+		\end{tikzpicture}
+	\end{center}
+	Đồ thị hàm số đã cho có đường tiệm cận đứng là:
+	\begin{multicols}{4}
+		\begin{enumerate}[label=\textbf{\Alph*.}]
+			\item $x = -1$.
+			\item $y = -1$.
+			\item $x = 2$.
+			\item $y = 2$.
+		\end{enumerate}
+	\end{multicols}
+	
+	\vspace{0.4cm}
+	\noindent \textbf{Câu 6.} Cho hàm số $y = \frac{ax+b}{cx+d}$ ($c \ne 0, ad - bc \ne 0$) có đồ thị như hình vẽ dưới đây.
+	\begin{center}
+		\begin{tikzpicture}
+			\begin{axis}[
+				width=7cm, height=6cm,
+				axis lines=center,
+				xmin=-5, xmax=4, ymin=-5, ymax=6,
+				xtick={-1}, ytick={1, -2},
+				xlabel={$x$}, ylabel={$y$},
+				every axis x label/.style={at={(ticklabel* cs:1)},anchor=west},
+				every axis y label/.style={at={(ticklabel* cs:1)},anchor=south},
+				restrict y to domain=-10:10,
+				]
+				\addplot [domain=-5:-1.3, samples=50, blue, thick] {(x-2)/(x+1)};
+				\addplot [domain=-0.7:4, samples=50, blue, thick] {(x-2)/(x+1)};
+				\draw[dashed, black!80, thick] (axis cs:-1,-5) -- (axis cs:-1,6);
+				\draw[dashed, black!80, thick] (axis cs:-5,1) -- (axis cs:4,1);
+			\end{axis}
+		\end{tikzpicture}
+	\end{center}
+	Tọa độ giao điểm $I$ của hai đường tiệm cận của đồ thị hàm số là:
+	\begin{multicols}{4}
+		\begin{enumerate}[label=\textbf{\Alph*.}]
+			\item $I(1; -1)$.
+			\item $I(-1; 1)$.
+			\item $I(-1; -2)$.
+			\item $I(1; 1)$.
+		\end{enumerate}
+	\end{multicols}
+	
+	
+	\vspace{0.4cm}
+	\noindent \textbf{Câu 7.} Cho hàm số $y = \frac{ax^2+bx+c}{mx+n}$ ($a \ne 0, m \ne 0$) với $a,b,c,m,n$ là các số thực và có đồ thị $(C)$ như hình vẽ dưới đây.
+	\begin{center}
+		\begin{tikzpicture}
+			\begin{axis}[
+				width=9cm, height=8cm,
+				axis lines=center,
+				xmin=-4, xmax=5, ymin=-5, ymax=6,
+				xtick={1, 2}, ytick={-1, 1},
+				xlabel={$x$}, ylabel={$y$},
+				every axis x label/.style={at={(ticklabel* cs:1)},anchor=west},
+				every axis y label/.style={at={(ticklabel* cs:1)},anchor=south},
+				restrict y to domain=-10:10,
+				]
+				\addplot [domain=-4:0.6, samples=50, blue, thick] {x - 1 - 2/(x-1)};
+				\addplot [domain=1.4:5, samples=50, blue, thick] {x - 1 - 2/(x-1)};
+				\draw[dashed, black!80, thick] (axis cs:1,-5) -- (axis cs:1,6);
+				\addplot [domain=-4:5, dashed, black!80, thick] {x - 1};
+				\node[above, sloped] at (axis cs:-2, -3) {$y = x - 1$};
+			\end{axis}
+		\end{tikzpicture}
+	\end{center}
+	Khẳng định nào sau đây đúng?
+	\begin{enumerate}[label=\textbf{\Alph*.}]
+		\item Đồ thị hàm số $(C)$ có tiệm cận đứng là đường thẳng $x = 0$.
+		\item Đồ thị hàm số $(C)$ có tiệm cận xiên là đường thẳng $y = 1$.
+		\item Đồ thị hàm số $(C)$ có tiệm cận ngang là đường thẳng $y = x - 1$.
+		\item Giao điểm của tiệm cận đứng và tiệm cận xiên có tọa độ là $(1; 0)$.
+	\end{enumerate}
+	
+	\vspace{0.4cm}
+	\noindent \textbf{Câu 8.} Cho hàm số $y = \frac{ax^2+bx+c}{mx+n}$ ($a \ne 0, m \ne 0$) với $a,b,c,m,n$ là các số thực và có đồ thị $(C)$ như hình vẽ dưới đây.
+	\begin{center}
+		\begin{tikzpicture}
+			\begin{axis}[
+				width=9cm, height=8cm,
+				axis lines=center,
+				xmin=-5, xmax=3, ymin=-5, ymax=4,
+				xtick={-2, -1}, ytick={-1, 2},
+				xlabel={$x$}, ylabel={$y$},
+				every axis x label/.style={at={(ticklabel* cs:1)},anchor=west},
+				every axis y label/.style={at={(ticklabel* cs:1)},anchor=south},
+				restrict y to domain=-10:10,
+				]
+				\addplot [domain=-5:-2.4, samples=50, blue, thick] {-x - 1 - 1/(x+2)};
+				\addplot [domain=-1.6:3, samples=50, blue, thick] {-x - 1 - 1/(x+2)};
+				\draw[dashed, black!80, thick] (axis cs:-2,-5) -- (axis cs:-2,4);
+				\addplot [domain=-5:3, dashed, black!80, thick] {-x - 1};
+				\node[above, sloped, yshift=5pt] at (axis cs:2.0, -2.0) {$y = -x - 1$};
+			\end{axis}
+		\end{tikzpicture}
+	\end{center}
+	Khẳng định nào sau đây đúng?
+	\begin{enumerate}[label=\textbf{\Alph*.}]
+		\item Đồ thị hàm số $(C)$ có đường tiệm cận ngang.
+		\item Đồ thị hàm số $(C)$ có đường tiệm cận đứng là $x = -2$ và đường tiệm cận xiên là $y = -x - 1$.
+		\item Giao điểm của đường tiệm cận đứng và đường tiệm cận xiên nằm trên trục hoành.
+		\item Hàm số $(C)$ có hai đường tiệm cận xiên.
+	\end{enumerate}
+	
+	\vspace{0.4cm}
+	\noindent \textbf{Câu 9.} Cho hàm số $y = \frac{ax^2+bx+c}{mx+n}$ ($a \ne 0, m \ne 0$) với $a,b,c,m,n$ là các số thực và có đồ thị $(C)$ như hình vẽ dưới đây.
+	\begin{center}
+		\begin{tikzpicture}
+			\begin{axis}[
+				width=9cm, height=8cm,
+				axis lines=center,
+				xmin=-2, xmax=6, ymin=-4, ymax=7,
+				xtick={2, 3}, ytick={1, 2},
+				xlabel={$x$}, ylabel={$y$},
+				every axis x label/.style={at={(ticklabel* cs:1)},anchor=west},
+				every axis y label/.style={at={(ticklabel* cs:1)},anchor=south},
+				restrict y to domain=-10:10,
+				]
+				\addplot [domain=-2:1.6, samples=50, blue, thick] {2*x - 3 + 2/(x-2)};
+				\addplot [domain=2.4:6, samples=50, blue, thick] {2*x - 3 + 2/(x-2)};
+				\draw[dashed, black!80, thick] (axis cs:2,-4) -- (axis cs:2,7);
+				\addplot [domain=-2:6, dashed, black!80, thick] {2*x - 3};
+				\node[above, sloped] at (axis cs:5, 5) {$y = 2x - 3$};
+			\end{axis}
+		\end{tikzpicture}
+	\end{center}
+	Khẳng định nào sau đây đúng?
+	\begin{enumerate}[label=\textbf{\Alph*.}]
+		\item Giao điểm của tiệm cận đứng và tiệm cận xiên có tọa độ là $(2; 1)$.
+		\item Đồ thị hàm số $(C)$ có tiệm cận đứng là đường thẳng $x = 2$ và tiệm cận ngang là $y = 2x - 3$.
+		\item Giao điểm của hai đường tiệm cận của đồ thị hàm số nằm ở góc phần tư thứ tư của hệ tọa độ.
+		\item Đồ thị hàm số $(C)$ không có đường tiệm cận đứng.
+	\end{enumerate}
+	
+	\vspace{0.4cm}
+	\noindent \textbf{Câu 10.} Cho hàm số $y = f(x)$ xác định trên $\mathbb{R} \setminus \{0\}$ và có bảng biến thiên như sau:
+	\begin{center}
+		\resizebox{0.7\textwidth}{!}{
+			\begin{tikzpicture}[every node/.style={scale=1.1}]
+				\draw[thick] (0,0) rectangle (10,-3.5);
+				\draw[thick] (0,-0.8) -- (10,-0.8);
+				\draw[thick] (0,-1.6) -- (10,-1.6);
+				\draw[thick] (1.5,0) -- (1.5,-3.5);
+				
+				\node at (0.75, -0.4) {$x$};
+				\node at (0.75, -1.2) {$y'$};
+				\node at (0.75, -2.55) {$y$};
+				
+				\node at (2.2, -0.4) {$-\infty$};
+				\node at (5.75, -0.4) {$0$};
+				\node at (9.3, -0.4) {$+\infty$};
+				
+				\node at (3.975, -1.2) {$-$};
+				\node at (7.525, -1.2) {$-$};
+				
+				% Sọc đôi từ dưới hàng x
+				\draw[double, thick] (5.75, -0.8) -- (5.75, -3.5);
+				
+				\node at (2.2, -1.9) {$1$};
+				\node at (5.2, -3.2) {$-\infty$};
+				\draw[->, thick] (2.6, -2.1) -- (4.8, -3.0);
+				
+				\node at (6.3, -1.9) {$+\infty$};
+				\node at (9.3, -3.2) {$2$};
+				\draw[->, thick] (6.8, -2.1) -- (8.8, -3.0);
+			\end{tikzpicture}
+		}
+	\end{center}
+	Tổng số đường tiệm cận đứng và tiệm cận ngang của đồ thị hàm số đã cho là:
+	\begin{multicols}{4}
+		\begin{enumerate}[label=\textbf{\Alph*.}]
+			\item $2$.
+			\item $3$.
+			\item $1$.
+			\item $4$.
+		\end{enumerate}
+	\end{multicols}
+	
+	\vspace{0.4cm}
+	\noindent \textbf{Câu 11.} Cho hàm số $y = f(x)$ xác định và liên tục trên các khoảng $(-\infty; 1)$ và $(1; +\infty)$, có bảng biến thiên như sau:
+	\begin{center}
+		\resizebox{0.7\textwidth}{!}{
+			\begin{tikzpicture}[every node/.style={scale=1.1}]
+				\draw[thick] (0,0) rectangle (10,-3.5);
+				\draw[thick] (0,-0.8) -- (10,-0.8);
+				\draw[thick] (0,-1.6) -- (10,-1.6);
+				\draw[thick] (1.5,0) -- (1.5,-3.5);
+				
+				\node at (0.75, -0.4) {$x$};
+				\node at (0.75, -1.2) {$y'$};
+				\node at (0.75, -2.55) {$y$};
+				
+				\node at (2.2, -0.4) {$-\infty$};
+				\node at (5.75, -0.4) {$1$};
+				\node at (9.3, -0.4) {$+\infty$};
+				
+				\node at (3.975, -1.2) {$+$};
+				\node at (7.525, -1.2) {$-$};
+				
+				% Sọc đôi từ dưới hàng x
+				\draw[double, thick] (5.75, -0.8) -- (5.75, -3.5);
+				
+				\node at (2.2, -3.2) {$-\infty$};
+				\node at (5.2, -1.9) {$3$};
+				\draw[->, thick] (2.6, -3.0) -- (4.8, -2.1);
+				
+				\node at (6.3, -1.9) {$2$};
+				\node at (9.3, -3.2) {$0$};
+				\draw[->, thick] (6.8, -2.1) -- (8.8, -3.0);
+			\end{tikzpicture}
+		}
+	\end{center}
+	Số đường tiệm cận đứng của đồ thị hàm số đã cho là:
+	\begin{multicols}{4}
+		\begin{enumerate}[label=\textbf{\Alph*.}]
+			\item $2$.
+			\item $1$.
+			\item $0$.
+			\item $3$.
+		\end{enumerate}
+	\end{multicols}
+	
+	\vspace{0.4cm}
+	\noindent \textbf{Câu 12.} Cho hàm số $y = f(x)$ có bảng biến thiên như sau:
+	\begin{center}
+		\resizebox{0.7\textwidth}{!}{
+			\begin{tikzpicture}[every node/.style={scale=1.1}]
+				\draw[thick] (0,0) rectangle (11,-3.5);
+				\draw[thick] (0,-0.8) -- (11,-0.8);
+				\draw[thick] (0,-1.6) -- (11,-1.6);
+				\draw[thick] (1.5,0) -- (1.5,-3.5);
+				
+				\node at (0.75, -0.4) {$x$};
+				\node at (0.75, -1.2) {$y'$};
+				\node at (0.75, -2.55) {$y$};
+				
+				\node at (2.2, -0.4) {$-\infty$};
+				\node at (4.5, -0.4) {$-1$};
+				\node at (7.5, -0.4) {$2$};
+				\node at (10.3, -0.4) {$+\infty$};
+				
+				\node at (3.0, -1.2) {$+$};
+				\node at (6.0, -1.2) {$-$};
+				\node at (8.9, -1.2) {$+$};
+				
+				% Sọc đôi từ dưới hàng x
+				\draw[double, thick] (4.5, -0.8) -- (4.5, -3.5);
+				\draw[double, thick] (7.5, -0.8) -- (7.5, -3.5);
+				
+				\node at (2.2, -3.2) {$1$};
+				\node at (4.0, -1.9) {$+\infty$};
+				\draw[->, thick] (2.5, -3.0) -- (3.6, -2.1);
+				
+				\node at (5.0, -1.9) {$+\infty$};
+				\node at (7.0, -3.2) {$-\infty$};
+				\draw[->, thick] (5.4, -2.1) -- (6.6, -3.0);
+				
+				\node at (8.0, -3.2) {$-\infty$};
+				\node at (10.3, -1.9) {$1$};
+				\draw[->, thick] (8.4, -3.0) -- (9.8, -2.1);
+			\end{tikzpicture}
+		}
+	\end{center}
+	Khẳng định nào sau đây là \textbf{sai}?
+	\begin{enumerate}[label=\textbf{\Alph*.}]
+		\item Đồ thị hàm số có hai đường tiệm cận đứng là $x = -1$ và $x = 2$.
+		\item Đồ thị hàm số có một đường tiệm cận ngang là $y = 1$.
+		\item Đồ thị hàm số có tổng cộng ba đường tiệm cận.
+		\item Đồ thị hàm số có tiệm cận ngang là $x = 1$.
+	\end{enumerate}
+	
+	\vspace{0.4cm}
+	\noindent \textbf{Câu 13.} Cho hàm số $y = f(x)$ xác định trên $\mathbb{R} \setminus \{1\}$ và có bảng biến thiên như sau:
+	\begin{center}
+		\resizebox{0.7\textwidth}{!}{
+			\begin{tikzpicture}[every node/.style={scale=1.1}]
+				\draw[thick] (0,0) rectangle (10,-3.5);
+				\draw[thick] (0,-0.8) -- (10,-0.8);
+				\draw[thick] (0,-1.6) -- (10,-1.6);
+				\draw[thick] (1.5,0) -- (1.5,-3.5);
+				
+				\node at (0.75, -0.4) {$x$};
+				\node at (0.75, -1.2) {$y'$};
+				\node at (0.75, -2.55) {$y$};
+				
+				\node at (2.2, -0.4) {$-\infty$};
+				\node at (5.75, -0.4) {$1$};
+				\node at (9.3, -0.4) {$+\infty$};
+				
+				\node at (3.975, -1.2) {$+$};
+				\node at (7.525, -1.2) {$-$};
+				
+				\draw[double, thick] (5.75, -0.8) -- (5.75, -3.5);
+				
+				\node at (2.2, -3.2) {$2$};
+				\node at (5.2, -1.9) {$5$};
+				\draw[->, thick] (2.6, -3.0) -- (4.8, -2.1);
+				
+				\node at (6.3, -1.9) {$+\infty$};
+				\node at (9.3, -3.2) {$-\infty$};
+				\draw[->, thick] (6.8, -2.1) -- (8.8, -3.0);
+			\end{tikzpicture}
+		}
+	\end{center}
+	Tổng số tiệm cận đứng và tiệm cận ngang của đồ thị hàm số đã cho là:
+	\begin{multicols}{4}
+		\begin{enumerate}[label=\textbf{\Alph*.}]
+			\item $1$.
+			\item $2$.
+			\item $3$.
+			\item $0$.
+		\end{enumerate}
+	\end{multicols}
+	
+	\vspace{0.4cm}
+	\noindent \textbf{Câu 14.} Cho hàm số đa thức bậc ba $y = f(x)$ có bảng biến thiên như sau:
+	\begin{center}
+		\resizebox{0.7\textwidth}{!}{
+			\begin{tikzpicture}[every node/.style={scale=1.1}]
+				\draw[thick] (0,0) rectangle (10,-3.5);
+				\draw[thick] (0,-0.8) -- (10,-0.8);
+				\draw[thick] (0,-1.6) -- (10,-1.6);
+				\draw[thick] (1.5,0) -- (1.5,-3.5);
+				
+				\node at (0.75, -0.4) {$x$};
+				\node at (0.75, -1.2) {$y'$};
+				\node at (0.75, -2.55) {$y$};
+				
+				\node at (2.2, -0.4) {$-\infty$};
+				\node at (4.5, -0.4) {$-1$};
+				\node at (7.0, -0.4) {$1$};
+				\node at (9.3, -0.4) {$+\infty$};
+				
+				\node at (3.35, -1.2) {$+$};
+				\node at (4.5, -1.2) {$0$};
+				\node at (5.75, -1.2) {$-$};
+				\node at (7.0, -1.2) {$0$};
+				\node at (8.15, -1.2) {$+$};
+				
+				\draw (4.5, -0.8) -- (4.5, -1.6);
+				\draw (7.0, -0.8) -- (7.0, -1.6);
+				
+				\node at (2.2, -3.2) {$-\infty$};
+				\node at (4.5, -1.9) {$3$};
+				\draw[->, thick] (2.6, -3.0) -- (4.1, -2.1);
+				
+				\node at (7.0, -3.2) {$-1$};
+				\draw[->, thick] (4.9, -2.1) -- (6.6, -3.0);
+				
+				\node at (9.3, -1.9) {$+\infty$};
+				\draw[->, thick] (7.4, -3.0) -- (8.9, -2.1);
+			\end{tikzpicture}
+		}
+	\end{center}
+	Đồ thị hàm số đã cho có bao nhiêu đường tiệm cận?
+	\begin{multicols}{4}
+		\begin{enumerate}[label=\textbf{\Alph*.}]
+			\item $2$.
+			\item $1$.
+			\item $3$.
+			\item $0$.
+		\end{enumerate}
+	\end{multicols}
+	
+	\vspace{0.4cm}
+	\noindent \textbf{Câu 15.} Cho hàm số $y = f(x)$ xác định trên $\mathbb{R} \setminus \{3\}$ và có bảng biến thiên như sau:
+	\begin{center}
+		\resizebox{0.7\textwidth}{!}{
+			\begin{tikzpicture}[every node/.style={scale=1.1}]
+				\draw[thick] (0,0) rectangle (10,-3.5);
+				\draw[thick] (0,-0.8) -- (10,-0.8);
+				\draw[thick] (0,-1.6) -- (10,-1.6);
+				\draw[thick] (1.5,0) -- (1.5,-3.5);
+				
+				\node at (0.75, -0.4) {$x$};
+				\node at (0.75, -1.2) {$y'$};
+				\node at (0.75, -2.55) {$y$};
+				
+				\node at (2.2, -0.4) {$-\infty$};
+				\node at (5.75, -0.4) {$3$};
+				\node at (9.3, -0.4) {$+\infty$};
+				
+				\node at (3.975, -1.2) {$-$};
+				\node at (7.525, -1.2) {$-$};
+				
+				\draw[double, thick] (5.75, -0.8) -- (5.75, -3.5);
+				
+				\node at (2.2, -1.9) {$-2$};
+				\node at (5.2, -3.2) {$-\infty$};
+				\draw[->, thick] (2.6, -2.1) -- (4.8, -3.0);
+				
+				\node at (6.3, -1.9) {$+\infty$};
+				\node at (9.3, -3.2) {$-2$};
+				\draw[->, thick] (6.8, -2.1) -- (8.8, -3.0);
+			\end{tikzpicture}
+		}
+	\end{center}
+	Phương trình các đường tiệm cận của đồ thị hàm số là:
+	\begin{multicols}{2}
+		\begin{enumerate}[label=\textbf{\Alph*.}]
+			\item $x = -2$ và $y = 3$.
+			\item $x = 3$ và $y = -2$.
+			\item $x = 3$ và $y = 2$.
+			\item Không có tiệm cận.
+		\end{enumerate}
+	\end{multicols}
+	
+	\vspace{0.4cm}
+	\noindent \textbf{Câu 16.} Cho hàm số $y = f(x)$ xác định trên $(-\infty; -2) \cup (2; +\infty)$ và có bảng biến thiên như sau:
+	\begin{center}
+		\resizebox{0.7\textwidth}{!}{
+			\begin{tikzpicture}[every node/.style={scale=1.1}]
+				\draw[thick] (0,0) rectangle (11,-3.5);
+				\draw[thick] (0,-0.8) -- (11,-0.8);
+				\draw[thick] (0,-1.6) -- (11,-1.6);
+				\draw[thick] (1.5,0) -- (1.5,-3.5);
+				
+				\node at (0.75, -0.4) {$x$};
+				\node at (0.75, -1.2) {$y'$};
+				\node at (0.75, -2.55) {$y$};
+				
+				\node at (2.2, -0.4) {$-\infty$};
+				\node at (4.5, -0.4) {$-2$};
+				\node at (7.5, -0.4) {$2$};
+				\node at (10.3, -0.4) {$+\infty$};
+				
+				\node at (3.35, -1.2) {$-$};
+				\node at (6.0, -1.2) {}; 
+				\node at (8.9, -1.2) {$+$};
+				
+				\draw[double, thick] (4.5, -0.8) -- (4.5, -3.5);
+				\draw[double, thick] (7.5, -0.8) -- (7.5, -3.5);
+				
+				% Vùng không xác định được tô màu xám nhạt (thay cho gạch chéo để tránh lỗi package)
+				\fill[black!15] (4.55, -0.8) rectangle (7.45, -3.5);
+				
+				\node at (2.2, -1.9) {$-1$};
+				\node at (4.0, -3.2) {$-\infty$};
+				\draw[->, thick] (2.5, -2.1) -- (3.6, -3.0);
+				
+				\node at (8.0, -3.2) {$0$};
+				\node at (10.3, -1.9) {$1$};
+				\draw[->, thick] (8.4, -3.0) -- (9.8, -2.1);
+			\end{tikzpicture}
+		}
+	\end{center}
+	Đồ thị hàm số đã cho có tổng cộng bao nhiêu đường tiệm cận đứng và tiệm cận ngang?
+	\begin{multicols}{4}
+		\begin{enumerate}[label=\textbf{\Alph*.}]
+			\item $2$.
+			\item $3$.
+			\item $4$.
+			\item $1$.
+		\end{enumerate}
+	\end{multicols}
+	
+	\vspace{0.4cm}
+	\noindent \textbf{Câu 17.} Cho hàm số $y = f(x)$ có bảng biến thiên như sau:
+	\begin{center}
+		\resizebox{0.7\textwidth}{!}{
+			\begin{tikzpicture}[every node/.style={scale=1.1}]
+				\draw[thick] (0,0) rectangle (10,-3.5);
+				\draw[thick] (0,-0.8) -- (10,-0.8);
+				\draw[thick] (0,-1.6) -- (10,-1.6);
+				\draw[thick] (1.5,0) -- (1.5,-3.5);
+				
+				\node at (0.75, -0.4) {$x$};
+				\node at (0.75, -1.2) {$y'$};
+				\node at (0.75, -2.55) {$y$};
+				
+				\node at (2.2, -0.4) {$-\infty$};
+				\node at (5.75, -0.4) {$-2$};
+				\node at (9.3, -0.4) {$+\infty$};
+				
+				\node at (3.975, -1.2) {$-$};
+				\node at (7.525, -1.2) {$+$};
+				
+				\draw[double, thick] (5.75, -0.8) -- (5.75, -3.5);
+				
+				\node at (2.2, -1.9) {$-1$};
+				\node at (5.2, -3.2) {$-\infty$};
+				\draw[->, thick] (2.6, -2.1) -- (4.8, -3.0);
+				
+				\node at (6.3, -3.2) {$-\infty$};
+				\node at (9.3, -1.9) {$3$};
+				\draw[->, thick] (6.8, -3.0) -- (8.8, -2.1);
+			\end{tikzpicture}
+		}
+	\end{center}
+	Đồ thị hàm số đã cho có các đường tiệm cận là:
+	\begin{enumerate}[label=\textbf{\Alph*.}]
+		\item $x = -2, y = -1$ và $y = 3$.
+		\item $x = -2$ và $y = 3$.
+		\item $x = -1, x = 3$ và $y = -2$.
+		\item $y = -2, y = -1$ và $y = 3$.
+	\end{enumerate}
+	
+	\vspace{0.4cm}
+	\noindent \textbf{Câu 18.} (Trích từ đề bài gốc của giáo viên) Cho hàm số $y = f(x)$ có bảng biến thiên như sau:
+	\begin{center}
+		\resizebox{0.7\textwidth}{!}{
+			\begin{tikzpicture}[every node/.style={scale=1.1}]
+				\draw[thick] (0,0) rectangle (10,-3.5);
+				\draw[thick] (0,-0.8) -- (10,-0.8);
+				\draw[thick] (0,-1.6) -- (10,-1.6);
+				\draw[thick] (1.5,0) -- (1.5,-3.5);
+				
+				\node at (0.75, -0.4) {$x$};
+				\node at (0.75, -1.2) {$y'$};
+				\node at (0.75, -2.55) {$y$};
+				
+				\node at (2.2, -0.4) {$-\infty$};
+				\node at (5.0, -0.4) {$0$};
+				\node at (7.5, -0.4) {$3$};
+				\node at (9.3, -0.4) {$+\infty$};
+				
+				\node at (3.6, -1.2) {$-$};
+				\node at (6.25, -1.2) {$-$};
+				\node at (8.4, -1.2) {$+$};
+				
+				\draw[double, thick] (5.0, -0.8) -- (5.0, -3.5);
+				
+				\draw (7.5, -0.8) -- (7.5, -1.6);
+				\node at (7.5, -1.2) {$0$};
+				
+				\node at (2.2, -1.9) {$1$};
+				\node at (4.5, -3.2) {$-\infty$};
+				\draw[->, thick] (2.6, -2.1) -- (4.1, -3.0);
+				
+				\node at (5.5, -1.9) {$2$};
+				\node at (7.5, -3.2) {$-3$};
+				\draw[->, thick] (5.8, -2.1) -- (7.1, -3.0);
+				
+				\node at (9.3, -1.9) {$3$};
+				\draw[->, thick] (7.9, -3.0) -- (8.9, -2.1);
+			\end{tikzpicture}
+		}
+	\end{center}
+	Tổng số tiệm cận đứng và tiệm cận ngang của đồ thị hàm số đã cho là:
+	\begin{multicols}{4}
+		\begin{enumerate}[label=\textbf{\Alph*.}]
+			\item $2$.
+			\item $3$.
+			\item $4$.
+			\item $1$.
+		\end{enumerate}
+	\end{multicols}
+	
+	\vspace{0.4cm}
+	\noindent \textbf{Câu 19.} Cho hàm số $y = f(x)$ xác định trên $\mathbb{R} \setminus \{-1; 2\}$ và có bảng biến thiên như sau:
+	\begin{center}
+		\resizebox{0.7\textwidth}{!}{
+			\begin{tikzpicture}[every node/.style={scale=1.1}]
+				\draw[thick] (0,0) rectangle (11,-3.5);
+				\draw[thick] (0,-0.8) -- (11,-0.8);
+				\draw[thick] (0,-1.6) -- (11,-1.6);
+				\draw[thick] (1.5,0) -- (1.5,-3.5);
+				
+				\node at (0.75, -0.4) {$x$};
+				\node at (0.75, -1.2) {$y'$};
+				\node at (0.75, -2.55) {$y$};
+				
+				\node at (2.2, -0.4) {$-\infty$};
+				\node at (4.5, -0.4) {$-1$};
+				\node at (7.5, -0.4) {$2$};
+				\node at (10.3, -0.4) {$+\infty$};
+				
+				\node at (3.35, -1.2) {$+$};
+				\node at (6.0, -1.2) {$-$};
+				\node at (8.9, -1.2) {$-$};
+				
+				\draw[double, thick] (4.5, -0.8) -- (4.5, -3.5);
+				\draw[double, thick] (7.5, -0.8) -- (7.5, -3.5);
+				
+				\node at (2.2, -3.2) {$+\infty$};
+				\node at (4.0, -1.9) {$2$};
+				\draw[->, thick] (2.5, -3.0) -- (3.6, -2.1);
+				
+				\node at (5.0, -1.9) {$+\infty$};
+				\node at (7.0, -3.2) {$-\infty$};
+				\draw[->, thick] (5.4, -2.1) -- (6.6, -3.0);
+				
+				\node at (8.0, -1.9) {$+\infty$};
+				\node at (10.3, -3.2) {$0$};
+				\draw[->, thick] (8.4, -2.1) -- (9.8, -3.0);
+			\end{tikzpicture}
+		}
+	\end{center}
+	Số lượng đường tiệm cận đứng và tiệm cận ngang của đồ thị hàm số lần lượt là:
+	\begin{multicols}{2}
+		\begin{enumerate}[label=\textbf{\Alph*.}]
+			\item $2$ tiệm cận đứng và $1$ tiệm cận ngang.
+			\item $1$ tiệm cận đứng và $1$ tiệm cận ngang.
+			\item $2$ tiệm cận đứng và $0$ tiệm cận ngang.
+			\item $1$ tiệm cận đứng và $2$ tiệm cận ngang.
+		\end{enumerate}
+	\end{multicols}
+	
+	
+	\vspace{0.4cm}
+	\noindent \textbf{Câu 20.} Tiệm cận đứng của đồ thị hàm số $y = \frac{4x - 1}{x + 3}$ là đường thẳng có phương trình:
+	\begin{multicols}{4}
+		\begin{enumerate}[label=\textbf{\Alph*.}]
+			\item $x = -3$.
+			\item $x = 4$.
+			\item $x = 3$.
+			\item $y = -3$.
+		\end{enumerate}
+	\end{multicols}
+	
+	\vspace{0.4cm}
+	\noindent \textbf{Câu 21.} Tiệm cận ngang của đồ thị hàm số $y = \frac{1 - 2x}{x + 2}$ là đường thẳng có phương trình:
+	\begin{multicols}{4}
+		\begin{enumerate}[label=\textbf{\Alph*.}]
+			\item $y = 1$.
+			\item $y = -2$.
+			\item $x = -2$.
+			\item $y = -\frac{1}{2}$.
+		\end{enumerate}
+	\end{multicols}
+	
+	\vspace{0.4cm}
+	\noindent \textbf{Câu 22.} Đồ thị hàm số $y = \frac{5x}{2 - x}$ có đường tiệm cận đứng là:
+	\begin{multicols}{4}
+		\begin{enumerate}[label=\textbf{\Alph*.}]
+			\item $x = 2$.
+			\item $x = -2$.
+			\item $y = -5$.
+			\item $x = \frac{5}{2}$.
+		\end{enumerate}
+	\end{multicols}
+	
+	\vspace{0.4cm}
+	\noindent \textbf{Câu 23.} Phương trình tiệm cận ngang của đồ thị hàm số $y = \frac{3x + 4}{2x - 1}$ là:
+	\begin{multicols}{4}
+		\begin{enumerate}[label=\textbf{\Alph*.}]
+			\item $y = 3$.
+			\item $y = \frac{3}{2}$.
+			\item $x = \frac{1}{2}$.
+			\item $y = -4$.
+		\end{enumerate}
+	\end{multicols}
+	
+	\vspace{0.4cm}
+	\noindent \textbf{Câu 24.} Giao điểm của hai đường tiệm cận của đồ thị hàm số $y = \frac{2x - 5}{x + 1}$ có tọa độ là:
+	\begin{multicols}{4}
+		\begin{enumerate}[label=\textbf{\Alph*.}]
+			\item $(-1; 2)$.
+			\item $(2; -1)$.
+			\item $(-1; -5)$.
+			\item $(1; 2)$.
+		\end{enumerate}
+	\end{multicols}
+	
+	\vspace{0.4cm}
+	\noindent \textbf{Câu 25.} Đồ thị hàm số nào dưới đây có tiệm cận đứng là đường thẳng $x = 1$?
+	\begin{multicols}{4}
+		\begin{enumerate}[label=\textbf{\Alph*.}]
+			\item $y = \frac{2x}{x + 1}$.
+			\item $y = \frac{x - 1}{x + 2}$.
+			\item $y = \frac{3x + 1}{1 - x}$.
+			\item $y = \frac{x}{x^2 + 1}$.
+		\end{enumerate}
+	\end{multicols}
+	
+	\vspace{0.4cm}
+	\noindent \textbf{Câu 26.} Đồ thị hàm số nào dưới đây có tiệm cận ngang là đường thẳng $y = -1$?
+	\begin{multicols}{4}
+		\begin{enumerate}[label=\textbf{\Alph*.}]
+			\item $y = \frac{-x + 2}{x - 1}$.
+			\item $y = \frac{x + 2}{-x^2 + 1}$.
+			\item $y = \frac{2x - 1}{x + 1}$.
+			\item $y = \frac{-x^2 + 1}{x - 1}$.
+		\end{enumerate}
+	\end{multicols}
+	
+	\vspace{0.4cm}
+	\noindent \textbf{Câu 27.} Phương trình đường tiệm cận xiên của đồ thị hàm số $y = \frac{x^2 - 3x + 2}{x + 1}$ là:
+	\begin{multicols}{4}
+		\begin{enumerate}[label=\textbf{\Alph*.}]
+			\item $y = x - 4$.
+			\item $y = x - 3$.
+			\item $y = x - 2$.
+			\item $y = x + 1$.
+		\end{enumerate}
+	\end{multicols}
+	
+	\vspace{0.4cm}
+	\noindent \textbf{Câu 28.} Tiệm cận đứng và tiệm cận xiên của đồ thị hàm số $y = \frac{x^2 - x - 1}{x - 2}$ lần lượt là:
+	\begin{multicols}{2}
+		\begin{enumerate}[label=\textbf{\Alph*.}]
+			\item $x = 2$ và $y = x - 1$.
+			\item $x = -2$ và $y = x + 1$.
+			\item $x = 2$ và $y = x + 1$.
+			\item $x = 2$ và $y = x - 2$.
+		\end{enumerate}
+	\end{multicols}
+	
+	\vspace{0.4cm}
+	\noindent \textbf{Câu 29.} Đồ thị hàm số $y = x - 2 + \frac{3}{x - 1}$ có đường tiệm cận xiên là:
+	\begin{multicols}{4}
+		\begin{enumerate}[label=\textbf{\Alph*.}]
+			\item $y = x$.
+			\item $y = x - 2$.
+			\item $y = x - 1$.
+			\item $y = x + 3$.
+		\end{enumerate}
+	\end{multicols}
+	
+	\vspace{0.4cm}
+	\noindent \textbf{Câu 30.} Đồ thị hàm số $y = \frac{2x^2 + x - 3}{x}$ có đường tiệm cận xiên đi qua điểm nào dưới đây?
+	\begin{multicols}{4}
+		\begin{enumerate}[label=\textbf{\Alph*.}]
+			\item $(0; 0)$.
+			\item $(1; 3)$.
+			\item $(2; 5)$.
+			\item $(1; 2)$.
+		\end{enumerate}
+	\end{multicols}
+	
+	\vspace{0.4cm}
+	\noindent \textbf{Câu 31.} Đồ thị hàm số $y = \frac{x^2 - 4}{x^2 - 1}$ có bao nhiêu đường tiệm cận đứng?
+	\begin{multicols}{4}
+		\begin{enumerate}[label=\textbf{\Alph*.}]
+			\item $0$.
+			\item $1$.
+			\item $2$.
+			\item $3$.
+		\end{enumerate}
+	\end{multicols}
+	
+	\vspace{0.4cm}
+	\noindent \textbf{Câu 32.} Số đường tiệm cận ngang của đồ thị hàm số $y = \frac{2x - 1}{\sqrt{x^2 + 1}}$ là:
+	\begin{multicols}{4}
+		\begin{enumerate}[label=\textbf{\Alph*.}]
+			\item $0$.
+			\item $1$.
+			\item $2$.
+			\item $3$.
+		\end{enumerate}
+	\end{multicols}
+	
+	\vspace{0.4cm}
+	\noindent \textbf{Câu 33.} Đồ thị hàm số $y = \frac{\sqrt{x^2 - x}}{x - 1}$ có tiệm cận đứng là:
+	\begin{multicols}{4}
+		\begin{enumerate}[label=\textbf{\Alph*.}]
+			\item $x = 1$.
+			\item $x = 0$.
+			\item $y = 1$.
+			\item Không có tiệm cận đứng.
+		\end{enumerate}
+	\end{multicols}
+	
+	\vspace{0.4cm}
+	\noindent \textbf{Câu 34.} Cho hàm số $y = \frac{x - 2}{x^2 - 4}$. Khẳng định nào sau đây là \textbf{đúng}?
+	\begin{enumerate}[label=\textbf{\Alph*.}]
+		\item Đồ thị hàm số có hai tiệm cận đứng là $x = 2$ và $x = -2$.
+		\item Đồ thị hàm số có một tiệm cận đứng là $x = -2$ và một tiệm cận ngang là $y = 0$.
+		\item Đồ thị hàm số có một tiệm cận đứng là $x = 2$ và một tiệm cận ngang là $y = 0$.
+		\item Đồ thị hàm số không có tiệm cận ngang.
+	\end{enumerate}
+	
+	\vspace{0.4cm}
+	\noindent \textbf{Câu 35.} Đường thẳng nào dưới đây là tiệm cận ngang của đồ thị hàm số $y = \frac{3x^2 + 1}{x^2 - 2x + 1}$?
+	\begin{multicols}{4}
+		\begin{enumerate}[label=\textbf{\Alph*.}]
+			\item $y = 1$.
+			\item $y = 3$.
+			\item $x = 1$.
+			\item $y = 0$.
+		\end{enumerate}
+	\end{multicols}
+	
+	\vspace{0.4cm}
+	\noindent \textbf{Câu 36.} Đồ thị hàm số $y = \frac{x^3 - 1}{x^2 - 3x + 2}$ có đường tiệm cận xiên là:
+	\begin{multicols}{4}
+		\begin{enumerate}[label=\textbf{\Alph*.}]
+			\item $y = x + 3$.
+			\item $y = x - 3$.
+			\item $y = x + 2$.
+			\item $y = x - 2$.
+		\end{enumerate}
+	\end{multicols}
+	
+	\vspace{0.4cm}
+	\noindent \textbf{Câu 37.} Tọa độ giao điểm của tiệm cận đứng và tiệm cận xiên của đồ thị hàm số $y = \frac{x^2 + 2x + 2}{x + 1}$ là:
+	\begin{multicols}{4}
+		\begin{enumerate}[label=\textbf{\Alph*.}]
+			\item $(-1; 0)$.
+			\item $(1; 2)$.
+			\item $(-1; 1)$.
+			\item $(0; 1)$.
+		\end{enumerate}
+	\end{multicols}
+	
+	\vspace{0.4cm}
+	\noindent \textbf{Câu 38.} Hàm số nào dưới đây có đồ thị \textbf{không} có tiệm cận đứng?
+	\begin{multicols}{4}
+		\begin{enumerate}[label=\textbf{\Alph*.}]
+			\item $y = \frac{x - 1}{x^2 - 1}$.
+			\item $y = \frac{x^2 + 1}{x - 1}$.
+			\item $y = \frac{x}{x^2 + 1}$.
+			\item $y = \frac{x + 1}{x^2 - x}$.
+		\end{enumerate}
+	\end{multicols}
+	
+	\vspace{0.4cm}
+	\noindent \textbf{Câu 39.} Tổng số đường tiệm cận (đứng và ngang) của đồ thị hàm số $y = \frac{x + 1}{\sqrt{x^2 - 4}}$ là:
+	\begin{multicols}{4}
+		\begin{enumerate}[label=\textbf{\Alph*.}]
+			\item $2$.
+			\item $3$.
+			\item $4$.
+			\item $1$.
+		\end{enumerate}
+	\end{multicols}
+	
+	
+	\vspace{0.4cm}
+	\noindent \textbf{Câu 40.} Xác định tọa độ giao điểm $I$ của đường tiệm cận đứng và đường tiệm cận xiên của đồ thị hàm số $y = \frac{3x^2 - 5x + 4}{x - 2}$.
+	\begin{multicols}{4}
+		\begin{enumerate}[label=\textbf{\Alph*.}]
+			\item $I(2; 7)$.
+			\item $I(2; 1)$.
+			\item $I(2; -5)$.
+			\item $I(2; 5)$.
+		\end{enumerate}
+	\end{multicols}
+	
+	\vspace{0.4cm}
+	\noindent \textbf{Câu 41.} Số đường tiệm cận đứng của đồ thị hàm số $y = \frac{\sqrt{x+9} - 3}{x^2 + x}$ là:
+	\begin{multicols}{4}
+		\begin{enumerate}[label=\textbf{\Alph*.}]
+			\item $2$.
+			\item $1$.
+			\item $3$.
+			\item $0$.
+		\end{enumerate}
+	\end{multicols}
+	
+	\vspace{0.4cm}
+	\noindent \textbf{Câu 42.} Đồ thị hàm số $y = \frac{x - 2}{\sqrt{x^2 - 4}}$ có tất cả bao nhiêu đường tiệm cận đứng và tiệm cận ngang?
+	\begin{multicols}{4}
+		\begin{enumerate}[label=\textbf{\Alph*.}]
+			\item $4$.
+			\item $2$.
+			\item $3$.
+			\item $1$.
+		\end{enumerate}
+	\end{multicols}
+	
+	\vspace{0.4cm}
+	\noindent \textbf{Câu 43.} Tọa độ giao điểm $I$ của các đường tiệm cận của đồ thị hàm số $y = \frac{x^2 - x + 1}{x - 1}$ là:
+	\begin{multicols}{4}
+		\begin{enumerate}[label=\textbf{\Alph*.}]
+			\item $I(1; 1)$.
+			\item $I(1; 0)$.
+			\item $I(1; -1)$.
+			\item $I(0; 1)$.
+		\end{enumerate}
+	\end{multicols}
+	
+	\vspace{0.4cm}
+	\noindent \textbf{Câu 44.} Số đường tiệm cận đứng của đồ thị hàm số $y = \frac{\sqrt{x+1} - 1}{x^2 - x}$ là:
+	\begin{multicols}{4}
+		\begin{enumerate}[label=\textbf{\Alph*.}]
+			\item $0$.
+			\item $1$.
+			\item $2$.
+			\item $3$.
+		\end{enumerate}
+	\end{multicols}
+	
+	\vspace{0.4cm}
+	\noindent \textbf{Câu 45.} Tổng số đường tiệm cận đứng và tiệm cận ngang của đồ thị hàm số $y = \frac{2x - 1}{\sqrt{x^2 - 9}}$ là:
+	\begin{multicols}{4}
+		\begin{enumerate}[label=\textbf{\Alph*.}]
+			\item $2$.
+			\item $3$.
+			\item $4$.
+			\item $1$.
+		\end{enumerate}
+	\end{multicols}
+	
+	
+	
+	\subsection{Câu hỏi đúng,sai}
+	
+	\noindent \textbf{Câu 36.} Cho hàm số $y = \frac{ax^2+bx+c}{mx+n}$ ($a \ne 0, m \ne 0$) với $a,b,c,m,n$ là các số thực và có đồ thị $(C)$ như hình vẽ dưới đây.
+	\begin{center}
+		\begin{tikzpicture}
+			\begin{axis}[
+				width=9cm, height=8cm,
+				axis lines=center,
+				xmin=-2, xmax=6, ymin=-2, ymax=8,
+				xtick={1, 2, 3}, ytick={1, 5},
+				xlabel={$x$}, ylabel={$y$},
+				every axis x label/.style={at={(ticklabel* cs:1)},anchor=west},
+				every axis y label/.style={at={(ticklabel* cs:1)},anchor=south},
+				restrict y to domain=-5:15,
+				]
+				\addplot [domain=-2:1.7, samples=50, blue, thick] {(x^2-x-1)/(x-2)};
+				\addplot [domain=2.3:6, samples=50, blue, thick] {(x^2-x-1)/(x-2)};
+				\draw[dashed, red, thick] (axis cs:2,-2) -- (axis cs:2,8);
+				\draw[dashed, red, thick] (axis cs:-2,-1) -- (axis cs:6,7);
+				\draw[dashed, black!60] (axis cs:1,0) -- (axis cs:1,1) -- (axis cs:0,1);
+				\draw[dashed, black!60] (axis cs:3,0) -- (axis cs:3,5) -- (axis cs:0,5);
+				\filldraw (axis cs:1,1) circle (1.5pt);
+				\filldraw (axis cs:3,5) circle (1.5pt);
+				\node[above, sloped] at (axis cs:4.5, 3.5) {$y = x + 1$};
+			\end{axis}
+		\end{tikzpicture}
+	\end{center}
+	Các mệnh đề sau đúng hay sai?
+	\begin{enumerate}[label=\textbf{\alph*)}]
+		\item Hàm số $y=f(x)$ nghịch biến trên các khoảng $(-\infty; 1)$ và $(3; +\infty)$.  
+		\item Đồ thị hàm số có tiệm cận đứng là $x = 2$ và tiệm cận xiên là $y = x + 1$.  
+		\item Đồ thị hàm số có điểm cực đại là $(1; 1)$ và điểm cực tiểu là $(3; 5)$.  
+		\item Trên khoảng $(2; +\infty)$, giá trị nhỏ nhất của hàm số $y=f(x)$ bằng $5$.  
+	\end{enumerate}
+	
+	\vspace{0.6cm}
+	\noindent \textbf{Câu 37.} Cho hàm số $y = f(x) = \frac{-x^2+4x-4}{x-1}$ có đồ thị $(C)$ như hình vẽ dưới đây.
+	\begin{center}
+		\begin{tikzpicture}
+			\begin{axis}[
+				width=9cm, height=8cm,
+				axis lines=center,
+				xmin=-3, xmax=5, ymin=-2, ymax=7,
+				xtick={1, 2}, ytick={3, 4},
+				xlabel={$x$}, ylabel={$y$},
+				every axis x label/.style={at={(ticklabel* cs:1)},anchor=west},
+				every axis y label/.style={at={(ticklabel* cs:1)},anchor=south},
+				restrict y to domain=-5:15,
+				]
+				\addplot [domain=-3:0.7, samples=50, blue, thick] {(-x^2+4*x-4)/(x-1)};
+				\addplot [domain=1.3:5, samples=50, blue, thick] {(-x^2+4*x-4)/(x-1)};
+				\draw[dashed, red, thick] (axis cs:1,-2) -- (axis cs:1,7);
+				\draw[dashed, red, thick] (axis cs:-3,6) -- (axis cs:5,-2);
+				\draw[dashed, black!60] (axis cs:0,0) -- (axis cs:0,4) -- (axis cs:0,4);
+				\draw[dashed, black!60] (axis cs:2,0) -- (axis cs:2,0) -- (axis cs:0,0);
+				\filldraw (axis cs:0,4) circle (1.5pt);
+				\filldraw (axis cs:2,0) circle (1.5pt);
+				\node[above, sloped] at (axis cs:-2, 3) {$y = -x + 3$};
+			\end{axis}
+		\end{tikzpicture}
+	\end{center}
+	Các mệnh đề sau đúng hay sai?
+	\begin{enumerate}[label=\textbf{\alph*)}]
+		\item Hàm số đồng biến trên các khoảng $(0; 1)$ và $(1; 2)$.  
+		\item Đồ thị hàm số có tiệm cận đứng $x = 1$ và tiệm cận xiên $y = -x + 3$.  
+		\item Điểm cực tiểu của đồ thị hàm số là $(0; 4)$.  
+		\item Giá trị lớn nhất của hàm số trên khoảng $(1; +\infty)$ là $0$.  
+	\end{enumerate}
+	
+	\vspace{0.6cm}
+	\noindent \textbf{Câu 38.} Cho hàm số $y = f(x) = \frac{2x - 3}{x - 1}$ có đồ thị $(C)$ như hình vẽ dưới đây.
+	\begin{center}
+		\begin{tikzpicture}
+			\begin{axis}[
+				width=9cm, height=8cm,
+				axis lines=center,
+				xmin=-4, xmax=5, ymin=-4, ymax=6,
+				xtick={1, 2, 3}, ytick={1, 2},
+				xlabel={$x$}, ylabel={$y$},
+				every axis x label/.style={at={(ticklabel* cs:1)},anchor=west},
+				every axis y label/.style={at={(ticklabel* cs:1)},anchor=south},
+				restrict y to domain=-10:10,
+				]
+				\addplot [domain=-4:0.7, samples=50, blue, thick] {(2*x-3)/(x-1)};
+				\addplot [domain=1.3:5, samples=50, blue, thick] {(2*x-3)/(x-1)};
+				\draw[dashed, red, thick] (axis cs:1,-4) -- (axis cs:1,6);
+				\draw[dashed, red, thick] (axis cs:-4,2) -- (axis cs:5,2);
+				\draw[dashed, black!60] (axis cs:2,0) -- (axis cs:2,1) -- (axis cs:0,1);
+				\filldraw (axis cs:2,1) circle (1.5pt);
+			\end{axis}
+		\end{tikzpicture}
+	\end{center}
+	Các mệnh đề sau đúng hay sai?
+	\begin{enumerate}[label=\textbf{\alph*)}]
+		\item Hàm số đồng biến trên tập xác định $\mathbb{R} \setminus \{1\}$.  
+		\item Đồ thị hàm số có tiệm cận ngang là $y = 2$ và tiệm cận đứng là $x = 1$.  
+		\item Hàm số đã cho không có cực trị.  
+		\item Giá trị lớn nhất của hàm số trên đoạn $[2; 3]$ là $3$.  
+	\end{enumerate}
+	
+	\vspace{0.6cm}
+	\noindent \textbf{Câu 39.} Cho hàm số $y = f(x) = \frac{1}{x^2 - 1}$ có đồ thị $(C)$ như hình vẽ dưới đây.
+	\begin{center}
+		\begin{tikzpicture}
+			\begin{axis}[
+				width=7cm, height=6.5cm,
+				axis lines=center,
+				xmin=-4, xmax=4, ymin=-3, ymax=3,
+				xtick={-1, 1}, ytick={-1},
+				xlabel={$x$}, ylabel={$y$},
+				every axis x label/.style={at={(ticklabel* cs:1)},anchor=west},
+				every axis y label/.style={at={(ticklabel* cs:1)},anchor=south},
+				restrict y to domain=-10:10,
+				]
+				\addplot [domain=-4:-1.2, samples=50, blue, thick] {1/(x^2-1)};
+				\addplot [domain=-0.8:0.8, samples=50, blue, thick] {1/(x^2-1)};
+				\addplot [domain=1.2:4, samples=50, blue, thick] {1/(x^2-1)};
+				\draw[dashed, red, thick] (axis cs:-1,-3) -- (axis cs:-1,3);
+				\draw[dashed, red, thick] (axis cs:1,-3) -- (axis cs:1,3);
+				\draw[dashed, red, thick] (axis cs:-4,0) -- (axis cs:4,0);
+				\filldraw (axis cs:0,-1) circle (1.5pt);
+			\end{axis}
+		\end{tikzpicture}
+	\end{center}
+	Các mệnh đề sau đúng hay sai?
+	\begin{enumerate}[label=\textbf{\alph*)}]
+		\item Hàm số đạt cực đại tại $x = 0$ và giá trị cực đại của hàm số là $y = -1$.  
+		\item Đồ thị hàm số có hai đường tiệm cận đứng là $x = 1, x = -1$ và một đường tiệm cận ngang là $y = 0$.  
+		\item Giá trị nhỏ nhất của hàm số trên khoảng $(-1; 1)$ là $-1$.  
+		\item Hàm số nghịch biến trên khoảng $(0; 1)$ và $(1; +\infty)$.  
+	\end{enumerate}
+	
+	\vspace{0.6cm}
+	\noindent \textbf{Câu 40.} Cho hàm số $y = f(x) = \frac{-x^2+2x-2}{x-1}$ có đồ thị $(C)$ như hình vẽ dưới đây.
+	\begin{center}
+		\begin{tikzpicture}
+			\begin{axis}[
+				width=9cm, height=8cm,
+				axis lines=center,
+				xmin=-3, xmax=5, ymin=-6, ymax=4,
+				xtick={1, 2}, ytick={-2, 2},
+				xlabel={$x$}, ylabel={$y$},
+				every axis x label/.style={at={(ticklabel* cs:1)},anchor=west},
+				every axis y label/.style={at={(ticklabel* cs:1)},anchor=south},
+				restrict y to domain=-15:15,
+				]
+				\addplot [domain=-3:0.7, samples=50, blue, thick] {(-x^2+2*x-2)/(x-1)};
+				\addplot [domain=1.3:5, samples=50, blue, thick] {(-x^2+2*x-2)/(x-1)};
+				\draw[dashed, red, thick] (axis cs:1,-6) -- (axis cs:1,4);
+				\draw[dashed, red, thick] (axis cs:-3,4) -- (axis cs:5,-4);
+				\draw[dashed, black!60] (axis cs:2,0) -- (axis cs:2,-2) -- (axis cs:0,-2);
+				\draw[dashed, black!60] (axis cs:0,2) -- (axis cs:0,2);
+				\filldraw (axis cs:2,-2) circle (1.5pt);
+				\filldraw (axis cs:0,2) circle (1.5pt);
+				\node[above, sloped] at (axis cs:-1.5, 1) {$y = -x + 1$};
+			\end{axis}
+		\end{tikzpicture}
+	\end{center}
+	Các mệnh đề sau đúng hay sai?
+	\begin{enumerate}[label=\textbf{\alph*)}]
+		\item Đường tiệm cận xiên của đồ thị hàm số là đường thẳng $y = -x + 1$.  
+		\item Đồ thị hàm số có điểm cực tiểu là $(0; 2)$ và điểm cực đại là $(2; -2)$.  
+		\item Hàm số đồng biến trên các khoảng $(0; 1)$ và $(1; 2)$.  
+		\item Trên đoạn $[2; 3]$, giá trị nhỏ nhất của hàm số bằng $-2$.  
+	\end{enumerate}
+	
+	
+	\vspace{0.4cm}
+	\noindent \textbf{Câu 41.} Cho hàm số $y = \frac{x^2 - x + 3}{x + 1}$ có đồ thị là $(C)$. Các mệnh đề sau đúng hay sai?
+	\begin{enumerate}[label=\textbf{\alph*)}]
+		\item Đồ thị hàm số $(C)$ có hai đường tiệm cận gồm một đường đứng và một đường xiên.  
+		\item Giao điểm của hai đường tiệm cận là điểm $I(-1; -3)$.  
+		\item Khoảng cách từ gốc tọa độ $O$ đến đường tiệm cận xiên bằng $\sqrt{2}$.  
+		\item Đường tiệm cận xiên của đồ thị hàm số đi qua điểm $M(0; -2)$.  
+	\end{enumerate}
+	
+	\vspace{0.4cm}
+	\noindent \textbf{Câu 42.} Cho hàm số $y = \frac{2x - 3}{x - 2}$ có đồ thị là $(C)$. Các mệnh đề sau đúng hay sai?
+	\begin{enumerate}[label=\textbf{\alph*)}]
+		\item Đồ thị hàm số $(C)$ có hai tiệm cận đứng.  
+		\item Giao điểm của hai đường tiệm cận là điểm $I(2; 2)$.  
+		\item Khoảng cách từ gốc tọa độ $O$ đến đường tiệm cận đứng bằng $2$.  
+		\item Đường tiệm cận ngang của đồ thị hàm số đi qua điểm $A(1; 2)$.  
+	\end{enumerate}
+	
+	\vspace{0.4cm}
+	\noindent \textbf{Câu 43.} Cho hàm số $y = \frac{2x^2 + x - 1}{x + 1}$ có đồ thị là $(C)$. Các mệnh đề sau đúng hay sai?
+	\begin{enumerate}[label=\textbf{\alph*)}]
+		\item Đồ thị hàm số $(C)$ có tiệm cận đứng là đường thẳng $x = -1$.  
+		\item Đồ thị hàm số $(C)$ không có bất kỳ đường tiệm cận nào.  
+		\item Giới hạn tại điểm gián đoạn của hàm số là $\lim\limits_{x \to -1} y = -3$.  
+		\item Đồ thị hàm số có một đường tiệm cận xiên là $y = 2x - 1$.  
+	\end{enumerate}
+	
+	\vspace{0.4cm}
+	\noindent \textbf{Câu 44.} Cho hàm số $y = \frac{2x^2 - 3x + 3}{x - 1}$ có đồ thị là $(C)$. Các mệnh đề sau đúng hay sai?
+	\begin{enumerate}[label=\textbf{\alph*)}]
+		\item Đồ thị hàm số $(C)$ có một tiệm cận đứng và một tiệm cận xiên.  
+		\item Giao điểm của hai đường tiệm cận là điểm $I(1; 1)$.  
+		\item Khoảng cách từ gốc tọa độ $O$ đến đường tiệm cận xiên bằng $\frac{\sqrt{5}}{5}$.  
+		\item Đường tiệm cận xiên của đồ thị hàm số đi qua điểm $M(2; 3)$.  
+	\end{enumerate}
+	
+	\vspace{0.4cm}
+	\noindent \textbf{Câu 45.} Cho hàm số $y = \frac{3x^2 - 1}{x^2 - 4}$ có đồ thị là $(C)$. Các mệnh đề sau đúng hay sai?
+	\begin{enumerate}[label=\textbf{\alph*)}]
+		\item Đồ thị hàm số $(C)$ có tổng cộng ba đường tiệm cận.  
+		\item Đồ thị hàm số $(C)$ có hai đường tiệm cận đứng và một đường tiệm cận ngang.  
+		\item Khoảng cách giữa hai đường tiệm cận đứng bằng $4$.  
+		\item Đường tiệm cận ngang của đồ thị hàm số đi qua điểm $M(0; 3)$.  
+	\end{enumerate}
+	
+	\vspace{0.4cm}
+	\noindent \textbf{Câu 46.} Cho hàm số $y = \frac{-x^2 + 3x - 1}{x - 2}$ có đồ thị là $(C)$. Các mệnh đề sau đúng hay sai?
+	\begin{enumerate}[label=\textbf{\alph*)}]
+		\item Đồ thị hàm số $(C)$ có hai đường tiệm cận gồm một đường đứng và một đường xiên.  
+		\item Giao điểm của hai đường tiệm cận là điểm $I(2; -1)$.  
+		\item Khoảng cách từ gốc tọa độ $O$ đến đường tiệm cận xiên bằng $\frac{\sqrt{2}}{2}$.  
+		\item Đường tiệm cận xiên của đồ thị hàm số đi qua điểm $M(3; -2)$.  
+	\end{enumerate}
+	
+	\vspace{0.4cm}
+	\noindent \textbf{Câu 47.} Cho hàm số $y = \frac{\sqrt{x^2 + 1}}{x - 1}$ có đồ thị là $(C)$. Các mệnh đề sau đúng hay sai?
+	\begin{enumerate}[label=\textbf{\alph*)}]
+		\item Đồ thị hàm số $(C)$ có tổng cộng ba đường tiệm cận.  
+		\item Giao điểm của tiệm cận đứng với các tiệm cận ngang lần lượt là $I_1(1; 1)$ và $I_2(1; -1)$.  
+		\item Khoảng cách giữa hai đường tiệm cận ngang của đồ thị hàm số bằng $2$.  
+		\item Đồ thị hàm số $(C)$ chỉ có duy nhất một đường tiệm cận ngang.  
+	\end{enumerate}
+	
+	\vspace{0.4cm}
+	\noindent \textbf{Câu 48.} Cho hàm số $y = \sqrt{x^2 + 4x + 5}$ có đồ thị là $(C)$. Các mệnh đề sau đúng hay sai?
+	\begin{enumerate}[label=\textbf{\alph*)}]
+		\item Đồ thị hàm số $(C)$ không có đường tiệm cận đứng và đường tiệm cận ngang.  
+		\item Đồ thị hàm số $(C)$ có hai đường tiệm cận xiên là $y = x + 2$ (khi $x \to +\infty$) và $y = -x - 2$ (khi $x \to -\infty$).  
+		\item Giao điểm của hai đường tiệm cận xiên của đồ thị hàm số nằm trên trục hoành.  
+		\item Khoảng cách từ gốc tọa độ $O$ đến đường tiệm cận xiên $y = x + 2$ bằng $\sqrt{2}$.  
+	\end{enumerate}
+	
+	
+	\vspace{0.4cm}
+	\noindent \textbf{Câu 41.} Cho hàm số $y = \frac{x^2 - x + 3}{x + 1}$ có đồ thị là $(C)$. Các mệnh đề sau đúng hay sai?
+	\begin{enumerate}[label=\textbf{\alph*)}]
+		\item Đồ thị hàm số $(C)$ có hai đường tiệm cận gồm một đường đứng và một đường xiên.  
+		\item Giao điểm của hai đường tiệm cận là điểm $I(-1; -3)$.  
+		\item Khoảng cách từ gốc tọa độ $O$ đến đường tiệm cận xiên bằng $\sqrt{2}$.  
+		\item Đường tiệm cận xiên của đồ thị hàm số đi qua điểm $M(0; -2)$.  
+	\end{enumerate}
+	
+	\vspace{0.4cm}
+	\noindent \textbf{Câu 42.} Cho hàm số $y = \frac{2x - 3}{x - 2}$ có đồ thị là $(C)$. Các mệnh đề sau đúng hay sai?
+	\begin{enumerate}[label=\textbf{\alph*)}]
+		\item Đồ thị hàm số $(C)$ có hai tiệm cận đứng.  
+		\item Giao điểm của hai đường tiệm cận là điểm $I(2; 2)$.  
+		\item Khoảng cách từ gốc tọa độ $O$ đến đường tiệm cận đứng bằng $2$.  
+		\item Đường tiệm cận ngang của đồ thị hàm số đi qua điểm $A(1; 2)$.  
+	\end{enumerate}
+	
+	\vspace{0.4cm}
+	\noindent \textbf{Câu 43.} Cho hàm số $y = \frac{2x^2 + x - 1}{x + 1}$ có đồ thị là $(C)$. Các mệnh đề sau đúng hay sai?
+	\begin{enumerate}[label=\textbf{\alph*)}]
+		\item Đồ thị hàm số $(C)$ có tiệm cận đứng là đường thẳng $x = -1$.  
+		\item Đồ thị hàm số $(C)$ không có bất kỳ đường tiệm cận nào.  
+		\item Giới hạn tại điểm gián đoạn của hàm số là $\lim\limits_{x \to -1} y = -3$.  
+		\item Đồ thị hàm số có một đường tiệm cận xiên là $y = 2x - 1$.  
+	\end{enumerate}
+	
+	\vspace{0.4cm}
+	\noindent \textbf{Câu 44.} Cho hàm số $y = \frac{2x^2 - 3x + 3}{x - 1}$ có đồ thị là $(C)$. Các mệnh đề sau đúng hay sai?
+	\begin{enumerate}[label=\textbf{\alph*)}]
+		\item Đồ thị hàm số $(C)$ có một tiệm cận đứng và một tiệm cận xiên.  
+		\item Giao điểm của hai đường tiệm cận là điểm $I(1; 1)$.  
+		\item Khoảng cách từ gốc tọa độ $O$ đến đường tiệm cận xiên bằng $\frac{\sqrt{5}}{5}$.  
+		\item Đường tiệm cận xiên của đồ thị hàm số đi qua điểm $M(2; 3)$.  
+	\end{enumerate}
+	
+	\vspace{0.4cm}
+	\noindent \textbf{Câu 45.} Cho hàm số $y = \frac{3x^2 - 1}{x^2 - 4}$ có đồ thị là $(C)$. Các mệnh đề sau đúng hay sai?
+	\begin{enumerate}[label=\textbf{\alph*)}]
+		\item Đồ thị hàm số $(C)$ có tổng cộng ba đường tiệm cận.  
+		\item Đồ thị hàm số $(C)$ có hai đường tiệm cận đứng và một đường tiệm cận ngang.  
+		\item Khoảng cách giữa hai đường tiệm cận đứng bằng $4$.  
+		\item Đường tiệm cận ngang của đồ thị hàm số đi qua điểm $M(0; 3)$.  
+	\end{enumerate}
+	
+	\vspace{0.4cm}
+	\noindent \textbf{Câu 46.} Cho hàm số $y = \frac{-x^2 + 3x - 1}{x - 2}$ có đồ thị là $(C)$. Các mệnh đề sau đúng hay sai?
+	\begin{enumerate}[label=\textbf{\alph*)}]
+		\item Đồ thị hàm số $(C)$ có hai đường tiệm cận gồm một đường đứng và một đường xiên.  
+		\item Giao điểm của hai đường tiệm cận là điểm $I(2; -1)$.  
+		\item Khoảng cách từ gốc tọa độ $O$ đến đường tiệm cận xiên bằng $\frac{\sqrt{2}}{2}$.  
+		\item Đường tiệm cận xiên của đồ thị hàm số đi qua điểm $M(3; -2)$.  
+	\end{enumerate}
+	
+	\vspace{0.4cm}
+	\noindent \textbf{Câu 47.} Cho hàm số $y = \frac{\sqrt{x^2 + 1}}{x - 1}$ có đồ thị là $(C)$. Các mệnh đề sau đúng hay sai?
+	\begin{enumerate}[label=\textbf{\alph*)}]
+		\item Đồ thị hàm số $(C)$ có tổng cộng ba đường tiệm cận.  
+		\item Giao điểm của tiệm cận đứng với các tiệm cận ngang lần lượt là $I_1(1; 1)$ và $I_2(1; -1)$.  
+		\item Khoảng cách giữa hai đường tiệm cận ngang của đồ thị hàm số bằng $2$.  
+		\item Đồ thị hàm số $(C)$ chỉ có duy nhất một đường tiệm cận ngang.  
+	\end{enumerate}
+	
+	\vspace{0.4cm}
+	\noindent \textbf{Câu 48.} Cho hàm số $y = \sqrt{x^2 + 4x + 5}$ có đồ thị là $(C)$. Các mệnh đề sau đúng hay sai?
+	\begin{enumerate}[label=\textbf{\alph*)}]
+		\item Đồ thị hàm số $(C)$ không có đường tiệm cận đứng và đường tiệm cận ngang.  
+		\item Đồ thị hàm số $(C)$ có hai đường tiệm cận xiên là $y = x + 2$ (khi $x \to +\infty$) và $y = -x - 2$ (khi $x \to -\infty$).  
+		\item Giao điểm của hai đường tiệm cận xiên của đồ thị hàm số nằm trên trục hoành.  
+		\item Khoảng cách từ gốc tọa độ $O$ đến đường tiệm cận xiên $y = x + 2$ bằng $\sqrt{2}$.  
+	\end{enumerate}
+
+
+	\vspace{0.4cm}
+	\noindent \textbf{Câu 49.} Cho hàm số $y = f(x) = \frac{x^2 + 4x - 1}{x + 1}$ có đồ thị là $(C)$ và đường tiệm cận xiên là đường thẳng $\Delta: y = ax + b$.
+	\begin{center}
+		\begin{tikzpicture}
+			\begin{axis}[
+				width=9cm, height=8cm,
+				axis lines=center,
+				xmin=-6, xmax=4, ymin=-5, ymax=9,
+				xtick={-3, -1}, ytick={2, 3, 5},
+				xlabel={$x$}, ylabel={$y$},
+				every axis x label/.style={at={(ticklabel* cs:1)},anchor=west},
+				every axis y label/.style={at={(ticklabel* cs:1)},anchor=south},
+				restrict y to domain=-15:15,
+				]
+				\addplot [domain=-6:-1.3, samples=50, blue, thick] {(x^2+4*x-1)/(x+1)};
+				\addplot [domain=-0.7:4, samples=50, blue, thick] {(x^2+4*x-1)/(x+1)};
+				\draw[dashed, red, thick] (axis cs:-1,-5) -- (axis cs:-1,9);
+				\addplot [domain=-6:4, dashed, red, thick] {x + 3};
+				\draw[dashed, black!60] (axis cs:-3,0) -- (axis cs:-3,0);
+				\draw[dashed, black!60] (axis cs:-1,0) -- (axis cs:-1,2) -- (axis cs:0,2);
+				\filldraw (axis cs:-1,2) circle (1.5pt);
+				\filldraw (axis cs:-3,0) circle (1.5pt);
+				\filldraw (axis cs:0,3) circle (1.5pt);
+				\node[above, sloped] at (axis cs:2, 5.5) {$y = x + 3$};
+			\end{axis}
+		\end{tikzpicture}
+	\end{center}
+	Các mệnh đề sau đúng hay sai?
+	\begin{enumerate}[label=\textbf{\alph*)}]
+		\item Giao điểm của tiệm cận xiên $\Delta$ và trục hoành $Ox$ có hoành độ bằng $-3$.  
+		\item Giao điểm của tiệm cận xiên $\Delta$ và tiệm cận đứng của đồ thị $(C)$ là điểm $I(-1; 2)$.  
+		\item Diện tích tam giác $OAB$ tạo bởi tiệm cận xiên $\Delta$ với hai trục tọa độ bằng $4,5$.  
+		\item Giá trị lớn nhất của hàm số của đường tiệm cận xiên trên đoạn $[0; 2]$ bằng $5$.  
+	\end{enumerate}
+	
+	\vspace{0.4cm}
+	\noindent \textbf{Câu 50.} Cho hàm số $y = f(x) = \frac{x^2 - 2x + 3}{x - 2}$ có đồ thị là $(C)$ và đường tiệm cận xiên là đường thẳng $\Delta: y = ax + b$.
+	\begin{center}
+		\begin{tikzpicture}
+			\begin{axis}[
+				width=9cm, height=8cm,
+				axis lines=center,
+				xmin=-2, xmax=6, ymin=-4, ymax=8,
+				xtick={2}, ytick={2},
+				xlabel={$x$}, ylabel={$y$},
+				every axis x label/.style={at={(ticklabel* cs:1)},anchor=west},
+				every axis y label/.style={at={(ticklabel* cs:1)},anchor=south},
+				restrict y to domain=-15:15,
+				]
+				\addplot [domain=-2:1.5, samples=50, blue, thick] {(x^2-2*x+3)/(x-2)};
+				\addplot [domain=2.5:6, samples=50, blue, thick] {(x^2-2*x+3)/(x-2)};
+				\draw[dashed, red, thick] (axis cs:2,-4) -- (axis cs:2,8);
+				\addplot [domain=-2:6, dashed, red, thick] {x};
+				\draw[dashed, black!60] (axis cs:2,0) -- (axis cs:2,2) -- (axis cs:0,2);
+				\filldraw (axis cs:2,2) circle (1.5pt);
+				\node[above, sloped] at (axis cs:4, 4.5) {$y = x$};
+			\end{axis}
+		\end{tikzpicture}
+	\end{center}
+	Các mệnh đề sau đúng hay sai?
+	\begin{enumerate}[label=\textbf{\alph*)}]
+		\item Đồ thị hàm số $(C)$ không có tiệm cận ngang.  
+		\item Đường tiệm cận xiên của đồ thị $(C)$ tạo với hai trục tọa độ một tam giác có diện tích bằng $2$.  
+		\item Giao điểm hai tiệm cận của đồ thị $(C)$ nằm trên đường parabol $y = x^2 - 2$.  
+		\item Đường tiệm cận xiên của đồ thị $(C)$ vuông góc với đường thẳng $x + y + 10 = 0$.  
+	\end{enumerate}
+	
+	\vspace{0.4cm}
+	\noindent \textbf{Câu 51.} Cho hàm số $y = f(x) = \frac{-2x^2 + 5x - 1}{x - 1}$ có đồ thị là $(C)$ và đường tiệm cận xiên là đường thẳng $\Delta: y = ax + b$.
+	\begin{center}
+		\begin{tikzpicture}
+			\begin{axis}[
+				width=9cm, height=8cm,
+				axis lines=center,
+				xmin=-3, xmax=5, ymin=-5, ymax=7,
+				xtick={1, 1.5}, ytick={1, 3},
+				xlabel={$x$}, ylabel={$y$},
+				every axis x label/.style={at={(ticklabel* cs:1)},anchor=west},
+				every axis y label/.style={at={(ticklabel* cs:1)},anchor=south},
+				restrict y to domain=-15:15,
+				]
+				\addplot [domain=-3:0.7, samples=50, blue, thick] {(-2*x^2+5*x-1)/(x-1)};
+				\addplot [domain=1.3:5, samples=50, blue, thick] {(-2*x^2+5*x-1)/(x-1)};
+				\draw[dashed, red, thick] (axis cs:1,-5) -- (axis cs:1,7);
+				\addplot [domain=-3:4, dashed, red, thick] {-2*x + 3};
+				\draw[dashed, black!60] (axis cs:1,0) -- (axis cs:1,1) -- (axis cs:0,1);
+				\filldraw (axis cs:1,1) circle (1.5pt);
+				\filldraw (axis cs:1.5,0) circle (1.5pt);
+				\filldraw (axis cs:0,3) circle (1.5pt);
+				\node[above, sloped] at (axis cs:-0.5, 4.5) {$y = -2x + 3$};
+			\end{axis}
+		\end{tikzpicture}
+	\end{center}
+	Các mệnh đề sau đúng hay sai?
+	\begin{enumerate}[label=\textbf{\alph*)}]
+		\item Đường tiệm cận xiên của đồ thị $(C)$ là đường thẳng $\Delta: y = -2x + 3$.  
+		\item Giao điểm hai đường tiệm cận của $(C)$ nằm trên đường thẳng phân giác $y = x$.  
+		\item Diện tích tam giác $OAB$ tạo bởi tiệm cận xiên $\Delta$ với hai trục tọa độ bằng $\frac{9}{4}$.  
+		\item Giá trị nhỏ nhất của hàm số của đường tiệm cận xiên trên đoạn $[1; 3]$ bằng $-3$.  
+	\end{enumerate}
+	
+	\vspace{0.4cm}
+	\noindent \textbf{Câu 52.} Cho hàm số $y = f(x) = \frac{3x^2 - 2x + 2}{x - 1}$ có đồ thị là $(C)$ và đường tiệm cận xiên là đường thẳng $\Delta: y = ax + b$.
+	\begin{center}
+		\begin{tikzpicture}
+			\begin{axis}[
+				width=9cm, height=8cm,
+				axis lines=center,
+				xmin=-2, xmax=5, ymin=-3, ymax=13,
+				xtick={1}, ytick={1, 4},
+				xlabel={$x$}, ylabel={$y$},
+				every axis x label/.style={at={(ticklabel* cs:1)},anchor=west},
+				every axis y label/.style={at={(ticklabel* cs:1)},anchor=south},
+				restrict y to domain=-15:20,
+				]
+				\addplot [domain=-2:0.7, samples=50, blue, thick] {(3*x^2-2*x+2)/(x-1)};
+				\addplot [domain=1.3:4, samples=50, blue, thick] {(3*x^2-2*x+2)/(x-1)};
+				\draw[dashed, red, thick] (axis cs:1,-3) -- (axis cs:1,13);
+				\addplot [domain=-2:4, dashed, red, thick] {3*x + 1};
+				\draw[dashed, black!60] (axis cs:1,0) -- (axis cs:1,4) -- (axis cs:0,4);
+				\filldraw (axis cs:1,4) circle (1.5pt);
+				\filldraw (axis cs:0,1) circle (1.5pt);
+				\node[above, sloped] at (axis cs:2.5, 9.5) {$y = 3x + 1$};
+			\end{axis}
+		\end{tikzpicture}
+	\end{center}
+	Các mệnh đề sau đúng hay sai?
+	\begin{enumerate}[label=\textbf{\alph*)}]
+		\item Đường tiệm cận xiên của đồ thị $(C)$ là đường thẳng $\Delta: y = 3x + 1$.  
+		\item Tiệm cận xiên $\Delta$ tạo với hai trục tọa độ một tam giác có diện tích bằng $\frac{1}{6}$.  
+		\item Giao điểm hai tiệm cận $I$ của đồ thị hàm số nằm trên parabol $y = x^2 + 3$.  
+		\item Đường tiệm cận xiên $\Delta$ song song với đường thẳng có phương trình $y = 3x - 2026$.  
+	\end{enumerate}
+	
+	\vspace{0.4cm}
+	\noindent \textbf{Câu 53.} Cho hàm số $y = f(x) = \frac{x^2 + 1}{2x - 4}$ có đồ thị là $(C)$ và đường tiệm cận xiên là đường thẳng $\Delta: y = ax + b$.
+	\begin{center}
+		\begin{tikzpicture}
+			\begin{axis}[
+				width=9cm, height=8cm,
+				axis lines=center,
+				xmin=-4, xmax=6, ymin=-4, ymax=6,
+				xtick={-2, 2}, ytick={1, 2},
+				xlabel={$x$}, ylabel={$y$},
+				every axis x label/.style={at={(ticklabel* cs:1)},anchor=west},
+				every axis y label/.style={at={(ticklabel* cs:1)},anchor=south},
+				restrict y to domain=-15:15,
+				]
+				\addplot [domain=-4:1.6, samples=50, blue, thick] {(x^2+1)/(2*x-4)};
+				\addplot [domain=2.4:6, samples=50, blue, thick] {(x^2+1)/(2*x-4)};
+				\draw[dashed, red, thick] (axis cs:2,-4) -- (axis cs:2,6);
+				\addplot [domain=-4:6, dashed, red, thick] {0.5*x + 1};
+				\draw[dashed, black!60] (axis cs:2,0) -- (axis cs:2,2) -- (axis cs:0,2);
+				\filldraw (axis cs:2,2) circle (1.5pt);
+				\filldraw (axis cs:-2,0) circle (1.5pt);
+				\filldraw (axis cs:0,1) circle (1.5pt);
+				\node[above, sloped] at (axis cs:4, 3.2) {$y = 0,5x + 1$};
+			\end{axis}
+		\end{tikzpicture}
+	\end{center}
+	Các mệnh đề sau đúng hay sai?
+	\begin{enumerate}[label=\textbf{\alph*)}]
+		\item Đường tiệm cận xiên của đồ thị là đường thẳng $\Delta: y = \frac{1}{2}x + 1$.  
+		\item Giao điểm hai đường tiệm cận của đồ thị $(C)$ là điểm $I(2; 2)$.  
+		\item Diện tích tam giác tạo bởi đường tiệm cận xiên $\Delta$ và hai trục tọa độ bằng $1$.  
+		\item Đường tiệm cận xiên $\Delta$ vuông góc với đường thẳng $2x + y - 5 = 0$.  
+	\end{enumerate}
+	
+	\vspace{0.4cm}
+	\noindent \textbf{Câu 54.} Cho hàm số $y = f(x) = \sqrt{x^2 - 2x + 2}$ có đồ thị là $(C)$ và đường tiệm cận xiên bên phải là $\Delta_1: y = a_1x + b_1$, bên trái là $\Delta_2: y = a_2x + b_2$.
+	\begin{center}
+		\begin{tikzpicture}
+			\begin{axis}[
+				width=9cm, height=8cm,
+				axis lines=center,
+				xmin=-4, xmax=6, ymin=-2, ymax=6,
+				xtick={1, 2}, ytick={1},
+				xlabel={$x$}, ylabel={$y$},
+				every axis x label/.style={at={(ticklabel* cs:1)},anchor=west},
+				every axis y label/.style={at={(ticklabel* cs:1)},anchor=south},
+				restrict y to domain=-5:15,
+				]
+				\addplot [domain=-4:6, samples=100, blue, thick] {sqrt(x^2 - 2*x + 2)};
+				\addplot [domain=-1:6, dashed, red, thick] {x - 1};
+				\addplot [domain=-4:3, dashed, red, thick] {-x + 1};
+				\draw[dashed, black!60] (axis cs:1,0) -- (axis cs:1,0);
+				\filldraw (axis cs:1,0) circle (1.5pt);
+				\filldraw (axis cs:2,1) circle (1.5pt);
+				\node[above, sloped] at (axis cs:4, 3.2) {$y = x - 1$};
+				\node[above, sloped] at (axis cs:-2, 3.2) {$y = -x + 1$};
+			\end{axis}
+		\end{tikzpicture}
+	\end{center}
+	Các mệnh đề sau đúng hay sai?
+	\begin{enumerate}[label=\textbf{\alph*)}]
+		\item Đồ thị hàm số $(C)$ không có tiệm cận ngang và tiệm cận đứng.  
+		\item Đồ thị hàm số $(C)$ có hai tiệm cận xiên vuông góc với nhau.  
+		\item Giao điểm của hai đường tiệm cận xiên của đồ thị hàm số có tọa độ là $I(1; 0)$.  
+		\item Đường tiệm cận xiên bên phải $\Delta_1$ của đồ thị hàm số đi qua điểm $M(2; 1)$.  
+	\end{enumerate}
+	
+	\vspace{0.4cm}
+	\noindent \textbf{Câu 55.} Cho hàm số $y = f(x) = \frac{-x^2 + x - 2}{x + 1}$ có đồ thị là $(C)$ và đường tiệm cận xiên là đường thẳng $\Delta: y = ax + b$.
+	\begin{center}
+		\begin{tikzpicture}
+			\begin{axis}[
+				width=9cm, height=8cm,
+				axis lines=center,
+				xmin=-6, xmax=4, ymin=-8, ymax=4,
+				xtick={-1, 2}, ytick={2, 3},
+				xlabel={$x$}, ylabel={$y$},
+				every axis x label/.style={at={(ticklabel* cs:1)},anchor=west},
+				every axis y label/.style={at={(ticklabel* cs:1)},anchor=south},
+				restrict y to domain=-15:15,
+				]
+				\addplot [domain=-6:-1.3, samples=50, blue, thick] {(-x^2+x-2)/(x+1)};
+				\addplot [domain=-0.7:4, samples=50, blue, thick] {(-x^2+x-2)/(x+1)};
+				\draw[dashed, red, thick] (axis cs:-1,-8) -- (axis cs:-1,4);
+				\addplot [domain=-6:4, dashed, red, thick] {-x + 2};
+				\draw[dashed, black!60] (axis cs:-1,0) -- (axis cs:-1,3) -- (axis cs:0,3);
+				\filldraw (axis cs:-1,3) circle (1.5pt);
+				\filldraw (axis cs:2,0) circle (1.5pt);
+				\filldraw (axis cs:0,2) circle (1.5pt);
+				\node[above, sloped] at (axis cs:-4, 6.2) {$y = -x + 2$};
+			\end{axis}
+		\end{tikzpicture}
+	\end{center}
+	Các mệnh đề sau đúng hay sai?
+	\begin{enumerate}[label=\textbf{\alph*)}]
+		\item Đường tiệm cận xiên của đồ thị hàm số là đường thẳng $\Delta: y = -x + 2$.  
+		\item Giao điểm hai đường tiệm cận của đồ thị $(C)$ nằm trên đường parabol $y = x^2 + 2$.  
+		\item Diện tích tam giác tạo bởi đường tiệm cận xiên $\Delta$ và hai trục tọa độ bằng $2$.  
+		\item Giá trị lớn nhất của hàm số của đường tiệm cận xiên trên đoạn $[-2; 0]$ bằng $2$.  
+	\end{enumerate}
+	
+	\vspace{0.4cm}
+	\noindent \textbf{Câu 56.} Cho hàm số $y = f(x) = \frac{2x^2 - x + 1}{x + 1}$ có đồ thị là $(C)$ và đường tiệm cận xiên là đường thẳng $\Delta: y = ax + b$.
+	\begin{center}
+		\begin{tikzpicture}
+			\begin{axis}[
+				width=9cm, height=8cm,
+				axis lines=center,
+				xmin=-6, xmax=4, ymin=-11, ymax=5,
+				xtick={-1, 1.5}, ytick={-3, -5},
+				xlabel={$x$}, ylabel={$y$},
+				every axis x label/.style={at={(ticklabel* cs:1)},anchor=west},
+				every axis y label/.style={at={(ticklabel* cs:1)},anchor=south},
+				restrict y to domain=-20:10,
+				]
+				\addplot [domain=-6:-1.3, samples=50, blue, thick] {(2*x^2-x+1)/(x+1)};
+				\addplot [domain=-0.7:4, samples=50, blue, thick] {(2*x^2-x+1)/(x+1)};
+				\draw[dashed, red, thick] (axis cs:-1,-11) -- (axis cs:-1,5);
+				\addplot [domain=-6:4, dashed, red, thick] {2*x - 3};
+				\draw[dashed, black!60] (axis cs:-1,0) -- (axis cs:-1,-5) -- (axis cs:0,-5);
+				\filldraw (axis cs:-1,-5) circle (1.5pt);
+				\filldraw (axis cs:1.5,0) circle (1.5pt);
+				\filldraw (axis cs:0,-3) circle (1.5pt);
+				\node[above, sloped] at (axis cs:2, 1.2) {$y = 2x - 3$};
+			\end{axis}
+		\end{tikzpicture}
+	\end{center}
+	Các mệnh đề sau đúng hay sai?
+	\begin{enumerate}[label=\textbf{\alph*)}]
+		\item Đường tiệm cận xiên của đồ thị là đường thẳng $\Delta: y = 2x - 3$.  
+		\item Giao điểm của hai đường tiệm cận nằm trên đường parabol $y = -5x^2$.  
+		\item Diện tích tam giác tạo bởi đường tiệm cận xiên $\Delta$ và hai trục tọa độ bằng $2,25$.  
+		\item Đường tiệm cận xiên $\Delta$ song song với đường thẳng có phương trình $y = 2x + 2026$.  
+	\end{enumerate}
+	
+	\vspace{0.4cm}
+	\noindent \textbf{Câu 57.} Cho hàm số $y = f(x) = \frac{x^2 - 4x + 5}{x - 2}$ có đồ thị là $(C)$ và đường tiệm cận xiên là đường thẳng $\Delta: y = ax + b$.
+	\begin{center}
+		\begin{tikzpicture}
+			\begin{axis}[
+				width=9cm, height=8cm,
+				axis lines=center,
+				xmin=-2, xmax=6, ymin=-5, ymax=5,
+				xtick={2}, ytick={-2},
+				xlabel={$x$}, ylabel={$y$},
+				every axis x label/.style={at={(ticklabel* cs:1)},anchor=west},
+				every axis y label/.style={at={(ticklabel* cs:1)},anchor=south},
+				restrict y to domain=-15:15,
+				]
+				\addplot [domain=-2:1.6, samples=50, blue, thick] {(x^2-4*x+5)/(x-2)};
+				\addplot [domain=2.4:6, samples=50, blue, thick] {(x^2-4*x+5)/(x-2)};
+				\draw[dashed, red, thick] (axis cs:2,-5) -- (axis cs:2,5);
+				\addplot [domain=-2:6, dashed, red, thick] {x - 2};
+				\draw[dashed, black!60] (axis cs:2,0) -- (axis cs:2,0);
+				\filldraw (axis cs:2,0) circle (1.5pt);
+				\filldraw (axis cs:0,-2) circle (1.5pt);
+				\node[above, sloped] at (axis cs:4, 2.2) {$y = x - 2$};
+			\end{axis}
+		\end{tikzpicture}
+	\end{center}
+	Các mệnh đề sau đúng hay sai?
+	\begin{enumerate}[label=\textbf{\alph*)}]
+		\item Đường tiệm cận đứng của đồ thị là đường thẳng $x = 2$ và tiệm cận xiên là $y = x - 2$.  
+		\item Giao điểm của hai đường tiệm cận trùng với giao điểm của tiệm cận xiên và trục hoành $Ox$.  
+		\item Diện tích tam giác tạo bởi đường tiệm cận xiên $\Delta$ và hai trục tọa độ bằng $2$.  
+		\item Đường tiệm cận xiên $\Delta$ vuông góc với đường thẳng $y = -x + 5$.  
+	\end{enumerate}
+	
+	\vspace{0.4cm}
+	\noindent \textbf{Câu 58.} Cho hàm số $y = f(x) = \frac{-2x^2 + x + 1}{x - 2}$ có đồ thị là $(C)$ và đường tiệm cận xiên là đường thẳng $\Delta: y = ax + b$.
+	\begin{center}
+		\begin{tikzpicture}
+			\begin{axis}[
+				width=9cm, height=8cm,
+				axis lines=center,
+				xmin=-4, xmax=6, ymin=-15, ymax=3,
+				xtick={2, -1.5}, ytick={-3, -7},
+				xlabel={$x$}, ylabel={$y$},
+				every axis x label/.style={at={(ticklabel* cs:1)},anchor=west},
+				every axis y label/.style={at={(ticklabel* cs:1)},anchor=south},
+				restrict y to domain=-25:10,
+				]
+				\addplot [domain=-4:1.6, samples=50, blue, thick] {(-2*x^2+x+1)/(x-2)};
+				\addplot [domain=2.4:6, samples=50, blue, thick] {(-2*x^2+x+1)/(x-2)};
+				\draw[dashed, red, thick] (axis cs:2,-15) -- (axis cs:2,3);
+				\addplot [domain=-4:4, dashed, red, thick] {-2*x - 3};
+				\draw[dashed, black!60] (axis cs:2,0) -- (axis cs:2,-7) -- (axis cs:0,-7);
+				\filldraw (axis cs:2,-7) circle (1.5pt);
+				\filldraw (axis cs:-1.5,0) circle (1.5pt);
+				\filldraw (axis cs:0,-3) circle (1.5pt);
+				\node[above, sloped] at (axis cs:-2, 1.2) {$y = -2x - 3$};
+			\end{axis}
+		\end{tikzpicture}
+	\end{center}
+	Các mệnh đề sau đúng hay sai?
+	\begin{enumerate}[label=\textbf{\alph*)}]
+		\item Đường tiệm cận xiên của đồ thị hàm số là $\Delta: y = -2x - 3$.  
+		\item Giao điểm của hai đường tiệm cận nằm trên đường parabol $y = -x^2 - 3$.  
+		\item Diện tích tam giác tạo bởi đường tiệm cận xiên $\Delta$ và hai trục tọa độ bằng $2,25$.  
+		\item Giá trị lớn nhất của hàm số của đường tiệm cận xiên trên đoạn $[-1; 1]$ bằng $-1$.  
+	\end{enumerate}
+	
+	
+	\subsection{Câu hỏi Trả lời ngắn}
+	
+	\noindent \textbf{Câu 59.} Cho hàm số $y = f(x) = \frac{-x^2 + 4x - 2025}{x - 3}$ có đồ thị là $(C)$. Biết đồ thị hàm số có đường tiệm cận xiên dạng $y = ax + b$ và đường tiệm cận đứng dạng $x = c$. Tính giá trị của biểu thức $T = a + b + c$.
+	\\[4pt] \textbf{Trả lời:} \otraloi
+	
+	\vspace{0.6cm}
+	\noindent \textbf{Câu 60.} Biết đồ thị hàm số $y = \frac{x^2 - 3x + 5}{x - 4}$ có đường tiệm cận xiên là $y = ax + b$. Tính giá trị của biểu thức $S = a^2 + 3b$.
+	\\[4pt] \textbf{Trả lời:} \otraloi
+	
+	\vspace{0.6cm}
+	\noindent \textbf{Câu 61.} Biết đồ thị hàm số $y = \frac{2x^2 - 5x + 3}{x - 2}$ có đường tiệm cận xiên là $y = ax + b$. Tìm hệ số góc $a$ của đường tiệm cận xiên đó.
+	\\[4pt] \textbf{Trả lời:} \otraloi
+	
+	\vspace{0.6cm}
+	\noindent \textbf{Câu 62.} Gọi $I(x_0; y_0)$ là tọa độ giao điểm của đường tiệm cận đứng và tiệm cận xiên của đồ thị hàm số $y = 3x - 2 + \frac{2}{x - 1}$. Tính giá trị biểu thức $A = x_0 + 2y_0$.
+	\\[4pt] \textbf{Trả lời:} \otraloi
+	
+	\vspace{0.6cm}
+	\noindent \textbf{Câu 63.} Gọi $I(x_0; y_0)$ là tọa độ giao điểm của đường tiệm cận đứng và tiệm cận xiên của đồ thị hàm số $y = \frac{x^2 + 4x}{x - 1}$. Tìm giá trị của tung độ $y_0$.
+	\\[4pt] \textbf{Trả lời:} \otraloi
+	
+	\vspace{0.6cm}
+	\noindent \textbf{Câu 64.} Đồ thị hàm số $y = \frac{\sqrt{4x^2 + 1} - 2x}{x - 3}$ có các đường tiệm cận ngang có phương trình dạng $y = y_1$ và $y = y_2$. Tính tổng $y_1 + y_2$.
+	\\[4pt] \textbf{Trả lời:} \otraloi
+	
+	\vspace{0.6cm}
+	\noindent \textbf{Câu 65.} Đồ thị hàm số $y = \frac{x - 2}{|x^2 - 5x + 6|}$ có tất cả bao nhiêu đường tiệm cận đứng?
+	\\[4pt] \textbf{Trả lời:} \otraloi
+	
+	\vspace{0.6cm}
+	\noindent \textbf{Câu 66.} Tính tổng số đường tiệm cận đứng và tiệm cận ngang của đồ thị hàm số $y = \frac{2x^2 - 8}{x^2 - 3x + 2}$.
+	\\[4pt] \textbf{Trả lời:} \otraloi
+	
+	\vspace{0.6cm}
+	\noindent \textbf{Câu 67.} Gọi $I(x_0; y_0)$ là giao điểm của hai đường tiệm cận của đồ thị hàm số $y = \frac{3x - 1}{x + 2}$. Tính giá trị của biểu thức $S = x_0^2 + y_0^2$.
+	\\[4pt] \textbf{Trả lời:} \otraloi
+	
+	\vspace{0.6cm}
+	\noindent \textbf{Câu 68.} Gọi $I(x_0; y_0)$ là giao điểm của đường tiệm cận đứng và đường tiệm cận ngang của đồ thị hàm số $y = \frac{x^2 - x - 2}{x^2 - 1}$. Tính bình phương khoảng cách từ gốc tọa độ $O(0; 0)$ đến điểm $I$ (tức là tính $OI^2$).
+	\\[4pt] \textbf{Trả lời:} \otraloi
+	
+	\vspace{0.6cm}
+	\noindent \textbf{Câu 69.} Cho đồ thị hàm số $y = \frac{3x^2 + 5x - 1}{x + 2}$ có tiệm cận xiên là $\Delta: y = ax + b$. Tìm giá trị của hàm số $y = ax + b$ tại điểm $x = 5$.
+	\\[4pt] \textbf{Trả lời:} \otraloi
+	
+	\vspace{0.6cm}
+	\noindent \textbf{Câu 70.} Gọi $I(x_0; y_0)$ là tọa độ giao điểm của đường tiệm cận đứng và tiệm cận xiên của đồ thị hàm số $y = \frac{4x^2 - 10x + 7}{2x - 4}$. Tính tích giá trị $P = x_0 \cdot y_0$.
+	\\[4pt] \textbf{Trả lời:} \otraloi
+	
+	\vspace{0.6cm}
+	\noindent \textbf{Câu 71.} Đồ thị hàm số $y = \frac{x - 1}{x^2 - 3x + 2}$ có tổng cộng bao nhiêu đường tiệm cận đứng và tiệm cận ngang?
+	\\[4pt] \textbf{Trả lời:} \otraloi
+	
+	\vspace{0.6cm}
+	\noindent \textbf{Câu 72.} Tính bình phương khoảng cách từ điểm $M(1; 4)$ đến đường tiệm cận xiên của đồ thị hàm số $y = \frac{x^2 + 2x - 1}{x + 1}$.
+	\\[4pt] \textbf{Trả lời:} \otraloi
+	
+	\vspace{0.6cm}
+	\noindent \textbf{Câu 73.} Đồ thị hàm số $y = \sqrt{4x^2 + 4x + 2}$ có hai đường tiệm cận xiên dạng $\Delta_1: y = a_1x + b_1$ (khi $x \to +\infty$) và $\Delta_2: y = a_2x + b_2$ (khi $x \to -\infty$). Tính giá trị biểu thức $T = a_1 + b_1 + a_2 + b_2$.
+	\\[4pt] \textbf{Trả lời:} \otraloi
+	
+	\vspace{0.6cm}
+	\noindent \textbf{Câu 74.} Gọi $I(x_0; y_0)$ là giao điểm của hai đường tiệm cận của đồ thị hàm số $y = \frac{x^2 - x + 1}{x - 1}$. Tính giá trị biểu thức $S = x_0^2 + y_0^2$.
+	\\[4pt] \textbf{Trả lời:} \otraloi
+	
+	
+	
+	% =====================
+	% PHẦN 5: TỔNG KẾT
+	% =====================
+	\section{Tổng kết bài và bài tập về nhà}
+	
+	\begin{tcolorbox}[colback=orange!10!white, colframe=orange!80!black,
+		fonttitle=\bfseries, title={Bảng tóm tắt công thức tìm nhanh Tiệm cận}]
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{p{4cm} p{6cm} p{6cm}}
+			\textbf{Loại tiệm cận} & \textbf{Định nghĩa giới hạn} & \textbf{Cách tìm nhanh} \\
+			\hline
+			\textbf{Tiệm cận Đứng (TCĐ)} & $\lim\limits_{x \to x_0^{\pm}} f(x) = \pm\infty$ & Nghiệm của mẫu nhưng không là nghiệm của tử. \\
+			\textbf{Tiệm cận Ngang (TCN)} & $\lim\limits_{x \to \pm\infty} f(x) = y_0$ & So sánh bậc tử và mẫu khi $x \to \pm\infty$. \\
+			\textbf{Tiệm cận Xiên (TCX)} & $\lim\limits_{x \to \pm\infty} [f(x) - (ax+b)] = 0$ & Chia đa thức lấy phần thương hoặc bấm máy tính hệ số $a, b$. \\
+		\end{tabular}
+	\end{tcolorbox}
+	
+	\vspace{3mm}
+	\textbf{Bài tập về nhà:} Hoàn thành các câu hỏi trắc nghiệm của bài học trong sách bài tập và chuẩn bị trước bài "Khảo sát sự biến thiên và vẽ đồ thị hàm số".
+	
+\end{document}

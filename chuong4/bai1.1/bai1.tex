@@ -1,0 +1,2804 @@
+\documentclass[12pt]{article}
+
+% === CÀI ĐẶT TRANG ===
+\usepackage[margin=2cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T5]{fontenc}
+\usepackage[vietnamese]{babel}
+
+% === TOÁN HỌC ===
+\usepackage{amsmath, amssymb, amsthm}
+
+% === HÌNH VẼ ===
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+% === ĐỊNH DẠNG ===
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage[most]{tcolorbox}
+\usepackage{multicol}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{fancyhdr}
+\usepackage{tocloft}
+\usepackage[hidelinks]{hyperref}
+
+% === LỆNH TỰ ĐỊNH NGHĨA ===
+\newcommand{\otraloi}{\underline{\hspace{5cm}}}
+
+% === TCOLORBOX STYLES ===
+\tcbuselibrary{breakable, skins, fitting}
+
+% Định dạng hộp Ví dụ
+\newtcolorbox{vidu}[1][1]{
+	colback=blue!5!white, colframe=blue!60!black,
+	fonttitle=\bfseries, title={Ví dụ #1},
+	breakable, enhanced
+}
+
+% Định dạng hộp Lời giải
+\newtcolorbox{loigiai}{
+	colback=gray!8!white, colframe=gray!50!black,
+	fonttitle=\bfseries, title={Lời giải},
+	breakable, enhanced
+}
+
+% Bài tập xanh – Bắt buộc
+\newtcolorbox{btxanh}[1][]{
+	colback=blue!6!white, colframe=blue!65!black,
+	fonttitle=\bfseries\color{white}, coltitle=white,
+	attach boxed title to top left={yshift=-2mm, xshift=4mm},
+	boxed title style={colback=blue!65!black, rounded corners}, breakable, enhanced, #1
+}
+
+% Bài tập vàng – Bổ sung
+\newtcolorbox{btvang}[1][]{
+	colback=yellow!12!white, colframe=orange!75!black,
+	fonttitle=\bfseries, coltitle=orange!80!black,
+	attach boxed title to top left={yshift=-2mm, xshift=4mm},
+	boxed title style={colback=yellow!50!white, colframe=orange!75!black, rounded corners}, breakable, enhanced, #1
+}
+
+% Bài tập đỏ – Gia cố
+\newtcolorbox{btdo}[1][]{
+	colback=red!6!white, colframe=red!65!black,
+	fonttitle=\bfseries\color{white}, coltitle=white,
+	attach boxed title to top left={yshift=-2mm, xshift=4mm},
+	boxed title style={colback=red!65!black, rounded corners}, breakable, enhanced, #1
+}
+
+% === HEADER/FOOTER ===
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small Tài liệu học tập}
+\fancyhead[R]{\small \textbf{Chuyên đề: Nguyên hàm}}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% ================================================
+\begin{document}
+	
+	\begin{center}
+		{\LARGE \textbf{CHUYÊN ĐỀ: NGUYÊN HÀM}}\\[4pt]
+		{\large Môn: Toán \quad Lớp: 12}
+	\end{center}
+	\vspace{4mm}
+	\hrule
+	\vspace{4mm}
+	
+	% ===========================
+	% PHẦN 1: MỤC TIÊU BÀI HỌC
+	% ===========================
+	\section*{Mục tiêu bài học}
+	\addcontentsline{toc}{section}{Mục tiêu bài học}
+	
+	\textbf{1. Kiến thức:}
+	\begin{itemize}
+		\item Nắm vững khái niệm nguyên hàm của một hàm số.
+		\item Ghi nhớ và vận dụng bảng các công thức nguyên hàm cơ bản (hàm lũy thừa, hàm lượng giác, hàm mũ).
+	\end{itemize}
+	
+	\noindent \textbf{2. Kĩ năng:}
+	\begin{itemize}
+		\item Tính thành thạo nguyên hàm của các hàm số cơ bản.
+		\item Giải quyết tốt bài toán tìm nguyên hàm có điều kiện ban đầu ($F(x_0) = k$).
+	\end{itemize}
+	
+	\noindent \textbf{3. Thái độ / Phẩm chất:}
+	\begin{itemize}
+		\item Cẩn thận, chính xác trong tính toán biến đổi biểu thức đại số.
+	\end{itemize}
+	
+	\newpage
+	
+	% =====================
+	% PHẦN 2: MỤC LỤC
+	% =====================
+	\setcounter{tocdepth}{2}
+	\tableofcontents
+	\newpage
+	
+	% =====================
+	% PHẦN 3: LÝ THUYẾT
+	% =====================
+	\section{Lý thuyết}
+	
+	\subsection{Khái niệm nguyên hàm}
+	
+	\textbf{1.1.1. Định nghĩa}
+	
+	Cho hàm số $f(x)$ xác định trên $K$ (với $K$ là một khoảng, đoạn hoặc nửa khoảng). Hàm số $F(x)$ được gọi là một nguyên hàm của hàm số $f(x)$ trên $K$ nếu:
+	$$F'(x) = f(x), \quad \forall x \in K$$
+	
+	\noindent \textbf{1.1.2. Sự tồn tại và họ nguyên hàm}
+	
+	Cho $F(x)$ là một nguyên hàm của hàm số $f(x)$ trên $K$. Khi đó:
+	\begin{itemize}
+		\item Với mỗi hằng số $C$, hàm số $F(x) + C$ cũng là một nguyên hàm của hàm số $f(x)$ trên $K$.
+		\item Nếu $G(x)$ là một nguyên hàm của hàm số $f(x)$ trên $K$ thì tồn tại hằng số $C$ sao cho $G(x) = F(x) + C$ với mọi $x \in K$.
+	\end{itemize}
+	
+	Như vậy, mọi nguyên hàm của hàm số $f(x)$ trên $K$ đều có dạng $F(x) + C$, với $C$ là hằng số. Ta gọi $F(x) + C$ ($C \in \mathbb{R}$) là \textbf{họ tất cả các nguyên hàm} của hàm số $f(x)$ trên $K$, kí hiệu là $\int f(x)dx$ và viết:
+	$$\int f(x)dx = F(x) + C$$
+	
+	\begin{vidu}[1]
+		Chứng minh rằng hàm số $F(x) = x^3 - 2x + 5$ là một nguyên hàm của hàm số $f(x) = 3x^2 - 2$ trên $\mathbb{R}$. Từ đó viết họ nguyên hàm của hàm số $f(x)$.
+	\end{vidu}
+	
+	\begin{loigiai}
+		Ta có hàm số $F(x) = x^3 - 2x + 5$ xác định trên $\mathbb{R}$.\\
+		Đạo hàm: $F'(x) = (x^3 - 2x + 5)' = 3x^2 - 2 = f(x), \quad \forall x \in \mathbb{R}$.\\
+		Vậy $F(x)$ là một nguyên hàm của $f(x)$ trên $\mathbb{R}$.\\
+		Họ tất cả các nguyên hàm của hàm số $f(x)$ là:
+		$$\int (3x^2 - 2)dx = x^3 - 2x + C$$
+	\end{loigiai}
+	
+	\noindent \textbf{1.1.3. Chú ý}
+	\begin{itemize}
+		\item Biểu thức $f(x)dx$ được gọi là vi phân của nguyên hàm $F(x)$ của $f(x)$, kí hiệu là $dF(x)$. 
+		Vậy $dF(x) = F'(x)dx = f(x)dx$.
+		\item Mọi hàm số $f(x)$ \textbf{liên tục} trên $K$ đều có nguyên hàm trên $K$.
+		\item Khi tìm nguyên hàm của một hàm số mà không chỉ rõ tập $K$, thì ta ngầm hiểu là tìm nguyên hàm của hàm số đó trên từng khoảng xác định của nó.
+		\item Mối liên hệ qua lại giữa đạo hàm và nguyên hàm: $\int f'(x)dx = f(x) + C$.
+	\end{itemize}
+	
+	\subsection{Các tính chất của nguyên hàm}
+
+	
+	Dựa vào định nghĩa nguyên hàm và các quy tắc tính đạo hàm, ta thừa nhận các tính chất cơ bản sau của nguyên hàm. Giả sử các hàm số $f(x), g(x)$ đều có nguyên hàm trên tập xác định tương ứng:
+	
+	\begin{itemize}
+		\item \textbf{Tính chất 1 (Đưa hằng số ra ngoài dấu nguyên hàm):}
+		$$\int k f(x)dx = k \int f(x)dx \quad \text{(với } k \text{ là hằng số, } k \neq 0)$$
+		
+		\item \textbf{Tính chất 2 (Nguyên hàm của tổng và hiệu):} 
+		$$\int \left[ f(x) + g(x) \right]dx = \int f(x)dx + \int g(x)dx$$
+		$$\int \left[ f(x) - g(x) \right]dx = \int f(x)dx - \int g(x)dx$$
+		\textit{Mở rộng:} Tính chất này vẫn đúng đối với tổng hoặc hiệu của nhiều hàm số.
+	\end{itemize}
+	
+	\textbf{Chú ý quan trọng:} Không có tính chất nguyên hàm của một tích hay một thương. Nghĩa là nói chung:
+	$$\int \left[ f(x) \cdot g(x) \right]dx \neq \int f(x)dx \cdot \int g(x)dx$$
+	$$\int \frac{f(x)}{g(x)}dx \neq \frac{\int f(x)dx}{\int g(x)dx}$$
+	
+	\begin{vidu}[2]
+		Cho hai hàm số $f(x)$ và $g(x)$ liên tục trên $\mathbb{R}$. Biết rằng $\int f(x)dx = F(x) + C$ và $\int g(x)dx = G(x) + C$. Hãy biểu diễn nguyên hàm sau theo $F(x)$ và $G(x)$:
+		$$I = \int \left[ 4f(x) - 5g(x) \right]dx$$
+	\end{vidu}
+	
+	\begin{loigiai}
+		Áp dụng các tính chất của nguyên hàm (tính chất 1 và tính chất 2), ta có:
+		\begin{align*}
+			I &= \int 4f(x)dx - \int 5g(x)dx \\
+			&= 4\int f(x)dx - 5\int g(x)dx \\
+			&= 4F(x) - 5G(x) + C
+		\end{align*}
+		\textit{(Lưu ý: Hằng số $C$ đại diện cho một hằng số chung tùy ý của toàn bộ biểu thức, ta không viết $4C_1 - 5C_2$).}
+	\end{loigiai}
+	
+	\begin{vidu}[3]
+		Giả sử ta đã biết $\int x^2 dx = \frac{x^3}{3} + C$ và $\int \sin x dx = -\cos x + C$. Sử dụng tính chất của nguyên hàm, hãy tính:
+		$$J = \int \left( 6x^2 + 2\sin x \right) dx$$
+	\end{vidu}
+	
+	\begin{loigiai}
+		Ta phân tích biểu thức dưới dấu tích phân thành tổng các hàm số cơ bản:
+		\begin{align*}
+			J &= \int 6x^2 dx + \int 2\sin x dx \quad \text{(Tính chất nguyên hàm của tổng)} \\
+			&= 6\int x^2 dx + 2\int \sin x dx \quad \text{(Đưa hằng số ra ngoài)} \\
+			&= 6 \left( \frac{x^3}{3} \right) + 2 \left( -\cos x \right) + C \\
+			&= 2x^3 - 2\cos x + C
+		\end{align*}
+		Vậy $\int \left( 6x^2 + 2\sin x \right) dx = 2x^3 - 2\cos x + C$.
+	\end{loigiai}
+	
+	\subsection{Bảng nguyên hàm của các hàm số sơ cấp}
+	
+	Dưới đây là bảng các công thức nguyên hàm cơ bản thường gặp nhất. Giả thiết các hàm số đều có nghĩa trên các khoảng đang xét.
+	
+	\begin{center}
+		\renewcommand{\arraystretch}{2.2} 
+		\begin{tabular}{| p{7cm} | p{9cm} |}
+			\hline
+			\multicolumn{1}{|c|}{\textbf{Công thức nguyên hàm cơ bản}} & \multicolumn{1}{c|}{\textbf{Ví dụ minh họa}} \\
+			\hline
+			
+			% --- NHÓM 1: HÀM LŨY THỪA ---
+			\multicolumn{2}{|c|}{\textbf{1. Nguyên hàm của hàm số lũy thừa}} \\
+			\hline
+			$\displaystyle \int 0 \,dx = C$ & 
+			$ $ \\
+			\hline
+			$\displaystyle \int dx = x + C$ & 
+			$\displaystyle \int 5 \,dx = 5 \int dx = 5x + C$ \\
+			\hline
+			$\displaystyle \int x^\alpha \,dx = \frac{x^{\alpha+1}}{\alpha+1} + C \quad (\alpha \neq -1)$ & 
+			$\displaystyle \int x^3 \,dx = \frac{x^{3+1}}{3+1} + C = \frac{x^4}{4} + C$ \newline
+			$\displaystyle \int \frac{1}{x^3} \,dx = \int x^{-3} \,dx = \frac{x^{-2}}{-2} + C = -\frac{1}{2x^2} + C$ \\
+			\hline
+			$\displaystyle \int \frac{1}{x} \,dx = \ln|x| + C \quad (x \neq 0)$ & 
+			$\displaystyle \int \frac{4}{x} \,dx = 4 \int \frac{1}{x} \,dx = 4\ln|x| + C$ \\
+			\hline
+			
+			% --- NHÓM 2: HÀM LƯỢNG GIÁC ---
+			\multicolumn{2}{|c|}{\textbf{2. Nguyên hàm của hàm số lượng giác}} \\
+			\hline
+			$\displaystyle \int \cos x \,dx = \sin x + C$ & 
+			$\displaystyle \int 3\cos x \,dx = 3\sin x + C$ \\
+			\hline
+			$\displaystyle \int \sin x \,dx = -\cos x + C$ & 
+			$\displaystyle \int (\sin x + x) \,dx = -\cos x + \frac{x^2}{2} + C$ \\
+			\hline
+			$\displaystyle \int \frac{1}{\cos^2 x} \,dx = \tan x + C$ & 
+			$\displaystyle \int \left( 2 + \frac{5}{\cos^2 x} \right) dx = 2x + 5\tan x + C$ \\
+			\hline
+			$\displaystyle \int \frac{1}{\sin^2 x} \,dx = -\cot x + C$ & 
+			$\displaystyle \int \frac{3}{\sin^2 x} \,dx = -3\cot x + C$ \\
+			\hline
+			
+			% --- NHÓM 3: HÀM MŨ ---
+			\multicolumn{2}{|c|}{\textbf{3. Nguyên hàm của hàm số mũ}} \\
+			\hline
+			$\displaystyle \int e^x \,dx = e^x + C$ & 
+			$\displaystyle \int (e^x - 4x) \,dx = e^x - 2x^2 + C$ \\
+			\hline
+			$\displaystyle \int a^x \,dx = \frac{a^x}{\ln a} + C \quad (0 < a \neq 1)$ & 
+			$\displaystyle \int 2^x \,dx = \frac{2^x}{\ln 2} + C$ \\
+			\hline
+		\end{tabular}
+	\end{center}
+	
+	\vspace{0.5cm}
+	\begin{center}
+		\textcolor{red}{\textit{\textbf{Lời khuyên học tập:} Không cần thuộc hết, cố gắng làm nhiều bài tập sẽ nhớ lâu hơn, đồng thời có phản xạ tốt hơn}}
+	\end{center}
+	
+	
+	
+	\newpage
+	
+	% =====================
+	% PHẦN 4: BÀI TẬP TỰ LUẬN
+	% =====================
+	\section{Bài tập tự luận phân dạng}
+	
+	\subsection{Dạng 1: Nguyên hàm của hàm số lũy thừa}
+	
+	\begin{btxanh}
+		Tìm họ nguyên hàm của các hàm số sau:
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\alph*)]
+				\item $\displaystyle \int (4x^3 - 6x^2 + 2x - 5) \,dx$
+				\item $\displaystyle \int \left( 3x^2 + \dfrac{4}{x} - \dfrac{2}{x^3} \right) dx$
+				\item $\displaystyle \int x(2x^2 - 3) \,dx$
+				\item $\displaystyle \int (2x + 1)^2 \,dx$
+				\item $\displaystyle \int \sqrt{x} \,dx$
+				\item $\displaystyle \int \dfrac{x^3 - 3x + 2}{x^2} \,dx$
+				\item $\displaystyle \int \left( 2\sqrt[3]{x} - \dfrac{1}{\sqrt{x}} \right) dx$
+				\item $\displaystyle \int \dfrac{(x-1)^2}{x} \,dx$
+			\end{enumerate}
+		\end{multicols}
+	\end{btxanh}
+	
+	\begin{btvang}
+		Tìm họ nguyên hàm của các hàm số sau:
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\alph*)]
+				\item $\displaystyle \int (5x^4 + 3x^2 - 4x + 1) \,dx$
+				\item $\displaystyle \int \left( \dfrac{5}{x} - \dfrac{3}{x^4} + 2x \right) dx$
+				\item $\displaystyle \int x^2(x - 4) \,dx$
+				\item $\displaystyle \int (x - 3)^2 \,dx$
+				\item $\displaystyle \int x\sqrt{x} \,dx$
+				\item $\displaystyle \int \dfrac{2x^4 - x^2 + 3}{x^3} \,dx$
+				\item $\displaystyle \int \left( \dfrac{3}{\sqrt{x}} + \sqrt[4]{x^3} \right) dx$
+				\item $\displaystyle \int \dfrac{(x+2)^2}{x^2} \,dx$
+			\end{enumerate}
+		\end{multicols}
+	\end{btvang}
+	
+	\begin{btdo}
+		Tìm họ nguyên hàm của các hàm số sau:
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\alph*)]
+				\item $\displaystyle \int (6x^5 - 4x^3 + 8x - 3) \,dx$
+				\item $\displaystyle \int \left( \dfrac{1}{x^2} + \dfrac{2}{x} - 5x^3 \right) dx$
+				\item $\displaystyle \int (x^2 + 1)(x - 2) \,dx$
+				\item $\displaystyle \int (3x - 2)^2 \,dx$
+				\item $\displaystyle \int \dfrac{1}{\sqrt[3]{x}} \,dx$
+				\item $\displaystyle \int \dfrac{x^3 + 4x^2 - 5}{x} \,dx$
+				\item $\displaystyle \int \left( \sqrt[3]{x^2} - \dfrac{2}{x\sqrt{x}} \right) dx$
+				\item $\displaystyle \int \dfrac{x^2(x-1) + 2}{x^2} \,dx$
+			\end{enumerate}
+		\end{multicols}
+	\end{btdo}
+	
+	\subsection{Dạng 2: Nguyên hàm hàm số lượng giác}
+	
+	\begin{btxanh}
+		Tìm họ nguyên hàm của các hàm số sau:
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\alph*)]
+				\item $\displaystyle \int (2\cos x - 3\sin x) \,dx$
+				\item $\displaystyle \int \left( \dfrac{4}{\cos^2 x} + \dfrac{1}{\sin^2 x} \right) dx$
+				\item $\displaystyle \int \cos(2x + 1) \,dx$
+				\item $\displaystyle \int (\sin x + \cos x)^2 \,dx$
+				\item $\displaystyle \int \sin^2 x \,dx$
+				\item $\displaystyle \int \dfrac{2 + \cos^3 x}{\cos^2 x} \,dx$
+				\item $\displaystyle \int \tan^2 x \,dx$
+				\item $\displaystyle \int \dfrac{\cos 2x}{\sin^2 x \cdot \cos^2 x} \,dx$
+			\end{enumerate}
+		\end{multicols}
+	\end{btxanh}
+	
+	\begin{btvang}
+		Tìm họ nguyên hàm của các hàm số sau:
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\alph*)]
+				\item $\displaystyle \int (5\sin x + 2\cos x) \,dx$
+				\item $\displaystyle \int \left( \dfrac{2}{\sin^2 x} - \dfrac{3}{\cos^2 x} \right) dx$
+				\item $\displaystyle \int \sin(3x - 2) \,dx$
+				\item $\displaystyle \int (\sin x - \cos x)^2 \,dx$
+				\item $\displaystyle \int \cos^2 x \,dx$
+				\item $\displaystyle \int \dfrac{3 - \sin^3 x}{\sin^2 x} \,dx$
+				\item $\displaystyle \int \cot^2 x \,dx$
+				\item $\displaystyle \int \dfrac{\cos 2x}{\sin^2 x} \,dx$
+			\end{enumerate}
+		\end{multicols}
+	\end{btvang}
+	
+	\begin{btdo}
+		Tìm họ nguyên hàm của các hàm số sau:
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\alph*)]
+				\item $\displaystyle \int (\cos x - 4\sin x) \,dx$
+				\item $\displaystyle \int \left( \dfrac{1}{2\cos^2 x} + \dfrac{5}{\sin^2 x} \right) dx$
+				\item $\displaystyle \int \cos\left(4x - \frac{\pi}{3}\right) \,dx$
+				\item $\displaystyle \int \left(\sin \frac{x}{2} + \cos \frac{x}{2}\right)^2 \,dx$
+				\item $\displaystyle \int \sin^2(2x) \,dx$
+				\item $\displaystyle \int \dfrac{1 - 2\cos^3 x}{\cos^2 x} \,dx$
+				\item $\displaystyle \int (\tan x + \cot x)^2 \,dx$
+				\item $\displaystyle \int \dfrac{\cos 2x}{\cos^2 x} \,dx$
+			\end{enumerate}
+		\end{multicols}
+	\end{btdo}
+	
+	\subsection{Dạng 3: Nguyên hàm hàm số mũ}
+	
+	\begin{btxanh}
+		Tìm họ nguyên hàm của các hàm số sau:
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\alph*)]
+				\item $\displaystyle \int (3e^x - 2^x) \,dx$
+				\item $\displaystyle \int 2^x(1 + 3^x) \,dx$
+				\item $\displaystyle \int (e^{x+1} + 3^x) \,dx$
+				\item $\displaystyle \int \dfrac{e^x - 3^x}{2^x} \,dx$
+			\end{enumerate}
+		\end{multicols}
+	\end{btxanh}
+	
+	\begin{btvang}
+		Tìm họ nguyên hàm của các hàm số sau:
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\alph*)]
+				\item $\displaystyle \int (5^x + 4e^x) \,dx$
+				\item $\displaystyle \int 3^x(2 - 4^x) \,dx$
+				\item $\displaystyle \int (2^{x+3} - e^x) \,dx$
+				\item $\displaystyle \int \dfrac{5^x + 2^x}{3^x} \,dx$
+			\end{enumerate}
+		\end{multicols}
+	\end{btvang}
+	
+	\begin{btdo}
+		Tìm họ nguyên hàm của các hàm số sau:
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\alph*)]
+				\item $\displaystyle \int (3^x - 5e^x) \,dx$
+				\item $\displaystyle \int 5^x(3^x - 2) \,dx$
+				\item $\displaystyle \int (7^{x+1} + e^{x+2}) \,dx$
+				\item $\displaystyle \int \dfrac{4^x - e^x}{5^x} \,dx$
+			\end{enumerate}
+		\end{multicols}
+	\end{btdo}
+	
+	\subsection{Dạng 4: Bài toán nguyên hàm có điều kiện}
+	
+	\textbf{Bài 1.} Cho $F(x)$ là một nguyên hàm của hàm số $f(x)$. Tìm hàm số $F(x)$, biết:
+	
+	\begin{btxanh}
+		\begin{enumerate}[label=\alph*)]
+			\item $f(x) = 3x^2 - 4x + 1$ và $F(1) = 0$.
+			\item $f(x) = \dfrac{2}{x^2}$ và $F(1) = 3$.
+			\item $f(x) = \dfrac{1}{x} + 2x$ và $F(e) = e^2$.
+			\item $f(x) = e^x - 2$ và $F(0) = 1$.
+			\item $f(x) = 3^x$ và $F(1) = \dfrac{3}{\ln 3}$.
+			\item $f(x) = \cos x + 1$ và $F(\pi) = \pi$.
+			\item $f(x) = \sin x$ và $F(0) = 2$.
+		\end{enumerate}
+	\end{btxanh}
+	
+	\begin{btvang}
+		\begin{enumerate}[label=\alph*), resume]
+			\item $f(x) = 4x^3 - 2x + 2024$ và $F(1) = 2025$.
+			\item $f(x) = \dfrac{x^3 - 1}{x^2}$ và $F(1) = \dfrac{1}{2}$.
+			\item $f(x) = \dfrac{3 - x^2}{x}$ và $F(1) = -\dfrac{1}{2}$.
+			\item $f(x) = e^x + 2^x$ và $F(0) = \dfrac{1}{\ln 2}$.
+			\item $f(x) = 2^x \cdot 3^x$ và $F(1) = \dfrac{6}{\ln 6}$.
+			\item $f(x) = 2\sin x - 3\cos x$ và $F(0) = -2$.
+			\item $f(x) = \dfrac{1}{\cos^2 x}$ và $F\left(\dfrac{\pi}{4}\right) = 2$.
+		\end{enumerate}
+	\end{btvang}
+	
+	\begin{btdo}
+		\begin{enumerate}[label=\alph*), resume]
+			\item $f(x) = x^2 - \sqrt{x}$ và $F(1) = \dfrac{1}{3}$.
+			\item $f(x) = \dfrac{(x-1)^2}{x}$ và $F(1) = -\dfrac{3}{2}$.
+			\item $f(x) = \dfrac{x^4 + 2}{x^2}$ và $F(1) = -\dfrac{5}{3}$.
+			\item $f(x) = e^x - 5^x$ và $F(0) = 2$.
+			\item $f(x) = 4^x \cdot 5^x$ và $F(1) = \dfrac{20}{\ln 20} + 1$.
+			\item $f(x) = \dfrac{1}{\sin^2 x} - \cos x$ và $F\left(\dfrac{\pi}{2}\right) = 0$.
+			\item $f(x) = \dfrac{\sin^3 x + 1}{\sin^2 x}$ và $F\left(\dfrac{\pi}{2}\right) = 1$.
+		\end{enumerate}
+	\end{btdo}
+	
+	\noindent \textbf{Bài 2.}
+	
+	\begin{btxanh}
+		\begin{enumerate}[label=\alph*)]
+			\item Cho $f'(x) = \dfrac{1}{x^2}$. Tính giá trị biểu thức $P = f(2) + f(-2)$ biết $f(1) = 2$ và $f(-1) = 3$.
+			\item Cho $f'(x) = \dfrac{x^2 - 1}{x^2}$. Tính giá trị biểu thức $P = f(2) - f(-2)$ biết $f(1) = 0$ và $f(-1) = 1$.
+			\item Cho $f'(x) = \dfrac{x^4 + 3}{x^2}$. Tính giá trị biểu thức $P = f(3) + f(-3)$ biết $f(1) = -1$ và $f(-1) = 4$.
+			\item Cho $f'(x) = \dfrac{2}{x^3}$. Tính giá trị biểu thức $P = f(2) + f(-2)$ biết $f(1) = 1$ và $f(-1) = 2$.
+			\item Cho hàm số $f(x) = \begin{cases} 2x - 1 & \text{khi } x \ge 1 \\ 3x^2 - 2 & \text{khi } x < 1 \end{cases}$. Giả sử $F$ là nguyên hàm của $f$ trên $\mathbb{R}$ thỏa mãn $F(0) = 2$. Tính $F(-1) + 2F(2)$.
+			\item Cho hàm số $f(x) = \begin{cases} 2x + 3 & \text{khi } x \ge 0 \\ e^x & \text{khi } x < 0 \end{cases}$. Giả sử $F$ là nguyên hàm của $f$ trên $\mathbb{R}$ thỏa mãn $F(-1) = \dfrac{1}{e}$. Tính $F(1)$.
+			\item Cho hàm số $f(x) = \begin{cases} \cos x & \text{khi } x \ge 0 \\ x^2 + 1 & \text{khi } x < 0 \end{cases}$. Giả sử $F$ là nguyên hàm của $f$ trên $\mathbb{R}$ thỏa mãn $F(\pi) = 0$. Tính $F(-2)$.
+		\end{enumerate}
+	\end{btxanh}
+	
+	\begin{btvang}
+		\begin{enumerate}[label=\alph*), resume]
+			\item Cho $f'(x) = \dfrac{2x^2 + 1}{x}$. Tính giá trị biểu thức $P = f(e) + f(-e)$ biết $f(1) = 2$ và $f(-1) = 4$.
+			\item Cho $f'(x) = \dfrac{x^3 - 2}{x}$. Tính giá trị biểu thức $P = f(e^2) - f(-e^2)$ biết $f(1) = 0$ và $f(-1) = 2$.
+			\item Cho $f'(x) = \dfrac{x e^x - 1}{x}$. Tính giá trị biểu thức $P = f(e) + f(-e)$ biết $f(1) = e$ và $f(-1) = 1$.
+			\item Cho $f'(x) = \dfrac{x \sin x + 2}{x}$. Tính giá trị biểu thức $P = f(2\pi) + f(-2\pi)$ biết $f(\pi) = 1$ và $f(-\pi) = 3$.
+			\item Cho hàm số $f(x) = \begin{cases} e^x + 1 & \text{khi } x \ge 0 \\ 2x + 2 & \text{khi } x < 0 \end{cases}$. Giả sử $F$ là nguyên hàm của $f$ trên $\mathbb{R}$ thỏa mãn $F(1) = e$. Tính $F(-2)$.
+			\item Cho hàm số $f(x) = \begin{cases} x^3 - x & \text{khi } x \ge 2 \\ 12 & \text{khi } x < 2 \end{cases}$. Giả sử $F$ là nguyên hàm của $f$ trên $\mathbb{R}$ thỏa mãn $F(0) = 5$. Tính $F(3)$.
+			\item Cho hàm số $f(x) = \begin{cases} \sin x & \text{khi } x \ge \pi \\ x - \pi & \text{khi } x < \pi \end{cases}$. Giả sử $F$ là nguyên hàm của $f$ trên $\mathbb{R}$ thỏa mãn $F(0) = 0$. Tính $F(2\pi)$.
+		\end{enumerate}
+	\end{btvang}
+	
+	\begin{btdo}
+		\begin{enumerate}[label=\alph*), resume]
+			\item Cho $f'(x) = \dfrac{x^2 e^x + 3}{x^2}$. Tính giá trị biểu thức $P = f(2) + f(-2)$ biết $f(1) = e$ và $f(-1) = 0$.
+			\item Cho $f'(x) = \dfrac{x \cos x - 1}{x}$. Tính giá trị biểu thức $P = f(e) + f(-e)$ biết $f(1) = 2$ và $f(-1) = 4$.
+			\item Cho $f'(x) = \dfrac{1}{\sin^2 x}$. Tính giá trị biểu thức $P = f\left(\dfrac{\pi}{4}\right) + f\left(-\dfrac{\pi}{4}\right)$ biết $f\left(\dfrac{\pi}{2}\right) = 1$ và $f\left(-\dfrac{\pi}{2}\right) = 0$.
+			\item Cho $f'(x) = \dfrac{1}{\cos^2 x}$. Tính giá trị biểu thức $P = f\left(\dfrac{\pi}{4}\right) + f\left(\dfrac{5\pi}{4}\right)$ biết $f(0) = 1$ và $f(\pi) = 2$.
+			\item Cho hàm số $f(x) = \begin{cases} \dfrac{1}{x^2} & \text{khi } x \ge 1 \\ 2x - 1 & \text{khi } x < 1 \end{cases}$. Giả sử $F$ là nguyên hàm của $f$ trên $\mathbb{R}$ thỏa mãn $F(2) = 1$. Tính $F(0)$.
+			\item Cho hàm số $f(x) = \begin{cases} 2^x \ln 2 & \text{khi } x \ge 0 \\ 3x^2 + 1 & \text{khi } x < 0 \end{cases}$. Giả sử $F$ là nguyên hàm của $f$ trên $\mathbb{R}$ thỏa mãn $F(-1) = 2$. Tính $F(2)$.
+			\item Cho hàm số $f(x) = \begin{cases} \dfrac{x^3 + 1}{x^2} & \text{khi } x \ge 1 \\ 2x & \text{khi } x < 1 \end{cases}$. Giả sử $F$ là nguyên hàm của $f$ trên $\mathbb{R}$ thỏa mãn $F(e) = \dfrac{e^2}{2}$. Tính $F(0)$.
+		\end{enumerate}
+	\end{btdo}
+	\newpage
+	
+	% =====================
+	% PHẦN 5: BÀI TẬP TRẮC NGHIỆM
+	% =====================
+	\section{Câu hỏi Trắc nghiệm}
+	
+	\begin{enumerate}[label=\textbf{Câu \arabic*.}]
+		
+		% CÂU 1 (Lý thuyết giống ảnh)
+		\item Cho hàm số $F(x)$ là một nguyên hàm của hàm số $f(x)$ trên $K$. Các mệnh đề sau, mệnh đề nào \textbf{sai}?
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $\displaystyle \int f(x)dx = F(x) + C$.
+				\item $\displaystyle \left( \int f(x)dx \right)' = f(x)$.
+				\item $\displaystyle \left( \int f(x)dx \right)' = f'(x)$.
+				\item $dF(x) = f(x)dx$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 2
+		\item Họ tất cả các nguyên hàm của hàm số $f(x) = 2x - 4$ là
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $x^2 - 4x + C$.
+				\item $x^2 + 4x + C$.
+				\item $2x^2 - 4x + C$.
+				\item $2x^2 + C$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 3
+		\item $\displaystyle \int x^3 dx$ bằng
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $3x^2 + C$.
+				\item $\dfrac{1}{4}x^4 + C$.
+				\item $x^4 + C$.
+				\item $\dfrac{1}{3}x^4 + C$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 4
+		\item Họ tất cả các nguyên hàm của hàm số $f(x) = 3x^2 - 2x + 1$ là
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $x^3 - x^2 + x + C$.
+				\item $x^3 - 2x^2 + x + C$.
+				\item $3x^3 - 2x^2 + x + C$.
+				\item $6x - 2 + C$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 5
+		\item Mệnh đề nào sau đây đúng?
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $\displaystyle \int \frac{1}{x^2} dx = \ln x^2 + C$.
+				\item $\displaystyle \int \frac{1}{x^2} dx = -\frac{1}{x} + C$.
+				\item $\displaystyle \int \frac{1}{x^2} dx = \frac{1}{x} + C$.
+				\item $\displaystyle \int \frac{1}{x^2} dx = -\frac{2}{x^3} + C$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 6
+		\item Họ nguyên hàm của hàm số $f(x) = \dfrac{3}{x}$ trên các khoảng xác định là
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $-\dfrac{3}{x^2} + C$.
+				\item $3\ln x + C$.
+				\item $3\ln|x| + C$.
+				\item $\ln|3x| + C$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 7
+		\item $\displaystyle \int \sqrt{x} dx$ (với $x > 0$) bằng
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $\dfrac{1}{2\sqrt{x}} + C$.
+				\item $\dfrac{2}{3}x\sqrt{x} + C$.
+				\item $\dfrac{3}{2}x\sqrt{x} + C$.
+				\item $x\sqrt{x} + C$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 8
+		\item Họ tất cả các nguyên hàm của hàm số $f(x) = \sin x - 2x$ là
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $\cos x - x^2 + C$.
+				\item $-\cos x - x^2 + C$.
+				\item $-\cos x - 2 + C$.
+				\item $\cos x - 2 + C$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 9
+		\item $\displaystyle \int 5\cos x dx$ bằng
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $-5\sin x + C$.
+				\item $5\sin x + C$.
+				\item $-\dfrac{1}{5}\sin x + C$.
+				\item $\dfrac{1}{5}\sin x + C$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 10
+		\item Họ tất cả các nguyên hàm của hàm số $f(x) = \dfrac{1}{\cos^2 x} + x$ là
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $-\tan x + \dfrac{x^2}{2} + C$.
+				\item $\cot x + \dfrac{x^2}{2} + C$.
+				\item $\tan x + 1 + C$.
+				\item $\tan x + \dfrac{x^2}{2} + C$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 11
+		\item Họ nguyên hàm của hàm số $f(x) = e^x + 3$ là
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $e^x + 3x + C$.
+				\item $e^x + C$.
+				\item $x e^{x-1} + 3x + C$.
+				\item $\dfrac{e^{x+1}}{x+1} + 3x + C$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 12
+		\item $\displaystyle \int 2^x dx$ bằng
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $2^x \ln 2 + C$.
+				\item $\dfrac{2^{x+1}}{x+1} + C$.
+				\item $\dfrac{2^x}{\ln 2} + C$.
+				\item $2^x + C$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 13
+		\item Mệnh đề nào sau đây \textbf{đúng}?
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $\displaystyle \int \frac{1}{\sin^2 x} dx = \tan x + C$.
+				\item $\displaystyle \int \frac{1}{\sin^2 x} dx = -\cot x + C$.
+				\item $\displaystyle \int \frac{1}{\sin^2 x} dx = \cot x + C$.
+				\item $\displaystyle \int \frac{1}{\sin^2 x} dx = -\tan x + C$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 14
+		\item Họ tất cả các nguyên hàm của hàm số $f(x) = \dfrac{x^2 - 1}{x^2}$ trên các khoảng xác định là
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $x - \dfrac{1}{x} + C$.
+				\item $x + \dfrac{1}{x} + C$.
+				\item $1 + \dfrac{2}{x^3} + C$.
+				\item $x + \ln x^2 + C$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 15 (Câu 12 trong ảnh)
+		\item Nguyên hàm của hàm số $f(x) = \dfrac{1}{3}x^3 - 2x^2 + x - 2024$ là
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $\dfrac{1}{12}x^4 - \dfrac{2}{3}x^3 + \dfrac{x^2}{2} + C$.
+				\item $\dfrac{1}{9}x^4 - \dfrac{2}{3}x^3 + \dfrac{x^2}{2} - 2024x + C$.
+				\item $\dfrac{1}{12}x^4 - \dfrac{2}{3}x^3 + \dfrac{x^2}{2} - 2024x + C$.
+				\item $\dfrac{1}{9}x^4 + \dfrac{2}{3}x^3 - \dfrac{x^2}{2} - 2024x + C$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 16 (Câu 13 trong ảnh)
+		\item Họ tất cả các nguyên hàm của hàm số $f(x) = 5x^4 - 8x^3 - 6x$ là
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $F(x) = x^5 - 2x^4 - 3x^2 + C$.
+				\item $F(x) = x^5 - x^4 - x^2 + C$.
+				\item $F(x) = x^5 - 4x^4 - 2x^2 + C$.
+				\item $F(x) = x^5 + 2x^4 - 3x^2 + C$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 17 (Câu 14 trong ảnh)
+		\item Cho hàm số $f(x) = x - \dfrac{1}{\sqrt{x}}$. Trong các hàm số dưới đây, hàm số nào là một nguyên hàm của $f(x)$ trên $(0; +\infty)$?
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $F_1(x) = \dfrac{x^2}{2} + \sqrt{x}$.
+				\item $F_2(x) = \dfrac{x^2}{2} - \sqrt{x}$.
+				\item $F_3(x) = \dfrac{x^2}{2} + 2\sqrt{x}$.
+				\item $F_4(x) = \dfrac{x^2}{2} - 2\sqrt{x}$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 18 (Câu 15 trong ảnh)
+		\item Cho hàm số $f(x) = 3 + \dfrac{1}{x}$. Trong các hàm số dưới đây, hàm số nào là một nguyên hàm của $f(x)$ trên $(0; +\infty)$?
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $F_1(x) = 3x - \dfrac{1}{x^2}$.
+				\item $F_2(x) = 3x + \ln x$. 
+				\item $F_3(x) = 3x + \dfrac{1}{x^2}$.
+				\item $F_4(x) = 3x - \ln x$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 19 (Câu 16 trong ảnh)
+		\item Tìm nguyên hàm của hàm số $\displaystyle \int \left( x^2 + \dfrac{3}{x} - 2\sqrt{x} \right) dx$.
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $\dfrac{x^3}{3} + 3\ln|x| + \dfrac{4}{3}x\sqrt{x} + C$.
+				\item $\dfrac{x^3}{3} + 3\ln|x| - \dfrac{4}{3}x\sqrt{x} + C$.
+				\item $\dfrac{x^3}{3} + 3\ln x - \dfrac{4}{3}\sqrt{x^3}$.
+				\item $\dfrac{x^3}{3} - 3\ln|x| - \dfrac{4}{3}\sqrt{x^3} + C$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 20
+		\item Họ tất cả các nguyên hàm của hàm số $f(x) = 4x^3 - 3x^2 + 5$ là
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $x^4 - x^3 + 5x + C$.
+				\item $12x^2 - 6x + C$.
+				\item $x^4 - x^3 + C$.
+				\item $\dfrac{x^4}{4} - \dfrac{x^3}{3} + 5x + C$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 21
+		\item Họ nguyên hàm của hàm số $f(x) = \dfrac{x^3 - 2}{x^2}$ trên các khoảng xác định là
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $\dfrac{x^2}{2} - \dfrac{2}{x} + C$.
+				\item $\dfrac{x^2}{2} + \dfrac{2}{x} + C$.
+				\item $x - \dfrac{2}{x^3} + C$.
+				\item $\dfrac{x^2}{2} - 2\ln|x| + C$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 22
+		\item $\displaystyle \int (\sin x + 2\cos x) dx$ bằng
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $\cos x - 2\sin x + C$.
+				\item $-\cos x + 2\sin x + C$.
+				\item $-\cos x - 2\sin x + C$.
+				\item $\cos x + 2\sin x + C$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 23
+		\item Họ tất cả các nguyên hàm của hàm số $f(x) = e^x - \dfrac{1}{\cos^2 x}$ là
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $e^x + \tan x + C$.
+				\item $e^x - \cot x + C$.
+				\item $e^x - \tan x + C$.
+				\item $e^x + \cot x + C$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 24
+		\item Nguyên hàm của hàm số $f(x) = x^2 + \sqrt{x}$ trên $(0; +\infty)$ là
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $\dfrac{x^3}{3} + \dfrac{1}{2\sqrt{x}} + C$.
+				\item $\dfrac{x^3}{3} + \dfrac{2}{3}x\sqrt{x} + C$.
+				\item $\dfrac{x^3}{3} - \dfrac{2}{3}x\sqrt{x} + C$.
+				\item $2x + \dfrac{1}{2\sqrt{x}} + C$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 25
+		\item $\displaystyle \int (3^x - 5^x) dx$ bằng
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $\dfrac{3^x}{\ln 3} - \dfrac{5^x}{\ln 5} + C$.
+				\item $3^x \ln 3 - 5^x \ln 5 + C$.
+				\item $\dfrac{3^x}{\ln 3} + \dfrac{5^x}{\ln 5} + C$.
+				\item $\dfrac{3^{x+1}}{x+1} - \dfrac{5^{x+1}}{x+1} + C$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 26
+		\item Cho hàm số $f(x) = \dfrac{1}{\sin^2 x} - x$. Khẳng định nào sau đây đúng?
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $\displaystyle \int f(x)dx = \cot x - \dfrac{x^2}{2} + C$.
+				\item $\displaystyle \int f(x)dx = -\tan x - \dfrac{x^2}{2} + C$.
+				\item $\displaystyle \int f(x)dx = -\cot x - \dfrac{x^2}{2} + C$.
+				\item $\displaystyle \int f(x)dx = \tan x - \dfrac{x^2}{2} + C$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 27
+		\item Trong các hàm số sau, hàm số nào là một nguyên hàm của $f(x) = \dfrac{2}{x}$ trên $(0; +\infty)$?
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $F(x) = -\dfrac{2}{x^2}$.
+				\item $F(x) = 2\ln x - 2025$.
+				\item $F(x) = \ln x^2 + x$.
+				\item $F(x) = 2\ln(-x) + 1$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 28
+		\item Họ tất cả các nguyên hàm của hàm số $f(x) = \dfrac{(x-1)^2}{x^2}$ trên $(0; +\infty)$ là
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $x - 2\ln x - \dfrac{1}{x} + C$.
+				\item $x - \dfrac{2}{x} - \dfrac{1}{x} + C$.
+				\item $1 - 2\ln x - \dfrac{1}{x} + C$.
+				\item $x + 2\ln x - \dfrac{1}{x} + C$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 29
+		\item $\displaystyle \int (2e^x - 3\sin x) dx$ bằng
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $2e^x - 3\cos x + C$.
+				\item $2e^x + 3\cos x + C$.
+				\item $e^{2x} + 3\cos x + C$.
+				\item $2e^x - \cos 3x + C$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 30
+		\item Họ nguyên hàm của hàm số $f(x) = x^{2024} + 1$ là
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $2024x^{2023} + C$.
+				\item $2025x^{2025} + x + C$.
+				\item $\dfrac{x^{2025}}{2025} + x + C$.
+				\item $\dfrac{x^{2025}}{2025} + C$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 31 (Giống mẫu Câu 18)
+		\item Biết $F(x) = x^4 + \dfrac{2}{x} - 5$ là một nguyên hàm của hàm số $f(x)$ trên khoảng $(0; +\infty)$. Khẳng định nào sau đây là đúng?
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $f(x) = 4x^3 - \dfrac{2}{x^2}$.
+				\item $f(x) = \dfrac{x^5}{5} + 2\ln x - 5x$.
+				\item $f(x) = 4x^3 + \dfrac{2}{x^2}$.
+				\item $f(x) = x^3 - \dfrac{1}{x^2}$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 32
+		\item Biết $F(x) = e^x - \sin x + 2$ là một nguyên hàm của hàm số $f(x)$ trên $\mathbb{R}$. Khẳng định nào sau đây là đúng?
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $f(x) = e^x + \cos x$.
+				\item $f(x) = e^x - \cos x$.
+				\item $f(x) = e^x - \sin x$.
+				\item $f(x) = e^x + \sin x$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 33
+		\item Biết $F(x) = \tan x + 2^x$ là một nguyên hàm của hàm số $f(x)$ trên khoảng $\left(0; \dfrac{\pi}{2}\right)$. Khẳng định nào sau đây là đúng?
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $f(x) = \dfrac{1}{\cos^2 x} + 2^x \ln 2$.
+				\item $f(x) = \cot x + 2^x \ln 2$.
+				\item $f(x) = \dfrac{1}{\sin^2 x} + \dfrac{2^x}{\ln 2}$.
+				\item $f(x) = \dfrac{1}{\cos^2 x} + \dfrac{2^x}{\ln 2}$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 34 (Giống mẫu Câu 19)
+		\item Biết $\displaystyle \int \left( \dfrac{2}{x} - x^3 \right) dx = a\ln|x| + bx^4 + C$ với $(a, b \in \mathbb{Q}, C \in \mathbb{R})$. Tính giá trị của $a + b$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $\dfrac{7}{4}$.
+				\item $\dfrac{9}{4}$.
+				\item $2$.
+				\item $-\dfrac{1}{4}$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 35
+		\item Biết $\displaystyle \int (3\cos x + 4\sin x) dx = a\sin x + b\cos x + C$ với $(a, b \in \mathbb{R})$. Tính giá trị biểu thức $a^2 + b^2$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $25$.
+				\item $7$.
+				\item $-1$.
+				\item $12$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 36
+		\item Biết $\displaystyle \int \left( 2^x - \dfrac{3}{\cos^2 x} \right) dx = a \dfrac{2^x}{\ln 2} + b\tan x + C$. Tính giá trị của hiệu $a - b$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $4$.
+				\item $-2$.
+				\item $-4$.
+				\item $2$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 37 (Giống mẫu Câu 20)
+		\item Hàm số nào trong các hàm số sau đây KHÔNG là nguyên hàm của hàm số $y = x^5$?
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $y = \dfrac{x^6}{6} + 2025$.
+				\item $y = \dfrac{x^6 - 6}{6}$.
+				\item $y = x^6 - 2024$.
+				\item $y = \dfrac{x^6}{6}$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 38
+		\item Hàm số nào trong các hàm số sau đây KHÔNG là nguyên hàm của hàm số $y = \sin x$?
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $y = -\cos x + 1$.
+				\item $y = 1 - \cos x$.
+				\item $y = -\cos x$.
+				\item $y = \cos x$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 39 (Giống mẫu Câu 21)
+		\item Họ nguyên hàm của hàm số $f(x) = (x - 2)(x + 3)$ là
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $\dfrac{x^3}{3} + \dfrac{x^2}{2} - 6x + C$.
+				\item $\dfrac{x^3}{3} - \dfrac{x^2}{2} - 6x + C$.
+				\item $x^3 + x^2 - 6x + C$.
+				\item $\dfrac{x^3}{3} + \dfrac{x^2}{2} + 6x + C$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 40
+		\item Họ nguyên hàm của hàm số $f(x) = x(x^2 - 4x + 1)$ là
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $\dfrac{x^4}{4} - \dfrac{4x^3}{3} + \dfrac{x^2}{2} + C$.
+				\item $\dfrac{x^4}{4} - \dfrac{4x^3}{3} - \dfrac{x^2}{2} + C$.
+				\item $x^4 - 4x^3 + x^2 + C$.
+				\item $\dfrac{x^4}{4} + \dfrac{4x^3}{3} + \dfrac{x^2}{2} + C$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 41 (Giống mẫu Câu 22)
+		\item Tìm nguyên hàm $F(x)$ của hàm số $f(x) = (x - 1)(x + 1)(x + 2)$.
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $F(x) = \dfrac{x^4}{4} + \dfrac{2x^3}{3} - \dfrac{x^2}{2} - 2x + C$.
+				\item $F(x) = \dfrac{x^4}{4} + \dfrac{2x^3}{3} + \dfrac{x^2}{2} - 2x + C$.
+				\item $F(x) = \dfrac{x^4}{4} - \dfrac{2x^3}{3} - \dfrac{x^2}{2} - 2x + C$.
+				\item $F(x) = \dfrac{x^4}{4} + \dfrac{2x^3}{3} - \dfrac{x^2}{2} + 2x + C$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 42
+		\item Tìm nguyên hàm của hàm số $f(x) = x^2(x - 2)^2$.
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $\dfrac{x^5}{5} - x^4 + \dfrac{4x^3}{3} + C$.
+				\item $\dfrac{x^5}{5} - x^4 - \dfrac{4x^3}{3} + C$.
+				\item $\dfrac{x^5}{5} + x^4 + \dfrac{4x^3}{3} + C$.
+				\item $x^5 - x^4 + \dfrac{4x^3}{3} + C$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 43
+		\item Cho hàm số $f(x) = \dfrac{x^3 - 8}{x - 2}$. Họ nguyên hàm của hàm số $f(x)$ trên khoảng $(2; +\infty)$ là:
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $\dfrac{x^3}{3} + x^2 + 4x + C$.
+				\item $\dfrac{x^3}{3} - x^2 + 4x + C$.
+				\item $\dfrac{x^3}{3} + x^2 - 4x + C$.
+				\item $\dfrac{x^3}{3} + 2x^2 + 4x + C$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 44 (Dạng x^n +- k/x^m)
+		\item Tìm nguyên hàm của hàm số $f(x) = x^3 - \dfrac{2}{x^3}$.
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $\displaystyle \int f(x)dx = \dfrac{x^4}{4} + \dfrac{1}{x^2} + C$.
+				\item $\displaystyle \int f(x)dx = \dfrac{x^4}{4} - \dfrac{1}{x^2} + C$.
+				\item $\displaystyle \int f(x)dx = 3x^2 + \dfrac{6}{x^4} + C$.
+				\item $\displaystyle \int f(x)dx = \dfrac{x^4}{4} + \dfrac{2}{x^2} + C$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 45 (Dạng x^n +- k/x^m)
+		\item Họ tất cả các nguyên hàm của hàm số $f(x) = x^2 + \dfrac{3}{x^4}$ là
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $\dfrac{x^3}{3} + \dfrac{1}{x^3} + C$.
+				\item $\dfrac{x^3}{3} - \dfrac{1}{x^3} + C$.
+				\item $\dfrac{x^3}{3} - \dfrac{3}{x^3} + C$.
+				\item $2x - \dfrac{12}{x^5} + C$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 46 (Dạng x^alpha với alpha là phân số)
+		\item Trên khoảng $(0; +\infty)$, tìm nguyên hàm của hàm số $f(x) = x^{\frac{2}{3}}$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $\dfrac{3}{5}x^{\frac{5}{3}} + C$.
+				\item $\dfrac{5}{3}x^{\frac{5}{3}} + C$.
+				\item $\dfrac{2}{3}x^{-\frac{1}{3}} + C$.
+				\item $\dfrac{3}{2}x^{\frac{5}{3}} + C$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 47 (Dạng x^alpha với alpha là phân số âm)
+		\item Họ nguyên hàm của hàm số $f(x) = x^{-\frac{3}{4}}$ trên khoảng $(0; +\infty)$ là
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $4x^{\frac{1}{4}} + C$.
+				\item $-\dfrac{3}{4}x^{-\frac{7}{4}} + C$.
+				\item $\dfrac{1}{4}x^{\frac{1}{4}} + C$.
+				\item $-4x^{\frac{1}{4}} + C$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 48 (Dạng x^alpha với alpha vô tỉ)
+		\item Tìm nguyên hàm của hàm số $f(x) = x^\pi$ trên khoảng $(0; +\infty)$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $\dfrac{x^{\pi+1}}{\pi+1} + C$.
+				\item $\pi x^{\pi-1} + C$.
+				\item $\dfrac{x^\pi}{\pi+1} + C$.
+				\item $x^{\pi+1} + C$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 49 (Dạng x^alpha với alpha vô tỉ)
+		\item Trên khoảng $(0; +\infty)$, họ nguyên hàm của hàm số $f(x) = x^{\sqrt{3}-1}$ là
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $\dfrac{x^{\sqrt{3}}}{\sqrt{3}} + C$.
+				\item $\sqrt{3} x^{\sqrt{3}} + C$.
+				\item $(\sqrt{3}-1) x^{\sqrt{3}-2} + C$.
+				\item $\dfrac{x^{\sqrt{3}-1}}{\sqrt{3}} + C$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 50 (Chia đa thức cho đơn thức)
+		\item Cho hàm số $f(x) = \dfrac{x^3 - 4}{x^2}$. Mệnh đề nào sau đây đúng?
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $\displaystyle \int f(x)dx = \dfrac{x^2}{2} + \dfrac{4}{x} + C$.
+				\item $\displaystyle \int f(x)dx = \dfrac{x^2}{2} - \dfrac{4}{x} + C$.
+				\item $\displaystyle \int f(x)dx = \dfrac{x^2}{2} + \dfrac{2}{x} + C$.
+				\item $\displaystyle \int f(x)dx = x^2 + \dfrac{4}{x} + C$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 51 (Chia đa thức cho đơn thức)
+		\item Tìm họ nguyên hàm của hàm số $f(x) = \dfrac{3 - 2x^4}{x^3}$.
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $\displaystyle \int f(x)dx = -\dfrac{3}{2x^2} - x^2 + C$.
+				\item $\displaystyle \int f(x)dx = \dfrac{3}{2x^2} - x^2 + C$.
+				\item $\displaystyle \int f(x)dx = -\dfrac{3}{x^2} - x^2 + C$.
+				\item $\displaystyle \int f(x)dx = -\dfrac{3}{2x^2} - 2x^2 + C$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 52 (Chia đa thức cho x tạo ra ln|x|)
+		\item Họ tất cả các nguyên hàm của hàm số $f(x) = \dfrac{x^2 + 3x - 1}{x}$ là
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $\dfrac{x^2}{2} + 3x - \ln|x| + C$.
+				\item $\dfrac{x^2}{2} + 3x + \ln|x| + C$.
+				\item $x + 3 - \ln|x| + C$.
+				\item $\dfrac{x^2}{2} + 3x + \dfrac{1}{x^2} + C$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 53 (Căn lồng nhau)
+		\item Tính $\displaystyle \int \sqrt{x\sqrt{x}} \,dx$ với $x > 0$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $\dfrac{4}{7} x\sqrt[4]{x^3} + C$.
+				\item $\dfrac{7}{4} x\sqrt[4]{x^3} + C$.
+				\item $\dfrac{4}{7} x\sqrt{x} + C$.
+				\item $\dfrac{3}{4} x^{-\frac{1}{4}} + C$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 54 (Căn lồng nhau bậc 3)
+		\item Tính $\displaystyle \int \sqrt[3]{x\sqrt{x}} \,dx$ với $x > 0$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $\dfrac{2}{3} x\sqrt{x} + C$.
+				\item $\dfrac{3}{2} x\sqrt{x} + C$.
+				\item $\dfrac{1}{2\sqrt{x}} + C$.
+				\item $\dfrac{2}{3} \sqrt{x} + C$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 55 (Phân thức chứa căn)
+		\item Tìm họ nguyên hàm của hàm số $f(x) = \dfrac{x - \sqrt{x}}{\sqrt[3]{x}}$ trên $(0; +\infty)$.
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $\dfrac{3}{5}x\sqrt[3]{x^2} - \dfrac{6}{7}x\sqrt[6]{x} + C$.
+				\item $\dfrac{5}{3}x\sqrt[3]{x^2} - \dfrac{7}{6}x\sqrt[6]{x} + C$.
+				\item $\dfrac{3}{5}x\sqrt[3]{x^2} + \dfrac{6}{7}x\sqrt[6]{x} + C$.
+				\item $\dfrac{3}{5}\sqrt[3]{x^5} - \dfrac{6}{7}\sqrt[6]{x} + C$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 56 (Phân thức chứa căn)
+		\item Tính $\displaystyle \int \dfrac{\sqrt[3]{x^2} + 1}{\sqrt{x}} \,dx$ với $x > 0$.
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $\dfrac{6}{7}x\sqrt[6]{x} + 2\sqrt{x} + C$.
+				\item $\dfrac{7}{6}x\sqrt[6]{x} + 2\sqrt{x} + C$.
+				\item $\dfrac{6}{7}x\sqrt[6]{x} + \dfrac{1}{2\sqrt{x}} + C$.
+				\item $\dfrac{6}{7}\sqrt[6]{x} + 2\sqrt{x} + C$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 57 (Hằng đẳng thức với căn)
+		\item Họ tất cả các nguyên hàm của hàm số $f(x) = (x + \sqrt{x})^2$ trên $(0; +\infty)$ là
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $\dfrac{x^3}{3} + \dfrac{4}{5}x^2\sqrt{x} + \dfrac{x^2}{2} + C$.
+				\item $\dfrac{x^3}{3} + \dfrac{2}{5}x^2\sqrt{x} + \dfrac{x^2}{2} + C$.
+				\item $\dfrac{(x+\sqrt{x})^3}{3} + C$.
+				\item $2(x + \sqrt{x})\left(1 + \dfrac{1}{2\sqrt{x}}\right) + C$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 58 (Hằng đẳng thức với phân thức)
+		\item Họ nguyên hàm của hàm số $f(x) = \left( 1 - \dfrac{1}{x} \right)^2$ trên các khoảng xác định là
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $x - 2\ln|x| - \dfrac{1}{x} + C$.
+				\item $x - 2\ln|x| + \dfrac{1}{x} + C$.
+				\item $x + 2\ln|x| - \dfrac{1}{x} + C$.
+				\item $x - 2\ln|x| - \dfrac{1}{x^2} + C$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 59 (Nhân phân phối căn và đa thức)
+		\item $\displaystyle \int \sqrt{x}(x^2 - 3) \,dx$ trên $(0; +\infty)$ bằng
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $\dfrac{2}{7}x^3\sqrt{x} - 2x\sqrt{x} + C$.
+				\item $\dfrac{2}{7}x^3\sqrt{x} - 3x\sqrt{x} + C$.
+				\item $\dfrac{7}{2}x^3\sqrt{x} - 2x\sqrt{x} + C$.
+				\item $\dfrac{2}{7}x^3\sqrt{x} - 2\sqrt{x} + C$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 60 (Hằng đẳng thức chia cho đơn thức)
+		\item Tìm nguyên hàm của hàm số $f(x) = \dfrac{(x-2)^2}{x^3}$.
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $\ln|x| + \dfrac{4}{x} - \dfrac{2}{x^2} + C$.
+				\item $\ln|x| - \dfrac{4}{x} + \dfrac{2}{x^2} + C$.
+				\item $\ln|x| + \dfrac{4}{x} + \dfrac{2}{x^2} + C$.
+				\item $\dfrac{1}{x^2} + \dfrac{4}{x} - \dfrac{2}{x^2} + C$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 61 (Căn lồng nhau khó)
+		\item Tính $\displaystyle \int \sqrt[4]{x^3\sqrt[3]{x}} \,dx$ với $x > 0$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $\dfrac{6}{11} x\sqrt[6]{x^5} + C$.
+				\item $\dfrac{11}{6} x\sqrt[6]{x^5} + C$.
+				\item $\dfrac{6}{11} \sqrt[6]{x^5} + C$.
+				\item $\dfrac{5}{6} x^{-\dfrac{1}{6}} + C$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 62 (Vô tỉ và mũ)
+		\item Họ tất cả các nguyên hàm của hàm số $f(x) = x^e + e^x$ (với $x > 0$) là
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $\dfrac{x^{e+1}}{e+1} + e^x + C$.
+				\item $e \cdot x^{e-1} + e^x + C$.
+				\item $\dfrac{x^{e+1}}{e+1} + \dfrac{e^{x+1}}{x+1} + C$.
+				\item $x^e \ln e + e^x + C$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 63 (Đa thức dài chia đơn thức)
+		\item $\displaystyle \int \dfrac{x^3 + 2x^2 - x + 5}{x^2} \,dx$ bằng
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $\dfrac{x^2}{2} + 2x - \ln|x| - \dfrac{5}{x} + C$.
+				\item $\dfrac{x^2}{2} + 2x - \ln|x| + \dfrac{5}{x} + C$.
+				\item $\dfrac{x^2}{2} + 2x + \ln|x| - \dfrac{5}{x} + C$.
+				\item $x + 2 - \ln|x| - \dfrac{5}{x} + C$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 64 (Giống mẫu Câu 32 - Nhận diện công thức sai)
+		\item Khẳng định nào sau đây \textbf{sai}?
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $\displaystyle \int \frac{1}{\sin^2 x} dx = \cot x + C$.
+				\item $\displaystyle \int \frac{1}{\cos^2 x} dx = \tan x + C$.
+				\item $\displaystyle \int \sin x dx = -\cos x + C$.
+				\item $\displaystyle \int \cos x dx = \sin x + C$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 65 (Giống mẫu Câu 33 - Tư duy ngược)
+		\item Cho $\displaystyle \int f(x)dx = \sin x + C$. Khẳng định nào dưới đây đúng?
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $f(x) = -\sin x$.
+				\item $f(x) = -\cos x$.
+				\item $f(x) = \sin x$.
+				\item $f(x) = \cos x$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 66 (Giống mẫu Câu 34 - Tư duy ngược)
+		\item Hàm số $F(x) = \tan x$ là một nguyên hàm của hàm số nào dưới đây trên khoảng $\left( 0; \dfrac{\pi}{2} \right)$?
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $f_1(x) = -\dfrac{1}{\sin^2 x}$.
+				\item $f_2(x) = \dfrac{1}{\cos^2 x}$.
+				\item $f_3(x) = -\dfrac{1}{\cos^2 x}$.
+				\item $f_4(x) = \dfrac{1}{\sin^2 x}$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 67 (Giống mẫu Câu 35)
+		\item Cho hàm số $f(x) = x^2 - \cos x$. Khẳng định nào dưới đây đúng?
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $\displaystyle \int f(x)dx = \dfrac{x^3}{3} - \sin x + C$.
+				\item $\displaystyle \int f(x)dx = \dfrac{x^3}{3} + \sin x + C$.
+				\item $\displaystyle \int f(x)dx = 2x - \sin x + C$.
+				\item $\displaystyle \int f(x)dx = 2x + \sin x + C$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 68 (Giống mẫu Câu 36)
+		\item Cho hàm số $f(x) = 2 - \dfrac{1}{\sin^2 x}$. Khẳng định nào dưới đây đúng?
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $\displaystyle \int f(x)dx = 2x - \cot x + C$.
+				\item $\displaystyle \int f(x)dx = 2x + \tan x + C$.
+				\item $\displaystyle \int f(x)dx = 2x + \cot x + C$.
+				\item $\displaystyle \int f(x)dx = 2x - \tan x + C$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 69 (Giống mẫu Câu 37)
+		\item Nguyên hàm của hàm số $f(x) = 5\sin x + 2\cos x$ là:
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $5\cos x - 2\sin x + C$.
+				\item $-5\cos x + 2\sin x + C$.
+				\item $-5\cos x - 2\sin x + C$.
+				\item $5\cos x + 2\sin x + C$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 70 (Giống mẫu Câu 38)
+		\item Nguyên hàm của hàm số $f(x) = 3\cos x - \dfrac{4}{\cos^2 x}$ là:
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $-3\sin x - 4\tan x + C$.
+				\item $3\sin x - 4\cot x + C$.
+				\item $3\sin x - 4\tan x + C$.
+				\item $3\sin x + 4\tan x + C$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 71 (Giống mẫu Câu 39/40)
+		\item Tìm nguyên hàm của hàm số $f(x) = \cos x - 4x$.
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $\displaystyle \int (\cos x - 4x)dx = \sin x - 4x^2 + C$.
+				\item $\displaystyle \int (\cos x - 4x)dx = \sin x - 2x^2 + C$.
+				\item $\displaystyle \int (\cos x - 4x)dx = -\sin x - 2x^2 + C$.
+				\item $\displaystyle \int (\cos x - 4x)dx = \sin x - 4 + C$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 72 (Kết hợp Lượng giác và ln)
+		\item Trên khoảng $(0; +\infty)$, họ tất cả các nguyên hàm của hàm số $f(x) = \dfrac{2}{\sin^2 x} + \dfrac{3}{x}$ là
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $-2\cot x + 3\ln x + C$.
+				\item $2\cot x + 3\ln x + C$.
+				\item $-2\tan x + 3\ln x + C$.
+				\item $-2\cot x - \dfrac{3}{x^2} + C$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 73 (Kết hợp Mũ và Lượng giác)
+		\item $\displaystyle \int (e^x + 2\sin x)dx$ bằng
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $e^x + 2\cos x + C$.
+				\item $e^x - 2\cos x + C$.
+				\item $x e^{x-1} - 2\cos x + C$.
+				\item $e^x + 2\sin x + C$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 74 (Tư duy ngược đa thức + lượng giác)
+		\item Cho $\displaystyle \int f(x)dx = x^3 - \cot x + C$. Khẳng định nào dưới đây đúng?
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $f(x) = 3x^2 + \dfrac{1}{\sin^2 x}$.
+				\item $f(x) = 3x^2 - \dfrac{1}{\sin^2 x}$.
+				\item $f(x) = \dfrac{x^4}{4} + \dfrac{1}{\sin^2 x}$.
+				\item $f(x) = 3x^2 + \dfrac{1}{\cos^2 x}$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 75 (Tách phân thức cơ bản)
+		\item Họ nguyên hàm của hàm số $f(x) = \dfrac{\sin^2 x + 1}{\sin^2 x}$ trên các khoảng xác định là
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $x + \cot x + C$.
+				\item $x - \tan x + C$.
+				\item $x - \cot x + C$.
+				\item $1 - \cot x + C$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 76 (Tách phân thức cơ bản)
+		\item Họ nguyên hàm của hàm số $f(x) = \dfrac{3\cos^2 x - 1}{\cos^2 x}$ trên các khoảng xác định là
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $3x - \cot x + C$.
+				\item $3x - \tan x + C$.
+				\item $3x + \tan x + C$.
+				\item $3 - \tan x + C$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 77 (Tổng hợp 3 loại hàm cơ bản)
+		\item $\displaystyle \int \left( 2^x - \sin x + \dfrac{1}{\cos^2 x} \right) dx$ bằng
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $\dfrac{2^x}{\ln 2} + \cos x + \tan x + C$.
+				\item $2^x \ln 2 + \cos x + \tan x + C$.
+				\item $\dfrac{2^x}{\ln 2} - \cos x + \tan x + C$.
+				\item $\dfrac{2^x}{\ln 2} + \cos x - \cot x + C$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 78 (Đa thức cơ bản)
+		\item Họ tất cả các nguyên hàm của hàm số $f(x) = 6x^5 - 4x^3 + 2$ là
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $x^6 - x^4 + 2x + C$.
+				\item $30x^4 - 12x^2 + C$.
+				\item $x^6 - x^4 + C$.
+				\item $\dfrac{x^6}{6} - \dfrac{x^4}{4} + 2x + C$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 79 (Tách phân thức)
+		\item Trên các khoảng xác định, họ nguyên hàm của hàm số $f(x) = \dfrac{x^4 - 2x^2 + 1}{x^2}$ là
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				
+				\item $\dfrac{x^3}{3} - 2x + \dfrac{1}{x} + C$.
+				\item $x^3 - 2x - \dfrac{1}{x} + C$.
+				\item $\dfrac{x^3}{3} - 2x - \dfrac{1}{x} + C$.
+				\item $\dfrac{x^3}{3} - 2x - \ln x^2 + C$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 80 (Khai triển hằng đẳng thức)
+		\item Tìm nguyên hàm của hàm số $f(x) = (2x - 3)^2$.
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				
+				\item $\displaystyle \int f(x)dx = \dfrac{4x^3}{3} - 12x^2 + 9x + C$.
+				\item $\displaystyle \int f(x)dx = \dfrac{4x^3}{3} - 6x^2 + 9x + C$.
+				\item $\displaystyle \int f(x)dx = \dfrac{2x^3}{3} - 6x^2 + 9x + C$.
+				\item $\displaystyle \int f(x)dx = \dfrac{(2x - 3)^3}{3} + C$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 81 (Lũy thừa hữu tỉ)
+		\item Tính $\displaystyle \int x\sqrt[3]{x} \,dx$ với $x > 0$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				
+				\item $\dfrac{7}{3} x^{\frac{7}{3}} + C$.
+				\item $\dfrac{3}{7} x^{\frac{7}{3}} + C$.
+				\item $\dfrac{3}{4} x^{\frac{4}{3}} + C$.
+				\item $\dfrac{4}{3} x^{\frac{4}{3}} + C$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 82 (Lượng giác cơ bản)
+		\item $\displaystyle \int (4\sin x - 3\cos x) dx$ bằng
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $-4\cos x - 3\sin x + C$.
+				\item $4\cos x - 3\sin x + C$.
+				\item $-4\cos x + 3\sin x + C$.
+				\item $4\cos x + 3\sin x + C$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 83 (Tách phân thức lượng giác)
+		\item Họ nguyên hàm của hàm số $f(x) = \dfrac{\cos^2 x + 3}{\cos^2 x}$ trên các khoảng xác định là
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				
+				\item $x - 3\tan x + C$.
+				\item $1 + 3\tan x + C$.
+				\item $x + 3\tan x + C$.
+				\item $x + 3\cot x + C$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 84 (Hàm mũ cơ bản)
+		\item Họ tất cả các nguyên hàm của hàm số $f(x) = e^x - 4^x$ là
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $e^x - \dfrac{4^x}{\ln 4} + C$.
+				\item $e^x - 4^x \ln 4 + C$.
+				\item $e^x - \dfrac{4^{x+1}}{x+1} + C$.
+				\item $e^x + \dfrac{4^x}{\ln 4} + C$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 85 (Nhân 2 hàm mũ cùng số mũ)
+		\item $\displaystyle \int 2^x \cdot 5^x \,dx$ bằng
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				
+				\item $10^x \ln 10 + C$.
+				\item $\dfrac{10^x}{\ln 10} + C$.
+				\item $\dfrac{2^x}{\ln 2} \cdot \dfrac{5^x}{\ln 5} + C$.
+				\item $\dfrac{10^{x+1}}{x+1} + C$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 86 (Tư duy ngược: Đạo hàm của tích đa thức và mũ)
+		\item Biết $F(x) = x^3 e^x$ là một nguyên hàm của hàm số $f(x)$ trên $\mathbb{R}$. Khẳng định nào sau đây đúng?
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $f(x) = e^x(x^3 + 3x^2)$.
+				\item $f(x) = 3x^2 e^x$.
+				\item $f(x) = \dfrac{x^4}{4} e^x$.
+				\item $f(x) = e^x(x^3 - 3x^2)$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 87 (Tư duy ngược: Đạo hàm của tích đa thức và lượng giác)
+		\item Biết $\displaystyle \int f(x)dx = x\sin x + C$. Tìm hàm số $f(x)$.
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				
+				\item $f(x) = \sin x - x\cos x$.
+				\item $f(x) = \cos x$.
+				\item $f(x) = \sin x + x\cos x$.
+				\item $f(x) = x\cos x$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 88 (Bài toán có điều kiện - đa thức)
+		\item Tìm nguyên hàm $F(x)$ của hàm số $f(x) = 3x^2 - 2x$, biết $F(2) = 5$.
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				
+				\item $F(x) = x^3 - x^2 + 5$.
+				\item $F(x) = x^3 - x^2 - 1$.
+				\item $F(x) = 6x - 2$.
+				\item $F(x) = x^3 - x^2 + 1$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 89 (Bài toán có điều kiện - phân thức)
+		\item Cho $F(x)$ là một nguyên hàm của hàm số $f(x) = \dfrac{2}{x^3}$ trên khoảng $(0; +\infty)$ thỏa mãn $F(1) = 2$. Mệnh đề nào sau đây đúng?
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				
+				\item $F(x) = -\dfrac{1}{x^2} + 1$.
+				\item $F(x) = \dfrac{1}{x^2} + 1$.
+				\item $F(x) = -\dfrac{1}{x^2} + 3$.
+				\item $F(x) = -\dfrac{6}{x^4} + 8$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 90 (Bài toán có điều kiện - mũ)
+		\item Biết $F(x)$ là một nguyên hàm của hàm số $f(x) = e^x + 2x$ và thỏa mãn $F(0) = 3$. Tính $F(1)$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				
+				\item $e + 2$.
+				\item $e + 1$.
+				\item $e + 4$.
+				\item $e + 3$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 91 (Bài toán có điều kiện - lượng giác)
+		\item Tìm hàm số $F(x)$ biết $F'(x) = \cos x - \sin x$ và đồ thị hàm số $y = F(x)$ đi qua điểm $M(0; 2)$.
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				
+				\item $F(x) = \sin x + \cos x + 2$.
+				\item $F(x) = \sin x + \cos x + 1$.
+				\item $F(x) = -\sin x - \cos x + 3$.
+				\item $F(x) = \sin x - \cos x + 3$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 92 (Nhân phân phối đa thức và căn)
+		\item Họ tất cả các nguyên hàm của hàm số $f(x) = (x - 1)\sqrt{x}$ trên khoảng $(0; +\infty)$ là
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $\dfrac{2}{5}x^2\sqrt{x} - \dfrac{2}{3}x\sqrt{x} + C$.
+				\item $\dfrac{5}{2}x^2\sqrt{x} - \dfrac{3}{2}x\sqrt{x} + C$.
+				\item $\dfrac{2}{5}x^{\frac{5}{2}} + \dfrac{2}{3}x^{\frac{3}{2}} + C$.
+				\item $\dfrac{x^2}{2} \cdot \dfrac{2}{3}x\sqrt{x} - x + C$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 93 (Khai triển HĐT và chia đa thức)
+		\item Họ tất cả các nguyên hàm của hàm số $f(x) = \dfrac{(x+2)^2}{x}$ trên $(0; +\infty)$ là
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $\dfrac{x^2}{2} + 4x + 4\ln x + C$.
+				\item $\dfrac{x^2}{2} + 4x - 4\ln x + C$.
+				\item $\dfrac{x^2}{2} + 2x + 4\ln x + C$.
+				\item $x + 4\ln x + C$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 94 (Tách phân thức có căn)
+		\item Tính $\displaystyle \int \dfrac{x^2 - 1}{\sqrt{x}} \,dx$ với $x > 0$.
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				
+				\item $\dfrac{5}{2}x^2\sqrt{x} - \dfrac{1}{2\sqrt{x}} + C$.
+				\item $\dfrac{2}{5}x^2\sqrt{x} - 2\sqrt{x} + C$.
+				\item $\dfrac{2}{5}x^2\sqrt{x} + 2\sqrt{x} + C$.
+				\item $\dfrac{2}{3}x\sqrt{x} - 2\sqrt{x} + C$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 95 (Tách số mũ)
+		\item Họ tất cả các nguyên hàm của hàm số $f(x) = e^{x+2}$ là
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $e^{x+2} + C$.
+				\item $e^2 \cdot e^{x+1} + C$.
+				\item $\dfrac{e^{x+3}}{x+3} + C$.
+				\item $e^{x} + 2x + C$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 96 (Tách số mũ cơ số a)
+		\item Họ nguyên hàm của hàm số $f(x) = 3^{x-1}$ là
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				
+				\item $3^{x-1} \ln 3 + C$.
+				\item $\dfrac{3^x}{\ln 3} - x + C$.
+				\item $\dfrac{3^x}{3} + C$.
+				\item $\dfrac{3^{x-1}}{\ln 3} + C$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 97 (HĐT lượng giác cơ bản 1+tan^2)
+		\item $\displaystyle \int (1 + \tan^2 x) \,dx$ bằng
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				
+				\item $\cot x + C$.
+				\item $x + \dfrac{\tan^3 x}{3} + C$.
+				\item $\tan x + C$.
+				\item $-\tan x + C$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 98 (HĐT lượng giác cơ bản 1+cot^2)
+		\item $\displaystyle \int (1 + \cot^2 x) \,dx$ bằng
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				
+				\item $\cot x + C$.
+				\item $-\cot x + C$.
+				\item $-\tan x + C$.
+				\item $x - \cot x + C$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 99 (Tư duy ngược: đạo hàm của tích)
+		\item Biết $F(x) = e^x \cos x$ là một nguyên hàm của hàm số $f(x)$ trên $\mathbb{R}$. Khẳng định nào sau đây đúng?
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $f(x) = e^x(\cos x - \sin x)$.
+				\item $f(x) = e^x(\cos x + \sin x)$.
+				\item $f(x) = -e^x \sin x$.
+				\item $f(x) = e^x \cos x - \sin x$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 100 (Tư duy ngược cơ bản)
+		\item Biết $\displaystyle \int f(x) \,dx = \dfrac{x^2}{2} - \dfrac{1}{x} + C$ trên $(0; +\infty)$. Tìm hàm số $f(x)$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				
+				\item $f(x) = x - \dfrac{1}{x^2}$.
+				\item $f(x) = \dfrac{x^3}{6} - \ln x$.
+				\item $f(x) = x + \ln x$.
+				\item $f(x) = x + \dfrac{1}{x^2}$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 101 (Bài toán có điều kiện - Lượng giác)
+		\item Tìm nguyên hàm $F(x)$ của hàm số $f(x) = \dfrac{1}{\cos^2 x} - 2x$, biết $F(0) = 1$.
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				
+				\item $F(x) = \tan x - x^2$.
+				\item $F(x) = \tan x - x^2 + 1$.
+				\item $F(x) = \cot x - x^2 + 1$.
+				\item $F(x) = \tan x - 2 + 1$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 102 (Bài toán có điều kiện - Hàm mũ)
+		\item Cho $F(x)$ là một nguyên hàm của hàm số $f(x) = 2^x \ln 2 + e^x$ thỏa mãn $F(0) = 2$. Tính $F(1)$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $2 + e$.
+				\item $1 + e$.
+				\item $2 + 2e$.
+				\item $3 + e$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 103 (Bài toán tham số tư duy ngược)
+		\item Biết $\displaystyle \int (ax^2 + bx) \,dx = 2x^3 - 3x^2 + C$ với $a, b \in \mathbb{R}$. Tính giá trị biểu thức $a + b$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				
+				\item $12$.
+				\item $-1$.
+				\item $0$.
+				\item $5$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 104 (Khai triển lũy thừa bậc cao)
+		\item Họ tất cả các nguyên hàm của hàm số $f(x) = x(x^2 - 1)^2$ là
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				
+				\item $\dfrac{x^6}{6} + \dfrac{x^4}{2} + \dfrac{x^2}{2} + C$.
+				\item $\dfrac{x^6}{6} - \dfrac{x^4}{2} + \dfrac{x^2}{2} + C$.
+				\item $\dfrac{x^2}{2} \cdot \dfrac{(x^2 - 1)^3}{3} + C$.
+				\item $x^5 - 2x^3 + x + C$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 105 (HĐT bậc 3 và chia đơn thức)
+		\item Họ nguyên hàm của hàm số $f(x) = \dfrac{(x-1)^3}{x^2}$ trên khoảng $(0; +\infty)$ là
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				
+				\item $\dfrac{x^2}{2} - 3x - 3\ln x - \dfrac{1}{x} + C$.
+				\item $\dfrac{x^2}{2} + 3x + 3\ln x + \dfrac{1}{x} + C$.
+				\item $\dfrac{x^2}{2} - 3x + 3\ln x + \dfrac{1}{x} + C$.
+				\item $\dfrac{(x-1)^4}{4x^3} + C$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 106 (Tách phân thức lượng giác)
+		\item Tìm nguyên hàm của hàm số $f(x) = \dfrac{\sin^3 x - 1}{\sin^2 x}$.
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				
+				\item $\cos x + \cot x + C$.
+				\item $-\cos x + \cot x + C$.
+				\item $-\cos x - \cot x + C$.
+				\item $\cos x - \cot x + C$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 107 (Bài toán có điều kiện hỗn hợp)
+		\item Tìm nguyên hàm $F(x)$ của hàm số $f(x) = x + \sqrt{x}$ trên khoảng $(0; +\infty)$, biết $F(1) = \dfrac{5}{6}$.
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $F(x) = \dfrac{x^2}{2} + \dfrac{2}{3}x\sqrt{x} - \dfrac{1}{3}$.
+				\item $F(x) = \dfrac{x^2}{2} + \dfrac{2}{3}x\sqrt{x} + \dfrac{1}{3}$.
+				\item $F(x) = \dfrac{x^2}{2} + \dfrac{1}{2\sqrt{x}} + \dfrac{5}{6}$.
+				\item $F(x) = \dfrac{x^2}{2} + \dfrac{3}{2}x\sqrt{x} - \dfrac{7}{6}$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 108 (Phân thức đa thức chia đa thức - Thêm bớt)
+		\item Họ tất cả các nguyên hàm của hàm số $f(x) = \dfrac{x}{x-1}$ trên các khoảng xác định là
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				
+				\item $x - \ln|x-1| + C$.
+				\item $1 + \ln|x-1| + C$.
+				\item $x + \dfrac{1}{(x-1)^2} + C$.
+				\item $x + \ln|x-1| + C$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 109 (Phân thức bậc 2 chia bậc 1 - Thêm bớt)
+		\item Họ nguyên hàm của hàm số $f(x) = \dfrac{x^2 - x + 2}{x - 1}$ trên khoảng $(1; +\infty)$ là
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				
+				\item $\dfrac{x^2}{2} - 2\ln(x-1) + C$.
+				\item $x + 2\ln(x-1) + C$.
+				\item $\dfrac{x^2}{2} + 2\ln(x-1) + C$.
+				\item $x^2 + 2\ln(x-1) + C$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 110 (Mũ và phân số)
+		\item Tìm nguyên hàm của hàm số $f(x) = \dfrac{2^{x+1} - 3^{x-1}}{5^x}$.
+		\begin{enumerate}[label=\textbf{\Alph*.}]
+			\item $\displaystyle \int f(x)dx = \dfrac{2}{\ln(2/5)} \left(\dfrac{2}{5}\right)^x - \dfrac{1}{3\ln(3/5)} \left(\dfrac{3}{5}\right)^x + C$.\\
+			\item $\displaystyle \int f(x)dx = \dfrac{2}{\ln 2 - \ln 5} \left(\dfrac{2}{5}\right)^x + \dfrac{1}{3(\ln 3 - \ln 5)} \left(\dfrac{3}{5}\right)^x + C$.\\
+			\item $\displaystyle \int f(x)dx = 2 \left(\dfrac{2}{5}\right)^x - \dfrac{1}{3} \left(\dfrac{3}{5}\right)^x + C$.\\
+			\item $\displaystyle \int f(x)dx = \dfrac{(2/5)^x}{\ln(2/5)} - \dfrac{(3/5)^x}{\ln(3/5)} + C$.
+		\end{enumerate}
+		
+		% CÂU 111 (Lượng giác cơ bản mở rộng)
+		\item $\displaystyle \int (\tan x \cdot \cos x - \cot x \cdot \sin x) \,dx$ bằng
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				
+				\item $\cos x + \sin x + C$.
+				\item $\sin x - \cos x + C$.
+				\item $-\cos x - \sin x + C$.
+				\item $-\sin x + \cos x + C$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 112 (Biến đổi lượng giác)
+		\item Họ tất cả các nguyên hàm của hàm số $f(x) = \dfrac{\cos 2x}{\cos^2 x \sin^2 x}$ trên các khoảng xác định là
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				
+				\item $\cot x + \tan x + C$.
+				\item $\cot x - \tan x + C$.
+				\item $-\cot x + \tan x + C$.
+				\item $-\cot x - \tan x + C$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 113 (Bài toán điều kiện F(x) = k - Đa thức)
+		\item Tìm nguyên hàm $F(x)$ của hàm số $f(x) = 3x^2(x - 2)$ thỏa mãn $F(0) = 5$.
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $F(x) = \dfrac{3x^4}{4} - 2x^3 + 5$.
+				\item $F(x) = \dfrac{3x^4}{4} + 2x^3 + 5$.
+				\item $F(x) = x^4 - 2x^3 + 5$.
+				\item $F(x) = \dfrac{3x^4}{4} - 6x^3 + 5$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 114 (Tư duy ngược với e^x)
+		\item Biết $F(x) = (x^2 - x)e^x$ là một nguyên hàm của hàm số $f(x)$ trên $\mathbb{R}$. Tính $f(1)$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				
+				\item $0$.
+				\item $2e$.
+				\item $e$.
+				\item $-e$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 115 (Bài toán tham số - Phương trình bậc 2)
+		\item Cho hàm số $f(x) = x^2 - (m+1)x + m$. Tìm $m$ biết rằng $\displaystyle \int f(x) \,dx = \dfrac{x^3}{3} - 2x^2 + 3x + C$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				
+				\item $m = 2$.
+				\item $m = -3$.
+				\item $m = 1$.
+				\item $m = 3$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 116 (Phân thức chứa mũ hữu tỉ)
+		\item Tính $\displaystyle \int \dfrac{(\sqrt{x} + 1)^2}{x\sqrt{x}} \,dx$ trên khoảng $(0; +\infty)$.
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				
+				\item $2\sqrt{x} - 2\ln x - \dfrac{2}{\sqrt{x}} + C$.
+				\item $2\sqrt{x} + 2\ln x + \dfrac{2}{\sqrt{x}} + C$.
+				\item $2\sqrt{x} + 2\ln x - \dfrac{2}{\sqrt{x}} + C$.
+				\item $\sqrt{x} + 2\ln x - \dfrac{1}{2\sqrt{x}} + C$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 117 (Hàm hằng và e^x)
+		\item Họ nguyên hàm của hàm số $f(x) = \dfrac{e^x \cdot x - e^x}{x}$ trên $(0; +\infty)$ là
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				
+				\item $e^x - e^x \ln|x| + C$.
+				\item $e^x - e^x \ln x + C$.
+				\item $e^x \ln x - e^x + C$.
+				\item $e^x \ln x + C$.
+			\end{enumerate}
+		\end{multicols}
+		
+	\end{enumerate}
+	
+	\section{Trắc nghiệm Đúng/Sai}
+	\textit{Trong mỗi ý a), b), c), d) ở mỗi câu, thí sinh chọn đúng hoặc sai.}
+	
+	\begin{enumerate}[label=\textbf{Câu \arabic*.}, start=1]
+		
+		% CÂU 1
+		\item Cho hàm số $f(x) = \dfrac{1}{4}x^4 + 4x^3$.
+		\begin{enumerate}[label=\alph*)]
+			\item $f'(x) = x^3 + 12x^2$.
+			\item Phương trình $f'(x) = 0$ có hai nghiệm $x = 12$ và $x = 0$.
+			\item $\displaystyle \int \left( \dfrac{1}{4}x^4 + 4x^3 \right) dx = \dfrac{1}{4}x^5 + \dfrac{4}{3}x^4 + C$, với $C$ là hằng số.
+			\item Gọi $F(x)$ là một nguyên hàm của $f(x)$. Biết $F(0) = 2024$ thì $F(x) = \dfrac{1}{20}x^5 + x^4 - 2024$.
+		\end{enumerate}
+		
+		% CÂU 2
+		\item Cho hàm số $f(x) = x + 1$.
+		\begin{enumerate}[label=\alph*)]
+			\item $\displaystyle \int f(x) dx = x^2 + x + C$, với $C$ là hằng số.
+			\item $\displaystyle \int [(x - 1)f(x)] dx = \dfrac{1}{3}x^3 - x + C$, với $C$ là hằng số.
+			\item $\displaystyle \int \dfrac{f(x+1)}{x} dx = x + \ln|x| + C$, với $C$ là hằng số.
+			\item Gọi $F(x)$ là một nguyên hàm của $f(x)$. Biết $F(1) = 2$ thì $F(x) = \dfrac{x^2}{2} + x + \dfrac{1}{2}$.
+		\end{enumerate}
+		
+		% CÂU 3
+		\item Cho hàm số $f(x) = 4x^3 - 6x$.
+		\begin{enumerate}[label=\alph*)]
+			\item $\displaystyle \int (4x^3 - 6x) dx = x^4 - 6x + C$, với $C$ là hằng số.
+			\item Biết $F(x)$ là một nguyên hàm của $f(x)$ và $F(0) = 2$. Khi đó $F(x) = x^4 - 3x^2 - 2$.
+			\item $\displaystyle \int f(x-1) dx = x^4 - 4x^3 + 3x^2 + 2x + C$, với $C$ là hằng số.
+			\item Biết $G(x)$ là một nguyên hàm của $f(x-1)$ và $G(1) = 0$. Khi đó $G(0) = -2$.
+		\end{enumerate}
+		
+		% CÂU 4
+		\item Cho hàm số $f(x) = x^2$.
+		\begin{enumerate}[label=\alph*)]
+			\item $\displaystyle \int f(x) dx = x^3 + C$, với $C$ là hằng số.
+			\item Gọi $F(x)$ là một nguyên hàm của $f(x)$. Biết $F(3) = 1$ thì $F(4) = \dfrac{40}{3}$.
+			\item $\displaystyle \int f(2x+1) dx = \dfrac{4}{3}x^3 + 2x^2 - x + C$, với $C$ là hằng số.
+			\item $\displaystyle \int [x \cdot f(x-2)] dx = \dfrac{x^4}{4} - \dfrac{4x^3}{3} + 2x^2 + C$, với $C$ là hằng số.
+		\end{enumerate}
+		
+		% CÂU 5
+		\item Cho hàm số $f(x) = 3$.
+		\begin{enumerate}[label=\alph*)]
+			\item $\displaystyle \int f(x) dx = 3x + C$, với $C$ là hằng số.
+			\item $\displaystyle \int \dfrac{f(x)}{x^2} dx = \dfrac{3}{x} + C$, với $C$ là hằng số.
+			\item $\displaystyle \int [f(x) + x]^2 dx = x^3 + 3x^2 + 9x + C$, với $C$ là hằng số.
+			\item Gọi $F(x)$ là một nguyên hàm của $f(x)$, biết $F(1) = 1$ thì tổng $F(1) + F(2) + \dots + F(100) = 14950$.
+		\end{enumerate}
+		
+		% CÂU 6
+		\item Cho hàm số $f(x) = \dfrac{1}{2}x + 1$.
+		\begin{enumerate}[label=\alph*)]
+			\item $\displaystyle \int f(x) dx = x^2 + x + C$, với $C$ là hằng số.
+			\item $\displaystyle \int f^2(x) dx = \dfrac{1}{12}x^3 + \dfrac{1}{2}x^2 + x + C$, với $C$ là hằng số.
+			\item Gọi $F(x)$ là một nguyên hàm của $f(x)$. Biết $F(0) = 1$ thì $F(2) = 6$.
+			\item Gọi $F(x)$ là một nguyên hàm của $f(x)$. Biết $F(1) = \dfrac{3}{4}$, giá trị của $F(3)$ là $6$.
+		\end{enumerate}
+		
+		% CÂU 7
+		\item Cho hàm số $F(x) = x^2 + x - 6$ là một nguyên hàm của $f(x)$.
+		\begin{enumerate}[label=\alph*)]
+			\item $f(x) = \dfrac{x^3}{3} + \dfrac{x^2}{2} - 6x + C$, với $C$ là hằng số.
+			\item Hàm số $G(x)$ là một nguyên hàm của $f(x)$ và $G(1) = 3$ thì giá trị $G(4) = 20$.
+			\item Hàm số $H(x-1)$ là một nguyên hàm của $f(x-1)$ và $H(0) = 3$ thì giá trị của biểu thức $H(2) - H(4) = -14$.
+			\item Tổng $f(1) + f(2) + \dots + f(10) = 120$.
+		\end{enumerate}
+		
+		% CÂU 8
+		\item Cho hàm số $f(x) = x^3 - 4x + 5$.
+		\begin{enumerate}[label=\alph*)]
+			\item $\displaystyle \int f(x) dx = x^4 - 2x^2 + 5x + C$, với $C$ là hằng số.
+			\item Gọi $F(x)$ là một nguyên hàm của $f(x)$. Biết $F(1) = 3$, khi đó $F(0) = -\dfrac{1}{4}$.
+			\item $\displaystyle \int [f(x) + f'(x)] dx = \dfrac{x^4}{4} + x^3 - 2x^2 + 9x + C$, với $C$ là hằng số.
+			\item $\displaystyle \int f(x+1) dx = \dfrac{x^4}{4} + x^3 - \dfrac{1}{2}x^2 + 2x + C$, với $C$ là hằng số.
+		\end{enumerate}
+		
+		% CÂU 9
+		\item Cho hàm số $f(x) = 2x - 3$.
+		\begin{enumerate}[label=\alph*)]
+			\item $\displaystyle \int f(x) dx = x^2 - 3x + C$, với $C$ là hằng số.
+			\item Gọi $F(x)$ là một nguyên hàm của $f(x)$. Biết $F(1) = 0$ thì $F(x) = x^2 - 3x + 2$.
+			\item $\displaystyle \int [x \cdot f(x)] dx = \dfrac{2x^3}{3} - \dfrac{3x^2}{2} + C$, với $C$ là hằng số.
+			\item $\displaystyle \int [f(x)]^2 dx = \dfrac{4x^3}{3} - 6x^2 + 9 + C$, với $C$ là hằng số.
+		\end{enumerate}
+		
+		% CÂU 10
+		\item Cho $F(x) = x^3 - 2x$ là một nguyên hàm của hàm số $f(x)$.
+		\begin{enumerate}[label=\alph*)]
+			\item $f(x) = \dfrac{x^4}{4} - x^2 + C$, với $C$ là hằng số.
+			\item $f(x) = 3x^2 - 2$.
+			\item $\displaystyle \int f(x-1) dx = x^3 - 3x^2 - x + C$, với $C$ là hằng số.
+			\item Gọi $G(x)$ là một nguyên hàm của $f(x)$. Biết $G(2) = 5$ thì $G(0) = 1$.
+		\end{enumerate}
+		
+		% CÂU 11
+		\item Cho hàm số $f(x) = \sqrt{x}$.
+		\begin{enumerate}[label=\alph*)]
+			\item $\displaystyle \int f(x) dx = \dfrac{2}{3}x\sqrt{x} + C$, với $C$ là hằng số.
+			\item Gọi $F(x)$ là một nguyên hàm của $f(x)$. Biết $F(1) = \dfrac{5}{3}$ thì $F(x) = \dfrac{2}{3}x\sqrt{x} + 1$.
+			\item $\displaystyle \int [x \cdot f(x)] dx = \dfrac{2}{3}x^2\sqrt{x} + C$, với $C$ là hằng số.
+			\item $\displaystyle \int \dfrac{f(x)}{x^2} dx = -\dfrac{2}{\sqrt{x}} + C$, với $C$ là hằng số.
+		\end{enumerate}
+		
+		% CÂU 12
+		\item Cho hàm số $f(x) = \sin x - \cos x$.
+		\begin{enumerate}[label=\alph*)]
+			\item $\displaystyle \int f(x) dx = -\cos x - \sin x + C$, với $C$ là hằng số.
+			\item Gọi $F(x)$ là một nguyên hàm của $f(x)$. Biết $F(0) = 1$ thì $F(x) = -\cos x - \sin x + 2$.
+			\item $\displaystyle \int \left[ f(x) + \dfrac{1}{\sin^2 x} \right] dx = -\cos x + \sin x - \cot x + C$, với $C$ là hằng số.
+			\item Với $F(x)$ tìm được ở ý b), giá trị của $F(\pi) = 3$.
+		\end{enumerate}
+		
+		% CÂU 13
+		\item Cho hàm số $f(x) = \dfrac{x^3 - 2x + 1}{x^2}$.
+		\begin{enumerate}[label=\alph*)]
+			\item $\displaystyle \int f(x) dx = \dfrac{x^2}{2} - 2\ln|x| - \dfrac{1}{x} + C$, với $C$ là hằng số.
+			\item Gọi $F(x)$ là một nguyên hàm của $f(x)$ trên $(0; +\infty)$. Biết $F(1) = \dfrac{1}{2}$ thì $C = 1$.
+			\item $\displaystyle \int [x^2 \cdot f(x)] dx = \dfrac{x^4}{4} + x^2 + x + C$, với $C$ là hằng số.
+			\item Với $F(x)$ tìm được ở ý b), giá trị của $F(2) = \dfrac{5}{2} - 2\ln 2$.
+		\end{enumerate}
+		
+		% CÂU 14
+		\item Cho hàm số $f(x) = 2^x - 3^x$.
+		\begin{enumerate}[label=\alph*)]
+			\item $\displaystyle \int f(x) dx = \dfrac{2^x}{\ln 2} - \dfrac{3^x}{\ln 3} + C$, với $C$ là hằng số.
+			\item Gọi $F(x)$ là một nguyên hàm của $f(x)$. Biết $F(0) = 0$ thì $F(x) = \dfrac{2^x - 1}{\ln 2} - \dfrac{3^x - 1}{\ln 3}$.
+			\item $\displaystyle \int [f(x) \cdot 5^x] dx = \dfrac{10^x}{\ln 10} + \dfrac{15^x}{\ln 15} + C$, với $C$ là hằng số.
+			\item $\displaystyle \int \dfrac{f(x)}{2^x} dx = x - \dfrac{(1.5)^x}{\ln 1.5} + C$, với $C$ là hằng số.
+		\end{enumerate}
+		
+		% CÂU 15
+		\item Cho hàm số $F(x) = x^3 - \dfrac{1}{x}$ là một nguyên hàm của hàm số $f(x)$ trên các khoảng xác định.
+		\begin{enumerate}[label=\alph*)]
+			\item $f(x) = 3x^2 + \dfrac{1}{x^2}$.
+			\item $\displaystyle \int f(x) dx = x^3 + \dfrac{1}{x} + C$, với $C$ là hằng số.
+			\item $\displaystyle \int [x^2 \cdot f(x)] dx = \dfrac{3x^5}{5} + x + C$, với $C$ là hằng số.
+			\item Giá trị của biểu thức $F(2) - F(1) = \dfrac{15}{2}$.
+		\end{enumerate}
+		
+		% CÂU 16
+		\item Cho hàm số $f(x) = \dfrac{(x-1)^2}{x}$.
+		\begin{enumerate}[label=\alph*)]
+			\item $\displaystyle \int f(x) dx = \dfrac{x^2}{2} - 2x + \ln|x| + C$, với $C$ là hằng số.
+			\item Gọi $F(x)$ là một nguyên hàm của $f(x)$ trên $(0; +\infty)$. Biết $F(1) = -\dfrac{1}{2}$ thì $F(x) = \dfrac{x^2}{2} - 2x + \ln x - 1$.
+			\item $\displaystyle \int [x \cdot f(x)] dx = \dfrac{x^3}{3} - x^2 + x + C$, với $C$ là hằng số.
+			\item Với $F(x)$ đúng tìm được từ dữ kiện ý b), giá trị của $F(2) = \ln 2 - 1$.
+		\end{enumerate}
+		
+		% CÂU 17
+		\item Cho hàm số $f(x) = \tan^2 x$.
+		\begin{enumerate}[label=\alph*)]
+			\item $\displaystyle \int f(x) dx = \tan x - x + C$, với $C$ là hằng số.
+			\item Gọi $F(x)$ là nguyên hàm của $f(x)$ trên $\left(-\dfrac{\pi}{2}; \dfrac{\pi}{2}\right)$. Biết $F\left(\dfrac{\pi}{4}\right) = 1$ thì $F(x) = \tan x - x + \dfrac{\pi}{4}$.
+			\item $\displaystyle \int (f(x) + 2) dx = \tan x - x + C$, với $C$ là hằng số.
+			\item Với $F(x)$ tìm được ở ý b), giá trị của $F(0) = \dfrac{\pi}{4}$.
+		\end{enumerate}
+		
+		% CÂU 18
+		\item Cho hàm số $F(x) = e^x(x - 1)$ là một nguyên hàm của hàm số $f(x)$ trên $\mathbb{R}$.
+		\begin{enumerate}[label=\alph*)]
+			\item Hàm số $f(x) = x e^x$.
+			\item $\displaystyle \int f(x) dx = e^x(x + 1) + C$, với $C$ là hằng số.
+			\item $\displaystyle \int \dfrac{f(x)}{x} dx = e^x + C$, với $C$ là hằng số.
+			\item Giá trị của biểu thức $F(2) = e^2$.
+		\end{enumerate}
+		
+		% CÂU 19
+		\item Cho hàm số $f(x)$ có đạo hàm $f'(x) = 6x^2 - 4x$ và $f(1) = 2$.
+		\begin{enumerate}[label=\alph*)]
+			\item $f(x) = 2x^3 - 2x^2 + 2$.
+			\item Gọi $F(x)$ là một nguyên hàm của $f(x)$ và $F(0) = 1$. Khi đó $F(x) = \dfrac{x^4}{2} + \dfrac{2x^3}{3} + 2x + 1$.
+			\item $\displaystyle \int f'(x) dx = 2x^3 - 2x^2 + C$, với $C$ là hằng số.
+			\item Với $F(x)$ đúng tìm được từ dữ kiện ý b), giá trị của $F(1) = \dfrac{17}{6}$.
+		\end{enumerate}
+		
+		% CÂU 20
+		\item Cho hàm số $f(x) = \dfrac{x + 1}{\sqrt{x}}$ với $x > 0$.
+		\begin{enumerate}[label=\alph*)]
+			\item $\displaystyle \int f(x) dx = \dfrac{2}{3}x\sqrt{x} + 2\sqrt{x} + C$, với $C$ là hằng số.
+			\item Gọi $F(x)$ là một nguyên hàm của $f(x)$. Biết $F(1) = \dfrac{8}{3}$ thì $F(x) = \dfrac{2}{3}x\sqrt{x} - 2\sqrt{x}$.
+			\item $\displaystyle \int [\sqrt{x} \cdot f(x)] dx = \dfrac{x^2}{2} + x + C$, với $C$ là hằng số.
+			\item Với $F(x)$ đúng tìm được từ dữ kiện ý b), giá trị của $F(4) = \dfrac{28}{3}$.
+		\end{enumerate}
+		
+		% CÂU 21
+		\item Cho hàm số $F(x) = \ln|x| + 2x$ là một nguyên hàm của hàm số $f(x)$ trên các khoảng xác định.
+		\begin{enumerate}[label=\alph*)]
+			\item Hàm số $f(x) = \dfrac{1}{x} + 2$.
+			\item $\displaystyle \int f(x) dx = \ln|x| + 2x + C$, với $C$ là hằng số.
+			\item $\displaystyle \int [x \cdot f(x)] dx = x - x^2 + C$, với $C$ là hằng số.
+			\item Giá trị của biểu thức $F(e) - F(1) = 2e - 1$.
+		\end{enumerate}
+		
+		% CÂU 22
+		\item Cho hàm số $f(x) = \dfrac{2^x \cdot x^2 + 1}{x^2}$.
+		\begin{enumerate}[label=\alph*)]
+			\item $\displaystyle \int f(x) dx = \dfrac{2^x}{\ln 2} - \dfrac{1}{x} + C$, với $C$ là hằng số.
+			\item Gọi $F(x)$ là một nguyên hàm của $f(x)$ trên $(0; +\infty)$. Biết $F(1) = \dfrac{2}{\ln 2}$ thì $C = -1$.
+			\item $\displaystyle \int (f(x) - 2^x) dx = -\dfrac{1}{x} + C$, với $C$ là hằng số.
+			\item Với $F(x)$ đúng tìm được từ dữ kiện ý b), giá trị của $F(2) = \dfrac{4}{\ln 2} + \dfrac{1}{2}$.
+		\end{enumerate}
+		
+		% CÂU 23
+		\item Cho hàm số $f(x) = e^{x+2} + \dfrac{3}{x^4}$.
+		\begin{enumerate}[label=\alph*)]
+			\item $\displaystyle \int f(x) dx = e^{x+2} - \dfrac{1}{x^3} + C$, với $C$ là hằng số.
+			\item Gọi $F(x)$ là một nguyên hàm của $f(x)$ trên $(0; +\infty)$. Biết $F(1) = e^3$ thì $F(x) = e^{x+2} - \dfrac{1}{x^3} + 1$.
+			\item $\displaystyle \int \left( f(x) - \dfrac{3}{x^4} \right) dx = e \cdot e^{x+1} - C$, với $C$ là hằng số.
+			\item Phương trình $F'(x) = f(x)$ luôn có vô số nghiệm.
+		\end{enumerate}
+		
+		% CÂU 24 (Chia đa thức cho đơn thức)
+		\item Hàm số $f(x)$ xác định trên $\mathbb{R} \setminus \{0\}$ thỏa mãn $f(x) = \dfrac{x^2 - 3x + 2}{x}$.
+		\begin{enumerate}[label=\alph*)]
+			\item $f'(x) = 1 + \dfrac{2}{x^2}$.
+			\item $\displaystyle \int f(x) dx = \dfrac{x^2}{2} - 3x + 2\ln|x| + C$, với $C$ là hằng số.
+			\item Gọi $F(x)$ là một nguyên hàm của $f(x)$ và thỏa mãn $F(1) = \dfrac{1}{2}$. Khi đó $F(x) = \dfrac{x^2}{2} - 3x + 2\ln|x| + 3$.
+			\item Gọi $G(x)$ là một nguyên hàm của $f(x)$. Biết $G(1) = 2$ và $G(e) + G(-e) = 10$. Khi đó tìm được $G(-1) = 6$.
+		\end{enumerate}
+		
+		% CÂU 25 (Chia đa thức bậc cao cho đơn thức)
+		\item Hàm số $f(x)$ xác định trên $\mathbb{R} \setminus \{0\}$ thỏa mãn $f(x) = \dfrac{2x^4 - x^3 + 3x - 1}{x^2}$.
+		\begin{enumerate}[label=\alph*)]
+			\item $f(x) = 2x^2 - x + \dfrac{3}{x} - \dfrac{1}{x^2}$.
+			\item $\displaystyle \int f(x) dx = \dfrac{2x^3}{3} - \dfrac{x^2}{2} + 3\ln|x| + \dfrac{1}{x} + C$, với $C$ là hằng số.
+			\item Gọi $F(x)$ là một nguyên hàm của $f(x)$ và thỏa mãn $F(1) = \dfrac{7}{6}$. Khi đó tìm được $F(x) = \dfrac{2x^3}{3} - \dfrac{x^2}{2} + 3\ln|x| + \dfrac{1}{x} - 1$.
+			\item Gọi $G(x)$ là một nguyên hàm của $f(x)$. Biết $G(1) = 0$ và $G(2) - G(-2) = 10$. Khi đó $G(-1) = -\dfrac{31}{3}$.
+		\end{enumerate}
+		
+		% CÂU 26 (Nhân phân phối hai nhị thức rồi chia đơn thức)
+		\item Hàm số $f(x)$ xác định trên $\mathbb{R} \setminus \{0\}$ thỏa mãn $f(x) = \dfrac{(x-2)(2x+1)}{x}$.
+		\begin{enumerate}[label=\alph*)]
+			\item $f'(x) = 2 - \dfrac{2}{x^2}$.
+			\item $\displaystyle \int f(x) dx = x^2 - 3x - 2\ln|x| + C$, với $C$ là hằng số.
+			\item Gọi $F(x)$ là một nguyên hàm của $f(x)$ và thỏa mãn $F(1) = -2$. Khi đó $F(x) = x^2 - 3x - 2\ln|x|$.
+			\item Gọi $G(x)$ là một nguyên hàm của $f(x)$. Biết $G(1) = 3$ và $G(2) + G(-2) = 0$. Khi đó tìm được $G(-1) = 4 - 4\ln 2$.
+		\end{enumerate}
+		
+		% CÂU 27 (Hằng đẳng thức chia đa thức)
+		\item Hàm số $f(x)$ xác định trên $\mathbb{R} \setminus \{0\}$ thỏa mãn $f(x) = \left( \dfrac{x+1}{x} \right)^2$.
+		\begin{enumerate}[label=\alph*)]
+			\item $f'(x) = -\dfrac{2}{x^2} - \dfrac{2}{x^3}$.
+			\item $\displaystyle \int f(x) dx = x + 2\ln|x| + \dfrac{1}{x} + C$, với $C$ là hằng số.
+			\item Gọi $F(x)$ là một nguyên hàm của $f(x)$ và thỏa mãn $F(1) = 0$. Khi đó ta tìm được $F(x) = x + 2\ln|x| - \dfrac{1}{x} - 2$.
+			\item Gọi $G(x)$ là một nguyên hàm của $f(x)$. Biết $G(1) = 2$ và $G(e) + G(-e) = 0$. Khi đó tìm được $G(-1) = 4$.
+		\end{enumerate}
+		
+		% CÂU 28 (Nguyên hàm chứa căn - Biến đổi lũy thừa)
+		\item Cho hàm số $F(x) = \displaystyle \int \left( \sqrt[4]{x^3} \right) dx$ (với $x > 0$).
+		\begin{enumerate}[label=\alph*)]
+			\item $F(x) = \displaystyle \int x^{\frac{3}{4}} dx$.
+			\item $F(x) + C = \displaystyle \int \left( \sqrt[4]{x^3} \right) dx$, với $C$ là hằng số.
+			\item $F(x) = \dfrac{3}{7} x^{\frac{7}{4}} + C$, với $C$ là hằng số.
+			\item Biết $F(1) = \dfrac{4}{7}$, khi đó $F(x) = \dfrac{4}{7} \sqrt[4]{x^7} + \dfrac{1}{7}$.
+		\end{enumerate}
+		
+		% CÂU 29 (Căn kết hợp đa thức)
+		\item Cho hàm số $F(x) = \displaystyle \int (3x - \sqrt{x}) dx$ (với $x > 0$).
+		\begin{enumerate}[label=\alph*)]
+			\item $F(x) = \displaystyle 3 \int x dx - \int x^{\frac{1}{2}} dx + C$ với $C \in \mathbb{R}$.
+			\item Nếu $G(x) = F(x) - 1$ thì $G(x) = \displaystyle \int (3x - \sqrt{x}) dx$.
+			\item $F(x) = \dfrac{3}{2}x^2 - \dfrac{2}{3}x\sqrt{x} + C$.
+			\item Nếu $F(1) = \dfrac{5}{6}$ thì $F(4) = \dfrac{56}{3}$.
+		\end{enumerate}
+		
+		% CÂU 30 (Lượng giác kết hợp đa thức)
+		\item Cho hàm số $F(x) = \displaystyle \int (\sin x + 2x) dx$.
+		\begin{enumerate}[label=\alph*)]
+			\item $F(x) = \cos x + x^2 + C$ với $C \in \mathbb{R}$.
+			\item Nếu $G(x) = F(x) + x$ thì $G(x)$ là nguyên hàm của $g(x) = \sin x + 2x + 1$.
+			\item $F(x) = -\cos x + x^2 + C$.
+			\item Nếu $F(0) = 0$ thì $F(\pi) = \pi^2 + 2$.
+		\end{enumerate}
+		
+		% CÂU 31 (Chia đa thức cho đơn thức bậc 3)
+		\item Hàm số $f(x)$ xác định trên $\mathbb{R} \setminus \{0\}$ thỏa mãn $f(x) = \dfrac{x^3 - 3x + 1}{x^3}$.
+		\begin{enumerate}[label=\alph*)]
+			\item $f'(x) = \dfrac{6}{x^3} - \dfrac{3}{x^4}$.
+			\item $\displaystyle \int f(x) dx = x + \dfrac{3}{x} - \dfrac{1}{2x^2} + C$, với $C$ là hằng số.
+			\item Gọi $F(x)$ là một nguyên hàm của $f(x)$ và thỏa mãn $F(1) = \dfrac{7}{2}$. Khi đó $F(x) = x + \dfrac{3}{x} - \dfrac{1}{2x^2}$.
+			\item Gọi $G(x)$ là một nguyên hàm của $f(x)$. Biết $G(1) = 0$ và $G(2) - G(-2) = 4$. Khi đó $G(-1) = 5$.
+		\end{enumerate}
+		
+		% CÂU 32 (Hằng đẳng thức lượng giác)
+		\item Cho hàm số $f(x) = \tan^2 x + \cot^2 x$.
+		\begin{enumerate}[label=\alph*)]
+			\item $f(x) = \dfrac{1}{\cos^2 x} + \dfrac{1}{\sin^2 x} + 2$.
+			\item $\displaystyle \int f(x) dx = \tan x - \cot x - 2x + C$, với $C$ là hằng số.
+			\item Gọi $F(x)$ là một nguyên hàm của $f(x)$ trên $\left(0; \dfrac{\pi}{2}\right)$. Biết $F\left(\dfrac{\pi}{4}\right) = -\dfrac{\pi}{2}$. Khi đó $F(x) = \tan x - \cot x - 2x$.
+			\item Gọi $G(x)$ là một nguyên hàm của $f(x)$. Biết $G\left(\dfrac{\pi}{4}\right) = 0$, khi đó $G\left(\dfrac{\pi}{3}\right) = \dfrac{4\sqrt{3}}{3} - \dfrac{\pi}{6}$.
+		\end{enumerate}
+		
+		% CÂU 33 (Hàm phân nhánh chứa phân thức và e^x)
+		\item Cho hàm số $f(x) = \begin{cases} \dfrac{x^2 - 1}{x} & \text{khi } x \ge 1 \\ e^x - e & \text{khi } x < 1 \end{cases}$. Giả sử $F$ là nguyên hàm của $f$ trên $\mathbb{R}$ thỏa mãn $F(1) = \dfrac{1}{2}$.
+		\begin{enumerate}[label=\alph*)]
+			\item $F(x) = \dfrac{x^2}{2} - \ln x$ khi $x \ge 1$.
+			\item $F(x) = e^x - ex + C$ khi $x < 1$.
+			\item $\lim_{x \to 1^+} F(x) = \dfrac{1}{2}$.
+			\item Giá trị của $F(0) = e$.
+		\end{enumerate}
+		
+		% CÂU 34 (Lũy thừa vô tỉ)
+		\item Cho hàm số $F(x) = \displaystyle \int x^{\sqrt{2}} dx$ (với $x > 0$).
+		\begin{enumerate}[label=\alph*)]
+			\item $F(x) = \dfrac{x^{\sqrt{2}-1}}{\sqrt{2}-1} + C$.
+			\item Nếu $F(1) = 0$ thì $C = -\dfrac{1}{\sqrt{2}+1}$.
+			\item $F(x) = \dfrac{x^{\sqrt{2}+1}}{\sqrt{2}+1} + C$.
+			\item Nếu $F(1) = 1 - \sqrt{2}$ thì $F(x) = (\sqrt{2}-1)x^{\sqrt{2}+1}$.
+		\end{enumerate}
+		
+		% CÂU 35 (Hằng đẳng thức bậc 3)
+		\item Cho hàm số $f(x) = (x - 1)^3$.
+		\begin{enumerate}[label=\alph*)]
+			\item $f(x) = x^3 - 3x^2 + 3x - 1$.
+			\item $\displaystyle \int f(x) dx = \dfrac{x^4}{4} - x^3 + \dfrac{3x^2}{2} - x + C$, với $C$ là hằng số.
+			\item Gọi $F(x)$ là một nguyên hàm của $f(x)$. Biết $F(1) = -\dfrac{1}{4}$ thì $F(x) = \dfrac{x^4}{4} - x^3 + \dfrac{3x^2}{2} - x$.
+			\item Gọi $G(x)$ là một nguyên hàm của $f(x)$. Biết $G(0) = 1$, khi đó $G(2) = 0$.
+		\end{enumerate}
+		
+		% CÂU 36 (Tách phân thức có e^x)
+		\item Hàm số $f(x)$ xác định trên $\mathbb{R} \setminus \{0\}$ thỏa mãn $f(x) = \dfrac{x e^x - 2}{x}$.
+		\begin{enumerate}[label=\alph*)]
+			\item $f'(x) = e^x + \dfrac{2}{x^2}$.
+			\item $\displaystyle \int f(x) dx = e^x - 2\ln|x| + C$, với $C$ là hằng số.
+			\item Gọi $F(x)$ là một nguyên hàm của $f(x)$ và thỏa mãn $F(1) = e$. Khi đó $F(x) = e^x - 2\ln|x| + 1$.
+			\item Gọi $G(x)$ là một nguyên hàm của $f(x)$. Biết $G(1) = 0$ và $G(e) + G(-e) = 2e^e$, khi đó $G(-1) = e^{-1} + e - 2$.
+		\end{enumerate}
+		
+		% CÂU 37 (Căn lồng nhau bậc cao)
+		\item Cho hàm số $F(x) = \displaystyle \int \sqrt{x\sqrt[3]{x}} \,dx$ (với $x > 0$).
+		\begin{enumerate}[label=\alph*)]
+			\item $f(x) = \sqrt{x\sqrt[3]{x}} = x^{\frac{2}{3}}$.
+			\item $F(x) = \dfrac{3}{5} x^{\frac{5}{3}} + C$.
+			\item Biết $F(1) = \dfrac{3}{5}$, khi đó $F(x) = \dfrac{3}{5} x^{\frac{5}{3}}$.
+			\item Biết $G(x) = F(x) + x$, khi đó $G(x)$ là nguyên hàm của hàm số $g(x) = x^{\frac{2}{3}} + x$.
+		\end{enumerate}
+		
+		% CÂU 38 (Tổng hợp lượng giác và đa thức)
+		\item Cho hàm số $f(x) = x^2 - \dfrac{1}{\cos^2 x}$.
+		\begin{enumerate}[label=\alph*)]
+			\item $\displaystyle \int f(x) dx = \dfrac{x^3}{3} + \tan x + C$.
+			\item Gọi $F(x)$ là một nguyên hàm của $f(x)$. Biết $F(0) = 1$ thì $F(x) = \dfrac{x^3}{3} - \tan x + 1$.
+			\item Hàm số $f(x)$ đồng biến trên $\left(0; \dfrac{\pi}{2}\right)$.
+			\item Giá trị của tích phân $\displaystyle \int f(x) dx$ luôn là một số nguyên.
+		\end{enumerate}
+		
+		% CÂU 39 (Hàm phân nhánh chứa đa thức)
+		\item Cho hàm số $f(x) = \begin{cases} 3x^2 - 2x & \text{khi } x \ge 2 \\ 4x & \text{khi } x < 2 \end{cases}$. Giả sử $F$ là nguyên hàm của $f$ trên $\mathbb{R}$ thỏa mãn $F(0) = 3$.
+		\begin{enumerate}[label=\alph*)]
+			\item $F(x) = 2x^2 + 3$ khi $x < 2$.
+			\item $F(x) = x^3 - x^2 + 1$ khi $x \ge 2$.
+			\item $F(2) = 11$.
+			\item Giá trị của $F(-1) + F(3) = 24$.
+		\end{enumerate}
+		
+		
+		% CÂU 40 (Tương tự Câu 102 - Khai triển lượng giác)
+		\item Cho $\displaystyle F(x) = \int \cot^2 x \,dx$ và thỏa mãn $F\left(\dfrac{\pi}{2}\right) = 0$.
+		\begin{enumerate}[label=\alph*)]
+			\item $F(x) = -\cot x - x$.
+			\item Hàm số $F(x)$ đồng biến trên mỗi khoảng xác định của nó.
+			\item Hàm số $F(x)$ là hàm số lẻ trên tập xác định.
+			\item Phương trình $F(x) + x = 0$ có các nghiệm là $x = \dfrac{\pi}{2} + k\pi, k \in \mathbb{Z}$.
+		\end{enumerate}
+		
+		% CÂU 41 (Tương tự Câu 103 - Hàm đa thức kết hợp mũ)
+		\item Cho hàm số $f(x) = x^e + e^x$.
+		\begin{enumerate}[label=\alph*)]
+			\item Nếu $F(x)$ là một nguyên hàm của $f(x)$ thì $F(x) - 2024$ cũng là một nguyên hàm của $f(x)$.
+			\item Họ nguyên hàm của hàm số $f(x)$ là $F(x) = \dfrac{x^{e+1}}{e+1} + e^x + C$.
+			\item Nếu $F(x)$ là một nguyên hàm của $f(x)$ và $F(0) = 1$ thì $F(1) = \dfrac{1}{e+1} + e$.
+			\item Nếu $F(x)$ và $G(x)$ là hai nguyên hàm của $f(x)$ thỏa mãn $F(0) = e$ và $G(0) = 1$ thì $F(x) = G(x) + e - 1$.
+		\end{enumerate}
+		
+		% CÂU 42 (Tương tự Câu 104 - Nguyên hàm và đạo hàm)
+		\item Gọi $F(x)$ là một nguyên hàm của hàm số $f(x) = 3x^2 - e^x$ trên $\mathbb{R}$ thỏa mãn $F(0) = -2$.
+		\begin{enumerate}[label=\alph*)]
+			\item $F'(0) = -1$.
+			\item $F(1) = 2 - e$.
+			\item $\displaystyle \int F(x) dx = \dfrac{x^4}{4} - e^x - x + C$.
+			\item $\displaystyle \int \dfrac{f(x)}{x e^x} dx = 3x e^{-x} - \ln|x| + C$.
+		\end{enumerate}
+		
+		% CÂU 43 (Tương tự Câu 105 - Tính chất F(x), f(x), f'(x))
+		\item Cho hàm số $f(x) = e^x - 2x$. Biết $F(x)$ là một nguyên hàm của hàm số $f(x)$ thỏa mãn $F(0) = 2025$.
+		\begin{enumerate}[label=\alph*)]
+			\item $f(2) = e^2 - 4$.
+			\item $\displaystyle \int f(x) dx = e^x - x^2 + C$.
+			\item $F(x) = e^x - x^2 + 2024$.
+			\item $\displaystyle \int \left[ x \cdot f(x) + F'(x) \right] dx = x e^x - \dfrac{2x^3}{3} + e^x - x^2 + C$.
+		\end{enumerate}
+		
+		% CÂU 44 (Tương tự Câu 106 - Tránh hàm hợp bằng biến đổi cơ số)
+		\item Cho hàm số $f(x) = 2^x(1 + 3^x)$ và $F(x)$ là nguyên hàm của hàm số $f(x)$.
+		\begin{enumerate}[label=\alph*)]
+			\item $\displaystyle \int f(x) dx = \dfrac{2^x}{\ln 2} + \dfrac{6^x}{\ln 6} + C$.
+			\item $F(x) = \dfrac{2^x}{\ln 2} + \dfrac{6^x}{\ln 6} + 1$.
+			\item Nếu $F(1) = \dfrac{2}{\ln 2} + \dfrac{6}{\ln 6}$ thì $F(0) = \dfrac{1}{\ln 2} + \dfrac{1}{\ln 6}$.
+			\item Phương trình $F(x) = 0$ vô nghiệm với mọi hằng số $C > 0$.
+		\end{enumerate}
+		
+		% CÂU 45 (Tương tự Câu 107 - HĐT bậc 3 và tổng hợp mũ)
+		\item Cho hàm số $F(x) = \displaystyle \int (8^x + 4^x + 2^x) dx$.
+		\begin{enumerate}[label=\alph*)]
+			\item $\displaystyle F(x) = \int 8^x dx + \int 4^x dx + \int 2^x dx$.
+			\item $F(x) = \dfrac{8^x}{\ln 8} + \dfrac{4^x}{\ln 4} + \dfrac{2^x}{\ln 2} + C$.
+			\item Nếu $F(1) = \dfrac{8}{\ln 8} + \dfrac{4}{\ln 4} + \dfrac{2}{\ln 2}$ thì $F(0) = 0$.
+			\item Nếu $G(x) = \displaystyle \int \dfrac{64^x - 1}{8^x - 1} dx$ thì $G(x) = F(x) + C$.
+		\end{enumerate}
+		
+		% CÂU 46 (Khai triển hằng đẳng thức lượng giác bậc 2)
+		\item Cho hàm số $f(x) = (\sin x + \cos x)^2$.
+		\begin{enumerate}[label=\alph*)]
+			\item $f(x) = 1 + 2\sin x \cos x$.
+			\item $\displaystyle \int f(x) dx = x + \sin^2 x + C$.
+			\item Gọi $F(x)$ là nguyên hàm của $f(x)$, biết $F(0) = 1$ thì $F(\pi) = \pi + 1$.
+			\item Giá trị lớn nhất của hàm số $f(x)$ là $2$.
+		\end{enumerate}
+		
+		% CÂU 47 (Sự tương giao giữa f(x) và F(x))
+		\item Cho hàm số $f(x) = \dfrac{1}{x^2}$ và $F(x)$ là một nguyên hàm của $f(x)$ trên $(0; +\infty)$ thỏa mãn $F(1) = -1$.
+		\begin{enumerate}[label=\alph*)]
+			\item $F(x) = -\dfrac{1}{x}$.
+			\item Phương trình $F(x) = f(x)$ có nghiệm duy nhất $x = -1$.
+			\item Hàm số $F(x)$ đồng biến trên $(0; +\infty)$.
+			\item Đồ thị hàm số $y = F(x)$ có tiệm cận đứng là trục tung.
+		\end{enumerate}
+		
+		% CÂU 48 (Tách phân thức bậc cao chứa e^x)
+		\item Cho hàm số $f(x) = \dfrac{x^3 e^x - x^2 + 1}{x^2}$ xác định trên $(0; +\infty)$.
+		\begin{enumerate}[label=\alph*)]
+			\item $\displaystyle \int f(x) dx = \int x e^x dx - \int 1 dx + \int \dfrac{1}{x^2} dx$.
+			\item $\displaystyle \int f(x) dx = e^x(x - 1) - x - \dfrac{1}{x} + C$.
+			\item Biết $F(x)$ là nguyên hàm của $f(x)$ và $F(1) = -2$, khi đó $F(2) = e^2 - \dfrac{5}{2}$.
+			\item Hàm số $f(x)$ không có nguyên hàm trên toàn trục số $\mathbb{R}$.
+		\end{enumerate}
+		
+		% CÂU 49 (Bài toán có điều kiện - Lũy thừa và ln)
+		\item Gọi $F(x)$ là nguyên hàm của hàm số $f(x) = x + \dfrac{1}{x}$ trên khoảng $(0; +\infty)$.
+		\begin{enumerate}[label=\alph*)]
+			\item $F(x) = \dfrac{x^2}{2} + \ln x + C$.
+			\item Nếu $F(1) = \dfrac{1}{2}$ thì $F(e) = \dfrac{e^2}{2} + 1$.
+			\item Phương trình $F(x) = 0$ luôn có ít nhất một nghiệm thực với mọi giá trị của $C$.
+			\item Hàm số $F(x)$ nghịch biến trên khoảng $(0; 1)$.
+		\end{enumerate}
+		
+		% CÂU 50 (Biến đổi cơ số phức tạp hơn)
+		\item Cho hàm số $f(x) = \dfrac{4^x + 6^x}{2^x}$.
+		\begin{enumerate}[label=\alph*)]
+			\item $f(x) = 2^x + 3^x$.
+			\item $\displaystyle \int f(x) dx = \dfrac{2^x}{\ln 2} + \dfrac{3^x}{\ln 3} + C$.
+			\item Gọi $F(x)$ là nguyên hàm của $f(x)$. Nếu $F(1) = \dfrac{2}{\ln 2} + \dfrac{3}{\ln 3}$ thì $F(0) = \dfrac{1}{\ln 2} + \dfrac{1}{\ln 3}$.
+			\item Phương trình $F'(x) = 5$ có nghiệm duy nhất $x = 1$.
+		\end{enumerate}
+		
+		% CÂU 51 (Căn lồng nhau và phân thức)
+		\item Cho hàm số $f(x) = \dfrac{x\sqrt{x} - 1}{\sqrt{x} - 1}$ trên khoảng $(1; +\infty)$.
+		\begin{enumerate}[label=\alph*)]
+			\item $f(x) = x + \sqrt{x} + 1$.
+			\item $\displaystyle \int f(x) dx = \dfrac{x^2}{2} + \dfrac{2}{3}x\sqrt{x} + x + C$.
+			\item Gọi $F(x)$ là một nguyên hàm của $f(x)$. Nếu $F(4) = \dfrac{40}{3}$ thì $F(0) = 0$.
+			\item Hàm số $f(x)$ luôn đồng biến trên khoảng $(1; +\infty)$.
+		\end{enumerate}
+		
+		% CÂU 52 (Hằng đẳng thức bậc 3 và lượng giác)
+		\item Cho hàm số $f(x) = (\sin x + \cos x)^3$.
+		\begin{enumerate}[label=\alph*)]
+			\item $f(x) = \sin x + \cos x + 3\sin x \cos x (\sin x + \cos x)$.
+			\item Mọi nguyên hàm của $f(x)$ đều là hàm số tuần hoàn.
+			\item $\displaystyle \int f(x) dx = -\cos x + \sin x + \dfrac{\sin^3 x}{3} - \dfrac{\cos^3 x}{3} + C$.
+			\item Đạo hàm của $f(x)$ tại $x = \dfrac{\pi}{4}$ bằng $0$.
+		\end{enumerate}
+		
+		% CÂU 53 (Bài toán hàm phân nhánh - Dạng bậc 2 và bậc 1)
+		\item Cho hàm số $f(x) = \begin{cases} 2x^2 + 1 & \text{khi } x \ge 1 \\ 4x - 1 & \text{khi } x < 1 \end{cases}$. Giả sử $F(x)$ là nguyên hàm của $f(x)$ trên $\mathbb{R}$ thỏa mãn $F(0) = 2$.
+		\begin{enumerate}[label=\alph*)]
+			\item Trên khoảng $(-\infty; 1)$, $F(x) = 2x^2 - x + 2$.
+			\item Trên khoảng $(1; +\infty)$, $F(x) = \dfrac{2x^3}{3} + x + \dfrac{4}{3}$.
+			\item Giá trị của $F(3) = 23$.
+			\item Hàm số $F(x)$ liên tục và có đạo hàm tại mọi điểm trên $\mathbb{R}$.
+		\end{enumerate}
+		
+		% CÂU 54 (Hàm số chứa giá trị tuyệt đối cơ bản)
+		\item Cho hàm số $f(x) = |x - 2|$. Gọi $F(x)$ là nguyên hàm của $f(x)$ trên $\mathbb{R}$ thỏa mãn $F(2) = 0$.
+		\begin{enumerate}[label=\alph*)]
+			\item $f(x) = x - 2$ với mọi $x \in \mathbb{R}$.
+			\item $F(x) = \dfrac{x^2}{2} - 2x + 2$ khi $x \ge 2$.
+			\item $F(x) = -\dfrac{x^2}{2} + 2x - 2$ khi $x < 2$.
+			\item Giá trị $F(0) + F(4) = 4$.
+		\end{enumerate}
+		
+		% CÂU 55 (Sự tương giao đồ thị và nguyên hàm)
+		\item Cho $F(x)$ là một nguyên hàm của hàm số $f(x) = x^3 - 3x^2 + 2$. Biết đồ thị hàm số $y = F(x)$ đi qua điểm $A(0; 1)$.
+		\begin{enumerate}[label=\alph*)]
+			\item $F(x) = \dfrac{x^4}{4} - x^3 + 2x + 1$.
+			\item Đồ thị hàm số $y = F(x)$ cắt trục tung tại điểm có tung độ bằng $1$.
+			\item Phương trình $F'(x) = 0$ có $3$ nghiệm phân biệt.
+			\item Điểm cực tiểu của hàm số $F(x)$ đạt tại $x = 0$.
+		\end{enumerate}
+		
+		% CÂU 56 (Bài toán thực tế - Chuyển động)
+		\item Một vật chuyển động thẳng có vận tốc $v(t) = 3t^2 - 6t$ (m/s) với $t \ge 0$. Gọi $s(t)$ là quãng đường vật đi được. Biết lúc $t=0$, vật ở vị trí xuất phát $s(0)=0$.
+		\begin{enumerate}[label=\alph*)]
+			\item Quãng đường vật đi được sau $t$ giây là $s(t) = t^3 - 3t^2$.
+			\item Gia tốc của vật tại thời điểm $t = 2$ giây là $6 \text{ m/s}^2$.
+			\item Vật luôn chuyển động theo một chiều dương duy nhất.
+			\item Sau $4$ giây, vật cách vị trí xuất phát $16$ mét.
+		\end{enumerate}
+		
+		% CÂU 57 (Hàm lượng giác kết hợp phân thức)
+		\item Cho hàm số $f(x) = \dfrac{1 - \sin^3 x}{\sin^2 x}$.
+		\begin{enumerate}[label=\alph*)]
+			\item $f(x) = \dfrac{1}{\sin^2 x} - \sin x$.
+			\item $\displaystyle \int f(x) dx = -\cot x + \cos x + C$.
+			\item Gọi $F(x)$ là nguyên hàm của $f(x)$. Nếu $F\left(\dfrac{\pi}{2}\right) = 0$ thì $F(\pi) = 1$.
+			\item Đạo hàm $f'(x) = -\dfrac{2\cos x}{\sin^3 x} - \cos x$.
+		\end{enumerate}
+		
+		% CÂU 58 (Tách hàm mũ và x)
+		\item Cho hàm số $f(x) = \dfrac{x^2 e^x - 2x}{x^2}$ xác định trên $(0; +\infty)$.
+		\begin{enumerate}[label=\alph*)]
+			\item $f(x) = e^x - \dfrac{2}{x}$.
+			\item $\displaystyle \int f(x) dx = e^x - 2\ln x + C$.
+			\item Gọi $F(x)$ là nguyên hàm của $f(x)$ thỏa mãn $F(1) = e$. Khi đó $F(e) = e^e - 2$.
+			\item Phương trình $F'(x) = 0$ có nghiệm thuộc khoảng $(0; 1)$.
+		\end{enumerate}
+		
+		% CÂU 59 (Bài toán phân nhánh - Lượng giác và đa thức)
+		\item Cho hàm số $f(x) = \begin{cases} \cos x & \text{khi } x \ge 0 \\ x + 1 & \text{khi } x < 0 \end{cases}$. Gọi $F(x)$ là nguyên hàm của $f(x)$ trên $\mathbb{R}$ thỏa mãn $F(0) = 2$.
+		\begin{enumerate}[label=\alph*)]
+			\item $F(x) = \sin x + 2$ khi $x \ge 0$.
+			\item $F(x) = \dfrac{x^2}{2} + x + 2$ khi $x < 0$.
+			\item Giá trị của $F(\pi) = 2$.
+			\item Giá trị của $F(-2) = 0$.
+		\end{enumerate}
+		
+		% CÂU 60 (Chia đa thức cho x^2)
+		\item Cho hàm số $f(x) = \dfrac{x^4 - 3x^3 + x^2 - 1}{x^2}$ xác định trên $(0; +\infty)$.
+		\begin{enumerate}[label=\alph*)]
+			\item Biểu thức rút gọn của hàm số là $f(x) = x^2 - 3x + 1 - \dfrac{1}{x^2}$.
+			\item $\displaystyle \int f(x) dx = \dfrac{x^3}{3} - \dfrac{3x^2}{2} + x - \dfrac{1}{x} + C$, với $C$ là hằng số.
+			\item Gọi $F(x)$ là nguyên hàm của $f(x)$, nếu $F(1) = 0$ thì $C = -\dfrac{5}{6}$.
+			\item $\displaystyle \int [x^2 \cdot f(x)] dx = \dfrac{x^5}{5} - \dfrac{3x^4}{4} + \dfrac{x^3}{3} - x + C$, với $C$ là hằng số.
+		\end{enumerate}
+		
+		% CÂU 61 (Tách phân thức hàm mũ)
+		\item Cho hàm số $f(x) = \dfrac{e^x \cdot 2^x + e^x}{e^x}$ xác định trên $\mathbb{R}$.
+		\begin{enumerate}[label=\alph*)]
+			\item Biểu thức rút gọn của hàm số là $f(x) = 2^x + 1$.
+			\item $\displaystyle \int f(x) dx = \dfrac{2^x}{\ln 2} + x + C$, với $C$ là hằng số.
+			\item Gọi $F(x)$ là nguyên hàm của $f(x)$ thỏa mãn $F(0) = \dfrac{1}{\ln 2}$. Khi đó $F(x) = \dfrac{2^x}{\ln 2} + x$.
+			\item Với $F(x)$ tìm được ở ý c), giá trị $F(1) = \dfrac{2}{\ln 2} + 2$.
+		\end{enumerate}
+		
+		% CÂU 62 (Tách phân thức lượng giác)
+		\item Cho hàm số $f(x) = \dfrac{2\cos^3 x - 3}{\cos^2 x}$ xác định trên $\left(0; \dfrac{\pi}{2}\right)$.
+		\begin{enumerate}[label=\alph*)]
+			\item Biểu thức rút gọn của hàm số là $f(x) = 2\cos x - 3\tan^2 x$.
+			\item $\displaystyle \int f(x) dx = 2\sin x - 3\tan x + C$, với $C$ là hằng số.
+			\item Gọi $F(x)$ là nguyên hàm của $f(x)$. Nếu $F(0) = 1$ thì $C = 1$.
+			\item Với $F(x)$ tìm được ở ý c), giá trị $F\left(\dfrac{\pi}{4}\right) = \sqrt{2} - 2$.
+		\end{enumerate}
+		
+		% CÂU 63 (Hàm phân nhánh đa thức)
+		\item Cho hàm số $f(x) = \begin{cases} 3x^2 & \text{khi } x \ge 1 \\ 4x - 1 & \text{khi } x < 1 \end{cases}$. Giả sử $F(x)$ là nguyên hàm của $f(x)$ trên $\mathbb{R}$ thỏa mãn $F(1) = 2$.
+		\begin{enumerate}[label=\alph*)]
+			\item Giá trị của $F(2) = 9$.
+			\item Giá trị của $F(0) = 1$.
+			\item Giá trị của $F(-1) = 2$.
+			\item Hàm số $F(x) = x^3 + 1$ trên khoảng $(1; +\infty)$.
+		\end{enumerate}
+		
+		% CÂU 64 (Bình phương biểu thức chứa căn)
+		\item Cho hàm số $f(x) = \left( \sqrt{x} + \dfrac{1}{\sqrt{x}} \right)^2$ với $x > 0$.
+		\begin{enumerate}[label=\alph*)]
+			\item $f(x) = x + \dfrac{1}{x} + 2$.
+			\item $\displaystyle \int f(x) dx = \dfrac{x^2}{2} + \ln x + 2x + C$, với $C$ là hằng số.
+			\item Gọi $F(x)$ là một nguyên hàm của $f(x)$. Biết $F(1) = \dfrac{5}{2}$ thì $C = 1$.
+			\item Giá trị của hiệu số $F(e) - F(1) = \dfrac{e^2}{2} + 2e - \dfrac{3}{2}$ với mọi hằng số $C$.
+		\end{enumerate}
+		
+		% CÂU 65 (Tích chất logarit và mũ)
+		\item Cho hàm số $f(x) = \ln(e^x) + e^{\ln x}$ với $x > 0$.
+		\begin{enumerate}[label=\alph*)]
+			\item Biểu thức rút gọn của hàm số là $f(x) = 2x$.
+			\item $\displaystyle \int f(x) dx = x^2 + C$, với $C$ là hằng số.
+			\item Nếu $F(x)$ là một nguyên hàm của $f(x)$ thì $F(2) - F(1) = 3$.
+			\item Hàm số $F(x) = e^x + C$ là họ nguyên hàm của $f(x)$.
+		\end{enumerate}
+		
+		% CÂU 66 (Bài toán chuyển động)
+		\item Một vật chuyển động thẳng có vận tốc $v(t) = 4t^3 - 2t$ (m/s) với $t \ge 0$. Gọi $s(t)$ là quãng đường vật đi được và $a(t)$ là gia tốc của vật. Biết $s(0) = 5$.
+		\begin{enumerate}[label=\alph*)]
+			\item Phương trình quãng đường là $s(t) = t^4 - t^2 + 5$.
+			\item Gia tốc của vật tại thời điểm $t = 2$ giây là $46 \text{ m/s}^2$.
+			\item Trong khoảng thời gian $t > 0$, vật dừng lại tại thời điểm $t = 1$ giây.
+			\item Tại thời điểm $t = 1$ giây, vật cách vị trí mốc một khoảng $s(1) = 5$ mét.
+		\end{enumerate}
+		
+		% CÂU 67 (Tư duy ngược: Tìm f(x) từ F(x))
+		\item Cho $F(x) = x^4 - \dfrac{1}{x} + 2$ là một nguyên hàm của hàm số $f(x)$ trên khoảng $(0; +\infty)$.
+		\begin{enumerate}[label=\alph*)]
+			\item Hàm số $f(x) = 4x^3 - \dfrac{1}{x^2}$.
+			\item Giá trị $f(1) = 5$.
+			\item $\displaystyle \int x^2 f(x) dx = \dfrac{2}{3}x^6 + x + C$, với $C$ là hằng số.
+			\item $\displaystyle \int f(x) dx = x^4 - \dfrac{1}{x} + C$, với $C$ là hằng số.
+		\end{enumerate}
+		
+		% CÂU 68 (Sự tương giao, parabol và nguyên hàm)
+		\item Cho hàm số $f(x) = 2x - 4$. Biết $F(x)$ là nguyên hàm của $f(x)$ và giá trị nhỏ nhất của $F(x)$ bằng $-3$.
+		\begin{enumerate}[label=\alph*)]
+			\item Họ nguyên hàm của $f(x)$ là $F(x) = x^2 - 4x + C$.
+			\item Hằng số $C$ của nguyên hàm thỏa mãn điều kiện đề bài là $C = 1$.
+			\item Giá trị của $F(0) = 1$.
+			\item Phương trình $F(x) = 0$ vô nghiệm trên tập số thực.
+		\end{enumerate}
+		
+		% CÂU 69 (Hằng đẳng thức lượng giác cot^2)
+		\item Cho hàm số $f(x) = \cot^2 x$ xác định trên $\left(0; \dfrac{\pi}{2}\right)$.
+		\begin{enumerate}[label=\alph*)]
+			\item Biểu thức biến đổi của hàm số là $f(x) = \dfrac{1}{\sin^2 x} + 1$.
+			\item $\displaystyle \int f(x) dx = -\cot x - x + C$, với $C$ là hằng số.
+			\item Gọi $F(x)$ là nguyên hàm của $f(x)$. Nếu $F\left(\dfrac{\pi}{4}\right) = 0$ thì $C = 1 + \dfrac{\pi}{4}$.
+			\item Với $F(x)$ tìm được ở ý c), giá trị $F\left(\dfrac{\pi}{2}\right) = 1 - \dfrac{\pi}{4}$.
+		\end{enumerate}
+		
+		% CÂU 70 (Khai triển hằng đẳng thức bậc 3)
+		\item Cho hàm số $f(x) = (x - 2)^3$.
+		\begin{enumerate}[label=\alph*)]
+			\item Khai triển đa thức ta được $f(x) = x^3 - 6x^2 + 12x - 8$.
+			\item $\displaystyle \int f(x) dx = \dfrac{x^4}{4} - 2x^3 + 6x^2 - 8x + C$, với $C$ là hằng số.
+			\item Gọi $F(x)$ là nguyên hàm của $f(x)$. Nếu $F(0) = 0$ thì $F(2) = -4$.
+			\item Hàm số $G(x) = \dfrac{(x-2)^4}{4} + 1$ cũng là một nguyên hàm của hàm số $f(x)$.
+		\end{enumerate}
+		
+		% CÂU 71 (Căn thức viết dưới dạng số mũ hữu tỉ)
+		\item Cho hàm số $f(x) = x^2 \sqrt{x}$ với $x > 0$.
+		\begin{enumerate}[label=\alph*)]
+			\item Hàm số được viết dưới dạng lũy thừa là $f(x) = x^{\frac{3}{2}}$.
+			\item $\displaystyle \int f(x) dx = \dfrac{2}{7} x^3\sqrt{x} + C$, với $C$ là hằng số.
+			\item Gọi $F(x)$ là nguyên hàm của $f(x)$. Nếu $F(1) = \dfrac{2}{7}$ thì $C = 0$.
+			\item $\displaystyle \int \dfrac{f(x)}{x^3} dx = 2\sqrt{x} + C$, với $C$ là hằng số.
+		\end{enumerate}
+		
+		% CÂU 72 (Tách phân thức hàm mũ cơ số khác nhau)
+		\item Cho hàm số $f(x) = \dfrac{3^x + 5^x}{2^x}$.
+		\begin{enumerate}[label=\alph*)]
+			\item Biểu thức rút gọn của hàm số là $f(x) = \left(\dfrac{3}{2}\right)^x + \left(\dfrac{5}{2}\right)^x$.
+			\item $\displaystyle \int f(x) dx = \dfrac{(1.5)^x}{\ln 1.5} + \dfrac{(2.5)^x}{\ln 2.5} + C$, với $C$ là hằng số.
+			\item Gọi $F(x)$ là nguyên hàm của $f(x)$. Nếu $F(0) = \dfrac{1}{\ln 1.5} + \dfrac{1}{\ln 2.5}$ thì $C = 0$.
+			\item $\displaystyle \int [f(x) \cdot 2^x] dx = \dfrac{3^x}{\ln 3} + \dfrac{5^x}{\ln 5} + C$, với $C$ là hằng số.
+		\end{enumerate}
+		
+		% CÂU 73 (Hàm phân nhánh: Mũ và Lượng giác)
+		\item Cho hàm số $f(x) = \begin{cases} e^x & \text{khi } x \ge 0 \\ \cos x & \text{khi } x < 0 \end{cases}$. Giả sử $F(x)$ là nguyên hàm của $f(x)$ trên $\mathbb{R}$ thỏa mãn $F(0) = 2$.
+		\begin{enumerate}[label=\alph*)]
+			\item Giá trị của $F(\ln 2) = 3$.
+			\item Giá trị của $F\left(-\dfrac{\pi}{2}\right) = 1$.
+			\item Hằng số $C_1$ của nhánh $x \ge 0$ và $C_2$ của nhánh $x < 0$ bằng nhau.
+			\item Hàm số $F(x)$ có đạo hàm tại $x = 0$ và $F'(0) = 1$.
+		\end{enumerate}
+		
+		% CÂU 74 (Mối liên hệ giữa nguyên hàm và đạo hàm)
+		\item Cho hàm số $f(x) = x^3 - 3x$. Gọi $F(x)$ là một nguyên hàm của $f(x)$ và $f'(x)$ là đạo hàm của $f(x)$.
+		\begin{enumerate}[label=\alph*)]
+			\item $\displaystyle \int f'(x) dx = f(x) + C$, với $C$ là hằng số.
+			\item Giá trị đạo hàm $f'(1) = 0$.
+			\item $\displaystyle \int f(x) dx = \dfrac{x^4}{4} - \dfrac{3x^2}{2} + C$, với $C$ là hằng số.
+			\item Biết $F(0) = 0$, khi đó giá trị của $F(2) = 2$.
+		\end{enumerate}
+		
+	\end{enumerate}
+	
+	\section{Trắc nghiệm trả lời ngắn}
+	
+	\begin{enumerate}[label=\textbf{Câu \arabic*.}, start=1]
+		
+		% CÂU 1 (Tương tự Câu 115)
+		\item Cho hàm số $y = F(x)$ là một nguyên hàm của hàm số $y = x^2$. Tính $F'(25)$.
+		 
+		
+		% CÂU 2 (Tương tự Câu 116)
+		\item Một nguyên hàm của hàm số $f(x) = x^3 + 2x$ có dạng $F(x) = ax^4 + bx^2$. Tính $T = 4a + b$.
+		 
+		
+		% CÂU 3 (Tương tự Câu 117)
+		\item Để hàm số $F(x) = mx^3 + (3m+2)x^2 - 4x + 3$ là một nguyên hàm của hàm số $f(x) = 3x^2 + 10x - 4$ thì giá trị thực của tham số $m$ bằng bao nhiêu?
+		 
+		
+		% CÂU 4 (Tương tự Câu 118)
+		\item Nguyên hàm $F(x)$ của hàm số $f(x) = \dfrac{1}{3}x^3 - 2x^2 + x - 2024$ thỏa mãn $F(1) = -2024$. Tính $F(0)$ (làm tròn kết quả đến hàng thập phân thứ nhất).
+		 
+		
+		% CÂU 5 (Tương tự Câu 119 - đã bỏ hàm hợp (2x-3)^2)
+		\item Gọi $F(x)$ là một nguyên hàm của hàm số $f(x) = (x - 3)^2$ thỏa mãn $F(0) = 9$. Tính giá trị của biểu thức $T = \log_2 \left[ 3F(1) - 2F(2) \right]$.
+		 
+		
+		% CÂU 6 (Tương tự Câu 120)
+		\item Cho $F(x)$ là một nguyên hàm của hàm số $f(x) = 2x + 3\sqrt{x}$ thỏa mãn $F(1) = 0$. Tính $F(4)$.
+		 
+		
+		% CÂU 7 (Tương tự Câu 121)
+		\item Hàm số $F(x)$ là một nguyên hàm của hàm số $y = \dfrac{1}{x}$ trên $(-\infty; 0)$ thỏa mãn $F(-2) = 0$. Tính $F(-2e)$.
+		 
+		
+		% CÂU 8 (Tương tự Câu 122)
+		\item Cho hàm số $f(x) = \begin{cases} 2x - 1 & \text{khi } x \ge 1 \\ 3x^2 - 2 & \text{khi } x < 1 \end{cases}$, giả sử $F$ là nguyên hàm của $f$ trên $\mathbb{R}$ thỏa mãn $F(0) = 2$. Giá trị của $F(-1) + 2F(2)$ bằng bao nhiêu?
+		 
+		
+		% CÂU 9 (Tương tự Câu 123)
+		\item Cho hàm số $f(x) = \begin{cases} 2x + 3 & \text{khi } x \ge 1 \\ 3x^2 + 2 & \text{khi } x < 1 \end{cases}$. Giả sử $F$ là nguyên hàm của hàm số $f$ trên $\mathbb{R}$ thỏa mãn $F(0) = 2$. Giá trị của $F(-1) + 2F(2)$ bằng bao nhiêu?
+		 
+		
+		% CÂU 10 (Tương tự Câu 124)
+		\item Cho hàm số $f(x) = \begin{cases} 2x + 5 & \text{khi } x \ge 1 \\ 3x^2 + 4 & \text{khi } x < 1 \end{cases}$. Giả sử $F$ là nguyên hàm của $f$ trên $\mathbb{R}$ thỏa mãn $F(0) = 2$. Giá trị của $F(-1) + 2F(2)$ bằng bao nhiêu?
+		 
+		
+		% CÂU 11 (Tương tự Câu 125)
+		\item Cho hàm số $f(x) = \begin{cases} 2x + 2 & \text{khi } x \ge 1 \\ 3x^2 + 1 & \text{khi } x < 1 \end{cases}$. Giả sử $F$ là nguyên hàm của $f$ trên $\mathbb{R}$ thỏa mãn $F(0) = 2$. Giá trị của $F(-1) + 2F(2)$ bằng bao nhiêu?
+		 
+		
+		% CÂU 12 (Tương tự Câu 126)
+		\item Hàm số $F(x)$ là một nguyên hàm của hàm số $f(x) = \sin x + \cos x$ thỏa mãn $F\left(\dfrac{\pi}{2}\right) = 2$. Tính $F(\pi)$.
+		 
+		
+		% CÂU 13 (Tương tự Câu 127)
+		\item Hàm số $F(x)$ là một nguyên hàm của hàm số $f(x) = \sin x + 1$ thỏa mãn $F\left(\dfrac{\pi}{6}\right) = 0$. Biết $F\left(\dfrac{\pi}{3}\right) = \dfrac{a\pi + b\sqrt{3} + c}{6}$, với $a,b,c \in \mathbb{Z}$. Tính giá trị biểu thức $a + b - c$.
+		 
+		
+		% CÂU 14 (Tương tự Câu 128)
+		\item Hàm số $F(x)$ là một nguyên hàm của hàm số $f(x) = \sin x + 2\cos x$ thỏa mãn $F\left(\dfrac{\pi}{2}\right) = 0$. Tính $F(-\pi)$.
+		 
+		
+		% CÂU 15 (Tương tự Câu 129)
+		\item Hàm số $F(x)$ là một nguyên hàm của hàm số $f(x) = 2\sin x - \cos x$ thỏa mãn $F\left(\dfrac{\pi}{3}\right) = -\dfrac{\sqrt{3}}{2}$. Tính $F(-\pi)$.
+		 
+		% CÂU 16 (Tương tự Câu 130)
+		\item Biết $F(x)$ là một nguyên hàm của hàm số $f(x) = \sin x$ và đồ thị hàm số $y = F(x)$ đi qua điểm $M(0; 1)$. Tính $F\left(\dfrac{\pi}{2}\right)$.
+		
+		
+		% CÂU 17 (Tương tự Câu 131)
+		\item Cho $F(x)$ là một nguyên hàm của hàm số $f(x) = \dfrac{1}{\cos^2 x}$. Biết $F\left(\dfrac{\pi}{4} + k\pi\right) = k$ với mọi $k \in \mathbb{Z}$. Tính giá trị của biểu thức $T = F(0) + F(\pi) + F(2\pi)$.
+		
+		
+		% CÂU 18 (Tương tự Câu 132)
+		\item Cho $F(x)$ là một nguyên hàm của hàm số $f(x) = \sin x + \dfrac{1}{\cos^2 x}$ thỏa mãn $F\left(\dfrac{\pi}{4}\right) = \dfrac{\sqrt{2}}{2}$. Tính $F(0)$ (làm tròn kết quả đến hàng thập phân thứ nhất).
+		
+		
+		% CÂU 19 (Tương tự Câu 133)
+		\item Gọi $F(x)$ là một nguyên hàm của hàm số $f(x) = 2^x$, thỏa mãn $F(0) = \dfrac{1}{\ln 2}$. Biết $F(0) + F(1) + \dots + F(2024) + F(2025) = \dfrac{2^a + b}{\ln 2}$, với $a, b \in \mathbb{Z}$ và $\dfrac{a}{b}$ là phân số tối giản. Tính giá trị biểu thức $a - b$.
+		
+		
+		% CÂU 20 (Tương tự Câu 134 - Đổi e^{2x} thành hàm mũ đơn)
+		\item Biết $F(x)$ là một nguyên hàm của hàm số $f(x) = e^x \cdot e^x$ và $F(0) = 0$. Giá trị của $F(\ln 3)$ bằng bao nhiêu?
+		
+		
+		% CÂU 21 (Tương tự Câu 135)
+		\item Cho hàm số $f(x) = 2x + e^x$. Gọi $F(x)$ là một nguyên hàm của hàm số $f(x)$ thỏa mãn $F(0) = 2024$. Biết $F(2) = e^a + b$, với $a, b \in \mathbb{Z}$ và $\dfrac{a}{b}$ là phân số tối giản. Tính giá trị biểu thức $a + b$.
+		
+		
+		% CÂU 22 (Tương tự Câu 136 - Loại bỏ e^{2x} và e^{-x} bằng cách tách nhân)
+		\item Cho hàm số $f(x) = e^{x+2} + e^x - 2x$. Gọi $F(x)$ là một nguyên hàm của hàm số $f(x)$ thỏa mãn $F(0) = 1$. Biết $F(1) = e^a + e^b + c$, với $a, b, c \in \mathbb{Z}$. Tính giá trị biểu thức $a + b + c$.
+		
+		
+		% CÂU 23 (Tương tự Câu 137)
+		\item Cho hàm số $f(x) = 2^x + x + 1$. Gọi $F(x)$ là một nguyên hàm của hàm số $f(x)$ thỏa mãn $F(0) = 1$. Biết $F(-1) = \dfrac{a}{b} + \dfrac{c}{2\ln 2}$, với $a, b, c \in \mathbb{Z}$ và $\dfrac{a}{b}$ là phân số tối giản. Tính giá trị biểu thức $a + b + c$.
+		
+		
+		% CÂU 24 (Tương tự Câu 138 - Loại bỏ hàm hợp e^{2x})
+		\item Cho $F(x) = (ax^2 + bx + c)e^x$ là một nguyên hàm của hàm số $f(x) = x^2 \cdot e^x$. Tính tổng $a + b + 2c$.
+		
+		
+		% CÂU 25 (Tương tự Câu 139 - Loại bỏ hàm hợp)
+		\item Biết $F(x) = e^x + 2x^2$ là một nguyên hàm của hàm số $f(x)$ trên $\mathbb{R}$. Giả sử $G(x)$ là một nguyên hàm của hàm số $f(x) + x\cos x$. Khi đó $G(2) - G(0) = a \cdot e^b + c$, với $a, b, c \in \mathbb{Q}$. Tính $a \cdot b \cdot c$.
+		
+		
+		% CÂU 26 (Tương tự Câu 140 - Loại bỏ e^{-2x})
+		\item Cho hàm số $F(x) = (ax^2 + bx + c)e^x$ là một nguyên hàm của hàm số $f(x) = (x^2 - 8x + 7)e^x$. Tính tổng $a + b + c$.
+		
+		
+		% CÂU 27 (Tương tự Câu 141)
+		\item Cho $F(x)$ là một nguyên hàm của hàm số $f(x) = ax + \dfrac{b}{x^2}$ $(x \neq 0)$, với $a, b \in \mathbb{Q}$. Biết rằng $F(-1) = 1, F(1) = 4, f(1) = 0$, tính tổng $a + b$.
+		
+		
+		% CÂU 28 (Sáng tác thêm: Tìm tham số - lượng giác)
+		\item Cho $F(x) = a\sin x + b\cos x + x$ là một nguyên hàm của hàm số $f(x) = 2\cos x - 3\sin x + 1$. Tính giá trị của $T = a^2 - b^2$.
+		
+		
+		% CÂU 29 (Sáng tác thêm: Dãy tổng mũ)
+		\item Gọi $F(x)$ là nguyên hàm của hàm số $f(x) = 3^x$, thỏa mãn $F(0) = \dfrac{1}{\ln 3}$. Tính giá trị của tổng $S = F(1) + F(2) + \dots + F(10)$ (viết kết quả dưới dạng $\dfrac{3^a - b}{2\ln 3}$). Tính $a + b$.
+		
+		
+		% CÂU 30 (Sáng tác thêm: Phân thức và logarit)
+		\item Cho $F(x)$ là một nguyên hàm của $f(x) = \dfrac{x^2 - 1}{x^2}$ trên $(0; +\infty)$ thỏa mãn $F(1) = 0$. Biết phương trình $F(x) = x$ có một nghiệm duy nhất $x_0$. Tính $x_0$.
+		
+		
+		% CÂU 31 (Sáng tác thêm: Sự tương giao của F(x) và f(x))
+		\item Cho $F(x)$ là nguyên hàm của $f(x) = e^x - 1$ thỏa mãn $F(0) = 2$. Tính hoành độ giao điểm của đồ thị hàm số $y = F(x)$ và đường thẳng $y = e^x + 1$.
+		
+		
+		% CÂU 32 (Sáng tác thêm: Đồng nhất hệ số với e^x)
+		\item Biết nguyên hàm của hàm số $f(x) = (2x - 3)e^x$ có dạng $F(x) = (ax + b)e^x + C$. Tính $P = a \cdot b$.
+		
+		
+		% CÂU 33 (Sáng tác thêm: Nguyên hàm có điều kiện và Lượng giác)
+		\item Gọi $F(x)$ là một nguyên hàm của hàm số $f(x) = \dfrac{2}{\cos^2 x} - 1$ thỏa mãn $F(0) = 1$. Tính $F\left(\dfrac{\pi}{4}\right)$.
+		
+		
+		% CÂU 34 (Sáng tác thêm: Hàm phân nhánh và diện tích tam giác)
+		\item Cho hàm số $f(x) = \begin{cases} 2x & \text{khi } x \ge 0 \\ x^2 & \text{khi } x < 0 \end{cases}$. Gọi $F(x)$ là nguyên hàm của $f(x)$ trên $\mathbb{R}$ thỏa mãn $F(1) = 2$. Tính diện tích tam giác $OAB$, với $O$ là gốc tọa độ, $A(0; F(0))$ và $B(-1; F(-1))$.
+		
+		
+		% CÂU 35 (Sáng tác thêm: Ứng dụng F'(x)=f(x) tìm cực trị)
+		\item Cho $F(x)$ là một nguyên hàm của hàm số $f(x) = x^2 - 3x + 2$. Điểm cực đại của đồ thị hàm số $y = F(x)$ có hoành độ bằng bao nhiêu?
+		
+		% CÂU 36 (Chia đa thức cho đơn thức)
+		\item Cho $F(x)$ là một nguyên hàm của hàm số $f(x) = \dfrac{x^3 - 3x^2 + 2}{x^2}$ trên $(0; +\infty)$ thỏa mãn $F(1) = 0$. Tính giá trị của $F(2)$.
+		
+		
+		% CÂU 37 (Khai triển hằng đẳng thức)
+		\item Cho $F(x)$ là một nguyên hàm của hàm số $f(x) = (2x - 1)^2$ thỏa mãn $F(0) = 1$. Tính giá trị của $F(1)$ (viết kết quả dưới dạng phân số tối giản).
+		
+		
+		% CÂU 38 (Nhân phân phối căn thức)
+		\item Cho $F(x)$ là một nguyên hàm của hàm số $f(x) = \sqrt{x} \left( x - \dfrac{1}{\sqrt{x}} \right)$ trên $(0; +\infty)$ thỏa mãn $F(1) = \dfrac{3}{5}$. Tính giá trị của $F(4)$.
+		
+		
+		% CÂU 39 (Tách phân thức chứa căn)
+		\item Cho $F(x)$ là một nguyên hàm của hàm số $f(x) = \dfrac{x + 1}{\sqrt{x}}$ trên $(0; +\infty)$ thỏa mãn $F(1) = \dfrac{8}{3}$. Tính giá trị của $F(9)$.
+		
+		
+		% CÂU 40 (Nguyên hàm hàm mũ cơ bản)
+		\item Cho $F(x)$ là một nguyên hàm của hàm số $f(x) = e^x + 2^x$ thỏa mãn $F(1) = e + \dfrac{2}{\ln 2} - 1$. Tính giá trị của biểu thức $P = F(0) \cdot \ln 2$.
+		
+		
+		% CÂU 41 (Biến đổi cơ số mũ)
+		\item Cho $F(x)$ là một nguyên hàm của hàm số $f(x) = 2^x \cdot 3^x$ thỏa mãn $F(1) = \dfrac{6}{\ln 6}$. Tính giá trị của biểu thức $T = F(2) \cdot \ln 6$.
+		
+		
+		% CÂU 42 (Tách phân thức lượng giác)
+		\item Cho $F(x)$ là một nguyên hàm của hàm số $f(x) = \dfrac{2}{\sin^2 x} - \dfrac{3}{\cos^2 x}$ trên $\left(0; \dfrac{\pi}{2}\right)$ thỏa mãn $F\left(\dfrac{\pi}{4}\right) = 0$. Tính $F\left(\dfrac{\pi}{6}\right)$.
+		
+		
+		% CÂU 43 (Hằng đẳng thức lượng giác)
+		\item Cho $F(x)$ là một nguyên hàm của hàm số $f(x) = \tan^2 x$ trên $\left(-\dfrac{\pi}{2}; \dfrac{\pi}{2}\right)$ thỏa mãn $F(0) = 1$. Biết $F\left(\dfrac{\pi}{4}\right) = a - \dfrac{\pi}{b}$ với $a, b \in \mathbb{N}^*$. Tính $a + b$.
+		
+		
+		% CÂU 44 (Hàm phân nhánh - Đa thức)
+		\item Cho hàm số $f(x) = \begin{cases} 3x^2 & \text{khi } x \ge 1 \\ 4x - 1 & \text{khi } x < 1 \end{cases}$. Giả sử $F(x)$ là nguyên hàm của $f(x)$ trên $\mathbb{R}$ thỏa mãn $F(0) = 1$. Tính giá trị của $F(2)$.
+		
+		
+		% CÂU 45 (Hàm phân nhánh - Lượng giác + Đa thức)
+		\item Cho hàm số $f(x) = \begin{cases} \cos x & \text{khi } x \ge 0 \\ 2x + 1 & \text{khi } x < 0 \end{cases}$. Giả sử $F(x)$ là nguyên hàm của $f(x)$ trên $\mathbb{R}$ thỏa mãn $F(\pi) = 0$. Tính giá trị của $F(-2)$.
+		
+		
+		% CÂU 46 (Hàm phân nhánh - Mũ + Đa thức)
+		\item Cho hàm số $f(x) = \begin{cases} e^x & \text{khi } x \ge 0 \\ x^2 + 1 & \text{khi } x < 0 \end{cases}$. Giả sử $F(x)$ là nguyên hàm của $f(x)$ trên $\mathbb{R}$ thỏa mãn $F(1) = e$. Tính giá trị của $F(-3)$.
+		
+		
+		% CÂU 47 (Tìm tham số nguyên hàm)
+		\item Biết rằng họ nguyên hàm của hàm số $f(x) = ax^2 + bx + c$ là $F(x) = x^3 - 2x^2 + 5x + C$. Tính tổng $S = a + b + c$.
+		
+		
+		% CÂU 48 (Tư duy ngược: đạo hàm tích)
+		\item Biết $F(x) = (x^2 - 3x + 1)e^x$ là một nguyên hàm của hàm số $f(x)$ trên $\mathbb{R}$. Tính giá trị của biểu thức $P = \dfrac{f(1)}{e}$.
+		
+		
+		% CÂU 49 (Ứng dụng F'(x)=f(x) tìm cực trị)
+		\item Cho $F(x)$ là một nguyên hàm của hàm số $f(x) = x^2 - 5x + 6$. Điểm cực đại của đồ thị hàm số $y = F(x)$ có hoành độ bằng bao nhiêu?
+		
+		
+		% CÂU 50 (Ứng dụng F'(x)=f(x) khoảng cách cực trị)
+		\item Cho $F(x)$ là một nguyên hàm của hàm số $f(x) = 3x^2 - 12x$. Gọi $x_1, x_2$ lần lượt là hoành độ điểm cực đại và cực tiểu của đồ thị hàm số $y = F(x)$. Tính khoảng cách $|x_1 - x_2|$.
+		
+		
+		% CÂU 51 (Tìm nghiệm phương trình)
+		\item Cho $F(x)$ là một nguyên hàm của hàm số $f(x) = \dfrac{1}{x^2} - 1$ trên $(0; +\infty)$ thỏa mãn $F(1) = 0$. Phương trình $F(x) = 0$ có một nghiệm duy nhất $x_0$. Tính $x_0$.
+		
+		
+		% CÂU 52 (Dãy tổng kết hợp ln và nguyên hàm mũ)
+		\item Gọi $F(x)$ là nguyên hàm của hàm số $f(x) = e^{x+1}$ trên $\mathbb{R}$ thỏa mãn $F(0) = e$. Tính giá trị của tổng $S = \ln(F(1)) + \ln(F(2)) + \dots + \ln(F(10))$.
+		
+		
+		% CÂU 53 (Giá trị cực đại của nguyên hàm lượng giác)
+		\item Cho $F(x)$ là nguyên hàm của hàm số $f(x) = \sin x + \cos x$ thỏa mãn $F(0) = 1$. Giá trị lớn nhất của hàm số $F(x)$ trên $\mathbb{R}$ có dạng $\sqrt{a} + b$ với $a, b \in \mathbb{N}^*$. Tính $a + b$.
+		
+		
+		% CÂU 54 (Hàm phân nhánh chứa trị tuyệt đối)
+		\item Cho hàm số $f(x) = |x - 1|$. Gọi $F(x)$ là nguyên hàm của $f(x)$ trên $\mathbb{R}$ thỏa mãn $F(1) = 0$. Tính giá trị của $S = F(3) + F(0)$ (viết kết quả dưới dạng phân số tối giản).
+		
+		
+		% CÂU 55 (Ứng dụng tiếp tuyến)
+		\item Cho $F(x)$ là một nguyên hàm của hàm số $f(x) = 2x - 3$. Biết tiếp tuyến của đồ thị hàm số $y = F(x)$ tại điểm có hoành độ $x = 2$ có phương trình là $y = x + 3$. Tính $F(0)$.
+		
+		% CÂU 56 (Khai triển HĐT và chia đơn thức)
+		\item Cho $F(x)$ là một nguyên hàm của hàm số $f(x) = \dfrac{(x-2)^2}{x^2}$ trên khoảng $(0; +\infty)$ thỏa mãn $F(1) = 0$. Biết $F(2) = a - b\ln 2$ với $a, b \in \mathbb{Z}$. Tính tổng $a + b$.
+		
+		
+		% CÂU 57 (Nguyên hàm đa thức và đồ thị đi qua gốc tọa độ)
+		\item Gọi $F(x)$ là một nguyên hàm của hàm số $f(x) = x^2(x - 3)$. Biết đồ thị hàm số $y = F(x)$ đi qua gốc tọa độ $O$. Tính giá trị của $F(2)$.
+		
+		
+		% CÂU 58 (Tách phân thức lượng giác)
+		\item Cho $F(x)$ là nguyên hàm của hàm số $f(x) = \dfrac{2 - \cos^3 x}{\cos^2 x}$ trên khoảng $\left(0; \dfrac{\pi}{2}\right)$ thỏa mãn $F(0) = 1$. Tính giá trị của biểu thức $T = F\left(\dfrac{\pi}{4}\right) + \dfrac{\sqrt{2}}{2}$.
+		
+		
+		% CÂU 59 (Rút gọn phân thức mũ)
+		\item Cho $F(x)$ là một nguyên hàm của hàm số $f(x) = \dfrac{e^{2x} - 1}{e^x + 1}$. Biết $F(0) = 1$, tính giá trị của biểu thức $F(2) - e^2$.
+		
+		
+		% CÂU 60 (Rút gọn phân thức chứa căn)
+		\item Tính giá trị của biểu thức $F(4)$ biết $F(x)$ là một nguyên hàm của hàm số $f(x) = \dfrac{x^2 + x}{\sqrt{x}}$ trên $(0; +\infty)$ và $F(1) = \dfrac{16}{15}$.
+		
+		
+		% CÂU 61 (HĐT lượng giác kết hợp)
+		\item Cho $F(x)$ là một nguyên hàm của hàm số $f(x) = (\tan x + \cot x)^2$ trên khoảng $\left(0; \dfrac{\pi}{2}\right)$. Biết $F\left(\dfrac{\pi}{4}\right) = 0$, hãy tính $F\left(\dfrac{\pi}{3}\right)$ (kết quả làm tròn đến hai chữ số thập phân, biết $\sqrt{3} \approx 1,73$).
+		
+		
+		% CÂU 62 (Ứng dụng: Quãng đường di chuyển)
+		\item Một vật chuyển động thẳng có vận tốc $v(t) = 3t^2 + 4t$ (m/s). Gọi $s(t)$ là phương trình quãng đường vật đi được. Tính quãng đường vật di chuyển được trong khoảng thời gian từ $t = 1$ (giây) đến $t = 3$ (giây).
+		
+		
+		% CÂU 63 (Tư duy ngược: Đạo hàm F(x))
+		\item Biết $F(x) = \dfrac{1}{x} + \ln x$ là một nguyên hàm của hàm số $f(x)$ trên $(0; +\infty)$. Tính giá trị của $f(2)$.
+		
+		
+		% CÂU 64 (Khoảng cách 2 điểm cực trị trên trục hoành)
+		\item Cho $F(x)$ là một nguyên hàm của hàm số $f(x) = x^2 - 4x + 3$. Đồ thị hàm số $y = F(x)$ có hai điểm cực trị. Khoảng cách giữa hai điểm cực trị đó trên trục hoành bằng bao nhiêu?
+		
+		
+		% CÂU 65 (Hàm phân nhánh)
+		\item Cho hàm số $f(x) = \begin{cases} x & \text{khi } x \ge 0 \\ x^2 & \text{khi } x < 0 \end{cases}$. Gọi $F$ là nguyên hàm của $f$ trên $\mathbb{R}$ thỏa mãn $F(2) = 3$. Tính giá trị của $F(-3)$.
+		
+		
+		% CÂU 66 (Bài toán nguyên hàm chứa tham số)
+		\item Gọi $F(x)$ là một nguyên hàm của hàm số $f(x) = 2x + \dfrac{a}{x^2}$ trên khoảng $(0; +\infty)$ với $a$ là số thực. Biết $F(1) = 1$ và $F(2) = 5$. Tìm giá trị của $a$.
+		
+		
+		% CÂU 67 (Tách phân thức có tử bậc cao)
+		\item Cho $F(x)$ là một nguyên hàm của hàm số $f(x) = \dfrac{x^4 - 2x^3 + 1}{x^2}$ trên $(0; +\infty)$ thỏa mãn $F(1) = \dfrac{1}{3}$. Biết $F(2) = \dfrac{a}{b}$ với $\dfrac{a}{b}$ là phân số tối giản. Tính $a - b$.
+		
+		
+		% CÂU 68 (Sự tương giao của tiếp tuyến với cực trị nguyên hàm)
+		\item Biết $F(x) = x^3 - 3x + C$ là một nguyên hàm của hàm số $f(x)$. Biết đồ thị hàm số $y = F(x)$ tiếp xúc với đường thẳng $y = 5$. Gọi $S$ là tập hợp các giá trị của $C$ thỏa mãn yêu cầu bài toán. Tính tổng các phần tử của $S$.
+		
+		
+		% CÂU 69 (Tách phân thức hàm mũ và x)
+		\item Cho hàm số $F(x)$ là nguyên hàm của $f(x) = \dfrac{x^3 \cdot 2^x + 1}{x^3}$ trên khoảng $(0; +\infty)$ thỏa mãn $F(1) = \dfrac{2}{\ln 2}$. Tính giá trị của $F(2) - \dfrac{4}{\ln 2}$ (viết kết quả dưới dạng số thập phân).
+		
+		
+		% CÂU 70 (Hằng đẳng thức bậc 3)
+		\item Cho $F(x)$ là một nguyên hàm của hàm số $f(x) = (x - 1)^3$. Tính giá trị của biểu thức $F(2) - F(0)$.
+
+
+	\end{enumerate}
+	
+	\newpage
+	
+	% =====================
+	% PHẦN 6: TỔNG KẾT BÀI
+	% =====================
+	\section{Tổng kết bài}
+	
+	\begin{tcolorbox}[colback=yellow!10!white, colframe=orange!60!black,
+		fonttitle=\bfseries, title={Tóm tắt sơ đồ tư duy \& Các lỗi thường gặp}]
+		\begin{itemize}
+			\item \textbf{Khái niệm:} Đừng quên hằng số $C$ khi tìm \textbf{họ nguyên hàm}. Thiếu $+ C$ là một trong những lỗi trừ điểm phổ biến nhất.
+			\item \textbf{Lỗi đạo hàm - nguyên hàm:} Học sinh hay nhầm lẫn giữa công thức đạo hàm và nguyên hàm (ví dụ: nguyên hàm của $\sin x$ là $-\cos x$, nhưng đạo hàm của $\sin x$ là $\cos x$).
+			\item \textbf{Bài toán có điều kiện:} Dùng dữ kiện $F(x_0) = k$ để tìm ra hằng số $C$ cụ thể, từ đó suy ra hàm $F(x)$ duy nhất.
+		\end{itemize}
+	\end{tcolorbox}
+	
+	\vspace{3mm}
+	\textbf{Yêu cầu hoàn thành tự học:} Học sinh hoàn thành các phần bài tập được giao tùy theo năng lực học tập và ghi chú lại những câu hỏi chưa tự giải quyết được để trao đổi vào buổi học tiếp theo.
+	
+\end{document}

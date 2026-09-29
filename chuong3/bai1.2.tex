@@ -1,0 +1,358 @@
+\documentclass[12pt]{article}
+
+% === CÀI ĐẶT TRANG ===
+\usepackage[margin=2cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T5]{fontenc}
+\usepackage[vietnamese]{babel}
+
+% === TOÁN HỌC ===
+\usepackage{amsmath, amssymb, amsthm}
+
+% === HÌNH VẼ ===
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{tikz}
+\usetikzlibrary{patterns} 
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+% === ĐỊNH DẠNG ===
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage[most]{tcolorbox}
+\usepackage{multicol}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{fancyhdr}
+\usepackage{tocloft}
+\usepackage[hidelinks]{hyperref}
+
+% === LỆNH TỰ ĐỊNH NGHĨA ===
+\newcommand{\otraloi}{\underline{\hspace{5cm}}}
+
+% === TCOLORBOX STYLES ===
+\tcbuselibrary{breakable, skins, fitting}
+
+% Ví dụ
+\newtcolorbox{vidu}[1][1]{
+	colback=blue!5!white, colframe=blue!60!black,
+	fonttitle=\bfseries, title={Ví dụ #1},
+	breakable, enhanced
+}
+
+% Lời giải
+\newtcolorbox{loigiai}{
+	colback=gray!8!white, colframe=gray!50!black,
+	fonttitle=\bfseries, title={Lời giải},
+	breakable, enhanced
+}
+
+% === HEADER/FOOTER ===
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small \textbf{Bài tập thực tế ứng dụng Vector trong không gian}}
+\fancyhead[R]{\small Lớp: 12}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% ================================================
+\begin{document}
+	
+	\begin{center}
+		{\Large\bfseries CHUYÊN ĐỀ II -- VECTOR TRONG KHÔNG GIAN}\\[4pt]
+		{\Large \textbf{BÀI 1.2: Bài tập thực tế ứng dụng Vector trong không gian}}\\[4pt]
+		{\large Môn: Toán \quad Lớp: 12}
+	\end{center}
+	\vspace{4mm}
+	\hrule
+	\vspace{4mm}
+	
+	% ===========================
+	% PHẦN 1: MỤC TIÊU BÀI HỌC
+	% ===========================
+	\section*{Mục tiêu bài học}
+	\addcontentsline{toc}{section}{Mục tiêu bài học}
+	
+	\textbf{1. Kiến thức:}
+	\begin{itemize}
+		\item Nắm vững cách mô hình hóa các đại lượng vật lý có hướng (lực, vận tốc, trọng lực) bằng vectơ trong không gian.
+		\item Hiểu được nguyên lý tổng hợp lực, sự cân bằng lực và công của lực thông qua các phép toán vectơ (cộng, trừ, tích vô hướng).
+	\end{itemize}
+	
+	\noindent\textbf{2. Kĩ năng:}
+	\begin{itemize}
+		\item Chuyển đổi bài toán thực tế về bài toán hình học không gian sử dụng vectơ.
+		\item Vận dụng linh hoạt quy tắc hình hộp, quy tắc trọng tâm để giải quyết các bài toán cân bằng lực của hệ giằng, hệ cáp treo trong không gian.
+		\item Tính toán được công cơ học thông qua tích vô hướng của vectơ lực và vectơ độ dời.
+	\end{itemize}
+	
+	\noindent\textbf{3. Thái độ / Phẩm chất:}
+	\begin{itemize}
+		\item Nhận thức được mối liên hệ mật thiết giữa Toán học và Vật lý, Kỹ thuật.
+		\item Cẩn thận, tư duy logic và thực tế trong việc phân tích lực.
+	\end{itemize}
+	
+	\newpage
+	
+	% =====================
+	% PHẦN 2: MỤC LỤC
+	% =====================
+	\setcounter{tocdepth}{2}
+	\tableofcontents
+	\newpage
+	
+	% =====================
+	% PHẦN 3: LÝ THUYẾT (PHƯƠNG PHÁP GIẢI TOÁN)
+	% =====================
+	\section{Lý thuyết (Phương pháp mô hình hóa)}
+	
+	\subsection{Mô hình hóa các đại lượng Vật lý bằng Vectơ}
+	
+	\begin{itemize}
+		\item \textbf{Lực, Vận tốc, Gia tốc:} Các đại lượng này có hướng và độ lớn, được biểu diễn bằng các vectơ trong không gian. Độ dài vectơ tỉ lệ với độ lớn của đại lượng.
+		\item \textbf{Hệ lực cân bằng:} Một vật đứng yên (hoặc chuyển động thẳng đều) dưới tác dụng của các lực $\vec{F}_1, \vec{F}_2, \dots, \vec{F}_n$ khi và chỉ khi tổng hợp lực tác dụng lên vật bằng $\vec{0}$:
+		$$ \vec{F}_1 + \vec{F}_2 + \dots + \vec{F}_n = \vec{0} $$
+		\item \textbf{Công cơ học:} Công $A$ sinh ra bởi một lực $\vec{F}$ làm vật di chuyển một đoạn đường biểu diễn bởi vectơ độ dời $\vec{d}$ được tính bằng tích vô hướng:
+		$$ A = \vec{F} \cdot \vec{d} = |\vec{F}| \cdot |\vec{d}| \cdot \cos(\vec{F}, \vec{d}) $$
+	\end{itemize}
+	
+	\begin{figure}[H]
+		\centering
+		\begin{tikzpicture}[scale=1.2, line cap=round, line join=round]
+			% Mô phỏng vật treo bởi 3 sợi dây
+			\coordinate (O) at (0,0);
+			\coordinate (F1) at (-1.5, 2);
+			\coordinate (F2) at (0.5, 2.5);
+			\coordinate (F3) at (2, 1.5);
+			\coordinate (P) at (0, -2);
+			
+			% Vật nặng
+			\fill[gray!50] (-0.3, -0.3) rectangle (0.3, 0.3);
+			\draw[thick] (-0.3, -0.3) rectangle (0.3, 0.3);
+			\fill (O) circle (2pt) node[right, yshift=-4pt] {$O$};
+			
+			% Các lực căng dây
+			\draw[-stealth, very thick, blue] (O) -- (F1) node[above left] {$\vec{F}_1$};
+			\draw[-stealth, very thick, blue] (O) -- (F2) node[above] {$\vec{F}_2$};
+			\draw[-stealth, very thick, blue] (O) -- (F3) node[above right] {$\vec{F}_3$};
+			
+			% Trọng lực
+			\draw[-stealth, very thick, red] (O) -- (P) node[right] {$\vec{P}$};
+			
+			% Trần nhà
+			\draw[thick] (-2, 2.8) -- (3, 2.8);
+			\fill[pattern=north east lines] (-2, 2.8) rectangle (3, 3);
+			
+			% Dây treo
+			\draw[dashed] (F1) -- (-1.8, 2.8);
+			\draw[dashed] (F2) -- (0.6, 2.8);
+			\draw[dashed] (F3) -- (2.5, 2.8);
+		\end{tikzpicture}
+		\caption{Mô hình vật cân bằng dưới tác dụng của 3 lực căng dây và trọng lực}
+	\end{figure}
+	
+	\begin{vidu}[1]
+		Một vật nặng có khối lượng $m = 10 \text{ kg}$ được treo cân bằng bởi ba sợi dây không dãn. Biết hệ thống ba lực căng dây $\vec{F}_1, \vec{F}_2, \vec{F}_3$ tác dụng lên vật đôi một vuông góc với nhau và độ lớn của $\vec{F}_1, \vec{F}_2$ lần lượt là $30 \text{ N}$ và $40 \text{ N}$. Tính độ lớn lực căng dây $\vec{F}_3$. Lấy $g = 10 \text{ m/s}^2$.
+	\end{vidu}
+	
+	\begin{loigiai}
+		Trọng lượng của vật là: $P = m \cdot g = 10 \cdot 10 = 100 \text{ (N)}$.
+		Vectơ trọng lực $\vec{P}$ có phương thẳng đứng, hướng xuống dưới.
+		
+		Vật ở trạng thái cân bằng nên tổng hợp các lực tác dụng lên vật bằng $\vec{0}$:
+		$$ \vec{F}_1 + \vec{F}_2 + \vec{F}_3 + \vec{P} = \vec{0} \Leftrightarrow \vec{F}_1 + \vec{F}_2 + \vec{F}_3 = -\vec{P} $$
+		Gọi $\vec{F} = \vec{F}_1 + \vec{F}_2 + \vec{F}_3$ là hợp lực của 3 lực căng dây. Ta có $\vec{F} = -\vec{P}$, suy ra $|\vec{F}| = |\vec{P}| = 100 \text{ (N)}$.
+		
+		Vì ba lực $\vec{F}_1, \vec{F}_2, \vec{F}_3$ đôi một vuông góc, ta có thể áp dụng quy tắc hình hộp chữ nhật (định lý Pytago không gian) cho độ lớn hợp lực:
+		$$ |\vec{F}|^2 = |\vec{F}_1|^2 + |\vec{F}_2|^2 + |\vec{F}_3|^2 $$
+		Thay số vào ta được:
+		$$ 100^2 = 30^2 + 40^2 + |\vec{F}_3|^2 $$
+		$$ 10000 = 900 + 1600 + |\vec{F}_3|^2 \Rightarrow |\vec{F}_3|^2 = 7500 $$
+		$$ \Rightarrow |\vec{F}_3| = \sqrt{7500} = 50\sqrt{3} \approx 86,6 \text{ (N)} $$
+		Vậy độ lớn lực căng dây thứ ba là $50\sqrt{3} \text{ N}$.
+	\end{loigiai}
+	
+	\newpage
+	
+	% =====================
+	% PHẦN 4: BÀI TẬP TỰ LUẬN
+	% =====================
+	\section{Bài tập Đúng, sai}
+	
+	\noindent \textbf{Câu 1:} Một vật khối lượng $m = 10 \text{ (kg)}$ trượt trên mặt phẳng nghiêng so với mặt đất một góc $30^\circ$ từ độ cao $HK = 1,5 \text{ (m)}$. Giả sử mặt phẳng nghiêng không có ma sát và vật chỉ bị tác dụng bởi trọng lực $\vec{P} = m \cdot \vec{g}$ với $\vec{g}$ là vectơ gia tốc rơi tự do của vật có độ lớn được lấy bằng $10 \text{ (m/s}^2)$.
+	\begin{figure}[H]
+		\centering
+		% Thay thế lệnh \fbox bằng \includegraphics[width=...]{tên_file_ảnh} khi bạn có ảnh
+		\includegraphics[width = 200px]{anh1.2.1.png}
+	\end{figure}
+	Xét tính đúng sai của các mệnh đề sau:
+	\begin{enumerate}[label=\alph*)]
+		\item Hướng chuyển động của vật là cùng hướng với vectơ $\overrightarrow{MH}$.
+		\item Chiều dài quãng đường $HM$ là $3 \text{ (m)}$.
+		\item Độ lớn của trọng lực $\vec{P}$ là $100 \text{ (N)}$.
+		\item Cho biết công $A$ (đơn vị J) sinh bởi lực $\vec{F}$ (đơn vị N) làm vật dịch chuyển một đoạn thẳng từ $C$ đến $D$ có độ dài tính bằng mét, được tính theo công thức $A = \vec{F} \cdot \overrightarrow{CD}$. Vậy công của trọng lực $\vec{P}$ làm vật ở trên trượt từ vị trí $H$ đến $M$ bằng $150\sqrt{3} \text{ (J)}$.
+	\end{enumerate}
+	
+	\vspace{0.4cm}
+	\noindent \textbf{Câu 2:} Một chiếc đèn chùm treo có khối lượng $m = 5 \text{ kg}$ được thiết kế với đĩa đèn được giữ bởi bốn đoạn xích $SA, SB, SC, SD$ sao cho $S.ABCD$ là hình chóp tứ giác đều có $\widehat{ASC} = 60^\circ$ (Hình vẽ bên). Biết $\vec{P} = m\vec{g}$ trong đó $\vec{g}$ là vectơ gia tốc rơi tự do có độ lớn $10 \text{ m/s}^2$, $\vec{P}$ là trọng lực tác động vật có đơn vị là N, $m$ là khối lượng của vật có đơn vị kg.
+	\begin{figure}[H]
+		\centering
+		% Thay thế lệnh \fbox bằng \includegraphics[width=...]{tên_file_ảnh} khi bạn có ảnh
+		\includegraphics[width = 200px]{anh1.2.2.png}
+	\end{figure}
+	Khi đó xét tính đúng sai của các mệnh đề sau:
+	\begin{enumerate}[label=\alph*)]
+		\item $\overrightarrow{SA}, \overrightarrow{SB}, \overrightarrow{SC}, \overrightarrow{SD}$ là $4$ vectơ đồng phẳng.
+		\item $|\overrightarrow{SA}| = |\overrightarrow{SB}| = |\overrightarrow{SC}| = |\overrightarrow{SD}|$.
+		\item Độ lớn của trọng lực $\vec{P}$ tác động lên chiếc đèn chùm bằng $50 \text{ N}$.
+		\item Độ lớn của lực căng cho mỗi sợi xích bằng $\frac{25\sqrt{3}}{2} \text{ N}$.
+	\end{enumerate}
+	
+	\vspace{0.4cm}
+	\noindent \textbf{Câu 3:} Một vật nặng $O$ được kéo từ ba hướng như hình vẽ và chịu tác dụng của $3$ lực $\vec{F}_1, \vec{F}_2, \vec{F}_3$, có độ lớn lần lượt là $24\text{ N}, 12\text{ N}, 6\text{ N}$. Biết góc tạo bởi $2$ lực $\vec{F}_1, \vec{F}_2$ là $120^\circ$ và lực thứ ba vuông góc với hai lực đầu tiên.
+	\begin{figure}[H]
+		\centering
+		% Thay thế lệnh \fbox bằng \includegraphics[width=...]{tên_file_ảnh} khi bạn có ảnh
+		\includegraphics[width = 200px]{anh1.2.3.png}
+	\end{figure}
+	Xét tính đúng sai của các mệnh đề sau:
+	\begin{enumerate}[label=\alph*)]
+		\item $\overrightarrow{BO} + \overrightarrow{BA} = \overrightarrow{BD}$.
+		\item $\overrightarrow{OE} = \overrightarrow{OA} + \overrightarrow{OB} + \overrightarrow{OC}$.
+		\item Độ dài của vectơ $\overrightarrow{OD}$ là $|\overrightarrow{OD}| = 12\sqrt{7}$.
+		\item Độ lớn hợp lực tác dụng vào vật $O$ là $6\sqrt{13} \text{ N}$.
+	\end{enumerate}
+	
+	\section{Hệ thống bài tập tự luận}
+	
+	\noindent \textbf{Câu 1:} Ba lực cùng tác động vào một vật. Hai trong ba lực này hợp với nhau một góc $100^\circ$ và có độ lớn lần lượt là $25\text{ N}$ và $12\text{ N}$. Lực thứ ba vuông góc với mặt phẳng tạo bởi hai lực đã cho và có độ lớn $4\text{ N}$. Tính độ lớn của hợp lực của ba lực trên (kết quả làm tròn đến hàng đơn vị).
+	\begin{figure}[H]
+		\centering
+		% Thay thế lệnh \fbox bằng \includegraphics[width=...]{tên_file_ảnh} khi bạn có ảnh
+		\includegraphics[width = 200px]{anh1.2.4.png}
+	\end{figure}
+	
+	\vspace{0.4cm}
+	\noindent \textbf{Câu 2:} Một chiếc đèn tròn được treo song song với mặt phẳng nằm ngang bởi ba sợi dây không dãn, xuất phát từ điểm $O$ trên trần nhà và lần lượt buộc vào ba điểm $A, B, C$ trên đèn tròn sao cho các lực căng $\vec{F}_1, \vec{F}_2, \vec{F}_3$ lần lượt trên mỗi dây $OA, OB, OC$ đôi một vuông góc với nhau và $|\vec{F}_1| = |\vec{F}_2| = |\vec{F}_3| = 15 \text{ (N)}$. Tính trọng lượng của chiếc đèn tròn đó.
+	\begin{figure}[H]
+		\centering
+		% Thay thế lệnh \fbox bằng \includegraphics[width=...]{tên_file_ảnh} khi bạn có ảnh
+		\includegraphics[width = 100px]{anh1.2.5.png}
+	\end{figure}
+	
+	\vspace{0.4cm}
+	\noindent \textbf{Câu 3:} Có ba lực cùng tác động vào một cái bàn như hình vẽ. Trong đó hai lực $\vec{F}_1, \vec{F}_2$ có giá nằm trên mặt phẳng chứa mặt bàn, tạo với nhau một góc $110^\circ$ và có độ lớn lần lượt là $9 \text{ (N)}$ và $4 \text{ (N)}$, lực $\vec{F}_3$ vuông góc với mặt bàn và có độ lớn $7 \text{ (N)}$. Độ lớn hợp lực của ba lực trên là $a \text{ (N)}$, tìm giá trị của $a$ (kết quả quy tròn về số nguyên).
+	\begin{figure}[H]
+		\centering
+		% Thay thế lệnh \fbox bằng \includegraphics[width=...]{tên_file_ảnh} khi bạn có ảnh
+		\includegraphics[width = 200px]{anh1.2.6.png}
+	\end{figure}
+	
+	\vspace{0.4cm}
+	\noindent \textbf{Câu 4:} Treo một vật nặng có trọng lượng $30\text{ N}$ bởi ba sợi dây giống hệt nhau, các sợi dây đôi một tạo với nhau một góc $90^\circ$ (như hình vẽ). Gọi $\vec{F}_1; \vec{F}_2; \vec{F}_3$ lần lượt là lực căng của ba sợi dây nói trên. Độ lớn của lực $F_1$ bằng bao nhiêu? (làm tròn kết quả đến hàng đơn vị).
+	\begin{figure}[H]
+		\centering
+		% Thay thế lệnh \fbox bằng \includegraphics[width=...]{tên_file_ảnh} khi bạn có ảnh
+		\includegraphics[width = 200px]{anh1.2.7.png}
+	\end{figure}
+	
+	\noindent \textbf{Câu 5:} Nếu một vật có khối lượng $m$ (kg) thì lực hấp dẫn $\vec{P}$ của Trái Đất tác dụng lên vật được xác định theo công thức $\vec{P} = m\vec{g}$, trong đó $\vec{g}$ là gia tốc rơi tự do có độ lớn $g = 9,8 \text{ m/s}^2$. Tính độ lớn của lực hấp dẫn của Trái Đất tác dụng lên một quả táo có khối lượng $102$ gam (làm tròn kết quả đến hàng đơn vị).
+	\begin{figure}[H]
+		\centering
+		% Thay thế lệnh \fbox bằng \includegraphics[width=...]{tên_file_ảnh} khi bạn có ảnh
+		\includegraphics[width = 100px]{anh1.2.8.png}
+	\end{figure}
+	
+	\vspace{0.2cm}
+	\noindent \textbf{Câu 6:} Một chiếc xe có khối lượng $1,5$ tấn đang đi xuống trên một đoạn đường dốc có góc nghiêng $5^\circ$ so với phương ngang. Tính công sinh bởi trọng lực $\vec{P}$ khi xe đi hết đoạn đường dốc dài $30\text{ m}$ (làm tròn kết quả đến hàng chục), biết rằng trọng lực $\vec{P} = m\vec{g}$ với $g = 9,8 \text{ m/s}^2$.
+	\begin{figure}[H]
+		\centering
+		% Thay thế lệnh \fbox bằng \includegraphics[width=...]{tên_file_ảnh} khi bạn có ảnh
+		\includegraphics[width = 150px]{anh1.2.9.png}
+	\end{figure}
+	
+	\vspace{0.2cm}
+	\noindent \textbf{Câu 7:} Một em nhỏ cân nặng $m = 25 \text{ kg}$ trượt trên cầu trượt dài $3,5 \text{ m}$. Biết rằng cầu trượt có góc nghiêng so với phương nằm ngang là $30^\circ$. Tính công sinh bởi trọng lực $\vec{P}$ khi em nhỏ trượt hết chiều dài cầu trượt (làm tròn đến hàng đơn vị).
+	\begin{figure}[H]
+		\centering
+		% Thay thế lệnh \fbox bằng \includegraphics[width=...]{tên_file_ảnh} khi bạn có ảnh
+		\includegraphics[width = 200px]{anh1.2.10.png}
+	\end{figure}
+	
+	\vspace{0.2cm}
+	\noindent \textbf{Câu 8:} Trong điện trường đều, lực tĩnh điện $\vec{F}$ tác dụng lên điện tích điểm có điện tích $q$ được tính theo công thức $\vec{F} = q\cdot\vec{E}$, trong đó $\vec{E}$ là cường độ điện trường. Tính độ lớn của lực tĩnh điện tác dụng lên điện tích điểm khi $q = 10^{-9} \text{ C}$ và độ lớn điện trường $E = 10^5 \text{ N/C}$. Kết quả thu được có dạng $10^{-a} \text{ N}$. Tìm giá trị $a$.
+	\begin{figure}[H]
+		\centering
+		% Thay thế lệnh \fbox bằng \includegraphics[width=...]{tên_file_ảnh} khi bạn có ảnh
+		\includegraphics[width = 200px]{anh1.2.11.png}
+	\end{figure}
+	
+	\vspace{0.2cm}
+	\noindent \textbf{Câu 9:} Người ta treo một vật trang trí $O$ có khối lượng $m = 2 \text{ kg}$ trên trần nhà bằng các sợi dây nhẹ, không co giãn tại các điểm $A, B$ và $C$ sao cho $OABC$ là tứ diện đều. Gọi $\vec{T}_1, \vec{T}_2$ và $\vec{T}_3$ lần lượt là các lực căng dây của ba dây treo. Lấy $g = 10 \text{ m/s}^2$. Tính cường độ của lực căng trên mỗi dây (làm tròn đến hàng phần chục).
+	\begin{figure}[H]
+		\centering
+		% Thay thế lệnh \fbox bằng \includegraphics[width=...]{tên_file_ảnh} khi bạn có ảnh
+		\includegraphics[width = 200px]{anh1.2.12.png}
+	\end{figure}
+	
+	\vspace{0.2cm}
+	\noindent \textbf{Câu 10:} Một chiếc đèn trang trí hình tròn được treo song song với mặt phẳng trần nhà nằm ngang bởi ba sợi dây không giãn $OA, OB, OC$ đôi một vuông góc. Biết lực căng dây tương ứng trên mỗi dây $OA, OB, OC$ lần lượt là $\vec{F}_1, \vec{F}_2, \vec{F}_3$ thỏa mãn $|\vec{F}_1| = |\vec{F}_2| = |\vec{F}_3| = 16 \text{ (N)}$. Tính trọng lượng (đơn vị: N) của chiếc đèn đó (làm tròn đến hàng phần chục).
+	\begin{figure}[H]
+		\centering
+		% Thay thế lệnh \fbox bằng \includegraphics[width=...]{tên_file_ảnh} khi bạn có ảnh
+		\includegraphics[width = 200px]{anh1.2.13.png}
+	\end{figure}
+	\vspace{0.2cm}
+	\noindent \textbf{Câu 11:} Khi chuyển động trong không gian, máy bay chịu tác động của lực cản không khí. Lực cản tỉ lệ thuận với bình phương vận tốc. Một chiếc máy bay tăng vận tốc từ $900 \text{ km/h}$ lên $920 \text{ km/h}$. Lực cản tương ứng là $\vec{F}_1$ và $\vec{F}_2$ với $\vec{F}_1 = k\vec{F}_2$. Tính giá trị của $k$ (làm tròn đến chữ số thập phân thứ hai).
+	\begin{figure}[H]
+		\centering
+		% Thay thế lệnh \fbox bằng \includegraphics[width=...]{tên_file_ảnh} khi bạn có ảnh
+		\includegraphics[width = 200px]{anh1.2.14.png}
+	\end{figure}
+	
+	\vspace{0.2cm}
+	\noindent \textbf{Câu 12:} Một giỏ hoa treo trong nhà bằng 3 sợi dây không giãn, mỗi sợi dài $60\text{ cm}$, miếng kê là miếng gỗ hình tròn bán kính $20\text{ cm}$. Ba sợi dây được thắt một đầu và đỡ miếng gỗ tại 3 điểm tạo thành tam giác đều. Biết mỗi sợi dây chịu không quá $15 \text{ N}$ và trọng lượng miếng gỗ là $5 \text{ N}$. Tính trọng lượng tối đa của các chậu hoa để dây treo không bị đứt (làm tròn đến hàng phần chục).
+	
+	\vspace{0.2cm}
+	\noindent \textbf{Câu 13:} Một giá treo vật được lắp đặt vào góc tường tại ba điểm $C, O, B$ bằng các bản lề cố định. Cấu tạo giá gồm ba thanh $AB, AC, AO$ hội tụ tại điểm $A$. Các thanh $AB, AC$ có chiều dài bằng nhau và vuông góc tại $A$. Thanh $OA$ là thanh chống, chịu được lực nén tối đa là $150 \text{ N}$. Khi treo vật có trọng lượng $P$ vào điểm $A$, lực căng trên hai thanh $AC$ và $AB$ bằng một phần ba lực nén trên thanh $OA$. Trọng lượng lớn nhất có thể treo vào đầu $A$ để hệ thống an toàn là bao nhiêu (làm tròn đến hàng đơn vị)?
+	\begin{figure}[H]
+		\centering
+		% Thay thế lệnh \fbox bằng \includegraphics[width=...]{tên_file_ảnh} khi bạn có ảnh
+		\includegraphics[width = 200px]{anh1.2.15.png}
+	\end{figure}
+	
+	
+	
+	\newpage
+	
+	% =====================
+	% PHẦN 5: TỔNG KẾT
+	% =====================
+	\section{Tổng kết bài}
+	
+	\begin{tcolorbox}[colback=yellow!10!white, colframe=orange!60!black,
+		fonttitle=\bfseries, title={Tóm tắt các công thức ứng dụng thực tế}]
+		\begin{itemize}
+			\item \textbf{Phương trình cân bằng lực:} Vật đứng yên khi tổng các lực tác dụng bằng vectơ không:
+			$$ \sum \vec{F}_i = \vec{F}_1 + \vec{F}_2 + \dots + \vec{F}_n = \vec{0} $$
+			\item \textbf{Hợp lực của 3 lực đôi một vuông góc:} Nếu $\vec{F}_1 \perp \vec{F}_2$, $\vec{F}_2 \perp \vec{F}_3$, $\vec{F}_3 \perp \vec{F}_1$ thì hợp lực $\vec{F} = \vec{F}_1 + \vec{F}_2 + \vec{F}_3$ có độ lớn:
+			$$ F = \sqrt{F_1^2 + F_2^2 + F_3^2} $$
+			\item \textbf{Công cơ học:} $A = \vec{F} \cdot \vec{d} = |\vec{F}| \cdot |\vec{d}| \cdot \cos(\alpha)$, trong đó $\alpha$ là góc giữa phương của lực và phương chuyển động.
+			\begin{itemize}
+				\item $A > 0$: Công phát động ($\alpha < 90^\circ$).
+				\item $A < 0$: Công cản ($\alpha > 90^\circ$).
+				\item $A = 0$: Lực không sinh công ($\alpha = 90^\circ$).
+			\end{itemize}
+		\end{itemize}
+	\end{tcolorbox}
+	
+	\vspace{5mm}
+	\textbf{Bài tập về nhà:}
+	\begin{itemize}
+		\item Trình bày cẩn thận lời giải các bài toán thực tế đã phân tích trên lớp.
+		\item Tìm hiểu và vẽ mô hình phân tích lực của một biển quảng cáo được treo bằng dây cáp nối vào tường.
+		\item Ôn tập lại toàn bộ hệ thống lý thuyết vectơ trong không gian để chuẩn bị cho bài học mới: Hệ tọa độ trong không gian.
+	\end{itemize}
+	
+\end{document}

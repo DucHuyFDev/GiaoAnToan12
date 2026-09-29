@@ -1,0 +1,1908 @@
+\documentclass[12pt]{article}
+
+% === CÀI ĐẶT TRANG ===
+\usepackage[margin=2cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T5]{fontenc}
+\usepackage[vietnamese]{babel}
+
+% === TOÁN HỌC ===
+\usepackage{amsmath, amssymb, amsthm}
+
+% === HÌNH VẼ ===
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+% === ĐỊNH DẠNG ===
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage[most]{tcolorbox}
+\usepackage{multicol}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{fancyhdr}
+\usepackage{tocloft}
+\usepackage[hidelinks]{hyperref}
+
+% === LỆNH TỰ ĐỊNH NGHĨA ===
+\newcommand{\otraloi}{\underline{\hspace{5cm}}}
+
+% === TCOLORBOX STYLES ===
+\tcbuselibrary{breakable, skins, fitting}
+
+% Ví dụ
+\newtcolorbox{vidu}[1][1]{
+	colback=blue!5!white, colframe=blue!60!black,
+	fonttitle=\bfseries, title={Ví dụ #1},
+	breakable, enhanced
+}
+
+% Lời giải
+\newtcolorbox{loigiai}{
+	colback=gray!8!white, colframe=gray!50!black,
+	fonttitle=\bfseries, title={Lời giải},
+	breakable, enhanced
+}
+
+% Bài tập xanh – Bắt buộc
+\newtcolorbox{btxanh}[1][]{
+	colback=blue!6!white, colframe=blue!65!black,
+	fonttitle=\bfseries\color{white}, coltitle=white,
+	attach boxed title to top left={yshift=-2mm, xshift=4mm},
+	boxed title style={colback=blue!65!black, rounded corners},breakable, enhanced, #1
+}
+
+% Bài tập vàng – Bổ sung
+\newtcolorbox{btvang}[1][]{
+	colback=yellow!12!white, colframe=orange!75!black,
+	fonttitle=\bfseries, coltitle=orange!80!black,
+	attach boxed title to top left={yshift=-2mm, xshift=4mm},
+	boxed title style={colback=yellow!50!white, colframe=orange!75!black, rounded corners},breakable, enhanced, #1
+}
+
+% Bài tập đỏ – Gia cố
+\newtcolorbox{btdo}[1][]{
+	colback=red!6!white, colframe=red!65!black,
+	fonttitle=\bfseries\color{white}, coltitle=white,
+	attach boxed title to top left={yshift=-2mm, xshift=4mm},
+	boxed title style={colback=red!65!black, rounded corners},breakable, enhanced, #1
+}
+
+% === HEADER/FOOTER ===
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small \textbf{Giáo án: vector trong không gian}}
+\fancyhead[R]{\small Lớp: 12}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% ================================================
+\begin{document}
+	
+	\begin{center}
+		{\Large\bfseries CHUYÊN ĐỀ II -- VECTOR TRONG KHÔNG GIAN}\\
+		{\Large \textbf{BÀI 1.1: Vector trong không gian}}\\[4pt]
+		{\large Môn: Toán \quad Lớp: 12}
+	\end{center}
+	\vspace{4mm}
+	\hrule
+	\vspace{4mm}
+	
+	% ===========================
+	% PHẦN 1: MỤC TIÊU BÀI HỌC
+	% ===========================
+	\section*{Mục tiêu bài học}
+	\addcontentsline{toc}{section}{Mục tiêu bài học}
+	
+	\textbf{1. Kiến thức:}
+	\begin{itemize}
+		\item Nắm được khái niệm vector, độ dài vector, vector cùng phương, vector bằng nhau trong không gian.
+		\item Hiểu và vận dụng được các phép toán vector: tổng, hiệu, tích của một số với một vector trong không gian.
+		\item Hiểu và vận dụng được tích vô hướng của hai vector, góc giữa hai vector trong không gian.
+	\end{itemize}
+	
+	\noindent \textbf{2. Kĩ năng:}
+	\begin{itemize}
+		\item Xác định được góc giữa hai vector, tính được tích vô hướng.
+		\item Biểu diễn, phân tích được một vector theo ba vector không đồng phẳng.
+		\item Vận dụng các tính chất, quy tắc (quy tắc 3 điểm, quy tắc hình bình hành, quy tắc hình hộp) để chứng minh các đẳng thức vector.
+	\end{itemize}
+	
+	\noindent \textbf{3. Thái độ / Phẩm chất:}
+	\begin{itemize}
+		\item Nghiêm túc, cẩn thận trong việc vẽ hình và tính toán.
+		\item Phát triển tư duy không gian và khả năng logic.
+	\end{itemize}
+	
+	\newpage
+	
+	% =====================
+	% PHẦN 2: MỤC LỤC
+	% =====================
+	\setcounter{tocdepth}{2}
+	\tableofcontents
+	\newpage
+	
+	% =====================
+	% PHẦN 3: LÝ THUYẾT
+	% =====================
+	\section{Lý thuyết}
+	
+	\subsection{Khái niệm vector trong không gian}
+	
+	\begin{itemize}
+		\item \textbf{Định nghĩa:} vector trong không gian là một đoạn thẳng có hướng. Kí hiệu vector có điểm đầu $A$, điểm cuối $B$ là $\overrightarrow{AB}$. Nếu không cần chỉ rõ điểm đầu và điểm cuối, vector còn được kí hiệu là $\vec{a}, \vec{b}, \vec{x}, \vec{y}, \dots$
+		\item \textbf{Giá của vector:} Đường thẳng đi qua điểm đầu và điểm cuối của một vector được gọi là giá của vector đó.
+	\end{itemize}
+	
+	\begin{figure}[H]
+		\centering
+		\begin{tikzpicture}
+			\draw[thick, color=gray] (0,0) -- (6,3) node[right, text=black] {$d$};
+			\draw[-stealth, thick, blue] (1.5,0.75) -- (4.5,2.25) node[midway, above left, text=black] {$\vec{a}$};
+		\end{tikzpicture}
+		\caption{Đường thẳng $d$ là giá của vector $\vec{a}$}
+	\end{figure}
+	
+	\begin{itemize}
+		\item \textbf{Độ dài:} Là khoảng cách giữa điểm đầu và điểm cuối của vector đó. Kí hiệu độ dài của $\overrightarrow{AB}$ là $|\overrightarrow{AB}|$, của $\vec{a}$ là $|\vec{a}|$.
+		\item \textbf{vector cùng phương:} Hai vector được gọi là cùng phương nếu chúng có giá song song hoặc trùng nhau. Nếu hai vector cùng phương thì chúng có thể cùng hướng hoặc ngược hướng.
+		\item \textbf{vector bằng nhau:} Hai vector $\vec{a}$ và $\vec{b}$ được gọi là bằng nhau, kí hiệu $\vec{a} = \vec{b}$, nếu chúng có cùng độ dài và cùng hướng.
+		\item \textbf{vector-không:} Là các vector có điểm đầu và điểm cuối trùng nhau (VD: $\overrightarrow{AA}, \overrightarrow{BB}, \dots$). vector-không có độ dài bằng $0$, cùng hướng (và cùng phương) với mọi vector. Kí hiệu chung là $\vec{0}$.
+	\end{itemize}
+	
+	\begin{figure}[H]
+		\centering
+		\begin{tikzpicture}
+			% Vẽ vector a
+			\draw[-stealth, thick] (0,1) -- (2,2) node[midway, above left] {$\vec{a}$};
+			% Vẽ vector b bằng a
+			\draw[-stealth, thick] (3,1) -- (5,2) node[midway, above left] {$\vec{b}$};
+			% Vẽ vector c cùng phương, ngược hướng
+			\draw[-stealth, thick] (6,2.5) -- (4,1.5) node[midway, below right] {$\vec{c}$};
+		\end{tikzpicture}
+		\caption{Hai vector $\vec{a}$ và $\vec{b}$ bằng nhau; $\vec{a}$ và $\vec{c}$ cùng phương nhưng ngược hướng}
+	\end{figure}
+	
+	\begin{vidu}[1]
+		Cho hình hộp $ABCD.A'B'C'D'$. 
+		\begin{center}
+			\begin{tikzpicture}[scale=0.8]
+				\coordinate (A) at (0,0);
+				\coordinate (B) at (3,0);
+				\coordinate (C) at (4,1.5);
+				\coordinate (D) at (1,1.5);
+				\coordinate (A') at (0,3);
+				\coordinate (B') at (3,3);
+				\coordinate (C') at (4,4.5);
+				\coordinate (D') at (1,4.5);
+				
+				\draw[dashed] (A) -- (D) -- (C);
+				\draw[dashed] (D) -- (D');
+				\draw (A) -- (B) -- (C) -- (C') -- (B') -- (A') -- cycle;
+				\draw (B) -- (B');
+				\draw (A') -- (D') -- (C');
+				
+				\node[below left] at (A) {$A$};
+				\node[below right] at (B) {$B$};
+				\node[right] at (C) {$C$};
+				\node[above left] at (D) {$D$};
+				\node[left] at (A') {$A'$};
+				\node[right] at (B') {$B'$};
+				\node[above right] at (C') {$C'$};
+				\node[above left] at (D') {$D'$};
+				
+				\draw[-stealth, thick, blue] (A) -- (B);
+			\end{tikzpicture}
+		\end{center}
+		\begin{enumerate}[label=\alph*)]
+			\item Hãy kể tên các vector khác $\vec{0}$ bằng với vector $\overrightarrow{AB}$.
+			\item vector $\overrightarrow{AC}$ và $\overrightarrow{A'C'}$ có bằng nhau không? Vì sao?
+		\end{enumerate}
+	\end{vidu}
+	
+	\begin{loigiai}
+		\begin{enumerate}[label=\alph*)]
+			\item Các mặt của hình hộp là các hình bình hành. Do đó, ta có các đoạn thẳng song song và bằng nhau: $AB = DC = A'B' = D'C'$.
+			
+			Suy ra các vector cùng hướng và cùng độ dài với $\overrightarrow{AB}$ là: $\overrightarrow{DC}$, $\overrightarrow{A'B'}$, $\overrightarrow{D'C'}$.
+			
+			Vậy: $\overrightarrow{AB} = \overrightarrow{DC} = \overrightarrow{A'B'} = \overrightarrow{D'C'}$.
+			
+			\item Xét tứ giác $ACC'A'$ có $AA' \parallel CC'$ và $AA' = CC'$ (vì cùng song song và bằng $BB'$).
+			
+			Suy ra $ACC'A'$ là hình bình hành. Do đó đoạn $AC$ song song và bằng $A'C'$. 
+			
+			Mặt khác, $\overrightarrow{AC}$ và $\overrightarrow{A'C'}$ cùng hướng. Vậy $\overrightarrow{AC} = \overrightarrow{A'C'}$.
+		\end{enumerate}
+	\end{loigiai}
+	
+	\subsection{Tổng và hiệu của hai vector trong không gian}
+	
+	\textbf{1. Tổng của các vector}
+	\begin{itemize}
+		\item Phép cộng vector trong không gian được thực hiện hoàn toàn tương tự như trong mặt phẳng.
+		\item Các tính chất: giao hoán ($\vec{a} + \vec{b} = \vec{b} + \vec{a}$), kết hợp $\big((\vec{a} + \vec{b}) + \vec{c} = \vec{a} + (\vec{b} + \vec{c})\big)$ và cộng với vector-không ($\vec{a} + \vec{0} = \vec{a}$).
+		\item Để thực hiện phép cộng, ta thường sử dụng các quy tắc sau:
+	\end{itemize}
+	
+	\textbf{a) Quy tắc 3 điểm:} Với ba điểm $A, B, C$ bất kì, ta luôn có: 
+	$$ \overrightarrow{AB} + \overrightarrow{BC} = \overrightarrow{AC} $$
+	
+	\begin{figure}[H]
+		\centering
+		\begin{tikzpicture}
+			\coordinate (A) at (0,0);
+			\coordinate (B) at (2,1.5);
+			\coordinate (C) at (5,0.5);
+			
+			\draw[-stealth, thick, blue] (A) -- (B);
+			\draw[-stealth, thick, blue] (B) -- (C);
+			\draw[-stealth, thick, red] (A) -- (C);
+			
+			\node[left] at (A) {$A$};
+			\node[above] at (B) {$B$};
+			\node[right] at (C) {$C$};
+		\end{tikzpicture}
+		\caption{Quy tắc 3 điểm}
+	\end{figure}
+	
+	\textbf{b) Quy tắc hình bình hành:} Nếu $ABCD$ là hình bình hành thì:
+	$$ \overrightarrow{AB} + \overrightarrow{AD} = \overrightarrow{AC} $$
+	
+	\begin{figure}[H]
+		\centering
+		\begin{tikzpicture}
+			\coordinate (A) at (0,0);
+			\coordinate (B) at (4,0);
+			\coordinate (C) at (5,2);
+			\coordinate (D) at (1,2);
+			
+			\draw[dashed] (A) -- (D) -- (C);
+			\draw (A) -- (B) -- (C);
+			
+			\draw[-stealth, thick, blue] (A) -- (B);
+			\draw[-stealth, thick, blue] (A) -- (D);
+			\draw[-stealth, thick, red] (A) -- (C);
+			
+			\node[below left] at (A) {$A$};
+			\node[below right] at (B) {$B$};
+			\node[above right] at (C) {$C$};
+			\node[above left] at (D) {$D$};
+		\end{tikzpicture}
+		\caption{Quy tắc hình bình hành}
+	\end{figure}
+	
+	\textbf{c) Quy tắc hình hộp:} Cho hình hộp $ABCD.A'B'C'D'$. Ta có:
+	$$ \overrightarrow{AB} + \overrightarrow{AD} + \overrightarrow{AA'} = \overrightarrow{AC'} $$
+	
+	\begin{figure}[H]
+		\centering
+		\begin{tikzpicture}[scale=1.2, line cap=round, line join=round]
+			% Định nghĩa tọa độ các đỉnh để tạo góc nhìn tách biệt các vector
+			\coordinate (A)  at (0,0);
+			\coordinate (B)  at (3,-0.5);
+			\coordinate (D)  at (2.5,1);
+			\coordinate (A') at (0,3);
+			
+			\coordinate (C)  at (5.5,0.5);
+			\coordinate (B') at (3,2.5);
+			\coordinate (D') at (2.5,4);
+			\coordinate (C') at (5.5,3.5);
+			
+			% 1. Vẽ các cạnh khuất ở phía sau
+			\draw[dashed] (D) -- (C);
+			\draw[dashed] (D) -- (D');
+			
+			% 2. Vẽ vector thành phần nằm mặt sau (AD) - nét đứt
+			\draw[-stealth, thick, blue, dashed] (A) -- (D);
+			
+			% 3. Vẽ vector tổng (AC') xuyên qua lòng hình hộp
+			\draw[-stealth, thick, red] (A) -- (C');
+			
+			% 4. Vẽ các cạnh liền của hình hộp (vẽ sau để đè lên nét xiên AC' tạo ảo giác 3D)
+			\draw (B) -- (C) -- (C') -- (D') -- (A') -- (B') -- cycle;
+			\draw (B) -- (B') -- (C');
+			
+			% 5. Vẽ 2 vector thành phần nằm mặt trước (AB, AA')
+			\draw[-stealth, thick, blue] (A) -- (B);
+			\draw[-stealth, thick, blue] (A) -- (A');
+			
+			% 6. Nhãn các đỉnh
+			\node[below left] at (A) {$A$};
+			\node[below] at (B) {$B$};
+			\node[right] at (C) {$C$};
+			\node[above left] at (D) {$D$};
+			\node[left] at (A') {$A'$};
+			\node[above left] at (B') {$B'$};
+			\node[above right] at (C') {$C'$};
+			\node[above] at (D') {$D'$};
+		\end{tikzpicture}
+		\caption{Quy tắc hình hộp: $\overrightarrow{AB} + \overrightarrow{AD} + \overrightarrow{AA'} = \overrightarrow{AC'}$}
+	\end{figure}
+	
+	\vspace{0.5cm}
+	\textbf{2. Hiệu của hai vector}
+	\begin{itemize}
+		\item \textbf{vector đối:} vector có cùng độ dài và ngược hướng với vector $\vec{a}$ được gọi là vector đối của $\vec{a}$, kí hiệu là $-\vec{a}$. Mọi vector $\overrightarrow{AB}$ đều có vector đối là $\overrightarrow{BA}$, tức là $\overrightarrow{AB} = -\overrightarrow{BA}$.
+		\item \textbf{Phép trừ vector:} $\vec{a} - \vec{b} = \vec{a} + (-\vec{b})$.
+		\item \textbf{Quy tắc hiệu (quy tắc 3 điểm cho phép trừ):} Với ba điểm $O, A, B$ bất kì, ta có:
+		$$ \overrightarrow{OB} - \overrightarrow{OA} = \overrightarrow{AB} $$
+	\end{itemize}
+	
+	\begin{figure}[H]
+		\centering
+		\begin{tikzpicture}
+			\coordinate (O) at (0,0);
+			\coordinate (A) at (2,2);
+			\coordinate (B) at (4,0.5);
+			
+			\draw[-stealth, thick, blue] (O) -- (A);
+			\draw[-stealth, thick, blue] (O) -- (B);
+			\draw[-stealth, thick, red] (A) -- (B);
+			
+			\node[left] at (O) {$O$};
+			\node[above] at (A) {$A$};
+			\node[right] at (B) {$B$};
+		\end{tikzpicture}
+		\caption{Quy tắc hiệu}
+	\end{figure}
+	
+	\begin{vidu}[2]
+		Cho hình hộp $ABCD.A'B'C'D'$. Chứng minh các đẳng thức vector sau:
+		\begin{enumerate}[label=\alph*)]
+			\item $\overrightarrow{AB} + \overrightarrow{B'C'} + \overrightarrow{DD'} = \overrightarrow{AC'}$
+			\item $\overrightarrow{AC'} - \overrightarrow{AA'} - \overrightarrow{AD} = \overrightarrow{AB}$
+		\end{enumerate}
+	\end{vidu}
+	
+	\begin{loigiai}
+		\begin{enumerate}[label=\alph*)]
+			\item Vì $ABCD.A'B'C'D'$ là hình hộp nên các mặt đối diện là các hình bình hành bằng nhau. Do đó ta có:
+			$\overrightarrow{B'C'} = \overrightarrow{BC}$ và $\overrightarrow{DD'} = \overrightarrow{CC'}$.
+			
+			Biến đổi vế trái (VT) và áp dụng quy tắc 3 điểm liên tiếp:
+			$$ \text{VT} = \overrightarrow{AB} + \overrightarrow{B'C'} + \overrightarrow{DD'} = \overrightarrow{AB} + \overrightarrow{BC} + \overrightarrow{CC'} $$
+			$$ \text{VT} = (\overrightarrow{AB} + \overrightarrow{BC}) + \overrightarrow{CC'} = \overrightarrow{AC} + \overrightarrow{CC'} = \overrightarrow{AC'} = \text{VP} \text{ (điều phải chứng minh)} $$
+			
+			\item Áp dụng quy tắc hình hộp ta có: $\overrightarrow{AB} + \overrightarrow{AD} + \overrightarrow{AA'} = \overrightarrow{AC'}$.
+			
+			Từ đẳng thức trên, ta chuyển vế các vector $\overrightarrow{AA'}$ và $\overrightarrow{AD}$ (đổi dấu thành phép trừ):
+			$$ \overrightarrow{AC'} - \overrightarrow{AA'} - \overrightarrow{AD} = \overrightarrow{AB} \text{ (điều phải chứng minh)} $$
+		\end{enumerate}
+	\end{loigiai}
+	
+	
+	
+	\subsection{Tích của một số với một vector trong không gian}
+	
+	\subsubsection{Định nghĩa}
+	\begin{itemize}
+		\item Trong không gian, tích của một số thực $k \neq 0$ với một vector $\vec{a} \neq \vec{0}$ là một vector, kí hiệu là $k\vec{a}$, được xác định như sau:
+		\begin{itemize}
+			\item Cùng hướng với $\vec{a}$ nếu $k > 0$; ngược hướng với $\vec{a}$ nếu $k < 0$.
+			\item Có độ dài bằng $|k| \cdot |\vec{a}|$.
+		\end{itemize}
+		\item \textbf{Quy ước:} $0\vec{a} = \vec{0}$ và $k\vec{0} = \vec{0}$.
+		\item \textbf{Điều kiện cùng phương:} Hai vector $\vec{a}$ và $\vec{b}$ ($\vec{b} \neq \vec{0}$) cùng phương khi và chỉ khi tồn tại số thực $k$ sao cho $\vec{a} = k\vec{b}$.
+	\end{itemize}
+	
+	\begin{figure}[H]
+		\centering
+		\begin{tikzpicture}
+			% vector gốc a
+			\draw[-stealth, thick, blue] (0,0) -- (2,1) node[midway, above left] {$\vec{a}$};
+			
+			% vector k*a với k > 0
+			\draw[-stealth, thick, red] (3,0) -- (7,2) node[midway, above left] {$k\vec{a} \ (k > 0)$};
+			
+			% vector k*a với k < 0
+			\draw[-stealth, thick, orange] (7,-1) -- (4,-2.5) node[midway, below right] {$k\vec{a} \ (k < 0)$};
+		\end{tikzpicture}
+		\caption{Minh họa tích của một số với một vector}
+	\end{figure}
+	
+	\subsubsection{Các tính chất}
+	Với $h, k$ là các số thực và $\vec{a}, \vec{b}$ là các vector bất kì, ta có:
+	\begin{itemize}
+		\item Tính chất kết hợp: $h(k\vec{a}) = (hk)\vec{a}$.
+		\item Tính chất phân phối: $(h+k)\vec{a} = h\vec{a} + k\vec{a}$ và $k(\vec{a} + \vec{b}) = k\vec{a} + k\vec{b}$.
+		\item $1\vec{a} = \vec{a}$ và $(-1)\vec{a} = -\vec{a}$.
+	\end{itemize}
+	
+	\subsubsection{Quy tắc trung điểm và quy tắc trọng tâm tam giác}
+	
+	\textbf{a) Quy tắc trung điểm:}
+	Cho đoạn thẳng $AB$ có $I$ là trung điểm.
+	\begin{itemize}
+		\item \textbf{Hệ thức gốc:}
+		$$ \overrightarrow{IA} + \overrightarrow{IB} = \vec{0} $$
+		\item \textbf{Hệ thức mở rộng:} Với mọi điểm $M$ bất kì trong không gian, ta luôn có:
+		$$ \overrightarrow{MA} + \overrightarrow{MB} = 2\overrightarrow{MI} $$
+	\end{itemize}
+	
+	% === HÌNH 1: QUY TẮC TRUNG ĐIỂM (ĐỊNH LÝ GỐC) ===
+	\begin{figure}[H]
+		\centering
+		\begin{tikzpicture}[scale=1.2, line cap=round, line join=round]
+			% Tọa độ các điểm
+			\coordinate (I) at (0,0);
+			\coordinate (A) at (-2.5,0);
+			\coordinate (B) at (2.5,0);
+			
+			% Vẽ đoạn thẳng AB
+			\draw[thick, gray] (A) -- (B);
+			
+			% Vẽ các vector IA và IB xuất phát từ I
+			\draw[-stealth, very thick, blue] (I) -- (A) node[midway, above] {$\overrightarrow{IA}$};
+			\draw[-stealth, very thick, blue] (I) -- (B) node[midway, above] {$\overrightarrow{IB}$};
+			
+			% Vẽ ký hiệu trung điểm (vạch chia bằng nhau)
+			\draw[thick] (-1.25,-0.15) -- (-1.25,0.15);
+			\draw[thick] (1.25,-0.15) -- (1.25,0.15);
+			
+			% Điểm và nhãn
+			\fill (I) circle (2pt) node[below] {$I$};
+			\fill (A) circle (2pt) node[below] {$A$};
+			\fill (B) circle (2pt) node[below] {$B$};
+		\end{tikzpicture}
+		\caption{Hệ thức gốc trung điểm: $\overrightarrow{IA} + \overrightarrow{IB} = \vec{0}$}
+	\end{figure}
+	
+	% === HÌNH 2: QUY TẮC TRUNG ĐIỂM (HỆ THỨC MỞ RỘNG) ===
+	\begin{figure}[H]
+		\centering
+		\begin{tikzpicture}[scale=1.2, line cap=round, line join=round]
+			% Tọa độ
+			\coordinate (I) at (2,0);
+			\coordinate (A) at (0,0);
+			\coordinate (B) at (4,0);
+			\coordinate (M) at (1,2);
+			\coordinate (M') at (3,-2); % M' sao cho I là trung điểm MM' (MM' = 2MI)
+			
+			% Vẽ đoạn thẳng đáy AB
+			\draw[thick, gray] (A) -- (B);
+			
+			% Vẽ hình bình hành MAM'B bằng nét đứt để minh họa phép cộng vector
+			\draw[dashed, gray] (A) -- (M') -- (B);
+			
+			% Vẽ các vector MA, MB (Xanh)
+			\draw[-stealth, thick, blue] (M) -- (A) node[midway, left] {$\overrightarrow{MA}$};
+			\draw[-stealth, thick, blue] (M) -- (B) node[midway, above right] {$\overrightarrow{MB}$};
+			
+			% Vẽ vector MI (Đỏ) và phần kéo dài IM' để minh họa 2MI
+			\draw[-stealth, very thick, red] (M) -- (I) node[midway, left] {$\overrightarrow{MI}$};
+			\draw[dashed, thick, red] (I) -- (M') node[midway, left] {};
+			
+			% Đánh dấu trung điểm I
+			\draw[thick] (1,-0.1) -- (1,0.1);
+			\draw[thick] (3,-0.1) -- (3,0.1);
+			
+			% Nhãn các điểm
+			\fill (M) circle (2pt) node[above] {$M$};
+			\fill (A) circle (2pt) node[left] {$A$};
+			\fill (B) circle (2pt) node[right] {$B$};
+			\fill (I) circle (2pt) node[above right] {$I$};
+			\fill (M') circle (1.5pt) node[below] {$M'$};
+		\end{tikzpicture}
+		\caption{Hệ thức mở rộng trung điểm: $\overrightarrow{MA} + \overrightarrow{MB} = 2\overrightarrow{MI}$}
+	\end{figure}
+	
+	
+	\noindent \textbf{b) Quy tắc trọng tâm tam giác:}
+	Cho tam giác $ABC$ có $G$ là trọng tâm.
+	\begin{itemize}
+		\item \textbf{Hệ thức gốc:}
+		$$ \overrightarrow{GA} + \overrightarrow{GB} + \overrightarrow{GC} = \vec{0} $$
+		\item \textbf{Hệ thức mở rộng:} Với mọi điểm $M$ bất kì trong không gian, ta luôn có:
+		$$ \overrightarrow{MA} + \overrightarrow{MB} + \overrightarrow{MC} = 3\overrightarrow{MG} $$
+	\end{itemize}
+	
+	\subsubsection{Sự đồng phẳng của ba vector}
+	\begin{itemize}
+		\item \textbf{Khái niệm:} Ba vector trong không gian được gọi là đồng phẳng nếu các giá của chúng cùng song song với một mặt phẳng.
+		\item \textbf{Điều kiện đồng phẳng:} Cho ba vector $\vec{a}, \vec{b}, \vec{c}$ trong đó $\vec{a}, \vec{b}$ không cùng phương. Ba vector $\vec{a}, \vec{b}, \vec{c}$ đồng phẳng khi và chỉ khi tồn tại duy nhất cặp số thực $(m, n)$ sao cho:
+		$$ \vec{c} = m\vec{a} + n\vec{b} $$
+	\end{itemize}
+	
+	\begin{vidu}[3]
+		Cho tứ diện $ABCD$. Gọi $G$ là trọng tâm của tứ diện (nghĩa là $G$ là trung điểm của đoạn thẳng nối trung điểm hai cạnh đối diện). 
+		\begin{enumerate}[label=\alph*)]
+			\item Chứng minh rằng: $\overrightarrow{GA} + \overrightarrow{GB} + \overrightarrow{GC} + \overrightarrow{GD} = \vec{0}$.
+			\item Với điểm $M$ bất kì trong không gian, chứng minh: $\overrightarrow{MA} + \overrightarrow{MB} + \overrightarrow{MC} + \overrightarrow{MD} = 4\overrightarrow{MG}$.
+		\end{enumerate}
+	\end{vidu}
+	
+	\begin{loigiai}
+		\begin{enumerate}[label=\alph*)]
+			\item Gọi $I$ và $J$ lần lượt là trung điểm của các cạnh $AB$ và $CD$. Theo định nghĩa, $G$ là trung điểm của $IJ$.
+			
+			Áp dụng tính chất trung điểm, ta có:
+			$$ \overrightarrow{GA} + \overrightarrow{GB} = 2\overrightarrow{GI} $$
+			$$ \overrightarrow{GC} + \overrightarrow{GD} = 2\overrightarrow{GJ} $$
+			Cộng vế theo vế, ta được:
+			$$ \overrightarrow{GA} + \overrightarrow{GB} + \overrightarrow{GC} + \overrightarrow{GD} = 2(\overrightarrow{GI} + \overrightarrow{GJ}) $$
+			Vì $G$ là trung điểm của $IJ$ nên $\overrightarrow{GI} + \overrightarrow{GJ} = \vec{0}$.
+			
+			Do đó: $\overrightarrow{GA} + \overrightarrow{GB} + \overrightarrow{GC} + \overrightarrow{GD} = \vec{0}$ (điều phải chứng minh).
+			
+			\item Theo quy tắc 3 điểm (chèn điểm $G$), ta có:
+			$$ \overrightarrow{MA} = \overrightarrow{MG} + \overrightarrow{GA} $$
+			$$ \overrightarrow{MB} = \overrightarrow{MG} + \overrightarrow{GB} $$
+			$$ \overrightarrow{MC} = \overrightarrow{MG} + \overrightarrow{GC} $$
+			$$ \overrightarrow{MD} = \overrightarrow{MG} + \overrightarrow{GD} $$
+			Cộng vế theo vế 4 đẳng thức trên, ta được:
+			$$ \overrightarrow{MA} + \overrightarrow{MB} + \overrightarrow{MC} + \overrightarrow{MD} = 4\overrightarrow{MG} + (\overrightarrow{GA} + \overrightarrow{GB} + \overrightarrow{GC} + \overrightarrow{GD}) $$
+			Áp dụng kết quả của câu a, biểu thức trong ngoặc bằng $\vec{0}$.
+			
+			Vậy: $\overrightarrow{MA} + \overrightarrow{MB} + \overrightarrow{MC} + \overrightarrow{MD} = 4\overrightarrow{MG}$ (điều phải chứng minh).
+		\end{enumerate}
+	\end{loigiai}
+	
+		% === HÌNH 3: QUY TẮC TRỌNG TÂM TAM GIÁC (ĐỊNH LÝ GỐC) ===
+	\begin{figure}[H]
+		\centering
+		\begin{tikzpicture}[scale=1.2, line cap=round, line join=round]
+			% Tọa độ các đỉnh tam giác và trọng tâm G
+			\coordinate (A) at (1.5,2.5);
+			\coordinate (B) at (0,0);
+			\coordinate (C) at (4,0.5);
+			\coordinate (G) at (1.833,1); % G = ( (1.5+0+4)/3 , (2.5+0+0.5)/3 )
+			
+			% Vẽ khung tam giác ABC
+			\draw[thick, gray] (A) -- (B) -- (C) -- cycle;
+			
+			% Vẽ các vector xuất phát từ G đến các đỉnh (Xanh)
+			\draw[-stealth, very thick, blue] (G) -- (A) node[midway, left] {$\overrightarrow{GA}$};
+			\draw[-stealth, very thick, blue] (G) -- (B) node[midway, below] {$\overrightarrow{GB}$};
+			\draw[-stealth, very thick, blue] (G) -- (C) node[midway, above] {$\overrightarrow{GC}$};
+			
+			% Nhãn điểm
+			\fill (G) circle (2pt) node[below right] {$G$};
+			\fill (A) circle (2pt) node[above] {$A$};
+			\fill (B) circle (2pt) node[left] {$B$};
+			\fill (C) circle (2pt) node[right] {$C$};
+		\end{tikzpicture}
+		\caption{Hệ thức gốc trọng tâm tam giác: $\overrightarrow{GA} + \overrightarrow{GB} + \overrightarrow{GC} = \vec{0}$}
+	\end{figure}
+	
+	\begin{figure}[H]
+		\centering
+		\begin{tikzpicture}[scale=1.3, line cap=round, line join=round]
+			% --- ĐỊNH NGHĨA TỌA ĐỘ (Đã tối ưu hóa góc lệch để không trùng cạnh) ---
+			\coordinate (M) at (-1.5, 4.5);
+			\coordinate (A) at (2, 4);
+			\coordinate (B) at (-0.5, 0.5);
+			\coordinate (C) at (5, 1);
+			
+			% Tính toán tọa độ trọng tâm G chính xác
+			\coordinate (G) at (2.167, 1.833); 
+			
+			% Điểm trung điểm BC để vẽ đường trung tuyến mờ
+			\coordinate (I) at (2.25, 0.75);
+			
+			% --- VẼ HÌNH NỀN (Tam giác ABC và các đường dóng mờ) ---
+			\draw[thick, gray!50, dashed] (A) -- (B) -- (C) -- cycle;
+			\draw[gray!30, dotted] (A) -- (I); % Đường trung tuyến AI
+			
+			% --- VẼ CÁC vector THÀNH PHẦN (Màu xanh dương, tách biệt rõ ràng) ---
+			\draw[-stealth, very thick, blue] (M) -- (A) 
+			node[midway, above, yshift=2pt] {$\overrightarrow{MA}$};
+			\draw[-stealth, very thick, blue] (M) -- (B) 
+			node[midway, left, xshift=-2pt] {$\overrightarrow{MB}$};
+			\draw[-stealth, very thick, blue] (M) -- (C) 
+			node[midway, below, xshift=15pt, yshift=-2pt] {$\overrightarrow{MC}$};
+			
+			% --- VẼ vector TỔNG (Màu đỏ, nổi bật ở giữa) ---
+			\draw[-stealth, very thick, red] (M) -- (G) 
+			node[midway, left, xshift=-4pt, yshift=-8pt] {$\overrightarrow{MG}$};
+			
+			% --- ĐIỂM VÀ NHÃN ĐỈNH (Đặt lệch hướng để không đè lên nét vẽ) ---
+			\fill (M) circle (2.5pt) node[above left] {$M$};
+			\fill (A) circle (2pt) node[above right] {$A$};
+			\fill (B) circle (2pt) node[left] {$B$};
+			\fill (C) circle (2pt) node[right] {$C$};
+			\fill (G) circle (2.5pt) node[below right] {$G$};
+		\end{tikzpicture}
+		\caption{Hệ thức mở rộng trọng tâm tam giác: $\overrightarrow{MA} + \overrightarrow{MB} + \overrightarrow{MC} = 3\overrightarrow{MG}$}
+	\end{figure}
+	
+	
+	\subsection{Tích vô hướng của hai vector trong không gian}
+	
+	\textbf{1. Góc giữa hai vector trong không gian}
+	\begin{itemize}
+		\item \textbf{Định nghĩa:} Trong không gian, cho hai vector $\vec{a}$ và $\vec{b}$ khác $\vec{0}$. Lấy một điểm $O$ bất kì, vẽ các vector $\overrightarrow{OA} = \vec{a}$ và $\overrightarrow{OB} = \vec{b}$. Góc $\widehat{AOB}$ với $0^\circ \le \widehat{AOB} \le 180^\circ$ được gọi là góc giữa hai vector $\vec{a}$ và $\vec{b}$, kí hiệu là $(\vec{a}, \vec{b})$.
+		\item \textbf{Quy ước:} Nếu ít nhất một trong hai vector $\vec{a}$ hoặc $\vec{b}$ bằng $\vec{0}$ thì góc giữa chúng có thể nhận một giá trị tùy ý từ $0^\circ$ đến $180^\circ$.
+		\item \textbf{vector vuông góc:} Khi $(\vec{a}, \vec{b}) = 90^\circ$, ta nói hai vector $\vec{a}$ và $\vec{b}$ vuông góc với nhau, kí hiệu là $\vec{a} \perp \vec{b}$.
+	\end{itemize}
+	
+	\begin{figure}[H]
+		\centering
+		\begin{tikzpicture}[scale=1.2, line cap=round, line join=round]
+			% Khởi tạo điểm O và vẽ hai tia OA, OB
+			\coordinate (O) at (0,0);
+			\coordinate (A) at (2.5,0.8);
+			\coordinate (B) at (1.5,-1.2);
+			
+			% Vẽ vector OA, OB làm đại diện
+			\draw[-stealth, thick, blue] (O) -- (A) node[above right] {$A$} node[midway, above left] {$\vec{a}$};
+			\draw[-stealth, thick, blue] (O) -- (B) node[below right] {$B$} node[midway, below left] {$\vec{b}$};
+			\fill (O) circle (2pt) node[left] {$O$};
+			
+			% Vẽ cung biểu diễn góc alpha giữa hai vector
+			\draw (0.5, 0.16) arc (17.7:-38.6:0.5);
+			\node at (0.8, -0.1) {$\alpha$};
+			
+			% Vẽ hai vector tự do ban đầu ngoài không gian để minh họa phép tịnh tiến
+			\coordinate (U1) at (-2.5, 1);
+			\coordinate (U2) at (-0.5, 1.8);
+			\draw[-stealth, thick, gray] (U1) -- (U2) node[midway, above] {$\vec{a}$};
+			
+			\coordinate (V1) at (-3, -0.5);
+			\coordinate (V2) at (-1.8, -2.1);
+			\draw[-stealth, thick, gray] (V1) -- (V2) node[midway, left] {$\vec{b}$};
+			
+			% Các mũi tên đứt thể hiện phép tịnh tiến về O
+			\draw[dashed, ->, gray!60] (U1) .. controls (-1.2,0.9) .. (O);
+			\draw[dashed, ->, gray!60] (V1) .. controls (-1.8,-0.1) .. (O);
+		\end{tikzpicture}
+		\caption{Góc giữa hai vector $\vec{a}$ và $\vec{b}$ trong không gian}
+	\end{figure}
+	
+	\textbf{2. Tích vô hướng của hai vector}
+	\begin{itemize}
+		\item \textbf{Định nghĩa:} Trong không gian, tích vô hướng của hai vector $\vec{a}$ và $\vec{b}$ khác $\vec{0}$ là một số (kí hiệu là $\vec{a} \cdot \vec{b}$) được xác định bởi công thức:
+		$$ \vec{a} \cdot \vec{b} = |\vec{a}| \cdot |\vec{b}| \cdot \cos(\vec{a}, \vec{b}) $$
+		\item \textbf{Quy ước:} Nếu $\vec{a} = \vec{0}$ hoặc $\vec{b} = \vec{0}$ thì $\vec{a} \cdot \vec{b} = 0$.
+		\item \textbf{Các hệ quả quan trọng:}
+		\begin{itemize}
+			\item Điều kiện vuông góc: $\vec{a} \perp \vec{b} \Leftrightarrow \vec{a} \cdot \vec{b} = 0$.
+			\item Bình phương vô hướng: $\vec{a}^2 = |\vec{a}|^2$ hay $|\vec{a}| = \sqrt{\vec{a}^2}$.
+			\item Công thức tính góc: Nếu $\vec{a}, \vec{b}$ khác $\vec{0}$ thì ta có:
+			$$ \cos(\vec{a}, \vec{b}) = \frac{\vec{a} \cdot \vec{b}}{|\vec{a}| \cdot |\vec{b}|} $$
+		\end{itemize}
+		\item \textbf{Tính chất:} Tương tự như trong mặt phẳng, tích vô hướng trong không gian cũng có các tính chất: giao hoán ($\vec{a}\cdot\vec{b} = \vec{b}\cdot\vec{a}$), phân phối ($\vec{a}\cdot(\vec{b} + \vec{c}) = \vec{a}\cdot\vec{b} + \vec{a}\cdot\vec{c}$), kết hợp số thực ($(k\vec{a})\cdot\vec{b} = k(\vec{a}\cdot\vec{b})$).
+	\end{itemize}
+	
+	\begin{vidu}[4]
+		Cho hình lập phương $ABCD.A'B'C'D'$ có cạnh bằng $a$.
+		\begin{center}
+			\begin{tikzpicture}[scale=1, line cap=round, line join=round]
+				% Định nghĩa tọa độ trị số tuyệt đối trực tiếp (tránh dùng thư viện calc gây lỗi biên dịch)
+				\coordinate (A) at (0,0);
+				\coordinate (B) at (3,-0.5);
+				\coordinate (D) at (2,1.2);
+				\coordinate (A') at (0,3);
+				
+				\coordinate (C) at (5,0.7);
+				\coordinate (B') at (3,2.5);
+				\coordinate (D') at (2,4.2);
+				\coordinate (C') at (5,3.7);
+				
+				% Vẽ các đường đứt nét phía sau
+				\draw[dashed] (A) -- (D) -- (C);
+				\draw[dashed] (D) -- (D');
+				\draw[dashed, blue, thick] (A) -- (D);
+				\draw[dashed, red, thick] (A) -- (C);
+				
+				% Vẽ khung ngoài hình lập phương
+				\draw (A) -- (B) -- (C) -- (C') -- (B') -- (A') -- cycle;
+				\draw (B) -- (B');
+				\draw (A') -- (D') -- (C');
+				\draw (B') -- (C');
+				
+				% vector AB nổi bật màu xanh
+				\draw[blue, thick] (A) -- (B);
+				
+				% Đặt nhãn đỉnh
+				\node[below left] at (A) {$A$};
+				\node[below] at (B) {$B$};
+				\node[right] at (C) {$C$};
+				\node[above left] at (D) {$D$};
+				\node[left] at (A') {$A'$};
+				\node[right] at (B') {$B'$};
+				\node[above right] at (C') {$C'$};
+				\node[above] at (D') {$D'$};
+			\end{tikzpicture}
+		\end{center}
+		\begin{enumerate}[label=\alph*)]
+			\item Tính tích vô hướng của hai vector $\overrightarrow{AB}$ và $\overrightarrow{AD}$.
+			\item Tính tích vô hướng của hai vector $\overrightarrow{AB}$ và $\overrightarrow{A'C'}$.
+		\end{enumerate}
+	\end{vidu}
+	
+	\begin{loigiai}
+		\begin{enumerate}[label=\alph*)]
+			\item Vì $ABCD.A'B'C'D'$ là hình lập phương nên mặt đáy $ABCD$ là hình vuông. Do đó, hai cạnh $AB$ và $AD$ vuông góc với nhau tại $A$, tức là $\overrightarrow{AB} \perp \overrightarrow{AD}$.
+			
+			Áp dụng điều kiện vuông góc của tích vô hướng:
+			$$ \overrightarrow{AB} \cdot \overrightarrow{AD} = 0 $$
+			
+			\item Ta có tứ giác $ACC'A'$ là hình chữ nhật nên $\overrightarrow{A'C'} = \overrightarrow{AC}$.
+			
+			Do đó, tích vô hướng của hai vector $\overrightarrow{AB}$ và $\overrightarrow{A'C'}$ được đưa về tính trên mặt đáy $ABCD$:
+			$$ \overrightarrow{AB} \cdot \overrightarrow{A'C'} = \overrightarrow{AB} \cdot \overrightarrow{AC} = |\overrightarrow{AB}| \cdot |\overrightarrow{AC}| \cdot \cos(\overrightarrow{AB}, \overrightarrow{AC}) $$
+			Trong hình vuông $ABCD$ cạnh $a$:
+			\begin{itemize}
+				\item Độ dài cạnh: $AB = a$.
+				\item Độ dài đường chéo: $AC = a\sqrt{2}$.
+				\item Góc ở đỉnh hình vuông: $(\overrightarrow{AB}, \overrightarrow{AC}) = \widehat{BAC} = 45^\circ$.
+			\end{itemize}
+			Thay các giá trị vào công thức tích vô hướng:
+			$$ \overrightarrow{AB} \cdot \overrightarrow{A'C'} = a \cdot a\sqrt{2} \cdot \cos(45^\circ) = a^2\sqrt{2} \cdot \frac{\sqrt{2}}{2} = a^2 $$
+		\end{enumerate}
+	\end{loigiai}
+	
+	\newpage
+	
+	% =====================
+	% PHẦN 4: BÀI TẬP
+	% =====================
+	\section{Bài tập tự luận}
+
+	
+	\subsection{Dạng 1: Xác định vector và các tính chất của vector}	
+	
+	\begin{btxanh}[]
+		Cho hình hộp $ABCD.A'B'C'D'$. Sử dụng các đỉnh của hình hộp làm điểm đầu và điểm cuối của các vectơ.
+		\begin{enumerate}[label=\alph*)]
+			\item Hãy kể tên các vectơ bằng nhau lần lượt bằng các vectơ $\overrightarrow{AB}, \overrightarrow{AC}, \overrightarrow{AD}, \overrightarrow{AA'}$.
+			\item Hãy kể tên các vectơ luôn có độ dài bằng nhau và bằng độ dài của vectơ $\overrightarrow{BC}$.
+		\end{enumerate}
+	\end{btxanh}
+	
+	\begin{btvang}[]
+		Cho hình lăng trụ tam giác $ABC.A'B'C'$. Sử dụng các đỉnh của hình lăng trụ làm điểm đầu và điểm cuối của các vectơ.
+		\begin{enumerate}[label=\alph*)]
+			\item Hãy kể tên các vectơ bằng nhau lần lượt bằng các vectơ $\overrightarrow{AA'}, \overrightarrow{BC}, \overrightarrow{A'C'}$.
+			\item Hãy kể tên các vectơ luôn có độ dài bằng nhau và bằng độ dài của vectơ $\overrightarrow{AB}$.
+		\end{enumerate}
+	\end{btvang}
+	
+	\begin{btdo}[]
+		Cho hình hộp chữ nhật $MNPQ.M'N'P'Q'$. Sử dụng các đỉnh của hình hộp chữ nhật làm điểm đầu và điểm cuối của các vectơ.
+		\begin{enumerate}[label=\alph*)]
+			\item Hãy kể tên các vectơ bằng nhau lần lượt bằng các vectơ $\overrightarrow{MN}, \overrightarrow{MP}, \overrightarrow{MQ}, \overrightarrow{MM'}$.
+			\item Hãy kể tên các vectơ luôn có độ dài bằng nhau và bằng độ dài của vectơ $\overrightarrow{NP}$.
+		\end{enumerate}
+	\end{btdo}
+	
+	\subsection{Dạng 2: Chứng minh đẳng thức vector}	
+	
+	
+	\begin{btxanh}[]
+		\textbf{Câu 1:} Cho hình chóp $S.ABCD$ có đáy $ABCD$ là hình bình hành.
+		\begin{enumerate}[label=\alph*)]
+			\item Chứng minh rằng: $\overrightarrow{SA} + \overrightarrow{SC} = \overrightarrow{SB} + \overrightarrow{SD}$.
+			\item Nếu đáy $ABCD$ là hình chữ nhật, chứng minh rằng: $\overrightarrow{SA}^2 + \overrightarrow{SC}^2 = \overrightarrow{SB}^2 + \overrightarrow{SD}^2$.
+		\end{enumerate}
+		
+		\vspace{0.2cm}
+		\textbf{Câu 2:} Cho hình hộp $ABCD.A'B'C'D'$. Chứng minh rằng:
+		$$ \overrightarrow{AB} + \overrightarrow{B'C'} + \overrightarrow{CD} + \overrightarrow{D'A} = \vec{0} $$
+		
+		\vspace{0.2cm}
+		\textbf{Câu 3:} Cho tứ diện $ABCD$. Gọi $M$ và $N$ lần lượt là trung điểm của các cạnh đối $AD$ và $BC$. Chứng minh rằng:
+		$$ \overrightarrow{MN} = \frac{1}{2}(\overrightarrow{AB} + \overrightarrow{DC}) $$
+	\end{btxanh}
+	
+	\begin{btvang}[]
+		\textbf{Câu 1:} Cho hình chóp $S.XYZT$ có đáy $XYZT$ là hình bình hành.
+		\begin{enumerate}[label=\alph*)]
+			\item Chứng minh rằng: $\overrightarrow{SX} + \overrightarrow{SZ} = \overrightarrow{SY} + \overrightarrow{ST}$.
+			\item Nếu đáy $XYZT$ là hình chữ nhật, chứng minh rằng: $\overrightarrow{SX}^2 + \overrightarrow{SZ}^2 = \overrightarrow{SY}^2 + \overrightarrow{ST}^2$.
+		\end{enumerate}
+		
+		\vspace{0.2cm}
+		\textbf{Câu 2:} Cho hình hộp $ABCD.A'B'C'D'$. Chứng minh rằng:
+		$$ \overrightarrow{AB} + \overrightarrow{AD'} + \overrightarrow{C'C} + \overrightarrow{B'A'} = \overrightarrow{AD} $$
+		
+		\vspace{0.2cm}
+		\textbf{Câu 3:} Cho tứ diện $S.ABC$. Gọi $G$ là trọng tâm của tam giác đáy $ABC$. Chứng minh rằng:
+		$$ \overrightarrow{SA} + \overrightarrow{SB} + \overrightarrow{SC} = 3\overrightarrow{SG} $$
+	\end{btvang}
+	
+	\begin{btdo}[]
+		\textbf{Câu 1:} Cho hình chóp $S.ABCD$ có đáy là hình bình hành tâm $O$. Gọi $G$ là điểm thỏa mãn hệ thức: $\overrightarrow{GS} + \overrightarrow{GA} + \overrightarrow{GB} + \overrightarrow{GC} + \overrightarrow{GD} = \vec{0}$. Chứng minh rằng:
+		$$ \overrightarrow{GS} = 4\overrightarrow{OG} $$
+		
+		\vspace{0.2cm}
+		\textbf{Câu 2:} Cho hình hộp $ABCD.A'B'C'D'$. Chứng minh rằng:
+		$$ \overrightarrow{AB} + \overrightarrow{AD} + \overrightarrow{AA'} + \overrightarrow{C'D'} + \overrightarrow{C'B} = \vec{0} $$
+		
+		\vspace{0.2cm}
+		\textbf{Câu 3:} Cho hình hộp $ABCD.A'B'C'D'$ có tâm $O$. Gọi $M$ là tâm của hình bình hành đáy $ABCD$. Chứng minh rằng:
+		$$ \overrightarrow{OM} = -\frac{1}{8}(\overrightarrow{AC'} + \overrightarrow{CA'} + \overrightarrow{BD'} + \overrightarrow{DB'}) $$
+	\end{btdo}
+	
+	\subsection{Dạng 3: Phân tích vector}
+	
+	\begin{btxanh}[]
+		\textbf{Câu 1:} Cho hình lăng trụ tam giác $ABC.A'B'C'$ có $\overrightarrow{AA'} = \vec{a}$, $\overrightarrow{AB} = \vec{b}$, $\overrightarrow{AC} = \vec{c}$. Hãy biểu diễn (phân tích) các vectơ $\overrightarrow{B'C}$ và $\overrightarrow{BC'}$ theo các vectơ $\vec{a}$, $\vec{b}$, $\vec{c}$.
+		
+		\vspace{0.2cm}
+		\textbf{Câu 2:} Cho tứ diện $ABCD$.
+		\begin{enumerate}[label=\alph*)]
+			\item Gọi $I, J$ lần lượt là trung điểm của $AB$ và $CD$. Hãy biểu diễn vectơ $\overrightarrow{IJ}$ theo ba vectơ $\overrightarrow{AB}$, $\overrightarrow{AC}$ và $\overrightarrow{AD}$.
+			\item Gọi $G$ là trọng tâm của tam giác $BCD$. Hãy biểu diễn vectơ $\overrightarrow{AG}$ theo ba vectơ $\overrightarrow{AB}$, $\overrightarrow{AC}$ và $\overrightarrow{AD}$.
+		\end{enumerate}
+		
+		\vspace{0.2cm}
+		\textbf{Câu 3:} Cho hình chóp $S.ABC$. Lấy hai điểm $M$ và $N$ sao cho $\overrightarrow{MS} = -2\overrightarrow{MA}$ và $\overrightarrow{NC} = -2\overrightarrow{NB}$. Chứng minh rằng:
+		$$ \overrightarrow{MN} = \frac{1}{3}\overrightarrow{SC} + \frac{2}{3}\overrightarrow{AB} $$
+	\end{btxanh}
+	
+	\begin{btvang}[]
+		\textbf{Câu 1:} Cho tứ diện $ABCD$. Gọi $M$ và $N$ lần lượt là các điểm thuộc các cạnh $AD$ và $BC$ sao cho $AM = 2MD$ và $BC = 3NC$. Chứng minh rằng:
+		$$ \overrightarrow{MN} = \frac{1}{3}\overrightarrow{AB} - \frac{2}{3}\overrightarrow{CD} $$
+		
+		\vspace{0.2cm}
+		\textbf{Câu 2:} Cho tứ diện $ABCD$. Lấy các điểm $M$ và $N$ lần lượt thuộc các cạnh $AD$ và $BC$ sao cho $\overrightarrow{AM} = 3\overrightarrow{MD}$ và $\overrightarrow{NB} = -3\overrightarrow{NC}$. Đặt $\overrightarrow{AB} = \vec{a}$ và $\overrightarrow{CD} = \vec{b}$. Hãy biểu diễn vectơ $\overrightarrow{MN}$ theo hai vectơ $\vec{a}$ và $\vec{b}$.
+		
+		\vspace{0.2cm}
+		\textbf{Câu 3:} Cho hình hộp $ABCD.A'B'C'D'$. Gọi $G$ và $G'$ lần lượt là trọng tâm của hai tam giác $BDA'$ và $CB'D'$. Chứng minh rằng ba điểm $A, G, C'$ thẳng hàng.
+	\end{btvang}
+	
+	\begin{btdo}[]
+		\textbf{Câu 1:} Cho hình hộp $ABCD.A'B'C'D'$. Đặt $\overrightarrow{BA} = \vec{a}$, $\overrightarrow{BB'} = \vec{b}$, $\overrightarrow{BC} = \vec{c}$. Gọi $M$ và $N$ lần lượt là hai điểm nằm trên các đường chéo $AC$ và $DC'$ sao cho $MB \parallel BD'$. Tính tỷ số độ dài $\frac{MN}{BD'}$.
+		
+		\vspace{0.2cm}
+		\textbf{Câu 2:} Cho hình chóp $S.ABC$. Lấy các điểm $A', B', C'$ lần lượt thuộc các tia $SA, SB, SC$ sao cho $SA = a \cdot SA'$, $SB = b \cdot SB'$, $SC = c \cdot SC'$ (với $a, b, c$ là các số thực dương thay đổi). Chứng minh rằng mặt phẳng $(A'B'C')$ đi qua trọng tâm của tam giác $ABC$ khi và chỉ khi:
+		$$ a + b + c = 3 $$
+		
+		\vspace{0.2cm}
+		\textbf{Câu 3:} Cho tứ diện $ABCD$. Gọi $M$ và $N$ là các điểm lần lượt thuộc $AB$ và $CD$ sao cho $\overrightarrow{MA} = -2\overrightarrow{MB}$ và $\overrightarrow{ND} = -2\overrightarrow{NC}$. Các điểm $I, J, K$ lần lượt thuộc các đường thẳng $AD, MN, BC$ sao cho $\overrightarrow{IA} = k\overrightarrow{ID}$, $\overrightarrow{JM} = k\overrightarrow{JN}$, $\overrightarrow{KB} = k\overrightarrow{KC}$ (với $k \neq 1$). Chứng minh rằng ba điểm $I, J, K$ thẳng hàng.
+	\end{btdo}
+	
+	\subsection{Dạng 4: Góc giữa hai vectơ và tích vô hướng}
+	
+	\begin{btxanh}[]
+		\textbf{Câu 1:} Cho hình lập phương $ABCD.A'B'C'D'$. Hãy xác định góc giữa các cặp vectơ sau:
+		\begin{enumerate}[label=\alph*)]
+			\item $\overrightarrow{AB}$ và $\overrightarrow{D'D}$.
+			\item $\overrightarrow{AB}$ và $\overrightarrow{A'C'}$.
+		\end{enumerate}
+		
+		\vspace{0.2cm}
+		\textbf{Câu 2:} Cho tứ diện đều $ABCD$ có $H$ là trung điểm của cạnh $AB$. Tính góc giữa các cặp vectơ sau:
+		\begin{enumerate}[label=\alph*)]
+			\item $\overrightarrow{AB}$ và $\overrightarrow{BC}$.
+			\item $\overrightarrow{CH}$ và $\overrightarrow{AC}$.
+		\end{enumerate}
+		
+		\vspace{0.2cm}
+		\textbf{Câu 3:} Cho tứ diện $ABCD$ có $AB = AC = AD$ và $\widehat{BAC} = \widehat{BAD} = 60^\circ$. Chứng minh rằng:
+		$$ \overrightarrow{AB} \cdot \overrightarrow{CD} = 0 $$
+		Từ đó suy ra góc giữa cặp vectơ $\overrightarrow{AB}$ và $\overrightarrow{CD}$.
+	\end{btxanh}
+	
+	\begin{btvang}[]
+		\textbf{Câu 1:} Cho hình chóp $S.ABC$ có $SA = SB = SC$ và $\widehat{ASB} = \widehat{BSC} = \widehat{CSA}$. Hãy xác định góc giữa cặp vectơ $\overrightarrow{AB}$ và $\overrightarrow{SC}$.
+		
+		\vspace{0.2cm}
+		\textbf{Câu 2:} Cho tứ diện $ABCD$ có $AB \perp AC$ và $AB \perp BD$. Gọi $P$ và $Q$ lần lượt là trung điểm của $AB$ và $CD$. Chứng minh rằng:
+		$$ AB \perp PQ $$
+		
+		\vspace{0.2cm}
+		\textbf{Câu 3:} Cho tứ diện $ABCD$ có $AB = AC = AD$ và $\widehat{BAC} = \widehat{BAD} = 60^\circ$, $\widehat{CAD} = 90^\circ$. Gọi $I$ và $J$ lần lượt là trung điểm của $AB$ và $CD$. Hãy xác định góc giữa cặp vectơ $\overrightarrow{AB}$ và $\overrightarrow{IJ}$.
+	\end{btvang}
+	
+	\begin{btdo}[]
+		\textbf{Câu 1:} Cho tứ diện $OABC$ có $OA, OB, OC$ đôi một vuông góc và $OA = OB = OC = a$. Gọi $M$ là trung điểm của $AB$. Tính góc giữa hai vectơ $\overrightarrow{OM}$ và $\overrightarrow{BC}$.
+		
+		\vspace{0.2cm}
+		\textbf{Câu 2:} Cho hình hộp chữ nhật $ABCD.A'B'C'D'$ có $AB = a, AD = b, AA' = c$.
+		\begin{enumerate}[label=\alph*)]
+			\item Tính tích vô hướng của hai vectơ $\overrightarrow{AB}$ và $\overrightarrow{A'C'}$.
+			\item Tính góc giữa hai vectơ này trong trường hợp đáy là hình vuông ($a = b$).
+		\end{enumerate}
+		
+		\vspace{0.2cm}
+		\textbf{Câu 3:} Cho tứ diện đều $ABCD$ cạnh $a$. Gọi $O$ là tâm đường tròn ngoại tiếp tam giác đáy $BCD$. Chứng minh rằng đường thẳng $AO$ vuông góc với $CD$, từ đó tính tích vô hướng:
+		$$ \overrightarrow{AO} \cdot \overrightarrow{CD} $$
+	\end{btdo}
+	
+	
+	\section{Câu hỏi trắc nghiệm}
+	
+	\textbf{Câu 1:} Cho tứ diện $ABCD$. Hỏi có bao nhiêu vectơ khác vectơ $\vec{0}$ mà mỗi vectơ có điểm đầu và điểm cuối là hai đỉnh trong các đỉnh của tứ diện $ABCD$?
+	\begin{multicols}{2}
+		A. 12. \par
+		B. 4. \par
+		C. 10. \par
+		D. 8.
+	\end{multicols}
+	
+	\vspace{0.2cm}
+	\noindent \textbf{Câu 2:} Cho hình chóp tứ giác $S.EFGH$. Hỏi có bao nhiêu vectơ khác vectơ $\vec{0}$ mà điểm đầu và điểm cuối thuộc tập hợp các đỉnh của hình chóp?
+	\begin{multicols}{2}
+		A. 20. \par
+		B. 12. \par
+		C. 16. \par
+		D. 30.
+	\end{multicols}
+	
+	\vspace{0.2cm}
+	\noindent \textbf{Câu 3:} Cho lăng trụ tam giác $ABC.A'B'C'$. Số lượng vectơ khác vectơ $\vec{0}$ có điểm đầu và điểm cuối là các đỉnh của lăng trụ này là:
+	\begin{multicols}{2}
+		A. 30. \par
+		B. 42. \par
+		C. 24. \par
+		D. 36.
+	\end{multicols}
+	
+	\vspace{0.2cm}
+	\noindent \textbf{Câu 4:} Cho hình bát diện đều $ABCDEF$. Số các vectơ khác vectơ $\vec{0}$ mà có điểm đầu và điểm cuối là hai đỉnh phân biệt của hình bát diện đều là:
+	\begin{multicols}{2}
+		A. 42. \par
+		B. 30. \par
+		C. 56. \par
+		D. 20.
+	\end{multicols}
+	
+	\noindent\textbf{Câu 5:} Cho hình hộp $ABCD.A'B'C'D'$. Gọi $I, J$ lần lượt là trung điểm của $AB'$ và $CD'$. Khẳng định nào dưới đây là đúng?
+	\begin{multicols}{2}
+		A. $\overrightarrow{AI} = \overrightarrow{CJ}$. \par
+		B. $\overrightarrow{D'A'} = \overrightarrow{IJ}$. \par
+		C. $\overrightarrow{BI} = \overrightarrow{D'J}$. \par
+		D. $\overrightarrow{A'I} = \overrightarrow{JC}$.
+	\end{multicols}
+	
+	\vspace{0.2cm}
+	\noindent\textbf{Câu 6:} Cho hình lập phương $ABCD.A'B'C'D'$. Mệnh đề nào sau đây \textbf{sai}?
+	\begin{multicols}{2}
+		A. $\overrightarrow{AB} + \overrightarrow{AD} + \overrightarrow{AA'} = \overrightarrow{AC'}$. \par
+		B. $\overrightarrow{AC} = \overrightarrow{AB} + \overrightarrow{AD}$. \par
+		C. $|\overrightarrow{AB}| = |\overrightarrow{CD}|$. \par
+		D. $\overrightarrow{AB} = \overrightarrow{CD}$.
+	\end{multicols}
+	
+	\vspace{0.2cm}
+	\noindent\textbf{Câu 7:} Cho tứ diện $ABCD$ có trọng tâm $G$. Mệnh đề nào sau đây \textbf{sai}?
+	\begin{multicols}{2}
+		A. $\overrightarrow{GA} + \overrightarrow{GB} + \overrightarrow{GC} + \overrightarrow{GD} = \vec{0}$. \par
+		B. $\overrightarrow{OG} = \frac{1}{4}(\overrightarrow{OA} + \overrightarrow{OB} + \overrightarrow{OC} + \overrightarrow{OD})$. \par
+		C. $\overrightarrow{AG} = \frac{2}{3}(\overrightarrow{AB} + \overrightarrow{AC} + \overrightarrow{AD})$. \par
+		D. $\overrightarrow{AG} = \frac{1}{4}(\overrightarrow{AB} + \overrightarrow{AC} + \overrightarrow{AD})$.
+	\end{multicols}
+	
+	\vspace{0.2cm}
+	\noindent\textbf{Câu 8:} Cho tứ diện $ABCD$, gọi $I, J$ lần lượt là trung điểm của $AB$ và $CD$. Đẳng thức nào sau đây \textbf{sai}?
+	\begin{multicols}{2}
+		A. $\overrightarrow{IJ} = \frac{1}{2}(\overrightarrow{AC} + \overrightarrow{BD})$. \par
+		B. $\overrightarrow{IJ} = \frac{1}{2}(\overrightarrow{AD} + \overrightarrow{BC})$. \par
+		C. $\overrightarrow{IJ} = \frac{1}{2}(\overrightarrow{DC} + \overrightarrow{AD} + \overrightarrow{BD})$. \par
+		D. $\overrightarrow{IJ} = \frac{1}{2}(\overrightarrow{AB} + \overrightarrow{CD})$.
+	\end{multicols}
+	
+	\vspace{0.2cm}
+	\noindent\textbf{Câu 9:} Cho tứ diện $ABCD$. Mệnh đề nào dưới đây là mệnh đề đúng?
+	\begin{multicols}{2}
+		A. $\overrightarrow{BC} + \overrightarrow{AB} = \overrightarrow{DA} - \overrightarrow{DC}$. \par
+		B. $\overrightarrow{AC} - \overrightarrow{AD} = \overrightarrow{BD} - \overrightarrow{BC}$. \par
+		C. $\overrightarrow{AB} - \overrightarrow{AC} = \overrightarrow{DB} - \overrightarrow{DC}$. \par
+		D. $\overrightarrow{AB} - \overrightarrow{AD} = \overrightarrow{CD} + \overrightarrow{BC}$.
+	\end{multicols}
+	
+	\vspace{0.2cm}
+	\noindent\textbf{Câu 10:} Cho hình hộp $ABCD.A'B'C'D'$. Biểu thức nào sau đây bằng với vectơ $\overrightarrow{A'C}$?
+	\begin{multicols}{2}
+		A. $\overrightarrow{A'B'} + \overrightarrow{A'D'} + \overrightarrow{A'A}$. \par
+		B. $\overrightarrow{A'B'} + \overrightarrow{A'D'} - \overrightarrow{A'A}$. \par
+		C. $\overrightarrow{A'B'} - \overrightarrow{A'D'} + \overrightarrow{A'A}$. \par
+		D. $\overrightarrow{A'B'} + \overrightarrow{A'D'} - 2\overrightarrow{A'A}$.
+	\end{multicols}
+	
+	\vspace{0.2cm}
+	\noindent\textbf{Câu 11:} Cho tứ diện $ABCD$. Gọi $M$ là trung điểm của cạnh $BC$. Mệnh đề nào sau đây đúng?
+	\begin{multicols}{2}
+		A. $\overrightarrow{AM} = \frac{1}{2}(\overrightarrow{AB} + \overrightarrow{AC})$. \par
+		B. $\overrightarrow{AM} = \frac{1}{2}(\overrightarrow{AB} + \overrightarrow{AD})$. \par
+		C. $\overrightarrow{AM} = \overrightarrow{AB} + \overrightarrow{AC}$. \par
+		D. $\overrightarrow{AM} = \frac{1}{2}(\overrightarrow{AB} - \overrightarrow{AC})$.
+	\end{multicols}
+	
+	\vspace{0.2cm}
+	\noindent\textbf{Câu 12:} Cho hình chóp $S.ABC$. Gọi $G$ là trọng tâm tam giác $ABC$. Đẳng thức nào dưới đây là đúng?
+	\begin{multicols}{2}
+		A. $\overrightarrow{SA} + \overrightarrow{SB} + \overrightarrow{SC} = \overrightarrow{SG}$. \par
+		B. $\overrightarrow{SA} + \overrightarrow{SB} + \overrightarrow{SC} = 3\overrightarrow{SG}$. \par
+		C. $\overrightarrow{SA} + \overrightarrow{SB} + \overrightarrow{SC} = 2\overrightarrow{SG}$. \par
+		D. $\overrightarrow{SA} + \overrightarrow{SB} + \overrightarrow{SC} = \vec{0}$.
+	\end{multicols}
+	
+	\vspace{0.2cm}
+	\noindent\textbf{Câu 13:} Cho hình lập phương $ABCD.A'B'C'D'$. Khẳng định nào sau đây là đúng về độ dài của vectơ?
+	\begin{multicols}{2}
+		A. $|\overrightarrow{AB} + \overrightarrow{AD} + \overrightarrow{AA'}| = A'C$. \par
+		B. $|\overrightarrow{AB} + \overrightarrow{AD} + \overrightarrow{AA'}| = AC'$. \par
+		C. $|\overrightarrow{AB} + \overrightarrow{AD} + \overrightarrow{AA'}| = 3AB$. \par
+		D. $|\overrightarrow{AB} + \overrightarrow{AD} + \overrightarrow{AA'}| = A'B$.
+	\end{multicols}
+	
+	\vspace{0.2cm}
+	\noindent\textbf{Câu 14:} Cho tứ diện $ABCD$ có trọng tâm là $G$. Với điểm $M$ bất kì trong không gian, khẳng định nào sau đây luôn đúng?
+	\begin{multicols}{2}
+		A. $\overrightarrow{MA} + \overrightarrow{MB} + \overrightarrow{MC} + \overrightarrow{MD} = 4\overrightarrow{MG}$. \par
+		B. $\overrightarrow{MA} + \overrightarrow{MB} + \overrightarrow{MC} + \overrightarrow{MD} = \overrightarrow{MG}$. \par
+		C. $\overrightarrow{MA} + \overrightarrow{MB} + \overrightarrow{MC} + \overrightarrow{MD} = 2\overrightarrow{MG}$. \par
+		D. $\overrightarrow{MA} + \overrightarrow{MB} + \overrightarrow{MC} + \overrightarrow{MD} = \vec{0}$.
+	\end{multicols}
+	
+	\noindent\textbf{Câu 15:} Cho tứ diện $ABCD$. Gọi $M, N$ lần lượt là trung điểm của $AD$ và $BC$. Khẳng định nào sau đây \textbf{sai}?
+	\begin{multicols}{2}
+		A. $\overrightarrow{AB} + \overrightarrow{CD} = \overrightarrow{CB} + \overrightarrow{AD}$. \par
+		B. $2\overrightarrow{MN} = \overrightarrow{AB} + \overrightarrow{DC}$. \par
+		C. $\overrightarrow{AD} + 2\overrightarrow{MN} = \overrightarrow{AB} + \overrightarrow{AC}$. \par
+		D. $2\overrightarrow{MN} = \overrightarrow{AB} + \overrightarrow{AC} + \overrightarrow{AD}$.
+	\end{multicols}
+	
+	\vspace{0.2cm}
+	\noindent\textbf{Câu 16:} Cho hình chóp $S.ABCD$ có đáy $ABCD$ là hình bình hành. Khẳng định nào sau đây \textbf{đúng}?
+	\begin{multicols}{2}
+		A. $\overrightarrow{SA} + \overrightarrow{SD} = \overrightarrow{SB} + \overrightarrow{SC}$. \par
+		B. $\overrightarrow{SA} + \overrightarrow{SB} + \overrightarrow{SC} + \overrightarrow{SD} = \vec{0}$. \par
+		C. $\overrightarrow{SA} + \overrightarrow{SC} = \overrightarrow{SB} + \overrightarrow{SD}$. \par
+		D. $\overrightarrow{SA} + \overrightarrow{SB} = \overrightarrow{SC} + \overrightarrow{SD}$.
+	\end{multicols}
+	
+	\vspace{0.2cm}
+	\noindent\textbf{Câu 17:} Cho tứ diện $ABCD$. Gọi $I, J$ lần lượt là trung điểm của $AB$ và $CD$, $G$ là trung điểm của $IJ$. Đẳng thức nào sau đây đúng?
+	\begin{multicols}{2}
+		A. $\overrightarrow{GA} + \overrightarrow{GB} + \overrightarrow{GC} + \overrightarrow{GD} = \vec{0}$. \par
+		B. $\overrightarrow{GA} + \overrightarrow{GB} + \overrightarrow{GC} + \overrightarrow{GD} = 2\overrightarrow{IJ}$. \par
+		C. $\overrightarrow{GA} + \overrightarrow{GB} + \overrightarrow{GC} + \overrightarrow{GD} = \overrightarrow{JI}$. \par
+		D. $\overrightarrow{GA} + \overrightarrow{GB} + \overrightarrow{GC} + \overrightarrow{GD} = -2\overrightarrow{JI}$.
+	\end{multicols}
+	
+	\vspace{0.2cm}
+	\noindent\textbf{Câu 18:} Cho hình lăng trụ tam giác $ABC.A'B'C'$. Đặt $\overrightarrow{AA'} = \vec{a}$, $\overrightarrow{AB} = \vec{b}$, $\overrightarrow{AC} = \vec{c}$, $\overrightarrow{BC} = \vec{d}$. Biểu thức vectơ nào sau đây đúng?
+	\begin{multicols}{2}
+		A. $\vec{a} + \vec{b} + \vec{c} = \vec{d}$. \par
+		B. $\vec{a} = \vec{b} + \vec{c}$. \par
+		C. $\vec{a} + \vec{b} + \vec{c} + \vec{d} = \vec{0}$. \par
+		D. $\vec{b} - \vec{c} + \vec{d} = \vec{0}$.
+	\end{multicols}
+	
+	\vspace{0.2cm}
+	\noindent\textbf{Câu 19:} Cho hình hộp chữ nhật $ABCD.A'B'C'D'$. Đặt $\overrightarrow{AB} = \vec{x}$, $\overrightarrow{AD} = \vec{y}$, $\overrightarrow{AA'} = \vec{z}$. Vectơ biểu diễn đường chéo $\overrightarrow{BD'}$ theo $\vec{x}$, $\vec{y}$, $\vec{z}$ là:
+	\begin{multicols}{2}
+		A. $\overrightarrow{BD'} = -\vec{x} + \vec{y} + \vec{z}$. \par
+		B. $\overrightarrow{BD'} = \vec{x} - \vec{y} + \vec{z}$. \par
+		C. $\overrightarrow{BD'} = \vec{x} + \vec{y} - \vec{z}$. \par
+		D. $\overrightarrow{BD'} = \vec{x} + \vec{y} + \vec{z}$.
+	\end{multicols}
+	
+	\vspace{0.2cm}
+	\noindent\textbf{Câu 20:} Cho hình lăng trụ tam giác $ABC.A'B'C'$. Gọi $M$ là trung điểm của $B'C'$. Đẳng thức nào sau đây là đúng?
+	\begin{multicols}{2}
+		A. $\overrightarrow{AM} = \overrightarrow{AA'} + \frac{1}{2}(\overrightarrow{AB} + \overrightarrow{AC})$. \par
+		B. $\overrightarrow{AM} = \overrightarrow{AA'} + \overrightarrow{AB} + \overrightarrow{AC}$. \par
+		C. $\overrightarrow{AM} = \frac{1}{2}\overrightarrow{AA'} + \overrightarrow{AB} + \overrightarrow{AC}$. \par
+		D. $\overrightarrow{AM} = \overrightarrow{AA'} + \frac{1}{2}(\overrightarrow{AB} - \overrightarrow{AC})$.
+	\end{multicols}
+	
+	\vspace{0.2cm}
+	\noindent\textbf{Câu 21:} Cho tứ diện đều $ABCD$ có cạnh $a$. Gọi $H$ là trực tâm tam giác đáy $BCD$. Đẳng thức nào sau đây là đúng?
+	\begin{multicols}{2}
+		A. $\overrightarrow{AH} = \frac{1}{3}(\overrightarrow{AB} + \overrightarrow{AC} + \overrightarrow{AD})$. \par
+		B. $\overrightarrow{AH} = \frac{1}{2}(\overrightarrow{AB} + \overrightarrow{AC} + \overrightarrow{AD})$. \par
+		C. $\overrightarrow{AH} = \overrightarrow{AB} + \overrightarrow{AC} + \overrightarrow{AD}$. \par
+		D. $\overrightarrow{AH} = \frac{1}{4}(\overrightarrow{AB} + \overrightarrow{AC} + \overrightarrow{AD})$.
+	\end{multicols}
+	
+	\vspace{0.2cm}
+	\noindent\textbf{Câu 22:} Cho hình chóp $S.ABCD$ có đáy $ABCD$ là hình thang có hai đáy $AB$ và $CD$ sao cho $AB = 2CD$. Gọi $M$ là trung điểm của $AB$. Khẳng định nào sau đây là đúng?
+	\begin{multicols}{2}
+		A. $\overrightarrow{DM} = \overrightarrow{CB}$. \par
+		B. $\overrightarrow{DM} = \overrightarrow{BC}$. \par
+		C. $\overrightarrow{DM} = \overrightarrow{AD}$. \par
+		D. $\overrightarrow{DM} = \overrightarrow{CD}$.
+	\end{multicols}
+	
+	\vspace{0.2cm}
+	\noindent\textbf{Câu 23:} Cho hình hộp $ABCD.A'B'C'D'$ tâm $O$. Đẳng thức nào sau đây \textbf{sai}?
+	\begin{multicols}{2}
+		A. $\overrightarrow{OA} + \overrightarrow{OC'} = \vec{0}$. \par
+		B. $\overrightarrow{OB} + \overrightarrow{OD'} = \vec{0}$. \par
+		C. $\overrightarrow{OA} + \overrightarrow{OB} + \overrightarrow{OC} + \overrightarrow{OD} = \vec{0}$. \par
+		D. $\overrightarrow{OA} + \overrightarrow{OB'} + \overrightarrow{OC} + \overrightarrow{OD'} = \vec{0}$.
+	\end{multicols}
+	
+	\vspace{0.2cm}
+	\noindent\textbf{Câu 24:} Cho tứ diện $ABCD$. Gọi $G_1, G_2, G_3, G_4$ lần lượt là trọng tâm của các tam giác $BCD, CDA, DAB, ABC$. Gọi $G$ là trọng tâm của tứ diện $ABCD$. Khẳng định nào sau đây đúng?
+	\begin{multicols}{2}
+		A. $\overrightarrow{GG_1} + \overrightarrow{GG_2} + \overrightarrow{GG_3} + \overrightarrow{GG_4} = \vec{0}$. \par
+		B. $\overrightarrow{AG_1} + \overrightarrow{BG_2} + \overrightarrow{CG_3} + \overrightarrow{DG_4} = \vec{0}$. \par
+		C. $\overrightarrow{AG_1} = \overrightarrow{BG_2}$. \par
+		D. Cả A và B đều đúng.
+	\end{multicols}
+	
+	\noindent \textbf{Câu 25:} Cho hình chóp $S.XYZT$ có đáy $XYZT$ là hình bình hành. Đặt $\overrightarrow{SX} = \vec{u}$, $\overrightarrow{SY} = \vec{v}$, $\overrightarrow{SZ} = \vec{w}$, $\overrightarrow{ST} = \vec{t}$. Khẳng định nào sau đây đúng?
+	\begin{multicols}{2}
+		A. $\vec{u} + \vec{w} = \vec{v} + \vec{t}$. \par
+		B. $\vec{u} + \vec{v} = \vec{w} + \vec{t}$. \par
+		C. $\vec{u} + \vec{t} = \vec{v} + \vec{w}$. \par
+		D. $\vec{u} + \vec{v} + \vec{w} + \vec{t} = \vec{0}$.
+	\end{multicols}
+	
+	\vspace{0.2cm}
+	\noindent \textbf{Câu 26:} Cho hình chóp $S.ABC$. Gọi $G$ là trọng tâm của tam giác $ABC$. Đẳng thức nào sau đây đúng?
+	\begin{multicols}{2}
+		A. $\overrightarrow{SG} = \overrightarrow{SA} + \overrightarrow{SB} + \overrightarrow{SC}$. \par
+		B. $\overrightarrow{SG} = \frac{1}{3}(\overrightarrow{SA} + \overrightarrow{SB} + \overrightarrow{SC})$. \par
+		C. $\overrightarrow{SG} = 3(\overrightarrow{SA} + \overrightarrow{SB} + \overrightarrow{SC})$. \par
+		D. $\overrightarrow{SG} = \frac{1}{2}(\overrightarrow{SA} + \overrightarrow{SB} + \overrightarrow{SC})$.
+	\end{multicols}
+	
+	\vspace{0.2cm}
+	\noindent \textbf{Câu 27:} Cho hình chóp $S.ABCD$ có đáy $ABCD$ là hình bình hành. Trong các đẳng thức sau, đẳng thức nào luôn đúng?
+	\begin{multicols}{2}
+		A. $\overrightarrow{AB} + \overrightarrow{BC} + \overrightarrow{CD} + \overrightarrow{DA} = \vec{0}$. \par
+		B. $\overrightarrow{SA} + \overrightarrow{SB} = \overrightarrow{SC} + \overrightarrow{SD}$. \par
+		C. $\overrightarrow{AB} + \overrightarrow{AD} = \overrightarrow{BD}$. \par
+		D. $\overrightarrow{SA} + \overrightarrow{SC} + \overrightarrow{SB} + \overrightarrow{SD} = \vec{0}$.
+	\end{multicols}
+	
+	\vspace{0.2cm}
+	\noindent \textbf{Câu 28:} Cho hình lập phương $ABCD.A'B'C'D'$. Thực hiện phép toán: $\vec{v} = \overrightarrow{A'B'} + \overrightarrow{A'D'} + \overrightarrow{A'A}$. Khẳng định nào dưới đây đúng?
+	\begin{multicols}{2}
+		A. $\vec{v} = \overrightarrow{A'C}$. \par
+		B. $\vec{v} = \overrightarrow{A'C'}$. \par
+		C. $\vec{v} = \overrightarrow{CA'}$. \par
+		D. $\vec{v} = \overrightarrow{C'A'}$.
+	\end{multicols}
+	
+	\vspace{0.2cm}
+	\noindent \textbf{Câu 29:} Cho hình chóp $S.ABCD$ có đáy $ABCD$ là hình bình hành tâm $O$. Đẳng thức nào sau đây luôn đúng?
+	\begin{multicols}{2}
+		A. $\overrightarrow{SA} + \overrightarrow{SB} + \overrightarrow{SC} + \overrightarrow{SD} = 4\overrightarrow{SO}$. \par
+		B. $\overrightarrow{SA} + \overrightarrow{SB} + \overrightarrow{SC} + \overrightarrow{SD} = 2\overrightarrow{SO}$. \par
+		C. $\overrightarrow{SA} + \overrightarrow{SB} + \overrightarrow{SC} + \overrightarrow{SD} = \overrightarrow{SO}$. \par
+		D. $\overrightarrow{SA} + \overrightarrow{SB} + \overrightarrow{SC} + \overrightarrow{SD} = \vec{0}$.
+	\end{multicols}
+	
+	\noindent \textbf{Câu 30:} Cho hình lăng trụ tam giác $ABC.A'B'C'$. Đặt $\overrightarrow{AB} = \vec{a}$, $\overrightarrow{AA'} = \vec{b}$, $\overrightarrow{AC} = \vec{c}$. Khẳng định nào sau đây đúng?
+	\begin{multicols}{2}
+		A. $\overrightarrow{B'C} = \vec{a} + \vec{b} - \vec{c}$. \par
+		B. $\overrightarrow{B'C} = -\vec{a} + \vec{b} - \vec{c}$. \par
+		C. $\overrightarrow{B'C} = -\vec{a} - \vec{b} + \vec{c}$. \par
+		D. $\overrightarrow{B'C} = -\vec{a} + \vec{b} + \vec{c}$.
+	\end{multicols}
+	
+	\vspace{0.2cm}
+	\noindent \textbf{Câu 31:} Cho tam giác $ABC$ có $AB = 3, AC = 4$, gọi $AD$ là đường phân giác trong của góc $A$. Mệnh đề nào sau đây đúng?
+	\begin{multicols}{2}
+		A. $\overrightarrow{AD} = \frac{4}{7}\overrightarrow{AB} + \frac{3}{7}\overrightarrow{AC}$. \par
+		B. $\overrightarrow{AD} = \frac{4}{7}\overrightarrow{AB} - \frac{3}{7}\overrightarrow{AC}$. \par
+		C. $\overrightarrow{AD} = -\frac{4}{7}\overrightarrow{AB} + \frac{3}{7}\overrightarrow{AC}$. \par
+		D. $\overrightarrow{AD} = \frac{3}{7}\overrightarrow{AB} + \frac{4}{7}\overrightarrow{AC}$.
+	\end{multicols}
+	
+	\vspace{0.2cm}
+	\noindent \textbf{Câu 32:} Cho hình lăng trụ tam giác $ABC.A'B'C'$, gọi $M$ là trung điểm của cạnh bên $BB'$. Đặt $\overrightarrow{CA} = \vec{a}$, $\overrightarrow{CB} = \vec{b}$, $\overrightarrow{CC'} = \vec{c}$. Khẳng định nào sau đây là đúng?
+	\begin{multicols}{2}
+		A. $\overrightarrow{AM} = -\vec{a} + \vec{b} + \frac{1}{2}\vec{c}$. \par
+		B. $\overrightarrow{AM} = \vec{a} - \frac{1}{2}\vec{b} + \vec{c}$. \par
+		C. $\overrightarrow{AM} = -\frac{1}{2}\vec{a} + \vec{b} + \vec{c}$. \par
+		D. $\overrightarrow{AM} = \vec{a} + \frac{1}{2}\vec{b} - \vec{c}$.
+	\end{multicols}
+	
+	\vspace{0.2cm}
+	\noindent \textbf{Câu 33:} Cho tứ diện $ABCD$. Gọi $M$ và $P$ lần lượt là trung điểm của $BC$ và $AD$. Đặt $\overrightarrow{AB} = \vec{b}$, $\overrightarrow{AC} = \vec{c}$, $\overrightarrow{AD} = \vec{d}$. Khẳng định nào sau đây đúng?
+	\begin{multicols}{2}
+		A. $\overrightarrow{MP} = \frac{1}{2}(\vec{d} + \vec{b} - \vec{c})$. \par
+		B. $\overrightarrow{MP} = \frac{1}{2}(\vec{d} - \vec{b} - \vec{c})$. \par
+		C. $\overrightarrow{MP} = \frac{1}{2}(\vec{c} + \vec{d} + \vec{b})$. \par
+		D. $\overrightarrow{MP} = \frac{1}{2}(\vec{c} + \vec{b} - \vec{d})$.
+	\end{multicols}
+	
+	\vspace{0.2cm}
+	\noindent \textbf{Câu 34:} Cho tứ diện $ABCD$. Gọi $G$ là trọng tâm của tam giác $BCD$. Đặt $\overrightarrow{AB} = \vec{b}$, $\overrightarrow{AC} = \vec{c}$, $\overrightarrow{AD} = \vec{d}$. Khẳng định nào sau đây đúng?
+	\begin{multicols}{2}
+		A. $\overrightarrow{AG} = \frac{1}{3}(\vec{b} + \vec{c} + \vec{d})$. \par
+		B. $\overrightarrow{AG} = \frac{1}{4}(\vec{b} + \vec{c} + \vec{d})$. \par
+		C. $\overrightarrow{AG} = \vec{b} + \vec{c} + \vec{d}$. \par
+		D. $\overrightarrow{AG} = \frac{1}{2}(\vec{b} + \vec{c} + \vec{d})$.
+	\end{multicols}
+	
+	\vspace{0.2cm}
+	\noindent \textbf{Câu 35:} Cho hình lăng trụ tam giác $ABC.A'B'C'$. Đặt $\overrightarrow{AA'} = \vec{a}$, $\overrightarrow{AB} = \vec{b}$, $\overrightarrow{AC} = \vec{c}$. Vectơ biểu diễn đường chéo $\overrightarrow{A'C}$ theo các vectơ $\vec{a}, \vec{b}, \vec{c}$ là:
+	\begin{multicols}{2}
+		A. $\overrightarrow{A'C} = -\vec{a} + \vec{c}$. \par
+		B. $\overrightarrow{A'C} = -\vec{a} + \vec{b} + \vec{c}$. \par
+		C. $\overrightarrow{A'C} = \vec{a} - \vec{c}$. \par
+		D. $\overrightarrow{A'C} = \vec{a} + \vec{b} - \vec{c}$.
+	\end{multicols}
+	
+	\noindent \textbf{Câu 36:} Cho tứ diện $ABCD$. Gọi $M$ và $P$ lần lượt là trung điểm của $AB$ và $CD$. Đặt $\overrightarrow{AB} = \vec{b}$, $\overrightarrow{AC} = \vec{c}$, $\overrightarrow{AD} = \vec{d}$. Khẳng định nào sau đây đúng?
+	\begin{multicols}{2}
+		A. $\overrightarrow{MP} = \frac{1}{2}(\vec{c} + \vec{b} - \vec{d})$. \par
+		B. $\overrightarrow{MP} = \frac{1}{2}(\vec{c} + \vec{d} - \vec{b})$. \par
+		C. $\overrightarrow{MP} = \frac{1}{2}(\vec{c} + \vec{d} + \vec{b})$. \par
+		D. $\overrightarrow{MP} = \frac{1}{2}(\vec{d} + \vec{b} - \vec{c})$.
+	\end{multicols}
+	
+	\vspace{0.2cm}
+	\noindent \textbf{Câu 37:} Cho tứ diện $ABCD$. Đặt $\overrightarrow{AB} = \vec{a}$, $\overrightarrow{AC} = \vec{b}$, $\overrightarrow{AD} = \vec{c}$, gọi $M$ là trung điểm của $BC$. Trong các khẳng định sau, khẳng định nào đúng?
+	\begin{multicols}{2}
+		A. $\overrightarrow{DM} = \frac{1}{2}(\vec{a} + 2\vec{b} - \vec{c})$. \par
+		B. $\overrightarrow{DM} = \frac{1}{2}(-2\vec{a} + \vec{b} + \vec{c})$. \par
+		C. $\overrightarrow{DM} = \frac{1}{2}(\vec{a} - 2\vec{b} + \vec{c})$. \par
+		D. $\overrightarrow{DM} = \frac{1}{2}(\vec{a} + \vec{b} - 2\vec{c})$.
+	\end{multicols}
+	
+	\vspace{0.2cm}
+	\noindent \textbf{Câu 38:} Cho tứ diện đều $ABCD$, $M$ là trung điểm của cạnh $AB$ và $G$ là trọng tâm của tam giác $BCD$. Đặt $\overrightarrow{AB} = \vec{b}$, $\overrightarrow{AC} = \vec{c}$, $\overrightarrow{AD} = \vec{d}$. Phân tích vectơ $\overrightarrow{MG}$ theo các vectơ $\vec{b}, \vec{c}, \vec{d}$ ta được:
+	\begin{multicols}{2}
+		A. $\overrightarrow{MG} = -\frac{1}{6}\vec{b} + \frac{1}{3}\vec{c} + \frac{1}{3}\vec{d}$. \par
+		B. $\overrightarrow{MG} = \frac{1}{6}\vec{b} + \frac{1}{3}\vec{c} + \frac{1}{3}\vec{d}$. \par
+		C. $\overrightarrow{MG} = -\frac{1}{6}\vec{b} - \frac{1}{3}\vec{c} + \frac{1}{3}\vec{d}$. \par
+		D. $\overrightarrow{MG} = -\frac{1}{6}\vec{b} - \frac{1}{3}\vec{c} - \frac{1}{3}\vec{d}$.
+	\end{multicols}
+	
+	\vspace{0.2cm}
+	\noindent \textbf{Câu 39:} Cho tứ diện $ABCD$. Đặt $\overrightarrow{AB} = \vec{a}$, $\overrightarrow{AC} = \vec{b}$, $\overrightarrow{AD} = \vec{c}$, gọi $N$ là trung điểm của $AD$. Khẳng định nào sau đây là đúng?
+	\begin{multicols}{2}
+		A. $\overrightarrow{BN} = \vec{c} - \frac{1}{2}\vec{a}$. \par
+		B. $\overrightarrow{CN} = \frac{1}{2}\vec{c} - \vec{b}$. \par
+		C. $\overrightarrow{CN} = \vec{c} - \frac{1}{2}\vec{b}$. \par
+		D. $\overrightarrow{BN} = \vec{a} - \frac{1}{2}\vec{c}$.
+	\end{multicols}
+	
+	\vspace{0.2cm}
+	\noindent \textbf{Câu 40:} Cho tứ diện $ABCD$. Gọi $I$ và $J$ lần lượt là trung điểm của $AC$ và $BD$. Đặt $\overrightarrow{AB} = \vec{b}$, $\overrightarrow{AC} = \vec{c}$, $\overrightarrow{AD} = \vec{d}$. Khẳng định nào sau đây đúng?
+	\begin{multicols}{2}
+		A. $\overrightarrow{IJ} = \frac{1}{2}(\vec{b} + \vec{d} - \vec{c})$. \par
+		B. $\overrightarrow{IJ} = \frac{1}{2}(\vec{d} - \vec{b} - \vec{c})$. \par
+		C. $\overrightarrow{IJ} = \frac{1}{2}(\vec{c} + \vec{d} - \vec{b})$. \par
+		D. $\overrightarrow{IJ} = \frac{1}{2}(\vec{b} + \vec{c} - \vec{d})$.
+	\end{multicols}
+	
+	\vspace{0.2cm}
+	\noindent \textbf{Câu 41:} Cho tứ diện đều $ABCD$, $M$ là trung điểm của cạnh $AB$ và $G'$ là trọng tâm của tam giác $ACD$. Đặt $\overrightarrow{AB} = \vec{b}$, $\overrightarrow{AC} = \vec{c}$, $\overrightarrow{AD} = \vec{d}$. Phân tích vectơ $\overrightarrow{MG'}$ theo các vectơ $\vec{b}, \vec{c}, \vec{d}$ ta được:
+	\begin{multicols}{2}
+		A. $\overrightarrow{MG'} = -\frac{1}{2}\vec{b} + \frac{1}{3}\vec{c} + \frac{1}{3}\vec{d}$. \par
+		B. $\overrightarrow{MG'} = \frac{1}{2}\vec{b} + \frac{1}{3}\vec{c} + \frac{1}{3}\vec{d}$. \par
+		C. $\overrightarrow{MG'} = -\frac{1}{3}\vec{b} + \frac{1}{3}\vec{c} + \frac{1}{3}\vec{d}$. \par
+		D. $\overrightarrow{MG'} = -\frac{1}{6}\vec{b} + \frac{1}{3}\vec{c} + \frac{1}{3}\vec{d}$.
+	\end{multicols}
+	% --- BÀI TẬP ĐÚNG/SAI ---
+	\section{Câu hỏi đúng sai}
+	
+	\noindent \textbf{Câu 1:} Cho hình chóp đều $S.ABC$ có cạnh đáy bằng $a$ và cạnh bên bằng $2a$. Xét tính đúng sai của các mệnh đề sau:
+	\begin{enumerate}[label=\alph*)]
+		\item Có 4 vectơ có điểm đầu là $S$ và điểm cuối là một trong các đỉnh còn lại của tứ diện.
+		\item Trong số các vectơ ở câu a, có 2 vectơ có giá nằm trong mặt phẳng $(ABC)$.
+		\item Gọi $H$ là trung điểm của $AB$. Độ dài của vectơ $\overrightarrow{SH}$ bằng $\frac{a\sqrt{3}}{2}$.
+		\item Gọi $G$ là trọng tâm của $\triangle ABC$. Độ dài của vectơ $\overrightarrow{SG}$ bằng $\frac{a\sqrt{3}}{3}$.
+	\end{enumerate}
+	
+	\vspace{0.2cm}
+	\noindent \textbf{Câu 2:} Cho hình hộp thoi $ABCD.A'B'C'D'$. Xét tính đúng sai của các mệnh đề sau:
+	\begin{enumerate}[label=\alph*)]
+		\item Trong các vectơ $\overrightarrow{CB}, \overrightarrow{C'B'}, \overrightarrow{B'C'}, \overrightarrow{AD}, \overrightarrow{DA}, \overrightarrow{A'D'}, \overrightarrow{D'A'}, \overrightarrow{AC}$ có 7 vectơ cùng phương với $\overrightarrow{BC}$.
+		\item Hai vectơ $\overrightarrow{AC}$ và $\overrightarrow{A'C'}$ cùng hướng.
+		\item Trong các vectơ $\overrightarrow{CB}, \overrightarrow{C'B'}, \overrightarrow{B'C'}, \overrightarrow{AD}, \overrightarrow{DA}, \overrightarrow{A'D'}, \overrightarrow{D'A'}, \overrightarrow{AC}$ có 6 vectơ bằng $\overrightarrow{BC}$.
+		\item Nếu $A'B \perp (ADC'B')$ thì $|\overrightarrow{A'C}| = |\overrightarrow{BD'}|$.
+	\end{enumerate}
+	
+	\vspace{0.2cm}
+	\noindent \textbf{Câu 3:} Cho hình chóp đều $S.ABCD$ có tất cả các cạnh bằng 1 và $O$ là tâm của đáy. Xét tính đúng sai của các mệnh đề sau:
+	\begin{enumerate}[label=\alph*)]
+		\item Trong các vectơ $\overrightarrow{SA}, \overrightarrow{SB}, \overrightarrow{SC}, \overrightarrow{SD}$ có 4 vectơ cùng hướng với $\overrightarrow{SO}$.
+		\item Số vectơ khác $\vec{0}$ cùng phương với $\overrightarrow{CD}$ và có điểm đầu, điểm cuối thuộc tập $\{S, A, B, O\}$ là 2.
+		\item Độ dài của vectơ $\overrightarrow{SO}$ bằng $\frac{1}{4}$.
+		\item Nếu $\overrightarrow{SM} = \overrightarrow{CA}$ thì $\widehat{DSM} = 120^\circ$.
+	\end{enumerate}
+	
+	\noindent \textbf{Câu 4:} Cho hình lập phương $ABCD.A'B'C'D'$, có độ dài các cạnh bằng $1$. Xét tính đúng sai của các mệnh đề sau:
+	\begin{enumerate}[label=\alph*)]
+		\item $|\overrightarrow{BC} + \overrightarrow{DD'}| = \sqrt{2}$.
+		\item $|\overrightarrow{AB} + \overrightarrow{AD} + \overrightarrow{AA'}| = 3$.
+		\item $|\overrightarrow{AB} + \overrightarrow{A'A}| = \sqrt{3}$.
+		\item $|\overrightarrow{A'C'} + \overrightarrow{C'C}| = \sqrt{3}$.
+	\end{enumerate}
+	
+	\vspace{0.2cm}
+	\noindent \textbf{Câu 5:} Cho hình lập phương $ABCD.A'B'C'D'$ có cạnh bằng $\sqrt{2}$. Xét tính đúng sai của các mệnh đề sau:
+	\begin{enumerate}[label=\alph*)]
+		\item $|\overrightarrow{AB} + \overrightarrow{CD}| = 2\sqrt{2}$.
+		\item $|\overrightarrow{AB} + \overrightarrow{D'C'} - \overrightarrow{A'B'}| = \sqrt{2}$.
+		\item $|\overrightarrow{AB} + \overrightarrow{A'D'}| = 4$.
+		\item $|\overrightarrow{AB} + \overrightarrow{AD} + \overrightarrow{CC'}| = 3\sqrt{2}$.
+	\end{enumerate}
+	
+	\vspace{0.2cm}
+	\noindent \textbf{Câu 6:} Cho tứ diện $ABCD$. Xét tính đúng sai của các mệnh đề sau:
+	\begin{enumerate}[label=\alph*)]
+		\item $\overrightarrow{AC} + \overrightarrow{BD} = \overrightarrow{AD} + \overrightarrow{BC}$.
+		\item $|\overrightarrow{AB} + \overrightarrow{BD}| = |\overrightarrow{AD}|$.
+		\item $\overrightarrow{AB} + \overrightarrow{CD} = \overrightarrow{AD} + \overrightarrow{CB}$.
+		\item $\overrightarrow{AB} + \overrightarrow{AC} + \overrightarrow{AD} = 3\overrightarrow{AG}$ với $G$ là trọng tâm tam giác $BCD$.
+	\end{enumerate}
+	
+	\vspace{0.2cm}
+	\noindent \textbf{Câu 7:} Cho lăng trụ $ABC.A'B'C'$, $O$ là giao điểm của $BC'$ và $B'C$. Xét tính đúng sai của các mệnh đề sau:
+	\begin{enumerate}[label=\alph*)]
+		\item $\overrightarrow{AB} + \overrightarrow{B'C'} - \overrightarrow{A'B} = \overrightarrow{BC'}$.
+		\item $\overrightarrow{A'B} + \overrightarrow{AC} = \overrightarrow{A'C} + \overrightarrow{AB}$.
+		\item $\overrightarrow{AC'} - \overrightarrow{BC'} = \overrightarrow{AC} - \overrightarrow{B'C'}$.
+		\item Nếu $\overrightarrow{AA'} + \overrightarrow{AB} + \overrightarrow{AC} = \overrightarrow{AG}$ thì $G \equiv O$.
+	\end{enumerate}
+	
+	\vspace{0.2cm}
+	\noindent \textbf{Câu 8:} Cho hình hộp chữ nhật $ABCD.A'B'C'D'$ có $AB = 3, AD = 4, AA' = 5$. Xét tính đúng sai của các mệnh đề sau:
+	\begin{enumerate}[label=\alph*)]
+		\item $|\overrightarrow{AB} + \overrightarrow{AD}| = 5$.
+		\item $|\overrightarrow{AB} + \overrightarrow{AA'}| = \sqrt{34}$.
+		\item $|\overrightarrow{AB} + \overrightarrow{AD} + \overrightarrow{AA'}| = 5\sqrt{2}$.
+		\item $|\overrightarrow{AB'} + \overrightarrow{C'D}| = 0$.
+	\end{enumerate}
+	
+	\vspace{0.2cm}
+	\noindent \textbf{Câu 9:} Cho tứ diện $ABCD$ có trọng tâm $G$. Xét tính đúng sai của các mệnh đề sau:
+	\begin{enumerate}[label=\alph*)]
+		\item $\overrightarrow{GA} + \overrightarrow{GB} + \overrightarrow{GC} + \overrightarrow{GD} = \vec{0}$.
+		\item $\overrightarrow{OG} = \frac{1}{4}(\overrightarrow{OA} + \overrightarrow{OB} + \overrightarrow{OC} + \overrightarrow{OD})$ với mọi điểm $O$.
+		\item $\overrightarrow{AG} = \frac{1}{4}(\overrightarrow{AB} + \overrightarrow{AC} + \overrightarrow{AD})$.
+		\item $\overrightarrow{GB} + \overrightarrow{GC} = 2\overrightarrow{GM}$ với $M$ là trung điểm của $AD$.
+	\end{enumerate}
+	
+	\vspace{0.2cm}
+	\noindent \textbf{Câu 10:} Cho hình chóp $S.ABCD$ có đáy $ABCD$ là hình bình hành tâm $O$. Xét tính đúng sai của các mệnh đề sau:
+	\begin{enumerate}[label=\alph*)]
+		\item $\overrightarrow{SA} + \overrightarrow{SC} = \overrightarrow{SB} + \overrightarrow{SD}$.
+		\item $\overrightarrow{SA} + \overrightarrow{SB} + \overrightarrow{SC} + \overrightarrow{SD} = 4\overrightarrow{SO}$.
+		\item Nếu $\overrightarrow{SM} = \overrightarrow{AB}$ thì $AB \parallel SM$.
+		\item Nếu $\overrightarrow{SA} + \overrightarrow{SB} + \overrightarrow{SC} + \overrightarrow{SD} = \vec{0}$ thì $S \equiv O$.
+	\end{enumerate}
+	
+	\noindent \textbf{Câu 11:} Cho tứ diện $ABCD$. Các điểm $M, N, I$ lần lượt là trung điểm của $AB, CD, MN$ và $G$ là trọng tâm tam giác $BCD$. Xét tính đúng sai của các mệnh đề sau:
+	\begin{enumerate}[label=\alph*)]
+		\item $\overrightarrow{MC} + \overrightarrow{MD} = 4\overrightarrow{MN}$.
+		\item $\overrightarrow{AD} + \overrightarrow{BC} = 2\overrightarrow{MN}$.
+		\item $\overrightarrow{IB} + \overrightarrow{IC} + \overrightarrow{ID} = 3\overrightarrow{IG}$.
+		\item $2\overrightarrow{IG} + \overrightarrow{IA} = \vec{0}$.
+	\end{enumerate}
+	
+	\vspace{0.2cm}
+	\noindent \textbf{Câu 12:} Cho hình lập phương $ABCD.A'B'C'D'$. Xét tính đúng sai của các mệnh đề sau:
+	\begin{enumerate}[label=\alph*)]
+		\item $(\overrightarrow{AB}, \overrightarrow{D'C'}) = 0^\circ$.
+		\item $(\overrightarrow{BC}, \overrightarrow{D'A'}) = 0^\circ$.
+		\item $(\overrightarrow{AC}, \overrightarrow{C'B'}) = 45^\circ$.
+		\item $(\overrightarrow{AC}, \overrightarrow{A'B}) = 120^\circ$.
+	\end{enumerate}
+	
+	\vspace{0.2cm}
+	\noindent \textbf{Câu 13:} Trong không gian, cho hai vectơ $\vec{a}$ và $\vec{b}$ cùng có độ dài bằng $1$ và $(\vec{a}, \vec{b}) = 30^\circ$. Xét tính đúng sai của các mệnh đề sau:
+	\begin{enumerate}[label=\alph*)]
+		\item $\vec{a} \cdot \vec{b} = \frac{1}{2}$.
+		\item $(\vec{a} + 2\vec{b})(\vec{a} - 3\vec{b}) = \frac{5\sqrt{3}}{2}$.
+		\item $(\vec{a} - \vec{b})^2 = 0$.
+		\item Hai vectơ $\vec{a} + \sqrt{3}\vec{b}$ và $\sqrt{3}\vec{a} - \vec{b}$ không vuông góc với nhau.
+	\end{enumerate}
+	
+	\vspace{0.2cm}
+	\noindent \textbf{Câu 14:} Cho tứ diện đều $ABCD$ cạnh bằng $1$. Các điểm $M, N$ lần lượt là trung điểm của $AB$ và $CD$. Xét tính đúng sai của các mệnh đề sau:
+	\begin{enumerate}[label=\alph*)]
+		\item $\overrightarrow{AB} \cdot \overrightarrow{AD} = 1$.
+		\item $\overrightarrow{AB}(\overrightarrow{AB} + \overrightarrow{CA}) = \frac{1}{2}$.
+		\item $AB \perp CD$.
+		\item Góc giữa đường thẳng $MN$ với đường thẳng $BC$ bằng $30^\circ$.
+	\end{enumerate}
+	
+	\vspace{0.2cm}
+	\noindent \textbf{Câu 15:} Cho hình lập phương $ABCD.A'B'C'D'$. Xét tính đúng sai của các mệnh đề sau:
+	\begin{enumerate}[label=\alph*)]
+		\item $(\overrightarrow{AB}, \overrightarrow{C'D'}) = 180^\circ$.
+		\item $(\overrightarrow{AD'}, \overrightarrow{B'C}) = 90^\circ$.
+		\item $(\overrightarrow{A'C'}, \overrightarrow{BD}) = 90^\circ$.
+		\item $(\overrightarrow{AC'}, \overrightarrow{A'D}) = 45^\circ$.
+	\end{enumerate}
+	
+	\vspace{0.2cm}
+	\noindent \textbf{Câu 16:} Trong không gian, cho hai vectơ $\vec{u}$ và $\vec{v}$ cùng có độ dài bằng $2$ và $(\vec{u}, \vec{v}) = 60^\circ$. Xét tính đúng sai của các mệnh đề sau:
+	\begin{enumerate}[label=\alph*)]
+		\item $\vec{u} \cdot \vec{v} = 2$.
+		\item $|\vec{u} + \vec{v}| = 2\sqrt{3}$.
+		\item $(\vec{u} - 2\vec{v})^2 = 12$.
+		\item Hai vectơ $\vec{u} + 2\vec{v}$ và $2\vec{u} - \vec{v}$ vuông góc với nhau.
+	\end{enumerate}
+	
+	\vspace{0.2cm}
+	\noindent \textbf{Câu 17:} Cho tứ diện $OABC$ có $OA, OB, OC$ đôi một vuông góc và $OA = OB = OC = 1$. Gọi $M$ là trung điểm của $BC$. Xét tính đúng sai của các mệnh đề sau:
+	\begin{enumerate}[label=\alph*)]
+		\item $\overrightarrow{OB} \cdot \overrightarrow{OC} = 0$.
+		\item $\overrightarrow{OM} = \frac{1}{2}(\overrightarrow{OB} + \overrightarrow{OC})$.
+		\item $(\overrightarrow{OA}, \overrightarrow{OM}) = 45^\circ$.
+		\item Độ dài của vectơ $\overrightarrow{OM}$ bằng $\frac{\sqrt{2}}{2}$.
+	\end{enumerate}
+	
+	\vspace{0.2cm}
+	\noindent \textbf{Câu 18:} Cho hình chóp $S.ABCD$ có đáy $ABCD$ là hình vuông cạnh $a$, $SA \perp (ABCD)$ và $SA = a$. Xét tính đúng sai của các mệnh đề sau:
+	\begin{enumerate}[label=\alph*)]
+		\item $\overrightarrow{AB} \cdot \overrightarrow{AD} = 0$.
+		\item $\overrightarrow{SB} \cdot \overrightarrow{SD} = a^2$.
+		\item $SC \perp BD$.
+		\item Góc giữa hai vectơ $\overrightarrow{SA}$ và $\overrightarrow{SC}$ bằng $45^\circ$.
+	\end{enumerate}
+	
+	\noindent \textbf{Câu 19:} Cho hình chóp $S.ABCD$ có tất cả các cạnh đều bằng $a$ và đáy $ABCD$ là hình vuông tâm $O$. Gọi $M$ là trung điểm của $CD$. Xét tính đúng sai của các mệnh đề sau:
+	\begin{enumerate}[label=\alph*)]
+		\item $\overrightarrow{OM} \cdot \overrightarrow{CB} = 0$.
+		\item $\overrightarrow{SC} \cdot \overrightarrow{CB} = \overrightarrow{SC} \cdot \overrightarrow{CD}$.
+		\item $\overrightarrow{MS} \cdot \overrightarrow{CB} = \frac{a^2}{2}$.
+		\item $\cos(SD, BC) = \frac{1}{2}$.
+	\end{enumerate}
+	
+	\vspace{0.2cm}
+	\noindent \textbf{Câu 20:} Xét tính đúng, sai của các mệnh đề sau:
+	\begin{enumerate}[label=\alph*)]
+		\item $\overrightarrow{AB} + \overrightarrow{BC} = \overrightarrow{AC}$.
+		\item $\overrightarrow{AB} + \overrightarrow{BC} + \overrightarrow{CD} = \overrightarrow{AD}$.
+		\item $\overrightarrow{AB} + \overrightarrow{AD} = \overrightarrow{AC}$ với $ABCD$ là tứ giác.
+		\item $\overrightarrow{AB} + \overrightarrow{AD} = \overrightarrow{AC}$ với $ABCD$ là hình bình hành.
+	\end{enumerate}
+	
+	\vspace{0.2cm}
+	\noindent \textbf{Câu 21:} Xét tính đúng, sai của các mệnh đề sau:
+	\begin{enumerate}[label=\alph*)]
+		\item $\overrightarrow{AB} - \overrightarrow{AC} = \overrightarrow{CB}$.
+		\item $\overrightarrow{AB} - \overrightarrow{CB} = \overrightarrow{AC}$.
+		\item $k\vec{a} = \vec{0} \Leftrightarrow \vec{a} = \vec{0}$.
+		\item $\overrightarrow{AB} = k\overrightarrow{AC} \Leftrightarrow$ Ba điểm phân biệt $A, B, C$ thẳng hàng.
+	\end{enumerate}
+	
+	\vspace{0.2cm}
+	\noindent \textbf{Câu 22:} Xét tính đúng, sai của các mệnh đề sau:
+	\begin{enumerate}[label=\alph*)]
+		\item $k(\vec{a} + \vec{b}) = k\vec{a} + k\vec{b}$.
+		\item Với $\vec{a} \neq \vec{0}$ thì $k\vec{a}$ cùng hướng với $\vec{a}$ nếu $k > 0$.
+		\item $|k\vec{a}| = k|\vec{a}|$.
+		\item Góc giữa hai vectơ $(\vec{u}, \vec{v}) \in [0^\circ; 180^\circ]$.
+	\end{enumerate}
+	
+	\vspace{0.2cm}
+	\noindent \textbf{Câu 23:} Xét tính đúng, sai của các mệnh đề sau:
+	\begin{enumerate}[label=\alph*)]
+		\item Với $\vec{a} \neq \vec{0}$ và $\vec{b} \neq \vec{0}$ thì $\vec{a} \cdot \vec{b} = |\vec{a}| \cdot |\vec{b}| \cdot \cos(\vec{a}, \vec{b})$.
+		\item $(\vec{a})^2 = |\vec{a}|^2$.
+		\item $\cos(\vec{a}, \vec{b}) = \frac{\vec{a} \cdot \vec{b}}{|\vec{a}| \cdot |\vec{b}|}$.
+		\item Với $\vec{a} \neq \vec{0}$ và $\vec{b} \neq \vec{0}$ thì $\vec{a} \cdot \vec{b} = 0 \Leftrightarrow \vec{a} \perp \vec{b}$.
+	\end{enumerate}
+	
+	\vspace{0.2cm}
+	\noindent \textbf{Câu 24:} Xét tính đúng, sai của các mệnh đề sau:
+	\begin{enumerate}[label=\alph*)]
+		\item $\overrightarrow{MA} + \overrightarrow{MB} = 2\overrightarrow{MI}$ với $I$ là trung điểm đoạn $AB$ và điểm $M$ bất kì.
+		\item $\overrightarrow{MA} + \overrightarrow{MB} + \overrightarrow{MC} = 3\overrightarrow{MG}$ với $G$ là trọng tâm $\triangle ABC$ và điểm $M$ bất kì.
+		\item $\overrightarrow{MA} + \overrightarrow{MB} + \overrightarrow{MC} + \overrightarrow{MD} = 4\overrightarrow{MG}$ với $G$ là trọng tâm tứ diện $ABCD$ và điểm $M$ bất kì.
+		\item Nếu $\overrightarrow{SB} + \overrightarrow{SD} = \overrightarrow{SA} + \overrightarrow{SC}$ thì chóp $S.ABCD$ có $ABCD$ là hình bình hành.
+	\end{enumerate}
+	
+	\vspace{0.2cm}
+	\noindent \textbf{Câu 25:} Cho hình hộp $ABCD.A'B'C'D'$. Xét tính đúng, sai của các mệnh đề sau:
+	\begin{enumerate}[label=\alph*)]
+		\item $\overrightarrow{AB} + \overrightarrow{CC'} = \overrightarrow{A'B'} + \overrightarrow{BB'}$.
+		\item $\overrightarrow{AB} = \overrightarrow{CD}$.
+		\item $\overrightarrow{AB} - \overrightarrow{BC'} = \overrightarrow{BD'}$.
+		\item $\overrightarrow{AB} + \overrightarrow{AD} + \overrightarrow{AA'} = \overrightarrow{AC'}$.
+	\end{enumerate}
+	
+	\vspace{0.2cm}
+	\noindent \textbf{Câu 26:} Cho hình lăng trụ $ABC.A'B'C'$. Xét tính đúng, sai của các mệnh đề sau:
+	\begin{enumerate}[label=\alph*)]
+		\item $\overrightarrow{BA} + \overrightarrow{A'C'} = \overrightarrow{BC}$.
+		\item Góc giữa $(\overrightarrow{BC}, \overrightarrow{AA'}) = (\overrightarrow{BC}, \overrightarrow{CC'}) = (\overrightarrow{BC}, \overrightarrow{BB'})$.
+		\item $\overrightarrow{AB} + \overrightarrow{AA'} + \overrightarrow{B'C'} = \overrightarrow{AC'}$.
+		\item $\overrightarrow{AA'} + \overrightarrow{B'C'} = \overrightarrow{AC'} - \overrightarrow{AB}$.
+	\end{enumerate}
+	
+	\vspace{0.2cm}
+	\noindent \textbf{Câu 27:} Cho tam giác $ABC$ có trọng tâm $G$ và $M$ là một điểm tùy ý. Xét tính đúng sai của các mệnh đề sau:
+	\begin{enumerate}[label=\alph*)]
+		\item $\overrightarrow{GA} + \overrightarrow{GB} + \overrightarrow{GC} = \vec{0}$.
+		\item $\overrightarrow{MA} + \overrightarrow{MB} + \overrightarrow{MC} = 3\overrightarrow{MG}$.
+		\item $\overrightarrow{AG} = \frac{1}{3}(\overrightarrow{AB} + \overrightarrow{AC})$.
+		\item $\overrightarrow{GB} + \overrightarrow{GC} = \overrightarrow{GA}$.
+	\end{enumerate}
+	
+	\vspace{0.2cm}
+	\noindent \textbf{Câu 28:} Cho hình bình hành $ABCD$ tâm $O$ và điểm $S$ tùy ý. Xét tính đúng sai của các mệnh đề sau:
+	\begin{enumerate}[label=\alph*)]
+		\item $\overrightarrow{AB} + \overrightarrow{AD} = \overrightarrow{AC}$.
+		\item $\overrightarrow{AB} - \overrightarrow{AD} = \overrightarrow{BD}$.
+		\item $\overrightarrow{OA} + \overrightarrow{OB} + \overrightarrow{OC} + \overrightarrow{OD} = \vec{0}$.
+		\item $\overrightarrow{SA} + \overrightarrow{SC} = \overrightarrow{SB} + \overrightarrow{SD}$.
+	\end{enumerate}
+	
+	\vspace{0.2cm}
+	\noindent \textbf{Câu 29:} Cho tứ diện $ABCD$. Gọi $M, N$ lần lượt là trung điểm của $AB$ và $CD$. Xét tính đúng sai của các mệnh đề sau:
+	\begin{enumerate}[label=\alph*)]
+		\item $\overrightarrow{MN} = \frac{1}{2}(\overrightarrow{AD} + \overrightarrow{BC})$.
+		\item $\overrightarrow{MN} = \frac{1}{2}(\overrightarrow{AC} + \overrightarrow{BD})$.
+		\item $\overrightarrow{AB} + \overrightarrow{BC} + \overrightarrow{CD} + \overrightarrow{DA} = \vec{0}$.
+		\item $\overrightarrow{AC} + \overrightarrow{BD} = \overrightarrow{AD} + \overrightarrow{BC}$.
+	\end{enumerate}
+	
+	\vspace{0.2cm}
+	\noindent \textbf{Câu 30:} Cho hình lập phương $ABCD.A'B'C'D'$ cạnh $a$. Xét tính đúng sai của các mệnh đề sau:
+	\begin{enumerate}[label=\alph*)]
+		\item $\overrightarrow{AB} \cdot \overrightarrow{AD} = 0$.
+		\item $\overrightarrow{AB} \cdot \overrightarrow{AA'} = a^2$.
+		\item $\overrightarrow{AC'} = \overrightarrow{AB} + \overrightarrow{AD} + \overrightarrow{AA'}$.
+		\item $(\overrightarrow{AD'}, \overrightarrow{B'C}) = 90^\circ$.
+	\end{enumerate}
+	
+	\vspace{0.2cm}
+	\noindent \textbf{Câu 31:} Trong không gian, cho hai vectơ $\vec{u}$ và $\vec{v}$ khác $\vec{0}$. Xét tính đúng sai của các mệnh đề sau:
+	\begin{enumerate}[label=\alph*)]
+		\item $\vec{u} \cdot \vec{v} > 0$ khi và chỉ khi góc $(\vec{u}, \vec{v})$ là góc nhọn.
+		\item $\vec{u} \cdot \vec{v} < 0$ khi và chỉ khi góc $(\vec{u}, \vec{v})$ là góc tù.
+		\item $\vec{u} \cdot \vec{v} = 0$ khi và chỉ khi hai vectơ vuông góc.
+		\item $(\vec{u} + \vec{v})^2 = \vec{u}^2 + \vec{v}^2$ khi và chỉ khi $\vec{u} \perp \vec{v}$.
+	\end{enumerate}
+	
+	\vspace{0.2cm}
+	\noindent \textbf{Câu 32:} Cho hình chóp $S.ABCD$ có đáy $ABCD$ là hình chữ nhật và $SA \perp (ABCD)$. Xét tính đúng sai của các mệnh đề sau:
+	\begin{enumerate}[label=\alph*)]
+		\item $\overrightarrow{SA} \cdot \overrightarrow{AB} = 0$.
+		\item $\overrightarrow{SA} \cdot \overrightarrow{CD} = 0$.
+		\item $\overrightarrow{SD} \cdot \overrightarrow{BC} = 0$.
+		\item $\overrightarrow{SC} \cdot \overrightarrow{BD} = 0$.
+	\end{enumerate}
+	
+	\vspace{0.2cm}
+	\noindent \textbf{Câu 33:} Cho hình lăng trụ tam giác $ABC.A'B'C'$. Xét tính đúng sai của các mệnh đề sau:
+	\begin{enumerate}[label=\alph*)]
+		\item $\overrightarrow{AB} + \overrightarrow{BC} + \overrightarrow{CC'} = \overrightarrow{AC'}$.
+		\item $\overrightarrow{AA'} + \overrightarrow{BB'} + \overrightarrow{CC'} = 3\overrightarrow{AA'}$.
+		\item $\overrightarrow{AB'} = \overrightarrow{AB} + \overrightarrow{AA'}$.
+		\item $\overrightarrow{A'B} = \overrightarrow{AB} - \overrightarrow{AA'}$.
+	\end{enumerate}
+	
+	\noindent \textbf{Câu 34:} Các mệnh đề sau đúng hay sai?
+	\begin{enumerate}[label=\alph*)]
+		\item Cho hình hộp $ABCDEFGH$. Tính tổng ba vectơ $\overrightarrow{AB} + \overrightarrow{AD} + \overrightarrow{AE} = \overrightarrow{AG}$.
+		\item Cho hình hộp $ABCD.A'B'C'D'$. Các vectơ có điểm đầu và điểm cuối là các đỉnh của hình hộp và bằng vectơ $\overrightarrow{AB}$ là $\overrightarrow{DC}; \overrightarrow{A'B'}; \overrightarrow{D'C'}$.
+		\item Cho hình hộp chữ nhật $ABCD.A'B'C'D'$. Khi đó, vectơ bằng vectơ $\overrightarrow{AB}$ là vectơ $\overrightarrow{D'C'}$.
+		\item Cho tứ diện $ABCD$. Hỏi có bao nhiêu vectơ khác vectơ $\vec{0}$ mà mỗi vectơ có điểm đầu, điểm cuối là hai đỉnh của tứ diện $ABCD$ là 12.
+	\end{enumerate}
+	
+	\vspace{0.2cm}
+	\noindent \textbf{Câu 35:} Các mệnh đề sau đúng hay sai?
+	\begin{enumerate}[label=\alph*)]
+		\item Nếu trong ba vectơ $\vec{a}, \vec{b}, \vec{c}$ có một vectơ bằng $\vec{0}$ thì ba vectơ $\vec{a}, \vec{b}, \vec{c}$ đồng phẳng.
+		\item Nếu giá của ba vectơ $\vec{a}, \vec{b}, \vec{c}$ cùng song song với một mặt phẳng thì ba vectơ $\vec{a}, \vec{b}, \vec{c}$ đồng phẳng.
+		\item Nếu trong ba vectơ $\vec{a}, \vec{b}, \vec{c}$ có hai vectơ cùng phương thì ba vectơ $\vec{a}, \vec{b}, \vec{c}$ đồng phẳng.
+		\item Nếu giá của ba vectơ $\vec{a}, \vec{b}, \vec{c}$ đồng quy thì ba vectơ $\vec{a}, \vec{b}, \vec{c}$ đồng phẳng.
+	\end{enumerate}
+	
+	\vspace{0.2cm}
+	\noindent \textbf{Câu 36:} Các mệnh đề sau đúng hay sai?
+	\begin{enumerate}[label=\alph*)]
+		\item Cho $\vec{a}, \vec{b}, \vec{c}$ đều khác $\vec{0}$. Ba vectơ $\vec{a}, \vec{b}, \vec{c}$ đồng phẳng khi và chỉ khi giá của chúng cùng nằm trên một mặt phẳng.
+		\item Với tứ diện $ABCD$ bất kì ta luôn có $\overrightarrow{AC} + \overrightarrow{BD} = \overrightarrow{AD} + \overrightarrow{BC}$.
+		\item Một đường thẳng cắt hai đường thẳng cho trước thì tồn tại một mặt phẳng chứa cả ba đường thẳng đó.
+		\item Với hình hộp $ABCD.A'B'C'D'$ bất kì ta luôn có $\overrightarrow{AB} + \overrightarrow{AD} + \overrightarrow{AA'} = \overrightarrow{C'A}$.
+	\end{enumerate}
+	
+	
+	% --- BÀI TẬP TRẢ LỜI NGẮN ---
+	\section{Câu hỏi trả lời ngắn}
+	
+	\noindent \textbf{Câu 1:} Cho hình lăng trụ tam giác $ABC.A'B'C'$ biết tam giác $ABC$ đều có cạnh bằng $3$. Tính độ dài của vectơ $\overrightarrow{CA} + \overrightarrow{B'C'}$.
+	
+	\vspace{0.2cm}
+	\noindent \textbf{Câu 2:} Cho hình lập phương $ABCD.A'B'C'D'$. Tính số đo góc giữa hai vectơ $\overrightarrow{AB}$ và $\overrightarrow{A'C'}$ (theo đơn vị độ).
+	
+	\vspace{0.2cm}
+	\noindent \textbf{Câu 3:} Cho tứ diện $S.ABC$ có các cạnh $SA = SB = SC = AB = AC = 2$ và $BC = 2\sqrt{2}$. Tính tích vô hướng của hai vectơ $\overrightarrow{SC} \cdot \overrightarrow{AB}$.
+	
+	\vspace{0.2cm}
+	\noindent \textbf{Câu 4:} Cho tứ diện $ABCD$. Gọi $E, F$ lần lượt là trung điểm của $AB$ và $CD$. Cho $AB = 2a, CD = 2b, EF = 2c$. Với $M$ là một điểm tùy ý trong không gian, biết hệ thức liên hệ độ dài luôn thỏa mãn $MA^2 + MB^2 = k \cdot ME^2 + l \cdot a^2$. Tính giá trị của biểu thức $k + l$.
+	
+	\noindent \textbf{Câu 5:} Cho tứ diện $ABCD$ có các điểm $M, N, P$ lần lượt thuộc các cạnh $BC, BD$ và $AC$ sao cho $BC = 4BM$, $AC = 3AP$, $BD = 2BN$. Mặt phẳng $(MNP)$ cắt đường thẳng $AD$ tại điểm $Q$. Tính tỉ số $\frac{AQ}{AD}$.
+	
+	\vspace{0.2cm}
+	\noindent \textbf{Câu 6:} Cho tứ diện $ABCD$. Lấy các điểm $M, N$ lần lượt thuộc các cạnh $AB, AC$ sao cho $AB = 3AM$, $AC = 4AN$. Gọi $P$ là trung điểm của cạnh $CD$. Mặt phẳng $(MNP)$ cắt đường thẳng $BD$ tại điểm $Q$. Tính tỉ số $\frac{BQ}{BD}$.
+	
+	\noindent \textbf{Câu 7:} Cho tứ diện đều $ABCD$ có cạnh bằng $a$ và $M$ là trung điểm của $CD$. Tính góc $(\overrightarrow{AB}, \overrightarrow{CD})$.
+	\begin{figure}[H]
+		\centering
+		\begin{tikzpicture}[scale=1.2, line join=round, line cap=round]
+			\coordinate (B) at (0,0);
+			\coordinate (C) at (3,-0.5);
+			\coordinate (D) at (4,1.2);
+			\coordinate (A) at (2,3);
+			% Tính tọa độ trung điểm M của CD thủ công để tránh lỗi thư viện calc
+			\coordinate (M) at (3.5, 0.35); 
+			
+			\draw[dashed] (B) -- (D);
+			\draw[dashed] (B) -- (M);
+			
+			\draw (A) -- (B) -- (C) -- (D) -- cycle;
+			\draw (A) -- (C);
+			\draw (A) -- (M);
+			
+			\draw[-stealth, thick, blue] (A) -- (B);
+			\draw[-stealth, thick, blue] (C) -- (D);
+			
+			\node[above] at (A) {$A$};
+			\node[below left] at (B) {$B$};
+			\node[below] at (C) {$C$};
+			\node[right] at (D) {$D$};
+			\node[right] at (M) {$M$};
+		\end{tikzpicture}
+	\end{figure}
+	
+	\vspace{0.2cm}
+	\noindent \textbf{Câu 8:} Cho hình lập phương $ABCD.A'B'C'D'$. Tính góc giữa hai vectơ $\overrightarrow{BD}$ và $\overrightarrow{B'C}$.
+	\begin{figure}[H]
+		\centering
+		\begin{tikzpicture}[scale=1.2, line join=round, line cap=round]
+			\coordinate (A) at (1.5,1.2);
+			\coordinate (B) at (0,0);
+			\coordinate (C) at (3,-0.2);
+			\coordinate (D) at (4.5,1);
+			\coordinate (A') at (1.5,4.2);
+			\coordinate (B') at (0,3);
+			\coordinate (C') at (3,2.8);
+			\coordinate (D') at (4.5,4);
+			
+			\draw[dashed] (A) -- (B);
+			\draw[dashed] (A) -- (D);
+			\draw[dashed] (A) -- (A');
+			
+			\draw[dashed] (B') -- (D);
+			\draw[dashed, thick, blue, -stealth] (B) -- (D);
+			
+			\draw (B) -- (C) -- (D) -- (D') -- (C') -- (B') -- cycle;
+			\draw (C) -- (C');
+			\draw (B') -- (A') -- (D');
+			
+			\draw[-stealth, thick, blue] (B') -- (C);
+			
+			\node[left] at (A) {$A$};
+			\node[below left] at (B) {$B$};
+			\node[below right] at (C) {$C$};
+			\node[right] at (D) {$D$};
+			\node[left] at (A') {$A'$};
+			\node[left] at (B') {$B'$};
+			\node[right] at (C') {$C'$};
+			\node[right] at (D') {$D'$};
+		\end{tikzpicture}
+	\end{figure}
+	
+	\vspace{0.2cm}
+	\noindent \textbf{Câu 9:} Cho tứ diện $OABC$ có các cạnh $OA, OB, OC$ đôi một vuông góc và $OA = OB = OC = 1$. Gọi $M$ là trung điểm của cạnh $AB$. Tính góc giữa hai vectơ $\overrightarrow{OM}$ và $\overrightarrow{AC}$.
+	\begin{figure}[H]
+		\centering
+		\begin{tikzpicture}[scale=1.2, line join=round, line cap=round]
+			\coordinate (O) at (0,0);
+			\coordinate (C) at (0,3);
+			\coordinate (A) at (2,-1.5);
+			\coordinate (B) at (3.5,0.5);
+			% Tính tọa độ trung điểm M của AB thủ công
+			\coordinate (M) at (2.75, -0.5); 
+			
+			\draw[dashed] (O) -- (B);
+			\draw[dashed, thick, blue, -stealth] (O) -- (M);
+			
+			\draw (O) -- (C);
+			\draw (O) -- (A);
+			\draw (A) -- (B);
+			\draw (C) -- (A);
+			\draw (C) -- (B);
+			
+			\draw[-stealth, thick, blue] (A) -- (C);
+			
+			\node[left] at (O) {$O$};
+			\node[above] at (C) {$C$};
+			\node[below] at (A) {$A$};
+			\node[right] at (B) {$B$};
+			\node[below right] at (M) {$M$};
+		\end{tikzpicture}
+	\end{figure}
+	
+	\vspace{0.2cm}
+	\noindent \textbf{Câu 10:} Cho hình chóp $S.ABCD$ có đáy $ABCD$ là hình bình hành và mặt bên $SAB$ là tam giác đều. Tính góc giữa hai vectơ $\overrightarrow{DC}$ và $\overrightarrow{BS}$.
+	\begin{figure}[H]
+		\centering
+		\begin{tikzpicture}[scale=1.2, line join=round, line cap=round]
+			\coordinate (B) at (0,0);
+			\coordinate (C) at (3,0);
+			\coordinate (A) at (1.5,1);
+			\coordinate (D) at (4.5,1);
+			\coordinate (S) at (0.5,2.5);
+			\coordinate (E) at (-1.5,-1);
+			
+			\draw[dashed] (B) -- (A) -- (D);
+			\draw[dashed] (S) -- (A);
+			
+			\draw (S) -- (B) -- (C) -- (D) -- cycle;
+			\draw (S) -- (C);
+			
+			\draw[thick, gray, -stealth] (B) -- (E) node[below left, text=black] {$E$};
+			
+			\draw[-stealth, thick, blue] (D) -- (C);
+			\draw[-stealth, thick, blue] (B) -- (S);
+			
+			% Cung góc 60 độ (giữa BA và BS)
+			\draw (B) ++(33.7:0.5) arc (33.7:78.7:0.5);
+			\node at (0.8, 0.6) {$60^\circ$};
+			
+			% Cung góc 120 độ (giữa BE và BS)
+			\draw (B) ++(78.7:0.6) arc (78.7:213.7:0.6);
+			\node at (-0.5, 0.8) {$120^\circ$};
+			
+			\node[above] at (S) {$S$};
+			\node[below left] at (B) {$B$};
+			\node[below right] at (C) {$C$};
+			\node[right] at (D) {$D$};
+			\node[above right] at (A) {$A$};
+		\end{tikzpicture}
+	\end{figure}
+	
+	\noindent \textbf{Câu 11:} Cho hình chóp $S.ABCD$ có đáy $ABCD$ là hình bình hành. Mặt bên $ASB$ là tam giác vuông cân tại $S$ và có cạnh $AB = a$. Gọi $M$ là trung điểm của $AB$. Hãy tính: $\overrightarrow{DC} \cdot \overrightarrow{AS}$.
+	\begin{figure}[H]
+		\centering
+		\begin{tikzpicture}[scale=1.2, line join=round, line cap=round]
+			\coordinate (B) at (0,0);
+			\coordinate (C) at (3,-0.2);
+			\coordinate (A) at (1.5,1.2);
+			\coordinate (D) at (4.5,1);
+			\coordinate (S) at (1.5,3.5);
+			\coordinate (M) at (0.75,0.6); % Trung điểm AB
+			\coordinate (E) at (-1.5,-1.2); % Tia BE
+			
+			% Các nét khuất
+			\draw[dashed] (B) -- (A) -- (D);
+			\draw[dashed] (S) -- (A);
+			\draw[dashed] (S) -- (M);
+			
+			% Các nét thấy
+			\draw (S) -- (B) -- (C) -- (D) -- cycle;
+			\draw (S) -- (C);
+			
+			% Tia BE
+			\draw[thick, gray, -stealth] (B) -- (E) node[below left, text=black] {$E$};
+			
+			% Các vectơ màu xanh
+			\draw[-stealth, thick, blue] (D) -- (C);
+			\draw[-stealth, thick, blue, dashed] (A) -- (S);
+			
+			% Cung chỉ góc
+			\draw (B) ++(38.6:0.5) arc (38.6:66.8:0.5);
+			\node at (0.8, 0.7) {\footnotesize $45^\circ$};
+			
+			\draw (B) ++(66.8:0.6) arc (66.8:218.6:0.6);
+			\node at (-0.5, 0.5) {\footnotesize $135^\circ$};
+			
+			% Ký hiệu vuông góc tại S
+			\draw[dashed] (1.3, 3.1) -- (1.5, 2.95) -- (1.65, 3.15);
+			
+			% Đặt tên các đỉnh
+			\node[above] at (S) {$S$};
+			\node[below right] at (B) {$B$};
+			\node[below right] at (C) {$C$};
+			\node[right] at (D) {$D$};
+			\node[above right] at (A) {$A$};
+			\node[below right] at (M) {$M$};
+		\end{tikzpicture}
+	\end{figure}
+	
+	\vspace{0.2cm}
+	\noindent \textbf{Câu 12:} Cho hình chóp $S.ABCD$ có đáy $ABCD$ là hình bình hành. Mặt bên $ASB$ là tam giác vuông cân tại $S$ và có cạnh $AB = a$. Gọi $M$ là trung điểm của $AB$. Hãy tính: $\overrightarrow{DC} \cdot \overrightarrow{MS}$.
+	\begin{figure}[H]
+		\centering
+		\begin{tikzpicture}[scale=1.2, line join=round, line cap=round]
+			\coordinate (B) at (0,0);
+			\coordinate (C) at (3,-0.2);
+			\coordinate (A) at (1.5,1.2);
+			\coordinate (D) at (4.5,1);
+			\coordinate (S) at (1.5,3.5);
+			\coordinate (M) at (0.75,0.6); 
+			\coordinate (E) at (-1.5,-1.2); 
+			
+			\draw[dashed] (B) -- (A) -- (D);
+			\draw[dashed] (S) -- (A);
+			
+			\draw (S) -- (B) -- (C) -- (D) -- cycle;
+			\draw (S) -- (C);
+			
+			\draw[thick, gray, -stealth] (B) -- (E) node[below left, text=black] {$E$};
+			
+			\draw[-stealth, thick, blue] (D) -- (C);
+			% Vẽ vectơ MS đè lên nét đứt
+			\draw[-stealth, thick, blue, dashed] (M) -- (S);
+			
+			\draw (B) ++(38.6:0.5) arc (38.6:66.8:0.5);
+			\node at (0.8, 0.7) {\footnotesize $45^\circ$};
+			
+			\draw (B) ++(66.8:0.6) arc (66.8:218.6:0.6);
+			\node at (-0.5, 0.5) {\footnotesize $135^\circ$};
+			
+			\draw[dashed] (1.3, 3.1) -- (1.5, 2.95) -- (1.65, 3.15);
+			
+			\node[above] at (S) {$S$};
+			\node[below right] at (B) {$B$};
+			\node[below right] at (C) {$C$};
+			\node[right] at (D) {$D$};
+			\node[above right] at (A) {$A$};
+			\node[below right] at (M) {$M$};
+		\end{tikzpicture}
+	\end{figure}
+	
+	\vspace{0.2cm}
+	\noindent \textbf{Câu 13:} Cho hình chóp $S.ABC$ có $SA = SB = SC = AB = AC = a$ và $BC = a\sqrt{2}$. Tính góc giữa các vectơ $\overrightarrow{SC}$ và $\overrightarrow{AB}$.
+	\begin{figure}[H]
+		\centering
+		\begin{tikzpicture}[scale=1.2, line join=round, line cap=round]
+			\coordinate (A) at (1,1);
+			\coordinate (B) at (2.5,-1.5);
+			\coordinate (C) at (5,1.5);
+			\coordinate (S) at (2.5,3.5);
+			\coordinate (E) at (-0.5,0.6); % Tia dọc theo tia đối CA
+			
+			\draw[dashed] (A) -- (C);
+			\draw[thick, gray, -stealth] (A) -- (E);
+			
+			\draw (S) -- (A) -- (B) -- (C) -- cycle;
+			\draw (S) -- (B);
+			
+			% Ký hiệu vuông góc tại A
+			\draw[dashed] (1.2, 0.65) -- (1.5, 0.75) -- (1.3, 1.1);
+			
+			% Góc 120 độ
+			\draw (A) ++(194.9:0.4) arc (194.9:300.9:0.4);
+			\node at (0.5, 0.1) {\footnotesize $120^\circ$};
+			
+			% Tên đỉnh
+			\node[above] at (S) {$S$};
+			\node[above right] at (A) {$A$};
+			\node[below] at (B) {$B$};
+			\node[right] at (C) {$C$};
+			
+			% Các cạnh có giá trị
+			\node[left] at (1.75, 2.25) {$a$};
+			\node[right] at (2.5, 1) {$a$};
+			\node[right] at (3.75, 2.5) {$a$};
+			\node[below left] at (1.75, -0.25) {$a$};
+			\node[above] at (3, 1.25) {$a$};
+			\node[below right] at (3.75, 0) {$a\sqrt{2}$};
+		\end{tikzpicture}
+	\end{figure}
+	
+	\newpage
+	
+	% =====================
+	% PHẦN 5: TỔNG KẾT
+	% =====================
+	\section{Tổng kết bài}
+	
+	\begin{tcolorbox}[colback=yellow!10!white, colframe=orange!60!black,
+		fonttitle=\bfseries, title={Sơ đồ hệ thống hóa \& Công thức cần nhớ}]
+		\begin{itemize}
+			\item \textbf{Quy tắc 3 điểm:} $\vec{AB} + \vec{BC} = \vec{AC}$
+			\item \textbf{Quy tắc hình bình hành:} Nếu $ABCD$ là hình bình hành thì $\vec{AB} + \vec{AD} = \vec{AC}$
+			\item \textbf{Quy tắc hình hộp:} Nếu $ABCD.A'B'C'D'$ là hình hộp thì $\vec{AB} + \vec{AD} + \vec{AA'} = \vec{AC'}$
+			\item \textbf{Tích vô hướng:} $\vec{a} \cdot \vec{b} = |\vec{a}| \cdot |\vec{b}| \cdot \cos(\vec{a}, \vec{b})$
+			\item \textbf{Sự đồng phẳng:} $\vec{c} = m\vec{a} + n\vec{b}$ (với $\vec{a}, \vec{b}$ không cùng phương).
+		\end{itemize}
+	\end{tcolorbox}
+	
+	\vspace{5mm}
+	\textbf{Bài tập về nhà:}
+	\begin{itemize}
+		\item Hoàn thành các bài tập phần Tự luận (thuộc khung màu tương ứng với năng lực) chưa giải quyết trên lớp.
+		\item Làm toàn bộ các câu Trắc nghiệm, Đúng/Sai và Trả lời ngắn còn lại.
+	\end{itemize}
+	
+\end{document}

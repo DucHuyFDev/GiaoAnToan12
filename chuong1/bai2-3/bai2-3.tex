@@ -1,0 +1,392 @@
+\documentclass[12pt]{article}
+
+% === CÀI ĐẶT TRANG ===
+\usepackage[margin=2cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T5]{fontenc}
+\usepackage[vietnamese]{babel}
+
+% === TOÁN HỌC ===
+\usepackage{amsmath, amssymb, amsthm}
+
+% === HÌNH VẼ ===
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+% === ĐỊNH DẠNG ===
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage[most]{tcolorbox}
+\usepackage{multicol}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{fancyhdr}
+\usepackage{tocloft}
+\usepackage[hidelinks]{hyperref}
+
+% === TCOLORBOX STYLES ===
+\tcbuselibrary{breakable, skins, fitting}
+
+% Ví dụ
+\newtcolorbox{vidu}[1][1]{
+	colback=blue!5!white, colframe=blue!60!black,
+	fonttitle=\bfseries, title={Ví dụ #1},
+	breakable, enhanced
+}
+
+% Lời giải
+\newtcolorbox{loigiai}{
+	colback=gray!8!white, colframe=gray!50!black,
+	fonttitle=\bfseries, title={Lời giải},
+	breakable, enhanced
+}
+
+% Khung lưu ý (dùng cho phần tư duy giải bài)
+\newtcolorbox{luuy}{
+	colback=red!5!white, colframe=red!70!black,
+	fonttitle=\bfseries, title={Góc tư duy - Lưu ý quan trọng},
+	breakable, enhanced
+}
+
+% === HEADER/FOOTER ===
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[C]{\small \textbf{Giáo án: Ứng dụng thực tế GTLN - GTNN của hàm số}}
+\fancyhead[R]{\small Lớp: 12}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% ================================================
+\begin{document}
+	
+	\begin{center}
+		{\LARGE \textbf{CHUYỂN ĐỘNG VÀ TỐC ĐỘ THAY ĐỔI}}\\[8pt]
+		{\large Môn: Toán \quad Lớp: 12}
+	\end{center}
+	\vspace{4mm}
+	\hrule
+	\vspace{4mm}
+	
+	% ===========================
+	% PHẦN 1: MỤC TIÊU BÀI HỌC
+	% ===========================
+	\section*{Mục tiêu bài học}
+	\addcontentsline{toc}{section}{Mục tiêu bài học}
+	
+	\textbf{1. Kiến thức:}
+	\begin{itemize}
+		\item Nắm vững mối liên hệ đạo hàm giữa các đại lượng vật lý: Quãng đường ($s$), Vận tốc ($v$) và Gia tốc ($a$).
+		\item Hiểu ý nghĩa của đạo hàm như là "tốc độ thay đổi" của một đại lượng bất kỳ theo thời gian (hoặc theo một biến số khác).
+	\end{itemize}
+	
+	\textbf{2. Kĩ năng:}
+	\begin{itemize}
+		\item Biết cách mô hình hóa bài toán thực tế thành hàm số $y = f(x)$.
+		\item Vận dụng thành thạo kĩ năng tìm giá trị lớn nhất (Max), giá trị nhỏ nhất (Min) của hàm số trên một khoảng/đoạn để giải quyết yêu cầu bài toán.
+	\end{itemize}
+	
+	\textbf{3. Thái độ / Phẩm chất:}
+	\begin{itemize}
+		\item Giữ tâm lý bình tĩnh, tư duy rành mạch khi đối diện với các bài toán có chứa thuật ngữ chuyên ngành lạ (Y sinh, Kinh tế, Hóa học...).
+	\end{itemize}
+	
+	\newpage
+	
+	% =====================
+	% PHẦN 2: MỤC LỤC
+	% =====================
+	\setcounter{tocdepth}{2}
+	\tableofcontents
+	\newpage
+	
+	% =====================
+	% PHẦN 3: LÝ THUYẾT
+	% =====================
+	\section{Lý thuyết}
+	
+	\subsection{Mối quan hệ đạo hàm giữa Quãng đường, Vận tốc và Gia tốc}
+	
+	Trong Vật lý, khi nghiên cứu chuyển động của một vật thể trên một đường thẳng, ta xét mối liên hệ giữa các đại lượng: Quãng đường đi được $s$ (hoặc tọa độ vị trí), Vận tốc $v$ và Gia tốc $a$ theo biến số thời gian $t$.
+	
+	Về mặt bản chất toán học, vận tốc tức thời chính là \textbf{tốc độ thay đổi của quãng đường} theo thời gian, và gia tốc tức thời là \textbf{tốc độ thay đổi của vận tốc} theo thời gian. Do đó, ta có các định lý quan trọng sau:
+	
+	\begin{itemize}
+		\item Nếu phương trình chuyển động của vật là $s = s(t)$, thì vận tốc tức thời của vật tại thời điểm $t$ là đạo hàm bậc nhất của phương trình chuyển động: 
+		\[ v(t) = s'(t) \]
+		\item Gia tốc tức thời của vật tại thời điểm $t$ là đạo hàm bậc nhất của phương trình vận tốc, hay nói cách khác là đạo hàm bậc hai của phương trình chuyển động:
+		\[ a(t) = v'(t) = s''(t) \]
+	\end{itemize}
+	
+	\begin{figure}[H]
+		\centering
+		\begin{tikzpicture}[>=stealth, thick]
+			% Đặt tọa độ (0,0), (5,0), (10,0) để kéo giãn khoảng cách, chữ không bị đè
+			\node[draw, rectangle, minimum width=2.5cm, minimum height=1.2cm] (S) at (0,0) {$s(t)$};
+			\node[draw, rectangle, minimum width=2.5cm, minimum height=1.2cm] (V) at (6,0) {$v(t)$};
+			\node[draw, rectangle, minimum width=2.5cm, minimum height=1.2cm] (A) at (12,0) {$a(t)$};
+			
+			% Các mũi tên thẳng ở dưới
+			\draw[->] (S) -- node[above] {\small Đạo hàm cấp 1} node[below] {\small $s'(t)$} (V);
+			\draw[->] (V) -- node[above] {\small Đạo hàm cấp 1} node[below] {\small $v'(t)$} (A);
+			
+			% Mũi tên vòng cung ở trên (nâng độ cao control points lên 2cm cho vòng cung đẹp hơn)
+			\draw[->] (S.north) .. controls +(up:2cm) and +(up:2cm) .. node[above] {\small Đạo hàm cấp 2 $\big(s''(t)\big)$} (A.north);
+		\end{tikzpicture}
+		\caption{Sơ đồ biểu diễn mối liên hệ đạo hàm trong hệ động học}
+	\end{figure}
+	
+	\begin{vidu}[1]
+		Một vật chuyển động theo quy luật $s(t) = -t^3 + 6t^2 + 2t$ (trong đó $t$ tính bằng giây, $s$ tính bằng mét). Tìm thời điểm $t$ để vận tốc của vật đạt giá trị lớn nhất.
+	\end{vidu}
+	
+	\begin{loigiai}
+		\textbf{Bước 1: Thiết lập hàm số vận tốc $v(t)$} \\
+		Vận tốc của vật là đạo hàm bậc nhất của quãng đường $s(t)$. Ta có hàm số vận tốc:
+		\[ v(t) = s'(t) = \left( -t^3 + 6t^2 + 2t \right)' = -3t^2 + 12t + 2 \]
+		Với điều kiện thời gian $t > 0$. Bài toán trở thành: Tìm giá trị lớn nhất của hàm số $v(t)$ trên khoảng $(0; +\infty)$.
+		
+		\vspace{2mm}
+		\textbf{Bước 2: Tìm cực trị của hàm số vận tốc} \\
+		Đạo hàm của vận tốc (chính là gia tốc $a(t)$):
+		\[ a(t) = v'(t) = -6t + 12 \]
+		Cho $v'(t) = 0 \Leftrightarrow -6t + 12 = 0 \Leftrightarrow t = 2$ (thỏa mãn $t > 0$).
+		
+		\vspace{2mm}
+		\textbf{Bước 3: Đánh giá và kết luận} \\
+		Ta xét dấu $v'(t)$ trên khoảng $(0; +\infty)$:
+		\begin{itemize}
+			\item Khi $t \in (0; 2)$, ta có $v'(t) > 0 \Rightarrow$ Hàm số $v(t)$ đồng biến.
+			\item Khi $t \in (2; +\infty)$, ta có $v'(t) < 0 \Rightarrow$ Hàm số $v(t)$ nghịch biến.
+		\end{itemize}
+		Do đó, hàm số $v(t)$ đạt giá trị lớn nhất tại $t = 2$.
+		
+		\vspace{2mm}
+		\textit{Kết luận:} Vận tốc của vật đạt giá trị lớn nhất tại thời điểm $t = 2$ giây. 
+		\\ (Nếu đề bài yêu cầu tìm vận tốc lớn nhất đó, ta thay $t = 2$ vào phương trình $v(t)$, được $v_{\max} = -3(2)^2 + 12(2) + 2 = 14$ m/s).
+	\end{loigiai}
+	
+	\subsection{Phương pháp tư duy giải bài toán thực tế tổng quát}
+	
+	Để giải quyết trọn vẹn một bài toán thực tế vận dụng đạo hàm, học sinh cần rèn luyện tư duy chuyển đổi từ "ngôn ngữ đời sống" sang "ngôn ngữ toán học" thông qua 4 bước chuẩn sau đây:
+	
+	\begin{itemize}[label=$\bullet$]
+		\item \textbf{Bước 1: Trích xuất và lập hàm số.} Đọc lướt đề bài để tìm công thức hàm số $y = f(x)$ đã cho. Xác định rõ: đại lượng nào là biến số (ví dụ: thời gian $t$, chiều dài $x$), đại lượng nào là hàm số (ví dụ: nồng độ $C$, chi phí $P$). Nếu đề chưa cho hàm số, ta phải tự thiết lập dựa trên các yếu tố hình học hoặc vật lý cơ bản.
+		\item \textbf{Bước 2: Tìm điều kiện thực tế (Tập xác định).} Đây là bước rất dễ bị bỏ quên. Biến số đại diện cho thực tế nên luôn có giới hạn (ví dụ: thời gian $t \ge 0$, độ dài đoạn thẳng $x > 0$ và nhỏ hơn tổng chiều dài...).
+		\item \textbf{Bước 3: Khảo sát bằng Đạo hàm.} Tiến hành tính đạo hàm $f'(x)$, giải phương trình $f'(x)=0$ và lập Bảng biến thiên trên tập xác định vừa tìm được ở Bước 2.
+		\item \textbf{Bước 4: Đối chiếu và Kết luận.} Dựa vào Bảng biến thiên, xác định giá trị cực đại/cực tiểu. Đọc lại câu hỏi cuối cùng của đề bài để trả lời cho chính xác (Đề hỏi \textit{thời gian $t$} hay hỏi \textit{giá trị lớn nhất $f(t)$}).
+	\end{itemize}
+	
+	\begin{luuy}
+		\textbf{Đừng hoảng sợ trước những khái niệm lạ!} \\
+		Trong các đề thi hiện nay, người ra đề thường lồng ghép các đại lượng chuyên ngành (ví dụ: Nồng độ thuốc trong máu, tốc độ phản ứng hóa học, chi phí biên trong kinh tế...). 
+		\begin{itemize}
+			\item Học sinh \textbf{không cần} có kiến thức chuyên môn về các ngành này.
+			\item Nếu đề bài nhắc đến một khái niệm ngoài SGK Toán, đề bài \textbf{bắt buộc} phải cung cấp sẵn công thức $f(x)$ cho khái niệm đó.
+			\item Việc duy nhất các em cần làm là: Bỏ qua các từ ngữ học thuật, xác định đúng hàm số $f(x)$, điều kiện của $x$, và tiến hành bài toán \textbf{Tìm Max - Min của hàm số} bằng công cụ Đạo hàm quen thuộc.
+		\end{itemize}
+	\end{luuy}
+	
+	\begin{vidu}[2]
+		Sau khi tiêm một liều thuốc vào tĩnh mạch của một bệnh nhân, nồng độ thuốc trong máu của bệnh nhân (tính bằng mg/ml) sau $t$ giờ được xác định bởi công thức:
+		\[ C(t) = \frac{2t}{t^2 + 1} \]
+		Hỏi sau bao lâu kể từ lúc tiêm, nồng độ thuốc trong máu của bệnh nhân đạt mức cao nhất? Khi đó nồng độ thuốc là bao nhiêu?
+	\end{vidu}
+	
+	\begin{loigiai}
+		\textbf{* Phân tích tư duy tiếp cận:} 
+		Đọc đề bài, ta không cần quan tâm cơ chế sinh học của thuốc. Ta chỉ cần trích xuất dữ kiện toán học cốt lõi:
+		\begin{itemize}
+			\item Hàm số cần khảo sát: $C(t) = \frac{2t}{t^2 + 1}$.
+			\item Biến số: $t$ (thời gian), điều kiện thực tế là $t \ge 0$.
+			\item Yêu cầu: Tìm $t$ để $C(t)$ đạt Giá trị lớn nhất (Max), và tính giá trị Max đó.
+		\end{itemize}
+		
+		\vspace{2mm}
+		\textbf{* Trình bày lời giải toán học:} \\
+		Ta xét hàm số $C(t) = \frac{2t}{t^2 + 1}$ trên nửa khoảng $[0; +\infty)$.
+		
+		Đạo hàm của hàm số:
+		\[ C'(t) = \frac{(2t)'(t^2 + 1) - (2t)(t^2 + 1)'}{(t^2 + 1)^2} = \frac{2(t^2 + 1) - 2t(2t)}{(t^2 + 1)^2} = \frac{2 - 2t^2}{(t^2 + 1)^2} \]
+		
+		Cho $C'(t) = 0 \Leftrightarrow 2 - 2t^2 = 0 \Leftrightarrow t^2 = 1$. 
+		Do $t \ge 0$ nên ta chỉ nhận nghiệm $t = 1$.
+		
+		\vspace{2mm}
+		Ta có Bảng biến thiên của hàm số $C(t)$ trên $[0; +\infty)$ như sau:
+		\begin{center}
+			\renewcommand{\arraystretch}{1.5}
+			\begin{tabular}{|c|lcccc|}
+				\hline
+				$t$ & $0$ & & $1$ & & $+\infty$ \\ \hline
+				$C'(t)$ & & $+$ & $0$ & $-$ & \\ \hline
+				& & & $1$ & & \\
+				$C(t)$ & & $\nearrow$ & & $\searrow$ & \\
+				& $0$ & & & & $0$ \\ \hline
+			\end{tabular}
+		\end{center}
+		
+		\textit{(Lưu ý: $\lim\limits_{t \to +\infty} C(t) = \lim\limits_{t \to +\infty} \frac{2t}{t^2+1} = 0$, nghĩa là sau thời gian rất dài, thuốc sẽ bị đào thải hết khỏi cơ thể).}
+		
+		\vspace{2mm}
+		Dựa vào bảng biến thiên, ta thấy hàm số đạt giá trị lớn nhất bằng $1$ tại $t = 1$.
+		
+		\textbf{Kết luận:} Sau \textbf{1 giờ} kể từ lúc tiêm, nồng độ thuốc trong máu đạt mức cao nhất. Nồng độ cao nhất đó là \textbf{1 mg/ml}.
+	\end{loigiai}
+	
+	% =====================
+	% PHẦN 4: BÀI TẬP
+	% =====================
+	\section{Bài tập luyện tập}
+	
+	\subsection{Dạng 1: Bài toán chuyển động đơn thuần}
+	\noindent \textbf{Câu 1.} Trong quá trình thử nghiệm phanh tự động, một chiếc ô tô di chuyển theo phương trình quãng đường $s(t) = -\frac{1}{3}t^3 + 5t^2 + 2t$, trong đó $t$ tính bằng giây ($0 \le t \le 8$) và $s$ tính bằng mét. Hỏi trong khoảng thời gian 8 giây đầu tiên, vận tốc lớn nhất mà ô tô đạt được là bao nhiêu m/s?
+	
+	\vspace{0.5cm}
+	\noindent \textbf{Câu 2.} Một thiết bị bay không người lái (drone) cất cánh theo phương thẳng đứng. Độ cao của drone so với mặt đất được xác định bởi hàm số $h(t) = -t^3 + 9t^2 + 5t + 1$ (mét), với $t$ là thời gian tính bằng giây. Trong 5 giây đầu tiên kể từ lúc cất cánh, drone đạt vận tốc bay lớn nhất bằng bao nhiêu?
+	
+	\vspace{0.5cm}
+	\noindent \textbf{Câu 3.} Một vận động viên điền kinh chạy bứt tốc trên đường ray thẳng. Quãng đường chạy được mô tả bởi phương trình $s(t) = -\frac{1}{2}t^3 + 6t^2 + 10t$ ($s$ tính bằng mét, $t$ tính bằng giây). Hãy tìm vận tốc lớn nhất của vận động viên này trong 7 giây đầu tiên.
+	
+	\vspace{0.5cm}
+	\noindent \textbf{Câu 4.} Một quả tên lửa mô hình được phóng lên với phương trình quỹ đạo $s(t) = -2t^3 + 24t^2 + 5t$ (mét), $t$ là thời gian (giây). Kể từ lúc phóng đến giây thứ 6, tên lửa đạt vận tốc tức thời lớn nhất là bao nhiêu m/s?
+	
+	\vspace{0.5cm}
+	\noindent \textbf{Câu 5.} Một tàu ngầm di chuyển theo quỹ đạo thẳng dưới đáy biển. Hàm vị trí của tàu theo thời gian được cho bởi $s(t) = -\frac{1}{3}t^3 + 8t^2$ (mét, giây). Hỏi trong khoảng thời gian 10 giây kể từ khi bắt đầu di chuyển, vận tốc lớn nhất của tàu ngầm là bao nhiêu?
+	
+	\vspace{0.5cm}
+	\noindent \textbf{Câu 6.} Một toa tàu lượn siêu tốc bắt đầu trượt xuống dốc. Quãng đường trượt được tính bởi công thức $s(t) = -\frac{1}{4}t^3 + \frac{9}{2}t^2 + 15t$, trong đó $t$ là khoảng thời gian tính từ lúc bắt đầu trượt (giây) và $s$ tính bằng mét. Trong 8 giây đầu tiên, vận tốc lớn nhất của toa tàu lượn là bao nhiêu m/s?
+	
+	\vspace{0.5cm}
+	\noindent \textbf{Câu 7.} Một robot tự hành trong nhà kho thông minh di chuyển hàng hóa theo một đường thẳng. Phương trình chuyển động của robot là $s(t) = -0.5t^3 + 7.5t^2 + 2t + 4$ ($s$ tính bằng mét, $t$ tính bằng giây). Vận tốc lớn nhất mà robot đạt được trong 10 giây đầu tiên là bao nhiêu?
+	
+	
+	\subsection{Dạng 2: Bài toán tốc độ thay đổi và biến thiên trong thực tế (Trả lời ngắn)}
+	
+	\noindent \textbf{Câu 8.} Một trang trại trồng mận nhận thấy rằng: Nếu trên mỗi hecta đất trồng $x$ cây mận thì trung bình mỗi cây thu hoạch được $P(x) = 600 - 15x$ (kg quả). Hỏi trang trại phải trồng bao nhiêu cây trên một hecta để tổng sản lượng mận thu hoạch được trên mỗi hecta là lớn nhất?
+	
+	\vspace{0.5cm}
+	\noindent \textbf{Câu 9.} Độ giảm thân nhiệt của một bệnh nhân đang sốt cao được xác định bởi công thức $T(x) = 0,02x^2(45 - x)$, trong đó $x$ là liều lượng thuốc hạ sốt được tiêm (tính bằng miligam, $0 \le x \le 45$). Bác sĩ cần tiêm liều lượng bao nhiêu miligam để thân nhiệt của bệnh nhân giảm được nhiều nhất?
+	
+	\vspace{0.5cm}
+	\noindent \textbf{Câu 10.} Công suất $P$ (đơn vị W) của một hệ thống pin năng lượng mặt trời cung cấp cho mạch ngoài được tính theo công thức $P(I) = 24I - 0,8I^2$, với $I$ (đơn vị A) là cường độ dòng điện chạy trong mạch. Hãy tìm công suất tối đa mà hệ thống pin có thể cung cấp.
+	
+	\vspace{0.5cm}
+	\noindent \textbf{Câu 11.} Để bảo quản một loại vắc-xin, người ta đặt vào một tủ làm mát. Nhiệt độ bên trong tủ $T$ (đơn vị $^\circ\text{C}$) sau $t$ giờ hoạt động được mô hình hóa bởi hàm số $T(t) = t^3 - 6t^2 + 9t + 30$ với $t \in [1; 5]$. Hỏi nhiệt độ thấp nhất trong tủ đạt được là bao nhiêu độ C trong khoảng thời gian trên?
+	
+	\vspace{0.5cm}
+	\noindent \textbf{Câu 12.} Năng lượng điện sinh ra từ một tua-bin gió phụ thuộc vào vận tốc gió $v$ (m/s) theo công thức $E(v) = 15v^2 - \frac{1}{2}v^3$ (đơn vị kW) với điều kiện $0 \le v \le 28$. Tua-bin sẽ đạt công suất năng lượng cực đại khi vận tốc gió bằng bao nhiêu m/s?
+	
+	\vspace{0.5cm}
+	\noindent \textbf{Câu 13.} Một công ty ra mắt sản phẩm điện thoại mới. Số lượng điện thoại bán được sau $t$ tuần ra mắt được dự báo theo hàm số $Q(t) = -t^3 + 12t^2 + 15t$. Tốc độ bán hàng được định nghĩa là đạo hàm của số lượng bán ra theo thời gian. Hỏi tốc độ bán hàng của công ty đạt giá trị lớn nhất vào tuần thứ mấy kể từ khi ra mắt?
+	
+	\vspace{0.5cm}
+	\noindent \textbf{Câu 14.} Nồng độ của một loại hóa chất xử lý nước trong một bể bơi (tính bằng ppm) sau $t$ giờ bơm được tính bởi công thức $C(t) = \frac{5t}{t^2 + 4}$. Hỏi sau bao lâu kể từ lúc bắt đầu bơm, nồng độ hóa chất trong bể bơi đạt mức cao nhất?
+	
+	\vspace{0.5cm}
+	\noindent \textbf{Câu 15.} Số lượng vi khuẩn trong một đĩa nuôi cấy trong phòng thí nghiệm phát triển theo mô hình $N(t) = 1000 + 60t^2 - 4t^3$, trong đó $t$ là thời gian quan sát tính bằng giờ ($0 \le t \le 15$). Trong quá trình quan sát, số lượng vi khuẩn lớn nhất có thể đạt được là bao nhiêu con?
+	
+	\vspace{0.5cm}
+	\noindent \textbf{Câu 16.} Nhiệt độ của một bể chứa dung dịch hóa chất trong quá trình phản ứng (tính theo độ Fahrenheit) sau $t$ ngày được cho bởi công thức $T(t) = -0,2t^2 + 2,4t + 95$. Tìm tốc độ thay đổi nhiệt độ lớn nhất của bể dung dịch đó trong khoảng thời gian trên.
+	
+	\vspace{0.5cm}
+	\noindent \textbf{Câu 17.} Số lượng người đăng ký sử dụng của một ứng dụng công nghệ mới (tính bằng số tài khoản) được mô hình hóa bằng hàm số $f(t) = \frac{35000}{1 + 8e^{-t}}$ với $t \ge 0$, trong đó thời gian $t$ được tính bằng năm kể từ khi ứng dụng phát hành. Tốc độ tăng trưởng người dùng đạt giá trị lớn nhất khi $t = \ln a$. Tìm giá trị của $a$.
+	
+	\vspace{0.5cm}
+	\noindent \textbf{Câu 18.} Một doanh nghiệp trung bình bán được 500 chiếc đồng hồ thông minh mỗi tháng với giá 5 triệu đồng/chiếc. Qua khảo sát thị trường, người ta thấy rằng cứ giảm giá bán đi 100 nghìn đồng thì số lượng đồng hồ bán ra trong tháng đó sẽ tăng thêm 20 chiếc. Biết hàm chi phí sản xuất $x$ chiếc đồng hồ trong một tháng là $C(x) = 1,5x + 1000$ (triệu đồng). Tìm lợi nhuận lớn nhất mà doanh nghiệp có thể thu được trong một tháng (tính theo đơn vị triệu đồng).
+
+	\subsection{Dạng 3: Tổng hợp và vận dụng cao (Câu hỏi Đúng/Sai)}
+	
+	\noindent \textbf{Câu 19.} Một máy chủ đang truyền tải một tệp dữ liệu lớn. Gọi $D(t)$ là dung lượng dữ liệu đã tải được (tính bằng Megabyte - MB) sau $t$ phút kể từ khi bắt đầu. Khảo sát hệ thống cho thấy hàm $D(t)$ được mô hình hóa bởi công thức:
+	\[ D(t) = 400(t^2 - t^3) + 10 \quad \text{với } 0 \le t \le 0,5 \]
+	Gọi $v(t) = D'(t)$ là tốc độ tải dữ liệu tại thời điểm $t$. Các mệnh đề sau đúng hay sai?
+	\begin{enumerate}[label=\textbf{\alph*)}]
+		\item Lượng dữ liệu đã có sẵn trong máy trước khi bắt đầu tải (tại $t=0$) là 10 MB.   
+		\item Lượng dữ liệu lớn nhất tải được trong khoảng thời gian khảo sát là 50 MB.   
+		\item Tốc độ tải dữ liệu được tính bởi công thức $v(t) = 400(2t - 3t^2)$.   
+		\item Máy chủ đạt tốc độ tải dữ liệu nhanh nhất ở giây thứ 20 kể từ khi bắt đầu.   
+	\end{enumerate}
+	
+	\vspace{0.5cm}
+	\noindent \textbf{Câu 20.} Một khinh khí cầu chuyển động theo phương thẳng đứng. Độ cao của khinh khí cầu so với mặt đất được xác định bởi phương trình $h(t) = -\frac{1}{3}t^3 + 4t^2 + 9t + 5$ với $t \ge 0$, trong đó $t$ tính bằng giây và $h$ tính bằng mét. Các mệnh đề sau đúng hay sai?
+	\begin{enumerate}[label=\textbf{\alph*)}]
+		\item Trong khoảng thời gian từ giây thứ 1 đến giây thứ 3, vận tốc bay của khinh khí cầu đang giảm.   
+		\item Vận tốc bay của khinh khí cầu đạt giá trị lớn nhất là 25 m/s.   
+		\item Trong khoảng thời gian từ giây thứ 5 đến giây thứ 8, vận tốc bay của khinh khí cầu tăng dần.   
+		\item Tại giây thứ 5, gia tốc chuyển động của khinh khí cầu là $-2 \text{ m/s}^2$.   
+	\end{enumerate}
+	
+	\vspace{0.5cm}
+	\noindent \textbf{Câu 21.} Khi khảo sát sản lượng của một giống dừa lùn trồng chậu, một kỹ sư nông nghiệp nhận thấy: Nếu trên một diện tích $100\text{m}^2$ trồng $x$ cây dừa giống thì khi thu hoạch, trung bình mỗi cây cho số lượng quả là $48 - x^2$ (quả). Các mệnh đề sau đúng hay sai?
+	\begin{enumerate}[label=\textbf{\alph*)}]
+		\item Điều kiện xác định của bài toán là $x \ge 0$.   
+		\item Tổng số quả dừa thu hoạch được trên diện tích $100\text{m}^2$ đó được cho bởi hàm số $f(x) = 48x - x^3$.   
+		\item Để tổng sản lượng dừa thu hoạch được là lớn nhất, kỹ sư cần trồng 6 cây dừa trên $100\text{m}^2$.   
+		\item Số lượng dừa nhiều nhất có thể thu hoạch được trên $100\text{m}^2$ là 128 quả.   
+	\end{enumerate}
+	
+	\vspace{0.5cm}
+	\noindent \textbf{Câu 22.} Để xử lý tảo độc trong một hồ sinh thái, người ta phun một loại hóa chất đặc biệt. Nồng độ hóa chất $C$ (tính bằng ppm) trong nước hồ sau $t$ ngày phun được xác định bởi công thức:
+	\[ C(t) = \frac{20t}{t^2 + 4} \quad (t \ge 0) \]
+	Các mệnh đề sau đúng hay sai?
+	\begin{enumerate}[label=\textbf{\alph*)}]
+		\item Sau 1 ngày phun, nồng độ hóa chất trong hồ là 4 ppm.   
+		\item Đạo hàm của hàm số nồng độ là $C'(t) = \frac{20t^2 - 80}{(t^2 + 4)^2}$.   
+		\item Nồng độ hóa chất trong hồ giảm liên tục trong khoảng thời gian từ ngày thứ 1 đến ngày thứ 3.   
+		\item Nồng độ hóa chất đạt mức cao nhất vào ngày thứ 2 kể từ khi phun.   
+	\end{enumerate}
+	
+	\vspace{0.5cm}
+	\noindent \textbf{Câu 23.} Một chiến dịch livestream ra mắt sản phẩm mới trên mạng xã hội được theo dõi gắt gao. Chuyên gia phân tích dữ liệu nhận thấy số lượng người xem đồng thời (tính bằng nghìn người) sau $t$ giờ kể từ lúc bắt đầu phát sóng được mô hình hóa bởi hàm số:
+	\[ V(t) = \frac{30t}{t^2 + 1} \quad (t \ge 0) \]
+	Các mệnh đề sau đúng hay sai?
+	\begin{enumerate}[label=\textbf{\alph*)}]
+		\item Tại thời điểm 2 giờ sau khi bắt đầu phát sóng, có 12 nghìn người đang xem livestream.   
+		\item Đạo hàm của hàm số lượng người xem là $V'(t) = \frac{30t^2 - 30}{(t^2 + 1)^2}$.   
+		\item Trong khoảng thời gian từ giờ thứ 1 trở đi, số lượng người xem livestream có xu hướng giảm dần.   
+		\item Số lượng người xem livestream đạt mức cao nhất vào thời điểm 2 giờ kể từ khi bắt đầu.   
+	\end{enumerate}
+	
+	\vspace{0.5cm}
+	\noindent \textbf{Câu 24.} Trong một buổi thử nghiệm hiệu năng của một dòng xe ô tô điện (EV) mới, thiết bị cảm biến ghi lại phương trình quãng đường di chuyển của xe trong 6 giây đầu tiên tăng tốc là $s(t) = -\frac{1}{3}t^3 + 3t^2 + 7t$ (với $0 \le t \le 6$). Trong đó $t$ tính bằng giây và $s$ tính bằng mét. Các mệnh đề sau đúng hay sai?
+	\begin{enumerate}[label=\textbf{\alph*)}]
+		\item Tại giây thứ 2, vận tốc tức thời của xe ô tô điện là 15 m/s.   
+		\item Gia tốc của xe ô tô điện bị triệt tiêu (bằng 0) tại thời điểm giây thứ 4.   
+		\item Trong 3 giây đầu tiên kể từ lúc xuất phát, vận tốc của xe liên tục tăng.   
+		\item Vận tốc lớn nhất mà xe ô tô điện đạt được trong đợt thử nghiệm này là 18 m/s.   
+	\end{enumerate}
+	
+	\vspace{0.5cm}
+	\noindent \textbf{Câu 25.} Sau khi xả thải một lượng chất hữu cơ xuống một hồ nước sinh thái, lượng oxy hòa tan trong nước hồ (tính bằng mg/l) bị sụt giảm đáng kể. Các nhà khoa học mô hình hóa lượng oxy hòa tan trong nước hồ sau $t$ ngày xả thải bằng công thức:
+	\[ D(t) = 12 - \frac{16t}{t^2 + 4} \quad (t \ge 0) \]
+	Biết rằng, lượng oxy hòa tan tiêu chuẩn để các loài cá trong hồ có thể sống khỏe mạnh là trên $5$ mg/l. Các mệnh đề sau đúng hay sai?
+	\begin{enumerate}[label=\textbf{\alph*)}]
+		\item Lượng oxy hòa tan ban đầu của nước hồ (trước khi xảy ra xả thải tại $t=0$) là 12 mg/l.   
+		\item Tốc độ thay đổi hàm lượng oxy hòa tan trong hồ tại thời điểm $t$ là $D'(t) = \frac{64 - 16t^2}{(t^2 + 4)^2}$.   
+		\item Trong khoảng thời gian 2 ngày đầu tiên sau khi xả thải, hàm lượng oxy hòa tan trong nước hồ liên tục giảm mạnh.   
+		\item Hàm lượng oxy hòa tan thấp nhất đo được trong hồ là 8 mg/l, do đó các loài cá trong hồ vẫn an toàn không bị chết ngạt.   
+	\end{enumerate}
+
+	
+
+
+	% =====================
+	% PHẦN 5: TỔNG KẾT
+	% =====================
+	\section{Tổng kết bài}
+	
+	\begin{tcolorbox}[colback=yellow!10!white, colframe=orange!60!black,
+		fonttitle=\bfseries, title={Cốt lõi cần nhớ}]
+		\begin{itemize}
+			\item \textbf{Cơ học:} Quãng đường $s(t)$ $\Rightarrow$ Vận tốc $v(t) = s'(t)$ $\Rightarrow$ Gia tốc $a(t) = v'(t) = s''(t)$.
+			\item \textbf{Tốc độ thay đổi:} Của đại lượng $f(x)$ chính là đạo hàm $f'(x)$.
+			\item \textbf{Phương pháp chung:} Gặp bài toán lạ $\Rightarrow$ Trích xuất hàm số $f(x)$ $\Rightarrow$ Tìm tập xác định $\Rightarrow$ Đạo hàm $f'(x)=0$ $\Rightarrow$ Lập bảng biến thiên $\Rightarrow$ Kết luận Max/Min.
+		\end{itemize}
+	\end{tcolorbox}
+	
+	\vspace{3mm}
+	\textbf{Bài tập về nhà:} Hoàn thành các bài tập phần tự luận vào vở. Đọc trước bài "Đường tiệm cận của đồ thị hàm số".
+	
+\end{document}

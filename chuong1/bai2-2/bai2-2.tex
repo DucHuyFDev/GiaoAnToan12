@@ -1,0 +1,1140 @@
+\documentclass[12pt]{article}
+
+% === CÀI ĐẶT TRANG ===
+\usepackage[margin=2cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T5]{fontenc}
+\usepackage[vietnamese]{babel}
+
+% === TOÁN HỌC ===
+\usepackage{amsmath, amssymb, amsthm}
+
+% === HÌNH VẼ ===
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+% === ĐỊNH DẠNG ===
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage[most]{tcolorbox}
+\usepackage{multicol}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{fancyhdr}
+\usepackage{tocloft}
+\usepackage[hidelinks]{hyperref}
+
+% === LỆNH TỰ ĐỊNH NGHĨA ===
+\newcommand{\otraloi}{\underline{\hspace{5cm}}}
+
+% === TCOLORBOX STYLES ===
+\tcbuselibrary{breakable, skins, fitting}
+
+% Hộp Ví dụ
+\newtcolorbox{vidu}[1][1]{
+	colback=blue!5!white, colframe=blue!60!black,
+	fonttitle=\bfseries, title={Ví dụ #1},
+	breakable, enhanced
+}
+
+% Hộp Lời giải
+\newtcolorbox{loigiai}{
+	colback=gray!8!white, colframe=gray!50!black,
+	fonttitle=\bfseries, title={Lời giải},
+	breakable, enhanced
+}
+
+% Bài tập xanh – Bắt buộc
+\newtcolorbox{btxanh}[1][]{
+	colback=blue!6!white, colframe=blue!65!black,
+	fonttitle=\bfseries\color{white}, coltitle=white,
+	attach boxed title to top left={yshift=-2mm, xshift=4mm},
+	boxed title style={colback=blue!65!black, rounded corners},
+	title={Bắt buộc}, breakable, enhanced, #1
+}
+
+% Bài tập vàng – Bổ sung
+\newtcolorbox{btvang}[1][]{
+	colback=yellow!12!white, colframe=orange!75!black,
+	fonttitle=\bfseries, coltitle=orange!80!black,
+	attach boxed title to top left={yshift=-2mm, xshift=4mm},
+	boxed title style={colback=yellow!50!white, colframe=orange!75!black, rounded corners},
+	title={Bổ sung}, breakable, enhanced, #1
+}
+
+% Bài tập đỏ – Gia cố
+\newtcolorbox{btdo}[1][]{
+	colback=red!6!white, colframe=red!65!black,
+	fonttitle=\bfseries\color{white}, coltitle=white,
+	attach boxed title to top left={yshift=-2mm, xshift=4mm},
+	boxed title style={colback=red!65!black, rounded corners},
+	title={Gia cố}, breakable, enhanced, #1
+}
+
+% === HEADER/FOOTER (ĐÃ HIỆU CHỈNH THEO YÊU CẦU) ===
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small Chuyên đề: Bài toán tối ưu hình học và chi phí trong thực tế}
+\fancyhead[R]{\small Toán 12}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% ================================================
+\begin{document}
+	
+	\begin{center}
+		{\LARGE \textbf{BÀI TOÁN TỐI ƯU HÌNH HỌC VÀ CHI PHÍ TRONG THỰC TẾ}}\\[6pt]
+		{\large Giáo trình giảng dạy trực tiếp \quad Môn: Toán 12}
+	\end{center}
+	\vspace{4mm}
+	\hrule
+	\vspace{4mm}
+	
+	% ===========================
+	% PHẦN 1: MỤC TIÊU BÀI HỌC
+	% ===========================
+	\section*{Mục tiêu bài học}
+	\addcontentsline{toc}{section}{Mục tiêu bài học}
+	
+	\textbf{1. Kiến thức:}
+	\begin{itemize}
+		\item Hệ thống hóa và ghi nhớ sâu sắc các công thức tính chu vi, diện tích (hình phẳng) và thể tích, diện tích xung quanh/toàn phần (hình khối không gian) đã học.
+		\item Nắm vững quy trình biến đổi một tình huống thực tế (tối ưu hóa diện tích, thể tích, đường đi, thời gian, chi phí) thành bài toán tìm giá trị lớn nhất, nhỏ nhất của hàm số một biến số.
+	\end{itemize}
+	
+	\textbf{2. Kĩ năng:}
+	\begin{itemize}
+		\item Kĩ năng chọn ẩn số thích hợp, đặt điều kiện chặt chẽ cho ẩn số dựa trên các giới hạn thực tế của hình học.
+		\item Kĩ năng thiết lập hàm mục tiêu và vận dụng công cụ đạo hàm để tìm cực trị một cách tối ưu.
+	\end{itemize}
+	
+	\textbf{3. Thái độ / Phẩm chất:}
+	\begin{itemize}
+		\item Nhận thức rõ ràng vai trò thực tiễn của Toán học trong kỹ thuật xây dựng, kinh tế và đời sống hàng ngày; hình thành tư duy tối ưu hóa hiệu quả công việc.
+	\end{itemize}
+	
+	\newpage
+	
+	% =====================
+	% PHẦN 2: MỤC LỤC
+	% =====================
+	\setcounter{tocdepth}{2}
+	\tableofcontents
+	\newpage
+	
+	% =====================
+	% PHẦN 3: LÝ THUYẾT
+	% =====================
+	\section{Lý thuyết}
+	
+	\subsection{Hệ thống công thức hình học phẳng và hình khối không gian}
+	Dưới đây là bảng tổng hợp các công thức cốt lõi thường xuyên được sử dụng trong các bài toán tối ưu thực tế:
+	
+	\begin{center}
+		\small
+		\renewcommand{\arraystretch}{1.5}
+		\begin{tabular}{p{4.2cm} p{5.5cm} p{5.5cm}}
+			\toprule
+			\textbf{Hình học / Hình khối} & \textbf{Công thức diện tích / xung quanh} & \textbf{Công thức thể tích / chu vi} \\
+			\midrule
+			\textbf{Hình chữ nhật} & $S = a \cdot b$ & Chu vi: $P = 2(a + b)$ \\
+			\textbf{Hình tròn} & $S = \pi \cdot R^2$ & Chu vi: $C = 2\pi \cdot R$ \\
+			\textbf{Hình hộp chữ nhật} & $S_{\text{tp}} = 2(ab + bc + ca)$ & Thể tích: $V = a \cdot b \cdot c$ \\
+			\textbf{Hình trụ tròn xoay} & $S_{\text{xq}} = 2\pi R h$; \ $S_{\text{tp}} = 2\pi R h + 2\pi R^2$ & Thể tích: $V = \pi R^2 h$ \\
+			\textbf{Hình nón tròn xoay} & $S_{\text{xq}} = \pi R l$; \ $S_{\text{tp}} = \pi R l + \pi R^2$ & Thể tích: $V = \dfrac{1}{3}\pi R^2 h$ \\
+			\textbf{Hình cầu} & Diện tích mặt cầu: $S = 4\pi R^2$ & Thể tích: $V = \dfrac{4}{3}\pi R^3$ \\
+			\bottomrule
+		\end{tabular}
+	\end{center}
+	
+	\subsection{Quy trình 3 bước giải bài toán tối ưu hình học}
+	Để giải một bài toán thực tế tối ưu bằng công cụ đạo hàm, ta tiến hành theo các bước sau:
+	\begin{enumerate}[label=\textbf{Bước \arabic*:}, leftmargin=*]
+		\item \textbf{Chọn biến và đặt điều kiện:} Chọn một đại lượng thay đổi làm biến số $x$. Xác định điều kiện thực tế cho biến số (ví dụ: kích thước hình học phải luôn dương $x > 0$, hoặc bị chặn bởi chiều dài thanh gỗ $0 < x < L$,...).
+		\item \textbf{Thiết lập hàm số mục tiêu:} Biểu diễn đại lượng cần tối ưu (diện tích, thể tích, chi phí...) thành một hàm số một biến $f(x)$ theo biến số $x$ vừa chọn.
+		\item \textbf{Tìm cực trị và kết luận:} Tìm giá trị lớn nhất hoặc nhỏ nhất của hàm số $f(x)$ trên miền điều kiện bằng đạo hàm và bảng biến thiên, từ đó đưa ra câu trả lời cho bài toán thực tế.
+	\end{enumerate}
+	
+	\subsection{Ví dụ thực hành minh họa}
+	\begin{vidu}[1]
+		Một tấm bìa hình vuông có cạnh bằng $12\text{ cm}$. Người ta cắt bỏ ở bốn góc bốn hình vuông bằng nhau có cạnh bằng $x\text{ (cm)}$ rồi gập tấm bìa lại để được một cái hộp không có nắp dạng hình hộp chữ nhật. Tìm $x$ để thể tích của cái hộp đạt giá trị lớn nhất.
+	\end{vidu}
+	
+	\begin{loigiai}
+		Ta thực hiện giải toán theo đúng quy trình 3 bước:
+		\begin{enumerate}[label=\textbf{B\arabic*.}]
+			\item \textbf{Chọn biến và đặt điều kiện:} 
+			Cạnh hình vuông cắt đi là $x\text{ (cm)}$. Vì tấm bìa ban đầu có cạnh $12\text{ cm}$ và ta cắt ở cả hai đầu của mỗi cạnh, nên điều kiện của $x$ phải là:
+			$$0 < 2x < 12 \iff 0 < x < 6$$
+			
+			\item \textbf{Thiết lập hàm số mục tiêu:}
+			Sau khi cắt và gập lại, ta thu được một hình hộp chữ nhật không nắp có các kích thước là:
+			\begin{itemize}
+				\item Chiều cao của hộp: $h = x$.
+				\item Cạnh của đáy hình vuông: $a = 12 - 2x$.
+			\end{itemize}
+			Thể tích của hộp được xác định bởi công thức:
+			$$V(x) = h \cdot a^2 = x(12 - 2x)^2 = 4x(6 - x)^2 = 4(x^3 - 12x^2 + 36x) \quad \text{với } x \in (0; 6)$$
+			
+			\item \textbf{Tìm cực trị và kết luận:}
+			Xét đạo hàm của hàm số $V(x)$ trên khoảng $(0; 6)$:
+			$$V'(x) = 4(3x^2 - 24x + 36) = 12(x^2 - 8x + 12)$$
+			$$V'(x) = 0 \iff 12(x-2)(x-6) = 0 \iff \left[\begin{aligned} &x = 2 \quad (\text{thỏa mãn}) \\ &x = 6 \quad (\text{loại do không } \in (0;6)) \end{aligned}\right.$$
+			Lập bảng biến thiên thu gọn của $V(x)$ trên khoảng $(0; 6)$:
+			\begin{center}
+				\begin{tikzpicture}[scale=0.8, >=stealth]
+					\draw[thick] (0,0) rectangle (8.5,-2.4);
+					\draw[thick] (0,-0.8) -- (8.5,-0.8);
+					\draw[thick] (1.5,0) -- (1.5,-2.4);
+					\node at (0.75,-0.4) {$x$}; \node at (0.75,-1.6) {$V(x)$};
+					\node at (2.2,-0.4) {$0$}; \node at (5,-0.4) {$2$}; \node at (7.8,-0.4) {$6$};
+					\node (y1) at (2.2,-2.1) {$0$}; \node (y2) at (5,-1.1) {$128$}; \node (y3) at (7.8,-2.1) {$0$};
+					\draw[->, thick, blue] (y1) -- (y2); \draw[->, thick, blue] (y2) -- (y3);
+				\end{tikzpicture}
+			\end{center}
+			Dựa vào bảng biến thiên, thể tích hộp đạt giá trị lớn nhất bằng $128\text{ cm}^3$ tại điểm $x = 2\text{ cm}$.
+			
+			Vậy ta cần cắt bỏ bốn góc các hình vuông có cạnh $x = 2\text{ cm}$.
+		\end{enumerate}
+	\end{loigiai}
+	
+	\newpage
+	
+	% =====================
+	% PHẦN 4: BÀI TẬP (CHỈ CÓ TỰ LUẬN VÀ ĐÚNG SAI)
+	% =====================
+	\section{Bài tập}
+	
+	\subsection{Bài tập tự luận}
+	\subsubsection{Dạng 1: Bài toán tối ưu hóa trong thực tế (Diện tích, Thể tích, Chu vi)}
+	
+	\begin{enumerate}[label=\textbf{Câu \arabic*.}]
+		
+		% CÂU 1 (Tối ưu hóa bể chứa)
+		\item Một doanh nghiệp cần xây dựng một bể chứa nước công nghiệp không nắp có dạng hình hộp chữ nhật với thể tích cố định là $36\text{ m}^3$. Đáy bể là hình chữ nhật có chiều dài gấp đôi chiều rộng. Tính chiều rộng đáy bể (đơn vị: mét) để khi xây dựng, tổng diện tích các mặt bên và mặt đáy đạt giá trị nhỏ nhất (giúp tiết kiệm nguyên vật liệu nhất)?
+		
+		
+		% CÂU 2 (Tối ưu hóa khay gỗ trồng rau - Hình vẽ 3D quy chuẩn)
+		\item Người ta muốn thiết kế một khay gỗ trồng rau sạch không nắp dạng hình hộp chữ nhật có chiều cao cố định là $2\text{ dm}$ và thể tích lòng bể bằng $48\text{ dm}^3$. Bên trong khay gỗ có đặt một vách ngăn bằng gỗ ở giữa song song với chiều rộng để chia khay thành hai ngăn trồng các loại rau khác nhau (như hình vẽ bên dưới). Tìm các kích thước chiều rộng $a$ và chiều dài $b$ của khay gỗ sao cho tổng diện tích gỗ cần sử dụng (tính cả vách ngăn ở giữa và đáy bể) là nhỏ nhất?
+		\begin{center}
+			\begin{tikzpicture}[scale=1.2, >=stealth, x={(-0.7cm,-0.4cm)}, y={(0.7cm,-0.4cm)}, z={(0cm,1cm)}]
+				% Định nghĩa các tham số kích thước vẽ hình chuẩn tỷ lệ
+				\def\a{2.5}  % Chiều rộng tương ứng cạnh a
+				\def\b{4.5}  % Chiều dài tương ứng cạnh b
+				\def\h{2.0}  % Chiều cao tương ứng h = 2
+				
+				% Tọa độ các đỉnh ở mặt đáy
+				\coordinate (O) at (0,0,0);
+				\coordinate (A) at (\a,0,0);
+				\coordinate (B) at (0,\b,0);
+				\coordinate (C) at (\a,\b,0);
+				
+				% Tọa độ các đỉnh ở mặt trên
+				\coordinate (Op) at (0,0,\h);
+				\coordinate (Ap) at (\a,0,\h);
+				\coordinate (Bp) at (0,\b,\h);
+				\coordinate (Cp) at (\a,\b,\h);
+				
+				% Tọa độ vách ngăn song song với mặt bên (ở giữa chiều dài b)
+				\coordinate (M1) at (\a, \b/2, 0);
+				\coordinate (M2) at (0, \b/2, 0);
+				\coordinate (M3) at (0, \b/2, \h);
+				\coordinate (M4) at (\a, \b/2, \h);
+				
+				% Tô màu mờ vách ngăn ở giữa tạo chiều sâu không gian
+				\fill[gray!20, opacity=0.6] (M1) -- (M2) -- (M3) -- (M4) -- cycle;
+				
+				% Các nét đứt khuất phía sau theo đúng quy ước hình học không gian
+				\draw[dashed, gray] (O) -- (A);
+				\draw[dashed, gray] (O) -- (B);
+				\draw[dashed, gray] (O) -- (Op);
+				\draw[dashed, gray] (M1) -- (M2);
+				\draw[dashed, gray] (M2) -- (M3);
+				
+				% Các nét vẽ liền thấy phía trước của khối hộp không nắp
+				\draw[thick] (A) -- (C) -- (B);
+				\draw[thick] (Ap) -- (Cp) -- (Bp) -- (Op) -- (Ap);
+				\draw[thick] (A) -- (Ap);
+				\draw[thick] (B) -- (Bp);
+				\draw[thick] (C) -- (Cp);
+				\draw[thick] (M1) -- (M4);
+				\draw[thick] (M3) -- (M4);
+				
+				% Đường chỉ dẫn kích thước dịch chuyển (offset) ra ngoài vật thể, tránh đè chữ
+				\draw[<->] ([xshift=-0.5cm]A) -- ([xshift=-0.5cm]Ap) node[midway, left] {$2\text{ dm}$};
+				\draw[<->] ([yshift=-0.4cm]A) -- ([yshift=-0.4cm]C) node[midway, below left] {$a\text{ dm}$};
+				\draw[<->] ([yshift=-0.4cm]B) -- ([yshift=-0.4cm]C) node[midway, below right] {$b\text{ dm}$};
+			\end{tikzpicture}
+		\end{center}
+		
+		
+		% CÂU 3 (Gia công khay nhôm từ tấm vuông)
+		\item Từ một tấm nhôm hình vuông cạnh $18\text{ cm}$, người thợ cơ khí cắt bỏ ở bốn góc bốn hình vuông nhỏ bằng nhau có cạnh bằng $x\text{ (cm)}$. Sau đó, người đó gập các mép nhôm còn lại để chế tạo thành một chiếc khay đựng dụng cụ dạng hình hộp chữ nhật không nắp. Hãy tìm kích thước $x$ để thể tích khay đựng đạt giá trị lớn nhất?
+		
+		
+		% CÂU 4 (Tối ưu diện tích kính tủ trưng bày)
+		\item Thầy Nam dự định sử dụng hết $6\text{ m}^2$ kính cường lực để làm một tủ kính trưng bày sản phẩm dạng hình hộp chữ nhật không nắp. Thiết kế yêu cầu mặt đáy tủ có chiều dài gấp đôi chiều rộng. Hỏi dung tích lớn nhất của tủ trưng bày này bằng bao nhiêu mét khối?
+		
+		% CÂU 5 (ĐÃ SỬA LỖI BIÊN DỊCH TOÁN HỌC - PARABOL ĐỐI XỨNG CHUẨN 100%)
+		\item Một nhà kính nông nghiệp có mặt cắt thẳng đứng là một hình parabol $(P)$ có phương trình $y = 12 - x^2$ (đơn vị trên các trục tọa độ là mét). Người ta muốn thiết kế một cửa thông gió hình chữ nhật $ABCD$ bên trong parabol này sao cho hai đỉnh $A, B$ thuộc $(P)$, hai đỉnh $C, D$ nằm trên trục hoành $Ox$ (như hình vẽ). Tính diện tích lớn nhất của cửa thông gió $ABCD$.
+		\begin{center}
+			\begin{tikzpicture}[scale=1.0, >=stealth]
+				% Vẽ hệ trục tọa độ cân đối
+				\draw[->] (-4.5,0) -- (4.5,0) node[right, black] {$x$};
+				\draw[->] (0,-1) -- (0,6.5) node[above, black] {$y$};
+				\node at (0,0) [below left] {$O$};
+				
+				% Đã hiệu chỉnh: Sử dụng \x*\x để sửa lỗi biên dịch dấu âm của TikZ
+				\draw[domain=-3.16:3.16, smooth, variable=\x, black!70, thick] plot ({\x},{5 - 0.5*\x*\x});
+				\node at (2.6,2.0) [right, blue] {$(P)$};
+				
+				% Đánh dấu các mốc tọa độ theo đúng đề bài yêu cầu
+				\filldraw (0,5) circle (1.5pt) node[above left] {$12$};
+				\filldraw (-3.162,0) circle (1.5pt) node[below left] {$-\sqrt{12}$};
+				\filldraw (3.162,0) circle (1.5pt) node[below right] {$\sqrt{12}$};
+				
+				% Vẽ cửa hình chữ nhật ABCD chuẩn kích thước phẳng
+				\draw[thick, fill=gray!15] (-1.8,0) rectangle (1.8,3.38);
+				
+				% Nhãn các đỉnh cửa thông gió nằm ngoài hình chữ nhật, không bị đè chữ
+				\node at (-1.8,3.38) [above left] {$A$};
+				\node at (1.8,3.38) [above right] {$B$};
+				\node at (1.8,0) [below right] {$C$};
+				\node at (-1.8,0) [below left] {$D$};
+				
+				% Gạch sọc vùng cửa kính thông gió đều đặn thẩm mỹ
+				\foreach \i in {-1.6,-1.2,...,1.6}
+				\draw[gray!60, thin] (\i,0) -- (\i+0.2,3.38);
+			\end{tikzpicture}
+		\end{center}
+		
+		% CÂU 6 (SỬA LỖI BIÊN DỊCH TIKZ)
+		\item Một khu vui chơi trẻ em trong công viên được thiết kế gồm một sân chơi hình chữ nhật ở giữa và hai sân hình bán nguyệt bằng nhau áp vào hai chiều rộng của hình chữ nhật ở hai bên. Biết chu vi toàn bộ khu vui chơi này (gồm cả đường bao quanh) là $200\text{ m}$. Hỏi diện tích lớn nhất của toàn bộ khu vui chơi bằng bao nhiêu mét vuông (làm tròn kết quả đến hàng đơn vị)?
+		\begin{center}
+			\begin{tikzpicture}[scale=0.8, >=stealth]
+				% Vẽ hình chữ nhật ở giữa màu vàng nhạt
+				\fill[yellow!30] (-2,-1.5) rectangle (2,1.5);
+				\draw[thick, blue] (-2,-1.5) -- (2,-1.5);
+				\draw[thick, blue] (-2,1.5) -- (2,1.5);
+				\draw[thick] (-2,-1.5) -- (-2,1.5);
+				\draw[thick] (2,-1.5) -- (2,1.5);
+				
+				% Vẽ hai bán nguyệt hai bên chuẩn chỉ
+				\draw[thick, blue] (2,1.5) arc (90:-90:1.5);
+				\draw[thick, blue] (-2,-1.5) arc (270:90:1.5); % Đã sửa: bỏ từ thừa xarrow
+				
+				% Đánh dấu kích thước bán kính
+				\draw[dashed, gray] (2,0) -- (2,1.5) node[midway, right, black] {$R$};
+				\filldraw (2,0) circle (1.5pt);
+			\end{tikzpicture}
+		\end{center}
+			
+		% CÂU 7 (Dạng câu 71 - Tối ưu sân vườn có vách ngăn hình học phẳng)
+		\item Người ta muốn làm một cái khay gỗ trồng rau sạch không nắp dạng hình hộp chữ nhật có chiều cao cố định là $2\text{ dm}$ và thể tích lòng bể bằng $48\text{ dm}^3$. Bên trong khay gỗ có đặt một vách ngăn bằng gỗ ở giữa song song với chiều rộng để chia khay thành hai ngăn trồng các loại rau khác nhau. Tìm kích thước chiều rộng $a$ và chiều dài $b$ để tổng diện tích gỗ cần sử dụng (tính cả vách ngăn ở giữa và đáy bể) đạt giá trị nhỏ nhất.
+		
+		% CÂU 8 (Tối ưu hóa hàng rào cạnh tường - Hình học phẳng mới)
+		\item Một bác nông dân muốn rào xung quanh một khu đất trồng hoa hình chữ nhật sát bờ một bức tường đá kiên cố (nghĩa là chỉ cần rào 3 cạnh bên còn cạnh sát tường thì không cần rào). Biết bác có sẵn một cuộn lưới thép dài $40\text{ m}$. Hỏi bác nông dân có thể rào được khu đất có diện tích lớn nhất bằng bao nhiêu mét vuông?
+		
+		
+	
+		
+		% CÂU 10 (Biến thể của THPT Văn Giang 2025 - Bản vẽ phẳng hộp quà chéo)
+		\item Một công ty thiết kế bao bì muốn sản xuất một chiếc hộp quà tặng cao cấp không nắp được làm từ một tấm bìa các-tông theo bản vẽ phẳng có dạng hình chữ thập như hình vẽ bên dưới. Chiếc hộp có đáy là một hình vuông cạnh $x\text{ (cm)}$, chiều cao các cạnh là $h\text{ (cm)}$ và yêu cầu dung tích lòng hộp phải bằng đúng $500\text{ cm}^3$. Tìm kích thước cạnh đáy $x$ (đơn vị: $\text{cm}$) sao cho diện tích tấm bìa các-tông cần dùng là nhỏ nhất (để tiết kiệm vật liệu nhất)?
+		\begin{center}
+			\begin{tikzpicture}[scale=0.9, >=stealth]
+				% Vẽ hình vuông đáy ở giữa (tô màu xám)
+				\fill[gray!20] (0,0) rectangle (2,2);
+				\draw[thick] (0,0) rectangle (2,2);
+				
+				% Vẽ 4 cánh bên của chữ thập
+				\draw[thick] (0,0) rectangle (-1.5,2); % Cánh trái
+				\draw[thick] (2,0) rectangle (3.5,2); % Cánh phải
+				\draw[thick] (0,2) rectangle (2,3.5); % Cánh trên
+				\draw[thick] (0,0) rectangle (2,-1.5); % Cánh dưới
+				
+				% Ký hiệu kích thước x (cạnh đáy)
+				\draw[<->] (0,-0.3) -- (2,-0.3) node[midway, below] {$x$};
+				\draw[dashed, gray] (0,0) -- (0,-0.4);
+				\draw[dashed, gray] (2,0) -- (2,-0.4);
+				
+				\draw[<->] (-0.3,0) -- (-0.3,2) node[midway, left] {$x$};
+				\draw[dashed, gray] (0,0) -- (-0.4,0);
+				\draw[dashed, gray] (0,2) -- (-0.4,2);
+				
+				% Ký hiệu kích thước h (chiều cao)
+				\draw[<->] (2.2,2) -- (2.2,3.5) node[midway, right] {$h$};
+				\draw[dashed, gray] (2,2) -- (2.4,2);
+				\draw[dashed, gray] (2,3.5) -- (2.4,3.5);
+				
+				\draw[<->] (2, -0.3-1.2) -- (3.5, -0.3-1.2) node[midway, below] {$h$};
+				\draw[dashed, gray] (2,0) -- (2,-1.7);
+				\draw[dashed, gray] (3.5,2) -- (3.5,-1.7);
+			\end{tikzpicture}
+		\end{center}
+		
+		
+		% CÂU 11 (Biến thể của Trồng cỏ - Lát sân cỏ xéo)
+		\item Trên một mảnh đất hình chữ nhật $ABCD$ có chiều dài $AB = 12\text{ m}$ và chiều rộng $AD = 8\text{ m}$, người chủ muốn làm một lối đi rải sỏi hình chữ nhật $AMHN$ như hình vẽ bên dưới. Biết đỉnh $H$ của lối đi bắt buộc phải nằm trên đường chéo $BD$ của mảnh đất. Chi phí rải sỏi lối đi là $150.000\text{ đồng/m}^2$. Hỏi số tiền lớn nhất (đơn vị: triệu đồng) mà người chủ cần chuẩn bị để hoàn thành lối đi này là bao nhiêu?
+		\begin{center}
+			\begin{tikzpicture}[scale=0.5, >=stealth]
+				% Tọa độ các đỉnh mảnh đất ABCD
+				\coordinate (A) at (0,6);
+				\coordinate (B) at (0,0);
+				\coordinate (C) at (9,0);
+				\coordinate (D) at (9,6);
+				
+				% Tọa độ H nằm trên đường chéo BD tại trung điểm để cân đối
+				\coordinate (H) at (4.5,3);
+				\coordinate (M) at (0,3);
+				\coordinate (N) at (4.5,6);
+				
+				% Vẽ mảnh đất lớn ABCD
+				\draw[thick] (A) node[above left] {$A$} -- (B) node[below left] {$D$} -- (C) node[below right] {$C$} -- (D) node[above right] {$B$} -- cycle;
+				
+				% Vẽ đường chéo BD
+				\draw[thick] (B) -- (D);
+				
+				% Tô màu và vẽ lối đi AMHN
+				\fill[gray!20] (A) -- (M) -- (H) -- (N) -- cycle;
+				\draw[thick] (A) -- (M) node[left] {$M$} -- (H) node[below right] {$H$} -- (N) node[above] {$N$} -- cycle;
+				
+				% Chú thích kích thước biên ngoài
+				\draw[<->] (0,6.8) -- (9,6.8) node[midway, above] {$12\text{ m}$};
+				\draw[<->] (-0.8,0) -- (-0.8,6) node[midway, left] {$8\text{ m}$};
+			\end{tikzpicture}
+		\end{center}
+		
+		
+		% CÂU 12 (Biến thể của Thợ hàn - Cuộn tôn làm thùng)
+		\item Một công ty sản xuất bao bì thực phẩm muốn gia công một chiếc vỏ lon hình trụ từ một miếng tôn hình chữ nhật có chu vi cố định là $180\text{ cm}$. Phương thức chế tạo là cuộn tấm tôn theo chiều dài để tạo thành thân lon và hàn kín mép (hai đáy được làm từ vật liệu khác không tính vào tấm tôn này). Tìm kích thước chiều dài và chiều rộng của tấm tôn hình chữ nhật để chiếc lon thu được có thể tích chứa lớn nhất?
+		\begin{center}
+			\begin{tikzpicture}[scale=0.8, >=stealth]
+				% Vẽ tấm tôn phẳng hình chữ nhật
+				\draw[thick, fill=gray!10] (0,0) rectangle (2.5,1.5);
+				\draw[<->] (0,-0.3) -- (2.5,-0.3) node[midway, below] {$a$};
+				\draw[<->] (-0.3,0) -- (-0.3,1.5) node[midway, left] {$b$};
+				
+				% Mũi tên chuyển đổi
+				\draw[->, ultra thick] (3.2, 0.75) -- (4.2, 0.75);
+				
+				% Vẽ lon hình trụ 3D phẳng bên phải
+				\draw[thick] (5.5,0) ellipse (0.45cm and 0.15cm);
+				\draw[thick] (5.5,1.5) ellipse (0.45cm and 0.15cm);
+				\draw[thick] (5.05,0) -- (5.05,1.5);
+				\draw[thick] (5.95,0) -- (5.95,1.5);
+				\draw[dashed, gray] (5.5,0.75) -- (5.95,0.75) node[midway, above=-1pt, black] {\tiny $R$};
+				\draw[<->] (6.6,0) -- (6.6,1.5) node[midway, right] {$b$};
+				\draw[dashed, gray] (5.95,1.5) -- (6.8,1.5);
+				\draw[dashed, gray] (5.95,0) -- (6.8,0);
+			\end{tikzpicture}
+		\end{center}
+		
+		
+		% CÂU 13 (Gập tấm kim loại lớn hơn)
+		\item Một kỹ sư thiết kế một máng dẫn nước có mặt cắt ngang hình chữ nhật từ một tấm tôn phẳng dài có chiều rộng $24\text{ cm}$ bằng cách gập hai mép tôn lên một góc $90^\circ$ một khoảng $x\text{ (cm)}$. Tìm độ dài $x$ để máng nước có thể dẫn được lượng nước nhiều nhất (tương đương diện tích mặt cắt ngang lớn nhất)?
+		
+		
+		% CÂU 14 (Tối ưu hóa hộp thiếc nước giải khát)
+		\item Một nhà máy muốn thiết kế vỏ một lon nước ngọt dạng hình trụ tròn xoay có thể tích chứa cố định là $16\pi\text{ cm}^3$. Tính chiều cao $h$ và bán kính đáy $R$ của chiếc lon (đơn vị: $\text{cm}$) để tổng diện tích vật liệu bằng nhôm cần dùng (gồm cả thân lon và hai nắp lon) là nhỏ nhất?
+		
+		
+		% CÂU 15 (Tối ưu hóa gương nghệ thuật hình vòm)
+		\item Một hộ gia đình muốn xây dựng một bể chứa nước sinh hoạt không nắp có dạng hình hộp chữ nhật với đáy là hình vuông và thể tích lòng bể yêu cầu bằng đúng $32\text{ m}^3$. Tìm độ dài cạnh đáy hình vuông (đơn vị: mét) để tổng diện tích xây dựng (gồm đáy và bốn mặt bên) đạt giá trị nhỏ nhất (để tiết kiệm chi phí vật liệu nhất)?
+		
+		% CÂU 16 (Biến thể của Bài 12 - Khối trụ nội tiếp khối nón)
+		\item Một nghệ nhân thủ công mỹ nghệ muốn tiện một cột gỗ hình trụ từ một thân cây gỗ khô có dạng hình nón tròn xoay có bán kính đáy $R = 3\text{ dm}$ và chiều cao $H = 9\text{ dm}$ (như hình vẽ bên dưới). Tìm thể tích lớn nhất $V$ (đơn vị: $\text{dm}^3$) của cột gỗ hình trụ sau khi được tiện xong (lấy kết quả chính xác theo hằng số $\pi$)?
+		\begin{center}
+			\begin{tikzpicture}[scale=1.2, >=stealth]
+				% --- KHỐI NÓN LỚN ---
+				% Đáy nón lớn
+				\draw[thick] (-2,0) -- (2,0);
+				\draw[thick, dashed] (-2,0) arc (180:0:2cm and 0.6cm);
+				\draw[thick] (-2,0) arc (180:360:2cm and 0.6cm);
+				% Đỉnh nón
+				\draw[thick] (-2,0) -- (0,4) -- (2,0);
+				% Đường cao và bán kính đáy nón lớn
+				\draw[dashed, gray] (0,0) -- (0,4);
+				\draw[dashed, gray] (0,0) -- (2,0) node[midway, below] {$R$};
+				
+				% --- KHỐI TRỤ NỘI TIẾP ---
+				% Đáy dưới khối trụ (z = 0)
+				\draw[thick, dashed] (-1.33,0) arc (180:0:1.33cm and 0.4cm);
+				\draw[thick, dashed] (-1.33,0) arc (180:360:1.33cm and 0.4cm);
+				% Đáy trên khối trụ (z = 1.33)
+				\draw[thick] (-1.33,1.33) arc (180:360:1.33cm and 0.4cm);
+				\draw[thick] (-1.33,1.38) to[bend left=25] (1.33,1.38);
+				% Cạnh bên đứng
+				\draw[thick] (-1.33,0) -- (-1.33,1.33);
+				\draw[thick] (1.33,0) -- (1.33,1.33);
+				
+				% Ký hiệu chiều cao h ngoài hình vẽ
+				\draw[<->] (-2.5,0) -- (-2.5,4) node[midway, left] {$H$};
+			\end{tikzpicture}
+		\end{center}
+		
+		
+		% CÂU 17 (Biến thể của Bài 13 - Bể nước mưa tối ưu hóa chi phí có nắp hở)
+		\item Ông Nam cần xây dựng một bể chứa nước mưa bằng bê tông cốt thép dạng hình hộp chữ nhật không nắp có thể tích lòng bể là $12\text{ m}^3$. Thiết kế yêu cầu đáy bể là hình chữ nhật có chiều dài gấp $1.5$ lần chiều rộng. Phần nắp bể ở phía trên được đổ bê tông che kín nhưng chừa lại một ô vuông để hở ở giữa có diện tích bằng đúng $\dfrac{1}{3}$ diện tích mặt đáy để lắp lưới lọc. Biết chi phí vật liệu trung bình là $1.200.000\text{ đồng/m}^2$ cho tất cả các mặt đáy, nắp và thành bên. Hãy tính số tiền thấp nhất (đơn vị: đồng) mà ông Nam phải chi trả để hoàn thành việc xây dựng bể nước?
+		
+		% CÂU 10 (Tái hiện bài toán chế tạo thùng inox tối ưu lòng bể)
+		\item Sử dụng một mảnh inox hình chữ nhật $ABCD$ có diện tích bằng $\dfrac{3}{\pi}\text{ m}^2$ và cạnh $BC = x\text{ (m)}$ để làm một chiếc thùng đựng nước có đáy, không có nắp theo quy trình kỹ thuật như sau: Chia hình chữ nhật $ABCD$ thành hai hình chữ nhật $ADNM$ và $BCNM$ bởi đường thẳng $MN$ song song với $BC$. Trong đó, phần hình chữ nhật $ADNM$ được cuộn lại thành phần xung quanh của một hình trụ có chiều cao bằng $AM$; phần hình chữ nhật $BCNM$ được cắt ra một hình tròn để làm đáy của hình trụ trên (phần inox thừa bị bỏ đi). Tìm kích thước cạnh $x$ (đơn vị: mét) để thùng nước chế tạo ra có thể tích chứa lớn nhất (coi các mép nối hàn có kích thước không đáng kể)?
+		\begin{center}
+			\begin{tikzpicture}[scale=0.9, >=stealth]
+				% --- PHẦN 1: TẤM INOX PHẲNG ABCD ---
+				\draw[thick] (0,0) rectangle (4,6);
+				\draw[thick] (0,2.5) -- (4,2.5);
+				
+				% Nhãn các đỉnh của tấm phẳng
+				\node at (0,6) [above left] {$A$};
+				\node at (4,6) [above right] {$D$};
+				\node at (0,2.5) [left] {$M$};
+				\node at (4,2.5) [right] {$N$};
+				\node at (0,0) [below left] {$B$};
+				\node at (4,0) [below right] {$C$};
+				
+				% Ký hiệu kích thước
+				\draw[<->] (-0.5, 0) -- (-0.5, 2.5) node[midway, left] {$MB$};
+				\draw[<->] (-0.5, 2.5) -- (-0.5, 6) node[midway, left] {$AM$};
+				\draw[<->] (0, -0.4) -- (4, -0.4) node[midway, below] {$x$};
+				
+				% Vẽ hình tròn đáy nét đứt nội tiếp trong phần BCNM
+				\draw[dashed, thick, black!70] (2, 1.25) circle (1.25cm);
+				\filldraw[red] (2, 1.25) circle (1.5pt);
+				
+				% Mũi tên chuyển đổi quy trình lắp ráp
+				\draw[->, ultra thick] (4.8, 3) -- (5.8, 3);
+				
+				% --- PHẦN 2: THÂN TRỤ VÀ ĐÁY SAU KHI GHÉP ---
+				% Thân lon trụ đứng
+				\begin{scope}[xshift=7.5cm, yshift=2.2cm]
+					\draw[thick] (0,0) ellipse (0.8cm and 0.25cm);
+					\draw[thick] (0,2) ellipse (0.8cm and 0.25cm);
+					\draw[thick] (-0.8, 0) -- (-0.8, 2);
+					\draw[thick] (0.8, 0) -- (0.8, 2);
+					\draw[dashed, gray] (0,0) -- (0.8,0) node[midway, above=-2pt, black] {\tiny $R$};
+					\node at (1.2, 1) [right] {\tiny Thân lon};
+				\end{scope}
+				
+				% Hình tròn đáy dưới rời ra để ghép
+				\begin{scope}[xshift=7.5cm, yshift=0.7cm]
+					\draw[thick, fill=gray!15] (0,0) circle (0.8cm);
+					\filldraw[red] (0,0) circle (1.5pt);
+					\draw[dashed, gray] (0,0) -- (0.8,0) node[midway, above=-2pt, black] {\tiny $R$};
+					\node at (1.0, 0) [right] {\tiny Đáy};
+				\end{scope}
+			\end{tikzpicture}
+		\end{center}
+		
+		
+
+	\end{enumerate}
+	
+	\subsubsection{Dạng 2: Bài toán tối ưu đường đi, thời gian và chi phí thực tế}
+	
+	\begin{enumerate}[label=\textbf{Câu \arabic*.}]
+		
+		% CÂU 1 (Tái hiện bài toán chèo thuyền Sở Hậu Giang 2025)
+		\item Anh Tí muốn chèo thuyền từ vị trí $A$ đến vị trí $B$ về phía hạ lưu bờ đối diện, càng nhanh càng tốt, trên một bờ sông thẳng rộng $3\text{ km}$ (như hình vẽ bên dưới). Anh Tí có thể chèo thuyền của mình trực tiếp qua sông để đến vị trí $C$ rồi sau đó chạy bộ đến vị trí $B$; hoặc anh có thể chèo thuyền trực tiếp từ $A$ đến $B$; hoặc anh cũng có thể chèo thuyền đến một vị trí $D$ nằm giữa $C$ và $B$ rồi chạy bộ từ $D$ đến $B$. Biết rằng anh ấy chèo thuyền với tốc độ $6\text{ km/h}$, chạy bộ với tốc độ $8\text{ km/h}$ và quãng đường sông $BC = 8\text{ km}$. Giả sử tốc độ của dòng nước là không đáng kể so với tốc độ di chuyển của anh Tí. Hãy tính khoảng thời gian ngắn nhất (đơn vị: phút) để anh Tí đến được vị trí $B$ (làm tròn kết quả đến hàng đơn vị).
+		\begin{center}
+			\begin{tikzpicture}[scale=0.9, >=stealth]
+				% Vẽ dòng sông màu xanh nước biển nhạt
+				\fill[cyan!15] (-2,-4) rectangle (2,3.5);
+				
+				% Vẽ hai bờ sông kiên cố bằng đất nện
+				\draw[ultra thick, brown!60!black] (-2,-4) -- (-2,3.5);
+				\draw[ultra thick, brown!60!black] (2,-4) -- (2,3.5);
+				
+				% Định nghĩa tọa độ các điểm mốc
+				\coordinate (A) at (-2,2.5);
+				\coordinate (C) at (2,2.5);
+				\coordinate (D) at (2,0);
+				\coordinate (B) at (2,-3);
+				
+				% Vẽ các điểm nút cực trị
+				\filldraw[black] (A) circle (1.5pt) node[left] {$A$};
+				\filldraw[black] (C) circle (1.5pt) node[right] {$C$};
+				\filldraw[black] (D) circle (1.5pt) node[below right] {$B$};
+				\filldraw[black] (2,1) circle (1.5pt) node[right] {$H$};
+				
+				% Vẽ đường chéo nối các điểm di chuyển
+				\draw[thick, dashed, gray] (A) -- (C) node[midway, above, black] {$3\text{ km}$};
+				\draw[thick, ->] (A) -- (2,1); % Chèo thuyền đến D (H)
+				\draw[thick, ->] (2,1) -- (B); % Chạy bộ từ D (H) đến B
+				\draw[thick, ->, gray!60, thin] (A) -- (B); % Hướng chèo trực tiếp A-B
+				
+				% Vẽ đường đo kích thước tổng chiều dài bờ sông bên phải
+				\draw[<->] (3.2,-3) -- (3.2,2.5) node[midway, right] {$8\text{ km}$};
+				\draw[dashed, gray] (2,2.5) -- (3.4,2.5);
+				\draw[dashed, gray] (2,-3) -- (3.4,-3);
+			\end{tikzpicture}
+		\end{center}
+		
+		
+		% CÂU 9 (Tái hiện bài toán hố ga hình trụ Sở Hưng Yên 2025)
+		\item Một gia đình cần xây dựng một bể chứa nước sinh hoạt dạng hình trụ không nắp có thể tích lòng bể bằng đúng $8\pi\text{ m}^3$. Hãy tính chi phí thấp nhất (đơn vị: đồng) để hoàn thành phần xây dựng bể, biết tiền công và nguyên vật liệu cho mỗi mét vuông bê tông (cho cả mặt đáy và thành xung quanh bể) là $500.000\text{ đồng/m}^2$ (làm tròn kết quả đến hàng triệu đồng)?
+		\begin{center}
+			\begin{tikzpicture}[scale=1.1, >=stealth]
+				% Vẽ mặt cắt dọc thành và đáy bể bê tông hình trụ bằng một đường khép kín tô màu xám nhẹ
+				\draw[thick, fill=gray!15] (-1.3, 0) -- (-1.3, 3) -- (-1.1, 3) -- (-1.1, 0.3) -- (1.1, 0.3) -- (1.1, 3) -- (1.3, 3) -- (1.3, 0) -- cycle;
+				
+				% Vẽ trục đối xứng đứt nét ở giữa bể
+				\draw[dashed, black!60] (0,-0.5) -- (0,3.3);
+				
+				% Ghi chú kích thước chiều cao h bên phải ngoài bể
+				\draw[<->] (1.6,0) -- (1.6,3) node[midway, right] {$h$};
+				\draw[dashed, gray] (1.3,3) -- (1.8,3);
+				\draw[dashed, gray] (1.3,0) -- (1.8,0);
+				
+				% Ghi chú kích thước đường kính d = 2R ở dưới đáy bể
+				\draw[<->] (-1.3,-0.3) -- (1.3,-0.3) node[midway, below] {$d = 2R$};
+				\draw[dashed, gray] (-1.3,0) -- (-1.3,-0.4);
+				\draw[dashed, gray] (1.3,0) -- (1.3,-0.4);
+			\end{tikzpicture}
+		\end{center}
+		
+		
+		% CÂU 2 (Tái hiện bài toán đường ống nước Sở Hà Tĩnh 2025)
+		\item Hai nhà máy sản xuất được đặt tại hai vị trí $A$ và $B$ cách nhau $4\text{ km}$. Một nhà máy cung cấp nước sạch được đặt tại vị trí $C$ nằm trên đường trung trực của đoạn thẳng $AB$, cách trung điểm $M$ của đoạn thẳng $AB$ một khoảng bằng $4\text{ km}$. Người ta muốn lắp đặt một hệ thống đường ống dẫn nước từ nhà máy nước $C$ đến một vị trí $I$ nằm giữa đoạn thẳng $MC$, sau đó chia làm hai nhánh đường ống dẫn thẳng tới hai nhà máy $A$ và $B$ (như hình vẽ mô tả bên dưới). Tìm tổng độ dài đường ống dẫn nước ngắn nhất bằng bao nhiêu kilômét (làm tròn kết quả đến hàng phần trăm)?
+		\begin{center}
+			\begin{tikzpicture}[scale=1.1, >=stealth]
+				% Định nghĩa các điểm tọa độ chính
+				\coordinate (M) at (0,0);
+				\coordinate (A) at (-2.5,0);
+				\coordinate (B) at (2.5,0);
+				\coordinate (C) at (0,4);
+				\coordinate (I) at (0,1.3); % Điểm phân nhánh tối ưu y = 2/\sqrt{3}
+				
+				% Vẽ các đoạn thẳng nét đứt biểu diễn hình học
+				\draw[dashed, blue!80!black, thick] (A) -- (B);
+				\draw[dashed, blue!80!black, thick] (M) -- (I);
+				
+				% Vẽ đường ống dẫn nước bằng nét liền siêu đậm màu xanh
+				\draw[ultra thick, blue!80!black] (C) -- (I);
+				\draw[ultra thick, blue!80!black] (A) -- (I) -- (B);
+				
+				% Đánh dấu và nhãn các điểm nút
+				\filldraw[red] (A) circle (1.8pt) node[left, black] {$A$};
+				\filldraw[red] (B) circle (1.8pt) node[right, black] {$B$};
+				\filldraw[red] (C) circle (1.8pt) node[above, black] {$C$};
+				\filldraw[red] (M) circle (1.8pt) node[below=3pt, black] {$M$};
+				\filldraw[red] (I) circle (1.8pt) node[right=3pt, black] {$I$};
+				
+				% Vẽ cung tròn chỉ dẫn kích thước AB = 4km ở dưới
+				\draw[<->, dashed, black!70, thin] (A) to[bend right=25] node[midway, below=4pt, black] {$4\text{ km}$} (B);
+				
+				% Vẽ cung tròn chỉ dẫn kích thước MC = 4km ở bên phải
+				\draw[<->, dashed, black!70, thin] (M) to[bend right=25] node[midway, right=4pt, black] {$4\text{ km}$} (C);
+			\end{tikzpicture}
+		\end{center}
+		
+		% CÂU 3 (Biến thể tối ưu hóa của Sở Hải Phòng 2025 - Cầu vượt cao tốc)
+		\item Một khu công nghiệp có hai nhà máy sản xuất $A$ và $B$ nằm ở hai bên đường của một đại lộ cao tốc chạy thẳng. Nhà máy $A$ cách lề đường phía Bắc một khoảng $AM = 300\text{ m}$, nhà máy $B$ cách lề đường phía Nam một khoảng $BN = 500\text{ m}$. Ban quản lý khu công nghiệp muốn xây dựng một cây cầu vượt đi bộ $PQ$ bắc vuông góc ngang qua đường cao tốc để công nhân đi lại thuận tiện (đầu cầu $Q$ nằm ở lề đường phía Bắc, đầu cầu $P$ nằm ở lề đường phía Nam). Biết rằng chiều rộng của đường cao tốc (độ dài cầu vượt $PQ$) là không đổi, tổng khoảng cách hình chiếu dọc theo lề đường giữa hai nhà máy là $QM + NP = 1600\text{ m}$. Hỏi đầu cầu $Q$ phải cách điểm $M$ bao nhiêu mét để tổng độ dài quãng đường di chuyển từ nhà máy $A$ đến nhà máy $B$ (đi theo đường gấp khúc $AQ + QP + PB$) là ngắn nhất?
+		\begin{center}
+			\begin{tikzpicture}[scale=1.5, >=stealth]
+				% Vẽ đại lộ cao tốc màu xám nhạt
+				\fill[gray!15] (-3,0) rectangle (2,1);
+				
+				% Vẽ hai lề đường cao tốc kẻ đậm
+				\draw[thick, black!80] (-3,1) -- (2,1);
+				\draw[thick, black!80] (-3,0) -- (2,0);
+				
+				% Vẽ vạch kẻ đường đứt nét ở giữa đại lộ
+				\draw[dashed, white, ultra thick] (-3,0.5) -- (2,0.5);
+				
+				% Định nghĩa tọa độ các điểm mốc chính xác theo tỷ lệ toán học
+				% Tỷ lệ x xích: 1 đơn vị = 500m. y xích: 1 đơn vị = 300m.
+				\coordinate (M) at (1.2, 1);
+				\coordinate (A) at (1.2, 1.8);
+				\coordinate (Q) at (0, 1);
+				\coordinate (P) at (0, 0);
+				\coordinate (N) at (-2, 0);
+				\coordinate (B) at (-2, -1.2);
+				
+				% Vẽ cầu vượt đi bộ PQ bằng nét liền siêu đậm màu đen
+				\draw[line width=3.5pt, gray!80!black] (P) -- (Q);
+				\draw[line width=1.5pt, black] (P) -- (Q);
+				
+				% Vẽ các tuyến đường di chuyển AQ và PB
+				\draw[ultra thick, blue!80!black] (A) -- (Q);
+				\draw[ultra thick, blue!80!black] (P) -- (B);
+				
+				% Vẽ các đường gióng vuông góc ra lề đường
+				\draw[dashed, black!60] (A) -- (M);
+				\draw[dashed, black!60] (B) -- (N);
+				
+				% Đánh dấu góc vuông tại M và N
+				\draw[thin] (1.2,1.15) -- (1.05,1.15) -- (1.05,1);
+				\draw[thin] (-2, -0.15) -- (-1.85, -0.15) -- (-1.85, 0);
+				
+				% Điền nhãn tên các điểm nút
+				\filldraw[red] (A) circle (1.5pt) node[above] {$A$};
+				\filldraw[red] (B) circle (1.5pt) node[below] {$B$};
+				\filldraw[red] (Q) circle (1.5pt) node[above left] {$Q$};
+				\filldraw[red] (P) circle (1.5pt) node[below right] {$P$};
+				\filldraw[red] (M) circle (1.2pt) node[above right] {$M$};
+				\filldraw[red] (N) circle (1.2pt) node[below left] {$N$};
+				
+				% Ghi kích thước thực tế
+				\node at (1.5, 1.4) [right] {$300\text{ m}$};
+				\node at (-2.3, -0.6) [left] {$500\text{ m}$};
+				\node at (-0.8, 0.5) [rotate=90, white, scale=0.8] {\textbf{CAO TỐC}};
+			\end{tikzpicture}
+		\end{center}
+		
+		
+		% CÂU 4 (Tái hiện bài toán hành lang chữ L Sở Hà Nội 2025)
+		\item Để chắn đường một hành lang công cộng có dạng hình chữ L (khúc quanh vuông góc), người ta dùng một chiếc sào thẳng dài đặt nằm ngang sao cho hai đầu của sào và một điểm trên sào chạm sát vào các bức tường của hành lang (như hình vẽ mô tả bên dưới). Biết kích thước chiều rộng của hai hành lang giao nhau lần lượt là $a = 8\text{ mét}$ và $b = 1\text{ mét}$. Hỏi chiếc sào thỏa mãn điều kiện chắn đường như trên có chiều dài ngắn nhất bằng bao nhiêu mét (làm tròn kết quả đến hàng đơn vị)?
+		\begin{center}
+			\begin{tikzpicture}[scale=1.1, >=stealth]
+				% Vẽ các bức tường của hành lang chữ L
+				\draw[ultra thick, black!80] (0,0) -- (0,4.5) -- (6,4.5);
+				\draw[ultra thick, black!80] (2.5,0) -- (2.5,2.5) -- (6,2.5);
+				
+				% Vẽ chiếc sào gỗ chắn ngang chạm vào các góc tường
+				% Sào đi qua góc trong (2.5, 2.5), chạm tường trái tại (0, 1.25) và chạm tường trên tại (5, 4.5)
+				\draw[line width=3.5pt, brown!70!black] (0,1.25) -- (5,4.5);
+				\draw[line width=1.0pt, white] (0,1.25) -- (5,4.5);
+				
+				% Đánh dấu kích thước hành lang đứng a = 8m ở đáy
+				\draw[<->, dashed, black!60] (0,-0.4) -- (2.5,-0.4) node[midway, below] {$a = 8\text{ m}$};
+				\draw[dashed, gray] (0,0) -- (0,-0.5);
+				\draw[dashed, gray] (2.5,0) -- (2.5,-0.5);
+				
+				% Đánh dấu kích thước hành lang ngang b = 1m ở bên phải
+				\draw[<->, dashed, black!60] (5.4,2.5) -- (5.4,4.5) node[midway, right] {$b = 1\text{ m}$};
+				\draw[dashed, gray] (6,2.5) -- (5.3,2.5);
+				\draw[dashed, gray] (6,4.5) -- (5.3,4.5);
+				
+				% Tô màu xám nhẹ vùng lòng hành lang để tăng tính trực quan
+				\fill[gray!5, opacity=0.5] (0,0) -- (0,4.5) -- (6,4.5) -- (6,2.5) -- (2.5,2.5) -- (2.5,0) -- cycle;
+			\end{tikzpicture}
+		\end{center}
+		
+		% CÂU 5 (Tái hiện bài toán chuyển động tối ưu Chuyên Vinh 2025)
+		\item  Để trang trí một quảng trường vào dịp năm mới, các kỹ sư lắp đặt một khung thép nghệ thuật hình chữ V được ghép từ hai thanh thép $AB = 4\text{ m}$ và $AC = 5\text{ m}$ sao cho tam giác $ABC$ vuông tại $B$ (như hình vẽ mô tả bên dưới). Trên khung thép, người ta lập trình hai nguồn sáng Laser di chuyển đồng thời: nguồn sáng thứ nhất chạy từ $B$ xuống $A$ với vận tốc $4\text{ m/phút}$, nguồn sáng thứ hai chạy từ $A$ đến $C$ với vận tốc $10\text{ m/phút}$. Hỏi sau bao nhiêu giây kể từ thời điểm hai nguồn sáng đồng thời xuất phát thì khoảng cách giữa chúng là ngắn nhất?
+		\begin{center}
+			\begin{tikzpicture}[scale=1.1, >=stealth]
+				% Định nghĩa tọa độ các điểm mốc tỷ lệ chuẩn hình học
+				% B(0,3), A(0,0), C(2.25, 3) tạo thành tam giác ABC vuông tại B
+				\coordinate (A) at (0,0);
+				\coordinate (B) at (0,3.5);
+				\coordinate (C) at (2.5,3.5);
+				
+				% Vẽ hai thanh thép AB và AC dạng chữ V liền đậm màu đen
+				\draw[line width=2.5pt, gray!60!black] (B) -- (A) -- (C);
+				
+				% Vẽ các điểm sáng Laser đang di chuyển (minh họa dạng hình tròn nhỏ màu đỏ)
+				\filldraw[blue] (B) circle (2.5pt) node[above left, black] {$B$};
+				\filldraw[blue] (A) circle (2.5pt) node[below] {$A$};
+				\filldraw[blue] (C) circle (2.5pt) node[right, black] {$C$};
+				
+				% Minh họa hướng chuyển động bằng mũi tên mảnh
+				\draw[->, thick, red] (0, 2.5) -- (0, 1.5);
+				\draw[->, thick, red] (0.8, 1.12) -- (1.6, 2.24);
+				
+				% Vẽ đường đứt nét ảo nối BC để học sinh hình dung tam giác vuông tại B
+				\draw[dashed, gray] (B) -- (C);
+				
+				% Ký hiệu góc vuông tại B
+				\draw[thin] (0, 3.25) -- (0.25, 3.25) -- (0.25, 3.5);
+			\end{tikzpicture}
+		\end{center}
+		
+		% CÂU 6 (Tái hiện bài toán thanh sào tựa tường Sở Nghệ An 2025)
+		\item Một đơn vị thi công muốn bắc một thanh rầm thép thẳng dài tựa vào tường tòa nhà và mặt đất bên ngoài sao cho thanh rầm đi ngang qua đỉnh của một hàng rào bảo vệ cao $2.7\text{ m}$ dựng song song và cách tường một khoảng bằng $0.8\text{ m}$ (như hình vẽ mô tả dưới đây). Tìm chiều dài ngắn nhất của thanh rầm thép để thỏa mãn yêu cầu kỹ thuật trên (làm tròn kết quả đến hàng phần trăm)?
+		\begin{center}
+			\begin{tikzpicture}[scale=1.2, >=stealth]
+				% Vẽ tường tòa nhà bằng cột xám đậm bên trái
+				\fill[gray!40] (-0.3,0) rectangle (0,4.2);
+				\draw[thick, black!80] (0,0) -- (0,4.2);
+				
+				% Vẽ mặt đất nằm ngang màu nâu gỗ
+				\fill[brown!30] (-0.8,-0.3) rectangle (4.5,0);
+				\draw[thick, brown!80!black] (-0.8,0) -- (4.5,0);
+				
+				% Vẽ hàng rào bảo vệ song song cách tường 0.8 (cao 2.7)
+				\draw[line width=2.5pt, gray!80!black] (0.8,0) -- (0.8,2.7);
+				\filldraw[black] (0.8,2.7) circle (1.2pt) node[right=2pt] {$M$};
+				\filldraw[black] (0.8,0) circle (1.2pt) node[below=2pt] {$H$};
+				
+				% Vẽ thanh rầm thép tựa tường từ (0, 3.6) qua (0.8, 2.7) chạm đất tại (3.2, 0)
+				\draw[line width=3.5pt, blue!70!black] (0,3.6) -- (3.2,0);
+				\draw[line width=1.0pt, white] (0,3.6) -- (3.2,0);
+				
+				% Đánh dấu các đỉnh hình học giải tích Oxy
+				\filldraw[black] (0,3.6) circle (1.5pt) node[above left] {$A$};
+				\filldraw[black] (0,0) circle (1.5pt) node[below left] {$B$};
+				\filldraw[black] (3.2,0) circle (1.5pt) node[below right] {$C$};
+				\draw[dashed, gray] (0,2.7) node[left, black] {$K$} -- (0.8,2.7);
+				\filldraw[black] (0,2.7) circle (1.2pt);
+				
+				% Đường chỉ dẫn kích thước rào cao 2.7m
+				\draw[<->, dashed, black!65] (1.1,0) -- (1.1,2.7) node[midway, right] {$2.7\text{ m}$};
+				
+				% Đường chỉ dẫn khoảng cách rào đến tường 0.8m
+				\draw[<->, dashed, black!65] (0,-0.4) -- (0.8,-0.4) node[midway, below] {$0.8\text{ m}$};
+				\draw[dashed, gray] (0,0) -- (0,-0.5);
+				\draw[dashed, gray] (0.8,0) -- (0.8,-0.5);
+				
+				% Chỉ dẫn khoảng cách x nghi ngờ cần tối ưu
+				\draw[<->] (0.8, -0.4) -- (3.2, -0.4) node[midway, below] {$x = ?$};
+				\draw[dashed, gray] (3.2,0) -- (3.2,-0.5);
+			\end{tikzpicture}
+		\end{center}
+		
+		
+		% CÂU 7 (Tái hiện bài toán bắc cầu qua ao Sở Ninh Bình 2025)
+		\item Một cái ao có hình dạng $ABCDE$ (như hình vẽ mô tả bên dưới). Ở giữa ao có một mảnh vườn hình tròn bán kính $R = 4\text{ m}$. Người ta muốn bắc một cây cầu thẳng từ bờ parabol $AB$ của ao đến mảnh vườn tròn này. Hỏi độ dài ngắn nhất $l$ (đơn vị: mét) của cây cầu là bao nhiêu (làm tròn kết quả đến hàng phần mười)? Biết rằng:
+		\begin{itemize}
+			\item Hai bờ $AE$ và $BC$ nằm trên hai đường thẳng vuông góc với nhau và cắt nhau tại điểm $O$.
+			\item Bờ $AB$ là một phần của một parabol có đỉnh là điểm $A$ và có trục đối xứng là đường thẳng $OA$.
+			\item Độ dài đoạn $OA$ và $OB$ lần lượt là $18\text{ m}$ và $6\text{ m}$.
+			\item Tâm $I$ của mảnh vườn tròn cách đường thẳng $AE$ và $BC$ lần lượt là $24\text{ m}$ và $15\text{ m}$.
+		\end{itemize}
+		\begin{center}
+			\begin{tikzpicture}[scale=0.9, >=stealth]
+				% Định nghĩa tọa độ các điểm mốc chính xác (tỉ lệ x xích, y xích)
+				% A(0, 3.6), B(1.2, 0), I(4.8, 3.0), C(6.0, 0), D(6.0, 5.0), E(0, 5.0)
+				\coordinate (O) at (0,0);
+				\coordinate (A) at (0,3.6);
+				\coordinate (B) at (1.2,0);
+				\coordinate (C) at (6.0,0);
+				\coordinate (D) at (6.0,5.0);
+				\coordinate (E) at (0,5.0);
+				\coordinate (I) at (4.8,3.0);
+				
+				% Tô màu mờ vùng nước ao (vùng ABCDE trừ đi mảnh vườn tròn I)
+				\fill[cyan!10] (O) -- (E) -- (D) -- (C) -- (B) -- plot[domain=1.2:0, smooth] ({\x},{-2.5*\x*\x + 3.6}) -- cycle;
+				\fill[white] (I) circle (0.8cm);
+				
+				% Vẽ bờ bao ao bằng nét liền đậm
+				\draw[thick] (E) -- (D) -- (C) -- (B);
+				\draw[thick] (O) -- (E);
+				
+				% Vẽ bờ cong Parabol AB
+				\draw[thick, blue!80!black, domain=0:1.2, smooth, variable=\x] plot ({\x},{-2.5*\x*\x + 3.6});
+				
+				% Vẽ mảnh vườn hình tròn ở giữa ao (tô màu xanh lá cây đậm)
+				\fill[green!50!black] (I) circle (0.8cm);
+				\draw[thick] (I) circle (0.8cm);
+				
+				% Vẽ cây cầu thẳng nối từ bờ parabol tới mảnh vườn (biểu diễn bằng hai vạch xám song song)
+				\coordinate (M) at (0.8,2.0); % Điểm tối ưu x = 4m (visually mapped)
+				\draw[line width=3.5pt, brown!80!black] (M) -- (I);
+				\draw[line width=1.0pt, white] (M) -- (I);
+				
+				% Vẽ các đường gióng kích thước nét đứt
+				\draw[dashed, gray] (O) node[below left, black] {$O$} -- (B);
+				\draw[dashed, gray] (I) -- (4.8,0) node[below, black] {\tiny $24\text{ m}$};
+				\draw[dashed, gray] (I) -- (0,3.0) node[left, black] {\tiny $15\text{ m}$};
+				
+				% Nhãn tên các điểm mốc hình học
+				\filldraw[black] (A) circle (1.5pt) node[left] {$A$};
+				\filldraw[black] (B) circle (1.5pt) node[below] {$B$};
+				\filldraw[black] (C) circle (1.5pt) node[below right] {$C$};
+				\filldraw[black] (D) circle (1.5pt) node[above right] {$D$};
+				\filldraw[black] (E) circle (1.5pt) node[above left] {$E$};
+				\filldraw[black] (I) circle (1.5pt) node[above] {$I$};
+				
+				% Ghi kích thước biên ngoài rõ ràng không chồng chéo
+				\node at (0, 1.8) [left] {$18\text{ m}$};
+				\node at (0.6, -0.3) [below] {$6\text{ m}$};
+			\end{tikzpicture}
+		\end{center}
+		
+	\end{enumerate}
+	
+	
+	\subsection{Bài tập đúng sai}
+	
+	\begin{enumerate}[label=\textbf{Câu \arabic*.}]
+		
+		% CÂU 1 (ĐÃ HIỆU CHỈNH HOÀN HẢO - HÌNH 3D RỘNG RÃI, SẮC NÉT, KHÔNG CHỒNG CHẤT)
+		\item Một chủ khu nghỉ dưỡng sinh thái có ngân sách cố định là $12.000.000$ đồng muốn xây dựng một hệ thống hàng rào bằng gỗ có hình dạng chữ E dọc theo bờ một hồ nước thẳng (như hình vẽ mô tả bên dưới) để giới hạn thành hai bể bơi dạng hình chữ nhật song song phục vụ du khách (bờ hồ đóng vai trò là một cạnh của bể bơi và không cần rào). Biết rằng đối với mặt hàng rào song song với bờ hồ (có chiều dài $y\text{ m}$), chi phí nguyên vật liệu và nhân công là $100.000\text{ đồng/m}$; còn đối với ba mặt hàng rào song song nhau và vuông góc với bờ hồ (mỗi mặt có chiều dài $x\text{ m}$), chi phí là $80.000\text{ đồng/m}$.
+		\begin{center}
+			\begin{tikzpicture}[scale=1.1, >=stealth, x={(1.2cm,0cm)}, y={(0.6cm,0.4cm)}, z={(0cm,1.2cm)}]
+				% --- PHẦN 1: MẶT HỒ NƯỚC PHÍA SAU (Đẩy lùi hẳn về phía sau y > 2.5) ---
+				\fill[cyan!15] (-1.5, 2.5, 0) -- (6.5, 2.5, 0) -- (6.5, 4.5, 0) -- (-1.5, 4.5, 0) -- cycle;
+				\draw[thick, black!40] (-1.5, 2.5, 0) -- (6.5, 2.5, 0);
+				\node at (2.5, 3.6, 0) [cyan!80!black, font=\bfseries\large] {MẶT HỒ};
+				
+				% Vẽ các gợn sóng nước sinh động ở vùng xa
+				\draw[cyan!60, thin] (-0.5,3.8,0) to[bend left=20] (0.8,3.8,0);
+				\draw[cyan!60, thin] (4.0,4.1,0) to[bend left=20] (5.5,4.1,0);
+				\draw[cyan!60, thin] (1.5,3.5,0) to[bend left=20] (2.8,3.5,0);
+				
+				% --- PHẦN 2: HỆ THỐNG HÀNG RÀO 3D (Chiều cao z = 0.6 cực kỳ rõ nét) ---
+				% 1. Hàng rào bên trái (x)
+				\draw[ultra thick, brown!80!black] (0,2.5,0) -- (0,0,0);
+				\draw[ultra thick, brown!80!black] (0,2.5,0.6) -- (0,0,0.6);
+				\draw[thick, brown!60] (0,2.5,0) -- (0,2.5,0.6);
+				\draw[thick, brown!60] (0,0,0) -- (0,0,0.6);
+				
+				% 2. Hàng rào vách ngăn ở giữa (x)
+				\draw[ultra thick, brown!80!black] (2.5,2.5,0) -- (2.5,0,0);
+				\draw[ultra thick, brown!80!black] (2.5,2.5,0.6) -- (2.5,0,0.6);
+				\draw[thick, brown!60] (2.5,2.5,0) -- (2.5,2.5,0.6);
+				\draw[thick, brown!60] (2.5,0,0) -- (2.5,0,0.6);
+				
+				% 3. Hàng rào bên phải (x)
+				\draw[ultra thick, brown!80!black] (5,2.5,0) -- (5,0,0);
+				\draw[ultra thick, brown!80!black] (5,2.5,0.6) -- (5,0,0.6);
+				\draw[thick, brown!60] (5,2.5,0) -- (5,2.5,0.6);
+				\draw[thick, brown!60] (5,0,0) -- (5,0,0.6);
+				
+				% 4. Hàng rào nối dọc phía trước (y)
+				\draw[ultra thick, brown!80!black] (0,0,0) -- (5,0,0);
+				\draw[ultra thick, brown!80!black] (0,0,0.6) -- (5,0,0.6);
+				\draw[thick, brown!60] (0,0,0.6) -- (5,0,0.6);
+				
+				% --- PHẦN 3: ĐƯỜNG KÍCH THƯỚC CHỈ DẪN (Đẩy rộng ra ngoài hoàn toàn) ---
+				% Chiều dài y song song bờ hồ (dịch hẳn xuống dưới đáy bể)
+				\draw[<->] ([yshift=-0.5cm]0,0,0) -- ([yshift=-0.5cm]5,0,0) node[midway, below=3pt] {$y$};
+				\draw[dashed, gray] (0,0,0) -- (0,0,-0.4);
+				\draw[dashed, gray] (5,0,0) -- (5,0,-0.4);
+				
+				% Chiều rộng x vuông góc bờ hồ (dịch hẳn sang phía bên trái ngoài bể)
+				\draw[<->] ([xshift=-0.5cm]0,2.5,0) -- ([xshift=-0.5cm]0,0,0) node[midway, left=3pt] {$x$};
+				\draw[dashed, gray] (0,2.5,0) -- ([xshift=-0.4cm]0,2.5,0);
+				\draw[dashed, gray] (0,0,0) -- ([xshift=-0.4cm]0,0,0);
+			\end{tikzpicture}
+		\end{center}
+		Xét tính đúng hay sai của các mệnh đề sau:
+		\begin{enumerate}[label=\alph*)]
+			\item Biểu thức ràng buộc chi phí giữa hai kích thước $x$ và $y$ từ nguồn ngân sách cố định của chủ nghỉ dưỡng là $240.000x + 100.000y = 12.000.000$ đồng.
+			\item Diện tích tổng cộng $S(x)$ của hai bể bơi rào được biểu diễn dưới dạng hàm số một biến $x$ là $S(x) = 120x - 2.4x^2$ ($\text{m}^2$).
+			\item Diện tích lớn nhất của phần đất bể bơi rào được đạt giá trị cực đại bằng $\max S = 1500\text{ m}^2$.
+			\item Để hai bể bơi đạt diện tích lớn nhất, người chủ cần thi công mỗi mặt hàng rào chữ E vuông góc với bờ hồ có chiều dài là $30\text{ m}$.
+		\end{enumerate}
+		
+		
+		% CÂU 2 (Tái hiện bài toán gập hộp quà lưu niệm cạnh 24cm - Hà Nội/Nghệ An 2025)
+		\item Một nghệ nhân thủ công muốn chế tạo những chiếc hộp đựng quà tặng lưu niệm dạng hình hộp chữ nhật không nắp từ một tấm da phẳng hình vuông có cạnh bằng $24\text{ cm}$. Quy trình chế tạo là cắt bỏ ở bốn góc của tấm da bốn hình vuông nhỏ bằng nhau có cạnh bằng $x\text{ (cm)}$ rồi gập các mép da còn lại lên một góc $90^\circ$ để thành các mặt bên (như bản vẽ mô tả hình phẳng và mô hình 3D bên dưới).
+		\begin{center}
+			\begin{tikzpicture}[scale=1.1, >=stealth, x={(-0.7cm,-0.3cm)}, y={(0.7cm,-0.3cm)}, z={(0cm,0.8cm)}]
+				% --- PHẦN 1: BẢN VẼ PHẲNG 2D ---
+				\begin{scope}[xshift=-4.5cm, yshift=0.5cm, x={(1cm,0cm)}, y={(0cm,1cm)}, z={(0cm,1cm)}]
+					% Vẽ tấm da vuông lớn 3cm x 3cm
+					\draw[thick] (0,0) rectangle (3,3);
+					
+					% Vẽ nét đứt các đường gập bên trong
+					\draw[dashed, thick, gray] (0.6,0) -- (0.8,0); % nét định vị mép gập
+					\draw[dashed, black!80] (0.6,0.6) rectangle (2.4,2.4);
+					
+					% Tô màu xám mờ 4 hình vuông góc bị cắt bỏ
+					\fill[gray!40, draw=black, thick] (0,0) rectangle (0.6,0.6);
+					\fill[gray!40, draw=black, thick] (2.4,0) rectangle (3,0.6);
+					\fill[gray!40, draw=black, thick] (2.4,2.4) rectangle (3,3);
+					\fill[gray!40, draw=black, thick] (0,2.4) rectangle (0.6,3);
+					
+					% Ký hiệu chiều rộng tấm da lớn a = 24 cm
+					\draw[<->] (-0.3,0) -- (-0.3,3) node[midway, left] {$24\text{ cm}$};
+					
+					% Ký hiệu cạnh cắt đi x
+					\draw[<->] (3,-0.3) -- (2.4,-0.3) node[midway, below] {$x$};
+					\draw[dashed, gray] (3,0) -- (3,-0.4);
+					\draw[dashed, gray] (2.4,0) -- (2.4,-0.4);
+				\end{scope}
+				
+				% Mũi tên chỉ hướng gập hộp ở giữa
+				\draw[->, ultra thick] (-0.8, 1.8, 0) -- (0.2, 1.8, 0);
+				
+				% --- PHẦN 2: MÔ HÌNH HỘP QUÀ 3D ---
+				\begin{scope}[xshift=1.2cm, yshift=1.2cm]
+					% Định nghĩa tham số vẽ hộp chữ nhật không nắp
+					\def\w{2.0} % Chiều rộng đáy hộp phẳng
+					\def\d{2.0} % Chiều dài đáy hộp phẳng
+					\def\h{0.6} % Chiều cao hộp phẳng
+					
+					% Tọa độ đáy dưới
+					\coordinate (O) at (0,0,0);
+					\coordinate (A) at (\w,0,0);
+					\coordinate (B) at (0,\d,0);
+					\coordinate (C) at (\w,\d,0);
+					
+					% Tọa độ miệng trên
+					\coordinate (Op) at (0,0,\h);
+					\coordinate (Ap) at (\w,0,\h);
+					\coordinate (Bp) at (0,\d,\h);
+					\coordinate (Cp) at (\w,\d,\h);
+					
+					% Vẽ nét đứt khuất ở đáy dưới hộp theo quy chuẩn hình học không gian
+					\draw[dashed, gray] (O) -- (A);
+					\draw[dashed, gray] (O) -- (B);
+					\draw[dashed, gray] (O) -- (Op);
+					
+					% Vẽ các nét thấy bên ngoài hộp
+					\draw[thick] (A) -- (C) -- (B);
+					\draw[thick] (Ap) -- (Cp) -- (Bp) -- (Op) -- (Ap);
+					\draw[thick] (A) -- (Ap);
+					\draw[thick] (B) -- (Bp);
+					\draw[thick] (C) -- (Cp);
+				\end{scope}
+			\end{tikzpicture}
+		\end{center}
+		Xét tính đúng hay sai của các mệnh đề sau:
+		\begin{enumerate}[label=\alph*)]
+			\item Điều kiện xác định của độ dài cạnh hình vuông bị cắt bỏ là $0 < x < 12$ (cm).
+			\item Công thức biểu diễn thể tích của chiếc hộp quà thu được theo biến $x$ là $V(x) = x(24 - 2x)^2$ ($\text{cm}^3$) với $0 < x < 12$.
+			\item Thể tích của chiếc hộp đạt giá trị lớn nhất khi và chỉ khi cạnh của hình vuông bị cắt đi bằng $4\text{ cm}$.
+			\item Thể tích lòng hộp lớn nhất mà nghệ nhân có thể làm ra bằng $512\text{ cm}^3$.
+		\end{enumerate}
+		
+		% CÂU 3 (ĐÃ SỬA LỖI TIKZ HOÀN TOÀN - HÌNH 3D SIÊU SẮC NÉT, KHÔNG CHỒNG CHỮ)
+		\item Một xưởng cơ khí sản xuất máng xối dẫn nước mưa dạng hình lăng trụ khuyết hai đáy từ một tấm kẽm phẳng hình vuông $ABCD$ có cạnh bằng $60\text{ cm}$. Người thợ gập tấm kẽm dọc theo hai đường thẳng $EF$ và $GH$ song song với $AD$ ($DF = HC = x\text{ cm}$) cho đến khi hai cạnh $AD$ và $BC$ trùng nhau tạo thành máng xối có thiết diện ngang là tam giác cân $AEG$ vuông góc với thành máng ($A$ trùng $B$, như bản vẽ mô tả bên dưới).
+		\begin{center}
+			\begin{tikzpicture}[scale=1.0, >=stealth]
+				% --- PHẦN 1: BẢN VẼ PHẲNG 2D (BÊN TRÁI) ---
+				\begin{scope}[xshift=0cm, yshift=0cm]
+					% Tấm kẽm phẳng hình chữ nhật đứng (rộng 4.0cm, cao 5.5cm)
+					\draw[thick] (0,0) rectangle (4.0, 5.5);
+					
+					% Các đường gập khúc nét đứt đứng EF và GH
+					\draw[dashed, thick, black!70] (1.0,0) -- (1.0, 5.5);
+					\draw[dashed, thick, black!70] (3.0,0) -- (3.0, 5.5);
+					
+					% Ký hiệu tên các đỉnh 2D với khoảng cách an toàn
+					\node at (0,5.5) [above left] {$A$};
+					\node at (1.0,5.5) [above] {$E$};
+					\node at (3.0,5.5) [above] {$G$};
+					\node at (4.0,5.5) [above right] {$B$};
+					\node at (0,0) [below left] {$D$};
+					\node at (1.0,0) [below] {$F$};
+					\node at (3.0,0) [below] {$H$};
+					\node at (4.0,0) [below right] {$C$};
+					
+					% Ký hiệu kích thước gập x ở đáy dưới
+					\draw[<->] (0,-0.5) -- (1.0,-0.5) node[midway, below] {$x$};
+					\draw[<->] (3.0,-0.5) -- (4.0,-0.5) node[midway, below] {$x$};
+					\draw[dashed, gray] (0,0) -- (0,-0.6);
+					\draw[dashed, gray] (1.0,0) -- (1.0,-0.6);
+					\draw[dashed, gray] (3.0,0) -- (3.0,-0.6);
+					\draw[dashed, gray] (4.0,0) -- (4.0,-0.6);
+					
+					% Ký hiệu tổng kích thước 60cm
+					\draw[<->] (0,-1.3) -- (4.0,-1.3) node[midway, below] {$60\text{ cm}$};
+					\draw[dashed, gray] (0,-0.6) -- (0,-1.4);
+					\draw[dashed, gray] (4.0,-0.6) -- (4.0,-1.4);
+				\end{scope}
+				
+				% Mũi tên chỉ hướng gập ở giữa hai hình
+				\draw[->, ultra thick] (4.8, 2.75) -- (6.0, 2.75);
+				
+				% --- PHẦN 2: MÔ HÌNH MÁNG XỐI 3D SẮC NÉT (BÊN PHẢI) ---
+				\begin{scope}[xshift=7.5cm, yshift=0.5cm]
+					% Định nghĩa tọa độ tĩnh (Cavalier Projection)
+					% Mặt tam giác V phía trước
+					\coordinate (E) at (0, 2.5);
+					\coordinate (A) at (1.5, 0); % A trùng B
+					\coordinate (G) at (3.0, 2.5);
+					
+					% Mặt tam giác V phía sau (tịnh tiến x + 2.8, y + 1.6)
+					\coordinate (F) at (2.8, 4.1);
+					\coordinate (D) at (4.3, 1.6); % D trùng C
+					\coordinate (H) at (5.8, 4.1);
+					
+					% Đổ bóng mặt bên ngoài (mặt bên phải A-G-H-D) tạo hiệu ứng khối hộp 3D
+					\fill[gray!20] (A) -- (G) -- (H) -- (D) -- cycle;
+					
+					% Vẽ nét đứt các đường bị che khuất bên trong
+					\draw[dashed, gray, thick] (F) -- (D);
+					\draw[dashed, gray, thick] (A) -- (D);
+					\draw[dashed, gray, thin]  (F) -- (H); % Khung viền miệng máng phía sau
+					
+					% Vẽ nét liền đậm các đường nhìn thấy của máng xối
+					\draw[ultra thick, blue] (E) -- (A) -- (G); % Vết cắt chữ V mặt trước
+					\draw[thick, black!80] (E) -- (F); % Cạnh mép trên trái
+					\draw[thick, black!80] (G) -- (H); % Cạnh mép trên phải
+					\draw[thick, black!80] (H) -- (D); % Cạnh bên phải phía sau
+					\draw[thick, black!80] (E) -- (G); % Cạnh bên phải phía sau
+					
+					% Điền nhãn tên các đỉnh với neo (anchor) chuẩn xác, cách xa nét vẽ
+					\node at (E) [above left] {$E$};
+					\node at (A) [below=3pt] {$A \equiv B$};
+					\node at (G) [above right] {$G$};
+					\node at (F) [above left] {$F$};
+					\node at (H) [above right] {$H$};
+					\node at (D) [below right=2pt] {$D \equiv C$};
+				\end{scope}
+			\end{tikzpicture}
+		\end{center}
+		Xét tính đúng hay sai của các mệnh đề sau:
+		\begin{enumerate}[label=\alph*)]
+			\item Thể tích lòng máng xối lăng trụ được tính theo công thức $V = 60S$ với $S$ là diện tích của thiết diện tam giác cân $AEG$.
+			\item Giá trị của $x$ để thể tích của lòng máng xối đạt giá trị lớn nhất là $x = 20\text{ cm}$.
+			\item Diện tích tam giác cân $AEG$ được biểu diễn dưới dạng hàm số một biến $x$ là $S(x) = \sqrt{60} \cdot \sqrt{(30 - x)^2(x - 15)}$ ($\text{cm}^2$) với $15 < x < 30$.
+			\item Thể tích lòng chứa nước của máng xối lớn nhất đạt được bằng $6000\text{ cm}^3$.
+		\end{enumerate}
+		
+		
+		% CÂU 4 (Tái hiện bài toán tối ưu hóa bể nước không nắp - Hình hộp chữ nhật)
+		\item Một hộ gia đình muốn thuê thợ xây dựng một cái bể chứa nước ngầm dạng khối hộp chữ nhật không nắp có thể tích lòng bể yêu cầu bằng đúng $72\text{ m}^3$. Đáy bể là một hình chữ nhật có chiều dài gấp ba lần chiều rộng. Biết rằng đơn giá thuê nhân công và vật liệu để xây dựng mỗi mét vuông mặt đáy và các mặt bên của bể là $600.000\text{ đồng/m}^2$. Gọi $x\text{ (m)}$ với $x > 0$ là chiều rộng của đáy bể.
+		\begin{center}
+			\begin{tikzpicture}[scale=1.0, >=stealth]
+				% Định nghĩa tọa độ khối hộp theo phép chiếu song song 3D (Cavalier Projection)
+				% Đáy dưới: A(0,0), B(4,0) -> chiều dài 4 đơn vị
+				\coordinate (A) at (0,0);
+				\coordinate (B) at (4,0);
+				\coordinate (C) at (5.5, 1.2);
+				\coordinate (D) at (1.5, 1.2);
+				
+				% Miệng bể trên (chiều cao 2.5 đơn vị)
+				\coordinate (A') at (0,2.5);
+				\coordinate (B') at (4,2.5);
+				\coordinate (C') at (5.5, 3.7);
+				\coordinate (D') at (1.5, 3.7);
+				
+				% Tô màu xám mờ cho mặt sau và đáy bể để tạo hiệu ứng không nắp (nhìn xuyên qua)
+				\fill[gray!15] (A) -- (B) -- (C) -- (D) -- cycle; % Mặt đáy
+				\fill[gray!25] (D) -- (C) -- (C') -- (D') -- cycle; % Mặt sau lưng
+				\fill[gray!10] (A) -- (D) -- (D') -- (A') -- cycle; % Mặt bên trái
+				
+				% Vẽ các cạnh khuất nét đứt
+				\draw[dashed, thick, black!60] (A) -- (D);
+				\draw[dashed, thick, black!60] (D) -- (C);
+				\draw[dashed, thick, black!60] (D) -- (D');
+				
+				% Vẽ các cạnh thấy nét liền
+				\draw[thick] (A) -- (B) -- (C); % Cạnh đáy trước và bên phải
+				\draw[thick] (A') -- (B') -- (C') -- (D') -- cycle; % Việng miệng bể
+				\draw[thick] (A) -- (A'); % Cạnh đứng trước trái
+				\draw[thick] (B) -- (B'); % Cạnh đứng trước phải
+				\draw[thick] (C) -- (C'); % Cạnh đứng sau phải
+				
+				% Đường chỉ dẫn kích thước cạnh đáy (x và 3x)
+				\draw[<->] (0,-0.4) -- (4,-0.4) node[midway, below] {$3x$};
+				\draw[dashed, gray] (A) -- (0,-0.5);
+				\draw[dashed, gray] (B) -- (4,-0.5);
+				
+				\draw[<->] (4.2,-0.1) -- (5.7, 1.1) node[midway, right=2pt] {$x$};
+			\end{tikzpicture}
+		\end{center}
+		Xét tính đúng hay sai của các mệnh đề sau:
+		\begin{enumerate}[label=\alph*)]
+			\item Chiều dài của đáy bể theo thiết kế là $3x\text{ (m)}$.
+			\item Chiều cao của bể (tính từ đáy lên miệng bể) được biểu diễn theo biến $x$ là $h(x) = \dfrac{24}{x^2}\text{ (m)}$.
+			\item Tổng diện tích các mặt cần xây dựng (gồm mặt đáy và bốn mặt xung quanh) được biểu diễn thành hàm số là $S(x) = 3x^2 + \dfrac{192}{x}\text{ (m}^2)$.
+			\item Số tiền chi phí thấp nhất mà hộ gia đình phải trả để thuê nhân công và vật liệu xây dựng bể là $64.800.000$ đồng.
+		\end{enumerate}
+		
+		
+	\end{enumerate}
+	
+	% =====================
+	% PHẦN 5: TỔNG KẾT BÀI
+	% =====================
+	\section{Tổng kết bài}
+	
+	\begin{tcolorbox}[colback=yellow!10!white, colframe=orange!60!black,
+		fonttitle=\bfseries, title={Tóm tắt kỹ năng giải toán tối ưu hóa}]
+		\begin{itemize}
+			\item \textbf{Mối liên hệ giữa các đại lượng:} Luôn vẽ hình nháp, biểu diễn các đại lượng chưa biết thông qua biến số $x$ bằng các định lý hình học (Pythagoras, Thales, hệ thức lượng, công thức lượng giác...).
+			\item \textbf{Kiểm soát điều kiện biên:} Điều kiện của $x$ cực kỳ quan trọng vì nó quyết định khoảng tìm Max/Min (thường là một khoảng mở $(a; b)$ nên GTLN/GTNN thường trùng với điểm cực trị trong lòng khoảng đó).
+			\item \textbf{Bài toán chi phí:} Chi phí toàn phần luôn bằng tổng chi phí từng phần (ví dụ: chi phí làm nắp hộp + chi phí làm thân hộp + chi phí làm đáy hộp).
+		\end{itemize}
+	\end{tcolorbox}
+	
+\end{document}

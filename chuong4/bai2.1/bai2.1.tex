@@ -1,0 +1,2589 @@
+\documentclass[12pt]{article}
+
+% === CÀI ĐẶT TRANG ===
+\usepackage[margin=2cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T5]{fontenc}
+\usepackage[vietnamese]{babel}
+
+% === TOÁN HỌC ===
+\usepackage{amsmath, amssymb, amsthm}
+
+% === HÌNH VẼ ===
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+% === ĐỊNH DẠNG ===
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage[most]{tcolorbox}
+\usepackage{multicol}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{fancyhdr}
+\usepackage{tocloft}
+\usepackage[colorlinks=true, linkcolor=blue!85!black, urlcolor=blue, citecolor=blue]{hyperref}
+
+% === CẤU HÌNH ĐÁNH SỐ ĐỀ MỤC ===
+\renewcommand{\thesection}{Phần \Roman{section}.}
+\renewcommand{\thesubsection}{\arabic{section}.\arabic{subsection}.}
+\renewcommand{\thesubsubsection}{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}.}
+
+% Cấu hình khoảng cách nhãn trong Mục lục (tocloft) để tránh đè chữ
+\setlength{\cftsecnumwidth}{2.4cm}
+\setlength{\cftsubsecindent}{2.4cm}
+\setlength{\cftsubsecnumwidth}{1.1cm}
+\setlength{\cftsubsubsecindent}{3.5cm}
+\setlength{\cftsubsubsecnumwidth}{1.5cm}
+
+% === LỆNH TỰ ĐỊNH NGHĨA ===
+\newcommand{\otraloi}{\underline{\hspace{5cm}}}
+
+% === TCOLORBOX STYLES ===
+\tcbuselibrary{breakable, skins, fitting}
+
+% Định dạng hộp Ví dụ
+\newtcolorbox{vidu}[1][1]{
+	colback=blue!5!white, colframe=blue!60!black,
+	fonttitle=\bfseries, title={Ví dụ #1},
+	breakable, enhanced
+}
+
+% Định dạng hộp Lời giải
+\newtcolorbox{loigiai}{
+	colback=gray!8!white, colframe=gray!50!black,
+	fonttitle=\bfseries, title={Lời giải},
+	breakable, enhanced
+}
+
+% Bài tập xanh – Bắt buộc
+\newtcolorbox{btxanh}[1][]{
+	colback=blue!6!white, colframe=blue!65!black,
+	fonttitle=\bfseries\color{white}, coltitle=white,
+	title={#1},
+	attach boxed title to top left={yshift=-2mm, xshift=4mm},
+	boxed title style={colback=blue!65!black, rounded corners}, breakable, enhanced
+}
+
+% Bài tập vàng – Bổ sung
+\newtcolorbox{btvang}[1][]{
+	colback=yellow!12!white, colframe=orange!75!black,
+	fonttitle=\bfseries, coltitle=orange!80!black,
+	title={#1},
+	attach boxed title to top left={yshift=-2mm, xshift=4mm},
+	boxed title style={colback=yellow!50!white, colframe=orange!75!black, rounded corners}, breakable, enhanced
+}
+
+% Bài tập đỏ – Gia cố
+\newtcolorbox{btdo}[1][]{
+	colback=red!6!white, colframe=red!65!black,
+	fonttitle=\bfseries\color{white}, coltitle=white,
+	title={#1},
+	attach boxed title to top left={yshift=-2mm, xshift=4mm},
+	boxed title style={colback=red!65!black, rounded corners}, breakable, enhanced
+}
+
+% === HEADER/FOOTER ===
+\setlength{\headheight}{17pt}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small Tài liệu học tập}
+\fancyhead[R]{\small \textbf{Bài 2.1: Khái niệm và tính chất của Tích phân}}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% ================================================
+\begin{document}
+	
+	\begin{center}
+		{\LARGE \textbf{BÀI 2.1: ĐỊNH NGHĨA VÀ CÁC TÍNH CHẤT CƠ BẢN CỦA TÍCH PHÂN}}\\[4pt]
+		{\large Môn: Toán \quad Lớp: 12}
+	\end{center}
+	\vspace{4mm}
+	\hrule
+	\vspace{4mm}
+	
+	% ================================================
+	% MỤC TIÊU BÀI HỌC (KHÔNG ĐÁNH SỐ THỨ TỰ)
+	% ================================================
+	\section*{Mục tiêu bài học}
+	\addcontentsline{toc}{section}{Mục tiêu bài học}
+	
+	\textbf{1. Kiến thức:} 
+	\begin{itemize}
+		\item Nắm vững khái niệm diện tích hình thang cong và định nghĩa tích phân của hàm số liên tục trên đoạn $[a; b]$.
+		\item Hiểu rõ các quy ước và ý nghĩa hình học, vật lý (quãng đường, giá trị trung bình) của tích phân.
+		\item Ghi nhớ và áp dụng thành thạo các tính chất cơ bản: đưa hằng số ra ngoài dấu tích phân, tích phân của tổng và hiệu, tính chất chèn cận.
+	\end{itemize}
+	
+	\noindent \textbf{2. Kĩ năng:} 
+	\begin{itemize}
+		\item Vận dụng bảng nguyên hàm cơ bản để tính trực tiếp các tích phân hàm sơ cấp (đa thức, phân thức, căn thức, lượng giác, mũ).
+		\item Sử dụng linh hoạt các tính chất tuyến tính và chèn cận để giải các bài toán tích phân hàm ẩn $f(x), g(x)$.
+		\item Xử lý thành thạo tích phân của hàm số chứa dấu giá trị tuyệt đối bằng phương pháp phá dấu hoặc chia khoảng.
+		\item Tính tích phân của hàm số cho bởi nhiều công thức (hàm phân nhánh), kiểm tra điều kiện liên tục và tìm tham số.
+	\end{itemize}
+	
+	\noindent \textbf{3. Phẩm chất \& Năng lực:}
+	\begin{itemize}
+		\item Rèn luyện tư duy logic, tính chính xác và cẩn thận trong việc biến đổi cận và công thức nguyên hàm.
+		\item Phát triển năng lực giải quyết vấn đề toán học và năng lực mô hình hóa toán học thông qua các ứng dụng thực tế (xem tổng kết tại \hyperref[sec:ketluan]{\textbf{Phần IV. Kết luận}}).
+	\end{itemize}
+	
+	\newpage
+	
+	% ================================================
+	% MỤC LỤC (KHÔNG ĐÁNH SỐ THỨ TỰ)
+	% ================================================
+	\setcounter{tocdepth}{2}
+	\tableofcontents
+	\newpage
+	
+	% ================================================
+	% PHẦN I: LÝ THUYẾT TRỌNG TÂM (BẮT ĐẦU ĐÁNH SỐ)
+	% ================================================
+	\section{Lý thuyết trọng tâm}\label{sec:lythuyet}
+	
+	\subsection{Khái niệm tích phân}
+	
+	\subsubsection{Bài toán mở đầu và Khái niệm diện tích hình thang cong}
+	
+	Trong thực tiễn cũng như trong khoa học kĩ thuật, chúng ta thường xuyên gặp nhu cầu tính diện tích của các hình phẳng có đường biên không thẳng (như mặt cắt của một con đập, diện tích cánh buồm, mảnh đất ven sông...). 
+	
+	\begin{itemize}
+		\item \textbf{Định nghĩa hình thang cong:} Cho hàm số $y = f(x)$ liên tục và không âm trên đoạn $[a; b]$. Hình phẳng giới hạn bởi đồ thị hàm số $y = f(x)$, trục hoành $Ox$ và hai đường thẳng thẳng đứng $x = a$, $x = b$ được gọi là một \textbf{hình thang cong} (Hình~\ref{fig:hinhthangcong}).
+		
+		\item \textbf{Ý tưởng tiếp cận diện tích hình thang cong (Tổng tích phân Riemann):}
+		\begin{enumerate}[label=Bước \arabic*:]
+			\item Chia đoạn $[a; b]$ thành $n$ đoạn con bằng nhau bởi các điểm chia:
+			\[
+			a = x_0 < x_1 < x_2 < \dots < x_{n-1} < x_n = b \quad \text{với độ dài mỗi đoạn là } \Delta x = \frac{b - a}{n}.
+			\]
+			\item Trên mỗi đoạn $[x_{i-1}; x_i]$, ta dựng một hình chữ nhật có đáy là đoạn $[x_{i-1}; x_i]$ và chiều cao bằng giá trị của hàm số tại điểm đó $f(x_i)$.
+			\item Tổng diện tích của $n$ hình chữ nhật này là:
+			\[
+			S_n = \sum_{i=1}^{n} f(x_i) \cdot \Delta x.
+			\]
+			\item Khi cho số đoạn chia $n$ tiến ra vô cùng ($n \to +\infty$, tức độ rộng mỗi cột $\Delta x \to 0$), giới hạn của tổng $S_n$ chính là diện tích chính xác $S$ của hình thang cong.
+		\end{enumerate}
+	\end{itemize}
+	
+	\begin{figure}[H]
+		\centering
+		\begin{tikzpicture}[scale=1.2, >=stealth]
+			% Trục tọa độ
+			\draw[->, thick] (-0.5,0) -- (5.2,0) node[below] {$x$};
+			\draw[->, thick] (0,-0.5) -- (0,3.6) node[left] {$y$};
+			\node[below left] at (0,0) {$O$};
+			
+			% Miền diện tích hình thang cong tô màu
+			\fill[blue!15] (1,0) -- plot[domain=1:4.2, samples=100] (\x, {0.12*(\x-1)*(\x-4.2)*(\x-5) + 0.5*\x + 0.4}) -- (4.2,0) -- cycle;
+			
+			% Đồ thị y = f(x)
+			\draw[blue!75!black, very thick] plot[domain=0.5:4.7, samples=100] (\x, {0.12*(\x-1)*(\x-4.2)*(\x-5) + 0.5*\x + 0.4}) node[above right] {$y = f(x)$};
+			
+			% Các đường dóng biên x = a và x = b
+			\draw[dashed, thick, black!70] (1,0) node[below] {$a$} -- (1, {0.12*(0)*(-3.2)*(-4) + 0.5*1 + 0.4});
+			\draw[dashed, thick, black!70] (4.2,0) node[below] {$b$} -- (4.2, {0.12*(3.2)*(0)*(-0.8) + 0.5*4.2 + 0.4});
+			
+			% Điểm trên đồ thị
+			\filldraw[black] (1, {0.9}) circle (1.5pt);
+			\filldraw[black] (4.2, {2.5}) circle (1.5pt);
+			
+			% Tên miền diện tích S
+			\node at (2.6, 1.1) {\large \textbf{$S$}};
+		\end{tikzpicture}
+		\caption{Mô hình hình thang cong giới hạn bởi $y=f(x)$, $Ox$, $x=a$, $x=b$.}
+		\label{fig:hinhthangcong}
+	\end{figure}
+	
+	\subsubsection{Định nghĩa Tích phân (Công thức Newton -- Leibniz)}
+	
+	Người ta chứng minh được rằng diện tích hình thang cong nói trên có liên hệ mật thiết với nguyên hàm của hàm số $f(x)$. Từ đó dẫn đến định nghĩa toán học tổng quát sau:
+	
+	\begin{tcolorbox}[colback=blue!4!white, colframe=blue!60!black, title=\textbf{Định nghĩa Tích phân}]
+		Cho hàm số $f(x)$ liên tục trên đoạn $[a; b]$. Nếu $F(x)$ là một nguyên hàm bất kì của hàm số $f(x)$ trên đoạn $[a; b]$ thì hiệu số:
+		\[
+		F(b) - F(a)
+		\]
+		được gọi là \textbf{tích phân} từ $a$ đến $b$ (hoặc tích phân xác định) của hàm số $f(x)$, kí hiệu là:
+		\[
+		\int_a^b f(x)\,\mathrm{d}x = \left. F(x) \right|_a^b = F(b) - F(a).
+		\]
+	\end{tcolorbox}
+	
+	\noindent \textbf{Thuật ngữ và thành phần của tích phân:}
+	\begin{itemize}
+		\item Dấu $\displaystyle \int$ gọi là \textbf{dấu tích phân} (bắt nguồn từ chữ cái $S$ kéo dài, tượng trưng cho từ *Summa* -- phép lấy tổng).
+		\item $a$ được gọi là \textbf{cận dưới}, $b$ được gọi là \textbf{cận trên}.
+		\item $f(x)$ gọi là \textbf{hàm số dưới dấu tích phân}, $f(x)\,\mathrm{d}x$ gọi là \textbf{biểu thức dưới dấu tích phân}.
+		\item $x$ gọi là \textbf{biến lấy tích phân}.
+		\item Kí hiệu $\displaystyle \left. F(x) \right|_a^b$ biểu thị thao tác thay cận: lấy giá trị tại cận trên trừ đi giá trị tại cận dưới.
+	\end{itemize}
+	
+	\begin{tcolorbox}[colback=orange!6!white, colframe=orange!75!black, title=\textbf{Phân biệt cốt lõi: Nguyên hàm và Tích phân}]
+		\begin{itemize}
+			\item \textbf{Nguyên hàm} $\displaystyle \int f(x)\,\mathrm{d}x = F(x) + C$ là một \textbf{họ hàm số}, kết quả còn chứa biến số $x$ và hằng số tự do $C$.
+			\item \textbf{Tích phân} $\displaystyle \int_a^b f(x)\,\mathrm{d}x = F(b) - F(a)$ là một \textbf{con số thực cụ thể}, giá trị của nó hoàn toàn xác định khi biết hàm số $f$ và hai cận $a, b$, tuyệt đối \textbf{không} phụ thuộc vào biến $x$ và \textbf{không} chứa hằng số cộng $C$.
+		\end{itemize}
+	\end{tcolorbox}
+	
+	\subsubsection{Các quy ước và Tính độc lập đối với biến số}
+	
+	\begin{itemize}
+		\item \textbf{Quy ước khi cận trùng nhau:}
+		\[
+		\int_a^a f(x)\,\mathrm{d}x = 0.
+		\]
+		\item \textbf{Quy ước khi đảo cận:}
+		\[
+		\int_a^b f(x)\,\mathrm{d}x = -\int_b^a f(x)\,\mathrm{d}x.
+		\]
+		\item \textbf{Tính độc lập đối với biến lấy tích phân:} Tích phân chỉ phụ thuộc vào bản chất hàm số $f$ và hai đầu mút $a, b$, mà không phụ thuộc vào chữ cái dùng để chỉ biến số:
+		\[
+		\int_a^b f(x)\,\mathrm{d}x = \int_a^b f(t)\,\mathrm{d}t = \int_a^b f(u)\,\mathrm{d}u = \dots = F(b) - F(a).
+		\]
+		\textit{Ví dụ:} $\displaystyle \int_0^1 x^2\,\mathrm{d}x = \int_0^1 t^2\,\mathrm{d}t = \int_0^1 u^2\,\mathrm{d}u = \left. \frac{x^3}{3} \right|_0^1 = \frac{1}{3}$.
+	\end{itemize}
+
+	
+	% ================================================
+	% CÁC VÍ DỤ MINH HỌA LỒNG GHÉP CHO MỤC 3.1
+	% ================================================
+	\begin{vidu}[1 (Tính tích phân trực tiếp bằng công thức Newton -- Leibniz)]
+		Tính các tích phân sau:
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\alph*)]
+				\item $I_1 = \displaystyle \int_0^2 (3x^2 - 2x + 1)\,\mathrm{d}x$.
+				\item $I_2 = \displaystyle \int_1^e \left( 2x + \frac{1}{x} \right)\,\mathrm{d}x$.
+				\item $I_3 = \displaystyle \int_0^{\frac{\pi}{2}} \cos x\,\mathrm{d}x$.
+				\item $I_4 = \displaystyle \int_0^1 (e^x + 3^x)\,\mathrm{d}x$.
+			\end{enumerate}
+		\end{multicols}
+	\end{vidu}
+	\begin{loigiai}
+		\begin{enumerate}[label=\alph*)]
+			\item Ta tìm một nguyên hàm của hàm số $f(x) = 3x^2 - 2x + 1$ là $F(x) = x^3 - x^2 + x$. Áp dụng công thức Newton -- Leibniz:
+			\[
+			I_1 = \left. (x^3 - x^2 + x) \right|_0^2 = (2^3 - 2^2 + 2) - (0^3 - 0^2 + 0) = (8 - 4 + 2) - 0 = 6.
+			\]
+			
+			\item Một nguyên hàm của hàm số $f(x) = 2x + \dfrac{1}{x}$ trên đoạn $[1; e]$ là $F(x) = x^2 + \ln|x|$. Do đó:
+			\[
+			I_2 = \left. (x^2 + \ln|x|) \right|_1^e = (e^2 + \ln e) - (1^2 + \ln 1) = (e^2 + 1) - (1 + 0) = e^2.
+			\]
+			
+			\item Một nguyên hàm của $\cos x$ là $\sin x$. Áp dụng công thức thay cận:
+			\[
+			I_3 = \left. \sin x \right|_0^{\frac{\pi}{2}} = \sin\left(\frac{\pi}{2}\right) - \sin 0 = 1 - 0 = 1.
+			\]
+			
+			\item Một nguyên hàm của $e^x + 3^x$ là $e^x + \dfrac{3^x}{\ln 3}$. Ta có:
+			\[
+			I_4 = \left. \left( e^x + \frac{3^x}{\ln 3} \right) \right|_0^1 = \left( e^1 + \frac{3^1}{\ln 3} \right) - \left( e^0 + \frac{3^0}{\ln 3} \right) = e + \frac{3}{\ln 3} - 1 - \frac{1}{\ln 3} = e - 1 + \frac{2}{\ln 3}.
+			\]
+		\end{enumerate}
+	\end{loigiai}
+	
+	\subsection{Ý nghĩa của tích phân}
+	
+	Tích phân có nhiều ứng dụng trong thực tiễn, đặc biệt trong hình học và vật lý. Dưới đây là 3 ý nghĩa cơ bản cùng ví dụ minh họa:
+	
+	\noindent \textbf{1. Ý nghĩa hình học (Diện tích hình phẳng)}
+	\begin{itemize}
+		\item Nếu $f(x) \ge 0$ liên tục trên $[a; b]$, diện tích hình phẳng giới hạn bởi đồ thị $y=f(x)$, trục $Ox$, $x=a$ và $x=b$ là: $S = \displaystyle \int_a^b f(x)\,\mathrm{d}x$.
+		\item \textit{Ví dụ:} Diện tích hình phẳng giới hạn bởi $y = x^2$, trục $Ox$, $x = 0$ và $x = 2$ là:
+		\[ S = \int_0^2 x^2\,\mathrm{d}x = \left. \frac{x^3}{3} \right|_0^2 = \frac{8}{3} \ (\text{đvdt}). \]
+	\end{itemize}
+	
+	\noindent \textbf{2. Ý nghĩa vật lý (Quãng đường chuyển động)}
+	\begin{itemize}
+		\item Nếu vật chuyển động với vận tốc $v(t)$, quãng đường vật đi được từ $t_1$ đến $t_2$ là: $s = \displaystyle \int_{t_1}^{t_2} v(t)\,\mathrm{d}t$.
+		\item \textit{Ví dụ:} Một vật chuyển động với vận tốc $v(t) = 3t$ (m/s). Quãng đường vật đi được trong $2$ giây đầu tiên là:
+		\[ s = \int_0^2 3t\,\mathrm{d}t = \left. \frac{3t^2}{2} \right|_0^2 = 6 \ (\text{m}). \]
+	\end{itemize}
+	
+	\noindent \textbf{3. Ý nghĩa vật lý (Điện lượng truyền qua dây dẫn)}
+	\begin{itemize}
+		\item Nếu cường độ dòng điện là $i(t)$, điện lượng truyền qua tiết diện dây dẫn từ $t_1$ đến $t_2$ là: $q = \displaystyle \int_{t_1}^{t_2} i(t)\,\mathrm{d}t$.
+		\item \textit{Ví dụ:} Dòng điện có cường độ $i(t) = 2t + 1$ (A). Điện lượng truyền qua dây dẫn từ $t=1$ đến $t=3$ (giây) là:
+		\[ q = \int_1^3 (2t + 1)\,\mathrm{d}t = \left. (t^2 + t) \right|_1^3 = (9+3) - (1+1) = 10 \ (\text{C}). \]
+	\end{itemize}
+	
+	\subsection{Các tính chất cơ bản của tích phân}
+	Cho hai hàm số $f(x)$ và $g(x)$ liên tục trên đoạn $[a; b]$, $k$ là một hằng số thực.
+	
+	\subsubsection{Tính chất đưa hằng số ra ngoài dấu tích phân}
+	\[
+	\int_a^b k f(x)\,\mathrm{d}x = k \int_a^b f(x)\,\mathrm{d}x \quad (\text{với mọi hằng số } k).
+	\]
+	
+	\subsubsection{Tính chất tích phân của tổng và hiệu}
+	\[
+	\int_a^b [f(x) \pm g(x)]\,\mathrm{d}x = \int_a^b f(x)\,\mathrm{d}x \pm \int_a^b g(x)\,\mathrm{d}x.
+	\]
+	
+	\subsubsection{Tính chất chèn cận}
+	Với mọi $c \in [a; b]$ (hoặc tổng quát hơn với $a, b, c$ thuộc một khoảng mà trên đó hàm số $f(x)$ liên tục):
+	\[
+	\int_a^b f(x)\,\mathrm{d}x = \int_a^c f(x)\,\mathrm{d}x + \int_c^b f(x)\,\mathrm{d}x.
+	\]
+	
+	% ================================================
+	% CÁC VÍ DỤ MINH HỌA LỒNG GHÉP CHO MỤC 1.3
+	% ================================================
+	\begin{vidu}[2 (Tính chất tuyến tính của tích phân)]
+		Cho hai hàm số $f(x)$ và $g(x)$ liên tục trên đoạn $[1; 4]$ thỏa mãn:
+		\[
+		\int_1^4 f(x)\,\mathrm{d}x = 3 \quad \text{và} \quad \int_1^4 g(x)\,\mathrm{d}x = -2.
+		\]
+		Tính giá trị của tích phân: $I = \displaystyle \int_1^4 [2f(x) - 5g(x) + 3]\,\mathrm{d}x$.
+	\end{vidu}
+	\begin{loigiai}
+		Áp dụng các tính chất tuyến tính của tích phân (tách tổng, hiệu và đưa thừa số ra ngoài dấu tích phân), ta có:
+		\[
+		I = \int_1^4 [2f(x) - 5g(x) + 3]\,\mathrm{d}x = 2 \int_1^4 f(x)\,\mathrm{d}x - 5 \int_1^4 g(x)\,\mathrm{d}x + \int_1^4 3\,\mathrm{d}x.
+		\]
+		Trong đó:
+		\begin{itemize}
+			\item $\displaystyle \int_1^4 f(x)\,\mathrm{d}x = 3$.
+			\item $\displaystyle \int_1^4 g(x)\,\mathrm{d}x = -2$.
+			\item $\displaystyle \int_1^4 3\,\mathrm{d}x = \left. 3x \right|_1^4 = 3(4 - 1) = 9$.
+		\end{itemize}
+		Thay các giá trị vào biểu thức của $I$, ta được:
+		\[
+		I = 2 \cdot 3 - 5 \cdot (-2) + 9 = 6 + 10 + 9 = 25.
+		\]
+	\end{loigiai}
+	
+	\begin{vidu}[3 (Tính chất chèn cận và quy ước đổi cận của tích phân)]
+		Cho hàm số $f(x)$ liên tục trên đoạn $[0; 5]$ thỏa mãn:
+		\[
+		\int_0^2 f(x)\,\mathrm{d}x = 4 \quad \text{và} \quad \int_5^2 f(x)\,\mathrm{d}x = -3.
+		\]
+		Tính giá trị của tích phân $J = \displaystyle \int_0^5 f(x)\,\mathrm{d}x$.
+	\end{vidu}
+	\begin{loigiai}
+		Trước hết, theo quy ước đảo cận của tích phân:
+		\[
+		\int_2^5 f(x)\,\mathrm{d}x = -\int_5^2 f(x)\,\mathrm{d}x = -(-3) = 3.
+		\]
+		Áp dụng tính chất chèn cận với điểm chia $c = 2 \in [0; 5]$, ta có:
+		\[
+		J = \int_0^5 f(x)\,\mathrm{d}x = \int_0^2 f(x)\,\mathrm{d}x + \int_2^5 f(x)\,\mathrm{d}x.
+		\]
+		Thay các giá trị đã biết vào:
+		\[
+		J = 4 + 3 = 7.
+		\]
+	\end{loigiai}
+	
+	\begin{vidu}[4 (Kết hợp tính chất chèn cận và tính chất tuyến tính)]
+		Cho hàm số $f(x)$ liên tục trên đoạn $[-1; 3]$ thỏa mãn:
+		\[
+		\int_{-1}^1 f(x)\,\mathrm{d}x = 2 \quad \text{và} \quad \int_{-1}^3 f(x)\,\mathrm{d}x = 8.
+		\]
+		Tính giá trị của tích phân $K = \displaystyle \int_1^3 [3f(x) - 2x]\,\mathrm{d}x$.
+	\end{vidu}
+	\begin{loigiai}
+		\textbf{Bước 1: Tìm tích phân $\displaystyle \int_1^3 f(x)\,\mathrm{d}x$ bằng tính chất chèn cận.}
+		
+		Theo tính chất chèn cận trên đoạn $[-1; 3]$ với điểm $c = 1$:
+		\[
+		\int_{-1}^3 f(x)\,\mathrm{d}x = \int_{-1}^1 f(x)\,\mathrm{d}x + \int_1^3 f(x)\,\mathrm{d}x.
+		\]
+		Suy ra:
+		\[
+		\int_1^3 f(x)\,\mathrm{d}x = \int_{-1}^3 f(x)\,\mathrm{d}x - \int_{-1}^1 f(x)\,\mathrm{d}x = 8 - 2 = 6.
+		\]
+		
+		\textbf{Bước 2: Tính tích phân $K$ bằng tính chất tuyến tính.}
+		
+		Khai triển tích phân $K$:
+		\[
+		K = \int_1^3 [3f(x) - 2x]\,\mathrm{d}x = 3 \int_1^3 f(x)\,\mathrm{d}x - \int_1^3 2x\,\mathrm{d}x.
+		\]
+		Ta tính:
+		\[
+		\int_1^3 2x\,\mathrm{d}x = \left. x^2 \right|_1^3 = 3^2 - 1^2 = 8.
+		\]
+		Vậy:
+		\[
+		K = 3 \cdot 6 - 8 = 18 - 8 = 10.
+		\]
+	\end{loigiai}
+	
+	\subsection{Phương pháp giải các dạng bài tập trọng tâm}
+	
+	\subsubsection{Dạng 1: Tính tích phân hàm số sơ cấp (Đa thức, phân thức, căn thức, lượng giác, mũ)}
+	
+	\noindent \textbf{1. Bảng nguyên hàm sơ cấp thường dùng:}
+	\begin{center}
+		\small
+		\begin{tabular}{|l|l|}
+			\hline
+			\textbf{Hàm số lũy thừa, phân thức, căn thức} & \textbf{Hàm số lượng giác và hàm mũ} \\ \hline
+			$\displaystyle \int x^\alpha\,\mathrm{d}x = \frac{x^{\alpha+1}}{\alpha+1} + C \ (\alpha \ne -1)$ & $\displaystyle \int \cos x\,\mathrm{d}x = \sin x + C$ \\
+			$\displaystyle \int \frac{1}{x}\,\mathrm{d}x = \ln|x| + C \ (x \ne 0)$ & $\displaystyle \int \sin x\,\mathrm{d}x = -\cos x + C$ \\
+			$\displaystyle \int \frac{1}{ax + b}\,\mathrm{d}x = \frac{1}{a} \ln|ax + b| + C \ (a \ne 0)$ & $\displaystyle \int \frac{1}{\cos^2 x}\,\mathrm{d}x = \tan x + C$ \\
+			$\displaystyle \int \frac{1}{x^2}\,\mathrm{d}x = -\frac{1}{x} + C$ & $\displaystyle \int e^x\,\mathrm{d}x = e^x + C$; \ $\displaystyle \int e^{kx}\,\mathrm{d}x = \frac{1}{k} e^{kx} + C$ \\
+			$\displaystyle \int \frac{1}{\sqrt{x}}\,\mathrm{d}x = 2\sqrt{x} + C \ (x > 0)$ & $\displaystyle \int a^x\,\mathrm{d}x = \frac{a^x}{\ln a} + C \ (0 < a \ne 1)$ \\ \hline
+		\end{tabular}
+	\end{center}
+	
+	\noindent \textbf{2. Phương pháp giải và Kĩ thuật biến đổi:}
+	\begin{itemize}
+		\item \textbf{Phương pháp chung (3 bước):}
+		\begin{enumerate}[label=Bước \arabic*:]
+			\item \textbf{Biến đổi đại số / lượng giác:} Đưa biểu thức dưới dấu tích phân về tổng/hiệu của các hàm sơ cấp cơ bản có trong bảng nguyên hàm.
+			\item \textbf{Tìm nguyên hàm:} Áp dụng bảng nguyên hàm và tính chất tuyến tính để xác định một nguyên hàm $F(x)$.
+			\item \textbf{Thế cận (Công thức Newton -- Leibniz):} Tính giá trị $\left. F(x) \right|_a^b = F(b) - F(a)$.
+		\end{enumerate}
+		\item \textbf{Kĩ thuật biến đổi sơ cấp hay gặp:}
+		\begin{itemize}
+			\item \textit{Đa thức và phân thức:} Khai triển hằng đẳng thức hoặc nhân phá ngoặc; với phân thức ta chia đa thức để tách phần nguyên hoặc chia từng số hạng $\dfrac{A + B}{C} = \dfrac{A}{C} + \dfrac{B}{C}$.
+			\item \textit{Căn thức:} Đổi căn thức về lũy thừa với số mũ hữu tỉ: $\sqrt[n]{x^m} = x^{\frac{m}{n}}$ để dùng công thức $\displaystyle \int x^\alpha\,\mathrm{d}x$.
+			\item \textit{Lượng giác:} Dùng công thức hạ bậc: $\cos^2 x = \dfrac{1 + \cos 2x}{2}$, $\sin^2 x = \dfrac{1 - \cos 2x}{2}$ hoặc hằng đẳng thức $1 + \tan^2 x = \dfrac{1}{\cos^2 x}$.
+		\end{itemize}
+	\end{itemize}
+	
+	\begin{vidu}[5 (Tích phân hàm đa thức, phân thức và căn thức)]
+		Tính tích phân:
+		\[
+		I = \int_1^4 \left( 3\sqrt{x} - \frac{2}{x} + \frac{1}{x^2} \right)\,\mathrm{d}x.
+		\]
+	\end{vidu}
+	\begin{loigiai}
+		Viết lại biểu thức dưới dấu tích phân dưới dạng các lũy thừa của $x$:
+		\[
+		f(x) = 3x^{\frac{1}{2}} - \frac{2}{x} + x^{-2}.
+		\]
+		Một nguyên hàm của $f(x)$ trên đoạn $[1; 4]$ là:
+		\[
+		F(x) = 3 \cdot \frac{x^{\frac{3}{2}}}{\frac{3}{2}} - 2\ln|x| + \frac{x^{-1}}{-1} = 2x\sqrt{x} - 2\ln|x| - \frac{1}{x}.
+		\]
+		Áp dụng công thức Newton -- Leibniz:
+		\[
+		I = \left. \left( 2x\sqrt{x} - 2\ln|x| - \frac{1}{x} \right) \right|_1^4 = F(4) - F(1).
+		\]
+		Tính giá trị tại hai cận:
+		\begin{itemize}
+			\item $F(4) = 2 \cdot 4 \cdot \sqrt{4} - 2\ln 4 - \frac{1}{4} = 16 - 4\ln 2 - \frac{1}{4} = \frac{63}{4} - 4\ln 2$.
+			\item $F(1) = 2 \cdot 1 \cdot \sqrt{1} - 2\ln 1 - \frac{1}{1} = 2 - 0 - 1 = 1$.
+		\end{itemize}
+		Do đó:
+		\[
+		I = \left( \frac{63}{4} - 4\ln 2 \right) - 1 = \frac{59}{4} - 4\ln 2.
+		\]
+	\end{loigiai}
+	
+	\begin{vidu}[6 (Tích phân hàm lượng giác và hàm số mũ)]
+		Tính tích phân:
+		\[
+		J = \int_0^{\frac{\pi}{2}} (e^{2x} + 4\cos^2 x)\,\mathrm{d}x.
+		\]
+	\end{vidu}
+	\begin{loigiai}
+		Áp dụng công thức hạ bậc lượng giác: $4\cos^2 x = 4 \cdot \frac{1 + \cos 2x}{2} = 2 + 2\cos 2x$.
+		
+		Khi đó biểu thức dưới dấu tích phân trở thành:
+		\[
+		f(x) = e^{2x} + 2 + 2\cos 2x.
+		\]
+		Một nguyên hàm của hàm số $f(x)$ là:
+		\[
+		F(x) = \frac{1}{2} e^{2x} + 2x + \sin 2x.
+		\]
+		Áp dụng công thức Newton -- Leibniz:
+		\[
+		J = \left. \left( \frac{1}{2} e^{2x} + 2x + \sin 2x \right) \right|_0^{\frac{\pi}{2}} = F\left(\frac{\pi}{2}\right) - F(0).
+		\]
+		Tính giá trị tại hai cận:
+		\begin{itemize}
+			\item $F\left(\frac{\pi}{2}\right) = \frac{1}{2} e^{2 \cdot \frac{\pi}{2}} + 2 \cdot \frac{\pi}{2} + \sin\left(2 \cdot \frac{\pi}{2}\right) = \frac{1}{2} e^{\pi} + \pi + \sin \pi = \frac{1}{2} e^{\pi} + \pi$.
+			\item $F(0) = \frac{1}{2} e^0 + 2 \cdot 0 + \sin 0 = \frac{1}{2} \cdot 1 + 0 + 0 = \frac{1}{2}$.
+		\end{itemize}
+		Vậy:
+		\[
+		J = \left( \frac{1}{2} e^{\pi} + \pi \right) - \frac{1}{2} = \frac{e^{\pi} - 1}{2} + \pi.
+		\]
+	\end{loigiai}
+	
+	\subsubsection{Dạng 2: Vận dụng tính chất tích phân và bài toán hàm ẩn}
+	\begin{itemize}
+		\item \textbf{Phương pháp giải:}
+		\begin{enumerate}[label=Bước \arabic*:]
+			\item Khai triển biểu thức tích phân cần tính bằng các tính chất tuyến tính (tách tổng, hiệu, nhân hệ số).
+			\item Kết hợp các dữ kiện đề bài cho về giá trị tích phân của $f(x), g(x)$ trên các đoạn khác nhau để chèn cận thích hợp.
+		\end{enumerate}
+	\end{itemize}
+	
+	% VÍ DỤ MINH HỌA LỒNG GHÉP 7
+	\begin{vidu}[7 (Tính chất chèn cận cơ bản)]
+		Cho hàm số $f(x)$ liên tục trên $[-1; 5]$ thỏa mãn $\displaystyle \int_{-1}^{5} f(x)\,\mathrm{d}x = 9$ và $\displaystyle \int_{2}^{5} f(x)\,\mathrm{d}x = 4$. Tính $I = \displaystyle \int_{-1}^{2} [f(x) + 2x]\,\mathrm{d}x$.
+	\end{vidu}
+	\begin{loigiai}
+		Áp dụng tính chất tuyến tính của tích phân, ta có:
+		\[
+		I = \int_{-1}^{2} f(x)\,\mathrm{d}x + \int_{-1}^{2} 2x\,\mathrm{d}x.
+		\]
+		Tính $\displaystyle \int_{-1}^{2} 2x\,\mathrm{d}x = x^2 \Big|_{-1}^{2} = 2^2 - (-1)^2 = 4 - 1 = 3$.
+		
+		Sử dụng tính chất chèn cận đối với hàm $f(x)$:
+		\[
+		\int_{-1}^{5} f(x)\,\mathrm{d}x = \int_{-1}^{2} f(x)\,\mathrm{d}x + \int_{2}^{5} f(x)\,\mathrm{d}x.
+		\]
+		Thay các giả thiết đề bài vào, ta được:
+		\[
+		9 = \int_{-1}^{2} f(x)\,\mathrm{d}x + 4 \implies \int_{-1}^{2} f(x)\,\mathrm{d}x = 5.
+		\]
+		Do đó, $I = 5 + 3 = 8$.
+	\end{loigiai}
+
+	\begin{vidu}[8 (Tính chất tuyến tính và chèn cận)]
+		Cho $\displaystyle \int_{0}^{4} f(x)\,\mathrm{d}x = 10$, $\displaystyle \int_{0}^{4} g(x)\,\mathrm{d}x = 6$. Biết rằng $\displaystyle \int_{0}^{2} f(x)\,\mathrm{d}x = 3$. Tính giá trị của biểu thức: $J = \displaystyle \int_{2}^{4} f(x)\,\mathrm{d}x + \int_{0}^{4} [2f(x) - 3g(x)]\,\mathrm{d}x$.
+	\end{vidu}
+	\begin{loigiai}
+		Áp dụng tính chất chèn cận đối với hàm $f(x)$:
+		\[
+		\int_{0}^{4} f(x)\,\mathrm{d}x = \int_{0}^{2} f(x)\,\mathrm{d}x + \int_{2}^{4} f(x)\,\mathrm{d}x \implies 10 = 3 + \int_{2}^{4} f(x)\,\mathrm{d}x \implies \int_{2}^{4} f(x)\,\mathrm{d}x = 7.
+		\]
+		Áp dụng tính chất tuyến tính của tích phân:
+		\[
+		\int_{0}^{4} [2f(x) - 3g(x)]\,\mathrm{d}x = 2 \int_{0}^{4} f(x)\,\mathrm{d}x - 3 \int_{0}^{4} g(x)\,\mathrm{d}x = 2 \cdot 10 - 3 \cdot 6 = 20 - 18 = 2.
+		\]
+		Vậy $J = 7 + 2 = 9$.
+	\end{loigiai}
+
+	\begin{vidu}[9 (Bài toán hàm ẩn cho bởi điều kiện tích phân)]
+		Cho hàm số $f(x)$ liên tục trên $\mathbb{R}$ và thỏa mãn $\displaystyle \int_{1}^{3} f(x)\,\mathrm{d}x = 5$, $\displaystyle \int_{3}^{5} f(x)\,\mathrm{d}x = -2$. Tính $\displaystyle K = \int_{1}^{5} \left[ 3f(x) - \frac{1}{x^2} \right]\,\mathrm{d}x$.
+	\end{vidu}
+	\begin{loigiai}
+		Đầu tiên, theo tính chất chèn cận, ta tính được tích phân của $f(x)$ trên $[1; 5]$:
+		\[
+		\int_{1}^{5} f(x)\,\mathrm{d}x = \int_{1}^{3} f(x)\,\mathrm{d}x + \int_{3}^{5} f(x)\,\mathrm{d}x = 5 + (-2) = 3.
+		\]
+		Khai triển tích phân $K$:
+		\[
+		K = 3 \int_{1}^{5} f(x)\,\mathrm{d}x - \int_{1}^{5} \frac{1}{x^2}\,\mathrm{d}x.
+		\]
+		Tính tích phân của hàm số phụ:
+		\[
+		\int_{1}^{5} \frac{1}{x^2}\,\mathrm{d}x = \left( -\frac{1}{x} \right) \Bigg|_{1}^{5} = \left( -\frac{1}{5} \right) - (-1) = \frac{4}{5}.
+		\]
+		Vậy $K = 3 \cdot 3 - \frac{4}{5} = 9 - \frac{4}{5} = \frac{41}{5}$.
+	\end{loigiai}
+	
+	\subsubsection{Dạng 3: Tích phân của hàm số chứa dấu giá trị tuyệt đối}
+	\begin{itemize}
+		\item \textbf{Phương pháp giải:}
+		\begin{enumerate}[label=Bước \arabic*:]
+			\item Tìm các nghiệm của phương trình $f(x) = 0$ nằm trong khoảng $(a; b)$ chia đoạn $[a; b]$ thành các đoạn con: $a = x_0 < x_1 < \dots < x_n = b$.
+			\item Xét dấu của $f(x)$ trên từng đoạn con $[x_i; x_{i+1}]$ để phá dấu giá trị tuyệt đối $|f(x)|$.
+			\item Dùng tính chất chèn cận: $\displaystyle \int_a^b |f(x)|\,\mathrm{d}x = \sum_{i=0}^{n-1} \int_{x_i}^{x_{i+1}} |f(x)|\,\mathrm{d}x$.
+		\end{enumerate}
+	\end{itemize}
+	
+	% VÍ DỤ MINH HỌA LỒNG GHÉP 10
+	\begin{vidu}[10 (Tích phân chứa giá trị tuyệt đối cơ bản)]
+		Tính tích phân $I = \displaystyle \int_{0}^{3} |x^2 - 2x|\,\mathrm{d}x$.
+	\end{vidu}
+	\begin{loigiai}
+		Giải phương trình $x^2 - 2x = 0 \iff \left[ \begin{array}{l} x = 0 \\ x = 2 \end{array} \right.$.
+		
+		Nhận thấy $x = 2 \in (0; 3)$. Ta chèn cận $x = 2$ vào tích phân:
+		\[
+		I = \int_{0}^{2} |x^2 - 2x|\,\mathrm{d}x + \int_{2}^{3} |x^2 - 2x|\,\mathrm{d}x.
+		\]
+		Xét dấu tam thức $f(x) = x^2 - 2x$:
+		\begin{itemize}
+			\item Trên khoảng $(0; 2)$, $f(x) < 0 \implies |f(x)| = -x^2 + 2x$.
+			\item Trên khoảng $(2; 3)$, $f(x) > 0 \implies |f(x)| = x^2 - 2x$.
+		\end{itemize}
+		Khi đó:
+		\[
+		I = \int_{0}^{2} (-x^2 + 2x)\,\mathrm{d}x + \int_{2}^{3} (x^2 - 2x)\,\mathrm{d}x = \left(-\frac{x^3}{3} + x^2\right) \Bigg|_0^2 + \left(\frac{x^3}{3} - x^2\right) \Bigg|_2^3.
+		\]
+		Tính từng phần:
+		\begin{itemize}
+			\item $\displaystyle \int_{0}^{2} (-x^2 + 2x)\,\mathrm{d}x = \left(-\frac{8}{3} + 4\right) - 0 = \frac{4}{3}$.
+			\item $\displaystyle \int_{2}^{3} (x^2 - 2x)\,\mathrm{d}x = \left(\frac{27}{3} - 9\right) - \left(\frac{8}{3} - 4\right) = 0 - \left(-\frac{4}{3}\right) = \frac{4}{3}$.
+		\end{itemize}
+		Vậy $I = \frac{4}{3} + \frac{4}{3} = \frac{8}{3}$.
+	\end{loigiai}
+
+	\begin{vidu}[11 (Tích phân của tam thức bậc hai chứa trị tuyệt đối)]
+		Tính tích phân $J = \displaystyle \int_{0}^{3} |x^2 - 3x + 2|\,\mathrm{d}x$.
+	\end{vidu}
+	\begin{loigiai}
+		Xét phương trình $x^2 - 3x + 2 = 0 \iff \left[ \begin{array}{l} x = 1 \\ x = 2 \end{array} \right.$.
+		
+		Cả hai nghiệm đều nằm trong đoạn $[0; 3]$. Ta chèn cận $x = 1$ và $x = 2$:
+		\[
+		J = \int_{0}^{1} |x^2 - 3x + 2|\,\mathrm{d}x + \int_{1}^{2} |x^2 - 3x + 2|\,\mathrm{d}x + \int_{2}^{3} |x^2 - 3x + 2|\,\mathrm{d}x.
+		\]
+		Lập bảng xét dấu $f(x) = x^2 - 3x + 2$:
+		\begin{itemize}
+			\item Trên $[0; 1]$: $f(x) > 0 \implies |f(x)| = x^2 - 3x + 2$.
+			\item Trên $[1; 2]$: $f(x) < 0 \implies |f(x)| = -x^2 + 3x - 2$.
+			\item Trên $[2; 3]$: $f(x) > 0 \implies |f(x)| = x^2 - 3x + 2$.
+		\end{itemize}
+		Ta có:
+		\[
+		J = \int_{0}^{1} (x^2 - 3x + 2)\,\mathrm{d}x - \int_{1}^{2} (x^2 - 3x + 2)\,\mathrm{d}x + \int_{2}^{3} (x^2 - 3x + 2)\,\mathrm{d}x.
+		\]
+		Tính tích phân không xác định: $F(x) = \displaystyle \frac{x^3}{3} - \frac{3x^2}{2} + 2x$.
+		\begin{itemize}
+			\item $\displaystyle \int_{0}^{1} f(x)\,\mathrm{d}x = F(1) - F(0) = \left( \frac{1}{3} - \frac{3}{2} + 2 \right) - 0 = \frac{5}{6}$.
+			\item $\displaystyle \int_{1}^{2} f(x)\,\mathrm{d}x = F(2) - F(1) = \left( \frac{8}{3} - 6 + 4 \right) - \frac{5}{6} = \frac{2}{3} - \frac{5}{6} = -\frac{1}{6}$.
+			\item $\displaystyle \int_{2}^{3} f(x)\,\mathrm{d}x = F(3) - F(2) = \left( 9 - \frac{27}{2} + 6 \right) - \frac{2}{3} = \frac{3}{2} - \frac{2}{3} = \frac{5}{6}$.
+		\end{itemize}
+		Vậy $J = \frac{5}{6} - \left(-\frac{1}{6}\right) + \frac{5}{6} = \frac{5}{6} + \frac{1}{6} + \frac{5}{6} = \frac{11}{6}$.
+	\end{loigiai}
+
+	\begin{vidu}[12 (Tích phân lượng giác chứa trị tuyệt đối)]
+		Tính tích phân $K = \displaystyle \int_{0}^{\pi} |\cos x|\,\mathrm{d}x$.
+	\end{vidu}
+	\begin{loigiai}
+		Phương trình $\cos x = 0$ trên $[0; \pi]$ có nghiệm duy nhất $x = \frac{\pi}{2}$.
+		
+		Chèn cận $x = \frac{\pi}{2}$ vào tích phân:
+		\[
+		K = \int_{0}^{\frac{\pi}{2}} |\cos x|\,\mathrm{d}x + \int_{\frac{\pi}{2}}^{\pi} |\cos x|\,\mathrm{d}x.
+		\]
+		Xét dấu $\cos x$ trên các khoảng:
+		\begin{itemize}
+			\item Trên khoảng $\left(0; \frac{\pi}{2}\right)$, $\cos x > 0 \implies |\cos x| = \cos x$.
+			\item Trên khoảng $\left(\frac{\pi}{2}; \pi\right)$, $\cos x < 0 \implies |\cos x| = -\cos x$.
+		\end{itemize}
+		Khi đó:
+		\[
+		K = \int_{0}^{\frac{\pi}{2}} \cos x\,\mathrm{d}x - \int_{\frac{\pi}{2}}^{\pi} \cos x\,\mathrm{d}x = \sin x \Big|_0^{\frac{\pi}{2}} - \sin x \Big|_{\frac{\pi}{2}}^{\pi}.
+		\]
+		Ta tính được:
+		\[
+		K = (\sin \frac{\pi}{2} - \sin 0) - (\sin \pi - \sin \frac{\pi}{2}) = (1 - 0) - (0 - 1) = 1 + 1 = 2.
+		\]
+		Vậy $K = 2$.
+	\end{loigiai}
+	
+	\subsubsection{Dạng 4: Tích phân của hàm số cho bởi nhiều công thức (Hàm phân nhánh)}
+	\begin{itemize}
+		\item \textbf{Phương pháp giải:}
+		\begin{enumerate}[label=Bước \arabic*:]
+			\item Kiểm tra tính liên tục của hàm số tại điểm ranh giới $x = c \in (a; b)$ (hoặc tìm tham số $m$ để hàm số liên tục nếu có).
+			\item Tách tích phân theo tính chất chèn cận tại điểm ranh giới $c$:
+			\[
+			\int_a^b f(x)\,\mathrm{d}x = \int_a^c f_1(x)\,\mathrm{d}x + \int_c^b f_2(x)\,\mathrm{d}x.
+			\]
+			\item Tính các tích phân thành phần tương ứng với từng công thức của hàm số.
+		\end{enumerate}
+	\end{itemize}
+	
+	% VÍ DỤ MINH HỌA LỒNG GHÉP 13
+	\begin{vidu}[13 (Tích phân hàm phân nhánh)]
+		Cho hàm số $f(x) = \begin{cases} 3x^2 & \text{khi } x \ge 1 \\ 2x + 1 & \text{khi } x < 1 \end{cases}$. Tính tích phân $I = \displaystyle \int_{0}^{2} f(x)\,\mathrm{d}x$.
+	\end{vidu}
+	\begin{loigiai}
+		Điểm ranh giới của hàm phân nhánh là $x = 1$. Ta chèn cận $x = 1$ vào tích phân $I$:
+		\[
+		I = \int_{0}^{1} f(x)\,\mathrm{d}x + \int_{1}^{2} f(x)\,\mathrm{d}x.
+		\]
+		Thay biểu thức tương ứng của $f(x)$:
+		\begin{itemize}
+			\item Với $x \in [0; 1]$ thì $x \le 1$, nên $f(x) = 2x + 1$.
+			\item Với $x \in [1; 2]$ thì $x \ge 1$, nên $f(x) = 3x^2$.
+		\end{itemize}
+		Do đó, tích phân trở thành:
+		\[
+		I = \int_{0}^{1} (2x + 1)\,\mathrm{d}x + \int_{1}^{2} 3x^2\,\mathrm{d}x = \left( x^2 + x \right) \Bigg|_0^1 + x^3 \Bigg|_1^2.
+		\]
+		Tính từng phần:
+		\begin{itemize}
+			\item $\displaystyle \int_{0}^{1} (2x + 1)\,\mathrm{d}x = (1^2 + 1) - 0 = 2$.
+			\item $\displaystyle \int_{1}^{2} 3x^2\,\mathrm{d}x = 2^3 - 1^3 = 8 - 1 = 7$.
+		\end{itemize}
+		Vậy $I = 2 + 7 = 9$.
+	\end{loigiai}
+
+	\begin{vidu}[14 (Hàm phân nhánh chứa tham số m)]
+		Cho hàm số $f(x) = \begin{cases} e^x + 1 & \text{khi } x \ge 0 \\ x^2 + m & \text{khi } x < 0 \end{cases}$. Tìm tham số $m$ để hàm số liên tục trên $\mathbb{R}$, sau đó tính tích phân $J = \displaystyle \int_{-1}^{1} f(x)\,\mathrm{d}x$.
+	\end{vidu}
+	\begin{loigiai}
+		Hàm số liên tục trên các khoảng $(-\infty; 0)$ và $(0; +\infty)$. Để hàm số liên tục trên $\mathbb{R}$, nó phải liên tục tại $x = 0$.
+		
+		Ta có:
+		\begin{itemize}
+			\item $\displaystyle \lim_{x \to 0^+} f(x) = \lim_{x \to 0^+} (e^x + 1) = e^0 + 1 = 2$.
+			\item $\displaystyle \lim_{x \to 0^-} f(x) = \lim_{x \to 0^-} (x^2 + m) = m$.
+			\item $f(0) = e^0 + 1 = 2$.
+		\end{itemize}
+		Hàm số liên tục tại $x = 0$ khi và chỉ khi $\displaystyle \lim_{x \to 0^+} f(x) = \lim_{x \to 0^-} f(x) = f(0) \iff m = 2$.
+		
+		Với $m = 2$, hàm số trở thành $f(x) = \begin{cases} e^x + 1 & \text{khi } x \ge 0 \\ x^2 + 2 & \text{khi } x < 0 \end{cases}$.
+		
+		Ta tính tích phân $J$:
+		\[
+		J = \int_{-1}^{0} f(x)\,\mathrm{d}x + \int_{0}^{1} f(x)\,\mathrm{d}x = \int_{-1}^{0} (x^2 + 2)\,\mathrm{d}x + \int_{0}^{1} (e^x + 1)\,\mathrm{d}x.
+		\]
+		Tính từng phần:
+		\begin{itemize}
+			\item $\displaystyle \int_{-1}^{0} (x^2 + 2)\,\mathrm{d}x = \left( \frac{x^3}{3} + 2x \right) \Bigg|_{-1}^0 = 0 - \left( -\frac{1}{3} - 2 \right) = \frac{7}{3}$.
+			\item $\displaystyle \int_{0}^{1} (e^x + 1)\,\mathrm{d}x = (e^x + x) \Big|_0^1 = (e + 1) - (1 + 0) = e$.
+		\end{itemize}
+		Vậy $J = \frac{7}{3} + e$.
+	\end{loigiai}
+
+	\begin{vidu}[15 (Tích phân hàm phân nhánh chứa hàm lượng giác)]
+		Cho hàm số $f(x) = \begin{cases} \cos x & \text{khi } x \ge \frac{\pi}{2} \\ x & \text{khi } x < \frac{\pi}{2} \end{cases}$. Tính tích phân $K = \displaystyle \int_{0}^{\pi} f(x)\,\mathrm{d}x$.
+	\end{vidu}
+	\begin{loigiai}
+		Tại điểm ranh giới $x = \frac{\pi}{2}$, ta áp dụng tính chất chèn cận:
+		\[
+		K = \int_{0}^{\frac{\pi}{2}} f(x)\,\mathrm{d}x + \int_{\frac{\pi}{2}}^{\pi} f(x)\,\mathrm{d}x.
+		\]
+		Theo định nghĩa hàm $f(x)$, ta có:
+		\[
+		K = \int_{0}^{\frac{\pi}{2}} x\,\mathrm{d}x + \int_{\frac{\pi}{2}}^{\pi} \cos x\,\mathrm{d}x = \frac{x^2}{2} \Bigg|_0^{\frac{\pi}{2}} + \sin x \Bigg|_{\frac{\pi}{2}}^{\pi}.
+		\]
+		Tính giá trị:
+		\begin{itemize}
+			\item $\displaystyle \frac{x^2}{2} \Bigg|_0^{\frac{\pi}{2}} = \frac{1}{2} \left( \frac{\pi}{2} \right)^2 - 0 = \frac{\pi^2}{8}$.
+			\item $\displaystyle \sin x \Bigg|_{\frac{\pi}{2}}^{\pi} = \sin \pi - \sin \frac{\pi}{2} = 0 - 1 = -1$.
+		\end{itemize}
+		Vậy $K = \frac{\pi^2}{8} - 1$.
+	\end{loigiai}
+	
+	\newpage
+	
+	% ================================================
+	% PHẦN II: BÀI TẬP TỰ LUYỆN
+	% ================================================
+	\section{Bài tập tự luyện}\label{sec:baitap}
+	
+	\subsection{Dạng 1: Tính tích phân hàm số sơ cấp}
+	\begin{btxanh}
+		Tính các tích phân sau:
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\alph*)]
+				\item $\displaystyle \int_0^2 (3x^2 - 4x + 1)\,\mathrm{d}x$
+				\item $\displaystyle \int_1^3 (x^3 + 2x)\,\mathrm{d}x$
+				\item $\displaystyle \int_1^2 \left( \frac{1}{x} + \frac{2}{x^2} \right)\,\mathrm{d}x$
+				\item $\displaystyle \int_1^4 \left( \sqrt{x} - \frac{1}{\sqrt{x}} \right)\,\mathrm{d}x$
+				\item $\displaystyle \int_0^1 (2x + 1)^2\,\mathrm{d}x$
+				\item $\displaystyle \int_1^2 \frac{x^2 - x + 1}{x}\,\mathrm{d}x$
+			\end{enumerate}
+		\end{multicols}
+	\end{btxanh}
+	
+	\begin{btvang}
+		Tính các tích phân sau:
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\alph*)]
+				\item $\displaystyle \int_0^1 (e^x + 2x)\,\mathrm{d}x$
+				\item $\displaystyle \int_0^1 (2^x - 3^x)\,\mathrm{d}x$
+				\item $\displaystyle \int_0^1 (e^{2x} - e^{-x})\,\mathrm{d}x$
+				\item $\displaystyle \int_0^1 \frac{3^x + 4^x}{5^x}\,\mathrm{d}x$
+				\item $\displaystyle \int_1^e \frac{3}{x}\,\mathrm{d}x$
+				\item $\displaystyle \int_0^2 (e^{x/2} + 1)\,\mathrm{d}x$
+			\end{enumerate}
+		\end{multicols}
+	\end{btvang}
+	
+	\begin{btdo}
+		Tính các tích phân sau:
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\alph*)]
+				\item $\displaystyle \int_0^{\frac{\pi}{2}} (2\sin x + \cos x)\,\mathrm{d}x$
+				\item $\displaystyle \int_0^{\frac{\pi}{4}} \frac{2}{\cos^2 x}\,\mathrm{d}x$
+				\item $\displaystyle \int_{\frac{\pi}{6}}^{\frac{\pi}{3}} \frac{1}{\sin^2 x}\,\mathrm{d}x$
+				\item $\displaystyle \int_0^{\frac{\pi}{2}} \cos 2x\,\mathrm{d}x$
+				\item $\displaystyle \int_0^{\frac{\pi}{4}} (1 + \tan^2 x)\,\mathrm{d}x$
+				\item $\displaystyle \int_0^{\frac{\pi}{2}} 2\cos^2 \frac{x}{2}\,\mathrm{d}x$
+			\end{enumerate}
+		\end{multicols}
+	\end{btdo}
+	
+	\subsection{Dạng 2: Vận dụng tính chất tích phân}
+	\begin{btxanh}
+		\textbf{Bài 1.} Cho hàm số $f(x)$ liên tục trên $\mathbb{R}$. Tính các tích phân sau:
+		\begin{enumerate}[label=\alph*)]
+			\item Cho $\displaystyle \int_0^3 f(x)\,\mathrm{d}x = 4$. Tính $\displaystyle \int_0^3 5f(x)\,\mathrm{d}x$.
+			\item Cho $\displaystyle \int_1^2 f(x)\,\mathrm{d}x = -3$. Tính $\displaystyle \int_1^2 [2f(x) + 3]\,\mathrm{d}x$.
+			\item Cho $\displaystyle \int_0^2 [f(x) - 2x]\,\mathrm{d}x = 5$. Tính $\displaystyle \int_0^2 f(x)\,\mathrm{d}x$.
+			\item Cho $\displaystyle \int_1^4 [f(x) + 3x^2]\,\mathrm{d}x = 70$. Tính $\displaystyle \int_1^4 f(x)\,\mathrm{d}x$.
+			\item Cho $\displaystyle \int_1^3 f(x)\,\mathrm{d}x = 2$ và $\displaystyle \int_3^5 f(x)\,\mathrm{d}x = 6$. Tính $\displaystyle \int_1^5 f(x)\,\mathrm{d}x$.
+			\item Cho $\displaystyle \int_0^6 f(x)\,\mathrm{d}x = 10$ và $\displaystyle \int_2^6 f(x)\,\mathrm{d}x = 7$. Tính $\displaystyle \int_0^2 f(x)\,\mathrm{d}x$.
+		\end{enumerate}
+		
+		\textbf{Bài 2.} Cho hai hàm số $f(x)$ và $g(x)$ liên tục trên $[0; 2]$ thỏa mãn $\displaystyle \int_0^2 f(x)\,\mathrm{d}x = 3$ và $\displaystyle \int_0^2 g(x)\,\mathrm{d}x = -1$. Tính:
+		\begin{enumerate}[label=\alph*)]
+			\item $I_1 = \displaystyle \int_0^2 [f(x) + g(x)]\,\mathrm{d}x$.
+			\item $I_2 = \displaystyle \int_0^2 [f(x) - g(x)]\,\mathrm{d}x$.
+			\item $I_3 = \displaystyle \int_0^2 [2f(x) + 3g(x)]\,\mathrm{d}x$.
+			\item $I_4 = \displaystyle \int_0^2 [3f(x) - 2g(x) + 1]\,\mathrm{d}x$.
+			\item $I_5 = \displaystyle \int_0^2 [f(x) + 2x]\,\mathrm{d}x - \int_0^2 g(x)\,\mathrm{d}x$.
+			\item $I_6 = \displaystyle \int_2^0 [2f(x) + g(x)]\,\mathrm{d}x$.
+		\end{enumerate}
+		
+		\textbf{Bài 3.} Cho hai hàm số $f(x), g(x)$ liên tục trên đoạn $[1; 3]$.
+		\begin{enumerate}[label=\alph*)]
+			\item Biết $\displaystyle \int_1^3 [f(x) + 2g(x)]\,\mathrm{d}x = 7$ và $\displaystyle \int_1^3 [2f(x) - g(x)]\,\mathrm{d}x = 4$. Tính tích phân $I = \displaystyle \int_1^3 [f(x) + g(x)]\,\mathrm{d}x$.
+			\item Biết $\displaystyle \int_1^3 [3f(x) + g(x)]\,\mathrm{d}x = 11$ và $\displaystyle \int_1^3 [f(x) - g(x)]\,\mathrm{d}x = 1$. Tính tích phân $J = \displaystyle \int_1^3 [2f(x) - 3g(x)]\,\mathrm{d}x$.
+		\end{enumerate}
+	\end{btxanh}
+	
+	\begin{btvang}
+		\textbf{Bài 1.} Cho hàm số $f(x)$ liên tục trên $\mathbb{R}$. Tính các tích phân sau:
+		\begin{enumerate}[label=\alph*)]
+			\item Cho $\displaystyle \int_1^4 f(x)\,\mathrm{d}x = -2$. Tính $\displaystyle \int_1^4 [-3f(x)]\,\mathrm{d}x$.
+			\item Cho $\displaystyle \int_0^1 f(x)\,\mathrm{d}x = 5$. Tính $\displaystyle \int_0^1 [3f(x) - 2]\,\mathrm{d}x$.
+			\item Cho $\displaystyle \int_0^3 [f(x) + 2x]\,\mathrm{d}x = 13$. Tính $\displaystyle \int_0^3 f(x)\,\mathrm{d}x$.
+			\item Cho $\displaystyle \int_1^2 [f(x) - 4x^3]\,\mathrm{d}x = -10$. Tính $\displaystyle \int_1^2 f(x)\,\mathrm{d}x$.
+			\item Cho $\displaystyle \int_{-1}^2 f(x)\,\mathrm{d}x = 4$ và $\displaystyle \int_2^5 f(x)\,\mathrm{d}x = -1$. Tính $\displaystyle \int_{-1}^5 f(x)\,\mathrm{d}x$.
+			\item Cho $\displaystyle \int_1^7 f(x)\,\mathrm{d}x = 12$ và $\displaystyle \int_4^7 f(x)\,\mathrm{d}x = 5$. Tính $\displaystyle \int_1^4 f(x)\,\mathrm{d}x$.
+		\end{enumerate}
+		
+		\textbf{Bài 2.} Cho hai hàm số $f(x)$ và $g(x)$ liên tục trên $[1; 4]$ thỏa mãn $\displaystyle \int_1^4 f(x)\,\mathrm{d}x = 4$ và $\displaystyle \int_1^4 g(x)\,\mathrm{d}x = 2$. Tính:
+		\begin{enumerate}[label=\alph*)]
+			\item $I_1 = \displaystyle \int_1^4 [f(x) + 2g(x)]\,\mathrm{d}x$.
+			\item $I_2 = \displaystyle \int_1^4 [2f(x) - g(x)]\,\mathrm{d}x$.
+			\item $I_3 = \displaystyle \int_1^4 [3f(x) - 4g(x)]\,\mathrm{d}x$.
+			\item $I_4 = \displaystyle \int_1^4 [f(x) + 3g(x) - 2]\,\mathrm{d}x$.
+			\item $I_5 = \displaystyle \int_1^4 [g(x) + 3x^2]\,\mathrm{d}x - 2\int_1^4 f(x)\,\mathrm{d}x$.
+			\item $I_6 = \displaystyle \int_4^1 [f(x) - 3g(x)]\,\mathrm{d}x$.
+		\end{enumerate}
+		
+		\textbf{Bài 3.} Cho hai hàm số $f(x), g(x)$ liên tục trên đoạn $[0; 2]$.
+		\begin{enumerate}[label=\alph*)]
+			\item Biết $\displaystyle \int_0^2 [2f(x) + g(x)]\,\mathrm{d}x = 8$ và $\displaystyle \int_0^2 [f(x) - g(x)]\,\mathrm{d}x = 1$. Tính tích phân $I = \displaystyle \int_0^2 [f(x) + 2g(x)]\,\mathrm{d}x$.
+			\item Biết $\displaystyle \int_0^2 [f(x) + 3g(x)]\,\mathrm{d}x = 10$ và $\displaystyle \int_0^2 [2f(x) + g(x)]\,\mathrm{d}x = 5$. Tính tích phân $J = \displaystyle \int_0^2 [3f(x) - g(x)]\,\mathrm{d}x$.
+		\end{enumerate}
+	\end{btvang}
+	
+	\begin{btdo}
+		\textbf{Bài 1.} Cho hàm số $f(x)$ liên tục trên $\mathbb{R}$. Tính các tích phân sau:
+		\begin{enumerate}[label=\alph*)]
+			\item Cho $\displaystyle \int_0^2 f(x)\,\mathrm{d}x = 6$. Tính $\displaystyle \int_0^2 \frac{1}{2} f(x)\,\mathrm{d}x$.
+			\item Cho $\displaystyle \int_{-1}^1 f(x)\,\mathrm{d}x = 2$. Tính $\displaystyle \int_{-1}^1 [4f(x) + 5]\,\mathrm{d}x$.
+			\item Cho $\displaystyle \int_0^1 [f(x) - 3x^2]\,\mathrm{d}x = 2$. Tính $\displaystyle \int_0^1 f(x)\,\mathrm{d}x$.
+			\item Cho $\displaystyle \int_0^2 [f(x) + 6x]\,\mathrm{d}x = 17$. Tính $\displaystyle \int_0^2 f(x)\,\mathrm{d}x$.
+			\item Cho $\displaystyle \int_0^3 f(x)\,\mathrm{d}x = -2$ và $\displaystyle \int_3^7 f(x)\,\mathrm{d}x = 9$. Tính $\displaystyle \int_0^7 f(x)\,\mathrm{d}x$.
+			\item Cho $\displaystyle \int_{-2}^4 f(x)\,\mathrm{d}x = 8$ và $\displaystyle \int_1^4 f(x)\,\mathrm{d}x = 3$. Tính $\displaystyle \int_{-2}^1 f(x)\,\mathrm{d}x$.
+		\end{enumerate}
+		
+		\textbf{Bài 2.} Cho hai hàm số $f(x)$ và $g(x)$ liên tục trên $[0; 3]$ thỏa mãn $\displaystyle \int_0^3 f(x)\,\mathrm{d}x = -2$ và $\displaystyle \int_0^3 g(x)\,\mathrm{d}x = 5$. Tính:
+		\begin{enumerate}[label=\alph*)]
+			\item $I_1 = \displaystyle \int_0^3 [g(x) - f(x)]\,\mathrm{d}x$.
+			\item $I_2 = \displaystyle \int_0^3 [2f(x) + g(x)]\,\mathrm{d}x$.
+			\item $I_3 = \displaystyle \int_0^3 [3f(x) + 2g(x)]\,\mathrm{d}x$.
+			\item $I_4 = \displaystyle \int_0^3 [f(x) - 2g(x) + 4]\,\mathrm{d}x$.
+			\item $I_5 = \displaystyle \int_0^3 [2g(x) - 4x]\,\mathrm{d}x + 3\int_0^3 f(x)\,\mathrm{d}x$.
+			\item $I_6 = \displaystyle \int_3^0 [f(x) + 2g(x)]\,\mathrm{d}x$.
+		\end{enumerate}
+		
+		\textbf{Bài 3.} Cho hai hàm số $f(x), g(x)$ liên tục trên đoạn $[2; 5]$.
+		\begin{enumerate}[label=\alph*)]
+			\item Biết $\displaystyle \int_2^5 [f(x) - 2g(x)]\,\mathrm{d}x = -3$ và $\displaystyle \int_2^5 [2f(x) + g(x)]\,\mathrm{d}x = 9$. Tính tích phân $I = \displaystyle \int_2^5 [f(x) + g(x)]\,\mathrm{d}x$.
+			\item Biết $\displaystyle \int_2^5 [2f(x) + 3g(x)]\,\mathrm{d}x = 13$ và $\displaystyle \int_2^5 [3f(x) - g(x)]\,\mathrm{d}x = 3$. Tính tích phân $J = \displaystyle \int_2^5 [4f(x) + g(x)]\,\mathrm{d}x$.
+		\end{enumerate}
+	\end{btdo}
+	
+	\subsection{Dạng 3: Tích phân của hàm số chứa dấu giá trị tuyệt đối}
+	\begin{btxanh}
+		Tính các tích phân sau:
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\alph*)]
+				\item $\displaystyle \int_0^3 |x - 1|\,\mathrm{d}x$
+				\item $\displaystyle \int_{-1}^2 |2x - 1|\,\mathrm{d}x$
+				\item $\displaystyle \int_0^3 |x^2 - 2x|\,\mathrm{d}x$
+				\item $\displaystyle \int_0^3 |x^2 - 3x + 2|\,\mathrm{d}x$
+			\end{enumerate}
+		\end{multicols}
+	\end{btxanh}
+	
+	\begin{btvang}
+		Tính các tích phân sau:
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\alph*)]
+				\item $\displaystyle \int_0^4 |x - 2|\,\mathrm{d}x$
+				\item $\displaystyle \int_{-1}^2 |2x + 1|\,\mathrm{d}x$
+				\item $\displaystyle \int_{-1}^2 |x^2 - 1|\,\mathrm{d}x$
+				\item $\displaystyle \int_0^4 |x^2 - 4x + 3|\,\mathrm{d}x$
+			\end{enumerate}
+		\end{multicols}
+	\end{btvang}
+	
+	\begin{btdo}
+		Tính các tích phân sau:
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\alph*)]
+				\item $\displaystyle \int_{-2}^2 |x - 1|\,\mathrm{d}x$
+				\item $\displaystyle \int_0^3 |3x - 6|\,\mathrm{d}x$
+				\item $\displaystyle \int_0^3 |x^2 - 4|\,\mathrm{d}x$
+				\item $\displaystyle \int_{-2}^2 |x^2 + x - 2|\,\mathrm{d}x$
+			\end{enumerate}
+		\end{multicols}
+	\end{btdo}
+	
+	\subsection{Dạng 4: Tích phân hàm phân nhánh (Cho bởi nhiều công thức)}
+	\begin{btxanh}
+		\begin{enumerate}[label=\alph*)]
+			\item Cho hàm số $f(x) = \begin{cases} 2x + 1 & \text{khi } x \ge 1 \\ 3x^2 & \text{khi } x < 1 \end{cases}$. Tính tích phân $I = \displaystyle \int_0^2 f(x)\,\mathrm{d}x$.
+			\item Cho hàm số $f(x) = \begin{cases} 3x^2 - 1 & \text{khi } x \ge 0 \\ 4x - 1 & \text{khi } x < 0 \end{cases}$. Tính tích phân $I = \displaystyle \int_{-1}^2 f(x)\,\mathrm{d}x$.
+			\item Cho hàm số $f(x) = \begin{cases} e^x & \text{khi } x \ge 0 \\ 2x + 1 & \text{khi } x < 0 \end{cases}$. Tính tích phân $I = \displaystyle \int_{-2}^1 f(x)\,\mathrm{d}x$.
+			\item Cho hàm số $f(x) = \begin{cases} \cos x & \text{khi } x \ge 0 \\ 1 - 2x & \text{khi } x < 0 \end{cases}$. Tính tích phân $I = \displaystyle \int_{-1}^{\frac{\pi}{2}} f(x)\,\mathrm{d}x$.
+			\item Cho hàm số $f(x) = \begin{cases} 2x - 1 & \text{khi } x \ge 1 \\ 1 & \text{khi } x < 1 \end{cases}$. Giả sử $F(x)$ là một nguyên hàm của $f(x)$ trên $\mathbb{R}$ thỏa mãn $F(1) = 2$. Tính giá trị của biểu thức $P = F(3) + F(0)$.
+			\item Cho hàm số $f(x) = \begin{cases} 3x^2 & \text{khi } x \ge 0 \\ 2x & \text{khi } x < 0 \end{cases}$. Giả sử $F(x)$ là một nguyên hàm của $f(x)$ trên $\mathbb{R}$ thỏa mãn $F(2) = 5$. Tính giá trị của $F(-1)$.
+		\end{enumerate}
+	\end{btxanh}
+	
+	\begin{btvang}
+		\begin{enumerate}[label=\alph*)]
+			\item Cho hàm số $f(x) = \begin{cases} 4x^3 & \text{khi } x \ge 1 \\ 3x + 1 & \text{khi } x < 1 \end{cases}$. Tính tích phân $I = \displaystyle \int_0^2 f(x)\,\mathrm{d}x$.
+			\item Cho hàm số $f(x) = \begin{cases} 2x + 3 & \text{khi } x \ge 2 \\ x^2 + 3 & \text{khi } x < 2 \end{cases}$. Tính tích phân $I = \displaystyle \int_{0}^3 f(x)\,\mathrm{d}x$.
+			\item Cho hàm số $f(x) = \begin{cases} e^{2x} & \text{khi } x \ge 0 \\ 1 + 3x^2 & \text{khi } x < 0 \end{cases}$. Tính tích phân $I = \displaystyle \int_{-1}^1 f(x)\,\mathrm{d}x$.
+			\item Cho hàm số $f(x) = \begin{cases} \sin x & \text{khi } x \ge 0 \\ 2x & \text{khi } x < 0 \end{cases}$. Tính tích phân $I = \displaystyle \int_{-\pi}^{\pi} f(x)\,\mathrm{d}x$.
+			\item Cho hàm số $f(x) = \begin{cases} 2x + 2 & \text{khi } x \ge 0 \\ 2 & \text{khi } x < 0 \end{cases}$. Giả sử $F(x)$ là một nguyên hàm của $f(x)$ trên $\mathbb{R}$ thỏa mãn $F(0) = 3$. Tính giá trị của biểu thức $P = 2F(2) - F(-2)$.
+			\item Cho hàm số $f(x) = \begin{cases} 3x^2 - 2x & \text{khi } x \ge 1 \\ 1 & \text{khi } x < 1 \end{cases}$. Giả sử $F(x)$ là một nguyên hàm của $f(x)$ trên $\mathbb{R}$ thỏa mãn $F(3) = 10$. Tính giá trị của $F(-1)$.
+		\end{enumerate}
+	\end{btvang}
+	
+	\begin{btdo}
+		\begin{enumerate}[label=\alph*)]
+			\item Cho hàm số $f(x) = \begin{cases} x^2 + 2x & \text{khi } x \ge 0 \\ 2x & \text{khi } x < 0 \end{cases}$. Tính tích phân $I = \displaystyle \int_{-2}^3 f(x)\,\mathrm{d}x$.
+			\item Cho hàm số $f(x) = \begin{cases} 6x^2 - 2 & \text{khi } x \ge 1 \\ 4x & \text{khi } x < 1 \end{cases}$. Tính tích phân $I = \displaystyle \int_{0}^2 f(x)\,\mathrm{d}x$.
+			\item Cho hàm số $f(x) = \begin{cases} 2^x & \text{khi } x \ge 1 \\ 2x & \text{khi } x < 1 \end{cases}$. Tính tích phân $I = \displaystyle \int_{0}^2 f(x)\,\mathrm{d}x$.
+			\item Cho hàm số $f(x) = \begin{cases} \cos 2x & \text{khi } x \ge 0 \\ 1 + x & \text{khi } x < 0 \end{cases}$. Tính tích phân $I = \displaystyle \int_{-2}^{\frac{\pi}{4}} f(x)\,\mathrm{d}x$.
+			\item Cho hàm số $f(x) = \begin{cases} 4x^3 - 1 & \text{khi } x \ge 1 \\ 3 & \text{khi } x < 1 \end{cases}$. Giả sử $F(x)$ là một nguyên hàm của $f(x)$ trên $\mathbb{R}$ thỏa mãn $F(1) = 4$. Tính giá trị của biểu thức $P = F(2) + 2F(0)$.
+			\item Cho hàm số $f(x) = \begin{cases} 2x - 3 & \text{khi } x \ge 2 \\ x^2 - 3 & \text{khi } x < 2 \end{cases}$. Giả sử $F(x)$ là một nguyên hàm của $f(x)$ trên $\mathbb{R}$ thỏa mãn $F(4) = 8$. Tính giá trị của $F(-1)$.
+		\end{enumerate}
+	\end{btdo}
+	
+	\newpage
+	
+	% ================================================
+	% PHẦN III: HỆ THỐNG CÂU HỎI TRẮC NGHIỆM TỔNG HỢP
+	% ================================================
+	\section{Hệ thống câu hỏi trắc nghiệm tổng hợp}\label{sec:tracnghiem}
+	
+	\subsection{Câu trắc nghiệm nhiều phương án lựa chọn}
+	\textit{Thí sinh chọn một phương án đúng duy nhất trong các phương án A, B, C, D.}
+	
+	\begin{enumerate}[label=\textbf{Câu \arabic*.}]
+		\item Cho hàm số $f(x)$ liên tục trên đoạn $[a; b]$ và $k$ là một số thực tùy ý. Khẳng định nào sau đây là \textbf{sai}?
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $\displaystyle \int_a^b f(x)\,\mathrm{d}x = \int_a^b f(t)\,\mathrm{d}t$.
+				\item $\displaystyle \int_a^b f(x)\,\mathrm{d}x = -\int_b^a f(x)\,\mathrm{d}x$.
+				\item $\displaystyle \int_a^a f(x)\,\mathrm{d}x = 0$.
+				\item $\displaystyle \int_a^b k f(x)\,\mathrm{d}x = k \int_b^a f(x)\,\mathrm{d}x$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Cho hàm số $f(x)$ liên tục trên đoạn $[a; b]$ và $c \in (a; b)$. Khẳng định nào sau đây là \textbf{đúng}?
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $\displaystyle \int_a^b f(x)\,\mathrm{d}x = \int_a^c f(x)\,\mathrm{d}x + \int_c^b f(x)\,\mathrm{d}x$.
+				\item $\displaystyle \int_a^b f(x)\,\mathrm{d}x = \int_a^c f(x)\,\mathrm{d}x \cdot \int_c^b f(x)\,\mathrm{d}x$.
+				\item $\displaystyle \int_a^b f(x)\,\mathrm{d}x = \int_c^b f(x)\,\mathrm{d}x - \int_a^c f(x)\,\mathrm{d}x$.
+				\item $\displaystyle \int_a^b f(x)\,\mathrm{d}x = \int_a^c f(x)\,\mathrm{d}x - \int_c^b f(x)\,\mathrm{d}x$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Cho hai hàm số $f(x)$ và $g(x)$ liên tục trên đoạn $[a; b]$. Mệnh đề nào sau đây là \textbf{sai}?
+		\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $\displaystyle \int_a^b [f(x) + g(x)]\,\mathrm{d}x = \int_a^b f(x)\,\mathrm{d}x + \int_a^b g(x)\,\mathrm{d}x$.
+				\item $\displaystyle \int_a^b [f(x) - g(x)]\,\mathrm{d}x = \int_a^b f(x)\,\mathrm{d}x - \int_a^b g(x)\,\mathrm{d}x$.
+				\item $\displaystyle \int_a^b f(x)g(x)\,\mathrm{d}x = \int_a^b f(x)\,\mathrm{d}x \cdot \int_a^b g(x)\,\mathrm{d}x$.
+				\item $\displaystyle \int_a^b 2f(x)\,\mathrm{d}x = 2\int_a^b f(x)\,\mathrm{d}x$.
+			\end{enumerate}
+		
+		\item Cho hàm số $f(x)$ liên tục trên đoạn $[a; b]$ và $F(x)$ là một nguyên hàm của $f(x)$ trên $[a; b]$. Khẳng định nào sau đây là \textbf{đúng}?
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $\displaystyle \int_a^b f(x)\,\mathrm{d}x = F(b) + F(a)$.
+				\item $\displaystyle \int_a^b f(x)\,\mathrm{d}x = F(b) - F(a)$.
+				\item $\displaystyle \int_a^b f(x)\,\mathrm{d}x = F(a) - F(b)$.
+				\item $\displaystyle \int_a^b f(x)\,\mathrm{d}x = F'(b) - F'(a)$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Nếu hàm số $f(x)$ có đạo hàm $f'(x)$ liên tục trên đoạn $[1; 4]$ thỏa mãn $f(1) = 2$ và $f(4) = 9$ thì $\displaystyle \int_1^4 f'(x)\,\mathrm{d}x$ bằng
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $7$.
+				\item $18$.
+				\item $11$.
+				\item $-7$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Cho hàm số $f(x)$ liên tục trên $\mathbb{R}$ và ba số thực $a < b < c$. Khẳng định nào sau đây là \textbf{sai}?
+		\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $\displaystyle \int_a^c f(x)\,\mathrm{d}x - \int_a^b f(x)\,\mathrm{d}x = \int_b^c f(x)\,\mathrm{d}x$.
+				\item $\displaystyle \int_a^c f(x)\,\mathrm{d}x - \int_b^c f(x)\,\mathrm{d}x = \int_a^b f(x)\,\mathrm{d}x$.
+				\item $\displaystyle \int_a^b f(x)\,\mathrm{d}x + \int_b^c f(x)\,\mathrm{d}x + \int_c^a f(x)\,\mathrm{d}x = 0$.
+				\item $\displaystyle \int_a^c f(x)\,\mathrm{d}x + \int_c^b f(x)\,\mathrm{d}x = \int_b^a f(x)\,\mathrm{d}x$.
+			\end{enumerate}
+		
+		\item Tích phân $\displaystyle \int_{-2}^{3} 4\,\mathrm{d}x$ có giá trị bằng
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $20$.
+				\item $5$.
+				\item $12$.
+				\item $4$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Nếu $\displaystyle \int_1^2 f(x)\,\mathrm{d}x = 3$ thì $\displaystyle \int_1^2 4f(x)\,\mathrm{d}x$ bằng
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $12$.
+				\item $7$.
+				\item $\frac{3}{4}$.
+				\item $64$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Cho $\displaystyle \int_0^1 f(x)\,\mathrm{d}x = \frac{1}{2025}$. Giá trị của tích phân $J = \displaystyle \int_0^1 2025f(x)\,\mathrm{d}x$ bằng
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $\frac{1}{2025^2}$.
+				\item $2$.
+				\item $1$.
+				\item $2025$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Nếu $\displaystyle \int_0^2 f(x)\,\mathrm{d}x = 5$ thì $\displaystyle \int_2^0 3f(x)\,\mathrm{d}x$ bằng
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $-15$.
+				\item $15$.
+				\item $-5$.
+				\item $8$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Cho $\displaystyle \int_1^3 f(x)\,\mathrm{d}x = 6$ và $\displaystyle \int_1^3 g(x)\,\mathrm{d}x = -2$. Khi đó $\displaystyle \int_1^3 [f(x) - g(x)]\,\mathrm{d}x$ bằng
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $8$.
+				\item $4$.
+				\item $-8$.
+				\item $-12$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Cho $\displaystyle \int_0^1 f(x)\,\mathrm{d}x = 3$ và $\displaystyle \int_0^1 g(x)\,\mathrm{d}x = 7$. Khi đó $\displaystyle \int_0^1 [f(x) + g(x)]\,\mathrm{d}x$ bằng
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $-4$.
+				\item $21$.
+				\item $10$.
+				\item $4$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Cho $\displaystyle \int_0^2 f(x)\,\mathrm{d}x = 4$ và $\displaystyle \int_0^2 g(x)\,\mathrm{d}x = 3$. Giá trị của $\displaystyle \int_0^2 [f(x) - 2g(x)]\,\mathrm{d}x$ bằng
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $-2$.
+				\item $10$.
+				\item $1$.
+				\item $-1$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Cho $\displaystyle \int_1^4 f(x)\,\mathrm{d}x = 5$ và $\displaystyle \int_1^4 g(x)\,\mathrm{d}x = -1$. Khi đó $\displaystyle \int_1^4 [2f(x) + 3g(x)]\,\mathrm{d}x$ bằng
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $7$.
+				\item $9$.
+				\item $-7$.
+				\item $13$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Cho $\displaystyle \int_0^2 f(x)\,\mathrm{d}x = 3$ và $\displaystyle \int_2^0 g(x)\,\mathrm{d}x = 4$. Khi đó $\displaystyle \int_0^2 [f(x) + g(x)]\,\mathrm{d}x$ bằng
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $-1$.
+				\item $7$.
+				\item $1$.
+				\item $-7$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Nếu $\displaystyle \int_0^3 f(x)\,\mathrm{d}x = 5$ thì $\displaystyle \int_0^3 [f(x) + 2]\,\mathrm{d}x$ bằng
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $11$.
+				\item $7$.
+				\item $9$.
+				\item $10$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Nếu $\displaystyle \int_1^2 f(x)\,\mathrm{d}x = 4$ thì $\displaystyle \int_1^2 [2f(x) - 3]\,\mathrm{d}x$ bằng
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $2$.
+				\item $11$.
+				\item $8$.
+				\item $5$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Nếu $\displaystyle \int_0^2 f(x)\,\mathrm{d}x = -1$ thì $\displaystyle \int_0^2 [3f(x) + 4]\,\mathrm{d}x$ bằng
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $5$.
+				\item $1$.
+				\item $7$.
+				\item $-3$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Cho $\displaystyle \int_0^1 f(x)\,\mathrm{d}x = 2$. Tích phân $\displaystyle \int_0^1 [f(x) + 2x]\,\mathrm{d}x$ bằng
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $4$.
+				\item $3$.
+				\item $1$.
+				\item $2$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Cho $\displaystyle \int_0^2 [2f(x) - 3x^2]\,\mathrm{d}x = 6$. Khi đó $\displaystyle \int_0^2 f(x)\,\mathrm{d}x$ bằng
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $-1$.
+				\item $7$.
+				\item $1$.
+				\item $14$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Cho $\displaystyle \int_0^1 f(x)\,\mathrm{d}x = 3$. Giá trị của tích phân $\displaystyle \int_0^1 [3f(x) - 4x]\,\mathrm{d}x$ bằng
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $7$.
+				\item $9$.
+				\item $5$.
+				\item $11$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Cho $\displaystyle \int_1^2 f(x)\,\mathrm{d}x = 2$ và $\displaystyle \int_1^2 g(x)\,\mathrm{d}x = -1$. Tính $\displaystyle \int_1^2 [f(x) - 2g(x) + 3x]\,\mathrm{d}x$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $\displaystyle \frac{15}{2}$.
+				\item $8$.
+				\item $\displaystyle \frac{17}{2}$.
+				\item $\displaystyle \frac{11}{2}$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Cho $\displaystyle \int_1^3 f(x)\,\mathrm{d}x = 2$ và $\displaystyle \int_3^5 f(x)\,\mathrm{d}x = 7$. Khi đó $\displaystyle \int_1^5 f(x)\,\mathrm{d}x$ bằng
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $14$.
+				\item $5$.
+				\item $9$.
+				\item $-5$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Cho hàm số $f(x)$ liên tục trên $\mathbb{R}$ thỏa mãn $\displaystyle \int_0^5 f(x)\,\mathrm{d}x = 9$ và $\displaystyle \int_2^5 f(x)\,\mathrm{d}x = 3$. Tính $I = \displaystyle \int_0^2 f(x)\,\mathrm{d}x$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $I = 6$.
+				\item $I = 12$.
+				\item $I = -6$.
+				\item $I = 3$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Cho hàm số $f(x)$ liên tục trên $\mathbb{R}$ thỏa mãn $\displaystyle \int_1^4 f(x)\,\mathrm{d}x = 8$ và $\displaystyle \int_2^4 f(x)\,\mathrm{d}x = 5$. Tích phân $\displaystyle \int_1^2 f(x)\,\mathrm{d}x$ bằng
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $40$.
+				\item $-3$.
+				\item $13$.
+				\item $3$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Cho hàm số $f(x)$ liên tục trên $\mathbb{R}$ thỏa mãn $\displaystyle \int_0^2 f(x)\,\mathrm{d}x = 3$, $\displaystyle \int_2^4 f(x)\,\mathrm{d}x = -1$ và $\displaystyle \int_4^6 f(x)\,\mathrm{d}x = 5$. Tính $\displaystyle \int_0^6 f(x)\,\mathrm{d}x$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $1$.
+				\item $-7$.
+				\item $7$.
+				\item $9$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Cho hàm số $f(x)$ liên tục trên đoạn $[0; 4]$ thỏa mãn $\displaystyle \int_0^4 f(x)\,\mathrm{d}x = 10$ và $\displaystyle \int_0^2 f(x)\,\mathrm{d}x = 4$. Tính giá trị của tích phân $I = \displaystyle \int_2^4 [2f(x) - 1]\,\mathrm{d}x$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $10$.
+				\item $12$.
+				\item $14$.
+				\item $8$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Cho $\displaystyle \int_0^3 f(x)\,\mathrm{d}x = 4$ và $\displaystyle \int_0^3 g(x)\,\mathrm{d}x = 1$. Tính tích phân $I = \displaystyle \int_0^3 [2f(x) - 3g(x) + x]\,\mathrm{d}x$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $5$.
+				\item $8$.
+				\item $\displaystyle \frac{19}{2}$.
+				\item $\displaystyle \frac{15}{2}$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Cho $\displaystyle \int_1^2 f(x)\,\mathrm{d}x = 3$ và $\displaystyle \int_1^2 g(x)\,\mathrm{d}x = 2$. Tính tích phân $I = \displaystyle \int_1^2 [f(x) + 2g(x) - x^2]\,\mathrm{d}x$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $\displaystyle \frac{17}{3}$.
+				\item $\displaystyle \frac{14}{3}$.
+				\item $7$.
+				\item $\displaystyle \frac{28}{3}$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Cho $\displaystyle \int_0^1 [f(x) - 2x]\,\mathrm{d}x = 5$. Khi đó $\displaystyle \int_0^1 f(x)\,\mathrm{d}x$ bằng
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $6$.
+				\item $5$.
+				\item $4$.
+				\item $7$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Cho $\displaystyle \int_1^3 [2f(x) + 1]\,\mathrm{d}x = 10$. Tích phân $\displaystyle \int_1^3 f(x)\,\mathrm{d}x$ bằng
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $4$.
+				\item $6$.
+				\item $3$.
+				\item $5$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Cho $\displaystyle \int_0^2 [3f(x) - 4x^3]\,\mathrm{d}x = 2$. Giá trị của $\displaystyle \int_0^2 f(x)\,\mathrm{d}x$ bằng
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $6$.
+				\item $2$.
+				\item $4$.
+				\item $-6$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Cho $\displaystyle \int_0^1 [f(x) + e^x]\,\mathrm{d}x = e + 2$. Khi đó $\displaystyle \int_0^1 f(x)\,\mathrm{d}x$ bằng
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $3$.
+				\item $2$.
+				\item $e + 1$.
+				\item $1$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Cho $\displaystyle \int_1^2 f(x)\,\mathrm{d}x = 4$ và $\displaystyle \int_2^4 f(t)\,\mathrm{d}t = -1$. Tính tích phân $\displaystyle \int_1^4 f(x)\,\mathrm{d}x$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $5$.
+				\item $3$.
+				\item $-5$.
+				\item $-4$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Cho hàm số $f(x)$ liên tục trên $\mathbb{R}$ thỏa mãn $\displaystyle \int_0^4 f(x)\,\mathrm{d}x = 8$ và $\displaystyle \int_1^4 f(x)\,\mathrm{d}x = 5$. Tích phân $\displaystyle \int_0^1 f(x)\,\mathrm{d}x$ bằng
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $3$.
+				\item $13$.
+				\item $-3$.
+				\item $40$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Cho hàm số $f(x)$ liên tục trên $\mathbb{R}$ có $\displaystyle \int_{-1}^3 f(x)\,\mathrm{d}x = 7$ và $\displaystyle \int_{-1}^1 f(x)\,\mathrm{d}x = 2$. Tính $I = \displaystyle \int_1^3 f(x)\,\mathrm{d}x$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $I = 14$.
+				\item $I = -5$.
+				\item $I = 9$.
+				\item $I = 5$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Cho hàm số $f(x)$ liên tục trên đoạn $[0; 8]$ thỏa mãn $\displaystyle \int_0^8 f(x)\,\mathrm{d}x = 12$ và $\displaystyle \int_3^8 f(x)\,\mathrm{d}x = 7$. Tính tích phân $\displaystyle \int_0^3 [f(x) + 2]\,\mathrm{d}x$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $11$.
+				\item $5$.
+				\item $7$.
+				\item $19$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Cho hàm số $f(x)$ liên tục trên đoạn $[0; 6]$ thỏa mãn $\displaystyle \int_0^6 f(x)\,\mathrm{d}x = 15$ và $\displaystyle \int_2^6 f(x)\,\mathrm{d}x = 9$. Tính giá trị của biểu thức $P = \displaystyle \int_0^2 [3f(x) - 1]\,\mathrm{d}x$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $20$.
+				\item $24$.
+				\item $16$.
+				\item $18$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Cho hàm số $f(x)$ liên tục trên đoạn $[0; 10]$ thỏa mãn $\displaystyle \int_0^{10} f(x)\,\mathrm{d}x = 11$ và $\displaystyle \int_4^{10} f(x)\,\mathrm{d}x = 4$. Tính tích phân $\displaystyle \int_0^4 f(x)\,\mathrm{d}x$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $7$.
+				\item $15$.
+				\item $-7$.
+				\item $44$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Cho hàm số $f(x)$ liên tục trên đoạn $[0; 7]$ thỏa mãn $\displaystyle \int_0^7 f(x)\,\mathrm{d}x = 10$ và $\displaystyle \int_2^5 f(x)\,\mathrm{d}x = 3$. Tính giá trị của biểu thức $P = \displaystyle \int_0^2 f(x)\,\mathrm{d}x + \int_5^7 f(x)\,\mathrm{d}x$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $7$.
+				\item $13$.
+				\item $30$.
+				\item $-7$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Cho hàm số $f(x)$ liên tục trên đoạn $[0; 9]$ thỏa mãn $\displaystyle \int_0^9 f(x)\,\mathrm{d}x = 16$ và $\displaystyle \int_3^6 f(x)\,\mathrm{d}x = 6$. Tính giá trị của biểu thức $P = \displaystyle \int_0^3 f(x)\,\mathrm{d}x + \int_6^9 f(x)\,\mathrm{d}x$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $22$.
+				\item $8$.
+				\item $12$.
+				\item $10$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Cho hai hàm số $f(x), g(x)$ liên tục trên $[1; 3]$ thỏa mãn $\displaystyle \int_1^3 [f(x) + 2g(x)]\,\mathrm{d}x = 9$ và $\displaystyle \int_1^3 [2f(x) - g(x)]\,\mathrm{d}x = 8$. Tính $\displaystyle \int_1^3 f(x)\,\mathrm{d}x$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $4$.
+				\item $2$.
+				\item $3$.
+				\item $5$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Cho hàm số $f(x)$ liên tục trên $\mathbb{R}$ thỏa mãn $\displaystyle \int_0^2 f(x)\,\mathrm{d}x = 3$ và $\displaystyle \int_0^4 f(x)\,\mathrm{d}x = 7$. Tính $I = \displaystyle \int_2^4 [4f(x) - 2x]\,\mathrm{d}x$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $28$.
+				\item $4$.
+				\item $12$.
+				\item $16$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Cho hàm số $f(x)$ liên tục trên đoạn $[1; 5]$ thỏa mãn $\displaystyle \int_1^5 f(x)\,\mathrm{d}x = 12$, $\displaystyle \int_1^3 f(x)\,\mathrm{d}x = 5$ và $\displaystyle \int_4^5 f(x)\,\mathrm{d}x = 3$. Tính tích phân $I = \displaystyle \int_3^4 f(x)\,\mathrm{d}x$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $4$.
+				\item $7$.
+				\item $20$.
+				\item $2$.
+			\end{enumerate}
+		\end{multicols}
+		\item Tính tích phân $I = \displaystyle \int_0^2 (4x - 3)\,\mathrm{d}x$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $2$.
+				\item $4$.
+				\item $-2$.
+				\item $6$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Tính tích phân $I = \displaystyle \int_0^1 (3x^2 - 4x + 2)\,\mathrm{d}x$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $3$.
+				\item $0$.
+				\item $1$.
+				\item $2$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Tích phân $\displaystyle \int_0^1 (2x + 1)(x - 2)\,\mathrm{d}x$ bằng
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $-\dfrac{17}{6}$.
+				\item $-\dfrac{11}{6}$.
+				\item $\dfrac{17}{6}$.
+				\item $-\dfrac{5}{6}$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Tính tích phân $I = \displaystyle \int_0^2 (2x - 1)^2\,\mathrm{d}x$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $\dfrac{14}{3}$.
+				\item $6$.
+				\item $\dfrac{13}{3}$.
+				\item $\dfrac{26}{3}$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Tích phân $\displaystyle \int_1^2 (3x^2 + 2x - 4)\,\mathrm{d}x$ có giá trị bằng
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $6$.
+				\item $2$.
+				\item $8$.
+				\item $4$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Tính tích phân $I = \displaystyle \int_1^e \left( 2x - \dfrac{1}{x} \right)\,\mathrm{d}x$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $e^2 - 1$.
+				\item $e^2 - 2$.
+				\item $e^2$.
+				\item $e^2 + 2$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Tích phân $\displaystyle \int_1^2 \left( x + \dfrac{2}{x} \right)\,\mathrm{d}x$ bằng
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $\dfrac{5}{2} + 2\ln 2$.
+				\item $\dfrac{3}{2} + 2\ln 2$.
+				\item $\dfrac{3}{2} - 2\ln 2$.
+				\item $\dfrac{3}{2} + \ln 2$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Biết $\displaystyle \int_1^2 \dfrac{3x + 1}{x}\,\mathrm{d}x = a + \ln b$ với $a, b$ là các số nguyên dương. Tính tổng $S = a + b$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $S = 6$.
+				\item $S = 5$.
+				\item $S = 4$.
+				\item $S = 7$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Biết $\displaystyle \int_1^3 \dfrac{2x^2 - 1}{x}\,\mathrm{d}x = a - \ln b$ với $a, b$ là các số nguyên dương. Giá trị của biểu thức $P = a \cdot b$ bằng
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $24$.
+				\item $11$.
+				\item $16$.
+				\item $5$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Biết $\displaystyle \int_1^4 \dfrac{x - 2}{x}\,\mathrm{d}x = a + b\ln 2$ với $a, b \in \mathbb{Z}$. Tính $T = 2a + b$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $-1$.
+				\item $2$.
+				\item $10$.
+				\item $-2$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Kết quả của tích phân $I = \displaystyle \int_0^1 3^x\,\mathrm{d}x$ bằng
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $\dfrac{3}{\ln 3}$.
+				\item $\dfrac{2}{\ln 3}$.
+				\item $\dfrac{1}{\ln 3}$.
+				\item $2\ln 3$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Tích phân $\displaystyle \int_1^2 2^x\,\mathrm{d}x$ có giá trị bằng
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $2\ln 2$.
+				\item $\dfrac{2}{\ln 2}$.
+				\item $\dfrac{3}{\ln 2}$.
+				\item $\dfrac{1}{\ln 2}$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Tích phân $\displaystyle \int_0^2 e^x\,\mathrm{d}x$ bằng
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $e^2 - e$.
+				\item $e^2 + 1$.
+				\item $e^2$.
+				\item $e^2 - 1$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Tính tích phân $I = \displaystyle \int_0^1 (e^x + 3x^2)\,\mathrm{d}x$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $e - 1$.
+				\item $e + 2$.
+				\item $e + 1$.
+				\item $e$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Tích phân $\displaystyle \int_0^1 e^{2x}\,\mathrm{d}x$ bằng
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $e^2 - 1$.
+				\item $\dfrac{e^2 - 1}{2}$.
+				\item $\dfrac{e^2 + 1}{2}$.
+				\item $2(e^2 - 1)$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Biết tích phân $\displaystyle \int_0^1 e^{3x+1}\,\mathrm{d}x = \dfrac{a}{b}(e^4 - e)$ với $\dfrac{a}{b}$ là phân số tối giản ($a, b \in \mathbb{N}^*$). Tính $a + b$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $4$.
+				\item $3$.
+				\item $5$.
+				\item $2$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Tính tích phân $I = \displaystyle \int_0^1 e^{1-x}\,\mathrm{d}x$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $e - 1$.
+				\item $e + 1$.
+				\item $e$.
+				\item $1 - e$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Biết $\displaystyle \int_0^2 \dfrac{3}{x + 1}\,\mathrm{d}x = a\ln 3 + b$ với $a, b \in \mathbb{Z}$. Tính giá trị của biểu thức $P = 2a + b$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $P = 5$.
+				\item $P = 0$.
+				\item $P = 3$.
+				\item $P = 6$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Biết $\displaystyle \int_0^1 \dfrac{4}{2x + 1}\,\mathrm{d}x = a\ln 3$ với $a$ là số thực. Giá trị của $a$ bằng
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $1$.
+				\item $\dfrac{1}{2}$.
+				\item $4$.
+				\item $2$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Giá trị của tích phân $I = \displaystyle \int_0^1 \dfrac{2x + 5}{x + 2}\,\mathrm{d}x$ bằng
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $2 + \ln\dfrac{3}{2}$.
+				\item $2 - \ln\dfrac{3}{2}$.
+				\item $2 + \ln 6$.
+				\item $1 + \ln\dfrac{3}{2}$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Biết $\displaystyle \int_1^2 \left( e^x - \dfrac{2}{x} \right)\,\mathrm{d}x = e^2 + a\cdot e + b\ln 2$ với $a, b \in \mathbb{Z}$. Tính giá trị của biểu thức $P = a - b$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $P = -1$.
+				\item $P = 3$.
+				\item $P = -3$.
+				\item $P = 1$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Biết $I = \displaystyle \int_0^1 \dfrac{e^{2x} + 2e^x}{e^x}\,\mathrm{d}x = a\cdot e + b$ với $a, b \in \mathbb{Z}$. Khi đó giá trị của $a + b$ bằng
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $2$.
+				\item $3$.
+				\item $1$.
+				\item $0$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Biết $\displaystyle \int_0^{\pi/4} \cos^2 x\,\mathrm{d}x = \dfrac{\pi}{a} + \dfrac{1}{b}$ với $a, b$ là các số nguyên dương. Tính tổng $S = a + b$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $S = 10$.
+				\item $S = 12$.
+				\item $S = 14$.
+				\item $S = 6$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Tích phân $\displaystyle \int_0^{\pi/2} \sin^2 x\,\mathrm{d}x$ có giá trị bằng
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $1$.
+				\item $\dfrac{\pi}{4}$.
+				\item $\dfrac{\pi}{2}$.
+				\item $\dfrac{\pi}{8}$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Biết $\displaystyle \int_0^{\pi/4} \tan^2 x\,\mathrm{d}x = a - \dfrac{\pi}{b}$ với $a, b \in \mathbb{N}^*$. Khi đó giá trị của $a \cdot b$ bằng
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $4$.
+				\item $5$.
+				\item $2$.
+				\item $3$.
+			\end{enumerate}
+		\end{multicols}
+	
+		% 15 câu dựa trên dạng 50-54 (Tích phân chứa trị tuyệt đối)
+		\item Tính tích phân $I = \displaystyle \int_{0}^{3} |x - 1|\,\mathrm{d}x$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $I = \frac{5}{2}$.
+				\item $I = \frac{3}{2}$.
+				\item $I = \frac{7}{2}$.
+				\item $I = 2$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Tính tích phân $I = \displaystyle \int_{-1}^{2} |2x - 2|\,\mathrm{d}x$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $I = 5$.
+				\item $I = 3$.
+				\item $I = 4$.
+				\item $I = 6$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Tính tích phân $I = \displaystyle \int_{-2}^{2} |x + 1|\,\mathrm{d}x$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $I = 4$.
+				\item $I = 6$.
+				\item $I = 5$.
+				\item $I = 3$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Tính tích phân $I = \displaystyle \int_{0}^{4} |3 - x|\,\mathrm{d}x$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $I = \frac{9}{2}$.
+				\item $I = 4$.
+				\item $I = \frac{11}{2}$.
+				\item $I = 5$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Tính tích phân $I = \displaystyle \int_{0}^{2} |x^2 - x|\,\mathrm{d}x$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $I = \frac{5}{6}$.
+				\item $I = 1$.
+				\item $I = \frac{2}{3}$.
+				\item $I = \frac{1}{2}$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Tính tích phân $I = \displaystyle \int_{0}^{3} |x^2 - 4|\,\mathrm{d}x$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $I = 8$.
+				\item $I = \frac{25}{3}$.
+				\item $I = 7$.
+				\item $I = \frac{23}{3}$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Tính tích phân $I = \displaystyle \int_{-1}^{2} |x^2 - 1|\,\mathrm{d}x$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $I = 2$.
+				\item $I = \frac{8}{3}$.
+				\item $I = \frac{7}{3}$.
+				\item $I = 3$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Tính tích phân $I = \displaystyle \int_{0}^{3} |x^2 - 3x + 2|\,\mathrm{d}x$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $I = 2$.
+				\item $I = \frac{11}{6}$.
+				\item $I = \frac{3}{2}$.
+				\item $I = \frac{5}{3}$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Tính tích phân $I = \displaystyle \int_{-2}^{1} |x^2 + x|\,\mathrm{d}x$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $I = 2$.
+				\item $I = \frac{4}{3}$.
+				\item $I = \frac{5}{2}$.
+				\item $I = \frac{11}{6}$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Tính tích phân $I = \displaystyle \int_{0}^{2} |x^3 - x|\,\mathrm{d}x$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $I = \frac{5}{2}$.
+				\item $I = 2$.
+				\item $I = 3$.
+				\item $I = \frac{9}{4}$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Biết $I = \displaystyle \int_{-1}^{2} |2x - 1|\,\mathrm{d}x = \frac{a}{b}$ với $a, b \in \mathbb{N}^*$ tối giản. Tính $a - b$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $7$.
+				\item $9$.
+				\item $6$.
+				\item $8$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Biết $I = \displaystyle \int_{0}^{3} |x^2 - 2x|\,\mathrm{d}x = \frac{a}{b}$ với $a, b \in \mathbb{N}^*$ tối giản. Tính $a + b$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $9$.
+				\item $11$.
+				\item $12$.
+				\item $10$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Biết $I = \displaystyle \int_{-1}^{1} |x^3 - x^2|\,\mathrm{d}x = \frac{a}{b}$ với $a, b \in \mathbb{N}^*$ tối giản. Tính $a + b$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $13$.
+				\item $7$.
+				\item $9$.
+				\item $11$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Tính tích phân $I = \displaystyle \int_{-1}^{1} (|x| - x^2)\,\mathrm{d}x$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $I = 1$.
+				\item $I = \frac{1}{2}$.
+				\item $I = \frac{1}{3}$.
+				\item $I = \frac{2}{3}$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Tính tích phân $I = \displaystyle \int_{-1}^{2} (|x + 1| - |x|)\,\mathrm{d}x$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $I = \frac{3}{2}$.
+				\item $I = 2$.
+				\item $I = \frac{5}{2}$.
+				\item $I = 3$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% 10 câu dựa trên dạng 65-69 (Liên hệ Nguyên hàm và Tích phân, F(b)-F(a))
+		\item Giả sử $F(x)$ là một nguyên hàm của hàm số $f(x) = \frac{1}{x+1}$ trên $(-1; +\infty)$. Biết $F(0) = 2$, tính giá trị của $F(e - 1)$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $2$.
+				\item $4$.
+				\item $3$.
+				\item $1$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Cho hàm số $f(x)$ liên tục và có đạo hàm trên $[1; 3]$, $f(1) = 4$ và $f(3) = 10$. Tính tích phân $I = \displaystyle \int_{1}^{3} f'(x)\,\mathrm{d}x$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $I = -6$.
+				\item $I = 14$.
+				\item $I = 6$.
+				\item $I = 40$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Biết $F(x) = x^2 - x$ là một nguyên hàm của hàm số $f(x)$ trên $\mathbb{R}$. Tính $I = \displaystyle \int_{1}^{4} f(x)\,\mathrm{d}x$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $I = 14$.
+				\item $I = 8$.
+				\item $I = 12$.
+				\item $I = 10$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Biết $F(x) = \sin x$ là một nguyên hàm của hàm số $f(x)$ trên $\mathbb{R}$. Tính $I = \displaystyle \int_{0}^{\frac{\pi}{2}} [2f(x) + 1]\,\mathrm{d}x$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $I = 1 + \frac{\pi}{2}$.
+				\item $I = 2 + \pi$.
+				\item $I = 2 + \frac{\pi}{2}$.
+				\item $I = 1 - \frac{\pi}{2}$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Cho $F(x)$ là nguyên hàm của hàm số $f(x) = e^x - 1$. Biết $F(0) = 1$, tính $F(1)$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $e - 2$.
+				\item $e + 1$.
+				\item $e$.
+				\item $e - 1$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Cho hàm số $f(x)$ có đạo hàm liên tục trên $[-2; 2]$ thỏa mãn $\displaystyle \int_{-2}^{2} f'(x)\,\mathrm{d}x = 5$ và $f(2) = 1$. Tính $f(-2)$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $4$.
+				\item $6$.
+				\item $-4$.
+				\item $-6$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Biết $F(x) = x^3 - 2x + 1$ là một nguyên hàm của hàm số $f(x)$ trên $\mathbb{R}$. Tính $\displaystyle \int_{-1}^{2} f(x)\,\mathrm{d}x$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $5$.
+				\item $3$.
+				\item $4$.
+				\item $2$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Cho hàm số $F(x)$ là một nguyên hàm của hàm số $f(x) = 2x + 3$ thỏa mãn $F(1) = 5$. Tính $F(3)$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $17$.
+				\item $12$.
+				\item $14$.
+				\item $19$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Giả sử $f(x)$ có đạo hàm liên tục trên $\mathbb{R}$ và $f(0) = 2$, $f(3) = 8$. Tính $I = \displaystyle \int_{0}^{3} [2f'(x) - 1]\,\mathrm{d}x$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $12$.
+				\item $9$.
+				\item $11$.
+				\item $15$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Biết $F(x) = \ln x$ là nguyên hàm của $f(x)$ trên $(0; +\infty)$. Tính $I = \displaystyle \int_{1}^{e} \left[f(x) + \frac{1}{x^2}\right]\,\mathrm{d}x$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $2 + \frac{1}{e}$.
+				\item $1 + \frac{1}{e}$.
+				\item $1 - \frac{1}{e}$.
+				\item $2 - \frac{1}{e}$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% 7 câu dựa trên dạng 74-75 (Tích phân hàm phân nhánh)
+		\item Cho hàm số $f(x) = \begin{cases} 2x + 1 & \text{khi } x \ge 1 \\ 3x^2 & \text{khi } x < 1 \end{cases}$. Tính tích phân $I = \displaystyle \int_{0}^{2} f(x)\,\mathrm{d}x$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $I = 5$.
+				\item $I = 4$.
+				\item $I = 7$.
+				\item $I = 6$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Cho hàm số $f(x) = \begin{cases} 4x - 1 & \text{khi } x \ge 0 \\ e^x & \text{khi } x < 0 \end{cases}$. Tính tích phân $I = \displaystyle \int_{-1}^{2} f(x)\,\mathrm{d}x$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $I = 7 + \frac{1}{e}$.
+				\item $I = 6 - \frac{1}{e}$.
+				\item $I = 5 + \frac{1}{e}$.
+				\item $I = 7 - \frac{1}{e}$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Cho hàm số $f(x) = \begin{cases} 3 & \text{khi } x > 2 \\ x + 1 & \text{khi } x \le 2 \end{cases}$. Tính tích phân $I = \displaystyle \int_{0}^{4} f(x)\,\mathrm{d}x$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $I = 9$.
+				\item $I = 8$.
+				\item $I = 10$.
+				\item $I = 12$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Cho hàm số $f(x) = \begin{cases} x^2 - 1 & \text{khi } x \ge 1 \\ 2x - 2 & \text{khi } x < 1 \end{cases}$. Tính tích phân $I = \displaystyle \int_{0}^{3} f(x)\,\mathrm{d}x$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $I = \frac{17}{3}$.
+				\item $I = 5$.
+				\item $I = \frac{14}{3}$.
+				\item $I = \frac{19}{3}$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Cho hàm số $f(x) = \begin{cases} 1 + \sin x & \text{khi } x \ge 0 \\ \cos x & \text{khi } x < 0 \end{cases}$. Tính tích phân $I = \displaystyle \int_{-\frac{\pi}{2}}^{\frac{\pi}{2}} f(x)\,\mathrm{d}x$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $I = 2$.
+				\item $I = \pi + 1$.
+				\item $I = \frac{\pi}{2} + 2$.
+				\item $I = \frac{\pi}{2} + 1$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Cho hàm số $f(x) = \begin{cases} \frac{1}{x} & \text{khi } x \ge 1 \\ 2x - 1 & \text{khi } x < 1 \end{cases}$. Tính tích phân $I = \displaystyle \int_{0}^{e} f(x)\,\mathrm{d}x$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $I = 1$.
+				\item $I = -1$.
+				\item $I = 0$.
+				\item $I = 2$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Cho hàm số $f(x) = \begin{cases} \sqrt{x} & \text{khi } x \ge 0 \\ x & \text{khi } x < 0 \end{cases}$. Tính tích phân $I = \displaystyle \int_{-2}^{4} f(x)\,\mathrm{d}x$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $I = \frac{10}{3}$.
+				\item $I = \frac{8}{3}$.
+				\item $I = \frac{14}{3}$.
+				\item $I = 4$.
+			\end{enumerate}
+		\end{multicols}
+\end{enumerate}
+	
+	\subsection{Câu trắc nghiệm Đúng/Sai}
+	\textit{Trong mỗi ý a), b), c), d) ở mỗi câu, thí sinh chọn đúng hoặc sai.}
+	
+	\begin{enumerate}[label=\textbf{Câu \arabic*.}]
+		\item Cho hàm số $f(x) = e^x$ liên tục trên $\mathbb{R}$.
+		\begin{enumerate}[label=\alph*)]			\item $\displaystyle \int_0^1 f(x)\,\mathrm{d}x = e + 1$.
+			\item $\displaystyle \int_1^2 f(x)\,\mathrm{d}x = e^2 + e$.
+			\item $\displaystyle \int_0^1 [f(x) - 2x]\,\mathrm{d}x = e - 2$.
+			\item Nếu $F(x)$ là một nguyên hàm của $f(x)$ thỏa mãn $F(0) = 2$ thì $F(1) = e + 1$.
+\end{enumerate}
+	
+		\item Cho $\displaystyle \int_0^2 f(x)\,\mathrm{d}x = 4$.
+		\begin{enumerate}[label=\alph*)]			\item $\displaystyle \int_0^2 3f(x)\,\mathrm{d}x = 12$.
+			\item $\displaystyle \int_0^2 [f(x) - 2x]\,\mathrm{d}x = 0$.
+			\item Nếu $\displaystyle \int_0^1 f(x)\,\mathrm{d}x = 1$ thì $\displaystyle \int_1^2 f(x)\,\mathrm{d}x = 5$.
+			\item $\displaystyle \int_0^2 [2f(x) + e^x]\,\mathrm{d}x = 7 - e^2$.
+\end{enumerate}
+		
+		\item Cho $\displaystyle \int_{-1}^1 f(x)\,\mathrm{d}x = -2$ và $\displaystyle \int_{-1}^1 g(x)\,\mathrm{d}x = 5$.
+		\begin{enumerate}[label=\alph*)]			\item $\displaystyle \int_{-1}^1 [f(x) + g(x)]\,\mathrm{d}x = 3$ + 1.
+			\item $\displaystyle \int_{-1}^1 [2f(x) - g(x)]\,\mathrm{d}x = 1$.
+			\item $\displaystyle \int_{-1}^1 [f(x) - 3x^2]\,\mathrm{d}x = -4$.
+			\item $\displaystyle \int_{-1}^1 [g(x) + 4x^3]\,\mathrm{d}x = 5$ + 1.
+\end{enumerate}
+		
+		\item Cho hàm số $f(x)$ liên tục trên $\mathbb{R}$, biết $\displaystyle \int_1^4 f(x)\,\mathrm{d}x = 10$.
+		\begin{enumerate}[label=\alph*)]			\item $\displaystyle \int_1^2 f(x)\,\mathrm{d}x + \int_2^4 f(x)\,\mathrm{d}x = 10$ + 1.
+			\item $\displaystyle \int_4^1 f(x)\,\mathrm{d}x = 10$.
+			\item $\displaystyle \int_1^4 \left[f(x) + \frac{1}{x}\right]\,\mathrm{d}x = 10 + \ln 4$.
+			\item $\displaystyle \int_1^4 [2f(x) - \sqrt{x}]\,\mathrm{d}x = \frac{46}{3}$.
+\end{enumerate}
+		
+		\item Biết $\displaystyle \int_0^3 f(x)\,\mathrm{d}x = 6$ và $\displaystyle \int_0^3 g(x)\,\mathrm{d}x = 2$.
+		\begin{enumerate}[label=\alph*)]			\item $\displaystyle \int_0^3 [f(x) - 2g(x)]\,\mathrm{d}x = 2$.
+			\item $\displaystyle \int_0^3 f(x)g(x)\,\mathrm{d}x = 12$.
+			\item $\displaystyle \int_0^3 [f(x) + e^{2x}]\,\mathrm{d}x = 6 - \frac{e^6 - 1}{2}$.
+			\item $\displaystyle \int_0^3 \left[3g(x) - \frac{1}{x+1}\right]\,\mathrm{d}x = 6 - \ln 4$.
+\end{enumerate}
+		
+		\item Cho $\displaystyle \int_0^5 f(x)\,\mathrm{d}x = 12$ và $\displaystyle \int_2^5 f(x)\,\mathrm{d}x = 8$.
+		\begin{enumerate}[label=\alph*)]			\item $\displaystyle \int_0^2 f(x)\,\mathrm{d}x = 4$.
+			\item $\displaystyle \int_2^0 f(x)\,\mathrm{d}x = -4$.
+			\item $\displaystyle \int_0^2 [f(x) - 2]\,\mathrm{d}x = 0$.
+			\item $\displaystyle \int_0^2 [3f(x) + 4x]\,\mathrm{d}x = 12$.
+\end{enumerate}
+		
+		\item Cho hàm số $f(x) = ax^2 + bx + c$. Biết $\displaystyle \int_0^1 f(x)\,\mathrm{d}x = 1$, $\displaystyle \int_0^2 f(x)\,\mathrm{d}x = 4$, $\displaystyle \int_0^3 f(x)\,\mathrm{d}x = 9$.
+		\begin{enumerate}[label=\alph*)]			\item $\displaystyle \int_1^2 f(x)\,\mathrm{d}x = 3$ + 1.
+			\item $\displaystyle \int_2^3 f(x)\,\mathrm{d}x = 5$.
+			\item $f(1) = 2$ + 1.
+			\item $f(0) = 1$.
+\end{enumerate}
+		
+		\item Cho $\displaystyle \int_1^e f(x)\,\mathrm{d}x = 2$.
+		\begin{enumerate}[label=\alph*)]			\item $\displaystyle \int_1^e \left[f(x) + \frac{2}{x}\right]\,\mathrm{d}x = 4$.
+			\item $\displaystyle \int_1^e [2f(x) - e^x]\,\mathrm{d}x = 4 - e^e + e$.
+			\item Nếu $\displaystyle \int_1^2 f(x)\,\mathrm{d}x = 0$ thì $\displaystyle \int_2^e f(x)\,\mathrm{d}x = 2$.
+			\item $\displaystyle \int_1^e \frac{f(x)}{x}\,\mathrm{d}x = \frac{2}{e}$.
+\end{enumerate}
+		
+		\item Cho $f(x)$ là hàm số chẵn trên $\mathbb{R}$ và $\displaystyle \int_{-2}^2 f(x)\,\mathrm{d}x = 8$.
+		\begin{enumerate}[label=\alph*)]			\item $\displaystyle \int_{0}^2 f(x)\,\mathrm{d}x = 4$ + 1.
+			\item $\displaystyle \int_{-2}^0 f(x)\,\mathrm{d}x = 4$ + 1.
+			\item $\displaystyle \int_{0}^2 [f(x) - 3x^2]\,\mathrm{d}x = +4$.
+			\item $\displaystyle \int_{-2}^2 [f(x) + x^3]\,\mathrm{d}x = 8$ + 1.
+\end{enumerate}
+		
+		\item Cho $\displaystyle \int_0^{\pi} f(x)\,\mathrm{d}x = 3$.
+		\begin{enumerate}[label=\alph*)]			\item $\displaystyle \int_0^{\pi} [f(x) + \sin x]\,\mathrm{d}x = 5$.
+			\item $\displaystyle \int_0^{\pi} [2f(x) - \cos x]\,\mathrm{d}x = 6$.
+			\item $\displaystyle \int_0^{\pi} [f(x) + 1]\,\mathrm{d}x = 3 - \pi$.
+			\item Nếu $\displaystyle \int_0^{\pi/2} f(x)\,\mathrm{d}x = 1$ thì $\displaystyle \int_{\pi/2}^{\pi} f(x)\,\mathrm{d}x = 3$.
+\end{enumerate}
+		
+		\item Cho $\displaystyle \int_0^1 f(x)\,\mathrm{d}x = a$ và $\displaystyle \int_0^1 g(x)\,\mathrm{d}x = b$.
+		\begin{enumerate}[label=\alph*)]			\item $\displaystyle \int_0^1 [f(x) - g(x)]\,\mathrm{d}x = a + b$.
+			\item $\displaystyle \int_0^1 [2f(x) + 3g(x)]\,\mathrm{d}x = 2a - 3b$.
+			\item $\displaystyle \int_0^1 f(x)g(x)\,\mathrm{d}x = ab$.
+			\item $\displaystyle \int_0^1 [f(x) + e^x]\,\mathrm{d}x = a + e$.
+\end{enumerate}
+
+		\item Cho $\displaystyle \int_1^3 f(x)\,\mathrm{d}x = 5$ và $\displaystyle \int_1^3 g(x)\,\mathrm{d}x = -2$.
+		\begin{enumerate}[label=\alph*)]			\item $\displaystyle \int_1^3 [2f(x) + 3g(x)]\,\mathrm{d}x = 4$.
+			\item $\displaystyle \int_1^3 [f(x) - 4g(x) + x]\,\mathrm{d}x = 17$ + 1.
+			\item $\displaystyle \int_1^3 \left[g(x) - \frac{1}{x^2}\right]\,\mathrm{d}x = -\frac{8}{3}$.
+			\item $\displaystyle \int_1^3 [f(x) \cdot g(x)]\,\mathrm{d}x = -10$.
+\end{enumerate}
+		
+		\item Cho $\displaystyle \int_0^{\frac{\pi}{2}} f(x)\,\mathrm{d}x = 2$ và $\displaystyle \int_0^{\frac{\pi}{2}} g(x)\,\mathrm{d}x = 4$.
+		\begin{enumerate}[label=\alph*)]			\item $\displaystyle \int_0^{\frac{\pi}{2}} [f(x) + g(x)]\,\mathrm{d}x = 6$.
+			\item $\displaystyle \int_0^{\frac{\pi}{2}} [f(x) - \cos x]\,\mathrm{d}x = 1$ + 1.
+			\item $\displaystyle \int_0^{\frac{\pi}{2}} [2g(x) + \sin x]\,\mathrm{d}x = 9$ + 1.
+			\item $\displaystyle \int_0^{\frac{\pi}{2}} [f(x) + g(x) - 2x]\,\mathrm{d}x = 6 - \frac{\pi^2}{4}$.
+\end{enumerate}
+		
+		\item Cho $\displaystyle \int_0^2 f(x)\,\mathrm{d}x = 1$, $\displaystyle \int_2^4 f(x)\,\mathrm{d}x = -3$ và $\displaystyle \int_0^4 g(x)\,\mathrm{d}x = 5$.
+		\begin{enumerate}[label=\alph*)]			\item $\displaystyle \int_0^4 f(x)\,\mathrm{d}x = -2$.
+			\item $\displaystyle \int_0^4 [f(x) - g(x)]\,\mathrm{d}x = -7$.
+			\item $\displaystyle \int_0^4 [2f(x) + g(x) + e^x]\,\mathrm{d}x = 1 + e^4$.
+			\item $\displaystyle \int_4^0 [f(x) + g(x)]\,\mathrm{d}x = +3$.
+\end{enumerate}
+		
+		\item Cho $f(x), g(x)$ liên tục trên $\mathbb{R}$. Biết $\displaystyle \int_{-1}^1 [f(x) + 2x]\,\mathrm{d}x = 4$ và $\displaystyle \int_{-1}^1 [g(x) - x^3]\,\mathrm{d}x = 2$.
+		\begin{enumerate}[label=\alph*)]			\item $\displaystyle \int_{-1}^1 f(x)\,\mathrm{d}x = 4$.
+			\item $\displaystyle \int_{-1}^1 [f(x) - 2g(x)]\,\mathrm{d}x = 0$.
+			\item $\displaystyle \int_{-1}^1 [3f(x) + g(x) - e^x]\,\mathrm{d}x = 14 - e - \frac{1}{e}$.
+			\item $\displaystyle \int_{-1}^1 [f(x) + g(x) - 2]\,\mathrm{d}x = 4$.
+\end{enumerate}
+		
+		\item Cho $\displaystyle \int_1^2 [f(x) - g(x)]\,\mathrm{d}x = 3$ và $\displaystyle \int_1^2 [2f(x) + g(x)]\,\mathrm{d}x = 9$.
+		\begin{enumerate}[label=\alph*)]			\item $\displaystyle \int_1^2 f(x)\,\mathrm{d}x = 4$.
+			\item $\displaystyle \int_1^2 g(x)\,\mathrm{d}x = 1$.
+			\item $\displaystyle \int_1^2 [f(x) \cdot g(x)]\,\mathrm{d}x = 4$.
+			\item $\displaystyle \int_1^2 \left[3f(x) - 2g(x) + \frac{1}{x}\right]\,\mathrm{d}x = 10 + \ln 2$.
+\end{enumerate}
+		
+		\item Cho $\displaystyle \int_0^1 [f(x) + 2g(x)]\,\mathrm{d}x = 5$ và $\displaystyle \int_0^1 [3f(x) - 2g(x)]\,\mathrm{d}x = 3$.
+		\begin{enumerate}[label=\alph*)]			\item $\displaystyle \int_0^1 f(x)\,\mathrm{d}x = 2$ + 1.
+			\item $\displaystyle \int_0^1 2g(x)\,\mathrm{d}x = 3$.
+			\item $\displaystyle \int_0^1 [f(x) - g(x)]\,\mathrm{d}x = \frac{1}{2}$.
+			\item $\displaystyle \int_0^1 [f(x) + 4g(x) - x^2]\,\mathrm{d}x = \frac{20}{3}$.
+\end{enumerate}
+		
+		\item Cho $\displaystyle \int_{-2}^2 [f(x) - 3g(x)]\,\mathrm{d}x = 1$ và $\displaystyle \int_{-2}^2 [f(x) + g(x)]\,\mathrm{d}x = 5$.
+		\begin{enumerate}[label=\alph*)]			\item $\displaystyle \int_{-2}^2 f(x)\,\mathrm{d}x = 4$ + 1.
+			\item $\displaystyle \int_{-2}^2 g(x)\,\mathrm{d}x = 1$ + 1.
+			\item $\displaystyle \int_{-2}^2 [2f(x) + g(x) + |x|]\,\mathrm{d}x = 13$ + 1.
+			\item $\displaystyle \int_{-2}^2 [f(x) - 2g(x) + e^x]\,\mathrm{d}x = 2 - e^2 + e^{-2}$.
+\end{enumerate}
+		
+		\item Cho $f(x), g(x)$ liên tục trên $\mathbb{R}$. Biết $\displaystyle \int_0^3 [2f(x) + g(x)]\,\mathrm{d}x = 8$ và $\displaystyle \int_0^3 [f(x) - 2g(x)]\,\mathrm{d}x = -1$.
+		\begin{enumerate}[label=\alph*)]			\item $\displaystyle \int_0^3 f(x)\,\mathrm{d}x = 3$.
+			\item $\displaystyle \int_0^3 g(x)\,\mathrm{d}x = -2$.
+			\item $\displaystyle \int_0^3 [f(x) + g(x) - x]\,\mathrm{d}x = \frac{1}{2}$ + 1.
+			\item $\displaystyle \int_3^0 [f(x) - g(x)]\,\mathrm{d}x = +1$.
+\end{enumerate}
+		
+		\item Cho hàm số $f(x)$ liên tục trên $\mathbb{R}$. Biết $\displaystyle \int_{-1}^2 f(x)\,\mathrm{d}x = 5$ và $\displaystyle \int_2^5 f(x)\,\mathrm{d}x = -3$.
+		\begin{enumerate}[label=\alph*)]			\item $\displaystyle \int_{-1}^5 f(x)\,\mathrm{d}x = 2$.
+			\item $\displaystyle \int_5^{-1} f(x)\,\mathrm{d}x = +2$.
+			\item $\displaystyle \int_{-1}^5 [2f(x) - 1]\,\mathrm{d}x = 2$.
+			\item $\displaystyle \int_{-1}^5 [f(x) + |x-2|]\,\mathrm{d}x = 11$ + 1.
+\end{enumerate}
+		
+		\item Cho $\displaystyle \int_1^4 f(x)\,\mathrm{d}x = 12$ và $\displaystyle \int_1^4 g(x)\,\mathrm{d}x = 6$.
+		\begin{enumerate}[label=\alph*)]			\item $\displaystyle \int_1^4 \frac{f(x)}{g(x)}\,\mathrm{d}x = 2$.
+			\item $\displaystyle \int_1^4 [f(x) - 2g(x)]\,\mathrm{d}x = 0$ + 1.
+			\item $\displaystyle \int_1^4 \left[f(x) + g(x) - \frac{1}{\sqrt{x}}\right]\,\mathrm{d}x = 16$ + 1.
+			\item $\displaystyle \int_1^4 [f(x) - \sqrt{x}]\,\mathrm{d}x = \frac{22}{3}$.
+\end{enumerate}
+		
+		\item Cho $F(x)$ và $G(x)$ lần lượt là một nguyên hàm của $f(x)$ và $g(x)$ trên $\mathbb{R}$. Biết $F(2) - F(0) = 4$ và $G(2) - G(0) = 2$.
+		\begin{enumerate}[label=\alph*)]			\item $\displaystyle \int_0^2 f(x)\,\mathrm{d}x = 4$ + 1.
+			\item $\displaystyle \int_0^2 [f(x) + 3g(x)]\,\mathrm{d}x = 12$.
+			\item $\displaystyle \int_0^2 [f(x) - g(x) + e^x]\,\mathrm{d}x = 1 - e^2$.
+			\item Nếu $\displaystyle \int_0^2 [2f(x) - g(x) + x^2]\,\mathrm{d}x = a$ thì $a = \frac{26}{3}$.
+\end{enumerate}
+		
+		\item Cho hàm số $f(x)$ liên tục trên đoạn $[0; 4]$. Biết $\displaystyle \int_0^2 f(x)\,\mathrm{d}x = 3$, $\displaystyle \int_0^4 f(x)\,\mathrm{d}x = 7$.
+		\begin{enumerate}[label=\alph*)]			\item $\displaystyle \int_2^4 f(x)\,\mathrm{d}x = 4$ + 1.
+			\item $\displaystyle \int_0^2 [f(x) + x^3]\,\mathrm{d}x = 7$ + 1.
+			\item $\displaystyle \int_2^4 \left[f(x) - \frac{1}{x^2}\right]\,\mathrm{d}x = \frac{15}{4}$.
+			\item $\displaystyle \int_0^4 [2f(x) - \sqrt{x}]\,\mathrm{d}x = \frac{26}{3}$ + 1.
+\end{enumerate}
+		
+		\item Biết $\displaystyle \int_1^3 f(x)\,\mathrm{d}x = 8$ và $\displaystyle \int_1^3 g(x)\,\mathrm{d}x = -3$.
+		\begin{enumerate}[label=\alph*)]			\item $\displaystyle \int_1^3 [f(x) + 2g(x)]\,\mathrm{d}x = 2$.
+			\item $\displaystyle \int_1^3 \frac{f(x) + g(x)}{2}\,\mathrm{d}x = \frac{5}{2}$ + 1.
+			\item $\displaystyle \int_1^3 [f(x) - 4x]\,\mathrm{d}x = 8$.
+			\item $\displaystyle \int_1^3 \left[2f(x) - g(x) - \frac{1}{x}\right]\,\mathrm{d}x = 19 + \ln 3$.
+\end{enumerate}
+		
+		\item Cho $f(x)$ liên tục trên $\mathbb{R}$. Biết $\displaystyle \int_{-1}^0 f(x)\,\mathrm{d}x = 2$ và $\displaystyle \int_0^2 f(x)\,\mathrm{d}x = 5$.
+		\begin{enumerate}[label=\alph*)]			\item $\displaystyle \int_{-1}^2 f(x)\,\mathrm{d}x = 7$.
+			\item $\displaystyle \int_{-1}^2 [3f(x) - 1]\,\mathrm{d}x = 21$.
+			\item $\displaystyle \int_{-1}^2 [f(x) + |x|]\,\mathrm{d}x = \frac{19}{2}$ + 1.
+			\item $\displaystyle \int_0^2 [f(x) - x^2 + x]\,\mathrm{d}x = \frac{13}{3}$.
+\end{enumerate}
+		
+		\item Cho hàm số $f(x)$ liên tục trên $\mathbb{R}$ thỏa mãn $\displaystyle \int_0^e [f(x) + 2x]\,\mathrm{d}x = e^2 + 1$.
+		\begin{enumerate}[label=\alph*)]			\item $\displaystyle \int_0^e f(x)\,\mathrm{d}x = 1$ + 1.
+			\item $\displaystyle \int_0^e [2f(x) - 3x]\,\mathrm{d}x = 2 + \frac{3e^2}{2}$.
+			\item $\displaystyle \int_0^e [f(x) + e^x]\,\mathrm{d}x = e^e + 1$.
+			\item $\displaystyle \int_0^e \left[f(x) - \frac{1}{x+1}\right]\,\mathrm{d}x = 1 - \ln(e+1)$.
+\end{enumerate}
+
+		\item Cho hàm số $f(x) = ax + b$ ($a, b \in \mathbb{R}$). Biết $\displaystyle \int_{-1}^1 f(x)\,\mathrm{d}x = 4$ và $\displaystyle \int_0^2 f(x)\,\mathrm{d}x = 6$.
+		\begin{enumerate}[label=\alph*)]
+			\item $\displaystyle \int_0^1 f(x)\,\mathrm{d}x = \frac{5}{2}$.
+			\item $\displaystyle \int_{-2}^2 f(x)\,\mathrm{d}x = 8$.
+			\item $\displaystyle \int_0^1 [f(x)]^2\,\mathrm{d}x = \frac{19}{3}$.
+			\item $\displaystyle \int_{-1}^2 |f(x)|\,\mathrm{d}x = \frac{17}{2}$.
+		\end{enumerate}
+		
+		\item Cho hàm số $f(x) = ax^2 + bx + c$ ($a, b, c \in \mathbb{R}$). Biết $f(0) = 1$, $\displaystyle \int_0^1 f(x)\,\mathrm{d}x = \frac{4}{3}$ và $\displaystyle \int_{-1}^1 f(x)\,\mathrm{d}x = \frac{2}{3}$.
+		\begin{enumerate}[label=\alph*)]
+			\item $a + b + c = 1$.
+			\item $\displaystyle \int_0^2 f(x)\,\mathrm{d}x = \frac{2}{3}$.
+			\item Hàm số $f(x)$ đồng biến trên khoảng $(0; 1)$.
+			\item $\displaystyle \int_0^1 |f(x)|\,\mathrm{d}x = \frac{4}{3}$.
+		\end{enumerate}
+		
+		\item Cho hàm số $y = f(x)$ có đạo hàm liên tục trên $\mathbb{R}$. Biết đồ thị hàm số có hai điểm cực trị là $A(-1; 5)$ và $B(2; -4)$.
+		\begin{enumerate}[label=\alph*)]
+			\item $\displaystyle \int_{-1}^2 f'(x)\,\mathrm{d}x = -9$.
+			\item $\displaystyle \int_{-1}^2 |f'(x)|\,\mathrm{d}x = 9$.
+			\item $\displaystyle \int_{-1}^2 [f'(x) + 2x]\,\mathrm{d}x = -5$.
+			\item $\displaystyle \int_{-1}^2 f(x)f'(x)\,\mathrm{d}x = -\frac{9}{2}$.
+		\end{enumerate}
+		
+		\item Cho hàm số $f(x) = \begin{cases} x^2 - 1 & \text{nếu } x \ge 1 \\ 1 - x & \text{nếu } x < 1 \end{cases}$.
+		\begin{enumerate}[label=\alph*)]
+			\item $\displaystyle \int_0^1 f(x)\,\mathrm{d}x = \frac{1}{2}$.
+			\item $\displaystyle \int_1^2 f(x)\,\mathrm{d}x = \frac{5}{3}$.
+			\item $\displaystyle \int_0^2 f(x)\,\mathrm{d}x = \frac{11}{6}$.
+			\item $\displaystyle \int_0^2 |f(x)|\,\mathrm{d}x = \frac{11}{6}$.
+		\end{enumerate}
+		
+		\item Cho $f(x)$ là hàm số lẻ, liên tục trên $\mathbb{R}$ và $\displaystyle \int_0^2 f(x)\,\mathrm{d}x = 4$.
+		\begin{enumerate}[label=\alph*)]
+			\item $\displaystyle \int_{-2}^2 f(x)\,\mathrm{d}x = 0$.
+			\item $\displaystyle \int_{-2}^0 f(x)\,\mathrm{d}x = 4$.
+			\item $\displaystyle \int_{-2}^2 [f(x) + x^2]\,\mathrm{d}x = \frac{16}{3}$.
+			\item $\displaystyle \int_{-2}^0 [2f(x) - e^x]\,\mathrm{d}x = -9 - e^{-2}$.
+		\end{enumerate}
+		
+		\item Cho $\displaystyle \int_0^2 f(x)\,\mathrm{d}x = 2$, $\displaystyle \int_2^4 f(x)\,\mathrm{d}x = -1$. Gọi $F(x)$ là một nguyên hàm của $f(x)$ trên $\mathbb{R}$ thỏa mãn $F(0) = 1$.
+		\begin{enumerate}[label=\alph*)]
+			\item $F(2) = 3$.
+			\item $F(4) = 3$.
+			\item $\displaystyle \int_0^4 f(x)\,\mathrm{d}x = 1$.
+			\item $\displaystyle \int_0^2 f(x)F(x)\,\mathrm{d}x = 4$.
+		\end{enumerate}
+		
+		\item Cho hàm số $y = f(x)$ có đạo hàm liên tục trên $\mathbb{R}$. Biết $f(1) = 2$ và $\displaystyle \int_1^3 f'(x)\,\mathrm{d}x = 4$.
+		\begin{enumerate}[label=\alph*)]
+			\item $f(3) = 6$.
+			\item $\displaystyle \int_1^3 [f'(x) - 3x^2]\,\mathrm{d}x = -22$.
+			\item $\displaystyle \int_1^3 \left[2f'(x) + \frac{1}{x}\right]\,\mathrm{d}x = 8 - \ln 3$.
+			\item Nếu $\displaystyle \int_1^3 f(x)\,\mathrm{d}x = 10$ thì $\displaystyle \int_1^3 [f(x) - 2f'(x)]\,\mathrm{d}x = 2$.
+		\end{enumerate}
+
+		\item Cho hàm số $f(x) = \begin{cases} 2x + m & \text{khi } x \ge 2 \\ x^2 - 1 & \text{khi } x < 2 \end{cases}$ ($m$ là tham số thực) liên tục trên $\mathbb{R}$. Biết $F(x)$ là một nguyên hàm của $f(x)$ thỏa mãn $F(0) = 2$.
+		\begin{enumerate}[label=\alph*)]
+			\item $m = 1$.
+			\item $F(3) = \frac{20}{3}$.
+			\item $\displaystyle \int_0^3 f(x)\,\mathrm{d}x = \frac{14}{3}$.
+			\item Nếu $\displaystyle \int_0^2 f(x)\,\mathrm{d}x = \frac{a}{b}$ với $a, b \in \mathbb{Z}^+$ và $\frac{a}{b}$ là phân số tối giản thì $a - b = -1$.
+		\end{enumerate}
+		
+		\item Cho hàm số $f(x) = \begin{cases} e^x + m & \text{khi } x \ge 0 \\ 2x + 1 & \text{khi } x < 0 \end{cases}$ ($m$ là tham số thực) liên tục trên $\mathbb{R}$.
+		\begin{enumerate}[label=\alph*)]
+			\item $m = 0$.
+			\item $\displaystyle \int_{-1}^1 f(x)\,\mathrm{d}x = e$.
+			\item $\displaystyle \int_0^{\ln 2} f(x)\,\mathrm{d}x = 1$.
+			\item Biết $F(x)$ là nguyên hàm của $f(x)$ thỏa mãn $F(-1) = 0$, khi đó $F(1) = e - 1$.
+		\end{enumerate}
+		
+		\item Cho hàm số $f(x) = \begin{cases} \cos x & \text{khi } x \ge 0 \\ x^2 + m & \text{khi } x < 0 \end{cases}$ ($m$ là tham số thực) liên tục trên $\mathbb{R}$. Biết $F(x)$ là một nguyên hàm của $f(x)$ thỏa mãn $F(0) = 1$.
+		\begin{enumerate}[label=\alph*)]
+			\item $m = 1$.
+			\item $F(\pi) = 1$.
+			\item $\displaystyle \int_{-\pi}^0 f(x)\,\mathrm{d}x = \frac{\pi^3}{3} + \pi$.
+			\item $\displaystyle \int_{-\pi}^{\frac{\pi}{2}} f(x)\,\mathrm{d}x = \frac{\pi^3}{3} + \pi + 2$.
+		\end{enumerate}
+		
+		\item Cho hàm số $f(x) = \begin{cases} \frac{1}{x} & \text{khi } x \ge 1 \\ mx + 1 & \text{khi } x < 1 \end{cases}$ ($m$ là tham số thực) liên tục trên $\mathbb{R}$.
+		\begin{enumerate}[label=\alph*)]
+			\item $m = 0$.
+			\item $\displaystyle \int_0^e f(x)\,\mathrm{d}x = 2$.
+			\item Biết $F(x)$ là một nguyên hàm của $f(x)$ và $F(e) = 3$. Khi đó $F(0) = 0$.
+			\item $\displaystyle \int_{-1}^2 f(x)\,\mathrm{d}x = 2 + \ln 2$.
+		\end{enumerate}
+		
+		\item Cho hàm số $f(x) = 3^x - 9$.
+		\begin{enumerate}[label=\alph*)]
+			\item Tập xác định của hàm số $f(x)$ là $D = [0; +\infty)$.
+			\item $\displaystyle \int_0^2 f(x)\,\mathrm{d}x = \frac{8}{\ln 3} - 18$.
+			\item $\displaystyle \int_0^1 f(x+1)\,\mathrm{d}x = \frac{6}{\ln 3} - 9$.
+			\item Biết $\displaystyle \int_0^3 |f(x)|\,\mathrm{d}x = a + \frac{b}{\ln 3}$ với $a, b \in \mathbb{Z}$. Khi đó $a + b = 19$.
+		\end{enumerate}
+		
+		\item Cho hàm số $f(x) = e^x - 1$.
+		\begin{enumerate}[label=\alph*)]
+			\item Đồ thị hàm số cắt trục hoành tại điểm có hoành độ $x=0$.
+			\item $\displaystyle \int_0^1 f(x)\,\mathrm{d}x = e - 1$.
+			\item $\displaystyle \int_0^1 f(2x)\,\mathrm{d}x = \frac{e^2 - 3}{2}$.
+			\item $\displaystyle \int_{-1}^1 |f(x)|\,\mathrm{d}x = e + \frac{1}{e} - 2$.
+		\end{enumerate}
+		
+		\item Cho hàm số $f(x) = \frac{1}{x+1} - 1$.
+		\begin{enumerate}[label=\alph*)]
+			\item Hàm số liên tục trên khoảng $(0; +\infty)$.
+			\item $\displaystyle \int_0^2 f(x)\,\mathrm{d}x = \ln 3 - 2$.
+			\item $\displaystyle \int_0^2 f(x+1)\,\mathrm{d}x = \ln \frac{4}{3} - 2$.
+			\item Biết $\displaystyle \int_0^3 |f(x)|\,\mathrm{d}x = a + \ln b$ với $a \in \mathbb{Z}, b \in \mathbb{Q}$. Khi đó $a + b = 3$.
+		\end{enumerate}
+		
+		\item Cho hàm số $f(x) = 4^x - 2^x$.
+		\begin{enumerate}[label=\alph*)]
+			\item $f(x) \ge 0$ với mọi $x \ge 0$.
+			\item $\displaystyle \int_0^1 f(x)\,\mathrm{d}x = \frac{3}{2\ln 2}$.
+			\item $\displaystyle \int_0^1 f(x+1)\,\mathrm{d}x = \frac{3}{\ln 2}$.
+			\item $\displaystyle \int_{-1}^1 |f(x)|\,\mathrm{d}x = \frac{5}{8\ln 2}$.
+		\end{enumerate}
+		
+		\item Cho hàm số $f(x), g(x)$ liên tục trên $\mathbb{R}$ thỏa mãn $\displaystyle \int_1^3 f(x)\,\mathrm{d}x = 2$, $\displaystyle \int_1^3 g(x)\,\mathrm{d}x = -1$.
+		\begin{enumerate}[label=\alph*)]
+			\item $\displaystyle \int_1^3 \frac{1}{2}f(x)\,\mathrm{d}x = 1$.
+			\item $\displaystyle \int_1^3 [3f(x) - g(x)]\,\mathrm{d}x = 7$.
+			\item Biết $\displaystyle \int_1^3 \left[2f(x) + g(x) - \frac{1}{x}\right]\,\mathrm{d}x = a - \ln b$ với $a, b \in \mathbb{Z}^+$. Khi đó $a+b = 6$.
+			\item Biết $\displaystyle \int_1^3 \left[f(x) - 2g(x) + e^{x-1}\right]\,\mathrm{d}x = a + e^b - e^c$ với $a, b, c \in \mathbb{Z}$. Khi đó $a+b+c = 7$.
+		\end{enumerate}
+		
+		\item Cho hàm số $f(x), g(x)$ liên tục trên $\mathbb{R}$ thỏa mãn $\displaystyle \int_0^2 f(x)\,\mathrm{d}x = -3$, $\displaystyle \int_0^2 g(x)\,\mathrm{d}x = 5$.
+		\begin{enumerate}[label=\alph*)]
+			\item $\displaystyle \int_0^2 [f(x) + 2]\,\mathrm{d}x = 1$.
+			\item $\displaystyle \int_0^2 [g(x) - x]\,\mathrm{d}x = 3$.
+			\item Biết $\displaystyle \int_0^2 \left[2f(x) - 3g(x) + \frac{4}{x+1}\right]\,\mathrm{d}x = a + b\ln c$ với $a, b, c \in \mathbb{Z}$ ($c > 0$). Khi đó $a+b+c = -14$.
+			\item Tính được tích phân $\displaystyle \int_0^2 [f(x)g(x)]\,\mathrm{d}x = -15$.
+		\end{enumerate}
+		
+		\item Cho hàm số $f(x), g(x)$ liên tục trên $\mathbb{R}$ thỏa mãn $\displaystyle \int_{-1}^1 f(x)\,\mathrm{d}x = 4$, $\displaystyle \int_{-1}^1 g(x)\,\mathrm{d}x = 2$.
+		\begin{enumerate}[label=\alph*)]
+			\item $\displaystyle \int_{-1}^1 [f(x) - g(x)]\,\mathrm{d}x = 2$.
+			\item $\displaystyle \int_{-1}^1 [f(x) + 3g(x) - 2x]\,\mathrm{d}x = 10$.
+			\item Biết $\displaystyle \int_{-1}^1 \left[\frac{1}{2}f(x) + g(x) - e^{x+1}\right]\,\mathrm{d}x = a - e^b + 1$ với $a, b \in \mathbb{Z}$. Khi đó $a+b = 5$.
+			\item Biết $\displaystyle \int_{-1}^1 \left[2f(x) - \frac{1}{3}g(x) + x^3\right]\,\mathrm{d}x = \frac{a}{b}$ với $\frac{a}{b}$ là phân số tối giản và $a, b \in \mathbb{Z}^+$. Khi đó $a-b = 19$.
+		\end{enumerate}
+		
+		\item Cho hàm số $f(x)$ liên tục trên $\mathbb{R}$ thỏa mãn $\displaystyle \int_0^1 f(x)\,\mathrm{d}x = 2$, $\displaystyle \int_1^2 f(x)\,\mathrm{d}x = -1$.
+		\begin{enumerate}[label=\alph*)]
+			\item $\displaystyle \int_0^2 f(x)\,\mathrm{d}x = 3$.
+			\item $\displaystyle \int_0^1 [2f(x) - x^2]\,\mathrm{d}x = \frac{11}{3}$.
+			\item Biết $\displaystyle \int_0^2 [f(x) + e^x]\,\mathrm{d}x = e^a + b$ với $a, b \in \mathbb{Z}$. Khi đó $a+b = 3$.
+			\item Biết $\displaystyle \int_0^2 \left[3f(x) - \frac{1}{x+1}\right]\,\mathrm{d}x = a - \ln b$ với $a, b \in \mathbb{Z}^+$. Khi đó $a+b = 6$.
+		\end{enumerate}
+\end{enumerate}
+	
+	\subsection{Câu trắc nghiệm Trả lời ngắn}
+	\textit{Thí sinh viết câu trả lời là một số nguyên hoặc phân số/số thập phân tối giản.}
+	
+	\begin{enumerate}[label=\textbf{Câu \arabic*.}]
+		\item Cho $\displaystyle \int_0^3 f(x)\,\mathrm{d}x = 5$. Tính giá trị của tích phân $I = \displaystyle \int_0^3 [2f(x) - 1]\,\mathrm{d}x$.
+		\vspace{0.75cm}
+		
+		\item Cho hàm số $f(x)$ liên tục trên $[0; 10]$ thỏa mãn $\displaystyle \int_0^{10} f(x)\,\mathrm{d}x = 7$ và $\displaystyle \int_2^{10} f(x)\,\mathrm{d}x = 3$. Tính tích phân $\displaystyle \int_0^2 f(x)\,\mathrm{d}x$.
+		\vspace{0.75cm}
+	
+		\item Biết $\displaystyle \int_1^2 [f(x)+3x^2]\,\mathrm{d}x = 10$. Tính $\displaystyle \int_1^2 f(x)\,\mathrm{d}x$.
+		\vspace{0.75cm}
+		
+		\item Cho $\displaystyle \int_0^2 f(x)\,\mathrm{d}x = 4$. Tính $\displaystyle \int_0^2 [f(x)-3]\,\mathrm{d}x$.
+		\vspace{0.75cm}
+		
+		\item Cho $\displaystyle \int_0^1 f(x)\,\mathrm{d}x = 2$. Tính $\displaystyle \int_0^1 [f(x)+2x]\,\mathrm{d}x$.
+		\vspace{0.75cm}
+		
+		\item Cho $\displaystyle \int_0^2 f(x)\,\mathrm{d}x = 1$. Tính $\displaystyle \int_0^2 [2f(x)-3x^2]\,\mathrm{d}x$.
+		\vspace{0.75cm}
+		
+		\item Cho $\displaystyle \int_1^2 f(x)\,\mathrm{d}x = -1$ và $\displaystyle \int_1^2 g(x)\,\mathrm{d}x = 3$. Tính $\displaystyle \int_1^2 [f(x)-g(x)]\,\mathrm{d}x$.
+		\vspace{0.75cm}
+		
+		\item Biết $\displaystyle \int_1^2 f(x)\,\mathrm{d}x = -3$ và $\displaystyle \int_1^2 g(x)\,\mathrm{d}x = 2$. Tính $\displaystyle \int_1^2 [3f(x)-2g(x)]\,\mathrm{d}x$.
+		\vspace{0.75cm}
+		
+		\item Cho $\displaystyle \int_0^1 f(x)\,\mathrm{d}x = 2$ và $\displaystyle \int_0^1 g(x)\,\mathrm{d}x = -1$. Tính $\displaystyle \int_0^1 [x+2f(x)+3g(x)]\,\mathrm{d}x$.
+		\vspace{0.75cm}
+		
+		\item Biết $\displaystyle \int_0^2 f(x)\,\mathrm{d}x = -2$ và $\displaystyle \int_0^2 g(x)\,\mathrm{d}x = -3$. Tính $\displaystyle \int_0^2 [f(x)-g(x)]\,\mathrm{d}x$.
+		\vspace{0.75cm}
+		
+		\item Biết $\displaystyle \int_1^2 f(x)\,\mathrm{d}x = 3$, $\displaystyle \int_1^2 g(x)\,\mathrm{d}x = 2$, $\displaystyle \int_1^2 h(x)\,\mathrm{d}x = 2025$. Tính $\displaystyle \int_1^2 [f(x)-g(x)+h(x)]\,\mathrm{d}x$.
+		\vspace{0.75cm}
+		
+		\item Cho hàm số $f(x)$ liên tục trên đoạn $[0;10]$ thỏa mãn $\displaystyle \int_0^2 f(x)\,\mathrm{d}x = 7$ và $\displaystyle \int_2^{10} f(x)\,\mathrm{d}x = 3$. Tính $\displaystyle \int_0^{10} f(x)\,\mathrm{d}x$.
+		\vspace{0.75cm}
+		
+		\item Giả sử $\displaystyle \int_0^3 f(x)\,\mathrm{d}x = 3$ và $\displaystyle \int_0^4 f(x)\,\mathrm{d}x = 9$. Tính giá trị của biểu thức $I = \displaystyle \int_0^3 f(x)\,\mathrm{d}x + \displaystyle \int_3^4 f(x)\,\mathrm{d}x$.
+		\vspace{0.75cm}
+		
+		\item Cho $\displaystyle \int_0^2 f(x)\,\mathrm{d}x = 2$ và $\displaystyle \int_0^2 g(x)\,\mathrm{d}x = -1$. Tính $\displaystyle \int_0^2 [x+2f(x)-3g(x)]\,\mathrm{d}x$.
+		\vspace{0.75cm}
+		
+		\item Nếu $\displaystyle \int_1^4 f(x)\,\mathrm{d}x = -2$ và $\displaystyle \int_1^4 g(x)\,\mathrm{d}x = -6$ thì $\displaystyle \int_1^4 [2f(x)-g(x)+1]\,\mathrm{d}x$ bằng bao nhiêu?
+		\vspace{0.75cm}
+		
+		\item Cho hàm số $y = f(x)$ liên tục trên $\mathbb{R}$ và $\displaystyle \int_0^1 f(x)\,\mathrm{d}x = 10$, $\displaystyle \int_1^3 f(x)\,\mathrm{d}x = 4$. Khi đó $\displaystyle \int_0^3 f(x)\,\mathrm{d}x$ bằng bao nhiêu?
+		\vspace{0.75cm}
+		
+		\item Nếu $\displaystyle \int_{-1}^2 2f(x)\,\mathrm{d}x = 6$ thì $\displaystyle \int_{-1}^2 [f(x)+2x]\,\mathrm{d}x$ bằng bao nhiêu?
+		\vspace{0.75cm}
+		
+		\item Cho $\displaystyle \int_0^{\ln 2} [2f(x)+e^x]\,\mathrm{d}x = 5$. Khi đó $\displaystyle \int_0^{\ln 2} f(x)\,\mathrm{d}x$ bằng bao nhiêu?
+		\vspace{0.75cm}
+		
+		\item Nếu $\displaystyle \int_0^{\ln 2} [f(x)+e^x]\,\mathrm{d}x = 6$ thì $\displaystyle \int_0^{\ln 2} f(x)\,\mathrm{d}x$ bằng bao nhiêu?
+		\vspace{0.75cm}
+		
+		\item Cho hàm số $y=f(x)$ xác định và liên tục trên $\mathbb{R}$, thỏa mãn $\displaystyle \int_0^{\frac{\pi}{2}} [f(x)+\sin x]\,\mathrm{d}x = 10$. Tính $\displaystyle \int_0^{\frac{\pi}{2}} f(x)\,\mathrm{d}x$.
+		\vspace{0.75cm}
+		
+		\item Cho $\displaystyle \int_1^3 f(x)\,\mathrm{d}x = 5$. Tính $\displaystyle \int_1^3 \left[3f(x) - \frac{3}{x^2}\right]\,\mathrm{d}x$.
+		\vspace{0.75cm}
+		
+		\item Biết $\displaystyle \int_0^2 f(x)\,\mathrm{d}x = 3$ và $\displaystyle \int_0^4 f(x)\,\mathrm{d}x = 7$. Tính $\displaystyle \int_2^4 f(x)\,\mathrm{d}x$.
+		\vspace{0.75cm}
+		
+		\item Cho hàm số $f(x)$ liên tục trên $\mathbb{R}$. Biết $\displaystyle \int_{-2}^1 f(x)\,\mathrm{d}x = 2$ và $\displaystyle \int_1^5 f(x)\,\mathrm{d}x = -6$. Tính $\displaystyle \int_{-2}^5 [f(x) + 2]\,\mathrm{d}x$.
+		\vspace{0.75cm}
+		
+		\item Cho $\displaystyle \int_0^1 f(x)\,\mathrm{d}x = -2$. Tính $\displaystyle \int_0^1 \left[f(x) - 4x^3\right]\,\mathrm{d}x$.
+		\vspace{0.75cm}
+		
+		\item Biết $\displaystyle \int_{-1}^2 [3f(x) - 2]\,\mathrm{d}x = 6$. Tính $\displaystyle \int_{-1}^2 f(x)\,\mathrm{d}x$.
+		\vspace{0.75cm}
+		
+		\item Cho $\displaystyle \int_0^{\frac{\pi}{4}} [f(x) - \cos 2x]\,\mathrm{d}x = 2$. Tính $\displaystyle \int_0^{\frac{\pi}{4}} f(x)\,\mathrm{d}x$.
+		\vspace{0.75cm}
+		
+		\item Nếu $\displaystyle \int_1^e \left[2f(x) + \frac{3}{x}\right]\,\mathrm{d}x = 9$ thì $\displaystyle \int_1^e f(x)\,\mathrm{d}x$ bằng bao nhiêu?
+		\vspace{0.75cm}
+
+		\item Tính giá trị của tích phân $I = \displaystyle \int_0^1 (3x^2 - 4x + 2)\,\mathrm{d}x$.
+		\vspace{0.75cm}
+		
+		\item Tính giá trị của tích phân $I = \displaystyle \int_0^{\frac{\pi}{2}} \cos x\,\mathrm{d}x$.
+		\vspace{0.75cm}
+		
+		\item Tính giá trị của tích phân $I = \displaystyle \int_0^{\ln 3} e^x\,\mathrm{d}x$.
+		\vspace{0.75cm}
+		
+		\item Tính giá trị của tích phân $I = \displaystyle \int_1^2 \frac{1}{x^2}\,\mathrm{d}x$.
+		\vspace{0.75cm}
+		
+		\item Tính giá trị của tích phân $I = \displaystyle \int_1^4 \frac{1}{2\sqrt{x}}\,\mathrm{d}x$.
+		\vspace{0.75cm}
+		
+		\item Biết $\displaystyle \int_1^2 \left( 1 + \frac{1}{x} \right)\,\mathrm{d}x = a + \ln b$ với $a, b \in \mathbb{Z}^+$. Tính $S = a + b$.
+		\vspace{0.75cm}
+		
+		\item Biết $\displaystyle \int_0^1 \frac{2}{x+1}\,\mathrm{d}x = a\ln 2$ với $a \in \mathbb{Z}$. Tính $a$.
+		\vspace{0.75cm}
+		
+		\item Biết $\displaystyle \int_1^3 \frac{3x+1}{x}\,\mathrm{d}x = a + \ln b$ với $a, b \in \mathbb{Z}^+$. Tính $S = a + b$.
+		\vspace{0.75cm}
+		
+		\item Biết $\displaystyle \int_0^2 \frac{4}{2x+1}\,\mathrm{d}x = a\ln b$ với $a \in \mathbb{Z}$ và $b$ là số nguyên tố. Tính $S = a + b$.
+		\vspace{0.75cm}
+		
+		\item Biết $\displaystyle \int_1^2 \left( 4x - \frac{2}{x} \right)\,\mathrm{d}x = a - b\ln 2$ với $a, b \in \mathbb{Z}^+$. Tính $P = a \cdot b$.
+		\vspace{0.75cm}
+		
+		\item Biết $\displaystyle \int_0^1 (2e^x + 1)\,\mathrm{d}x = a e + b$ với $a, b \in \mathbb{Z}$. Tính $S = a + b$.
+		\vspace{0.75cm}
+		
+		\item Biết $\displaystyle \int_1^2 e^{x-1}\,\mathrm{d}x = e^a + b$ với $a, b \in \mathbb{Z}$. Tính $S = a + b$.
+		\vspace{0.75cm}
+		
+		\item Biết $\displaystyle \int_0^2 \left(x + e^{\frac{x}{2}}\right)\,\mathrm{d}x = a e + b$ với $a, b \in \mathbb{Z}$. Tính $S = a - b$.
+		\vspace{0.75cm}
+		
+		\item Biết $\displaystyle \int_0^1 (3x^2 - e^x)\,\mathrm{d}x = a - e^b$ với $a, b \in \mathbb{Z}$. Tính $S = a + b$.
+		\vspace{0.75cm}
+		
+		\item Biết $\displaystyle \int_0^2 (4e^{2x} - 3)\,\mathrm{d}x = a e^4 + b$ với $a, b \in \mathbb{Z}$. Tính $S = a + b$.
+		\vspace{0.75cm}
+		
+		\item Biết $F(x) = x^2 - 3x$ là một nguyên hàm của hàm số $f(x)$. Tính $I = \displaystyle \int_1^3 f(x)\,\mathrm{d}x$.
+		\vspace{0.75cm}
+		
+		\item Biết $F(x) = x^3 - 2x^2 + x$ là một nguyên hàm của hàm số $f(x)$. Tính $I = \displaystyle \int_0^2 [f(x) - 1]\,\mathrm{d}x$.
+		\vspace{0.75cm}
+		
+		\item Biết $F(x) = \sin x + x$ là một nguyên hàm của hàm số $f(x)$. Tính $I = \displaystyle \int_0^{\frac{\pi}{2}} f(x)\,\mathrm{d}x - \frac{\pi}{2}$.
+		\vspace{0.75cm}
+		
+		\item Biết $F(x) = 2x^3 - 3x^2$ là một nguyên hàm của hàm số $f(x)$. Tính $I = \displaystyle \int_{-1}^2 [f(x) + 2x]\,\mathrm{d}x$.
+		\vspace{0.75cm}
+		
+		\item Biết $F(x) = e^{2x}$ là một nguyên hàm của hàm số $f(x)$. Tính $I = \displaystyle \int_0^{\ln 2} f(x)\,\mathrm{d}x$.
+		\vspace{0.75cm}
+		
+		\item Có bao nhiêu giá trị nguyên dương của $m$ để $\displaystyle \int_0^m (2x - 4)\,\mathrm{d}x < 0$?
+		\vspace{0.75cm}
+		
+		\item Tìm số thực $a > 0$ thỏa mãn $\displaystyle \int_0^a (3x^2 - 2x)\,\mathrm{d}x = 4$.
+		\vspace{0.75cm}
+		
+		\item Cho $\displaystyle \int_1^m (2x - 3)\,\mathrm{d}x = 0$ với $m > 1$. Tìm giá trị của $m$.
+		\vspace{0.75cm}
+		
+		\item Tìm $m > 0$ biết $\displaystyle \int_0^m e^x\,\mathrm{d}x = e^3 - 1$.
+		\vspace{0.75cm}
+		
+		\item Có bao nhiêu giá trị nguyên của tham số $m \in [-5; 5]$ để $\displaystyle \int_0^1 (3x^2 - 2mx)\,\mathrm{d}x \ge 0$?
+		\vspace{0.75cm}
+		
+		\item Tính giá trị của tích phân $I = \displaystyle \int_0^3 |x-1|\,\mathrm{d}x$.
+		\vspace{0.75cm}
+		
+		\item Tính giá trị của tích phân $I = \displaystyle \int_{-2}^2 |x^2 - 1|\,\mathrm{d}x$.
+		\vspace{0.75cm}
+		
+		\item Cho hàm số $f(x) = \begin{cases} 2x & \text{nếu } x \ge 1 \\ 2 & \text{nếu } x < 1 \end{cases}$. Tính $I = \displaystyle \int_0^2 f(x)\,\mathrm{d}x$.
+		\vspace{0.75cm}
+		
+		\item Cho hàm số $f(x) = |2x - 4|$. Tính $I = \displaystyle \int_0^4 f(x)\,\mathrm{d}x$.
+		\vspace{0.75cm}
+		
+		\item Có bao nhiêu số nguyên $a \in (0; 5)$ thỏa mãn $\displaystyle \int_0^a |x-2|\,\mathrm{d}x = 2$?
+		\vspace{0.75cm}
+
+		\item Cho hàm số $f(x) = \begin{cases} 2x + 1 & \text{khi } x \ge 1 \\ 3x^2 & \text{khi } x < 1 \end{cases}$. Tính $I = \displaystyle \int_0^2 f(x)\,\mathrm{d}x$.
+		\vspace{0.75cm}
+		
+		\item Cho hàm số $f(x) = \begin{cases} 3x^2 - 1 & \text{khi } x \ge 0 \\ x + 2 & \text{khi } x < 0 \end{cases}$. Tính $I = \displaystyle \int_{-2}^1 f(x)\,\mathrm{d}x$.
+		\vspace{0.75cm}
+		
+		\item Cho hàm số $f(x) = \begin{cases} e^x & \text{khi } x \ge 0 \\ 1 - x & \text{khi } x < 0 \end{cases}$. Biết $\displaystyle \int_{-1}^1 f(x)\,\mathrm{d}x = e - a$ với $a$ là số thực. Tính $2a$.
+		\vspace{0.75cm}
+		
+		\item Cho hàm số $f(x) = \begin{cases} 4x^3 & \text{khi } x \ge 1 \\ 4 & \text{khi } x < 1 \end{cases}$. Tính $I = \displaystyle \int_0^2 f(x)\,\mathrm{d}x$.
+		\vspace{0.75cm}
+		
+		\item Cho hàm số $f(x) = \begin{cases} \frac{1}{x} & \text{khi } x \ge 1 \\ 2x & \text{khi } x < 1 \end{cases}$. Biết $\displaystyle \int_0^e f(x)\,\mathrm{d}x = a$. Tính $a$.
+		\vspace{0.75cm}
+		
+		\item Cho hàm số $f(x) = \begin{cases} 3 & \text{khi } x \ge 2 \\ 2x - 1 & \text{khi } x < 2 \end{cases}$. Tính $I = \displaystyle \int_0^4 f(x)\,\mathrm{d}x$.
+		\vspace{0.75cm}
+		
+		\item Cho hàm số $f(x) = \begin{cases} x^2 - x & \text{khi } x \ge 1 \\ x - 1 & \text{khi } x < 1 \end{cases}$. Tính $6 \cdot \displaystyle \int_0^2 f(x)\,\mathrm{d}x$.
+		\vspace{0.75cm}
+		
+		\item Cho hàm số $f(x) = \begin{cases} \frac{2}{x+1} & \text{khi } x \ge 0 \\ x^2 + 2 & \text{khi } x < 0 \end{cases}$. Biết $\displaystyle \int_{-3}^1 f(x)\,\mathrm{d}x = a + b\ln 2$ với $a, b \in \mathbb{Z}$. Tính $S = a + b$.
+		\vspace{0.75cm}
+		
+		\item Cho hàm số $f(x) = \begin{cases} 2x + m & \text{khi } x \ge 1 \\ x - 1 & \text{khi } x < 1 \end{cases}$. Tìm $m$ biết $\displaystyle \int_0^2 f(x)\,\mathrm{d}x = 3$.
+		\vspace{0.75cm}
+		
+		\item Cho hàm số $f(x) = \begin{cases} mx^2 & \text{khi } x \ge 0 \\ 2 & \text{khi } x < 0 \end{cases}$. Biết $\displaystyle \int_{-1}^3 f(x)\,\mathrm{d}x = 11$. Tìm $m$.
+		\vspace{0.75cm}
+		
+		\item Cho hàm số $f(x) = \begin{cases} 2x - 3 & \text{khi } x \ge 2 \\ mx + 1 & \text{khi } x < 2 \end{cases}$. Tìm $m$ biết $\displaystyle \int_0^3 f(x)\,\mathrm{d}x = 4$.
+		\vspace{0.75cm}
+		
+		\item Cho hàm số $f(x) = \begin{cases} x + m & \text{khi } x \ge 0 \\ e^x & \text{khi } x < 0 \end{cases}$. Biết $\displaystyle \int_{-\ln 2}^2 f(x)\,\mathrm{d}x = \frac{7}{2}$. Tìm $m$.
+		\vspace{0.75cm}
+		
+		\item Cho hàm số $f(x) = \begin{cases} \cos x & \text{khi } x \ge 0 \\ mx & \text{khi } x < 0 \end{cases}$. Tìm $m$ biết $\displaystyle \int_{-\pi}^{\frac{\pi}{2}} f(x)\,\mathrm{d}x = 1 - \pi^2$.
+		\vspace{0.75cm}
+		
+		\item Cho hàm số $f(x) = \begin{cases} 1 & \text{khi } x \ge 1 \\ 3x^2 - m & \text{khi } x < 1 \end{cases}$. Tìm $m$ để $\displaystyle \int_0^3 f(x)\,\mathrm{d}x = 0$.
+		\vspace{0.75cm}
+		
+		\item Cho hàm số $f(x) = \begin{cases} 2x + m & \text{khi } x \ge 1 \\ 4x^3 & \text{khi } x < 1 \end{cases}$ liên tục trên $\mathbb{R}$. Tính $\displaystyle \int_0^2 f(x)\,\mathrm{d}x$.
+		\vspace{0.75cm}
+		
+		\item Cho hàm số $f(x) = \begin{cases} 3x^2 + 1 & \text{khi } x \ge 2 \\ mx - 3 & \text{khi } x < 2 \end{cases}$ liên tục trên $\mathbb{R}$. Tính $\displaystyle \int_1^3 f(x)\,\mathrm{d}x$.
+		\vspace{0.75cm}
+		
+		\item Cho hàm số $f(x) = \begin{cases} e^x & \text{khi } x \ge 0 \\ x + m & \text{khi } x < 0 \end{cases}$ liên tục trên $\mathbb{R}$. Biết $\displaystyle \int_{-1}^1 f(x)\,\mathrm{d}x = e - a$ với $a \in \mathbb{Q}$. Tính $2a$.
+		\vspace{0.75cm}
+		
+		\item Cho hàm số $f(x) = \begin{cases} 4x + 1 & \text{khi } x \ge 1 \\ mx^2 + 2x & \text{khi } x < 1 \end{cases}$ liên tục trên $\mathbb{R}$. Tính $I = \displaystyle \int_0^2 f(x)\,\mathrm{d}x$.
+		\vspace{0.75cm}
+		
+		\item Cho hàm số $f(x) = \begin{cases} 2x^3 - 3 & \text{khi } x \ge 2 \\ mx + 1 & \text{khi } x < 2 \end{cases}$ liên tục trên $\mathbb{R}$. Tính $2 \displaystyle \int_1^3 f(x)\,\mathrm{d}x$.
+		\vspace{0.75cm}
+		
+		\item Cho hàm số $f(x) = \begin{cases} x + 1 & \text{khi } x \ge 0 \\ e^{2x} + m & \text{khi } x < 0 \end{cases}$ liên tục trên $\mathbb{R}$. Tính $I = 2\displaystyle \int_{-1}^1 f(x)\,\mathrm{d}x + \frac{1}{e^2}$.
+		\vspace{0.75cm}
+\end{enumerate}
+	
+	\newpage
+	
+	% ================================================
+	% PHẦN IV: KẾT LUẬN & TỔNG KẾT BÀI HỌC
+	% ================================================
+	\section{Kết luận \& Tóm tắt trọng tâm}\label{sec:ketluan}
+	
+	\begin{itemize}
+		\item \textbf{Cốt lõi lý thuyết:} (Hệ thống hóa toàn bộ kiến thức trọng tâm từ \hyperref[sec:lythuyet]{\textbf{Phần I}})
+		\begin{itemize}
+			\item Tích phân $\displaystyle \int_a^b f(x)\,\mathrm{d}x = F(b) - F(a)$ là một \textbf{con số} thực cụ thể, không chứa hằng số cộng $C$.
+			\item Nắm vững 3 tính chất căn bản: Tính tuyến tính (đưa thừa số ra ngoài, tách tổng/hiệu) và tính chất chèn cận $\int_a^b = \int_a^c + \int_c^b$.
+		\end{itemize}
+		
+		\item \textbf{Chiến thuật giải toán trắc nghiệm \& tự luận:} (Áp dụng giải quyết các dạng bài tại \hyperref[sec:baitap]{\textbf{Phần II}} và \hyperref[sec:tracnghiem]{\textbf{Phần III}})
+		\begin{itemize}
+			\item Đối với bài toán trị tuyệt đối: Bắt buộc tìm nghiệm để chia khoảng xét dấu trước khi tính.
+			\item Đối với hàm phân nhánh: Tách tích phân tại điểm ranh giới $x = c$, đồng thời luôn nhớ kiểm tra điều kiện hàm số liên tục tại điểm ranh giới nếu bài toán chứa tham số.
+		\end{itemize}
+		
+		\item \textbf{Các lỗi học sinh thường gặp cần tránh:}
+		\begin{itemize}
+			\item Nhầm lẫn giữa nguyên hàm (là một họ hàm số $+ C$) và tích phân (là một giá trị cụ thể).
+			\item Quên đổi dấu khi đảo cận: $\int_a^b = -\int_b^a$.
+			\item Phá dấu giá trị tuyệt đối vội vàng khi chưa xét dấu trên từng khoảng con.
+		\end{itemize}
+	\end{itemize}
+	
+\end{document}

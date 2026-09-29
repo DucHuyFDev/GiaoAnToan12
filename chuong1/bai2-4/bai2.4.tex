@@ -1,0 +1,502 @@
+\documentclass[12pt]{article}
+
+% === CÀI ĐẶT TRANG ===
+\usepackage[margin=2cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T5]{fontenc}
+\usepackage[vietnamese]{babel}
+
+% === TOÁN HỌC ===
+\usepackage{amsmath, amssymb, amsthm}
+
+% === HÌNH VẼ ===
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+% === ĐỊNH DẠNG ===
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage[most]{tcolorbox}
+\usepackage{multicol}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{fancyhdr}
+\usepackage{tocloft}
+\usepackage[hidelinks]{hyperref}
+
+% === LỆNH TỰ ĐỊNH NGHĨA ===
+\newcommand{\otraloi}{\underline{\hspace{5cm}}}
+\setlength{\parindent}{0pt} % Tắt lùi đầu dòng toàn giáo án để thẳng hàng tuyệt đối
+
+% === TCOLORBOX STYLES ===
+\tcbuselibrary{breakable, skins, fitting}
+
+% Hộp ví dụ
+\newtcolorbox{vidu}[1][1]{
+	colback=blue!3!white, colframe=blue!55!black,
+	fonttitle=\bfseries, title={Ví dụ #1},
+	breakable, enhanced
+}
+
+% Hộp lời giải
+\newtcolorbox{loigiai}{
+	colback=gray!4!white, colframe=gray!40!black,
+	fonttitle=\bfseries, title={Lời giải chi tiết},
+	breakable, enhanced
+}
+
+% Hộp lưu ý phương pháp nhận diện
+\newtcolorbox{phuongphap}[1][Phương pháp nhận diện]{
+	colback=orange!5!white, colframe=orange!75!black,
+	fonttitle=\bfseries, title={#1},
+	breakable, enhanced
+}
+
+% Hộp bài tập đồng bộ (Không phân màu)
+\newtcolorbox{baitap}[1][Bài tập luyện tập]{
+	colback=white, colframe=black!70,
+	fonttitle=\bfseries\color{white}, coltitle=white,
+	attach boxed title to top left={yshift=-2mm, xshift=4mm},
+	boxed title style={colback=black!70, rounded corners},
+	title={#1}, breakable, enhanced
+}
+
+% === HEADER/FOOTER ===
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small Giáo án Toán 12}
+\fancyhead[C]{\small \textbf{Chuyên đề: Tối ưu hóa trong Kinh tế}}
+\fancyhead[R]{\small Chương trình mới}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% ================================================
+\begin{document}
+	
+	\begin{center}
+		{\LARGE \textbf{BÀI TOÁN TỐI ƯU HÓA LỢI NHUẬN KINH TẾ}}\\[6pt]
+		{\large Môn: Toán 12 \quad Thời lượng: 1 tiết}
+	\end{center}
+	\vspace{4mm}
+	\hrule
+	\vspace{4mm}
+	
+	% ===========================
+	% PHẦN 1: MỤC TIÊU BÀI HỌC
+	% ===========================
+	\section*{Mục tiêu bài học}
+	\addcontentsline{toc}{section}{Mục tiêu bài học}
+	
+	\textbf{1. Kiến thức:}
+	\begin{itemize}
+		\item Hiểu rõ công thức tính lợi nhuận cốt lõi: $L(x) = R(x) - C(x)$. Biết cách bóc tách Doanh thu $R(x)$ và Chi phí $C(x)$ từ giả thiết.
+		\item Nhận diện được mô hình toán học của các bài toán kinh tế nâng cao: Thuế/phụ thu, bài toán tối ưu vận hành/công suất, và mô hình quản lý kho hàng (EOQ).
+	\end{itemize}
+	
+	\textbf{2. Kĩ năng:}
+	\begin{itemize}
+		\item Kĩ năng đọc hiểu đề bài dài, lọc bỏ từ nhiễu để trích xuất hàm số tối ưu.
+		\item Kĩ năng tìm GTLN, GTNN của hàm số đa thức, phân thức, hàm mũ trên một khoảng/đoạn thực tế.
+	\end{itemize}
+	
+	\textbf{3. Thái độ:}
+	\begin{itemize}
+		\item Tự tin đối diện với các bài toán có thuật ngữ kinh tế, hiểu rằng bản chất của chúng chỉ là việc thiết lập và khảo sát hàm số.
+	\end{itemize}
+	
+	\newpage
+	
+	% =====================
+	% PHẦN 2: MỤC LỤC
+	% =====================
+	\setcounter{tocdepth}{2}
+	\tableofcontents
+	\newpage
+	
+	% =====================
+	% PHẦN 3: LÝ THUYẾT
+	% =====================
+	\section{Lý thuyết trọng tâm}
+	
+	\subsection{Công thức lợi nhuận cơ bản và cách nhận diện đại lượng}
+	
+	Học sinh cần nắm chắc mô hình toán học cơ bản nhất của kinh tế học:
+	\[ \text{Lợi nhuận } [P(x)] = \text{Doanh thu } [R(x)] - \text{Tổng chi phí } [C(x)] \]
+	
+	\begin{phuongphap}[Kỹ thuật nhận diện đại lượng trong đề bài]
+		\textbf{a) Doanh thu $R(x)$ (Revenue):} Là toàn bộ số tiền thu về từ việc bán hàng.
+		\begin{itemize}
+			\item Công thức tính: $R(x) = x \cdot p(x)$ (với $x$ là sản lượng bán ra, $p(x)$ là giá bán của một đơn vị sản phẩm).
+			\item \textit{Dấu hiệu trong đề:} Đề bài thường cho dạng "giá bán mỗi chiếc máy là $p(x) = \dots$" hoặc "cứ giảm giá bán đi $d$ đồng thì sản lượng tăng thêm $k$ sản phẩm" (bài toán tối ưu giá bán - sản lượng).
+		\end{itemize}
+		
+		\textbf{b) Chi phí $C(x)$ (Cost):} Là toàn bộ số tiền doanh nghiệp phải bỏ ra để sản xuất.
+		\begin{itemize}
+			\item \textit{Dấu hiệu trong đề:} Đề bài thường cho trực tiếp dưới dạng "Hàm chi phí sản xuất $x$ sản phẩm là $C(x) = \dots$".
+			\item \textit{Bẫy cần tránh:} Đề bài đôi khi cho \textbf{Chi phí sản xuất bình quân} của một sản phẩm là $G(x)$. Khi đó, học sinh phải tự nhân thêm $x$ để ra tổng chi phí: $C(x) = x \cdot G(x)$.
+		\end{itemize}
+	\end{phuongphap}
+	
+	\begin{vidu}[1]
+		Một công ty trung bình bán được $900$ cái máy lọc nước mỗi tháng với giá $8$ triệu đồng một cái. Một cuộc khảo sát thị trường chỉ ra rằng nếu cứ giảm giá bán $100$ nghìn đồng thì số lượng máy lọc bán ra trong tháng đó sẽ tăng thêm $10$ cái. Biết hàm chi phí tổng hợp của công ty là $C(x) = 2000 - \frac{9}{5}x$ (triệu đồng), với $x$ là số máy lọc bán ra trong tháng. Tìm lợi nhuận lớn nhất mà công ty có thể thu được trong một tháng (tính theo đơn vị triệu đồng).
+	\end{vidu}
+	
+	\begin{loigiai}
+		Để giải quyết bài toán, ta tiến hành bóc tách các đại lượng theo đúng quy trình 4 bước:
+		
+		\vspace{2mm}
+		\textbf{Bước 1: Thiết lập hàm đơn giá bán hàng $p(x)$ theo sản lượng $x$}
+		\begin{itemize}
+			\item Gọi $x$ là số lượng máy lọc nước bán ra trong một tháng ($x \ge 0$, đơn vị: cái).
+			\item Lượng sản lượng tăng thêm so với mức trung bình ban đầu là: $\Delta x = x - 900$ (cái).
+			\item Theo giả thiết khảo sát: Cứ tăng sản lượng lên $10$ cái thì đơn giá bán sẽ giảm đi $100$ nghìn đồng ($0,1$ triệu đồng). Do đó, lượng giảm giá tương ứng với sản lượng $x$ là:
+			\[ \Delta p = 0,1 \times \frac{x - 900}{10} = 0,01(x - 900) \quad \text{(triệu đồng)} \]
+			\item Đơn giá bán của một chiếc máy lọc nước ứng với sản lượng $x$ là:
+			\[ p(x) = 8 - \Delta p = 8 - 0,01(x - 900) = 17 - 0,01x \quad \text{(triệu đồng/chiếc)} \]
+			Để đơn giá bán không âm, ta cần điều kiện: $17 - 0,01x \ge 0 \Leftrightarrow x \le 1700$.
+		\end{itemize}
+		
+		\vspace{2mm}
+		\textbf{Bước 2: Thiết lập hàm Doanh thu $R(x)$}
+		Doanh thu là toàn bộ số tiền thu về từ việc bán $x$ sản phẩm với đơn giá $p(x)$:
+		\[ R(x) = x \cdot p(x) = x(17 - 0,01x) = 17x - 0,01x^2 \quad \text{(triệu đồng)} \]
+		
+		\vspace{2mm}
+		\textbf{Bước 3: Thiết lập hàm Lợi nhuận $P(x)$}
+		\begin{itemize}
+			\item Hàm chi phí đề bài đã cho sẵn là: $C(x) = 2000 - 1,8x$ (triệu đồng).
+			\item Lợi nhuận thu về bằng Doanh thu trừ đi Chi phí:
+			\[ P(x) = R(x) - C(x) = \left(17x - 0,01x^2\right) - \left(2000 - 1,8x\right) \]
+			\[ P(x) = -0,01x^2 + 18,8x - 2000 \quad \text{(triệu đồng)} \]
+		\end{itemize}
+		Bài toán trở thành: Tìm giá trị lớn nhất của hàm số $P(x)$ trên đoạn $[0; 1700]$.
+		
+		\vspace{2mm}
+		\textbf{Bước 4: Khảo sát cực trị bằng Đạo hàm để tìm lợi nhuận tối đa}
+		\begin{itemize}
+			\item Tính đạo hàm hàm lợi nhuận:
+			\[ P'(x) = -0,02x + 18,8 \]
+			\item Giải phương trình đạo hàm bằng 0:
+			\[ P'(x) = 0 \Leftrightarrow -0,02x + 18,8 = 0 \Leftrightarrow x = \frac{18,8}{0,02} = 940 \quad \text{(thỏa mãn điều kiện)} \]
+			\item Vì đồ thị hàm số lợi nhuận $P(x)$ là một parabol có bề lõm quay xuống dưới (do hệ số $a = -0,01 < 0$), nên hàm số đạt giá trị lớn nhất tại đỉnh của parabol tại $x = 940$.
+			\item Giá trị lợi nhuận lớn nhất thu được là:
+			\[ P(940) = -0,01 \cdot (940)^2 + 18,8 \cdot (940) - 2000 = 6836 \quad \text{(triệu đồng)} \]
+		\end{itemize}
+		
+		\textbf{Kết luận:} Lợi nhuận lớn nhất mà công ty có thể thu được trong một tháng là \textbf{6.836 triệu đồng} (tức là $6,836$ tỷ đồng), đạt được khi công ty bán ra đúng $940$ chiếc máy lọc nước.
+	\end{loigiai}
+	
+	
+	\subsection{Nhận diện các mô hình kinh tế nâng cao dưới góc nhìn Toán học}
+	
+	Trong các bài toán kinh tế nâng cao , học sinh không cần học lý thuyết kinh tế vĩ mô/vi mô mà chỉ cần hiểu bản chất toán học của các mô hình sau để lập hàm số:
+	
+	\begin{phuongphap}[Bản chất toán học của các mô hình nâng cao]
+		\textbf{a) Mô hình Thuế và Phụ thu (Taxes \& Surcharges):}
+		\begin{itemize}
+			\item \textit{Bản chất:} Thuế (hoặc phụ thu) tính trên mỗi sản phẩm là một lượng tiền cố định $t$ đánh vào nhà sản xuất hoặc người tiêu dùng.
+			\item \textit{Cách thiết lập:} Đơn giá chi phí mới sẽ cộng thêm thuế: $C_{\text{mới}}(x) = C(x) + t \cdot x$. Hoặc giá bán mới sẽ bị trừ đi thuế.
+		\end{itemize}
+		
+		\textbf{b) Mô hình Vận hành và Công suất (Operational Costs):}
+		\begin{itemize}
+			\item \textit{Bản chất:} Chi phí vận hành (ví dụ: nhiên liệu tàu thủy, xe tải) thường tỷ lệ thuận với lũy thừa vận tốc ($v^3, v^2$). Chi phí nhân công lại tỷ lệ thuận với thời gian di chuyển ($t = S/v$).
+			\item \textit{Cách thiết lập:} Thiết lập hàm tổng chi phí theo biến vận tốc $v$: $F(v) = A \cdot v^k + \frac{B}{v}$. Đây là hàm số chứa phân thức, cần tìm cực tiểu trên khoảng vận tốc cho phép.
+		\end{itemize}
+		
+		\textbf{c) Mô hình quản lý kho hàng EOQ (Economic Order Quantity):}
+		\begin{itemize}
+			\item \textit{Bản chất:} Để duy trì kho hàng, ta mất hai loại chi phí ngược chiều nhau: chi phí mỗi lần đặt hàng (đặt càng nhiều lần càng tốn) và chi phí lưu kho (lưu trữ càng nhiều hàng càng tốn).
+			\item \textit{Cách thiết lập:} Hàm tổng chi phí theo cỡ lô hàng $Q$ có dạng: $f(Q) = \frac{A}{Q} + B \cdot Q + C$. Nhiệm vụ toán học là tìm cực tiểu của hàm số này (có thể bằng đạo hàm hoặc các bất đẳng thức nhanh đã học).
+		\end{itemize}
+	\end{phuongphap}
+	
+	\begin{vidu}[2]
+		Mô hình quản lý kho hàng tối ưu EOQ (Economic Order Quantity) được công bố năm 1913 là một công cụ toán học dùng để xác định lượng nhập kho tối ưu. 
+		
+		Giả sử một cửa hàng kinh doanh thức ăn thú cưng có nhu cầu tiêu thụ đều đặn là $d = 100$ hộp/ngày. Các thông số chi phí được xác định như sau: 
+		\begin{itemize}
+			\item Chi phí cố định cho mỗi lần đặt hàng (vận chuyển, thủ tục) là $K = 1.000.000$ đồng.
+			\item Giá nhập mỗi hộp hàng là $c$ đồng (với $c$ là hằng số chưa biết).
+			\item Đơn giá lưu kho cho mỗi hộp hàng là $h = 500$ đồng/hộp/ngày.
+		\end{itemize}
+		Gọi $Q$ là số lượng hộp hàng mà cửa hàng nhập vào trong mỗi lần đặt hàng ($Q > 0$). Thời gian để tiêu thụ hết lượng hàng này là $\frac{Q}{d}$ ngày. Tổng chi phí phát sinh cho một chu kỳ đặt hàng và tiêu thụ hết lượng hàng đó được tính bởi công thức:
+		\[ f(Q) = K + cQ + \frac{hQ^2}{2d} \]
+		Hỏi cửa hàng nên nhập bao nhiêu hộp hàng trong mỗi lần đặt hàng để \textbf{chi phí trung bình mỗi ngày} là nhỏ nhất? (Làm tròn kết quả cuối cùng đến hàng đơn vị).
+	\end{vidu}
+	
+	\begin{loigiai}
+		\textbf{* Nhận diện bản chất Toán học:} 
+		Học sinh không cần quan tâm định nghĩa kinh tế học của "mô hình EOQ". Đề bài yêu cầu tối thiểu hóa \textbf{chi phí trung bình mỗi ngày}. Ta chỉ cần thực hiện 2 bước toán học:
+		\begin{enumerate}
+			\item Lập hàm số biểu diễn Chi phí trung bình mỗi ngày theo biến số $Q$ (ký hiệu là $C(Q)$).
+			\item Khảo sát cực tiểu của hàm số $C(Q)$ khi $Q > 0$.
+		\end{enumerate}
+		
+		\vspace{2mm}
+		\textbf{Bước 1: Thiết lập hàm chi phí trung bình mỗi ngày $C(Q)$}
+		\begin{itemize}
+			\item Thời gian tiêu thụ hết một lô hàng $Q$ là $t = \frac{Q}{d} = \frac{Q}{100}$ (ngày).
+			\item Tổng chi phí cho cả chu kỳ này là: 
+			\[ f(Q) = 1.000.000 + cQ + \frac{500Q^2}{2 \cdot 100} = 1.000.000 + cQ + 2,5Q^2 \quad \text{(đồng)} \]
+			\item Chi phí trung bình mỗi ngày $C(Q)$ bằng tổng chi phí chia cho số ngày của một chu kỳ:
+			\[ C(Q) = \frac{f(Q)}{t} = \frac{1.000.000 + cQ + 2,5Q^2}{\frac{Q}{100}} = 100 \cdot \left( \frac{1.000.000}{Q} + c + 2,5Q \right) \]
+			\[ C(Q) = \frac{100.000.000}{Q} + 100c + 250Q \quad \text{(đồng)} \]
+		\end{itemize}
+		
+		\vspace{2mm}
+		\textbf{Bước 2: Tìm giá trị nhỏ nhất của hàm số $C(Q)$ trên khoảng $(0; +\infty)$}
+		
+		\vspace{2mm}
+		\textbf{Cách 1: Sử dụng công cụ Đạo hàm (Khuyên dùng trong thi cử)}
+		\begin{itemize}
+			\item Tính đạo hàm của $C(Q)$ theo biến $Q$ (lưu ý hằng số $100c$ có đạo hàm bằng 0):
+			\[ C'(Q) = -\frac{100.000.000}{Q^2} + 250 \]
+			\item Giải phương trình $C'(Q) = 0$:
+			\[ -\frac{100.000.000}{Q^2} + 250 = 0 \Leftrightarrow Q^2 = \frac{100.000.000}{250} = 400.000 \]
+			Do $Q > 0$, ta có nghiệm duy nhất: $Q = \sqrt{400.000} = 200\sqrt{10} \approx 632,46$ (hộp).
+			\item Lập bảng biến thiên trên khoảng $(0; +\infty)$:
+			\begin{itemize}
+				\item Với $Q \in (0; 200\sqrt{10})$, ta có $C'(Q) < 0 \Rightarrow$ Hàm số nghịch biến đi xuống.
+				\item Với $Q \in (200\sqrt{10}; +\infty)$, ta có $C'(Q) > 0 \Rightarrow$ Hàm số đồng biến đi lên.
+			\end{itemize}
+			Do đó, hàm số đạt giá trị nhỏ nhất tại điểm cực tiểu $Q = 200\sqrt{10}$.
+		\end{itemize}
+		
+		\vspace{2mm}
+		\textbf{Cách 2: Sử dụng Bất đẳng thức Cô-si (Cực nhanh và đẹp mắt)}
+		Vì $Q > 0$, áp dụng bất đẳng thức Cô-si (AM-GM) cho hai số dương $\frac{100.000.000}{Q}$ và $250Q$, ta thu được:
+		\[ C(Q) = \frac{100.000.000}{Q} + 250Q + 100c \ge 2\sqrt{\frac{100.000.000}{Q} \cdot 250Q} + 100c \]
+		\[ C(Q) \ge 2\sqrt{25.000.000.000} + 100c = 2 \cdot 50.000\sqrt{10} + 100c \]
+		Đẳng thức xảy ra (đạt chi phí tối thiểu) khi và chỉ khi:
+		\[ \frac{100.000.000}{Q} = 250Q \Leftrightarrow Q^2 = 400.000 \Leftrightarrow Q = 200\sqrt{10} \approx 632,46 \]
+		
+		\vspace{2mm}
+		\textbf{Kết luận:} Làm tròn đến hàng đơn vị, cửa hàng nên nhập \textbf{632 hộp hàng} trong mỗi lần đặt để chi phí trung bình hàng ngày là nhỏ nhất.
+	\end{loigiai}
+	
+	\newpage
+	
+	% =====================
+	% PHẦN 4: BÀI TẬP
+	% =====================
+	\section{Bài tập luyện tập}
+	\subsection{Bài tập tự luận}
+	\subsubsection{Dạng 1: Bài toán Lợi nhuận - Doanh thu - Chi phí cơ bản}
+	
+	\noindent \textbf{Câu 1.} Một doanh nghiệp sản xuất xe máy điện trung bình bán được 400 chiếc mỗi tháng với giá bán 15 triệu đồng một chiếc. Qua nghiên cứu thị trường, người ta thấy rằng nếu cứ giảm giá bán mỗi chiếc đi 500 nghìn đồng thì số lượng xe máy điện bán ra trong tháng đó sẽ tăng thêm 50 chiếc. Giả sử hàm chi phí sản xuất cố định và vận hành cho mỗi chiếc xe máy điện không thay đổi. Hỏi doanh nghiệp nên bán xe máy điện với giá bao nhiêu triệu đồng mỗi chiếc để thu được doanh thu từ việc bán xe là lớn nhất?
+	
+	\vspace{0.6cm}
+	\noindent \textbf{Câu 2.} Một xưởng sản xuất giày thể thao đang bán mỗi đôi giày với giá gốc là 200 nghìn đồng và trung bình mỗi tháng bán được 500 đôi. Cơ sở này dự kiến thực hiện một chương trình giảm giá để tăng sản lượng. Qua khảo sát thị trường, cứ giảm giá đi 10 nghìn đồng mỗi đôi thì số lượng giày bán ra mỗi tháng lại tăng thêm 100 đôi. Biết chi phí sản xuất đồng đều cho mỗi đôi giày là 120 nghìn đồng. Để thu được lợi nhuận lớn nhất, xưởng sản xuất nên bán mỗi đôi giày thể thao với giá bao nhiêu nghìn đồng?
+	
+	\vspace{0.6cm}
+	\noindent \textbf{Câu 3.} Một cửa hàng phân phối độc quyền dòng đồng hồ thông minh thế hệ mới. Hiện tại, cửa hàng đang bán với giá 3 triệu đồng một chiếc và mỗi tháng tiêu thụ được trung bình 150 chiếc. Theo ước tính của bộ phận kinh doanh, cứ giảm giá bán đi 100 nghìn đồng cho mỗi chiếc đồng hồ thì số lượng đồng hồ bán ra trong tháng đó sẽ tăng thêm 10 chiếc. Hỏi cửa hàng cần bán đồng hồ thông minh với giá bao nhiêu triệu đồng để doanh thu hàng tháng đạt giá trị lớn nhất?
+	
+	\vspace{0.6cm}
+	\noindent \textbf{Câu 4.} Một tiệm bánh ngọt chuyên sản xuất dòng bánh kem cao cấp phục vụ sự kiện. Chi phí sản xuất $x$ chiếc bánh mỗi ngày được xác định bởi hàm số $C(x) = x^3 - 6x^2 + 24x + 150$ (đơn vị: nghìn đồng), với sản lượng sản xuất giới hạn trong khoảng $1 \le x \le 15$ chiếc/ngày. Biết giá bán cố định của mỗi chiếc bánh kem trên thị trường là 120 nghìn đồng và toàn bộ số bánh sản xuất ra đều được tiêu thụ hết trong ngày. Hãy tìm số lượng bánh kem tiệm cần sản xuất mỗi ngày để lợi nhuận thu được là lớn nhất.
+	
+	\vspace{0.6cm}
+	\noindent \textbf{Câu 5.} Một công ty công nghệ sản xuất dòng điện thoại thông minh cao cấp. Nếu doanh nghiệp sản xuất và bán ra $x$ chiếc điện thoại trong một tháng ($1 \le x \le 150$) thì giá bán của mỗi chiếc điện thoại được xác định bởi hàm cầu $p(x) = 3000 - 5x$ (đơn vị: nghìn đồng). Biết chi phí sản xuất bình quân cho mỗi chiếc điện thoại khi sản xuất $x$ chiếc là $c(x) = x^2 - 45x + 200 + \frac{2000}{x}$ (đơn vị: nghìn đồng). Hãy tìm số lượng điện thoại thông minh công ty cần sản xuất trong tháng để lợi nhuận đạt mức tối đa.
+	
+	\vspace{0.6cm}
+	\noindent \textbf{Câu 6.} Một xưởng sản xuất túi vải sinh học thân thiện với môi trường có công suất tối đa 250 sản phẩm mỗi tuần. Nếu xưởng sản xuất và bán hết $x$ sản phẩm trong tuần thì tổng doanh thu thu về đạt được là $R(x) = -x^2 + 1100x$ (đơn vị: nghìn đồng). Trong khi đó, chi phí sản xuất bình quân cho mỗi sản phẩm của xưởng được tính bởi công thức $G(x) = x^2 - 31x + 200 + \frac{15000}{x}$ (đơn vị: nghìn đồng). Hãy tìm số lượng sản phẩm xưởng cần sản xuất và bán ra trong tuần để lợi nhuận thu được lớn nhất.
+	
+	\vspace{0.6cm}
+	\noindent \textbf{Câu 7.} Một công ty thiết bị âm thanh dự kiến sản xuất tối đa 400 bộ loa cao cấp phục vụ xuất khẩu. Nếu công ty sản xuất $x$ bộ loa ($1 \le x \le 400$) thì doanh thu thu được khi bán hết số sản phẩm này là $R(x) = x^3 - 899x^2 + 151000x + 200000$ (đơn vị: đồng). Biết chi phí sản xuất bình quân cho một bộ loa được xác định bởi hàm số $G(x) = x + 1000 + \frac{200000}{x}$ (đơn vị: đồng). Hỏi công ty cần sản xuất bao nhiêu bộ loa cao cấp để lợi nhuận đạt giá trị lớn nhất?
+	
+	\vspace{0.6cm}
+	\noindent \textbf{Câu 8.} Một doanh nghiệp chế tạo thiết bị bay không người lái (drone) phục vụ nông nghiệp. Giả sử doanh nghiệp sản xuất và bán hết $x$ chiếc drone trong một tháng thì đơn giá bán của mỗi chiếc drone là $p(x) = 6000 - 8x$ (đơn vị: nghìn đồng). Chi phí sản xuất bình quân cho mỗi chiếc drone được xác định theo hàm số $G(x) = x^2 - 5x + 960 + \frac{5000}{x}$ (đơn vị: nghìn đồng). Hãy xác định số lượng thiết bị bay không người lái doanh nghiệp cần bán ra trong tháng để tối đa hóa tổng lợi nhuận thu được.
+	
+	\noindent \textbf{Câu 9.} Một nhà máy cơ khí chế tạo vi mạch điện tử để cung cấp cho đối tác lắp ráp máy tính. Biết đơn đặt hàng tối đa của đối tác là 1000 sản phẩm mỗi tuần. Nếu nhà máy sản xuất và cung cấp $x$ sản phẩm trong tuần ($0 \le x \le 1000$) thì đơn giá bán của mỗi sản phẩm được xác định bởi hàm số $p(x) = 80 - 0,00005x^2$ (triệu đồng). Chi phí vận hành và sản xuất của nhà máy cố định ở mức $C(x) = 5000 + 20x$ (triệu đồng). Hãy xác định số lượng vi mạch nhà máy cần sản xuất trong tuần để tối đa hóa lợi nhuận thu về.
+	
+	\vspace{0.6cm}
+	\noindent \textbf{Câu 10.} Một xưởng gốm nghệ thuật sản xuất các bình hoa vẽ tay cao cấp. Công suất của xưởng dao động trong khoảng từ 1 đến 30 bình hoa mỗi tuần. Chi phí tổng hợp để sản xuất $x$ bình hoa trong tuần được cho bởi công thức $C(x) = \frac{1}{6}x^3 + 2x^2 + 100$ (triệu đồng). Biết rằng mỗi bình hoa bán ra thị trường với giá cố định là 150 triệu đồng và toàn bộ sản phẩm làm ra đều được tiêu thụ hết. Hỏi xưởng gốm nên sản xuất bao nhiêu bình hoa mỗi tuần để đạt lợi nhuận lớn nhất?
+	
+	\vspace{0.6cm}
+	\noindent \textbf{Câu 11.} Một nhà máy lắp ráp xe đạp điện thông minh có công suất tối đa 120 chiếc mỗi tháng. Giá bán của mỗi chiếc xe phụ thuộc vào sản lượng bán ra theo hàm cầu $p(x) = 14000 - 100x$ (đơn vị: nghìn đồng), với $x$ là số xe bán ra trong tháng. Chi phí sản xuất bình quân cho mỗi chiếc xe được tính bởi công thức $G(x) = 10x^2 - 100x + 2000 + \frac{15000}{x}$ (đơn vị: nghìn đồng). Ngoài ra, nhà máy phải nộp một khoản thuế môn bài cố định cho địa phương là 50.000 nghìn đồng mỗi tháng. Xác định số lượng xe đạp điện nhà máy cần sản xuất mỗi tháng để lợi nhuận thu về đạt cực đại.
+	
+	\vspace{0.6cm}
+	\noindent \textbf{Câu 12.} Một xưởng mộc gia đình chuyên đóng các bộ bàn ăn bằng gỗ sồi cao cấp với công suất giới hạn không quá 800 bộ mỗi năm. Nếu xưởng sản xuất và bán hết $x$ bộ bàn ăn ($1 \le x \le 800$) thì tổng doanh thu thu về đạt được là $R(x) = x^3 - 1499x^2 + 500000x + 500000$ (đơn vị: nghìn đồng). Trong khi đó, chi phí sản xuất bình quân cho mỗi bộ bàn ăn được xác định bởi công thức $G(x) = x + 20000 + \frac{500000}{x}$ (đơn vị: nghìn đồng). Hãy tính số lượng bộ bàn ăn xưởng cần sản xuất trong năm để tối đa hóa tổng lợi nhuận thu được.
+	
+	\vspace{0.6cm}
+	\noindent \textbf{Câu 13.} Một cửa hàng bán lẻ thiết bị công nghệ đang phân phối dòng máy tính bảng thế hệ mới. Giá nhập kho của mỗi chiếc máy tính bảng là 8 triệu đồng. Bộ phận nghiên cứu thị trường ước tính rằng nếu cửa hàng đặt giá bán lẻ là $p$ triệu đồng thì số lượng máy tính bảng tiêu thụ được trong tháng sẽ tuân theo hàm cầu $x(p) = 240 - 10p$. Ngoài ra, cửa hàng phải đóng thuế bảo vệ môi trường là 0,5 triệu đồng cho mỗi chiếc máy tính bảng bán ra. Xác định giá bán lẻ $p$ tối ưu để cửa hàng đạt lợi nhuận lớn nhất từ dòng sản phẩm này.
+	
+	\vspace{0.6cm}
+	\noindent \textbf{Câu 14.} Một doanh nghiệp hóa chất chuyên sản xuất dung dịch tẩy rửa sinh học dạng lỏng. Công suất của dây chuyền sản xuất giới hạn trong khoảng từ 0 đến 150 kilôlít mỗi tháng. Chi phí sản xuất $x$ kilôlít dung dịch được tính theo công thức $C(x) = 0,001x^3 - 0,07x^2 + 20x + 80$ (đơn vị: triệu đồng). Biết rằng doanh thu thu về khi bán hết $x$ kilôlít dung dịch là $R(x) = -0,01x^2 + 35x - 120$ (đơn vị: triệu đồng). Hỏi doanh nghiệp nên sản xuất bao nhiêu kilôlít dung dịch mỗi tháng để tối đa hóa lợi nhuận?
+	
+	\vspace{0.6cm}
+	\noindent \textbf{Câu 15.} Một nông trại chuyên cung cấp hạt cà phê rang xay nguyên chất ra thị trường với sản lượng dao động từ 10 kg đến 100 kg mỗi tuần. Chi phí sản xuất tổng hợp cho $x$ kg cà phê trong tuần được xác định bởi hàm số $C(x) = 0,1x^2 + 10x + 500$ (đơn vị: nghìn đồng). Giá bán của mỗi kg cà phê phụ thuộc vào sản lượng bán ra theo hàm cầu $p(x) = 70 - 0,4x$ (đơn vị: nghìn đồng). Hãy tìm khối lượng hạt cà phê nông trại cần sản xuất trong tuần để lợi nhuận đạt giá trị lớn nhất.
+	
+	\vspace{0.6cm}
+	\noindent \textbf{Câu 16.} Một công ty chế tạo đèn LED năng lượng mặt trời thông minh ước tính chi phí sản xuất $x$ sản phẩm mỗi tháng là $C(x) = 0,001x^3 - 0,3x^2 + 150x + 2000$ (đơn vị: nghìn đồng). Giá bán của mỗi chiếc đèn LED phụ thuộc vào sản lượng theo hàm số $p(x) = 240 - 0,6x$ (đơn vị: nghìn đồng). Toàn bộ sản phẩm làm ra trong tháng đều được tiêu thụ hết. Hãy tìm số lượng đèn LED công ty cần sản xuất mỗi tháng để lợi nhuận thu về đạt mức tối đa.
+	
+	\vspace{0.6cm}
+	\noindent \textbf{Câu 17.} Một doanh nghiệp công nghệ cung cấp dịch vụ lưu trữ dữ liệu đám mây (SaaS). Chi phí vận hành bình quân tính trên mỗi tài khoản hoạt động trong tháng được cho bởi công thức $G(x) = \frac{x^2 + 20x + 400}{x}$ (đơn vị: nghìn đồng), với $x$ là số lượng tài khoản đăng ký sử dụng ($x \ge 10$). Biết giá thuê bao cố định hàng tháng cho mỗi tài khoản là 100 nghìn đồng. Doanh nghiệp cần thu hút bao nhiêu tài khoản đăng ký sử dụng trong tháng để đạt lợi nhuận tối đa?
+	
+	\vspace{0.6cm}
+	\noindent \textbf{Câu 18.} Một trung tâm thể hình (Gym) đang áp dụng mức phí hội viên hàng tháng là 500 nghìn đồng và duy trì ổn định 300 hội viên hoạt động thường xuyên. Để tăng doanh thu, trung tâm dự kiến giảm phí hội viên. Bộ phận kinh doanh tính toán rằng cứ giảm phí hội viên đi 20 nghìn đồng thì trung tâm sẽ thu hút thêm được 20 hội viên mới mỗi tháng. Biết chi phí vận hành và bảo trì cố định hàng tháng của trung tâm phụ thuộc vào số lượng hội viên $n$ theo công thức $C(n) = 100n + 15000$ (đơn vị: nghìn đồng). Hãy tìm mức phí hội viên tối ưu hàng tháng để tối đa hóa lợi nhuận cho trung tâm.
+	
+	\noindent \textbf{Câu 19.} Một công ty khởi nghiệp phát triển ứng dụng di động đang bán các gói bản quyền phần mềm ra thị trường. Với sản lượng $x$ tài khoản bản quyền được kích hoạt, mức giá bán mỗi tài khoản được xác định bởi hàm số $p(x) = \frac{4000}{\sqrt{x}}$ (đơn vị: nghìn đồng). Biết tổng chi phí để vận hành hệ thống máy chủ và hỗ trợ kỹ thuật cho $x$ tài khoản là $C(x) = 50x + 1000$ (đơn vị: nghìn đồng). Hãy tính số lượng tài khoản bản quyền công ty cần bán ra để đạt lợi nhuận lớn nhất.
+	
+	\vspace{0.6cm}
+	\noindent \textbf{Câu 20.} Một xưởng đồ da thủ công chuyên sản xuất ví da nam cao cấp với công suất giới hạn tối đa 100 sản phẩm mỗi tuần. Nếu sản xuất và bán hết $x$ sản phẩm trong tuần thì giá bán của mỗi chiếc ví là $p(x) = 240 - 0,8x$ (đơn vị: nghìn đồng). Biết tổng chi phí sản xuất và hoàn thiện $x$ chiếc ví da được cho bởi công thức $C(x) = 0,01x^3 - 0,5x^2 + 120x + 800$ (đơn vị: nghìn đồng). Hãy xác định số lượng ví da xưởng cần sản xuất mỗi tuần để tối đa hóa tổng lợi nhuận thu được.
+	
+	\vspace{0.6cm}
+	\noindent \textbf{Câu 21.} Một cơ sở sản xuất vật liệu xây dựng chuyên cung cấp các tấm cách nhiệt cao cấp ra thị trường với công suất tối đa 50 mét dài mỗi ngày. Chi phí để sản xuất $x$ mét dài tấm cách nhiệt trong ngày được xác định bởi hàm số $C(x) = x^3 - 6x^2 - 15x + 300$ (đơn vị: nghìn đồng). Biết giá bán cố định của dòng sản phẩm này trên thị trường là 150 nghìn đồng mỗi mét dài và toàn bộ sản lượng làm ra đều được tiêu thụ hết trong ngày. Hỏi cơ sở nên sản xuất bao nhiêu mét dài tấm cách nhiệt mỗi ngày để thu được lợi nhuận cao nhất?
+	
+	\vspace{0.6cm}
+	\noindent \textbf{Câu 22.} Một nhà máy sản xuất ly giấy thân thiện với môi trường có năng lực sản xuất tối đa 400 thùng sản phẩm mỗi tháng. Nếu nhà máy sản xuất và bán hết $x$ thùng sản phẩm trong tháng thì tổng doanh thu thu về đạt được là $R(x) = -2x^2 + 3000x$ (đơn vị: nghìn đồng). Biết chi phí sản xuất bình quân cho mỗi thùng ly giấy của nhà máy được xác định theo công thức $G(x) = 0,01x^2 + x + 600 + \frac{10000}{x}$ (đơn vị: nghìn đồng). Hãy xác định số lượng thùng sản phẩm nhà máy cần sản xuất mỗi tháng để lợi nhuận đạt giá trị lớn nhất.
+	
+	\vspace{0.6cm}
+	\noindent \textbf{Câu 23.} Một doanh nghiệp chuyên sản xuất máy lọc không khí gia đình có công suất thiết kế tối đa 150 sản phẩm mỗi tháng. Nếu doanh nghiệp sản xuất $x$ sản phẩm trong tháng thì đơn giá bán của mỗi chiếc máy lọc không khí là $p(x) = 6 - 0,01x$ (đơn vị: triệu đồng). Biết chi phí cố định để vận hành nhà xưởng là 100 triệu đồng và chi phí biến đổi để sản xuất mỗi chiếc máy lọc không khí đồng đều ở mức 2 triệu đồng. Hỏi doanh nghiệp cần sản xuất bao nhiêu sản phẩm mỗi tháng để tối đa hóa tổng lợi nhuận?
+	
+	\vspace{0.6cm}
+	\noindent \textbf{Câu 24.} Một xưởng sản xuất giày da thủ công cao cấp có công suất thiết kế tối đa 150 đôi giày mỗi tuần. Nếu xưởng sản xuất và bán hết $x$ đôi giày trong tuần thì đơn giá bán của mỗi đôi là $p(x) = 400 - 2x$ (đơn vị: nghìn đồng). Chi phí sản xuất bình quân cho mỗi đôi giày của xưởng được cho bởi công thức $G(x) = 0,01x^2 - 2,25x + 150 + \frac{10000}{x}$ (đơn vị: nghìn đồng). Ngoài ra, xưởng phải nộp một khoản thuế môn bài cố định cho địa phương là 5.000 nghìn đồng mỗi tuần. Hãy xác định số lượng giày xưởng cần sản xuất mỗi tuần để đạt lợi nhuận lớn nhất.
+	
+	\vspace{0.6cm}
+	\noindent \textbf{Câu 25.} Một hợp tác xã khai thác mật ong tự nhiên chuyên đóng chai sản phẩm để cung cấp ra thị trường. Giá bán cố định của mỗi chai mật ong hữu cơ là 200 nghìn đồng. Biết tổng chi phí đóng gói, nhân công và thu hoạch cho $x$ chai mật ong được mô hình hóa bởi hàm số $C(x) = 0,05x^2 + 80x + 15000$ (đơn vị: nghìn đồng). Hãy tính số lượng chai mật ong hợp tác xã cần sản xuất và bán ra thị trường để đạt doanh số lợi nhuận cao nhất.
+	
+	\vspace{0.6cm}
+	\noindent \textbf{Câu 26.} Một doanh nghiệp xuất khẩu trà xanh hữu cơ có năng lực chế biến tối đa 120 tấn nguyên liệu mỗi tháng. Biết chi phí tổng hợp để chế biến và đóng gói $x$ tấn trà xuất khẩu được xác định bởi hàm số $C(x) = 0,01x^3 + 50x + 100$ (đơn vị: triệu đồng). Doanh nghiệp bán toàn bộ sản phẩm trà ra thị trường xuất khẩu với đơn giá cố định là 350 triệu đồng mỗi tấn. Hãy tìm khối lượng trà doanh nghiệp cần sản xuất mỗi tháng để tối đa hóa lợi nhuận.
+	
+	\vspace{0.6cm}
+	\noindent \textbf{Câu 27.} Một trang trại nuôi gia cầm hữu cơ chuyên cung cấp gà tây sạch phục vụ thị trường cuối năm. Nếu trang trại xuất bán $x$ nghìn con gà tây trong mùa vụ thì giá bán mỗi con được xác định bởi hàm số $p(x) = 140 - x$ (đơn vị: nghìn đồng). Biết chi phí chăn nuôi và thú y của trang trại là $C_{raw}(x) = 2x^2 + 15x + 150$ (đơn vị: nghìn đồng) và mỗi con gà tây bán ra trang trại phải đóng thêm mức phí bảo vệ sinh thái là 5 nghìn đồng. Hãy xác định số lượng gà tây trang trại cần xuất bán để đạt lợi nhuận lớn nhất.
+	
+	\vspace{0.6cm}
+	\noindent \textbf{Câu 28.} Một xưởng thủ công mỹ nghệ chuyên tiện các bộ khay đĩa bằng gỗ lũa tự nhiên có công suất tối đa 25 sản phẩm mỗi tuần. Chi phí tổng hợp để hoàn thiện $x$ sản phẩm trong tuần được mô hình hóa bởi hàm số $C(x) = x^3 - 33x^2 + 300x$ (đơn vị: nghìn đồng). Biết giá bán lẻ cố định của mỗi sản phẩm khay đĩa trên thị trường là 180 nghìn đồng và toàn bộ sản phẩm làm ra trong tuần đều được tiêu thụ hết. Hỏi xưởng nên sản xuất bao nhiêu sản phẩm mỗi tuần để lợi nhuận đạt cực đại?
+	
+	\subsubsection{Dạng 2: Bài toán tối ưu hóa kinh tế nâng cao}
+	
+	\noindent \textbf{Câu 29.} Một nhà máy dệt may nhận đơn hàng sản xuất xuất khẩu 180.000 túi vải canvas thân thiện với môi trường. Để hoàn thành đơn hàng, nhà máy sử dụng một số máy dệt tự động hoạt động đồng thời. Biết rằng năng suất của mỗi máy dệt là 50 túi một giờ. Chi phí chuẩn bị và thiết lập cho mỗi máy dệt đi vào hoạt động là 400.000 đồng. Chi phí giám sát, kỹ thuật và vận hành nhà xưởng đồng đều ở mức 100.000 đồng cho mỗi giờ hoạt động. Hỏi nhà máy nên đưa vào hoạt động cùng lúc bao nhiêu máy dệt để tổng chi phí thiết lập máy và chi phí giám sát vận hành cho cả đợt hàng là nhỏ nhất?
+	
+	\vspace{0.6cm}
+	\noindent \textbf{Câu 30.} Một doanh nghiệp sản xuất thiết bị nhà thông minh thương hiệu Việt. Chi phí sản xuất $x$ thiết bị mỗi tháng của doanh nghiệp được cho bởi công thức $C(x) = 2000 + (100 + T)x - 0,05x^2$ (đơn vị: nghìn đồng), trong đó $T$ là mức phí bảo hộ thương hiệu đánh vào mỗi sản phẩm. Biết đơn giá bán của thiết bị phụ thuộc vào số lượng tiêu thụ theo hàm cầu $p(x) = 500 - 0,15x$ (đơn vị: nghìn đồng). Giả định cơ quan quản lý áp mức phí $T = 100$ nghìn đồng trên mỗi thiết bị bán ra. Hãy xác định sản lượng $x$ xưởng cần bán trong tháng để đạt lợi nhuận tối đa.
+	
+	\vspace{0.6cm}
+	\noindent \textbf{Câu 31.} Một nhà máy thép cung cấp phôi thép cho một đối tác liên doanh với khối lượng tối đa là 200 tấn mỗi tháng. Biết giá bán mỗi tấn phôi thép phụ thuộc vào khối lượng đối tác đặt hàng theo hàm số $p(x) = 80 - 0,1x$ (đơn vị: triệu đồng), với $x$ là khối lượng đặt hàng. Tổng chi phí sản xuất và vận chuyển của nhà máy thép cho đơn hàng này là $C(x) = 150 + 20x$ (triệu đồng). Hãy tìm khối lượng đặt hàng $x$ của đối tác để nhà máy đạt lợi nhuận lớn nhất.
+	
+	\vspace{0.6cm}
+	\noindent \textbf{Câu 32.} Một chiếc xe ô tô điện chở hàng cần hoàn thành quãng đường vận chuyển dài 100 km. Biết chi phí tiêu thụ năng lượng điện của bộ pin xe khi di chuyển với vận tốc $v$ (km/h) là $0,1v^2$ nghìn đồng cho mỗi giờ hoạt động (với $v > 20$). Chi phí khấu hao xe và thù lao trả cho tài xế cố định ở mức 160 nghìn đồng cho mỗi giờ di chuyển. Hãy tính vận tốc di chuyển $v$ tối ưu của chiếc xe điện để tổng chi phí năng lượng và nhân công cho cả chuyến hàng đạt giá trị nhỏ nhất.
+	
+	\vspace{0.6cm}
+	\noindent \textbf{Câu 33.} Một trang trại trồng cam hữu cơ thu hoạch đều đặn 1 tấn cam tươi mỗi ngày. Nếu trang trại bán cam cho thương lái tại vườn với mức giá $20 + x$ (nghìn đồng/kg) thì khối lượng cam tiêu thụ được trong ngày là $1000 - 50x$ (kg), với $0 \le x \le 20$. Toàn bộ lượng cam tươi không bán hết trong ngày sẽ được trang trại đem chế biến thành nước cam ép và bán cho nhà máy công nghiệp với giá cố định là 12 nghìn đồng/kg. Hỏi trang trại nên tăng giá bán thêm $x$ bao nhiêu nghìn đồng để tổng doanh thu thu về trong ngày đạt cực đại?
+	
+	\vspace{0.6cm}
+	\noindent \textbf{Câu 34.} Một hộ gia đình đầu tư xây dựng mô hình homestay nghỉ dưỡng gồm 10 phòng cho thuê. Chi phí vận hành cố định hàng tháng của khu homestay là 4 triệu đồng. Chi phí biến đổi bổ sung (dọn dẹp, điện nước) cho mỗi phòng có khách thuê là 2 triệu đồng/tháng. Biết rằng nếu hộ gia đình đặt mức giá cho thuê phòng hàng tháng là $p$ triệu đồng thì số lượng phòng có khách thuê trong tháng được dự báo theo hàm cầu $N(p) = 12 - 2p$ (phòng), với điều kiện số phòng cho thuê tối đa là 10. Hãy tìm mức giá cho thuê phòng tối ưu hàng tháng để homestay thu được lợi nhuận lớn nhất.
+	
+	\vspace{0.6cm}
+	\noindent \textbf{Câu 35.} Một nhà máy sản xuất linh kiện điện tử đầu tư lắp đặt hệ thống tua-bin gió phát điện nội bộ có công suất thiết kế $x$ kW ($10 \le x \le 100$). Chi phí bảo trì, vận hành và khấu hao hàng năm của hệ thống tua-bin được tính bởi công thức $C_m(x) = 10 + 2x + 0,05x^2$ (triệu đồng). Hệ thống hoạt động giúp nhà máy tiết kiệm được lượng chi phí mua điện lưới hàng năm ước tính đạt $R(x) = 42x - 0,15x^2$ (triệu đồng). Hãy tìm công suất lắp đặt $x$ tối ưu để lượng chi phí tiết kiệm thuần hàng năm (hiệu số giữa lượng điện lưới tiết kiệm được và chi phí bảo trì hệ thống) đạt giá trị lớn nhất.
+	
+	\vspace{0.6cm}
+	\noindent \textbf{Câu 36.} Một doanh nghiệp vận tải đường sắt thử nghiệm chạy tàu hàng siêu tốc trên hành trình dài 400 km. Đội ngũ kỹ thuật ghi nhận: chi phí điện năng tiêu thụ cho mỗi giờ chạy tàu là $10v^2$ nghìn đồng (với $v$ là vận tốc tàu chạy, tính bằng km/h). Do thời gian chạy tàu rút ngắn khi tăng tốc, số lượng hành khách gửi hàng tăng theo hàm số $N(v) = 200 + 10v$ (hội viên), và mỗi hội viên đóng mức phí cố định cho cả chuyến đi là 1.000 nghìn đồng. Biết chi phí nhân sự và bảo trì cố định cho cả chuyến đi là 100.000 nghìn đồng. Hãy xác định vận tốc chạy tàu $v$ tối ưu để tối đa hóa tổng lợi nhuận thu được sau chuyến đi.
+	
+	\vspace{0.6cm}
+	\noindent \textbf{Câu 37.} Một doanh nghiệp công nghệ cao đầu tư dây chuyền sản xuất pin lithium-ion cho xe điện. Doanh nghiệp phải chi trả mức chi phí vận hành cố định là 500 triệu đồng mỗi tháng. Chi phí biến đổi cho mỗi cell pin khi sản xuất với sản lượng $x$ (nghìn cell pin) trong tháng là $G(x) = 0,1x + 200$ (nghìn đồng/cell pin). Biết doanh thu thu về của doanh nghiệp từ việc bán hết $x$ nghìn cell pin được cho bởi hàm số $R(x) = 600x - 0,15x^2$ (triệu đồng). Hãy tìm sản lượng $x$ tối ưu để doanh nghiệp đạt lợi nhuận lớn nhất trong tháng.
+	
+	\vspace{0.6cm}
+	\noindent \textbf{Câu 38.} Một xưởng mộc gia công dòng tủ rượu gỗ sồi cao cấp có công suất thiết kế tối đa 50 sản phẩm mỗi tháng. Nếu xưởng sản xuất và bán hết $x$ sản phẩm trong tháng thì đơn giá bán của mỗi sản phẩm là $p(x) = 1600 - 10x$ (đơn vị: nghìn đồng). Chi phí sản xuất bình quân cho mỗi sản phẩm của xưởng được xác định bởi công thức $G(x) = 0,05x^2 - 7x + 1000 + \frac{10000}{x}$ (đơn vị: nghìn đồng). Hãy tìm sản lượng $x$ xưởng mộc cần sản xuất trong tháng để đạt lợi nhuận lớn nhất.
+	
+	\vspace{0.6cm}
+	\noindent \textbf{Câu 39.} Một tuyến tàu điện treo du lịch di chuyển trên hành trình khép kín dài 100 km nối liền hai điểm tham quan, với vận tốc hoạt động giới hạn trong khoảng $40 \le v \le 80$ (km/h). Chi phí tiêu thụ điện năng cho mỗi giờ vận hành hệ thống cáp treo là $10v^2$ nghìn đồng. Các chi phí cố định khác liên quan đến nhân sự, bảo dưỡng hệ thống kỹ thuật ước tính đồng đều ở mức 36.000 nghìn đồng cho mỗi giờ hoạt động. Hãy xác định vận tốc hoạt động $v$ của tàu điện treo để tổng chi phí vận hành cho cả chuyến đi đạt giá trị nhỏ nhất.
+	
+	\vspace{0.6cm}
+	\noindent \textbf{Câu 40.} Một tuyến tàu đệm từ trường (Maglev) vận chuyển hành khách trên một cung đường thẳng dài 1000 km. Chi phí điện năng tiêu hao để duy trì đệm từ và lực đẩy cho tàu chạy mỗi giờ phụ thuộc vào vận tốc $v$ (km/h) theo công thức $C_e(v) = 0,001v^3$ nghìn đồng. Các chi phí cố định khác cho vận hành hệ thống, an ninh đường ray và nhân công cố định ở mức 54.000 nghìn đồng cho mỗi giờ chạy tàu. Hãy tìm vận tốc di chuyển $v$ của tàu Maglev để tổng chi phí vận hành cho cả chuyến đi là nhỏ nhất.
+	
+	\vspace{0.6cm}
+	\noindent \textbf{Câu 41.} Một nhà sản xuất thiết bị y tế nắm độc quyền phân phối dòng ống nong mạch vành (stent) tự tiêu. Nếu nhà doanh nghiệp sản xuất và bán ra $x$ sản phẩm trong tháng thì mức giá bán được xác định bởi hàm cầu $p(x) = 800 - 3x$ (triệu đồng). Chi phí sản xuất ban đầu cho $x$ sản phẩm của nhà máy là $C_0(x) = 2000 + 400x - 12x^2 + \frac{1}{3}x^3$ (triệu đồng). Biết nhà nước đánh thuế cố định là 40 triệu đồng cho mỗi thiết bị bán ra. Hãy xác định sản lượng sản xuất $x$ để nhà sản xuất tối đa hóa tổng lợi nhuận thu được.
+	
+	\vspace{0.6cm}
+	\noindent \textbf{Câu 42.} Một nhà cung cấp dịch vụ điện toán đám mây cho thuê các gói máy chủ ảo trực tuyến. Chi phí hao mòn phần cứng và hỗ trợ kỹ thuật hàng tháng cho $x$ nghìn tài khoản máy chủ được xác định bởi hàm số $C(x) = 50\ln(x) + 120$ (triệu đồng), với điều kiện quy mô hệ thống tối thiểu phải đạt $x \ge 1$ nghìn tài khoản. Biết giá thuê bao hàng tháng cho mỗi nghìn tài khoản máy chủ được đặt cố định ở mức 10 triệu đồng. Hãy tìm số lượng tài khoản máy chủ $x$ (tính theo nghìn tài khoản) cần cho thuê để nhà cung cấp thu được lợi nhuận lớn nhất.
+	
+	\vspace{0.6cm}
+	\noindent \textbf{Câu 43.} Một tàu chở hàng chạy bằng động cơ diesel hoàn thành một hải trình dài 500 km. Các nhà kỹ thuật đo đạc được lượng dầu diesel tiêu thụ cho mỗi giờ chạy tàu phụ thuộc vào vận tốc di chuyển $v$ (hải lý/giờ) theo công thức $0,04v^3$ nghìn đồng. Chi phí hao mòn máy móc, lương cho thủy thủ đoàn và bảo hiểm cố định ở mức 640 nghìn đồng cho mỗi giờ di chuyển. Hãy xác định vận tốc di chuyển $v$ của tàu chở hàng để tổng chi phí cho cả hải trình đạt giá trị nhỏ nhất.
+	
+	
+	\subsection{Bài tập Đúng/Sai}
+	
+	\noindent \textbf{Câu 1.} Một doanh nghiệp sản xuất hóa chất chuyên cung cấp dung môi sinh học cho một tập đoàn sơn công nghiệp. Theo thỏa thuận, mỗi tháng doanh nghiệp cung cấp sản phẩm theo đơn đặt hàng của đối tác với khối lượng tối đa là 150 kilôlít. Nếu đối tác đặt hàng $x$ kilôlít ($0 \le x \le 150$) thì giá bán cho mỗi kilôlít là $P(x) = 120 - 0,002x^2$ (triệu đồng). Chi phí tổng hợp để doanh nghiệp sản xuất $x$ kilôlít dung môi trong một tháng được xác định bởi công thức $C(x) = 300 + 60x$ (triệu đồng), gồm 300 triệu đồng chi phí khấu hao máy móc cố định và 60 triệu đồng chi phí nguyên liệu cho mỗi kilôlít. Các mệnh đề sau đúng hay sai?
+	\begin{enumerate}[label=\textbf{\alph*)}]
+		\item Chi phí để doanh nghiệp sản xuất 20 kilôlít dung môi sinh học trong một tháng là 1.500 triệu đồng. \hfill  
+		\item Số tiền doanh nghiệp thu được từ đối tác khi bán ra 10 kilôlít dung môi trong tháng là 1.198 triệu đồng. \hfill  
+		\item Lợi nhuận thu về của doanh nghiệp khi cung cấp $x$ kilôlít dung môi cho đối tác được biểu diễn bởi công thức $H(x) = -0,002x^3 + 60x - 300$ (triệu đồng). \hfill  
+		\item Doanh nghiệp sẽ đạt lợi nhuận lớn nhất hàng tháng nếu đối tác đặt hàng chính xác 100 kilôlít dung môi. \hfill  
+	\end{enumerate}
+	
+	\vspace{0.6cm}
+	\noindent \textbf{Câu 2.} Một nông trại công nghệ cao chuyên sản xuất phân bón hữu cơ vi sinh dạng lỏng, với công suất thiết kế tối đa đạt 120 tấn sản phẩm mỗi ngày. Để sản xuất $x$ tấn phân bón vi sinh trong một ngày ($0 \le x \le 120$), nông trại phải chi trả các khoản chi phí bao gồm: 9 triệu đồng chi phí vận hành cố định, 0,5 triệu đồng chi phí nguyên liệu trực tiếp trên mỗi tấn sản phẩm và $0,001x^2$ triệu đồng chi phí khấu hao hao mòn thiết bị tự động. Gọi $C(x)$ là tổng chi phí sản xuất $x$ tấn sản phẩm trong ngày và $\overline{C}(x)$ là chi phí sản xuất trung bình trên mỗi tấn sản phẩm. Các mệnh đề sau đúng hay sai?
+	\begin{enumerate}[label=\textbf{\alph*)}]
+		\item Tổng chi phí sản xuất $x$ tấn phân bón hữu cơ vi sinh mỗi ngày là $C(x) = 0,001x^2 + 0,5x + 9$ (triệu đồng). \hfill  
+		\item Tổng chi phí sản xuất khi nông trại đạt công suất tối đa 100 tấn trong một ngày là 69 triệu đồng. \hfill  
+		\item Chi phí trung bình tính trên mỗi tấn phân bón hữu cơ sản xuất ra là $\overline{C}(x) = 0,001x + 0,5 + \frac{9}{x}$ (triệu đồng/tấn). \hfill  
+		\item Chi phí trung bình tính trên mỗi tấn đạt giá trị thấp nhất bằng 1,544 triệu đồng (kết quả làm tròn đến ba chữ số thập phân). \hfill  
+	\end{enumerate}
+	
+	\vspace{0.6cm}
+	\noindent \textbf{Câu 3.} Một doanh nghiệp vận tải công nghệ vận hành một đội xe ô tô điện chuyên chở khách du lịch trong ngày. Chi phí vận hành tổng hợp của một chiếc xe trong một ngày hoạt động liên tục $x$ giờ ($1 \le x \le 16$) bao gồm các khoản: 200 nghìn đồng chi phí bảo trì và đăng kiểm cố định hàng ngày, 50 nghìn đồng chi phí sạc pin cho mỗi giờ di chuyển và $0,5x^2$ nghìn đồng chi phí hao mòn pin tích lũy theo thời gian. Gọi $C(x)$ là tổng chi phí vận hành một chiếc xe trong ngày và $\overline{C}(x)$ là chi phí trung bình cho mỗi giờ hoạt động của xe. Các mệnh đề sau đúng hay sai?
+	\begin{enumerate}[label=\textbf{\alph*)}]
+		\item Tổng chi phí vận hành một chiếc xe ô tô điện trong ngày hoạt động $x$ giờ là $C(x) = 0,5x^2 + 50x + 200$ (nghìn đồng). \hfill  
+		\item Tổng chi phí vận hành của xe khi chạy liên tục 10 giờ trong ngày là 750 nghìn đồng. \hfill  
+		\item Hàm số biểu diễn chi phí trung bình cho mỗi giờ hoạt động của xe là $\overline{C}(x) = 0,5x + 50 + \frac{200}{x}$ (nghìn đồng/giờ). \hfill  
+		\item Để tối ưu hóa hiệu quả kinh tế, chi phí trung bình cho mỗi giờ hoạt động của chiếc xe đạt giá trị thấp nhất khi xe chạy liên tục đủ giới hạn tối đa 16 giờ trong ngày. \hfill  
+	\end{enumerate}
+	
+	\noindent \textbf{Câu 4.} Một nhà máy chuyên sản xuất dòng đèn LED thông minh phục vụ thị trường xuất khẩu với công suất tối đa đạt 100 chiếc mỗi ngày. Nếu nhà máy sản xuất $x$ chiếc đèn ($0 \le x \le 100$) thì đơn giá bán của mỗi chiếc đèn được xác định bởi hàm cầu $p(x) = 1000 - 4x$ (đơn vị: nghìn đồng). Biết hàm chi phí tổng hợp để nhà máy sản xuất $x$ chiếc đèn trong ngày là $C(x) = x^2 + 100x + 10000$ (đơn vị: nghìn đồng). Các mệnh đề sau đúng hay sai?
+	\begin{enumerate}[label=\textbf{\alph*)}]
+		\item Tổng chi phí để nhà máy sản xuất 20 chiếc đèn thông minh trong ngày là 12.400 nghìn đồng. \hfill  
+		\item Doanh thu thu được khi nhà máy tiêu thụ hết 50 chiếc đèn trong ngày là 40.000 nghìn đồng. \hfill  
+		\item Hàm số biểu diễn tổng lợi nhuận thu về của nhà máy trong ngày là $P(x) = -5x^2 + 900x - 10000$ (đơn vị: nghìn đồng). \hfill  
+		\item Nhà máy đạt lợi nhuận tối đa trong ngày khi đặt mức giá bán tối ưu của mỗi chiếc đèn là 640 nghìn đồng. \hfill  
+	\end{enumerate}
+	
+	\vspace{0.6cm}
+	\noindent \textbf{Câu 5.} Một xưởng chế biến thức ăn gia súc hữu cơ có năng lực sản xuất tối đa đạt 80 tấn sản phẩm mỗi ngày. Chi phí tổng hợp để xưởng sản xuất $x$ tấn sản phẩm trong ngày được xác định bởi hàm số $C(x) = 0,05x^2 + 20x + 500$ (đơn vị: nghìn đồng). Gọi $\overline{C}(x)$ là chi phí trung bình tính trên mỗi tấn sản phẩm sản xuất ra trong ngày. Các mệnh đề sau đúng hay sai?
+	\begin{enumerate}[label=\textbf{\alph*)}]
+		\item Tổng chi phí để xưởng chế biến được 10 tấn thức ăn gia súc trong ngày là 705 nghìn đồng. \hfill  
+		\item Hàm số biểu diễn chi phí trung bình trên mỗi tấn sản phẩm sản xuất ra là $\overline{C}(x) = 0,05x + 20 + \frac{500}{x}$ (nghìn đồng/tấn). \hfill  
+		\item Chi phí trung bình trên mỗi tấn sản phẩm đạt giá trị nhỏ nhất tại mức sản lượng lý thuyết $x = 100$ tấn. \hfill  
+		\item Trong điều kiện hoạt động thực tế của xưởng, chi phí trung bình thấp nhất đạt được là 30,25 nghìn đồng/tấn tại mức sản lượng cực đại 80 tấn/ngày. \hfill  
+	\end{enumerate}
+	
+	\vspace{0.6cm}
+	\noindent \textbf{Câu 6.} Một tàu chở hàng bằng động cơ điện thế hệ mới cần hoàn thành chuyến vận chuyển container trên tuyến đường dài 400 km. Biết chi phí điện năng tiêu thụ để vận hành tàu mỗi giờ phụ thuộc vào vận tốc di chuyển $v$ (km/h) theo công thức $0,1v^3$ nghìn đồng (với $v > 10$). Chi phí khấu hao kỹ thuật và thù lao chi trả cố định cho thủy thủ đoàn là 12.800 nghìn đồng cho mỗi giờ chạy tàu. Các mệnh đề sau đúng hay sai?
+	\begin{enumerate}[label=\textbf{\alph*)}]
+		\item Tổng chi phí cho cả chuyến hành trình di chuyển với vận tốc $v$ là $C(v) = 40v^2 + \frac{5.120.000}{v}$ (nghìn đồng). \hfill  
+		\item Nếu tàu di chuyển với vận tốc 50 km/h, tổng chi phí cho cả chuyến hành trình là 202.400 nghìn đồng. \hfill  
+		\item Công thức tính gia tốc thay đổi chi phí theo vận tốc là đạo hàm $C'(v) = 80v - \frac{5.120.000}{v^2}$. \hfill  
+		\item Để tổng chi phí cho cả chuyến hành trình vận chuyển đạt giá trị nhỏ nhất, tàu cần di chuyển với vận tốc tối ưu là 40 km/h. \hfill  
+	\end{enumerate}
+	
+	\vspace{0.6cm}
+	\noindent \textbf{Câu 7.} Một doanh nghiệp phát triển phần mềm độc quyền phân phối gói bản quyền diệt virus bảo mật thông tin với công suất tối đa đạt 1000 bản quyền mỗi tháng. Nếu doanh nghiệp cung cấp $x$ bản quyền ($0 \le x \le 1000$) thì đơn giá bán của mỗi bản quyền là $p(x) = 1500 - 0,5x$ (đơn vị: nghìn đồng). Chi phí sản xuất ban đầu cho $x$ bản quyền là $C_0(x) = 800x + 50000$ (đơn vị: nghìn đồng) và nhà nước thu thuế bổ sung 100 nghìn đồng trên mỗi bản quyền bán ra. Các mệnh đề sau đúng hay sai?
+	\begin{enumerate}[label=\textbf{\alph*)}]
+		\item Tổng chi phí sản xuất và thuế môn bài phát sinh khi doanh nghiệp cung cấp 100 bản quyền trong tháng là 140.000 nghìn đồng. \hfill  
+		\item Doanh thu thu được khi doanh nghiệp tiêu thụ hết 200 bản quyền trong tháng là 280.000 nghìn đồng. \hfill  
+		\item Hàm số biểu diễn lợi nhuận ròng thu về sau khi trừ chi phí sản xuất và thuế của doanh nghiệp là $P(x) = -0,5x^2 + 600x - 50000$ (đơn vị: nghìn đồng). \hfill  
+		\item Doanh nghiệp thu được lợi nhuận lớn nhất hàng tháng tương đương với mức 150 triệu đồng. \hfill  
+	\end{enumerate}
+	\newpage
+	
+	% =====================
+	% PHẦN 5: TỔNG KẾT
+	% =====================
+	\section{Tổng kết và Hướng dẫn tự học}
+	
+	\begin{tcolorbox}[colback=orange!10!white, colframe=orange!80!black,
+		fonttitle=\bfseries, title={Tóm tắt công thức cốt lõi}]
+		\begin{itemize}
+			\item \textbf{Lợi nhuận cơ bản:} $P(x) = R(x) - C(x) = x \cdot p(x) - x \cdot G(x)$.
+			\item \textbf{Tác động của Thuế ($t$):} Làm tăng tổng chi phí sản xuất thêm một lượng $t \cdot x$.
+			\item \textbf{Quy tắc tối ưu hóa:} Sử dụng quy trình lập bảng biến thiên để tìm điểm cực đại của $P(x)$ hoặc cực tiểu của hàm chi phí tổng hợp $F(v), f(Q)$.
+		\end{itemize}
+	\end{tcolorbox}
+	
+	\vspace{5mm}
+	\textbf{Nhiệm vụ tự học của học sinh:}
+	\begin{enumerate}
+		\item Thực hành tiếp các bài chưa làm
+	\end{enumerate}
+	
+\end{document}

@@ -1,0 +1,2224 @@
+\documentclass[12pt]{article}
+
+% === CÀI ĐẶT TRANG ===
+\usepackage[margin=2cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T5]{fontenc}
+\usepackage[vietnamese]{babel}
+
+% === TOÁN HỌC & HÌNH VẼ ===
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+% === ĐỊNH DẠNG ===
+\usepackage{enumitem}
+\usepackage{multicol}
+\usepackage{fancyhdr}
+\usepackage[hidelinks]{hyperref}
+
+% Sửa lỗi headheight quá nhỏ
+\setlength{\headheight}{14pt}
+
+% Thiết lập khoảng cách cho list để văn bản thoáng hơn
+\setlist[enumerate]{itemsep=4pt, topsep=4pt}
+
+% === HEADER/FOOTER ===
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small Đề cương ôn tập KTTX 2}
+\fancyhead[R]{\small Lớp 2026 - L01}
+\fancyfoot[C]{Trang \thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\begin{document}
+	
+	% ================================================
+	% TRANG BÌA
+	% ================================================
+	\begin{titlepage}
+		\centering
+		\vspace*{4cm}
+		
+		{\Huge \textbf{ĐỀ CƯƠNG ÔN TẬP}}\\[1cm]
+		{\LARGE \textbf{KIỂM TRA THƯỜNG XUYÊN 2}}\\[1.5cm]
+		
+		{\Large \textbf{Lớp: 2026 - L01}}\\[0.5cm]
+		
+		{\large \textit{(Lưu hành nội bộ)}}
+		
+		\vfill
+	\end{titlepage}
+	
+	% ================================================
+	% ĐỀ SỐ 1
+	% ================================================
+	\newpage
+	\begin{center}
+		{\LARGE \textbf{ĐỀ 1}}\\[4pt]
+	\end{center}
+	\vspace{4mm}
+	
+	% --- PHẦN 1: TRẮC NGHIỆM ---
+	\noindent\textbf{PHẦN I. Câu trắc nghiệm nhiều phương án lựa chọn.} Thí sinh trả lời từ câu 1 đến câu 12. Mỗi câu hỏi thí sinh chỉ chọn một phương án.
+	\vspace{2mm}
+	
+	\begin{enumerate}[label=\textbf{Câu \arabic*.}, leftmargin=*]
+		
+		% CÂU 1: Vector trong không gian (Hình hộp chữ nhật)
+		\item Cho hình hộp chữ nhật $ABCD.A'B'C'D'$. Khẳng định nào sau đây là đúng?
+		\begin{center}
+			\begin{tikzpicture}[scale=0.8, line join=round, line cap=round]
+				% Định nghĩa các đỉnh
+				\coordinate (A) at (0,0);
+				\coordinate (B) at (4,0);
+				\coordinate (C) at (5.5,1.5);
+				\coordinate (D) at (1.5,1.5);
+				\coordinate (A') at (0,4);
+				\coordinate (B') at (4,4);
+				\coordinate (C') at (5.5,5.5);
+				\coordinate (D') at (1.5,5.5);
+				
+				% Vẽ các nét khuất (đứt)
+				\draw[dashed, thick] (A) -- (D) (D) -- (C) (D) -- (D');
+				% Vẽ các nét thấy (liền)
+				\draw[thick] (A) -- (B) -- (C) -- (C') -- (B') -- (A') -- cycle;
+				\draw[thick] (A) -- (A') (B) -- (B') (B') -- (C');
+				\draw[thick] (D') -- (A') (D') -- (C');
+				
+				% Gắn nhãn
+				\node[below left] at (A) {$A$};
+				\node[below right] at (B) {$B$};
+				\node[right] at (C) {$C$};
+				\node[above left] at (D) {$D$};
+				\node[above left] at (A') {$A'$};
+				\node[above left] at (B') {$B'$};
+				\node[right] at (C') {$C'$};
+				\node[above left] at (D') {$D'$};
+			\end{tikzpicture}
+		\end{center}
+		\begin{center}
+			\begin{tabular}{p{0.42\textwidth} p{0.42\textwidth}}
+				A. $\overrightarrow{CB} + \overrightarrow{CD} + \overrightarrow{CC'} = \overrightarrow{CA'}$. &
+				B. $\overrightarrow{CB} + \overrightarrow{CD} + \overrightarrow{CC'} = \overrightarrow{AC'}$. \\[2mm]
+				C. $\overrightarrow{CB} + \overrightarrow{CD} + \overrightarrow{CC'} = \overrightarrow{BD'}$. &
+				D. $\overrightarrow{CB} + \overrightarrow{CD} + \overrightarrow{CC'} = \overrightarrow{DB'}$.
+			\end{tabular}
+		\end{center}
+		
+		% CÂU 2: Max/Min hàm phân thức
+		\item Gọi $M, m$ lần lượt là giá trị lớn nhất và giá trị nhỏ nhất của hàm số $y = \dfrac{x+2}{x-1}$ trên đoạn $[2; 4]$. Tính giá trị của biểu thức $T = M + m$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\Alph*.]
+				\item $T = 6$.
+				\item $T = 2$.
+				\item $T = 4$.
+				\item $T = \dfrac{10}{3}$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 3: Đọc đồ thị tìm khoảng đơn điệu
+		\item Cho hàm số $y = f(x)$ có đồ thị như hình vẽ bên dưới. Hàm số đã cho nghịch biến trên khoảng nào dưới đây?
+		\begin{center}
+			\begin{tikzpicture}
+				\begin{axis}[
+					axis lines = middle,
+					xlabel = {$x$}, ylabel = {$y$},
+					ymin = -2, ymax = 4.5,
+					xmin = -2.5, xmax = 2.5,
+					xtick = {-1, 1}, ytick = {-1, 1, 3},
+					ticklabel style = {fill=white, inner sep=1pt},
+					width=8cm, height=6.5cm,
+					samples=100,
+					axis line style={->}
+					]
+					% Đồ thị y = x^3 - 3x + 1
+					\addplot [domain=-2.1:2.1, thick, blue] {x^3 - 3*x + 1};
+					
+					% Gióng cực đại
+					\draw[dashed, gray] (-1,0) -- (-1,3) -- (0,3);
+					\fill (-1,3) circle (1.5pt);
+					% Gióng cực tiểu
+					\draw[dashed, gray] (1,0) -- (1,-1) -- (0,-1);
+					\fill (1,-1) circle (1.5pt);
+					
+					% Gốc tọa độ
+					\node[below left] at (axis cs:0,0) {$O$};
+				\end{axis}
+			\end{tikzpicture}
+		\end{center}
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\Alph*.]
+				\item $(-1; 1)$.
+				\item $(-\infty; -1)$.
+				\item $(1; +\infty)$.
+				\item $(-1; 3)$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 4: Thống kê (Khoảng tứ phân vị)
+		\item Số lượng sản phẩm hoàn thành trong một ngày của một nhóm công nhân được thống kê bởi bảng ghép nhóm sau:
+		\begin{center}
+			\begin{tabular}{|c|c|}
+				\hline
+				\textbf{Số lượng sản phẩm} & \textbf{Số công nhân} \\
+				\hline
+				$[10; 20)$ & 5 \\
+				\hline
+				$[20; 30)$ & 12 \\
+				\hline
+				$[30; 40)$ & 18 \\
+				\hline
+				$[40; 50)$ & 10 \\
+				\hline
+				$[50; 60)$ & 5 \\
+				\hline
+			\end{tabular}
+		\end{center}
+		Hãy tìm khoảng tứ phân vị $\Delta_Q$ của mẫu số liệu ghép nhóm cho bởi bảng trên.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\Alph*.]
+				\item $\Delta_Q = 16,25$.
+				\item $\Delta_Q = 15,75$.
+				\item $\Delta_Q = 14,5$.
+				\item $\Delta_Q = 16,5$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 5: Tìm số tiệm cận đứng
+		\item Tìm số tiệm cận đứng của đồ thị hàm số $y = \dfrac{x^2 - x - 6}{x^2 - 9}$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\Alph*.]
+				\item $1$.
+				\item $2$.
+				\item $0$.
+				\item $3$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 6: Nhận diện dấu hệ số hàm bậc 3 từ đồ thị
+		\item Cho hàm số $y = ax^3 + bx^2 + cx + d$ $(a \neq 0)$ có đồ thị như hình vẽ bên. Mệnh đề nào dưới đây đúng?
+		\begin{center}
+			\begin{tikzpicture}
+				\begin{axis}[
+					axis lines = middle,
+					xlabel = {$x$}, ylabel = {$y$},
+					ymin = -3.5, ymax = 4.5,
+					xmin = -2.5, xmax = 2.5,
+					xtick = {-1, 1, 2}, ytick = {1},
+					ticklabel style = {fill=white, inner sep=1pt},
+					width=8cm, height=6.5cm,
+					samples=100,
+					axis line style={->}
+					]
+					% Đồ thị y = x^3 + 1.5x^2 - 2x + 1 
+					% Hàm này đi lên-xuống-lên, cắt tung độ tại dương, cực đại hoành âm (trị tuyệt đối lớn hơn), cực tiểu hoành dương.
+					\addplot [domain=-2.5:1.5, thick, blue] {x^3 + 1.5*x^2 - 2*x + 1};
+					
+					% Gốc tọa độ
+					\node[below left] at (axis cs:0,0) {$O$};
+				\end{axis}
+			\end{tikzpicture}
+		\end{center}
+		\begin{center}
+			\begin{tabular}{p{0.42\textwidth} p{0.42\textwidth}}
+				A. $a > 0; b > 0; c < 0; d > 0$. &
+				B. $a > 0; b < 0; c < 0; d > 0$. \\[2mm]
+				C. $a < 0; b > 0; c > 0; d < 0$. &
+				D. $a > 0; b > 0; c > 0; d > 0$.
+			\end{tabular}
+		\end{center}
+		
+		% ======================================================
+		% TIẾP TỤC ĐỀ 1 - TỪ CÂU 7 ĐẾN CÂU 12
+		% ======================================================
+		
+		% CÂU 7: Tích vô hướng của hai vecto (Dựa trên câu 10 ảnh cuối)
+		\item Trong không gian $Oxyz$, cho $\vec{a} = 2\vec{i} - \vec{j} + 3\vec{k}$ và $\vec{b} = (-1; 4; 2)$. Tính $\vec{a} \cdot \vec{b}$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\Alph*.]
+				\item $\vec{a} \cdot \vec{b} = 0$.
+				\item $\vec{a} \cdot \vec{b} = 1$.
+				\item $\vec{a} \cdot \vec{b} = (1; 3; 5)$.
+				\item $\vec{a} \cdot \vec{b} = -2$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 8: Đọc bảng biến thiên tìm Max/Min (Dựa trên câu 2 ảnh giữa)
+		\item Cho hàm số $y = f(x)$ có bảng biến thiên như sau:
+		\begin{center}
+			\begin{tikzpicture}[xscale=1.2, yscale=0.8]
+				% Khung bảng
+				\draw (0,0) rectangle (8,3);
+				\draw (0,1) -- (8,1);
+				\draw (0,2) -- (8,2);
+				\draw (1,0) -- (1,3);
+				
+				% Dòng x
+				\node at (0.5, 2.5) {$x$};
+				\node at (1.5, 2.5) {$-\infty$};
+				\node at (3.5, 2.5) {$-1$};
+				\node at (5.5, 2.5) {$3$};
+				\node at (7.5, 2.5) {$+\infty$};
+				
+				% Dòng f'(x)
+				\node at (0.5, 1.5) {$f'(x)$};
+				\node at (2.5, 1.5) {$+$};
+				\node at (3.5, 1.5) {$0$};
+				\node at (4.5, 1.5) {$-$};
+				\node at (5.5, 1.5) {$0$};
+				\node at (6.5, 1.5) {$+$};
+				
+				% Dòng f(x)
+				\node at (0.5, 0.5) {$f(x)$};
+				\node at (1.5, 0.2) {$-\infty$};
+				\node at (3.5, 0.7) {$4$};
+				\node at (5.5, 0.2) {$-2$};
+				\node at (7.5, 0.7) {$+\infty$};
+				
+				% Mũi tên
+				\draw[->, thick, blue] (1.8, 0.3) -- (3.2, 0.6);
+				\draw[->, thick, blue] (3.8, 0.6) -- (5.2, 0.3);
+				\draw[->, thick, blue] (5.8, 0.3) -- (7.2, 0.6);
+			\end{tikzpicture}
+		\end{center}
+		Trên khoảng $(-\infty; 2)$, giá trị lớn nhất của hàm số đã cho bằng:
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\Alph*.]
+				\item $3$.
+				\item $-2$.
+				\item $4$.
+				\item $-1$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 9: Tọa độ điểm thỏa mãn biểu thức vecto (Dựa trên câu 10 ảnh giữa)
+		\item Trong không gian với hệ trục tọa độ $Oxyz$, cho vecto $\vec{v} = (-2; 3; 1)$ và điểm $P(3; -1; 2)$. Tọa độ điểm $Q$ thỏa mãn $\overrightarrow{PQ} = \vec{v}$ là:
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\Alph*.]
+				\item $Q(-5; 4; -1)$.
+				\item $Q(1; 2; 3)$.
+				\item $Q(5; -4; 1)$.
+				\item $Q(-1; -2; -3)$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 10: Thống kê tính Độ lệch chuẩn (Dựa trên câu 12 ảnh đầu)
+		\item Để chuẩn bị cho giải điền kinh cấp trường, bạn Hùng đã tự ghi lại cự ly chạy (đơn vị: km) của mình trong 20 ngày luyện tập liên tiếp và thu được kết quả ở bảng sau:
+		\begin{center}
+			\begin{tabular}{|c|c|c|c|c|c|}
+				\hline
+				\textbf{Cự ly chạy (km)} & $[0; 2)$ & $[2; 4)$ & $[4; 6)$ & $[6; 8)$ & $[8; 10)$ \\
+				\hline
+				\textbf{Số ngày} & 2 & 4 & 8 & 4 & 2 \\
+				\hline
+			\end{tabular}
+		\end{center}
+		Độ lệch chuẩn của mẫu số liệu ghép nhóm trên có giá trị gần nhất với giá trị nào dưới đây?
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\Alph*.]
+				\item $4,80$.
+				\item $2,25$.
+				\item $2,19$.
+				\item $5,00$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 11: Tính tọa độ vecto cơ bản (Dựa trên câu 6 ảnh đầu)
+		\item Trong không gian $Oxyz$, cho $\overrightarrow{OA} = -\vec{i} + 3\vec{j} + 4\vec{k}$ và $\overrightarrow{OB} = 5\vec{i} - \vec{k}$. Tìm tọa độ của vecto $\overrightarrow{AB}$.
+		\begin{center}
+			\begin{tabular}{p{0.42\textwidth} p{0.42\textwidth}}
+				A. $\overrightarrow{AB} = (6; -3; -5)$. &
+				B. $\overrightarrow{AB} = (-6; 3; 5)$. \\[2mm]
+				C. $\overrightarrow{AB} = (4; 3; 3)$. &
+				D. $\overrightarrow{AB} = (6; 3; -5)$.
+			\end{tabular}
+		\end{center}
+		
+		% CÂU 12: Phép cộng vecto hình không gian (Dựa trên câu 9 ảnh giữa)
+		\item Cho hình lập phương $ABCD.A'B'C'D'$ (như hình minh họa bên dưới) có độ dài mỗi cạnh bằng $1$. Tính độ dài của vecto $\overrightarrow{AB} + \overrightarrow{B'C'}$.
+		\begin{center}
+			\begin{tikzpicture}[scale=0.9, line join=round, line cap=round]
+				% Tọa độ các đỉnh của hình lập phương
+				\coordinate (D) at (0,0);
+				\coordinate (C) at (3,0);
+				\coordinate (B) at (4,1.2);
+				\coordinate (A) at (1,1.2);
+				\coordinate (D') at (0,3);
+				\coordinate (C') at (3,3);
+				\coordinate (B') at (4,4.2);
+				\coordinate (A') at (1,4.2);
+				
+				% Vẽ nét khuất
+				\draw[dashed, thick] (A) -- (D) (A) -- (B) (A) -- (A') (A) -- (C);
+				% Vẽ nét liền
+				\draw[thick] (D) -- (C) -- (B) -- (B') -- (C') -- (D') -- cycle;
+				\draw[thick] (D) -- (D') (C) -- (C') (A') -- (B') (A') -- (C') (A') -- (D');
+				
+				% Nhãn
+				\node[below left] at (D) {$D$};
+				\node[below right] at (C) {$C$};
+				\node[right] at (B) {$B$};
+				\node[above left] at (A) {$A$};
+				\node[left] at (D') {$D'$};
+				\node[right] at (C') {$C'$};
+				\node[above right] at (B') {$B'$};
+				\node[above left] at (A') {$A'$};
+			\end{tikzpicture}
+		\end{center}
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\Alph*.]
+				\item $\sqrt{3}$.
+				\item $1$.
+				\item $\sqrt{2}$.
+				\item $2$.
+			\end{enumerate}
+		\end{multicols}
+		
+	\end{enumerate}
+	
+	\vspace{4mm}
+	
+	
+	% ======================================================
+	% PHẦN 2: TRẮC NGHIỆM ĐÚNG SAI
+	% ======================================================
+	\noindent\textbf{PHẦN II. Câu trắc nghiệm đúng sai.} Thí sinh trả lời từ câu 1 đến câu 2. Trong mỗi ý a), b), c), d) ở mỗi câu, thí sinh chọn đúng hoặc sai.
+	\vspace{2mm}
+	
+	\begin{enumerate}[label=\textbf{Câu \arabic*.}, leftmargin=*]
+	
+	% CÂU 1 ĐÚNG SAI: Khảo sát tính chất hàm phân thức bậc 2/bậc 1
+	\item Cho hàm số $y = f(x) = \dfrac{x^2 - x + 2}{x - 2}$ có đồ thị là đường cong $(C)$. Xét tính đúng hay sai của các mệnh đề sau:
+	\begin{enumerate}[label=\alph*)]
+		\item Hàm số $f(x)$ có tập xác định là $\mathbb{R} \setminus \{2\}$.
+		\item Đồ thị $(C)$ có đường tiệm cận đứng là đường thẳng $x = -2$.
+		\item Tâm đối xứng của đồ thị hàm số là điểm $I(2; 3)$.
+		\item Trên đồ thị $(C)$ tồn tại đúng $4$ điểm có tọa độ là các số nguyên.
+	\end{enumerate}
+	
+	\vspace{4mm}
+	% CÂU 2 ĐÚNG SAI: Tọa độ điểm và vecto trong không gian Oxyz
+	\item Trong không gian $Oxyz$, cho các điểm $A(3; -1; 2)$, $B(1; 1; -2)$ và $C(0; 2; -3)$. Xét tính đúng hay sai của các mệnh đề sau:
+	\begin{enumerate}[label=\alph*)]
+		\item Tọa độ của vecto $\overrightarrow{AB}$ là $(-2; 2; -4)$.
+		\item Độ dài của vecto $\overrightarrow{AB}$ bằng $2\sqrt{5}$.
+		\item Điểm $M$ thỏa mãn hệ thức $\overrightarrow{AB} + \overrightarrow{CM} = \vec{0}$ có tọa độ là $M(2; 0; 1)$.
+		\item Gọi $N$ là giao điểm của đường thẳng đi qua hai điểm $A, B$ với mặt phẳng tọa độ $(Oxy)$. Tọa độ của điểm $N$ là $N(2; 0; 0)$.
+	\end{enumerate}
+	
+	\end{enumerate} % Kết thúc Phần II
+	
+	% ======================================================
+	% PHẦN 3: TRẮC NGHIỆM TRẢ LỜI NGẮN
+	% ======================================================
+	\vspace{4mm}
+	\noindent\textbf{PHẦN III. Câu trắc nghiệm trả lời ngắn.}
+	\vspace{2mm}
+	
+	\begin{enumerate}[label=\textbf{Câu \arabic*.}, leftmargin=*]
+		
+		% CÂU 1 TRẢ LỜI NGẮN: Tổng cực đại, cực tiểu hàm phân thức
+		\item Cho hàm số $y = f(x) = \dfrac{x^2 - 2x + 5}{x - 1}$. Tổng giá trị cực đại và giá trị cực tiểu của hàm số đã cho bằng bao nhiêu?
+		
+		\vspace{2mm}
+		% CÂU 2 TRẢ LỜI NGẮN: Thống kê (Hiệu số 2 khoảng tứ phân vị)
+		\item Điều tra về thời gian tự học ở nhà (giờ/tuần) của học sinh ở hai lớp 11A và 11B tại một trường THPT, ta có hai mẫu số liệu ghép nhóm sau:
+		
+		\begin{center}
+			\renewcommand{\arraystretch}{1.2}
+			\begin{tabular}{|c|c|c|c|c|c|}
+				\hline
+				\textbf{Thời gian (giờ)} & $[5; 10)$ & $[10; 15)$ & $[15; 20)$ & $[20; 25)$ & $[25; 30)$ \\
+				\hline
+				\textbf{Số học sinh 11A} & 2 & 10 & 18 & 8 & 2 \\
+				\hline
+				\textbf{Số học sinh 11B} & 4 & 12 & 14 & 8 & 2 \\
+				\hline
+			\end{tabular}
+		\end{center}
+		Tính hiệu số giữa khoảng tứ phân vị của mẫu số liệu ghép nhóm lớp 11B và khoảng tứ phân vị của mẫu số liệu ghép nhóm lớp 11A.
+		
+		\vspace{2mm}
+		% CÂU 3 TRẢ LỜI NGẮN: Tính góc giữa 2 vecto dựa vào độ dài
+		\item Cho 2 vecto $\vec{u}$ và $\vec{v}$ thỏa mãn $|\vec{u}| = 2$, $|\vec{v}| = 3$ và $|\vec{u} - \sqrt{3}\vec{v}| = \sqrt{13}$. Tính góc $(\vec{u}, \vec{v})$ (viết kết quả tính theo đơn vị độ).
+		
+		\vspace{2mm}
+		% CÂU 4 TRẢ LỜI NGẮN: Hình hộp trong Oxyz
+		\item Trong không gian $Oxyz$, cho hình hộp $ABCD.A'B'C'D'$ có tọa độ các điểm $B(3; 1; 0)$, $D(-1; 3; 2)$, $A'(4; 3; 5)$ và $C'(2; -1; 3)$. Giả sử tọa độ điểm $B'(x; y; z)$, tính giá trị của biểu thức $T = x + y + z$.
+		
+	\end{enumerate}
+	
+	
+	% ======================================================
+	% PHẦN 4: TỰ LUẬN
+	% ======================================================
+	\vspace{4mm}
+	\noindent\textbf{PHẦN IV. Tự luận.} Thí sinh trình bày bài giải chi tiết từ bài 1 đến bài 2.
+	\vspace{2mm}
+	
+	\begin{enumerate}[label=\textbf{Bài \arabic*.}, leftmargin=*]
+		
+		% BÀI 1: KHẢO SÁT HÀM SỐ (1.5 ĐIỂM)
+		\item  Cho hàm số $y = \dfrac{x^2 - 3x + 3}{x - 1}$ có đồ thị là đường cong $(C)$.
+		\begin{enumerate}[label=\alph*)]
+			\item Khảo sát sự biến thiên (đồng biến, nghịch biến, cực trị, tiệm cận) và xác định tọa độ tâm đối xứng của đồ thị hàm số đã cho.
+			\item Viết phương trình tiếp tuyến của đồ thị $(C)$, biết tiếp tuyến đó song song với đường thẳng $d: y = -3x + 2025$.
+		\end{enumerate}
+		
+		\vspace{4mm}
+		% BÀI 2: VECTO TRONG KHÔNG GIAN (1.5 ĐIỂM)
+		\item  
+		\begin{enumerate}[label=\alph*)]
+			\item Cho hình chóp $S.ABCD$ có đáy $ABCD$ là hình bình hành. Gọi $M, N$ lần lượt là trung điểm của các cạnh $BC$ và $AD$. Chứng minh đẳng thức vecto sau:
+			\[ \overrightarrow{SM} + \overrightarrow{SN} = \overrightarrow{SB} + \overrightarrow{SD} \]
+			\item Cho hình chóp tứ giác đều $S.ABCD$ có tất cả các cạnh đều bằng $a$ (Hình minh họa bên cạnh). Tính các tích vô hướng sau theo $a$: 
+			\[ \overrightarrow{SA} \cdot \overrightarrow{SC} \quad \text{và} \quad \overrightarrow{SA} \cdot \overrightarrow{BC} \]
+		\end{enumerate}
+		\hfill
+		\begin{minipage}[t]{0.3\textwidth}
+			\vspace{-1.5cm} % Đẩy hình lên cho ngang hàng với text
+			\begin{center}
+				\begin{tikzpicture}[scale=0.9, line join=round, line cap=round]
+					% Định nghĩa các đỉnh của chóp tứ giác đều
+					\coordinate (A) at (0,0);
+					\coordinate (D) at (3.5,0);
+					\coordinate (B) at (-1.5,-1.5);
+					\coordinate (C) at (2,-1.5);
+					\coordinate (O) at (1,-0.75); % Tâm đáy (giao AC và BD)
+					\coordinate (S) at (1,3.5); % Đỉnh S thẳng đứng từ O
+					
+					% Vẽ các nét khuất
+					\draw[dashed, thick] (A) -- (B) (A) -- (D) (A) -- (C) (B) -- (D) (S) -- (A) (S) -- (O);
+					% Vẽ các nét thấy
+					\draw[thick] (B) -- (C) -- (D) -- (S) -- (B) (S) -- (C);
+					
+					% Gắn nhãn
+					\node[left] at (A) {$A$};
+					\node[below left] at (B) {$B$};
+					\node[below right] at (C) {$C$};
+					\node[right] at (D) {$D$};
+					\node[above] at (S) {$S$};
+					\node[below, yshift=-1mm] at (O) {$O$};
+					
+					% Chấm điểm O
+					\fill (O) circle (1.5pt);
+				\end{tikzpicture}
+			\end{center}
+		\end{minipage}
+		
+	\end{enumerate}
+	
+	
+	
+	
+	
+	% ================================================
+	% ĐỀ SỐ 2
+	% ================================================
+	\newpage
+	\begin{center}
+		{\LARGE \textbf{ĐỀ SỐ 2}}\\[4pt]
+	\end{center}
+	\vspace{4mm}
+	
+	% --- PHẦN 1: TRẮC NGHIỆM ---
+	\noindent\textbf{PHẦN I. Câu trắc nghiệm nhiều phương án lựa chọn.} Thí sinh trả lời từ câu 1 đến câu 12. Mỗi câu hỏi thí sinh chỉ chọn một phương án.
+	\vspace{2mm}
+	
+	\begin{enumerate}[label=\textbf{Câu \arabic*.}, leftmargin=*]
+		
+		% CÂU 1: Vector không tọa độ (Đảo hình hộp thành hình chóp tam giác/tứ diện)
+		\item Cho tứ diện $ABCD$ có $G$ là trọng tâm của tứ diện. Mệnh đề nào dưới đây là đúng?
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\Alph*.]
+				\item $\overrightarrow{GA} + \overrightarrow{GB} + \overrightarrow{GC} + \overrightarrow{GD} = \vec{0}$.
+				\item $\overrightarrow{GA} + \overrightarrow{GB} + \overrightarrow{GC} = \overrightarrow{GD}$.
+				\item $\overrightarrow{GA} + \overrightarrow{GB} + \overrightarrow{GC} + \overrightarrow{GD} = 4\overrightarrow{AB}$.
+				\item $\overrightarrow{AG} = \dfrac{1}{3}\left( \overrightarrow{AB} + \overrightarrow{AC} + \overrightarrow{AD} \right)$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 2: Hàm số - Đơn điệu (Đề 1 cho Đồ thị -> Đề 2 cho Công thức)
+		\item Cho hàm số $y = -x^3 + 3x^2 + 9x - 1$. Hàm số đã cho đồng biến trên khoảng nào dưới đây?
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\Alph*.]
+				\item $(-\infty; -1)$.
+				\item $(-1; 3)$.
+				\item $(3; +\infty)$.
+				\item $(-3; 1)$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 3: Thống kê (Đề 1 hỏi Tứ phân vị -> Đề 2 hỏi Khoảng biến thiên)
+		\item Khảo sát độ tuổi của một nhóm người tham gia câu lạc bộ dưỡng sinh, ta thu được mẫu số liệu ghép nhóm sau:
+		\begin{center}
+			\begin{tabular}{|c|c|c|c|c|c|}
+				\hline
+				\textbf{Độ tuổi} & $[45; 50)$ & $[50; 55)$ & $[55; 60)$ & $[60; 65)$ & $[65; 70)$ \\
+				\hline
+				\textbf{Số người} & 5 & 12 & 18 & 10 & 5 \\
+				\hline
+			\end{tabular}
+		\end{center}
+		Tìm khoảng biến thiên $R$ của mẫu số liệu ghép nhóm trên.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\Alph*.]
+				\item $R = 25$.
+				\item $R = 30$.
+				\item $R = 70$.
+				\item $R = 45$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 4: Hàm số - Max/Min (Đề 1 cho Công thức -> Đề 2 cho Đồ thị)
+		\item Cho hàm số $y = f(x)$ liên tục trên đoạn $[-2; 3]$ và có đồ thị như hình vẽ bên dưới. 
+		\begin{center}
+			\begin{tikzpicture}[scale=0.8]
+				\begin{axis}[
+					axis lines = middle,
+					xlabel = {$x$}, ylabel = {$y$},
+					ymin = -3, ymax = 5,
+					xmin = -3, xmax = 4,
+					xtick = {-2, -1, 1, 3}, ytick = {-2, -1, 4},
+					ticklabel style = {fill=white, inner sep=1pt},
+					width=8cm, height=6.5cm,
+					samples=100,
+					axis line style={->}
+					]
+					% Vẽ 1 đường cong đi qua các điểm (-2,0), (-1,-1), (1,4), (3,-2)
+					\addplot [domain=-2:3, thick, blue, smooth] coordinates {(-2,0) (-1,-1) (0,2) (1,4) (2,2) (3,-2)};
+					
+					\draw[dashed, gray] (-1,0) -- (-1,-1) -- (0,-1);
+					\draw[dashed, gray] (1,0) -- (1,4) -- (0,4);
+					\draw[dashed, gray] (3,0) -- (3,-2) -- (0,-2);
+					
+					\fill (-2,0) circle (1.5pt);
+					\fill (-1,-1) circle (1.5pt);
+					\fill (1,4) circle (1.5pt);
+					\fill (3,-2) circle (1.5pt);
+					
+					\node[below left] at (axis cs:0,0) {$O$};
+				\end{axis}
+			\end{tikzpicture}
+		\end{center}
+		Gọi $M, m$ lần lượt là giá trị lớn nhất và nhỏ nhất của hàm số trên đoạn $[-2; 3]$. Tính $M - m$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\Alph*.]
+				\item $6$.
+				\item $5$.
+				\item $4$.
+				\item $2$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 5: Hàm số - Tiệm cận (Đề 1 cho Công thức -> Đề 2 cho BBT)
+		\item Cho hàm số $y = f(x)$ có bảng biến thiên như sau:
+		\begin{center}
+			\begin{tikzpicture}[xscale=1, yscale=1]
+				% Khung ngoài và các đường kẻ ngang dọc
+				\draw (0,0) rectangle (8,3);
+				\draw (0,1.5) -- (8,1.5); % Đường kẻ giữa y và y'
+				\draw (0,2.2) -- (8,2.2); % Đường kẻ giữa y' và x
+				\draw (1.2,0) -- (1.2,3); % Đường kẻ dọc ngăn cách
+				
+				% Dòng x
+				\node at (0.6, 2.6) {$x$};
+				\node at (1.8, 2.6) {$-\infty$};
+				\node at (4.6, 2.6) {$1$};
+				\node at (7.4, 2.6) {$+\infty$};
+				
+				% Dòng y'
+				\node at (0.6, 1.85) {$y'$};
+				\node at (3.2, 1.85) {$-$};
+				\node at (6.0, 1.85) {$-$};
+				
+				% Nét đôi tại x = 1 (Không xác định)
+				\draw (4.55, 0) -- (4.55, 2.2);
+				\draw (4.65, 0) -- (4.65, 2.2);
+				
+				% Dòng y (Bố trí cao độ chuẩn xác)
+				\node at (0.6, 0.75) {$y$};
+				\node at (1.8, 1.15) {$2$};          % Trên cao
+				\node at (4.2, 0.25) {$-\infty$};    % Dưới thấp (trái nét đôi)
+				\node at (5.0, 1.15) {$+\infty$};    % Trên cao (phải nét đôi)
+				\node at (7.4, 0.25) {$2$};          % Dưới thấp
+				
+				% Mũi tên xanh
+				\draw[->, thick, blue] (2.1, 1.05) -- (3.9, 0.35);
+				\draw[->, thick, blue] (5.3, 1.05) -- (7.1, 0.35);
+			\end{tikzpicture}
+		\end{center}
+		Tổng số đường tiệm cận đứng và tiệm cận ngang của đồ thị hàm số đã cho là:
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\Alph*.]
+				\item $1$.
+				\item $2$.
+				\item $3$.
+				\item $4$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 6: Vector Oxyz - Khái niệm cơ bản (Hình chiếu)
+		\item Trong không gian $Oxyz$, cho điểm $M(3; -2; 5)$. Tọa độ hình chiếu vuông góc của $M$ lên mặt phẳng tọa độ $(Oyz)$ là:
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\Alph*.]
+				\item $M'(3; 0; 0)$.
+				\item $M'(0; -2; 0)$.
+				\item $M'(0; 0; 5)$.
+				\item $M'(0; -2; 5)$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 7: Hàm số - Nhận diện đồ thị (Đề 1 cho Đồ thị -> Đề 2 cho BBT)
+		\item Cho hàm số phân thức bậc nhất trên bậc nhất $y = \dfrac{ax+b}{cx+d}$ có bảng biến thiên như sau:
+		\begin{center}
+			\begin{tikzpicture}[xscale=1, yscale=1]
+				% Khung ngoài và các đường kẻ ngang dọc
+				\draw (0,0) rectangle (8,3);
+				\draw (0,1.5) -- (8,1.5); % Đường kẻ giữa y và y'
+				\draw (0,2.2) -- (8,2.2); % Đường kẻ giữa y' và x
+				\draw (1.2,0) -- (1.2,3); % Đường kẻ dọc ngăn cách
+				
+				% Dòng x
+				\node at (0.6, 2.6) {$x$};
+				\node at (1.8, 2.6) {$-\infty$};
+				\node at (4.6, 2.6) {$-1$};
+				\node at (7.4, 2.6) {$+\infty$};
+				
+				% Dòng y'
+				\node at (0.6, 1.85) {$y'$};
+				\node at (3.2, 1.85) {$+$};
+				\node at (6.0, 1.85) {$+$};
+				
+				% Nét đôi tại x = -1 (Không xác định)
+				\draw (4.55, 0) -- (4.55, 2.2);
+				\draw (4.65, 0) -- (4.65, 2.2);
+				
+				% Dòng y (Bố trí cao độ chuẩn xác)
+				\node at (0.6, 0.75) {$y$};
+				\node at (1.8, 0.25) {$2$};          % Dưới thấp
+				\node at (4.2, 1.15) {$+\infty$};    % Trên cao (trái nét đôi)
+				\node at (5.0, 0.25) {$-\infty$};    % Dưới thấp (phải nét đôi)
+				\node at (7.4, 1.15) {$2$};          % Trên cao
+				
+				% Mũi tên xanh
+				\draw[->, thick, blue] (2.1, 0.35) -- (3.9, 1.05);
+				\draw[->, thick, blue] (5.3, 0.35) -- (7.1, 1.05);
+			\end{tikzpicture}
+		\end{center}
+		Hàm số đã cho là hàm số nào dưới đây?
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\Alph*.]
+				\item $y = \dfrac{2x-1}{x+1}$.
+				\item $y = \dfrac{2x+3}{x+1}$.
+				\item $y = \dfrac{2x-1}{x-1}$.
+				\item $y = \dfrac{-x+2}{x+1}$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 8: Hàm số - Max/Min (Đề 1 cho BBT -> Đề 2 cho Công thức)
+		\item Tìm giá trị nhỏ nhất của hàm số $y = x^3 - 3x^2 - 9x + 5$ trên đoạn $[0; 4]$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\Alph*.]
+				\item $5$.
+				\item $-22$.
+				\item $-15$.
+				\item $32$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 9: Vector Oxyz - Tính toán tọa độ (Hai vecto cùng phương)
+		\item Trong không gian $Oxyz$, cho hai vecto $\vec{u} = (2; -1; 3)$ và $\vec{v} = (-4; m; -6)$. Tìm giá trị thực của tham số $m$ để hai vecto $\vec{u}$ và $\vec{v}$ cùng phương.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\Alph*.]
+				\item $m = 2$.
+				\item $m = -2$.
+				\item $m = \dfrac{1}{2}$.
+				\item $m = 4$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 10: Thống kê (Đề 1 cho Độ lệch chuẩn -> Đề 2 cho Phương sai)
+		\item Khảo sát thời gian đọc sách (giờ/tuần) của 20 học sinh, ta có bảng số liệu ghép nhóm sau:
+		\begin{center}
+			\begin{tabular}{|c|c|c|c|}
+				\hline
+				\textbf{Thời gian (giờ)} & $[0; 2)$ & $[2; 4)$ & $[4; 6)$ \\
+				\hline
+				\textbf{Số học sinh} & 5 & 8 & 7 \\
+				\hline
+			\end{tabular}
+		\end{center}
+		Phương sai của mẫu số liệu ghép nhóm trên có giá trị bằng bao nhiêu (làm tròn đến hàng phần trăm)?
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\Alph*.]
+				\item $2,36$.
+				\item $1,54$.
+				\item $4,72$.
+				\item $3,20$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 11: Vector Oxyz - Trọng tâm tam giác
+		\item Trong không gian $Oxyz$, cho tam giác $ABC$ với tọa độ các đỉnh là $A(1; 2; -1)$, $B(2; -1; 3)$ và $C(-3; 5; 1)$. Tọa độ trọng tâm $G$ của tam giác $ABC$ là:
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\Alph*.]
+				\item $G(0; 6; 3)$.
+				\item $G(0; 2; 1)$.
+				\item $G(0; -2; -1)$.
+				\item $G\left(0; 3; \dfrac{3}{2}\right)$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 12: Vector HHKG thuần túy - Tích vô hướng
+		\item Cho hình vuông $ABCD$ có cạnh bằng $a$. Tính giá trị của biểu thức tích vô hướng $\overrightarrow{AB} \cdot \overrightarrow{AC}$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\Alph*.]
+				\item $a^2\sqrt{2}$.
+				\item $2a^2$.
+				\item $a^2$.
+				\item $0$.
+			\end{enumerate}
+		\end{multicols}
+		
+	\end{enumerate}
+	
+	\vspace{4mm}
+	% ======================================================
+	% PHẦN 2: TRẮC NGHIỆM ĐÚNG SAI
+	% ======================================================
+	\noindent\textbf{PHẦN II. Câu trắc nghiệm đúng sai.} Thí sinh trả lời từ câu 1 đến câu 2. Trong mỗi ý a), b), c), d) ở mỗi câu, thí sinh chọn đúng hoặc sai.
+	\vspace{2mm}
+	
+	\begin{enumerate}[label=\textbf{Câu \arabic*.}, leftmargin=*]
+		
+		% CÂU 1 ĐÚNG SAI: Khảo sát hàm số (3 ý cơ bản, 1 ý khó về tiệm cận xiên)
+		\item Cho hàm số $y = \dfrac{x^2 - 3x + 6}{x - 1}$ có đồ thị là đường cong $(C)$. Xét tính đúng hay sai của các mệnh đề sau:
+		\begin{enumerate}[label=\alph*)]
+			\item Hàm số đã cho đạt cực tiểu tại điểm $x = 3$.
+			\item Giao điểm của đồ thị $(C)$ với trục tung là điểm $M(0; -6)$.
+			\item Đồ thị $(C)$ có một đường tiệm cận đứng là $x = 1$ và không có tiệm cận ngang.
+			\item Đường tiệm cận xiên của đồ thị $(C)$ tạo với hai trục tọa độ một tam giác có diện tích bằng $4$.
+		\end{enumerate}
+		
+		\vspace{2mm}
+		% CÂU 2 ĐÚNG SAI: Vecto trong không gian (Hình chóp, tam giác vuông cân)
+		\item Cho hình chóp $S.ABCD$ có đáy $ABCD$ là hình bình hành. Biết mặt bên $SAB$ là tam giác vuông cân tại $S$ và có cạnh đáy $AB = 2a$. Gọi $M$ là trung điểm của cạnh $AB$. 
+		\begin{center}
+			\begin{tikzpicture}[scale=0.9, line join=round, line cap=round]
+				% Tọa độ các đỉnh
+				\coordinate (B) at (0,0);
+				\coordinate (C) at (4,-0.5);
+				\coordinate (A) at (2,1.5);
+				\coordinate (D) at (6,1);
+				\coordinate (M) at (1,0.75); % Trung điểm AB
+				\coordinate (S) at (1.5,3.5); % Đỉnh S (căn ke để SAB vuông tại S)
+				
+				% Vẽ nét khuất
+				\draw[dashed, thick] (B) -- (A) (A) -- (D) (S) -- (A) (S) -- (M);
+				\fill (M) circle (1.5pt);
+				
+				% Vẽ nét thấy
+				\draw[thick] (S) -- (B) -- (C) -- (D) -- (S) -- (C);
+				
+				% Gắn nhãn
+				\node[below left] at (B) {$B$};
+				\node[below] at (C) {$C$};
+				\node[above] at (S) {$S$};
+				\node[right] at (D) {$D$};
+				\node[right, yshift=2mm] at (A) {$A$};
+				\node[below left] at (M) {$M$};
+			\end{tikzpicture}
+		\end{center}
+		Xét tính đúng hay sai của các mệnh đề sau:
+		\begin{enumerate}[label=\alph*)]
+			\item $\overrightarrow{AB} \cdot \overrightarrow{SM} = 0$.
+			\item $2\overrightarrow{AM} + \overrightarrow{AD} = \overrightarrow{AC}$.
+			\item $\overrightarrow{AB} \cdot \overrightarrow{SA} = -2a^2$.
+			\item $\overrightarrow{CD} \cdot \overrightarrow{SB} = -a^2$.
+		\end{enumerate}
+		
+	\end{enumerate}
+	
+	\vspace{4mm}
+	% ======================================================
+	% PHẦN 3: TRẮC NGHIỆM TRẢ LỜI NGẮN
+	% ======================================================
+	\noindent\textbf{PHẦN III. Câu trắc nghiệm trả lời ngắn.} Thí sinh trả lời từ câu 1 đến câu 4.
+	\vspace{2mm}
+	
+	\begin{enumerate}[label=\textbf{Câu \arabic*.}, leftmargin=*]
+		
+		% CÂU 1 TRẢ LỜI NGẮN: Max/Min hàm số trên đoạn
+		\item Tính tổng giá trị lớn nhất và giá trị nhỏ nhất của hàm số $y = x - 2 + \dfrac{9}{x}$ trên đoạn $[1; 4]$.
+		
+		\vspace{2mm}
+		% CÂU 2 TRẢ LỜI NGẮN: Thống kê (Tính tứ phân vị Q3 - 5 nhóm)
+		\item Điểm kiểm tra môn Toán của 50 học sinh được thống kê bởi mẫu số liệu ghép nhóm sau:
+		\begin{center}
+			\renewcommand{\arraystretch}{1.2}
+			\begin{tabular}{|c|c|c|c|c|c|}
+				\hline
+				\textbf{Điểm thi} & $[4; 5)$ & $[5; 6)$ & $[6; 7)$ & $[7; 8)$ & $[8; 9)$ \\
+				\hline
+				\textbf{Số học sinh} & 4 & 10 & 16 & 12 & 8 \\
+				\hline
+			\end{tabular}
+		\end{center}
+		Tính tứ phân vị thứ ba ($Q_3$) của mẫu số liệu ghép nhóm trên (viết kết quả dưới dạng số thập phân).
+		
+		\vspace{2mm}
+		% CÂU 3 TRẢ LỜI NGẮN: Tính toán biểu thức vecto (Tích vô hướng)
+		\item Trong không gian, cho hai vecto $\vec{u}$ và $\vec{v}$ thỏa mãn độ dài $|\vec{u}| = 3$, $|\vec{v}| = 4$ và $|\vec{u} + \vec{v}| = 5$. Tính giá trị của biểu thức: $P = (\vec{u} - \vec{v}) \cdot (2\vec{u} + 3\vec{v})$.
+		
+		\vspace{2mm}
+		% CÂU 4 TRẢ LỜI NGẮN: Hệ trục Oxyz (Điểm chia đoạn thẳng)
+		\item Trong không gian $Oxyz$, cho hai điểm $A(2; -1; 4)$ và $B(-4; 5; -2)$. Biết tọa độ của điểm $M(a; b; c)$ thỏa mãn hệ thức $2\overrightarrow{MA} + \overrightarrow{MB} = \vec{0}$. Tính giá trị của biểu thức $T = a + b - c$.
+		
+	\end{enumerate}
+	
+	% ======================================================
+	% PHẦN 4: TỰ LUẬN
+	% ======================================================
+	\vspace{4mm}
+	\noindent\textbf{PHẦN IV. Tự luận.} Thí sinh trình bày bài giải chi tiết từ bài 1 đến bài 2.
+	\vspace{2mm}
+	
+	\begin{enumerate}[label=\textbf{Bài \arabic*.}, leftmargin=*]
+		
+		% BÀI 1: KHẢO SÁT HÀM SỐ (1.5 ĐIỂM)
+		\item Cho hàm số $y = -x^3 + 3x - 1$ có đồ thị là đường cong $(C)$.
+		\begin{enumerate}[label=\alph*)]
+			\item  Khảo sát sự biến thiên (đồng biến, nghịch biến, cực trị) và xác định tọa độ tâm đối xứng của đồ thị hàm số đã cho.
+			\item  Biết đường thẳng $d: y = 2x - 1$ cắt đồ thị $(C)$ tại ba điểm phân biệt $A, B, C$ (giả sử $x_A < x_B < x_C$). Tìm tọa độ các điểm $A, B, C$ và chứng minh rằng điểm $B$ là trung điểm của đoạn thẳng $AC$.
+		\end{enumerate}
+		
+		\vspace{4mm}
+		% BÀI 2: VECTO TRONG KHÔNG GIAN (1.5 ĐIỂM)
+		\item 
+		\begin{enumerate}[label=\alph*)]
+			\item  Cho tứ diện $ABCD$. Gọi $I, J$ lần lượt là trung điểm của các cạnh $AB$ và $CD$. Chứng minh đẳng thức vecto sau:
+			\[ \overrightarrow{AC} + \overrightarrow{BD} = 2\overrightarrow{IJ} \]
+			\item Giả sử tứ diện $ABCD$ ở câu trên là tứ diện đều có tất cả các cạnh bằng $a$ (Hình minh họa bên cạnh). Tính theo $a$: 
+			\[ \overrightarrow{AB} \cdot \overrightarrow{CD} \quad \text{và} \quad \overrightarrow{AB} \cdot \overrightarrow{AJ} \]
+		\end{enumerate}
+		\hfill
+		
+	\end{enumerate}
+	
+	% ================================================
+	% ĐỀ SỐ 3
+	% ================================================
+	\newpage
+	\begin{center}
+		{\LARGE \textbf{ĐỀ SỐ 3}}\\[4pt]
+	\end{center}
+	\vspace{4mm}
+	
+	% --- PHẦN 1: TRẮC NGHIỆM ---
+	\noindent\textbf{PHẦN I. Câu trắc nghiệm nhiều phương án lựa chọn.} Thí sinh trả lời từ câu 1 đến câu 12. Mỗi câu hỏi thí sinh chỉ chọn một phương án.
+	\vspace{2mm}
+	
+	\begin{enumerate}[label=\textbf{Câu \arabic*.}, leftmargin=*]
+		
+		% CÂU 1: Tiệm cận - Công thức (có bẫy nghiệm tử mẫu)
+		\item Giao điểm $I$ của đường tiệm cận đứng và đường tiệm cận ngang của đồ thị hàm số $y = \dfrac{x^2 - 3x + 2}{x^2 - 1}$ có tọa độ là:
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\Alph*.]
+				\item $I(1; 1)$.
+				\item $I(-1; 1)$.
+				\item $I(-1; -2)$.
+				\item $I(1; -1)$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 2: Vector thuần túy - Lục giác đều
+		\item Cho lục giác đều $ABCDEF$ có tâm $O$. Vecto tổng $\overrightarrow{AB} + \overrightarrow{AF}$ bằng vecto nào dưới đây?
+		\begin{center}
+			\begin{tikzpicture}[scale=0.8]
+				% Lục giác đều
+				\foreach \i/\label/\pos in {0/C/right, 60/B/above right, 120/A/above left, 180/F/left, 240/E/below left, 300/D/below right} {
+					\coordinate (\label) at (\i:2);
+					\node[\pos] at (\label) {$\label$};
+				}
+				\coordinate (O) at (0,0);
+				\node[below, yshift=-1mm] at (O) {$O$};
+				\draw[thick] (A) -- (B) -- (C) -- (D) -- (E) -- (F) -- cycle;
+				\draw[dashed, gray] (A) -- (D) (B) -- (E) (C) -- (F);
+				\fill (O) circle (1.5pt);
+			\end{tikzpicture}
+		\end{center}
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\Alph*.]
+				\item $\overrightarrow{AO}$.
+				\item $\overrightarrow{AD}$.
+				\item $\overrightarrow{OA}$.
+				\item $\overrightarrow{FC}$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 3: Thống kê - Khoảng tứ phân vị
+		\item Bảng dưới đây thống kê cự ly ném tạ (đơn vị: mét) của 40 vận động viên:
+		\begin{center}
+			\begin{tabular}{|c|c|c|c|c|}
+				\hline
+				\textbf{Cự ly (m)} & $[10; 12)$ & $[12; 14)$ & $[14; 16)$ & $[16; 18)$ \\
+				\hline
+				\textbf{Số VĐV} & 5 & 15 & 12 & 8 \\
+				\hline
+			\end{tabular}
+		\end{center}
+		Khoảng tứ phân vị $\Delta_Q$ của mẫu số liệu ghép nhóm này xấp xỉ bằng bao nhiêu (làm tròn đến hàng phần chục)?
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\Alph*.]
+				\item $2,5$.
+				\item $3,2$.
+				\item $3,0$.
+				\item $2,8$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 4: Max/Min 1 - Bảng biến thiên
+		\item Cho hàm số $y = f(x)$ liên tục trên đoạn $[-1; 4]$ và có bảng biến thiên như hình dưới:
+		\begin{center}
+			\begin{tikzpicture}[xscale=1.2, yscale=0.8]
+				\draw (0,0) rectangle (8,3);
+				\draw (0,1) -- (8,1);
+				\draw (0,2) -- (8,2);
+				\draw (1,0) -- (1,3);
+				
+				\node at (0.5, 2.5) {$x$};
+				\node at (1.5, 2.5) {$-1$};
+				\node at (3.5, 2.5) {$1$};
+				\node at (5.5, 2.5) {$3$};
+				\node at (7.5, 2.5) {$4$};
+				
+				\node at (0.5, 1.5) {$y'$};
+				\node at (2.5, 1.5) {$+$};
+				\node at (3.5, 1.5) {$0$};
+				\node at (4.5, 1.5) {$-$};
+				\node at (5.5, 1.5) {$0$};
+				\node at (6.5, 1.5) {$+$};
+				
+				\node at (0.5, 0.5) {$y$};
+				\node at (1.5, 0.2) {$-2$};
+				\node at (3.5, 0.7) {$5$};
+				\node at (5.5, 0.2) {$0$};
+				\node at (7.5, 0.7) {$3$};
+				
+				\draw[->, thick, blue] (1.8, 0.3) -- (3.2, 0.6);
+				\draw[->, thick, blue] (3.8, 0.6) -- (5.2, 0.3);
+				\draw[->, thick, blue] (5.8, 0.3) -- (7.2, 0.6);
+			\end{tikzpicture}
+		\end{center}
+		Gọi $M$ là giá trị lớn nhất của hàm số trên đoạn $[-1; 4]$. Khẳng định nào sau đây đúng?
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\Alph*.]
+				\item $M = 3$.
+				\item $M = 5$.
+				\item $M = 0$.
+				\item $M = -2$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 5: Vector tọa độ - Góc giữa 2 vecto
+		\item Trong không gian $Oxyz$, cho hai vecto $\vec{u} = (1; 1; 0)$ và $\vec{v} = (1; 0; 1)$. Tính góc giữa hai vecto $\vec{u}$ và $\vec{v}$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\Alph*.]
+				\item $90^\circ$.
+				\item $45^\circ$.
+				\item $60^\circ$.
+				\item $30^\circ$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 6: Hàm số - Nhận diện đồ thị phân thức
+		\item Đường cong trong hình vẽ bên dưới là đồ thị của hàm số nào?
+		\begin{center}
+			\begin{tikzpicture}[scale=0.8]
+				\begin{axis}[
+					axis lines = middle,
+					xlabel = {$x$}, ylabel = {$y$},
+					ymin = -2, ymax = 5,
+					xmin = -4, xmax = 2,
+					xtick = {-2, -1}, ytick = {1, 2},
+					ticklabel style = {fill=white, inner sep=1pt},
+					width=8cm, height=6.5cm,
+					samples=100,
+					axis line style={->}
+					]
+					% Tiệm cận
+					\draw[dashed, red, thick] (axis cs:-1, -2) -- (axis cs:-1, 5);
+					\draw[dashed, red, thick] (axis cs:-4, 2) -- (axis cs:2, 2);
+					
+					% Đồ thị y = (2x+1)/(x+1)
+					\addplot [domain=-4:-1.2, thick, blue, smooth] {(2*x + 1)/(x + 1)};
+					\addplot [domain=-0.8:2, thick, blue, smooth] {(2*x + 1)/(x + 1)};
+					
+					% Điểm cắt trục
+					\fill (axis cs:0, 1) circle (1.5pt);
+					\fill (axis cs:-0.5, 0) circle (1.5pt);
+					
+					\node[below left] at (axis cs:0,0) {$O$};
+				\end{axis}
+			\end{tikzpicture}
+		\end{center}
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\Alph*.]
+				\item $y = \dfrac{x-1}{x+1}$.
+				\item $y = \dfrac{2x+1}{x+1}$.
+				\item $y = \dfrac{2x-1}{x-1}$.
+				\item $y = \dfrac{x+1}{x-1}$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 7: Vector tọa độ - Điểm đối xứng
+		\item Trong không gian $Oxyz$, cho điểm $A(1; 2; -1)$ và $B(3; 0; 2)$. Tìm tọa độ điểm $C$ sao cho $B$ là trung điểm của đoạn thẳng $AC$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\Alph*.]
+				\item $C(5; -2; 5)$.
+				\item $C(2; 1; 0.5)$.
+				\item $C(4; 2; 1)$.
+				\item $C(-1; 4; -4)$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 8: Hàm số - Đơn điệu từ đồ thị đạo hàm f'(x) (Bị che nghiệm)
+		\item Cho hàm số $y = f(x)$. Biết hàm số đạo hàm $y = f'(x)$ có đồ thị là một parabol cắt trục hoành tại hai điểm có hoành độ $x_1, x_2$ (với $x_1 < x_2$).
+		\begin{center}
+			\begin{tikzpicture}[scale=0.8]
+				\begin{axis}[
+					axis lines = middle,
+					xlabel = {$x$}, ylabel = {$f'(x)$},
+					ymin = -3, ymax = 4,
+					xmin = -2.5, xmax = 4.5,
+					xtick = \empty, % Ẩn số trên trục x
+					ytick = \empty,
+					width=8cm, height=6cm,
+					samples=100,
+					axis line style={->}
+					]
+					% Parabol f'(x) = 0.5(x+1)(x-3)
+					\addplot [domain=-2.2:4.2, thick, blue, smooth] {0.5*(x+1)*(x-3)};
+					
+					\node[below left, xshift=-2mm] at (axis cs:0,0) {$O$};
+					
+					% Vẽ vạch tick nhỏ trên trục Ox
+					\draw (axis cs:-1, 0.1) -- (axis cs:-1, -0.1);
+					\draw (axis cs:3, 0.1) -- (axis cs:3, -0.1);
+					
+					
+				\end{axis}
+			\end{tikzpicture}
+		\end{center}
+		Hàm số $y = f(x)$ đồng biến trên khoảng nào dưới đây?
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\Alph*.]
+				\item $(x_1; x_2)$.
+				\item $(-\infty; x_1)$.
+				\item $(x_1; +\infty)$.
+				\item $(0; x_2)$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 9: Vector tọa độ - Điểm cách đều 2 điểm (Điểm thuộc trục)
+		\item Trong không gian $Oxyz$, cho hai điểm $A(2; 0; 1)$ và $B(0; 2; 3)$. Biết điểm $M$ nằm trên trục tung $Oy$ sao cho tam giác $MAB$ cân tại $M$. Tọa độ của điểm $M$ là:
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\Alph*.]
+				\item $M(0; -2; 0)$.
+				\item $M(0; 1; 0)$.
+				\item $M(0; 3; 0)$.
+				\item $M(0; 2; 0)$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 10: Thống kê - Phương sai/Độ lệch chuẩn
+		\item Đo chiều cao (cm) của một nhóm học sinh nam lớp 12, ta có bảng tần số ghép nhóm sau:
+		\begin{center}
+			\begin{tabular}{|c|c|c|c|}
+				\hline
+				\textbf{Chiều cao (cm)} & $[160; 165)$ & $[165; 170)$ & $[170; 175)$ \\
+				\hline
+				\textbf{Số học sinh} & 2 & 6 & 2 \\
+				\hline
+			\end{tabular}
+		\end{center}
+		Tính độ lệch chuẩn của mẫu số liệu ghép nhóm này (làm tròn đến 2 chữ số thập phân).
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\Alph*.]
+				\item $13,50$.
+				\item $3,16$.
+				\item $10,00$.
+				\item $4,25$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 11: Vector hình học - Lăng trụ tam giác
+		\item Cho hình lăng trụ tam giác $ABC.A'B'C'$. Đặt $\vec{a} = \overrightarrow{AB}$, $\vec{b} = \overrightarrow{AC}$ và $\vec{c} = \overrightarrow{AA'}$. Khẳng định nào sau đây là đúng?
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\Alph*.]
+				\item $\overrightarrow{BC'} = -\vec{a} + \vec{b} + \vec{c}$.
+				\item $\overrightarrow{BC'} = \vec{a} - \vec{b} + \vec{c}$.
+				\item $\overrightarrow{BC'} = \vec{a} + \vec{b} - \vec{c}$.
+				\item $\overrightarrow{BC'} = -\vec{a} - \vec{b} + \vec{c}$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 12: Max/Min - Công thức
+		\item Giá trị lớn nhất của hàm số $y = x^4 - 2x^2 + 3$ trên đoạn $[0; 2]$ bằng:
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\Alph*.]
+				\item $3$.
+				\item $2$.
+				\item $11$.
+				\item $0$.
+			\end{enumerate}
+		\end{multicols}
+		
+	\end{enumerate}
+	
+	\vspace{4mm}
+	% ======================================================
+	% PHẦN 2: TRẮC NGHIỆM ĐÚNG SAI
+	% ======================================================
+	\noindent\textbf{PHẦN II. Câu trắc nghiệm đúng sai.} Thí sinh trả lời từ câu 1 đến câu 2. Trong mỗi ý a), b), c), d) ở mỗi câu, thí sinh chọn đúng hoặc sai.
+	\vspace{2mm}
+	
+	\begin{enumerate}[label=\textbf{Câu \arabic*.}, leftmargin=*]
+		
+		% CÂU 1 ĐÚNG SAI: Khảo sát hàm số (Dựa vào Bảng biến thiên)
+		\item Cho hàm số $y = f(x)$ liên tục trên $\mathbb{R}$ và có bảng biến thiên như sau:
+		\begin{center}
+			\begin{tikzpicture}[xscale=1.2, yscale=0.8]
+				\draw (0,0) rectangle (8,3);
+				\draw (0,1) -- (8,1);
+				\draw (0,2) -- (8,2);
+				\draw (1,0) -- (1,3);
+				
+				\node at (0.5, 2.5) {$x$};
+				\node at (1.5, 2.5) {$-\infty$};
+				\node at (3.5, 2.5) {$-1$};
+				\node at (5.5, 2.5) {$2$};
+				\node at (7.5, 2.5) {$+\infty$};
+				
+				\node at (0.5, 1.5) {$f'(x)$};
+				\node at (2.5, 1.5) {$-$};
+				\node at (3.5, 1.5) {$0$};
+				\node at (4.5, 1.5) {$+$};
+				\node at (5.5, 1.5) {$0$};
+				\node at (6.5, 1.5) {$-$};
+				
+				\node at (0.5, 0.5) {$f(x)$};
+				\node at (1.5, 0.7) {$+\infty$};
+				\node at (3.5, 0.2) {$-3$};
+				\node at (5.5, 0.7) {$2$};
+				\node at (7.5, 0.2) {$-\infty$};
+				
+				\draw[->, thick, blue] (1.8, 0.6) -- (3.2, 0.3);
+				\draw[->, thick, blue] (3.8, 0.3) -- (5.2, 0.6);
+				\draw[->, thick, blue] (5.8, 0.6) -- (7.2, 0.3);
+			\end{tikzpicture}
+		\end{center}
+		Xét tính đúng hay sai của các mệnh đề sau:
+		\begin{enumerate}[label=\alph*)]
+			\item Hàm số nghịch biến trên khoảng $(-1; 2)$.
+			\item Giá trị cực tiểu của hàm số bằng $-3$.
+			\item Phương trình $f(x) = 0$ có đúng 3 nghiệm thực phân biệt.
+			\item Giá trị lớn nhất của hàm số trên đoạn $[-2; 3]$ bằng $2$.
+		\end{enumerate}
+		
+		\vspace{2mm}
+		% CÂU 2 ĐÚNG SAI: Vecto HHKG (Hình lập phương)
+		\item Cho hình lập phương $ABCD.A'B'C'D'$ có cạnh bằng $a$. 
+		\begin{center}
+			\begin{tikzpicture}[scale=1, line join=round, line cap=round]
+				% Định nghĩa tọa độ
+				\coordinate (A) at (0,0);
+				\coordinate (B) at (1.5,1.5);
+				\coordinate (D) at (3,0);
+				\coordinate (C) at (4.5,1.5);
+				\coordinate (A') at (0,3);
+				\coordinate (B') at (1.5,4.5);
+				\coordinate (D') at (3,3);
+				\coordinate (C') at (4.5,4.5);
+				
+				% Điểm M trên C'B'
+				\coordinate (M) at (2.5,4.5); 
+				
+				% Nét khuất
+				\draw[dashed, thick] (A) -- (B) (B) -- (C) (B) -- (B') (A) -- (M);
+				
+				% Nét thấy
+				\draw[thick] (A) -- (D) -- (C) -- (C') -- (D') -- (A') -- cycle;
+				\draw[thick] (A') -- (B') -- (C') (D) -- (D');
+				
+				% Điểm M
+				\fill[blue] (M) circle (1.5pt);
+				
+				% Gắn nhãn
+				\node[below left] at (A) {$A$};
+				\node[below right] at (B) {$B$};
+				\node[below right] at (C) {$C$};
+				\node[below] at (D) {$D$};
+				\node[left] at (A') {$A'$};
+				\node[above left] at (B') {$B'$};
+				\node[above right] at (C') {$C'$};
+				\node[right] at (D') {$D'$};
+				\node[above] at (M) {$M$};
+			\end{tikzpicture}
+		\end{center}
+		Xét tính đúng hay sai của các mệnh đề sau:
+		\begin{enumerate}[label=\alph*)]
+			\item $\left| \overrightarrow{A'B'} - \overrightarrow{D'C} \right| = a$.
+			\item $\overrightarrow{AD} = \overrightarrow{C'B'}$.
+			\item $\overrightarrow{AA'} \cdot \overrightarrow{B'C'} = 0$.
+			\item Gọi $M$ là điểm thỏa mãn $\overrightarrow{C'M} = 2\overrightarrow{MB'}$. Khi đó $\overrightarrow{AM} = \overrightarrow{AA'} + \overrightarrow{AD} + \dfrac{2}{3}\overrightarrow{AB}$.
+		\end{enumerate}
+		
+	\end{enumerate}
+	
+	\vspace{4mm}
+	% ======================================================
+	% PHẦN 3: TRẮC NGHIỆM TRẢ LỜI NGẮN
+	% ======================================================
+	\noindent\textbf{PHẦN III. Câu trắc nghiệm trả lời ngắn.} Thí sinh trả lời từ câu 1 đến câu 4.
+	\vspace{2mm}
+	
+	\begin{enumerate}[label=\textbf{Câu \arabic*.}, leftmargin=*]
+		
+		% CÂU 1 TRẢ LỜI NGẮN: Max/Min hàm số
+		\item Cho hàm số $y = \dfrac{x^2 - x + 4}{x}$ có giá trị lớn nhất là $M$ và giá trị nhỏ nhất là $m$ trên đoạn $[1; 4]$. Tính giá trị của biểu thức $T = M + 2m$.
+		
+		\vspace{2mm}
+		% CÂU 2 TRẢ LỜI NGẮN: Thống kê (Trung vị / Tứ phân vị)
+		\item Thống kê khối lượng (đơn vị: gram) của 50 quả cam thu hoạch được trong một khu vườn, ta được bảng số liệu ghép nhóm sau:
+		\begin{center}
+			\renewcommand{\arraystretch}{1.2}
+			\begin{tabular}{|c|c|c|c|c|c|}
+				\hline
+				\textbf{Khối lượng (g)} & $[150; 160)$ & $[160; 170)$ & $[170; 180)$ & $[180; 190)$ & $[190; 200)$ \\
+				\hline
+				\textbf{Số quả cam} & 4 & 10 & 20 & 12 & 4 \\
+				\hline
+			\end{tabular}
+		\end{center}
+		Tính số trung vị (chính là tứ phân vị thứ hai $Q_2$) của mẫu số liệu ghép nhóm trên (làm tròn kết quả đến hàng phần chục).
+		
+		\vspace{2mm}
+		% CÂU 3 TRẢ LỜI NGẮN: Oxyz (Tìm tọa độ điểm)
+		\item Trong không gian $Oxyz$, cho hai điểm $A(1; -2; 3)$ và $B(-5; 4; 0)$. Tìm tọa độ điểm $M(a; b; c)$ nằm trên đoạn thẳng $AB$ sao cho $AM = 2MB$. Tính giá trị của biểu thức $P = a^2 + b^2 + c^2$.
+		
+		\vspace{2mm}
+		% CÂU 4 TRẢ LỜI NGẮN: Vector hình không gian (Góc giữa 2 vecto)
+		\item Trong không gian, cho hai vecto $\vec{a}$ và $\vec{b}$ khác vecto-không, thỏa mãn $|\vec{a}| = 2$, $|\vec{b}| = 4$ và $|2\vec{a} - \vec{b}| = 4\sqrt{2}$. Tính số đo góc giữa hai vecto $\vec{a}$ và $\vec{b}$ (viết kết quả tính theo đơn vị độ).
+		
+	\end{enumerate}
+	
+	% ======================================================
+	% PHẦN 4: TỰ LUẬN
+	% ======================================================
+	\vspace{4mm}
+	\noindent\textbf{PHẦN IV. Tự luận.} Thí sinh trình bày bài giải chi tiết từ bài 1 đến bài 2.
+	\vspace{2mm}
+	
+	\begin{enumerate}[label=\textbf{Bài \arabic*.}, leftmargin=*]
+		
+		% BÀI 1: KHẢO SÁT HÀM SỐ (1.5 ĐIỂM)
+		\item  Cho hàm số $y = \dfrac{2x - 1}{x + 1}$ có đồ thị là đường cong $(C)$.
+		\begin{enumerate}[label=\alph*)]
+			\item Khảo sát sự biến thiên (đồng biến, nghịch biến, cực trị, tiệm cận) và xác định tọa độ tâm đối xứng của đồ thị hàm số đã cho.
+			\item Gọi $A$ và $B$ là hai điểm nằm trên hai nhánh khác nhau của đồ thị $(C)$. Tìm giá trị nhỏ nhất của độ dài đoạn thẳng $AB$.
+		\end{enumerate}
+		
+		\vspace{4mm}
+		% BÀI 2: VECTO TRONG KHÔNG GIAN (1.5 ĐIỂM)
+		\item 
+		\begin{enumerate}[label=\alph*)]
+			\item  Cho hình lăng trụ $ABC.A'B'C'$. Gọi $G$ là trọng tâm của tam giác $ABC$ và $M$ là một điểm bất kỳ trong không gian. Chứng minh đẳng thức vecto sau:
+			\[ \overrightarrow{MA'} + \overrightarrow{MB'} + \overrightarrow{MC'} = 3\overrightarrow{MG} + 3\overrightarrow{AA'} \]
+			\item  Giả sử hình lăng trụ $ABC.A'B'C'$ ở câu trên là lăng trụ tam giác đều có tất cả các cạnh đều bằng $a$ (Hình minh họa bên cạnh). Gọi $N$ là trung điểm của cạnh $BB'$. Tính tích vô hướng sau theo $a$: 
+			\[ \overrightarrow{A'B} \cdot \overrightarrow{A'N} \]
+		\end{enumerate}
+		
+		\hfill
+		\begin{center}
+			\begin{tikzpicture}[scale=0.9, line join=round, line cap=round]
+				% Lăng trụ tam giác
+				\coordinate (A) at (0,0);
+				\coordinate (B) at (1.5,-1.5);
+				\coordinate (C) at (4,0);
+				\coordinate (A') at (0,3);
+				\coordinate (B') at (1.5,1.5);
+				\coordinate (C') at (4,3);
+				
+				% Vẽ nét khuất
+				\draw[dashed, thick] (A) -- (C);
+				
+				% Vẽ nét thấy
+				\draw[thick] (A) -- (B) -- (C) (A) -- (A') (B) -- (B') (C) -- (C') (A') -- (B') -- (C') -- (A');
+				
+				% Gắn nhãn
+				\node[left] at (A) {$A$};
+				\node[below] at (B) {$B$};
+				\node[right] at (C) {$C$};
+				\node[left] at (A') {$A'$};
+				\node[above] at (B') {$B'$};
+				\node[right] at (C') {$C'$};
+			\end{tikzpicture}
+		\end{center}
+		
+	\end{enumerate}
+	
+	% ================================================
+	% ĐỀ SỐ 4
+	% ================================================
+	\newpage
+	\begin{center}
+		{\LARGE \textbf{ĐỀ SỐ 4}}\\[4pt]
+	\end{center}
+	\vspace{4mm}
+	
+	% --- PHẦN 1: TRẮC NGHIỆM ---
+	\noindent\textbf{PHẦN I. Câu trắc nghiệm nhiều phương án lựa chọn.} Thí sinh trả lời từ câu 1 đến câu 12. Mỗi câu hỏi thí sinh chỉ chọn một phương án.
+	\vspace{2mm}
+	
+	\begin{enumerate}[label=\textbf{Câu \arabic*.}, leftmargin=*]
+		
+		% CÂU 1: Hàm số - Tiệm cận từ đồ thị
+		\item Cho hàm số $y = f(x)$ có đồ thị như hình vẽ bên dưới. Phương trình đường tiệm cận đứng của đồ thị hàm số là:
+		\begin{center}
+			\begin{tikzpicture}[scale=0.8]
+				\begin{axis}[
+					axis lines = middle,
+					xlabel = {$x$}, ylabel = {$y$},
+					ymin = -3, ymax = 5,
+					xmin = -3, xmax = 5,
+					xtick = {2}, ytick = {1},
+					ticklabel style = {fill=white, inner sep=1pt},
+					width=8cm, height=6.5cm,
+					samples=100,
+					axis line style={->}
+					]
+					% Tiệm cận
+					\draw[dashed, red, thick] (axis cs:2, -3) -- (axis cs:2, 5);
+					\draw[dashed, red, thick] (axis cs:-3, 1) -- (axis cs:5, 1);
+					
+					% Đồ thị y = (x+1)/(x-2)
+					\addplot [domain=-3:1.7, thick, blue, smooth] {(x + 1)/(x - 2)};
+					\addplot [domain=2.3:5, thick, blue, smooth] {(x + 1)/(x - 2)};
+					
+					\node[below left] at (axis cs:0,0) {$O$};
+				\end{axis}
+			\end{tikzpicture}
+		\end{center}
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\Alph*.]
+				\item $x = 2$.
+				\item $y = 1$.
+				\item $x = 1$.
+				\item $y = 2$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 2: Oxyz - Phép toán tọa độ
+		\item Trong không gian $Oxyz$, cho hai vecto $\vec{a} = (1; -2; 3)$ và $\vec{b} = (0; 1; -1)$. Tọa độ của vecto $\vec{c} = 2\vec{a} - 3\vec{b}$ là:
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\Alph*.]
+				\item $\vec{c} = (2; -1; 2)$.
+				\item $\vec{c} = (2; -7; 9)$.
+				\item $\vec{c} = (1; -1; 2)$.
+				\item $\vec{c} = (2; -5; 5)$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 3: Thống kê - Khoảng biến thiên
+		\item Khảo sát điểm thi môn Tiếng Anh của một nhóm học sinh, ta có mẫu số liệu ghép nhóm sau:
+		\begin{center}
+			\begin{tabular}{|c|c|c|c|c|}
+				\hline
+				\textbf{Điểm thi} & $[4; 5)$ & $[5; 6)$ & $[6; 7)$ & $[7; 8)$ \\
+				\hline
+				\textbf{Số học sinh} & 5 & 12 & 18 & 5 \\
+				\hline
+			\end{tabular}
+		\end{center}
+		Khoảng biến thiên $R$ của mẫu số liệu ghép nhóm trên bằng:
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\Alph*.]
+				\item $R = 4$.
+				\item $R = 3$.
+				\item $R = 5$.
+				\item $R = 8$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 4: Hàm số - Max/Min (Công thức)
+		\item Gọi $M, m$ lần lượt là giá trị lớn nhất và giá trị nhỏ nhất của hàm số $y = \dfrac{2x - 1}{x + 1}$ trên đoạn $[0; 2]$. Tính tích $M \cdot m$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\Alph*.]
+				\item $1$.
+				\item $-2$.
+				\item $0$.
+				\item $-1$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 5: Vector thuần túy - Hình bình hành
+		\item Cho hình bình hành $ABCD$. Mệnh đề nào dưới đây là \textbf{đúng}?
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\Alph*.]
+				\item $\overrightarrow{AB} + \overrightarrow{BC} = \overrightarrow{CA}$.
+				\item $\overrightarrow{AB} + \overrightarrow{AD} = \overrightarrow{AC}$.
+				\item $\overrightarrow{AB} - \overrightarrow{AD} = \overrightarrow{AC}$.
+				\item $\overrightarrow{OA} + \overrightarrow{OB} = \vec{0}$ (với $O$ là tâm hình bình hành).
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 6: Hàm số - Xác định hàm từ BBT
+		\item Bảng biến thiên dưới đây là của hàm số nào?
+		\begin{center}
+			\begin{tikzpicture}[xscale=1.2, yscale=0.8]
+				\draw (0,0) rectangle (8,3);
+				\draw (0,1) -- (8,1);
+				\draw (0,2) -- (8,2);
+				\draw (1,0) -- (1,3);
+				
+				\node at (0.5, 2.5) {$x$};
+				\node at (1.5, 2.5) {$-\infty$};
+				\node at (3.5, 2.5) {$-1$};
+				\node at (5.5, 2.5) {$1$};
+				\node at (7.5, 2.5) {$+\infty$};
+				
+				\node at (0.5, 1.5) {$y'$};
+				\node at (2.5, 1.5) {$+$};
+				\node at (3.5, 1.5) {$0$};
+				\node at (4.5, 1.5) {$-$};
+				\node at (5.5, 1.5) {$0$};
+				\node at (6.5, 1.5) {$+$};
+				
+				\node at (0.5, 0.5) {$y$};
+				\node at (1.5, 0.2) {$-\infty$};
+				\node at (3.5, 0.7) {$2$};
+				\node at (5.5, 0.2) {$-2$};
+				\node at (7.5, 0.7) {$+\infty$};
+				
+				\draw[->, thick, blue] (1.8, 0.3) -- (3.2, 0.6);
+				\draw[->, thick, blue] (3.8, 0.6) -- (5.2, 0.3);
+				\draw[->, thick, blue] (5.8, 0.3) -- (7.2, 0.6);
+			\end{tikzpicture}
+		\end{center}
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\Alph*.]
+				\item $y = -x^3 + 3x$.
+				\item $y = x^3 - 3x^2$.
+				\item $y = x^3 - 3x$.
+				\item $y = \dfrac{2x-1}{x+1}$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 7: Oxyz - Điểm đối xứng
+		\item Trong không gian $Oxyz$, cho điểm $A(1; -2; 4)$. Hình chiếu vuông góc của điểm $A$ trên mặt phẳng $(Oxy)$ có tọa độ là:
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\Alph*.]
+				\item $(1; -2; -4)$.
+				\item $(0; 0; 4)$.
+				\item $(1; -2; 0)$.
+				\item $(1; 0; 0)$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 8: Hàm số - Cực trị từ đồ thị hàm số gốc
+		\item Cho hàm số $y = f(x)$ liên tục trên $\mathbb{R}$ và có đồ thị như hình vẽ bên. 
+		\begin{center}
+			\begin{tikzpicture}[scale=0.8]
+				\begin{axis}[
+					axis lines = middle,
+					xlabel = {$x$}, ylabel = {$y$},
+					ymin = -3, ymax = 3,
+					xmin = -2.5, xmax = 2.5,
+					xtick = {-1, 1}, ytick = {-2, 2},
+					ticklabel style = {fill=white, inner sep=1pt},
+					width=8cm, height=6.5cm,
+					samples=100,
+					axis line style={->}
+					]
+					% Hàm trùng phương dạng W ngược: y = -x^4 + 2x^2
+					\addplot [domain=-1.7:1.7, thick, blue, smooth] {-x^4 + 2*x^2 + 1};
+					
+					\node[below left] at (axis cs:0,0) {$O$};
+				\end{axis}
+			\end{tikzpicture}
+		\end{center}
+		Hỏi hàm số đã cho có bao nhiêu điểm cực trị?
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\Alph*.]
+				\item $2$.
+				\item $3$.
+				\item $1$.
+				\item $4$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 9: Oxyz - Độ dài đoạn thẳng
+		\item Trong không gian $Oxyz$, cho hai điểm $A(1; 0; -1)$ và $B(2; 2; 1)$. Độ dài đoạn thẳng $AB$ bằng:
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\Alph*.]
+				\item $3$.
+				\item $9$.
+				\item $\sqrt{5}$.
+				\item $\sqrt{3}$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 10: Thống kê - Độ lệch chuẩn
+		\item Đo thời gian (phút) giải một câu đố của 10 học sinh, ta thu được bảng số liệu ghép nhóm sau:
+		\begin{center}
+			\begin{tabular}{|c|c|c|c|}
+				\hline
+				\textbf{Thời gian (phút)} & $[0; 2)$ & $[2; 4)$ & $[4; 6)$ \\
+				\hline
+				\textbf{Số học sinh} & 3 & 4 & 3 \\
+				\hline
+			\end{tabular}
+		\end{center}
+		Độ lệch chuẩn của mẫu số liệu ghép nhóm này xấp xỉ bằng bao nhiêu (làm tròn đến hai chữ số thập phân)?
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\Alph*.]
+				\item $2,40$.
+				\item $1,41$.
+				\item $1,55$.
+				\item $3,00$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 11: Vector thuần túy - Tam giác trọng tâm
+		\item Cho tam giác $ABC$ có trọng tâm $G$. Khẳng định nào sau đây là \textbf{đúng}?
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\Alph*.]
+				\item $\overrightarrow{AG} = \dfrac{1}{3}\left( \overrightarrow{AB} + \overrightarrow{AC} \right)$.
+				\item $\overrightarrow{AG} = \dfrac{1}{2}\left( \overrightarrow{AB} + \overrightarrow{AC} \right)$.
+				\item $\overrightarrow{AG} = \dfrac{2}{3}\left( \overrightarrow{AB} + \overrightarrow{AC} \right)$.
+				\item $\overrightarrow{GA} + \overrightarrow{GB} + \overrightarrow{GC} = 3\overrightarrow{AG}$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 12: Hàm số - Max/Min trên đoạn (từ đồ thị)
+		\item Cho hàm số $y = f(x)$ có đồ thị trên đoạn $[-2; 2]$ như hình vẽ.
+		\begin{center}
+			\begin{tikzpicture}[scale=0.8]
+				\begin{axis}[
+					axis lines = middle,
+					xlabel = {$x$}, ylabel = {$y$},
+					ymin = -3, ymax = 5,
+					xmin = -2.5, xmax = 2.5,
+					xtick = {-2, -1, 1, 2}, ytick = {-2, 4},
+					ticklabel style = {fill=white, inner sep=1pt},
+					width=8cm, height=6.5cm,
+					samples=100,
+					axis line style={->}
+					]
+					% Hàm bậc 3
+					\addplot [domain=-2:2, thick, blue, smooth] {-x^3 + 3*x + 2};
+					
+					\draw[dashed, gray] (1,0) -- (1,4) -- (0,4);
+					\draw[dashed, gray] (-1,0) -- (-1,0) -- (0,0); % Cực tiểu tại y=0
+					\draw[dashed, gray] (-2,0) -- (-2,4) -- (0,4);
+					\draw[dashed, gray] (2,0) -- (2,-4); % Tại 2 là 0
+					
+					\fill (1,4) circle (1.5pt);
+					\fill (-1,0) circle (1.5pt);
+					\fill (-2,4) circle (1.5pt);
+					\fill (2,0) circle (1.5pt);
+					
+					\node[below left] at (axis cs:0,0) {$O$};
+				\end{axis}
+			\end{tikzpicture}
+		\end{center}
+		Tổng giá trị lớn nhất và giá trị nhỏ nhất của hàm số trên đoạn $[-2; 2]$ bằng:
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\Alph*.]
+				\item $2$.
+				\item $4$.
+				\item $6$.
+				\item $0$.
+			\end{enumerate}
+		\end{multicols}
+		
+	\end{enumerate}
+	
+	\vspace{4mm}
+	% ======================================================
+	% PHẦN 2: TRẮC NGHIỆM ĐÚNG SAI
+	% ======================================================
+	\noindent\textbf{PHẦN II. Câu trắc nghiệm đúng sai.} Thí sinh trả lời từ câu 1 đến câu 2. Trong mỗi ý a), b), c), d) ở mỗi câu, thí sinh chọn đúng hoặc sai.
+	\vspace{2mm}
+	
+	\begin{enumerate}[label=\textbf{Câu \arabic*.}, leftmargin=*]
+		
+		% CÂU 1 ĐÚNG SAI: Khảo sát hàm số (Đồ thị hàm phân thức 1/1)
+		\item Cho hàm số $y = f(x) = \dfrac{ax+b}{cx+d}$ có đồ thị là đường cong $(C)$ như hình vẽ bên dưới. 
+		\begin{center}
+			\begin{tikzpicture}[scale=0.9]
+				\begin{axis}[
+					axis lines = middle,
+					xlabel = {$x$}, ylabel = {$y$},
+					ymin = -2, ymax = 6,
+					xmin = -4, xmax = 4,
+					xtick = {-1, 1}, ytick = {2},
+					ticklabel style = {fill=white, inner sep=1pt},
+					width=9cm, height=7cm,
+					samples=100,
+					axis line style={->}
+					]
+					% Tiệm cận đứng x = 1, Tiệm cận ngang y = 2
+					\draw[dashed, red, thick] (axis cs:1, -2) -- (axis cs:1, 6);
+					\draw[dashed, red, thick] (axis cs:-4, 2) -- (axis cs:4, 2);
+					
+					% Đồ thị y = (2x+1)/(x-1)
+					\addplot [domain=-4:0.8, thick, blue, smooth] {(2*x + 1)/(x - 1)};
+					\addplot [domain=1.2:4, thick, blue, smooth] {(2*x + 1)/(x - 1)};
+					
+					% Điểm cắt
+					\fill (axis cs:0, -1) circle (1.5pt);
+					\node[below left] at (axis cs:0,-1) {$-1$};
+					
+					\node[below left] at (axis cs:0,0) {$O$};
+				\end{axis}
+			\end{tikzpicture}
+		\end{center}
+		Xét tính đúng hay sai của các mệnh đề sau:
+		\begin{enumerate}[label=\alph*)]
+			\item Hàm số đã cho nghịch biến trên $\mathbb{R} \setminus \{1\}$.
+			\item Tâm đối xứng của đồ thị $(C)$ là điểm $I(1; 2)$.
+			\item Giao điểm của đồ thị $(C)$ với trục hoành có hoành độ bằng $-0{,}5$.
+			\item Phương trình $f(x) = m$ (với $m$ là tham số thực) có hai nghiệm phân biệt khi và chỉ khi $m \neq 2$.
+		\end{enumerate}
+		
+		\vspace{4mm}
+		% CÂU 2 ĐÚNG SAI: Tọa độ Oxyz gắn với hình không gian (Hình hộp)
+		\item Trong không gian $Oxyz$, cho hình hộp chữ nhật $OABC.O'A'B'C'$ có ba đỉnh nằm trên ba trục tọa độ là $A(2; 0; 0)$, $C(0; 4; 0)$ và $O'(0; 0; 3)$. (Điểm $O$ trùng với gốc tọa độ).
+		\begin{center}
+			\begin{tikzpicture}[scale=0.8, line join=round, line cap=round]
+				% Trục Oxyz
+				\draw[->, thick] (0,0) -- (-2,-1.5) node[below] {$x$};
+				\draw[->, thick] (0,0) -- (6,0) node[right] {$y$};
+				\draw[->, thick] (0,0) -- (0,5) node[above] {$z$};
+				
+				% Tọa độ các đỉnh 
+				\coordinate (O) at (0,0);
+				\coordinate (A) at (-1.5,-1.125); % Trục x vẽ xiên
+				\coordinate (C) at (4,0);
+				\coordinate (B) at (2.5,-1.125);
+				\coordinate (O') at (0,3);
+				\coordinate (A') at (-1.5,1.875);
+				\coordinate (C') at (4,3);
+				\coordinate (B') at (2.5,1.875);
+				
+				% Vẽ nét khuất
+				\draw[dashed, thick] (O) -- (A) (O) -- (C) (O) -- (O');
+				
+				% Vẽ nét thấy
+				\draw[thick] (A) -- (B) -- (C) (A) -- (A') (B) -- (B') (C) -- (C') (O') -- (A') -- (B') -- (C') -- cycle;
+				
+				% Gắn nhãn
+				\node[below left] at (O) {$O$};
+				\node[left] at (A) {$A$};
+				\node[below] at (B) {$B$};
+				\node[below right] at (C) {$C$};
+				\node[above left] at (O') {$O'$};
+				\node[left] at (A') {$A'$};
+				\node[below right] at (B') {$B'$};
+				\node[above right] at (C') {$C'$};
+			\end{tikzpicture}
+		\end{center}
+		Xét tính đúng hay sai của các mệnh đề sau:
+		\begin{enumerate}[label=\alph*)]
+			\item Tọa độ của điểm $B'$ là $(2; 4; 3)$.
+			\item Vecto $\overrightarrow{OB'}$ và vecto $\overrightarrow{AC'}$ vuông góc với nhau.
+			\item Trung điểm của đoạn thẳng $AB'$ nằm trên mặt phẳng tọa độ $(Oyz)$.
+			\item Diện tích của tam giác $OA'C$ bằng $\dfrac{\sqrt{181}}{2}$.
+		\end{enumerate}
+		
+	\end{enumerate}
+	
+	\vspace{4mm}
+	% ======================================================
+	% PHẦN 3: TRẮC NGHIỆM TRẢ LỜI NGẮN
+	% ======================================================
+	\noindent\textbf{PHẦN III. Câu trắc nghiệm trả lời ngắn.} Thí sinh trả lời từ câu 1 đến câu 4.
+	\vspace{2mm}
+	
+	\begin{enumerate}[label=\textbf{Câu \arabic*.}, leftmargin=*]
+		
+		% CÂU 1 TRẢ LỜI NGẮN: Khảo sát hàm số (Tìm khoảng nghịch biến)
+		\item Cho hàm số $y = -\dfrac{1}{3}x^3 + 2x^2 + 5x - 1$. Biết hàm số đồng biến trên khoảng $(a; b)$ với $a, b$ là các số thực và $b - a$ đạt giá trị lớn nhất. Tính giá trị của biểu thức $T = 2b - a$.
+		
+		\vspace{2mm}
+		% CÂU 2 TRẢ LỜI NGẮN: Thống kê (Tính Tứ phân vị Q1)
+		\item Thời gian (phút) hoàn thành một bài kiểm tra của 40 học sinh được ghi lại ở bảng số liệu ghép nhóm sau:
+		\begin{center}
+			\renewcommand{\arraystretch}{1.2}
+			\begin{tabular}{|c|c|c|c|c|c|}
+				\hline
+				\textbf{Thời gian (phút)} & $[10; 15)$ & $[15; 20)$ & $[20; 25)$ & $[25; 30)$ & $[30; 35)$ \\
+				\hline
+				\textbf{Số học sinh} & 2 & 8 & 16 & 10 & 4 \\
+				\hline
+			\end{tabular}
+		\end{center}
+		Tính tứ phân vị thứ nhất ($Q_1$) của mẫu số liệu ghép nhóm trên (viết kết quả dưới dạng số thập phân).
+		
+		\vspace{2mm}
+		% CÂU 3 TRẢ LỜI NGẮN: Vector trong không gian (Tính góc)
+		\item Cho hình chóp $S.ABC$ có $SA = SB = SC = a$ và các góc $\widehat{ASB} = 60^\circ, \widehat{BSC} = 90^\circ, \widehat{CSA} = 120^\circ$. Tính số đo của góc tạo bởi hai vecto $\overrightarrow{SA}$ và $\overrightarrow{BC}$ (viết kết quả tính theo đơn vị độ).
+		
+		\vspace{2mm}
+		% CÂU 4 TRẢ LỜI NGẮN: Tọa độ Oxyz (Hình chiếu, khoảng cách)
+		\item Trong không gian $Oxyz$, cho hai điểm $A(1; -2; 3)$ và $B(4; 2; -1)$. Gọi $A', B'$ lần lượt là hình chiếu vuông góc của $A$ và $B$ lên mặt phẳng tọa độ $(Oxz)$. Tính bình phương độ dài đoạn thẳng $A'B'$.
+		
+	\end{enumerate}
+	
+	% ======================================================
+	% PHẦN 4: TỰ LUẬN
+	% ======================================================
+	\vspace{4mm}
+	\noindent\textbf{PHẦN IV. Tự luận.} Thí sinh trình bày bài giải chi tiết từ bài 1 đến bài 2.
+	\vspace{2mm}
+	
+	\begin{enumerate}[label=\textbf{Bài \arabic*.}, leftmargin=*]
+		
+		% BÀI 1: KHẢO SÁT HÀM SỐ (1.5 ĐIỂM)
+		\item Cho hàm số $y = x^3 - 3x^2 + 2$ có đồ thị là đường cong $(C)$.
+		\begin{enumerate}[label=\alph*)]
+			\item Khảo sát sự biến thiên (đồng biến, nghịch biến, cực trị) và xác định tọa độ tâm đối xứng của đồ thị hàm số đã cho.
+			\item Viết phương trình đường thẳng đi qua 2 điểm cục trị của  và tính khoảng cách từ điểm $M(-1; 3)$ đến đường thẳng này.
+		\end{enumerate}
+		
+		\vspace{4mm}
+		% BÀI 2: VECTO TRONG KHÔNG GIAN (1.5 ĐIỂM)
+		\item
+		\begin{enumerate}[label=\alph*)]
+			\item Cho hình hộp $ABCD.A'B'C'D'$. Gọi $I$ là trung điểm của đoạn thẳng $AB$. Chứng minh đẳng thức vecto sau:
+			\[ \overrightarrow{A'C} + \overrightarrow{A'D} = 2\overrightarrow{A'I} + \overrightarrow{A'C'} \]
+			\item Giả sử hình hộp ở câu trên là hình hộp chữ nhật có các kích thước $AB = a$, $AD = 2a$ và $AA' = 3a$ (Hình minh họa bên cạnh). Tính giá trị của biểu thức tích vô hướng sau theo $a$:
+			\[ \overrightarrow{AC'} \cdot \overrightarrow{BD'} \]
+		\end{enumerate}
+		\hfill
+		\begin{center}
+			\begin{tikzpicture}[scale=0.9, line join=round, line cap=round]
+				% Hình hộp chữ nhật
+				\coordinate (A) at (0,0);
+				\coordinate (B) at (3,-0.5);
+				\coordinate (D) at (1.5,1.5);
+				\coordinate (C) at (4.5,1);
+				\coordinate (A') at (0,3);
+				\coordinate (B') at (3,2.5);
+				\coordinate (D') at (1.5,4.5);
+				\coordinate (C') at (4.5,4);
+				
+				% Vẽ nét khuất
+				\draw[dashed, thick] (A) -- (D) (D) -- (C) (D) -- (D');
+				
+				% Vẽ nét thấy
+				\draw[thick] (A) -- (B) -- (C) (A) -- (A') (B) -- (B') (C) -- (C') (A') -- (B') -- (C') -- (D') -- (A');
+				
+				% Gắn nhãn
+				\node[below left] at (A) {$A$};
+				\node[below right] at (B) {$B$};
+				\node[right] at (C) {$C$};
+				\node[left] at (D) {$D$};
+				\node[left] at (A') {$A'$};
+				\node[below right] at (B') {$B'$};
+				\node[right] at (C') {$C'$};
+				\node[above] at (D') {$D'$};
+			\end{tikzpicture}
+		\end{center}
+		
+	\end{enumerate}
+
+	% ================================================
+	% ĐỀ SỐ 5
+	% ================================================
+	\newpage
+	\begin{center}
+		{\LARGE \textbf{ĐỀ SỐ 5}}\\[4pt]
+	\end{center}
+	\vspace{4mm}
+	
+	% --- PHẦN 1: TRẮC NGHIỆM ---
+	\noindent\textbf{PHẦN I. Câu trắc nghiệm nhiều phương án lựa chọn.} Thí sinh trả lời từ câu 1 đến câu 12. Mỗi câu hỏi thí sinh chỉ chọn một phương án.
+	\vspace{2mm}
+	
+	\begin{enumerate}[label=\textbf{Câu \arabic*.}, leftmargin=*]
+		
+		% CÂU 1: Hàm số - Nhận diện dấu đồ thị phân thức
+		\item Cho hàm số $y = \dfrac{ax+b}{cx+d}$ có đồ thị như hình vẽ bên dưới. Khẳng định nào sau đây là \textbf{đúng}?
+		\begin{center}
+			\begin{tikzpicture}[scale=0.8]
+				\begin{axis}[
+					axis lines = middle,
+					xlabel = {$x$}, ylabel = {$y$},
+					ymin = -4, ymax = 4,
+					xmin = -4, xmax = 4,
+					xtick = \empty, ytick = \empty,
+					width=8cm, height=6.5cm,
+					samples=100,
+					axis line style={->}
+					]
+					% Tiệm cận đứng x = 1 (dương), Tiệm cận ngang y = 1 (dương)
+					\draw[dashed, red, thick] (axis cs:1, -4) -- (axis cs:1, 4);
+					\draw[dashed, red, thick] (axis cs:-4, 1) -- (axis cs:4, 1);
+					
+					% Đồ thị y = (x+1)/(x-1) -> cắt Oy tại -1 (âm), Ox tại -1 (âm)
+					\addplot [domain=-4:0.7, thick, blue, smooth] {(x + 1)/(x - 1)};
+					\addplot [domain=1.3:4, thick, blue, smooth] {(x + 1)/(x - 1)};
+					
+					\node[below left] at (axis cs:0,0) {$O$};
+				\end{axis}
+			\end{tikzpicture}
+		\end{center}
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\Alph*.]
+				\item $ad > 0$ và $bc < 0$.
+				\item $ad < 0$ và $ab > 0$.
+				\item $ac > 0$ và $bd > 0$.
+				\item $cd < 0$ và $bd < 0$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 2: Oxyz - Các phép toán tọa độ
+		\item Trong không gian $Oxyz$, cho hai điểm $A(1; 2; -1)$ và $B(0; 3; 1)$. Tọa độ của vecto $\overrightarrow{AB}$ là:
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\Alph*.]
+				\item $(-1; 1; 2)$.
+				\item $(1; -1; -2)$.
+				\item $(1; 5; 0)$.
+				\item $(-1; 1; 0)$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 3: Thống kê - Tìm nhóm chứa trung vị
+		\item Thống kê số giờ tự học trong một tuần của 40 học sinh, ta có bảng tần số ghép nhóm sau:
+		\begin{center}
+			\begin{tabular}{|c|c|c|c|c|}
+				\hline
+				\textbf{Thời gian (giờ)} & $[0; 5)$ & $[5; 10)$ & $[10; 15)$ & $[15; 20)$ \\
+				\hline
+				\textbf{Số học sinh} & 6 & 15 & 12 & 7 \\
+				\hline
+			\end{tabular}
+		\end{center}
+		Nhóm nào dưới đây chứa số trung vị (tứ phân vị thứ hai $Q_2$) của mẫu số liệu trên?
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\Alph*.]
+				\item $[0; 5)$.
+				\item $[5; 10)$.
+				\item $[10; 15)$.
+				\item $[15; 20)$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 4: Hàm số - Đơn điệu (Công thức)
+		\item Cho hàm số $y = x^3 - 3x^2 + 2$. Hàm số đã cho nghịch biến trên khoảng nào dưới đây?
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\Alph*.]
+				\item $(-\infty; 0)$.
+				\item $(2; +\infty)$.
+				\item $(0; 2)$.
+				\item $(-\infty; 2)$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 5: Vector thuần túy - Quy tắc hình hộp
+		\item Cho hình hộp $ABCD.A'B'C'D'$. Đẳng thức vecto nào sau đây là \textbf{đúng}?
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\Alph*.]
+				\item $\overrightarrow{AC'} = \overrightarrow{AB} + \overrightarrow{AD} + \overrightarrow{AA'}$.
+				\item $\overrightarrow{AC'} = \overrightarrow{AB} + \overrightarrow{BC} + \overrightarrow{CD}$.
+				\item $\overrightarrow{AC'} = \overrightarrow{AD} + \overrightarrow{D'C'} + \overrightarrow{A'A}$.
+				\item $\overrightarrow{AC'} = \overrightarrow{AB} + \overrightarrow{AD} - \overrightarrow{AA'}$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 6: Hàm số - Tiệm cận xiên
+		\item Đường tiệm cận xiên của đồ thị hàm số $y = \dfrac{x^2 + 2x - 1}{x - 1}$ có phương trình là:
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\Alph*.]
+				\item $y = x - 1$.
+				\item $y = x + 3$.
+				\item $y = x + 2$.
+				\item $y = x - 3$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 7: Oxyz - Khoảng cách đến mặt phẳng tọa độ
+		\item Trong không gian $Oxyz$, khoảng cách từ điểm $M(3; -4; 5)$ đến mặt phẳng tọa độ $(Oxy)$ bằng:
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\Alph*.]
+				\item $3$.
+				\item $4$.
+				\item $5$.
+				\item $\sqrt{34}$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 8: Hàm số - Max/Min từ Bảng biến thiên
+		\item Cho hàm số $y = f(x)$ liên tục trên đoạn $[-2; 3]$ và có bảng biến thiên như sau:
+		\begin{center}
+			\begin{tikzpicture}[xscale=1.2, yscale=0.8]
+				\draw (0,0) rectangle (8,3);
+				\draw (0,1) -- (8,1);
+				\draw (0,2) -- (8,2);
+				\draw (1,0) -- (1,3);
+				
+				\node at (0.5, 2.5) {$x$};
+				\node at (1.5, 2.5) {$-2$};
+				\node at (3.5, 2.5) {$0$};
+				\node at (5.5, 2.5) {$2$};
+				\node at (7.5, 2.5) {$3$};
+				
+				\node at (0.5, 1.5) {$y'$};
+				\node at (2.5, 1.5) {$+$};
+				\node at (3.5, 1.5) {$0$};
+				\node at (4.5, 1.5) {$-$};
+				\node at (5.5, 1.5) {$0$};
+				\node at (6.5, 1.5) {$+$};
+				
+				\node at (0.5, 0.5) {$y$};
+				\node at (1.5, 0.2) {$1$};
+				\node at (3.5, 0.7) {$4$};
+				\node at (5.5, 0.2) {$-1$};
+				\node at (7.5, 0.7) {$2$};
+				
+				\draw[->, thick, blue] (1.8, 0.3) -- (3.2, 0.6);
+				\draw[->, thick, blue] (3.8, 0.6) -- (5.2, 0.3);
+				\draw[->, thick, blue] (5.8, 0.3) -- (7.2, 0.6);
+			\end{tikzpicture}
+		\end{center}
+		Gọi $M, m$ lần lượt là giá trị lớn nhất và giá trị nhỏ nhất của hàm số trên đoạn $[-2; 3]$. Tính $M + m$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\Alph*.]
+				\item $3$.
+				\item $5$.
+				\item $0$.
+				\item $6$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 9: Vector thuần túy - Tích vô hướng (Bẫy góc tù)
+		\item Cho tam giác đều $ABC$ có độ dài cạnh bằng $a$. Tính tích vô hướng $\overrightarrow{AB} \cdot \overrightarrow{BC}$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\Alph*.]
+				\item $\dfrac{a^2}{2}$.
+				\item $-\dfrac{a^2}{2}$.
+				\item $\dfrac{a^2\sqrt{3}}{2}$.
+				\item $-\dfrac{a^2\sqrt{3}}{2}$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 10: Thống kê - Phương sai
+		\item Doanh thu (triệu đồng) trong 4 ngày bán hàng của một cửa hàng được thống kê ở bảng sau:
+		\begin{center}
+			\begin{tabular}{|c|c|c|c|}
+				\hline
+				\textbf{Doanh thu} & $[0; 2)$ & $[2; 4)$ & $[4; 6)$ \\
+				\hline
+				\textbf{Số ngày} & 1 & 2 & 1 \\
+				\hline
+			\end{tabular}
+		\end{center}
+		Phương sai của mẫu số liệu ghép nhóm trên bằng bao nhiêu?
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\Alph*.]
+				\item $3$.
+				\item $4$.
+				\item $\sqrt{2}$.
+				\item $2$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 11: Oxyz - Điểm đối xứng qua tâm
+		\item Trong không gian $Oxyz$, cho điểm $M(2; -1; 3)$ và điểm $I(1; 1; 1)$. Tọa độ điểm $M'$ đối xứng với $M$ qua tâm $I$ là:
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\Alph*.]
+				\item $M'(0; 3; -1)$.
+				\item $M'(1; 2; -2)$.
+				\item $M'\left( \dfrac{3}{2}; 0; 2 \right)$.
+				\item $M'(3; -3; 5)$.
+			\end{enumerate}
+		\end{multicols}
+		
+		% CÂU 12: Hàm số - Max/Min (Công thức)
+		\item Tìm giá trị nhỏ nhất của hàm số $y = \dfrac{x - 1}{x + 2}$ trên đoạn $[0; 2]$.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\Alph*.]
+				\item $-\dfrac{1}{2}$.
+				\item $\dfrac{1}{4}$.
+				\item $-1$.
+				\item $0$.
+			\end{enumerate}
+		\end{multicols}
+		
+	\end{enumerate}
+	
+	\vspace{4mm}
+	% ======================================================
+	% PHẦN 2: TRẮC NGHIỆM ĐÚNG SAI
+	% ======================================================
+	\noindent\textbf{PHẦN II. Câu trắc nghiệm đúng sai.} Thí sinh trả lời từ câu 1 đến câu 2. Trong mỗi ý a), b), c), d) ở mỗi câu, thí sinh chọn đúng hoặc sai.
+	\vspace{2mm}
+	
+	\begin{enumerate}[label=\textbf{Câu \arabic*.}, leftmargin=*]
+		
+		% CÂU 1 ĐÚNG SAI: Khảo sát hàm số (Đồ thị hàm bậc 3, tiếp tuyến, cực trị hàm hợp)
+		\item Cho hàm số $y = f(x) = x^3 - 3x^2 + 1$ có đồ thị là đường cong $(C)$ như hình vẽ bên dưới.
+		\begin{center}
+			\begin{tikzpicture}[scale=0.9]
+				\begin{axis}[
+					axis lines = middle,
+					xlabel = {$x$}, ylabel = {$y$},
+					ymin = -4, ymax = 2.5,
+					xmin = -1.5, xmax = 3.5,
+					xtick = {1, 2}, ytick = {-3, 1},
+					ticklabel style = {fill=white, inner sep=1pt},
+					width=8cm, height=6.5cm,
+					samples=100,
+					axis line style={->}
+					]
+					% Đồ thị y = x^3 - 3x^2 + 1
+					\addplot [domain=-1.2:3.2, thick, blue, smooth] {x^3 - 3*x^2 + 1};
+					
+					% Gióng tọa độ cực trị
+					\draw[dashed, gray] (2,0) -- (2,-3) -- (0,-3);
+					\fill (2,-3) circle (1.5pt);
+					\fill (0,1) circle (1.5pt);
+					
+					% Điểm uốn
+					\fill (1,-1) circle (1.5pt);
+					\draw[dashed, gray] (1,0) -- (1,-1) -- (0,-1);
+					\node[left] at (axis cs:0,-1) {$-1$};
+					
+					\node[below left] at (axis cs:0,0) {$O$};
+				\end{axis}
+			\end{tikzpicture}
+		\end{center}
+		Xét tính đúng hay sai của các mệnh đề sau:
+		\begin{enumerate}[label=\alph*)]
+			\item Tại điểm có hoành độ $x = 1$, đạo hàm của hàm số đạt giá trị bằng $0$.
+			\item Đồ thị $(C)$ có điểm uốn là $I(1; -1)$.
+			\item Phương trình tiếp tuyến của đồ thị $(C)$ tại điểm uốn là $y = -3x + 2$.
+			\item Hàm số $g(x) = f(x^2 - 2x)$ có đúng $3$ điểm cực trị.
+		\end{enumerate}
+		
+		\vspace{4mm}
+		% CÂU 2 ĐÚNG SAI: Tọa độ Oxyz (Tam giác, trực tâm, diện tích, thể tích)
+		\item Trong không gian $Oxyz$, cho ba điểm $A(1; 0; 0)$, $B(0; 2; 0)$ và $C(0; 0; 3)$. Xét tính đúng hay sai của các mệnh đề sau:
+		\begin{enumerate}[label=\alph*)]
+			\item Tích vô hướng $\overrightarrow{AB} \cdot \overrightarrow{AC} = 1$.
+			\item Diện tích của tam giác $ABC$ bằng $\dfrac{7}{2}$.
+			\item Gọi $H$ là trực tâm của tam giác $ABC$. Tọa độ của điểm $H$ là $H\left( \dfrac{36}{49}; \dfrac{18}{49}; \dfrac{12}{49} \right)$.
+			\item Gọi $M(x; y; 0)$ là một điểm thuộc mặt phẳng $(Oxy)$. Tồn tại vô số điểm $M$ sao cho thể tích khối tứ diện $MABC$ bằng $2$.
+		\end{enumerate}
+		
+	\end{enumerate}
+	
+	\vspace{4mm}
+	% ======================================================
+	% PHẦN 3: TRẮC NGHIỆM TRẢ LỜI NGẮN
+	% ======================================================
+	\noindent\textbf{PHẦN III. Câu trắc nghiệm trả lời ngắn.} Thí sinh trả lời từ câu 1 đến câu 4.
+	\vspace{2mm}
+	
+	\begin{enumerate}[label=\textbf{Câu \arabic*.}, leftmargin=*]
+		
+		% CÂU 1 TRẢ LỜI NGẮN: Điểm cực trị hàm phân thức
+		\item Biết đồ thị hàm số $y = \dfrac{x^2 + 2x + 5}{x + 1}$ có điểm cực tiểu là $M(x_0; y_0)$. Tính giá trị của tổng $S = x_0 + y_0$.
+		
+		\vspace{2mm}
+		% CÂU 2 TRẢ LỜI NGẮN: Thống kê (Phương sai)
+		\item Thời gian chờ (phút) của khách hàng tại một quầy thanh toán được ghi nhận trong bảng số liệu ghép nhóm sau:
+		\begin{center}
+			\renewcommand{\arraystretch}{1.2}
+			\begin{tabular}{|c|c|c|c|}
+				\hline
+				\textbf{Thời gian (phút)} & $[0; 10)$ & $[10; 20)$ & $[20; 30)$ \\
+				\hline
+				\textbf{Số khách hàng} & 2 & 6 & 2 \\
+				\hline
+			\end{tabular}
+		\end{center}
+		Tính phương sai của mẫu số liệu ghép nhóm trên.
+		
+		\vspace{2mm}
+		% CÂU 3 TRẢ LỜI NGẮN: Vector thuần túy (Độ dài tổng vecto)
+		\item Cho hình vuông $ABCD$ có độ dài cạnh bằng $3$. Tính bình phương độ dài của vecto tổng: $\vec{u} = \overrightarrow{AB} + \overrightarrow{AC} + \overrightarrow{AD}$.
+		
+		\vspace{2mm}
+		% CÂU 4 TRẢ LỜI NGẮN: Oxyz (Điểm cách đều)
+		\item Trong không gian $Oxyz$, cho hai điểm $A(1; 2; 3)$ và $B(-1; 4; 1)$. Biết điểm $M$ nằm trên trục cao độ $Oz$ sao cho $MA = MB$. Tính cao độ của điểm $M$.
+		
+	\end{enumerate}
+	
+	% ======================================================
+	% PHẦN 4: TỰ LUẬN
+	% ======================================================
+	\vspace{4mm}
+	\noindent\textbf{PHẦN IV. Tự luận.} Thí sinh trình bày bài giải chi tiết từ bài 1 đến bài 2.
+	\vspace{2mm}
+	
+	\begin{enumerate}[label=\textbf{Bài \arabic*.}, leftmargin=*]
+		
+		% BÀI 1: KHẢO SÁT HÀM SỐ (1.5 ĐIỂM)
+		\item Cho hàm số $y = \dfrac{x^2 - x + 1}{x - 1}$ có đồ thị là đường cong $(C)$.
+		\begin{enumerate}[label=\alph*)]
+			\item Khảo sát sự biến thiên (đồng biến, nghịch biến, cực trị, tiệm cận) và xác định tọa độ tâm đối xứng của đồ thị hàm số đã cho.
+			\item Tìm tất cả các điểm nằm trên đồ thị $(C)$ có tọa độ (hoành độ và tung độ) đều là các số nguyên.
+		\end{enumerate}
+		
+		\vspace{4mm}
+		% BÀI 2: VECTO TRONG KHÔNG GIAN (1.5 ĐIỂM)
+		\item
+		\begin{enumerate}[label=\alph*)]
+			\item Cho hình lập phương $ABCD.A'B'C'D'$. Sử dụng các quy tắc cộng vecto, chứng minh đẳng thức:
+			\[ \overrightarrow{AC'} = \overrightarrow{AB} + \overrightarrow{AD} + \overrightarrow{AA'} \]
+			\item Giả sử hình lập phương ở câu trên có cạnh bằng $a$ (Hình minh họa dưới). Phân tích các vecto $\overrightarrow{AC'}$ và $\overrightarrow{A'B}$ theo 3 vecto cơ sở $\overrightarrow{AB}, \overrightarrow{AD}, \overrightarrow{AA'}$, từ đó tính tích vô hướng $\overrightarrow{AC'} \cdot \overrightarrow{A'B}$.
+		\end{enumerate}
+		\hfill
+		\begin{center}
+			\begin{tikzpicture}[scale=1, line join=round, line cap=round]
+				% Hình lập phương
+				\coordinate (A) at (0,0);
+				\coordinate (B) at (1.5,-0.5);
+				\coordinate (D) at (2,1);
+				\coordinate (C) at (3.5,0.5);
+				\coordinate (A') at (0,2.5);
+				\coordinate (B') at (1.5,2);
+				\coordinate (D') at (2,3.5);
+				\coordinate (C') at (3.5,3);
+				
+				% Vẽ nét khuất
+				\draw[dashed, thick] (A) -- (D) (D) -- (C) (D) -- (D');
+				
+				% Vẽ nét thấy
+				\draw[thick] (A) -- (B) -- (C) (A) -- (A') (B) -- (B') (C) -- (C') (A') -- (B') -- (C') -- (D') -- (A');
+				
+				% Gắn nhãn
+				\node[below left] at (A) {$A$};
+				\node[below] at (B) {$B$};
+				\node[right] at (C) {$C$};
+				\node[above left] at (D) {$D$};
+				\node[left] at (A') {$A'$};
+				\node[below right] at (B') {$B'$};
+				\node[right] at (C') {$C'$};
+				\node[above] at (D') {$D'$};
+			\end{tikzpicture}
+		\end{center}
+		
+	\end{enumerate}
+
+	
+\end{document}
