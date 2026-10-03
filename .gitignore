@@ -4,9 +4,15 @@
 # Không bỏ qua thư mục (để Git duyệt vào bên trong tìm kiếm)
 !*/
 
-# Chỉ giữ lại và cho phép theo dõi các file .tex
+# Giữ lại và theo dõi các file cần thiết
 !*.tex
-!.sh
+!**/*.tex
+!*.sh
+!**/*.sh
+!README.md
+!readme.md
+!*.md
+!**/*.md
 
-# Giữ lại file .gitignore để đẩy lên GitHub
+# Giữ lại file .gitignore
 !.gitignore
