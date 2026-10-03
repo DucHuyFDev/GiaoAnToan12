@@ -6,6 +6,7 @@
 
 # Chỉ giữ lại và cho phép theo dõi các file .tex
 !*.tex
+!.sh
 
 # Giữ lại file .gitignore để đẩy lên GitHub
 !.gitignore
