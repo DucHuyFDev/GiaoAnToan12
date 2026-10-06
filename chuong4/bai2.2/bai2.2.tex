@@ -1,0 +1,1137 @@
+\documentclass[12pt]{article}
+
+% === CÀI ĐẶT TRANG ===
+\usepackage[margin=2cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T5]{fontenc}
+\usepackage[vietnamese]{babel}
+
+% === TOÁN HỌC ===
+\usepackage{amsmath, amssymb, amsthm}
+
+% === HÌNH VẼ & ĐỒ THỊ ===
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usetikzlibrary{calc, angles, quotes, intersections, arrows.meta, 3d, patterns, positioning}
+
+% === ĐỊNH DẠNG & BẢNG BIỂU ===
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage[most]{tcolorbox}
+\usepackage{multicol}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{fancyhdr}
+\usepackage{tocloft}
+\usepackage[colorlinks=true, linkcolor=blue!85!black, urlcolor=blue, citecolor=blue]{hyperref}
+
+% === CẤU HÌNH ĐÁNH SỐ ĐỀ MỤC ===
+\renewcommand{\thesection}{Phần \Roman{section}.}
+\renewcommand{\thesubsection}{\arabic{section}.\arabic{subsection}.}
+\renewcommand{\thesubsubsection}{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}.}
+
+% Cấu hình khoảng cách nhãn trong Mục lục (tocloft) để tránh đè chữ
+\setlength{\cftsecnumwidth}{2.4cm}
+\setlength{\cftsubsecindent}{2.4cm}
+\setlength{\cftsubsecnumwidth}{1.1cm}
+\setlength{\cftsubsubsecindent}{3.5cm}
+\setlength{\cftsubsubsecnumwidth}{1.5cm}
+
+% === TCOLORBOX STYLES ===
+\tcbuselibrary{breakable, skins, fitting}
+
+% Định dạng hộp Ví dụ
+\newtcolorbox{vidu}[1][1]{
+	colback=blue!5!white, colframe=blue!60!black,
+	fonttitle=\bfseries, title={Ví dụ #1},
+	breakable, enhanced
+}
+
+% Định dạng hộp Lời giải
+\newtcolorbox{loigiai}{
+	colback=gray!8!white, colframe=gray!50!black,
+	fonttitle=\bfseries, title={Lời giải},
+	breakable, enhanced
+}
+
+% Bài tập xanh – Khung hình chữ nhật bo góc duy nhất
+\newtcolorbox{btxanh}{
+	colback=blue!5!white, colframe=blue!65!black,
+	arc=2.5mm, boxrule=1pt,
+	left=4mm, right=4mm, top=3mm, bottom=3mm,
+	breakable, enhanced
+}
+
+% Bài tập vàng – Khung hình chữ nhật bo góc duy nhất
+\newtcolorbox{btvang}{
+	colback=yellow!10!white, colframe=orange!80!black,
+	arc=2.5mm, boxrule=1pt,
+	left=4mm, right=4mm, top=3mm, bottom=3mm,
+	breakable, enhanced
+}
+
+% Bài tập đỏ – Khung hình chữ nhật bo góc duy nhất
+\newtcolorbox{btdo}{
+	colback=red!5!white, colframe=red!65!black,
+	arc=2.5mm, boxrule=1pt,
+	left=4mm, right=4mm, top=3mm, bottom=3mm,
+	breakable, enhanced
+}
+
+% === HEADER/FOOTER ===
+\setlength{\headheight}{17pt}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small Tài liệu học tập}
+\fancyhead[R]{\small \textbf{Ứng dụng Tích phân trong Thực tiễn}}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% ================================================
+\begin{document}
+	
+	\begin{center}
+		{\LARGE \textbf{ỨNG DỤNG TÍCH PHÂN TRONG THỰC TIỄN}}\\[4pt]
+		{\large Môn: Toán \quad Lớp: 12}
+	\end{center}
+	\vspace{4mm}
+	\hrule
+	\vspace{4mm}
+	
+	% ================================================
+	% MỤC TIÊU BÀI HỌC (KHÔNG ĐÁNH SỐ THỨ TỰ)
+	% ================================================
+	\section*{Mục tiêu bài học}
+	\addcontentsline{toc}{section}{Mục tiêu bài học}
+	
+	\textbf{1. Kiến thức:} 
+	\begin{itemize}
+		\item Hiểu rõ và nắm vững định nghĩa, ý nghĩa hình học và ý nghĩa thực tế của giá trị trung bình của hàm số trên một đoạn.
+		\item Nắm vững mối quan hệ vi tích phân giữa quãng đường $s(t)$, vận tốc $v(t)$ và gia tốc $a(t)$ trong bài toán chuyển động thẳng.
+		\item Hiểu được ý nghĩa hình học của tích phân vận tốc như diện tích hình phẳng giới hạn bởi đồ thị $v(t)$ và trục thời gian.
+		\item Tiếp cận và hiểu rõ các mô hình tích phân trong các lĩnh vực liên môn (Vật lý: công lực biến thiên, điện lượng; Đời sống - Kỹ thuật: lưu lượng chất lỏng; Kinh tế và Sinh học).
+	\end{itemize}
+	
+	\noindent \textbf{2. Kĩ năng:} 
+	\begin{itemize}
+		\item Tính thành thạo giá trị trung bình của các đại lượng biến thiên trong các tình huống thực tiễn.
+		\item Vận dụng tích phân để tính quãng đường di chuyển của vật khi biết vận tốc hoặc gia tốc (chuyển động tăng tốc, hãm phanh dừng hẳn).
+		\item Giải quyết tốt các bài toán chuyển động nhiều giai đoạn (tăng tốc rồi phanh) và bài toán hai vật chuyển động đuổi nhau / gặp nhau.
+		\item Khai thác thành thạo đồ thị vận tốc $v(t)$ (dạng parabol, đường thẳng, hàm phân nhánh) để xác định phương trình vận tốc và tính quãng đường.
+		\item Mô hình hóa các bài toán thực tiễn liên môn và sử dụng tích phân để tính toán đại lượng tích lũy.
+	\end{itemize}
+	
+	\noindent \textbf{3. Phẩm chất \& Năng lực:}
+	\begin{itemize}
+		\item Phát triển năng lực mô hình hóa toán học, giải quyết vấn đề toán học gắn với thực tiễn đời sống và khoa học kỹ thuật.
+		\item Rèn luyện tư duy logic, tính chính xác và cẩn thận trong việc xác định các thời điểm giới hạn và thiết lập cận tích phân.
+	\end{itemize}
+	
+	\newpage
+	
+	% ================================================
+	% MỤC LỤC (KHÔNG ĐÁNH SỐ THỨ TỰ)
+	% ================================================
+	\setcounter{tocdepth}{2}
+	\tableofcontents
+	\newpage
+	
+	% ================================================
+	% PHẦN I: LÝ THUYẾT TRỌNG TÂM
+	% ================================================
+	\section{Lý thuyết trọng tâm}\label{sec:lythuyet}
+	
+	\subsection{Giá trị trung bình của hàm số}
+	
+	\subsubsection{Định nghĩa và công thức tính}
+	
+	\begin{tcolorbox}[colback=blue!3!white, colframe=blue!65!black, arc=2mm, title=\textbf{Định nghĩa Giá trị trung bình của hàm số}]
+		Cho hàm số $y = f(x)$ liên tục trên đoạn $[a; b]$ với $a < b$. \textbf{Giá trị trung bình} của hàm số $f(x)$ trên đoạn $[a; b]$, ký hiệu là $\bar{f}$ (hoặc $f_{\text{tb}}$), được xác định bởi công thức:
+		\[
+		\bar{f} = \frac{1}{b - a} \int_a^b f(x)\,\mathrm{d}x.
+		\]
+	\end{tcolorbox}
+	
+	\noindent \textbf{Định lý giá trị trung bình:} Nếu $f(x)$ liên tục trên $[a; b]$ thì luôn tồn tại ít nhất một điểm $c \in [a; b]$ sao cho $f(c) = \bar{f}$, tức là:
+	\[
+	\int_a^b f(x)\,\mathrm{d}x = f(c)(b - a).
+	\]
+	
+	\subsubsection{Ý nghĩa hình học và ý nghĩa thực tế}
+	
+	\begin{minipage}[c]{0.52\linewidth}
+		\textbf{1. Ý nghĩa hình học:} Với $f(x) \ge 0$, giá trị trung bình $\bar{f} = f(c)$ chính là \textbf{chiều cao của hình chữ nhật} có cạnh đáy là đoạn $[a; b]$ sao cho diện tích của nó đúng bằng diện tích hình thang cong giới hạn bởi đồ thị $y = f(x)$ và trục hoành:
+		\[
+		S_{\text{chữ nhật}} = S_{\text{hình thang cong}}.
+		\]
+		
+		\textbf{2. Ý nghĩa thực tế:}
+		\begin{itemize}[itemsep=2pt, topsep=2pt]
+			\item \textit{Vận tốc trung bình:} $v_{\text{tb}} = \dfrac{1}{t_2 - t_1} \displaystyle \int_{t_1}^{t_2} v(t)\,\mathrm{d}t = \dfrac{s(t_2) - s(t_1)}{t_2 - t_1}$.
+			\item \textit{Nhiệt độ, nồng độ trung bình:} $T_{\text{tb}} = \dfrac{1}{b - a} \displaystyle \int_a^b T(t)\,\mathrm{d}t$.
+		\end{itemize}
+	\end{minipage}
+	\hfill
+	\begin{minipage}[c]{0.45\linewidth}
+		\centering
+		\begin{tikzpicture}[scale=0.85, >=Stealth]
+			\draw[->, thick] (-0.3, 0) -- (5.2, 0) node[below] {$x$};
+			\draw[->, thick] (0, -0.3) -- (0, 3.8) node[left] {$y$};
+			\node[below left] at (0,0) {\small $O$};
+			
+			\def\xa{0.8} \def\xb{4.4} \def\yavg{1.85}
+			
+			% Diện tích hình thang cong
+			\fill[blue!12, domain=\xa:\xb, variable=\x] 
+				(\xa, 0) -- plot ({\x}, {1.1 + 1.1*sin((\x - 0.8)*65)}) -- (\xb, 0) -- cycle;
+			\draw[domain=\xa:\xb, smooth, variable=\x, blue!80!black, thick] 
+				plot ({\x}, {1.1 + 1.1*sin((\x - 0.8)*65)});
+			\node[blue!85!black, above] at (2.6, 2.3) {\small $y = f(x)$};
+			
+			% Hình chữ nhật tương đương
+			\draw[orange!90!black, thick, dashed] (\xa, 0) rectangle (\xb, \yavg);
+			\draw[red!85!black, thick] (\xa-0.2, \yavg) -- (\xb+0.2, \yavg) node[right] {\small $y = \bar{f}$};
+			
+			\draw[dashed] (\xa, 0) node[below] {\small $a$} -- (\xa, 1.1);
+			\draw[dashed] (\xb, 0) node[below] {\small $b$} -- (\xb, 0.3);
+			
+			\def\xc{2.05}
+			\draw[dashed, red!80!black] (\xc, 0) node[below, text=red!80!black] {\small $c$} -- (\xc, \yavg);
+			\filldraw[red!85!black] (\xc, \yavg) circle (1.8pt);
+			\node at (2.6, 0.9) {\scriptsize $S_{\text{chữ nhật}} = S_{\text{cong}}$};
+		\end{tikzpicture}
+	\end{minipage}
+	
+	% ================================================
+	\subsection{Ứng dụng tích phân trong bài toán chuyển động cơ học}
+	
+	\subsubsection{Mối quan hệ vi tích phân giữa các đại lượng}
+	
+	Cho một chất điểm chuyển động thẳng với vị trí $s(t)$, vận tốc tức thời $v(t)$ và gia tốc tức thời $a(t)$:
+	\begin{center}
+		\begin{tcolorbox}[colback=gray!6!white, colframe=gray!60!black, width=0.85\linewidth, halign=center, arc=2mm]
+			$s(t) \quad \overset{\text{Đạo hàm } \frac{\mathrm{d}}{\mathrm{d}t}}{\underset{\text{Tích phân } \int \mathrm{d}t}{\rightleftharpoons}} \quad v(t) \quad \overset{\text{Đạo hàm } \frac{\mathrm{d}}{\mathrm{d}t}}{\underset{\text{Tích phân } \int \mathrm{d}t}{\rightleftharpoons}} \quad a(t)$
+		\end{tcolorbox}
+	\end{center}
+	\begin{itemize}[itemsep=2pt, topsep=2pt]
+		\item \textbf{Đạo hàm:} $v(t) = s'(t)$; \quad $a(t) = v'(t) = s''(t)$.
+		\item \textbf{Tích phân:} $v(t) = \displaystyle \int a(t)\,\mathrm{d}t$; \quad $s(t) = \displaystyle \int v(t)\,\mathrm{d}t$.
+	\end{itemize}
+	
+	\subsubsection{Công thức tính quãng đường và vận tốc}
+	
+	\begin{enumerate}[label=\textbf{\arabic*.}]
+		\item \textbf{Quãng đường di chuyển:} Khi vật chuyển động không đổi chiều ($v(t) \ge 0$) trên $[t_1; t_2]$:
+		\[
+		S = \int_{t_1}^{t_2} v(t)\,\mathrm{d}t.
+		\]
+		\textit{Lưu ý bài toán hãm phanh:} Khi xe bắt đầu đạp phanh tại $t = 0$, thời điểm xe dừng hẳn là nghiệm của $v(t) = 0 \implies t = t_{\text{dừng}}$. Quãng đường hãm phanh là $S = \displaystyle \int_0^{t_{\text{dừng}}} v(t)\,\mathrm{d}t$.
+		
+		\item \textbf{Xác định vận tốc từ gia tốc:} Với vận tốc ban đầu $v(t_0) = v_0$, ta có:
+		\[
+		v(t) = v_0 + \int_{t_0}^t a(u)\,\mathrm{d}u.
+		\]
+		Vận tốc đạt giá trị lớn nhất (hoặc nhỏ nhất) tại thời điểm gia tốc triệt tiêu: $v'(t) = a(t) = 0$.
+	\end{enumerate}
+	
+	\subsubsection{Ý nghĩa diện tích trên đồ thị vận tốc $v(t)$}
+	
+	\begin{minipage}[c]{0.52\linewidth}
+		Trên hệ trục toạ độ $Otv$, nếu $v(t) \ge 0$ trên $[t_1; t_2]$ thì:
+		\begin{center}
+			\textbf{Quãng đường $S$ vật đi được bằng diện tích hình phẳng giới hạn bởi đồ thị $v = v(t)$, trục hoành $Ot$ và hai đường $t = t_1, t = t_2$.}
+		\end{center}
+		\textit{Quy tắc nhanh:} Khi đồ thị $v(t)$ cấu tạo bởi các đoạn thẳng, ta có thể tính nhanh quãng đường bằng các công thức diện tích hình học (tam giác, hình thang) mà không cần lập tích phân.
+	\end{minipage}
+	\hfill
+	\begin{minipage}[c]{0.45\linewidth}
+		\centering
+		\begin{tikzpicture}[scale=0.85, >=Stealth]
+			\draw[->, thick] (-0.3, 0) -- (5.2, 0) node[below] {$t$};
+			\draw[->, thick] (0, -0.3) -- (0, 3.5) node[left] {$v$};
+			\node[below left] at (0,0) {\small $O$};
+			
+			\def\tA{0.8} \def\tB{4.0}
+			
+			% Đồ thị v(t)
+			\fill[blue!10, domain=\tA:\tB, variable=\t] 
+				(\tA, 0) -- plot ({\t}, {-0.3*(\t - 2.4)*(\t - 2.4) + 2.8}) -- (\tB, 0) -- cycle;
+			\fill[pattern=north east lines, pattern color=blue!45!black, domain=\tA:\tB, variable=\t] 
+				(\tA, 0) -- plot ({\t}, {-0.3*(\t - 2.4)*(\t - 2.4) + 2.8}) -- (\tB, 0) -- cycle;
+			\draw[domain=0.3:4.6, smooth, variable=\t, blue!85!black, thick] 
+				plot ({\t}, {-0.3*(\t - 2.4)*(\t - 2.4) + 2.8});
+			\node[blue!90!black, above] at (2.4, 2.85) {\small $v = v(t)$};
+			
+			\draw[dashed] (\tA, 0) node[below] {\small $t_1$} -- (\tA, 2.03);
+			\draw[dashed] (\tB, 0) node[below] {\small $t_2$} -- (\tB, 2.03);
+			
+			\node at (2.4, 1.1) [fill=white, draw=blue!80!black, inner sep=2pt, rounded corners=2pt] 
+				{\scriptsize $S = \displaystyle \int_{t_1}^{t_2} v(t)\,\mathrm{d}t$};
+		\end{tikzpicture}
+	\end{minipage}
+	
+	% ================================================
+	\subsection{Một số mô hình ứng dụng thực tế liên môn khác}
+	
+	\begin{enumerate}[label=\textbf{\arabic*.}]
+		\item \textbf{Công cơ học của lực biến thiên (Vật lý):} Công sinh ra bởi một lực $F(x)$ làm dịch chuyển vật thể dọc theo trục $Ox$ từ vị trí $x = a$ đến $x = b$ là:
+		\[
+		A = \int_a^b F(x)\,\mathrm{d}x.
+		\]
+		\textit{Ví dụ:} Lực đàn hồi kéo dãn lò xo tuân theo định luật Hooke $F(x) = kx \implies A = \displaystyle \int_0^d kx\,\mathrm{d}x = \frac{1}{2}kd^2$.
+		
+		\item \textbf{Điện lượng và Lưu lượng chất lỏng (Kỹ thuật -- Đời sống):}
+		\begin{itemize}[itemsep=2pt]
+			\item \textit{Điện lượng:} Cường độ dòng điện $i(t) = q'(t) \implies$ Điện lượng chuyển qua tiết diện dây dẫn trong $[t_1; t_2]$ là $q = \displaystyle \int_{t_1}^{t_2} i(t)\,\mathrm{d}t$.
+			\item \textit{Lưu lượng nước:} Tốc độ dòng chảy vào bể là $Q(t) \implies$ Tổng lượng nước tích lũy là $V = \displaystyle \int_{t_1}^{t_2} Q(t)\,\mathrm{d}t$.
+		\end{itemize}
+		
+		\item \textbf{Đại lượng tích lũy trong Kinh tế và Sinh học:} 
+		Nếu biết tốc độ biến thiên $Q'(t)$ của một đại lượng $Q(t)$ (như tốc độ tăng trưởng vi khuẩn, tốc độ tăng chi phí cận biên), lượng thay đổi tích lũy sau khoảng thời gian $[t_1; t_2]$ là:
+		\[
+		\Delta Q = Q(t_2) - Q(t_1) = \int_{t_1}^{t_2} Q'(t)\,\mathrm{d}t.
+		\]
+	\end{enumerate}
+	
+	% ================================================
+	\subsection{Phương pháp giải các dạng bài tập trọng tâm}
+	
+	\subsubsection{Dạng 1: Tính giá trị trung bình của đại lượng thực tế}
+	\noindent \textbf{Phương pháp giải:} Xác định đoạn thời gian $[a; b]$, thiết lập hàm $f(t)$ mô tả đại lượng rồi áp dụng công thức $\bar{f} = \dfrac{1}{b - a} \displaystyle \int_a^b f(t)\,\mathrm{d}t$.
+	
+	\begin{vidu}[1]
+		Nhiệt độ một phòng thí nghiệm sau $t$ giờ kể từ 8 giờ sáng được mô hình bởi hàm số $T(t) = 22 + 4\sin\left(\dfrac{\pi t}{12}\right)$ ($^\circ\text{C}$), với $0 \le t \le 12$. Tính nhiệt độ trung bình của phòng từ 8 giờ sáng đến 20 giờ cùng ngày.
+	\end{vidu}
+	\begin{loigiai}
+		Nhiệt độ trung bình trong khoảng thời gian từ $t = 0$ đến $t = 12$ là:
+		\[
+		\bar{T} = \frac{1}{12 - 0} \int_0^{12} \left[22 + 4\sin\left(\frac{\pi t}{12}\right)\right]\,\mathrm{d}t 
+		= \frac{1}{12} \left. \left[ 22t - \frac{48}{\pi}\cos\left(\frac{\pi t}{12}\right) \right] \right|_0^{12}
+		= 22 + \frac{8}{\pi} \approx 24{,}55^\circ\text{C}.
+		\]
+	\end{loigiai}
+	
+	\subsubsection{Dạng 2: Bài toán chuyển động một giai đoạn (Tăng tốc / Hãm phanh)}
+	\noindent \textbf{Phương pháp giải:}
+	\begin{itemize}[itemsep=2pt]
+		\item Đã biết $v(t)$: Quãng đường từ $t_1$ đến $t_2$ là $S = \displaystyle \int_{t_1}^{t_2} v(t)\,\mathrm{d}t$.
+		\item Bài toán dừng hẳn: Giải phương trình $v(t) = 0 \implies t = t_{\text{dừng}}$, khi đó $S = \displaystyle \int_0^{t_{\text{dừng}}} v(t)\,\mathrm{d}t$.
+		\item Biết gia tốc $a(t)$ và $v(0) = v_0$: Tìm $v(t) = v_0 + \displaystyle \int_0^t a(u)\,\mathrm{d}u$, sau đó tính quãng đường.
+	\end{itemize}
+	
+	\begin{vidu}[2]
+		Một ô tô đang chạy với vận tốc $20\text{ m/s}$ thì gặp chướng ngại vật nên người lái đạp phanh. Từ lúc đó, ô tô chuyển động chậm dần đều với vận tốc $v(t) = -5t + 20\text{ (m/s)}$ ($t$ tính bằng giây). Hỏi từ lúc đạp phanh đến khi dừng hẳn, ô tô còn di chuyển được bao nhiêu mét?
+	\end{vidu}
+	\begin{loigiai}
+		Khi ô tô dừng hẳn thì vận tốc bằng $0$, tức là $-5t + 20 = 0 \iff t = 4\text{ (s)}$.\\
+		Quãng đường ô tô di chuyển được từ lúc đạp phanh đến khi dừng hẳn là:
+		\[
+		S = \int_0^4 (-5t + 20)\,\mathrm{d}t = \left. \left(-\frac{5t^2}{2} + 20t\right) \right|_0^4 = -40 + 80 = 40\text{ (m)}.
+		\]
+	\end{loigiai}
+	
+	\subsubsection{Dạng 3: Bài toán chuyển động nhiều giai đoạn và hai vật đuổi nhau}
+	\noindent \textbf{Phương pháp giải:}
+	\begin{itemize}[itemsep=2pt]
+		\item Chuyển động nhiều giai đoạn: Chia thành từng chặng thời gian $[0; t_1]$ và $[t_1; t_2]$, tính quãng đường từng chặng rồi cộng lại: $S = S_1 + S_2$.
+		\item Hai vật đuổi nhau: Thiết lập phương trình quãng đường $s_A(t)$ và $s_B(t)$. Khi đuổi kịp nhau thì $s_A(t_A) = s_B(t_B)$.
+	\end{itemize}
+	
+	\begin{vidu}[3]
+		Một ô tô bắt đầu chuyển động nhanh dần đều với vận tốc $v_1(t) = 6t\text{ (m/s)}$. Đi được $4\text{ giây}$, người lái xe gặp chướng ngại vật nên phanh gấp, ô tô tiếp tục chuyển động chậm dần đều với gia tốc $a = -12\text{ m/s}^2$ cho đến khi dừng hẳn. Tính tổng quãng đường $S$ ô tô đã đi được.
+	\end{vidu}
+	\begin{loigiai}
+		\textbf{Giai đoạn 1 ($0 \le t \le 4$):} Quãng đường $S_1 = \displaystyle \int_0^4 6t\,\mathrm{d}t = \left. 3t^2 \right|_0^4 = 48\text{ (m)}$. Vận tốc tại thời điểm $t = 4\text{ s}$ là $v_1(4) = 24\text{ m/s}$.\\
+		\textbf{Giai đoạn 2 (hãm phanh):} Gọi $u$ là thời gian tính từ lúc bắt đầu đạp phanh. Vận tốc giai đoạn này là $v_2(u) = 24 - 12u\text{ (m/s)}$. Xe dừng hẳn khi $v_2(u) = 0 \iff u = 2\text{ (s)}$.\\
+		Quãng đường hãm phanh: $S_2 = \displaystyle \int_0^2 (24 - 12u)\,\mathrm{d}u = \left. (24u - 6u^2) \right|_0^2 = 24\text{ (m)}$.\\
+		Vậy tổng quãng đường ô tô đi được là $S = S_1 + S_2 = 48 + 24 = 72\text{ (m)}$.
+	\end{loigiai}
+	
+	\subsubsection{Dạng 4: Bài toán chuyển động dựa vào đồ thị vận tốc $v(t)$}
+	\noindent \textbf{Phương pháp giải:} Xác định phương trình Parabol $v(t) = A(t - t_0)^2 + v_0$ từ tọa độ đỉnh $I(t_0; v_0)$ và một điểm đi qua; sau đó tính tích phân quãng đường $S = \displaystyle \int_{t_1}^{t_2} v(t)\,\mathrm{d}t$.
+	
+	\begin{vidu}[4]
+		\noindent\begin{minipage}[c]{0.62\linewidth}
+			Một vật chuyển động trong $3\text{ giờ}$ với vận tốc $v\text{ (km/h)}$ phụ thuộc thời gian $t\text{ (h)}$ có đồ thị là một phần đường Parabol như hình vẽ bên. Biết đỉnh Parabol là $I(2; 9)$ và đồ thị cắt trục tung tại điểm có tung độ bằng $5$. Tính quãng đường $S$ mà vật di chuyển được trong $3\text{ giờ}$ đó.
+		\end{minipage}\hfill
+		\begin{minipage}[c]{0.35\linewidth}
+			\centering
+			\begin{tikzpicture}[>=stealth, scale=0.72, font=\footnotesize]
+				\draw[->] (-0.3,0) -- (3.8,0) node[below] {$t\text{ (h)}$};
+				\draw[->] (0,-0.3) -- (0,4.2) node[left] {$v\text{ (km/h)}$};
+				\node[below left] at (0,0) {$O$};
+				\draw[thick, blue!80!black, domain=0:3, samples=100] plot (\x*0.9, {(-( \x - 2 )^2 + 9)*0.38});
+				\draw[dashed, thin, gray] (1.8,0) node[below, black] {$2$} -- (1.8, 3.42) -- (0, 3.42) node[left, black] {$9$};
+				\draw[dashed, thin, gray] (2.7,0) node[below, black] {$3$} -- (2.7, 3.04) -- (0, 3.04) node[left, black] {$8$};
+				\node[left] at (0, 1.9) {$5$};
+				\fill[black] (0, 1.9) circle (1.2pt);
+				\fill[blue!80!black] (1.8, 3.42) circle (1.2pt) node[above] {$I$};
+				\fill[black] (2.7, 3.04) circle (1.2pt);
+			\end{tikzpicture}
+		\end{minipage}
+	\end{vidu}
+	\begin{loigiai}
+		Parabol có đỉnh $I(2; 9)$ nên có phương trình dạng $v(t) = A(t - 2)^2 + 9$.\\
+		Đồ thị đi qua điểm $(0; 5) \implies A(0 - 2)^2 + 9 = 5 \iff 4A = -4 \iff A = -1$.\\
+		Do đó, hàm vận tốc là $v(t) = -(t - 2)^2 + 9 = -t^2 + 4t + 5\text{ (km/h)}$.\\
+		Quãng đường vật di chuyển trong $3\text{ giờ}$ là:
+		\[
+		S = \int_0^3 (-t^2 + 4t + 5)\,\mathrm{d}t = \left. \left(-\frac{t^3}{3} + 2t^2 + 5t\right) \right|_0^3 = -9 + 18 + 15 = 24\text{ (km)}.
+		\]
+	\end{loigiai}
+	
+	\subsubsection{Dạng 5: Bài toán ứng dụng liên môn (Công cơ học, lưu lượng nước)}
+	\noindent \textbf{Phương pháp giải:} Xác định biến số và cận tích phân, thiết lập hàm tốc độ/lực $F(x)$ hoặc $Q(t)$, tính tích phân xác định đại lượng tích lũy.
+	
+	\begin{vidu}[5]
+		Một lò xo có độ cứng $k = 100\text{ N/m}$. Theo định luật Hooke, lực cần thiết để giữ lò xo dãn một đoạn $x\text{ (m)}$ là $F(x) = 100x\text{ (N)}$. Tính công thực hiện để kéo dãn lò xo từ độ dãn $2\text{ cm}$ đến $6\text{ cm}$.
+	\end{vidu}
+	\begin{loigiai}
+		Đổi đơn vị: $2\text{ cm} = 0{,}02\text{ m}$; $6\text{ cm} = 0{,}06\text{ m}$.\\
+		Công thực hiện để kéo dãn lò xo là:
+		\[
+		A = \int_{0{,}02}^{0{,}06} 100x\,\mathrm{d}x = \left. 50x^2 \right|_{0{,}02}^{0{,}06} = 50 \cdot (0{,}06^2 - 0{,}02^2) = 50 \cdot 0{,}0032 = 0{,}16\text{ (J)}.
+		\]
+	\end{loigiai}
+	
+	\newpage
+	
+	% ================================================
+	% PHẦN II: BÀI TẬP TỰ LUYỆN (3 KHUNG)
+	% ================================================
+	\section{Bài tập tự luyện}\label{sec:baitap}
+	
+	\subsection{Dạng 1: Tính giá trị trung bình của hàm số trong ngữ cảnh thực tế}
+	\begin{btxanh}
+		\begin{enumerate}[label=\textbf{Bài \arabic*.}]
+			\item Nhiệt độ không khí tại một trạm quan trắc từ $6$ giờ sáng ($t = 0$) đến $18$ giờ cùng ngày ($t = 12$) được mô hình hóa bởi hàm số $T(t) = -\dfrac{1}{6}t^2 + 2t + 20$ ($^\circ\text{C}$). Tính nhiệt độ trung bình của không khí tại trạm quan trắc trong khoảng thời gian $12\text{ giờ}$ đó.
+			\item Một chiếc cano chuyển động trên sông với vận tốc tức thời phụ thuộc vào thời gian $t$ (phút) theo quy luật $v(t) = 300 + 60t - 3t^2\text{ (m/phút)}$, với $0 \le t \le 10$. Tính vận tốc trung bình của cano trong $10\text{ phút}$ chuyển động đầu tiên.
+		\end{enumerate}
+	\end{btxanh}
+	
+	\begin{btvang}
+		\begin{enumerate}[label=\textbf{Bài \arabic*.}]
+			\item Nhiệt độ không khí tại một địa phương từ $4$ giờ sáng ($t = 0$) đến $16$ giờ chiều ($t = 12$) được xác định bởi hàm số $T(t) = -\dfrac{1}{4}t^2 + 3t + 18$ ($^\circ\text{C}$). Tính nhiệt độ trung bình của địa phương đó trong khoảng thời gian $12\text{ giờ}$ nói trên.
+			\item Một người đi xe đạp điện chuyển động với vận tốc tức thời phụ thuộc vào thời gian $t$ (phút) theo công thức $v(t) = 240 + 30t - 3t^2\text{ (m/phút)}$, với $0 \le t \le 10$. Tính vận tốc trung bình của xe đạp điện trong khoảng thời gian $10\text{ phút}$ đó.
+		\end{enumerate}
+	\end{btvang}
+	
+	\begin{btdo}
+		\begin{enumerate}[label=\textbf{Bài \arabic*.}]
+			\item Nhiệt độ trong một nhà kính trồng hoa từ $0$ giờ ($t = 0$) đến $10$ giờ sáng ($t = 10$) được biểu diễn bởi hàm số $T(t) = -\dfrac{3}{10}t^2 + 3t + 21$ ($^\circ\text{C}$). Tính nhiệt độ trung bình trong nhà kính trong khoảng thời gian $10\text{ giờ}$ đó.
+			\item Một xe máy điện bắt đầu tăng tốc với vận tốc tức thời tính theo thời gian $t$ (phút) là $v(t) = 150 + 45t - 3t^2\text{ (m/phút)}$, với $0 \le t \le 10$. Tính vận tốc trung bình của xe máy điện trong khoảng thời gian $10\text{ phút}$ nói trên.
+		\end{enumerate}
+	\end{btdo}
+	
+	\subsection{Dạng 2: Bài toán chuyển động một giai đoạn (Hàm vận tốc và gia tốc)}
+	\begin{btxanh}
+		\begin{enumerate}[label=\textbf{Bài \arabic*.}]
+			\item Một ô tô đang chạy với vận tốc $16\text{ m/s}$ thì người lái xe đạp phanh. Từ thời điểm đó, ô tô chuyển động chậm dần đều với vận tốc $v(t) = -4t + 16\text{ (m/s)}$, trong đó $t$ là khoảng thời gian tính bằng giây kể từ lúc bắt đầu đạp phanh. Hỏi từ lúc đạp phanh đến khi dừng hẳn, ô tô còn di chuyển được bao nhiêu mét?
+			\item Một chất điểm đang chuyển động với vận tốc ban đầu $v_0 = 12\text{ m/s}$ thì tăng tốc với gia tốc $a(t) = 3t + 2\text{ (m/s}^2\text{)}$ ($t$ tính bằng giây). Tính quãng đường chất điểm đó đi được trong khoảng thời gian $4\text{ giây}$ kể từ lúc bắt đầu tăng tốc.
+			\item Một ô tô xuất phát từ trạng thái nghỉ ($v(0) = 0$) và chuyển động theo một đường thẳng với gia tốc $a(t) = 6 - 2t\text{ (m/s}^2\text{)}$, trong đó $t$ là khoảng thời gian tính bằng giây kể từ lúc ô tô bắt đầu chuyển động. Hỏi quãng đường ô tô đi được từ lúc bắt đầu chuyển động đến khi vận tốc của ô tô đạt giá trị lớn nhất là bao nhiêu mét?
+		\end{enumerate}
+	\end{btxanh}
+	
+	\begin{btvang}
+		\begin{enumerate}[label=\textbf{Bài \arabic*.}]
+			\item Một xe tải đang chạy với vận tốc $18\text{ m/s}$ thì người lái xe phát hiện chướng ngại vật nên đạp phanh. Kể từ thời điểm đó, xe chuyển động chậm dần đều với vận tốc $v(t) = -3t + 18\text{ (m/s)}$ ($t$ tính bằng giây). Tính quãng đường xe tải di chuyển được từ lúc đạp phanh cho đến khi dừng hẳn.
+			\item Một đoàn tàu đang chạy với vận tốc ban đầu $v_0 = 10\text{ m/s}$ thì tăng tốc với gia tốc $a(t) = 6t + 1\text{ (m/s}^2\text{)}$ ($t$ tính bằng giây). Tính quãng đường đoàn tàu di chuyển được trong khoảng thời gian $3\text{ giây}$ kể từ lúc bắt đầu tăng tốc.
+			\item Một chất điểm bắt đầu chuyển động từ trạng thái nghỉ với gia tốc $a(t) = 12 - 3t\text{ (m/s}^2\text{)}$ ($t$ là thời gian tính bằng giây). Tính quãng đường chất điểm đó đi được từ lúc bắt đầu chuyển động đến thời điểm vận tốc đạt giá trị cực đại.
+		\end{enumerate}
+	\end{btvang}
+	
+	\begin{btdo}
+		\begin{enumerate}[label=\textbf{Bài \arabic*.}]
+			\item Một xe buýt đang di chuyển với vận tốc $15\text{ m/s}$ thì người lái xe hãm phanh để vào trạm đón khách. Từ lúc đạp phanh, xe buýt chuyển động chậm dần đều với vận tốc $v(t) = -5t + 15\text{ (m/s)}$ ($t$ tính bằng giây). Hỏi xe buýt còn di chuyển được quãng đường bao nhiêu mét từ khi đạp phanh đến lúc dừng hẳn?
+			\item Một chiếc cano đang chạy với vận tốc ban đầu $v_0 = 8\text{ m/s}$ thì tăng tốc với gia tốc $a(t) = 4t + 2\text{ (m/s}^2\text{)}$ ($t$ tính bằng giây). Tính quãng đường cano đi được trong khoảng thời gian $3\text{ giây}$ kể từ thời điểm bắt đầu tăng tốc.
+			\item Một chiếc xe điện bắt đầu tăng tốc từ trạng thái đứng yên với gia tốc $a(t) = 9 - 3t\text{ (m/s}^2\text{)}$ ($t$ là thời gian tính bằng giây). Hỏi kể từ lúc xuất phát đến khi vận tốc đạt giá trị lớn nhất, chiếc xe điện đã đi được quãng đường dài bao nhiêu mét?
+		\end{enumerate}
+	\end{btdo}
+	
+	\subsection{Dạng 3: Bài toán chuyển động nhiều giai đoạn và hai chuyển động đuổi nhau}
+	\begin{btxanh}
+		\begin{enumerate}[label=\textbf{Bài \arabic*.}]
+			\item Một ô tô bắt đầu chuyển động nhanh dần đều với vận tốc $v_1(t) = 4t\text{ (m/s)}$. Đi được $6\text{ giây}$, người lái xe phát hiện chướng ngại vật và phanh gấp, ô tô tiếp tục chuyển động chậm dần đều với gia tốc $a = -8\text{ m/s}^2$ cho đến khi dừng hẳn. Tính quãng đường $S$ đi được của ô tô từ lúc bắt đầu chuyển động cho đến khi dừng hẳn.
+			\item Một ô tô bắt đầu chuyển động thẳng đều với vận tốc $v_0\text{ (m/s)}$. Sau $5\text{ giây}$ chuyển động thì người lái gặp chướng ngại vật nên bắt đầu hãm phanh, ô tô chuyển động chậm dần với vận tốc $v(t) = -2t + a\text{ (m/s)}$ ($t \ge 5$) cho đến khi dừng hẳn. Biết hàm vận tốc liên tục tại $t = 5$ và kể từ lúc chuyển động đến khi dừng hẳn, ô tô đi được tổng quãng đường là $96\text{ m}$. Tìm vận tốc ban đầu $v_0$.
+			\item Để đảm bảo an toàn khi lưu thông, các phương tiện khi dừng lại phải cách chướng ngại vật phía trước tối thiểu $2\text{ m}$. Một ô tô đang chạy với vận tốc $20\text{ m/s}$ thì người lái xe hãm phanh, ô tô chuyển động chậm dần đều với vận tốc $v(t) = -5t + 20\text{ (m/s)}$ ($t$ tính bằng giây). Hỏi để đạt khoảng cách an toàn khi dừng lại thì người lái xe phải hãm phanh khi cách chướng ngại vật một khoảng ít nhất là bao nhiêu mét?
+			\item Một chất điểm $A$ xuất phát từ gốc $O$, chuyển động thẳng với quy luật vận tốc $v_A(t) = \dfrac{1}{120}t^2 + \dfrac{58}{45}t\text{ (m/s)}$, trong đó $t$ (giây) tính từ lúc $A$ bắt đầu chuyển động. Từ trạng thái nghỉ, chất điểm $B$ cũng xuất phát từ $O$, chuyển động thẳng cùng hướng với $A$ nhưng chậm hơn $A$ là $3\text{ giây}$ và có gia tốc không đổi bằng $a\text{ (m/s}^2\text{)}$. Sau khi $B$ xuất phát được $15\text{ giây}$ thì đuổi kịp $A$. Tính vận tốc của $B$ tại thời điểm đuổi kịp $A$.
+		\end{enumerate}
+	\end{btxanh}
+	
+	\begin{btvang}
+		\begin{enumerate}[label=\textbf{Bài \arabic*.}]
+			\item Một xe mô tô bắt đầu tăng tốc với vận tốc $v_1(t) = 5t\text{ (m/s)}$. Đi được $6\text{ giây}$, người lái xe gặp đèn đỏ nên phanh gấp, xe tiếp tục chuyển động chậm dần đều với gia tốc $a = -10\text{ m/s}^2$ cho đến khi dừng hẳn. Tính quãng đường $S$ xe mô tô đã đi được từ lúc bắt đầu chuyển động đến khi dừng lại.
+			\item Một ô tô bắt đầu chuyển động thẳng đều với vận tốc $v_0\text{ (m/s)}$. Sau $4\text{ giây}$ chuyển động thì người lái phát hiện chướng ngại vật nên hãm phanh, ô tô chuyển động chậm dần với vận tốc $v(t) = -2t + a\text{ (m/s)}$ ($t \ge 4$) cho đến khi dừng hẳn. Biết hàm vận tốc liên tục tại $t = 4$ và kể từ lúc xuất phát đến lúc dừng hẳn ô tô đi được quãng đường là $72\text{ m}$. Tìm vận tốc ban đầu $v_0$.
+			\item Khi lưu thông qua trạm thu phí, các xe cần giữ khoảng cách an toàn tối thiểu là $3\text{ m}$ so với thanh chắn barrier khi dừng lại. Một xe tải đang di chuyển với vận tốc $16\text{ m/s}$ thì người lái xe hãm phanh, xe chuyển động chậm dần đều với vận tốc $v(t) = -4t + 16\text{ (m/s)}$ ($t$ tính bằng giây). Để đảm bảo khoảng cách an toàn nói trên khi dừng lại, người lái xe tải phải hãm phanh khi cách thanh chắn barrier một khoảng ít nhất là bao nhiêu mét?
+			\item Một chất điểm $A$ xuất phát từ $O$, chuyển động thẳng với quy luật vận tốc $v_A(t) = \dfrac{1}{180}t^2 + \dfrac{11}{18}t\text{ (m/s)}$ ($t$ tính bằng giây). Từ trạng thái nghỉ, chất điểm $B$ cũng xuất phát từ $O$, chuyển động cùng hướng với $A$ nhưng chậm hơn $5\text{ giây}$ so với $A$ và có gia tốc không đổi $a\text{ (m/s}^2\text{)}$. Sau khi $B$ xuất phát được $10\text{ giây}$ thì đuổi kịp $A$. Tính vận tốc của chất điểm $B$ tại thời điểm đuổi kịp $A$.
+		\end{enumerate}
+	\end{btvang}
+	
+	\begin{btdo}
+		\begin{enumerate}[label=\textbf{Bài \arabic*.}]
+			\item Một tàu điện bắt đầu rời ga chuyển động nhanh dần đều với vận tốc $v_1(t) = 3t\text{ (m/s)}$. Chạy được $8\text{ giây}$, người điều khiển hãm phanh khẩn cấp, tàu tiếp tục chuyển động chậm dần đều với gia tốc $a = -6\text{ m/s}^2$ cho đến khi dừng hẳn. Tính quãng đường $S$ tàu điện đã di chuyển từ lúc bắt đầu rời ga đến khi dừng hẳn.
+			\item Một ô tô chuyển động thẳng đều với vận tốc $v_0\text{ (m/s)}$. Sau $6\text{ giây}$ chuyển động thì gặp đèn tín hiệu nên người lái hãm phanh, xe chuyển động chậm dần với vận tốc $v(t) = -2t + a\text{ (m/s)}$ ($t \ge 6$) cho đến khi dừng hẳn. Biết hàm vận tốc liên tục tại $t = 6$ và tổng quãng đường ô tô đi được từ lúc bắt đầu chuyển động đến khi dừng hẳn là $100\text{ m}$. Tìm vận tốc ban đầu $v_0$.
+			\item Để đảm bảo khoảng cách an toàn khi dừng đèn đỏ, ô tô $A$ khi dừng lại phải cách ô tô $B$ đang dừng phía trước tối thiểu $1{,}5\text{ m}$. Ô tô $A$ đang chạy với vận tốc $18\text{ m/s}$ thì người lái xe hãm phanh, ô tô $A$ chuyển động chậm dần đều với vận tốc $v(t) = -3t + 18\text{ (m/s)}$ ($t$ tính bằng giây). Hỏi để đạt khoảng cách an toàn khi dừng lại thì ô tô $A$ phải bắt đầu hãm phanh khi cách ô tô $B$ một khoảng ít nhất là bao nhiêu mét?
+			\item Một chất điểm $A$ xuất phát từ $O$, chuyển động thẳng với quy luật vận tốc $v_A(t) = \dfrac{1}{100}t^2 + \dfrac{13}{30}t\text{ (m/s)}$ ($t$ tính bằng giây). Từ trạng thái nghỉ, chất điểm $B$ cũng xuất phát từ $O$, chuyển động cùng hướng với $A$ nhưng chậm hơn $10\text{ giây}$ so với $A$ và có gia tốc không đổi $a\text{ (m/s}^2\text{)}$. Sau khi $B$ xuất phát được $15\text{ giây}$ thì đuổi kịp $A$. Tính vận tốc của $B$ tại thời điểm đuổi kịp $A$.
+		\end{enumerate}
+	\end{btdo}
+	
+	\subsection{Dạng 4: Bài toán chuyển động dựa vào đồ thị vận tốc $v(t)$}
+	\begin{btxanh}
+		\begin{enumerate}[label=\textbf{Bài \arabic*.}]
+			\item \begin{minipage}[c]{0.62\linewidth}
+				Một vật chuyển động trong $3\text{ giờ}$ với vận tốc $v\text{ (km/h)}$ phụ thuộc thời gian $t\text{ (h)}$ có đồ thị là một phần đường Parabol như hình vẽ bên. Biết Parabol có đỉnh $I(2; 9)$ và cắt trục tung tại điểm có tung độ bằng $5$. Tính quãng đường $S$ mà vật di chuyển được trong $3\text{ giờ}$ đó.
+			\end{minipage}\hfill
+			\begin{minipage}[c]{0.35\linewidth}
+				\centering
+				\begin{tikzpicture}[>=stealth, scale=0.68, font=\footnotesize]
+					\draw[->] (-0.3,0) -- (3.8,0) node[below] {$t\text{ (h)}$};
+					\draw[->] (0,-0.3) -- (0,4.2) node[left] {$v\text{ (km/h)}$};
+					\node[below left] at (0,0) {$O$};
+					\draw[thick, teal!80!black, domain=0:3, samples=100] plot (\x*0.9, {(-( \x - 2 )^2 + 9)*0.38});
+					\draw[dashed, thin, gray] (1.8,0) node[below, black] {$2$} -- (1.8, 3.42) -- (0, 3.42) node[left, black] {$9$};
+					\draw[dashed, thin, gray] (2.7,0) node[below, black] {$3$} -- (2.7, 3.04) -- (0, 3.04) node[left, black] {$8$};
+					\node[left] at (0, 1.9) {$5$};
+					\fill[black] (0, 1.9) circle (1.2pt);
+					\fill[teal!80!black] (1.8, 3.42) circle (1.2pt) node[above] {$I$};
+					\fill[black] (2.7, 3.04) circle (1.2pt);
+				\end{tikzpicture}
+			\end{minipage}
+			
+			\item \begin{minipage}[c]{0.62\linewidth}
+				Một vật chuyển động trong $4\text{ giờ}$ có đồ thị vận tốc $v(t)\text{ (km/h)}$ gồm hai phần như hình vẽ bên: Trong $3\text{ giờ}$ đầu là một phần Parabol đỉnh $I(2; 9)$ cắt trục tung tại điểm có tung độ bằng $5$; trong $1\text{ giờ}$ tiếp theo là đoạn thẳng nằm ngang. Tính tổng quãng đường $S$ vật di chuyển được trong $4\text{ giờ}$ đó.
+			\end{minipage}\hfill
+			\begin{minipage}[c]{0.35\linewidth}
+				\centering
+				\begin{tikzpicture}[>=stealth, scale=0.65, font=\footnotesize]
+					\draw[->] (-0.3,0) -- (4.6,0) node[below] {$t\text{ (h)}$};
+					\draw[->] (0,-0.3) -- (0,4.2) node[left] {$v\text{ (km/h)}$};
+					\node[below left] at (0,0) {$O$};
+					\draw[thick, teal!80!black, domain=0:3, samples=100] plot (\x*0.85, {(-( \x - 2 )^2 + 9)*0.38});
+					\draw[thick, teal!80!black] (2.55, 3.04) -- (3.4, 3.04);
+					\draw[dashed, thin, gray] (1.7,0) node[below, black] {$2$} -- (1.7, 3.42) -- (0, 3.42) node[left, black] {$9$};
+					\draw[dashed, thin, gray] (2.55,0) node[below, black] {$3$} -- (2.55, 3.04) -- (0, 3.04) node[left, black] {$8$};
+					\draw[dashed, thin, gray] (3.4,0) node[below, black] {$4$} -- (3.4, 3.04);
+					\node[left] at (0, 1.9) {$5$};
+					\fill[black] (0, 1.9) circle (1.2pt);
+					\fill[teal!80!black] (1.7, 3.42) circle (1.2pt) node[above] {$I$};
+					\fill[black] (3.4, 3.04) circle (1.2pt);
+				\end{tikzpicture}
+			\end{minipage}
+			
+			\item \begin{minipage}[c]{0.62\linewidth}
+				Một chất điểm chuyển động trong $6\text{ giờ}$ với đồ thị vận tốc $v(t)\text{ (km/h)}$ như hình vẽ bên. Trong $2\text{ giờ}$ đầu là một phần Parabol đỉnh $I(2; 12)$ đi qua gốc tọa độ $O$; trong $4\text{ giờ}$ tiếp theo là đoạn thẳng có hệ số góc bằng $1$. Tính quãng đường $S$ mà chất điểm di chuyển được trong $6\text{ giờ}$ đó.
+			\end{minipage}\hfill
+			\begin{minipage}[c]{0.35\linewidth}
+				\centering
+				\begin{tikzpicture}[>=stealth, scale=0.62, font=\footnotesize]
+					\draw[->] (-0.3,0) -- (4.8,0) node[below] {$t\text{ (h)}$};
+					\draw[->] (0,-0.3) -- (0,4.2) node[left] {$v\text{ (km/h)}$};
+					\node[below left] at (0,0) {$O$};
+					\draw[thick, teal!80!black, domain=0:2, samples=100] plot (\x*0.65, {(-3*( \x - 2 )^2 + 12)*0.22});
+					\draw[thick, teal!80!black] (1.3, 2.64) -- (3.9, 3.52);
+					\draw[dashed, thin, gray] (1.3,0) node[below, black] {$2$} -- (1.3, 2.64) -- (0, 2.64) node[left, black] {$12$};
+					\draw[dashed, thin, gray] (3.9,0) node[below, black] {$6$} -- (3.9, 3.52) -- (0, 3.52) node[left, black] {$16$};
+					\fill[teal!80!black] (1.3, 2.64) circle (1.2pt) node[above left] {$I$};
+					\fill[black] (3.9, 3.52) circle (1.2pt);
+				\end{tikzpicture}
+			\end{minipage}
+			
+			\item \begin{minipage}[c]{0.62\linewidth}
+				Một chất điểm chuyển động trong $6\text{ giây}$ có đồ thị vận tốc $v(t)\text{ (m/s)}$ như hình vẽ bên: Trong $3\text{ giây}$ đầu là một phần Parabol đỉnh $I(2; 12)$ đi qua gốc tọa độ $O$; trong $3\text{ giây}$ tiếp theo là đoạn thẳng nối tiếp giảm dần đều về $0$ tại $t = 6\text{ s}$. Tính quãng đường chất điểm đi được trong $6\text{ giây}$ đó.
+			\end{minipage}\hfill
+			\begin{minipage}[c]{0.35\linewidth}
+				\centering
+				\begin{tikzpicture}[>=stealth, scale=0.62, font=\footnotesize]
+					\draw[->] (-0.3,0) -- (4.8,0) node[below] {$t\text{ (s)}$};
+					\draw[->] (0,-0.3) -- (0,3.8) node[left] {$v\text{ (m/s)}$};
+					\node[below left] at (0,0) {$O$};
+					\draw[thick, teal!80!black, domain=0:3, samples=100] plot (\x*0.65, {(-3*( \x - 2 )^2 + 12)*0.24});
+					\draw[thick, teal!80!black] (1.95, 2.16) -- (3.9, 0);
+					\draw[dashed, thin, gray] (1.3,0) node[below, black] {$2$} -- (1.3, 2.88) -- (0, 2.88) node[left, black] {$12$};
+					\draw[dashed, thin, gray] (1.95,0) node[below, black] {$3$} -- (1.95, 2.16) -- (0, 2.16) node[left, black] {$9$};
+					\node[below] at (3.9, 0) {$6$};
+					\fill[teal!80!black] (1.3, 2.88) circle (1.2pt) node[above] {$I$};
+					\fill[black] (1.95, 2.16) circle (1.2pt);
+				\end{tikzpicture}
+			\end{minipage}
+		\end{enumerate}
+	\end{btxanh}
+	
+	\begin{btvang}
+		\begin{enumerate}[label=\textbf{Bài \arabic*.}]
+			\item \begin{minipage}[c]{0.62\linewidth}
+				Một người chạy bộ trong $45\text{ phút}$ ($t = \frac{3}{4}\text{ h}$) có đồ thị vận tốc $v(t)\text{ (km/h)}$ là một phần Parabol với đỉnh $I\left(\frac{1}{2}; 8\right)$ và đi qua gốc tọa độ $O$ như hình vẽ bên. Tính quãng đường $S$ người đó chạy được trong khoảng thời gian $45\text{ phút}$ đó.
+			\end{minipage}\hfill
+			\begin{minipage}[c]{0.35\linewidth}
+				\centering
+				\begin{tikzpicture}[>=stealth, scale=0.72, font=\footnotesize]
+					\draw[->] (-0.3,0) -- (3.6,0) node[below] {$t\text{ (h)}$};
+					\draw[->] (0,-0.3) -- (0,3.6) node[left] {$v\text{ (km/h)}$};
+					\node[below left] at (0,0) {$O$};
+					\draw[thick, orange!85!black, domain=0:0.75, samples=100] plot (\x*3.2, {(-32*( \x - 0.5 )^2 + 8)*0.35});
+					\draw[dashed, thin, gray] (1.6,0) node[below, black] {$\frac{1}{2}$} -- (1.6, 2.8) -- (0, 2.8) node[left, black] {$8$};
+					\draw[dashed, thin, gray] (2.4,0) node[below, black] {$\frac{3}{4}$} -- (2.4, 2.1) -- (0, 2.1) node[left, black] {$6$};
+					\fill[orange!85!black] (1.6, 2.8) circle (1.2pt) node[above] {$I$};
+					\fill[black] (2.4, 2.1) circle (1.2pt);
+				\end{tikzpicture}
+			\end{minipage}
+			
+			\item \begin{minipage}[c]{0.62\linewidth}
+				Một ô tô chuyển động trong $3\text{ giờ}$ với đồ thị vận tốc $v(t)\text{ (km/h)}$ như hình vẽ bên: Trong $2\text{ giờ}$ đầu là một phần Parabol đỉnh $I(2; 21)$ cắt trục tung tại điểm có tung độ bằng $9$; trong $1\text{ giờ}$ tiếp theo là đoạn thẳng nằm ngang. Tính tổng quãng đường $S$ ô tô đi được trong $3\text{ giờ}$ đó.
+			\end{minipage}\hfill
+			\begin{minipage}[c]{0.35\linewidth}
+				\centering
+				\begin{tikzpicture}[>=stealth, scale=0.68, font=\footnotesize]
+					\draw[->] (-0.3,0) -- (4.0,0) node[below] {$t\text{ (h)}$};
+					\draw[->] (0,-0.3) -- (0,3.8) node[left] {$v\text{ (km/h)}$};
+					\node[below left] at (0,0) {$O$};
+					\draw[thick, orange!85!black, domain=0:2, samples=100] plot (\x*0.95, {(-3*( \x - 2 )^2 + 21)*0.15});
+					\draw[thick, orange!85!black] (1.9, 3.15) -- (2.85, 3.15);
+					\draw[dashed, thin, gray] (1.9,0) node[below, black] {$2$} -- (1.9, 3.15) -- (0, 3.15) node[left, black] {$21$};
+					\draw[dashed, thin, gray] (2.85,0) node[below, black] {$3$} -- (2.85, 3.15);
+					\node[left] at (0, 1.35) {$9$};
+					\fill[black] (0, 1.35) circle (1.2pt);
+					\fill[orange!85!black] (1.9, 3.15) circle (1.2pt) node[above] {$I$};
+					\fill[black] (2.85, 3.15) circle (1.2pt);
+				\end{tikzpicture}
+			\end{minipage}
+			
+			\item \begin{minipage}[c]{0.62\linewidth}
+				Một vật chuyển động trong $5\text{ giờ}$ với đồ thị vận tốc $v(t)\text{ (km/h)}$ như hình vẽ bên: Trong $2\text{ giờ}$ đầu là một phần Parabol đỉnh $I(2; 16)$ cắt trục tung tại điểm có tung độ bằng $4$; trong $3\text{ giờ}$ tiếp theo là đoạn thẳng có hệ số góc bằng $-2$. Tính tổng quãng đường $S$ mà vật di chuyển được trong $5\text{ giờ}$.
+			\end{minipage}\hfill
+			\begin{minipage}[c]{0.35\linewidth}
+				\centering
+				\begin{tikzpicture}[>=stealth, scale=0.65, font=\footnotesize]
+					\draw[->] (-0.3,0) -- (4.6,0) node[below] {$t\text{ (h)}$};
+					\draw[->] (0,-0.3) -- (0,3.8) node[left] {$v\text{ (km/h)}$};
+					\node[below left] at (0,0) {$O$};
+					\draw[thick, orange!85!black, domain=0:2, samples=100] plot (\x*0.75, {(-3*( \x - 2 )^2 + 16)*0.2});
+					\draw[thick, orange!85!black] (1.5, 3.2) -- (3.75, 2.0);
+					\draw[dashed, thin, gray] (1.5,0) node[below, black] {$2$} -- (1.5, 3.2) -- (0, 3.2) node[left, black] {$16$};
+					\draw[dashed, thin, gray] (3.75,0) node[below, black] {$5$} -- (3.75, 2.0) -- (0, 2.0) node[left, black] {$10$};
+					\node[left] at (0, 0.8) {$4$};
+					\fill[black] (0, 0.8) circle (1.2pt);
+					\fill[orange!85!black] (1.5, 3.2) circle (1.2pt) node[above] {$I$};
+					\fill[black] (3.75, 2.0) circle (1.2pt);
+				\end{tikzpicture}
+			\end{minipage}
+			
+			\item \begin{minipage}[c]{0.62\linewidth}
+				Một vật chuyển động trong $7\text{ giây}$ có đồ thị vận tốc $v(t)\text{ (m/s)}$ như hình vẽ bên: Trong $3\text{ giây}$ đầu là một phần Parabol đỉnh $I(2; 12)$ qua gốc $O$; trong $4\text{ giây}$ tiếp theo là đoạn thẳng nối tiếp giảm dần đều về $0$ tại thời điểm $t = 7\text{ s}$. Tính tổng quãng đường vật đi được trong $7\text{ giây}$ đó.
+			\end{minipage}\hfill
+			\begin{minipage}[c]{0.35\linewidth}
+				\centering
+				\begin{tikzpicture}[>=stealth, scale=0.62, font=\footnotesize]
+					\draw[->] (-0.3,0) -- (5.2,0) node[below] {$t\text{ (s)}$};
+					\draw[->] (0,-0.3) -- (0,3.8) node[left] {$v\text{ (m/s)}$};
+					\node[below left] at (0,0) {$O$};
+					\draw[thick, orange!85!black, domain=0:3, samples=100] plot (\x*0.6, {(-3*( \x - 2 )^2 + 12)*0.24});
+					\draw[thick, orange!85!black] (1.8, 2.16) -- (4.2, 0);
+					\draw[dashed, thin, gray] (1.2,0) node[below, black] {$2$} -- (1.2, 2.88) -- (0, 2.88) node[left, black] {$12$};
+					\draw[dashed, thin, gray] (1.8,0) node[below, black] {$3$} -- (1.8, 2.16) -- (0, 2.16) node[left, black] {$9$};
+					\node[below] at (4.2, 0) {$7$};
+					\fill[orange!85!black] (1.2, 2.88) circle (1.2pt) node[above] {$I$};
+					\fill[black] (1.8, 2.16) circle (1.2pt);
+				\end{tikzpicture}
+			\end{minipage}
+		\end{enumerate}
+	\end{btvang}
+	
+	\begin{btdo}
+		\begin{enumerate}[label=\textbf{Bài \arabic*.}]
+			\item \begin{minipage}[c]{0.62\linewidth}
+				Một chiếc xe đạp chuyển động trong $1\text{ giờ } 30\text{ phút}$ ($t = 1{,}5\text{ h}$) có đồ thị vận tốc $v(t)\text{ (km/h)}$ là một phần Parabol có đỉnh $I(1; 12)$ và đi qua gốc tọa độ $O$ như hình vẽ bên. Tính quãng đường $S$ xe đạp đi được trong khoảng thời gian đó.
+			\end{minipage}\hfill
+			\begin{minipage}[c]{0.35\linewidth}
+				\centering
+				\begin{tikzpicture}[>=stealth, scale=0.72, font=\footnotesize]
+					\draw[->] (-0.3,0) -- (3.6,0) node[below] {$t\text{ (h)}$};
+					\draw[->] (0,-0.3) -- (0,3.8) node[left] {$v\text{ (km/h)}$};
+					\node[below left] at (0,0) {$O$};
+					\draw[thick, red!85!black, domain=0:1.5, samples=100] plot (\x*1.6, {(-12*( \x - 1 )^2 + 12)*0.25});
+					\draw[dashed, thin, gray] (1.6,0) node[below, black] {$1$} -- (1.6, 3.0) -- (0, 3.0) node[left, black] {$12$};
+					\draw[dashed, thin, gray] (2.4,0) node[below, black] {$1{,}5$} -- (2.4, 2.25) -- (0, 2.25) node[left, black] {$9$};
+					\fill[red!85!black] (1.6, 3.0) circle (1.2pt) node[above] {$I$};
+					\fill[black] (2.4, 2.25) circle (1.2pt);
+				\end{tikzpicture}
+			\end{minipage}
+			
+			\item \begin{minipage}[c]{0.62\linewidth}
+				Một cano chuyển động trong $4\text{ giờ}$ với đồ thị vận tốc $v(t)\text{ (km/h)}$ như hình vẽ bên: Trong $2\text{ giờ}$ đầu là một phần Parabol đỉnh $I(2; 16)$ cắt trục tung tại điểm có tung độ bằng $4$; trong $2\text{ giờ}$ còn lại là đoạn thẳng nằm ngang. Tính quãng đường $S$ cano đi được trong $4\text{ giờ}$ đó.
+			\end{minipage}\hfill
+			\begin{minipage}[c]{0.35\linewidth}
+				\centering
+				\begin{tikzpicture}[>=stealth, scale=0.68, font=\footnotesize]
+					\draw[->] (-0.3,0) -- (4.2,0) node[below] {$t\text{ (h)}$};
+					\draw[->] (0,-0.3) -- (0,3.8) node[left] {$v\text{ (km/h)}$};
+					\node[below left] at (0,0) {$O$};
+					\draw[thick, red!85!black, domain=0:2, samples=100] plot (\x*0.8, {(-3*( \x - 2 )^2 + 16)*0.2});
+					\draw[thick, red!85!black] (1.6, 3.2) -- (3.2, 3.2);
+					\draw[dashed, thin, gray] (1.6,0) node[below, black] {$2$} -- (1.6, 3.2) -- (0, 3.2) node[left, black] {$16$};
+					\draw[dashed, thin, gray] (3.2,0) node[below, black] {$4$} -- (3.2, 3.2);
+					\node[left] at (0, 0.8) {$4$};
+					\fill[black] (0, 0.8) circle (1.2pt);
+					\fill[red!85!black] (1.6, 3.2) circle (1.2pt) node[above] {$I$};
+					\fill[black] (3.2, 3.2) circle (1.2pt);
+				\end{tikzpicture}
+			\end{minipage}
+			
+			\item \begin{minipage}[c]{0.62\linewidth}
+				Một chất điểm chuyển động trong $6\text{ giờ}$ với đồ thị vận tốc $v(t)\text{ (km/h)}$ như hình vẽ bên: Trong $2\text{ giờ}$ đầu là một phần Parabol đỉnh $I(2; 18)$ cắt trục tung tại điểm có tung độ bằng $6$; trong $4\text{ giờ}$ tiếp theo là đoạn thẳng có hệ số góc bằng $-1{,}5$. Tính tổng quãng đường $S$ chất điểm đi được trong $6\text{ giờ}$.
+			\end{minipage}\hfill
+			\begin{minipage}[c]{0.35\linewidth}
+				\centering
+				\begin{tikzpicture}[>=stealth, scale=0.65, font=\footnotesize]
+					\draw[->] (-0.3,0) -- (4.8,0) node[below] {$t\text{ (h)}$};
+					\draw[->] (0,-0.3) -- (0,3.8) node[left] {$v\text{ (km/h)}$};
+					\node[below left] at (0,0) {$O$};
+					\draw[thick, red!85!black, domain=0:2, samples=100] plot (\x*0.65, {(-3*( \x - 2 )^2 + 18)*0.18});
+					\draw[thick, red!85!black] (1.3, 3.24) -- (3.9, 2.16);
+					\draw[dashed, thin, gray] (1.3,0) node[below, black] {$2$} -- (1.3, 3.24) -- (0, 3.24) node[left, black] {$18$};
+					\draw[dashed, thin, gray] (3.9,0) node[below, black] {$6$} -- (3.9, 2.16) -- (0, 2.16) node[left, black] {$12$};
+					\node[left] at (0, 1.08) {$6$};
+					\fill[black] (0, 1.08) circle (1.2pt);
+					\fill[red!85!black] (1.3, 3.24) circle (1.2pt) node[above] {$I$};
+					\fill[black] (3.9, 2.16) circle (1.2pt);
+				\end{tikzpicture}
+			\end{minipage}
+			
+			\item \begin{minipage}[c]{0.62\linewidth}
+				Một mô hình xe đua chuyển động trong $6\text{ giây}$ có đồ thị vận tốc $v(t)\text{ (m/s)}$ như hình vẽ bên: Trong $2\text{ giây}$ đầu là một phần Parabol đỉnh $I(2; 12)$ qua gốc tọa độ $O$; trong $4\text{ giây}$ tiếp theo là đoạn thẳng giảm dần đều từ đỉnh $I$ về $0$ tại thời điểm $t = 6\text{ s}$. Tính tổng quãng đường xe đi được trong $6\text{ giây}$ đó.
+			\end{minipage}\hfill
+			\begin{minipage}[c]{0.35\linewidth}
+				\centering
+				\begin{tikzpicture}[>=stealth, scale=0.65, font=\footnotesize]
+					\draw[->] (-0.3,0) -- (4.8,0) node[below] {$t\text{ (s)}$};
+					\draw[->] (0,-0.3) -- (0,3.6) node[left] {$v\text{ (m/s)}$};
+					\node[below left] at (0,0) {$O$};
+					\draw[thick, red!85!black, domain=0:2, samples=100] plot (\x*0.65, {(-3*( \x - 2 )^2 + 12)*0.24});
+					\draw[thick, red!85!black] (1.3, 2.88) -- (3.9, 0);
+					\draw[dashed, thin, gray] (1.3,0) node[below, black] {$2$} -- (1.3, 2.88) -- (0, 2.88) node[left, black] {$12$};
+					\node[below] at (3.9, 0) {$6$};
+					\fill[red!85!black] (1.3, 2.88) circle (1.2pt) node[above] {$I$};
+				\end{tikzpicture}
+			\end{minipage}
+		\end{enumerate}
+	\end{btdo}
+	
+	\subsection{Dạng 5: Bài toán ứng dụng liên môn (Công lực, điện lượng, lưu lượng nước)}
+	\begin{btxanh}
+		\begin{enumerate}[label=\textbf{Bài \arabic*.}]
+			\item Một lò xo có độ cứng $k = 120\text{ N/m}$. Theo định luật Hooke, lực cần thiết để giữ lò xo dãn một đoạn $x\text{ (m)}$ là $F(x) = 120x\text{ (N)}$. Tính công thực hiện để kéo dãn lò xo từ độ dãn $1\text{ cm}$ đến $5\text{ cm}$.
+			\item Cường độ dòng điện chạy qua một dây dẫn biến thiên theo thời gian $t$ (giây) theo quy luật $i(t) = 3t^2 + 2t\text{ (A)}$. Tính lượng điện tích chuyển qua tiết diện thẳng của dây dẫn trong khoảng thời gian từ $t = 1\text{ s}$ đến $t = 4\text{ s}$.
+			\item Nước được bơm vào một bể chứa ban đầu chưa có nước với tốc độ dòng chảy tại thời điểm $t$ (phút) là $Q(t) = 60 + 12t - 0{,}6t^2\text{ (lít/phút)}$, với $0 \le t \le 10$. Tính thể tích nước có trong bể sau $10\text{ phút}$ bơm.
+			\item Một quần thể vi khuẩn ban đầu có $2000$ cá thể. Sau thời gian $t$ (giờ), tốc độ sinh trưởng của quần thể được xác định bởi $N'(t) = 300 e^{0{,}1t}$ (cá thể/giờ). Tính số lượng vi khuẩn có trong quần thể sau $10\text{ giờ}$ (kết quả làm tròn đến hàng đơn vị).
+			\item Một xưởng sản xuất giày da có hàm chi phí cận biên khi sản xuất đôi giày thứ $x$ là $C'(x) = 6 - 0{,}02x$ (nghìn đồng/đôi). Tính chi phí tăng thêm của xưởng khi tăng quy mô sản xuất từ $100$ đôi lên $200$ đôi giày.
+		\end{enumerate}
+	\end{btxanh}
+	
+	\begin{btvang}
+		\begin{enumerate}[label=\textbf{Bài \arabic*.}]
+			\item Một lò xo có độ cứng $k = 150\text{ N/m}$. Lực kéo lò xo dãn một đoạn $x\text{ (m)}$ tuân theo $F(x) = 150x\text{ (N)}$. Tính công thực hiện để kéo dãn lò xo từ vị trí dãn $2\text{ cm}$ đến $4\text{ cm}$.
+			\item Cường độ dòng điện trong một mạch điện được xác định bởi hàm số $i(t) = 6t^2 + 4t\text{ (A)}$ ($t$ tính bằng giây). Tính điện lượng chuyển qua tiết diện dây dẫn trong khoảng thời gian từ $t = 0$ đến $t = 3\text{ s}$.
+			\item Nước chảy vào một hồ điều hòa với lưu lượng dòng chảy tính theo thời gian $t$ (giờ) là $Q(t) = 120 + 30t - 3t^2\text{ (m}^3\text{/giờ)}$, với $0 \le t \le 5$. Ban đầu hồ chứa $500\text{ m}^3$ nước. Tính tổng lượng nước có trong hồ sau $5\text{ giờ}$.
+			\item Một đàn ong ban đầu có $1500$ con. Tốc độ gia tăng số lượng cá thể của đàn sau $t$ (ngày) được cho bởi $N'(t) = 200 e^{0{,}05t}$ (con/ngày). Tính số lượng ong có trong đàn sau $20\text{ ngày}$ (làm tròn kết quả đến hàng đơn vị).
+			\item Một công ty may mặc có chi phí cận biên để may chiếc áo thứ $x$ được cho bởi $C'(x) = 8 - 0{,}04x$ (nghìn đồng/chiếc). Tính chi phí gia tăng của công ty khi tăng sản lượng may từ $50$ chiếc lên $150$ chiếc áo.
+		\end{enumerate}
+	\end{btvang}
+	
+	\newpage
+	\begin{btdo}
+		\begin{enumerate}[label=\textbf{Bài \arabic*.}]
+			\item Một lò xo có độ cứng $k = 200\text{ N/m}$. Lực nén lò xo tuân theo công thức $F(x) = 200x\text{ (N)}$ ($x$ tính bằng mét). Tính công thực hiện để nén lò xo từ vị trí tự nhiên ($x = 0$) đến khi lò xo bị nén một đoạn $3\text{ cm}$.
+			\item Dòng điện qua một cuộn cảm biến thiên theo thời gian $t$ (giây) theo công thức $i(t) = 9t^2 + 2t\text{ (A)}$. Tính điện tích dịch chuyển qua tiết diện của cuộn cảm trong khoảng thời gian từ $t = 1\text{ s}$ đến $t = 3\text{ s}$.
+			\item Một bồn chứa hóa chất có van xả với tốc độ xả chất lỏng ra ngoài là $Q(t) = 100 - 4t\text{ (lít/phút)}$ ($t$ tính bằng phút). Tính tổng lượng hóa chất đã xả ra khỏi bồn trong $15\text{ phút}$ đầu tiên.
+			\item Một quần thể men bia ban đầu có $1000$ tế bào. Tốc độ nhân đôi và tăng trưởng của tế bào sau $t$ (giờ) là $N'(t) = 500 e^{0{,}2t}$ (tế bào/giờ). Hỏi sau $5\text{ giờ}$, số lượng tế bào men bia trong mẫu nuôi cấy là bao nhiêu? (làm tròn kết quả đến hàng đơn vị).
+			\item Một cơ sở sản xuất đồ gốm có hàm chi phí cận biên cho sản phẩm thứ $x$ là $C'(x) = 10 - 0{,}05x$ (nghìn đồng/sản phẩm). Hỏi khi tăng mức sản xuất từ $60$ sản phẩm lên $120$ sản phẩm thì tổng chi phí của cơ sở sản xuất sẽ tăng thêm bao nhiêu nghìn đồng?
+		\end{enumerate}
+	\end{btdo}
+	
+	\newpage
+	
+	% ================================================
+	% PHẦN III: HỆ THỐNG CÂU HỎI TRẮC NGHIỆM TỔNG HỢP
+	% ================================================
+	\section{Hệ thống câu hỏi trắc nghiệm tổng hợp}\label{sec:tracnghiem}
+	
+	\subsection{Câu trắc nghiệm nhiều phương án lựa chọn}
+	\textit{Thí sinh chọn một phương án đúng duy nhất trong các phương án A, B, C, D.}
+	
+	\begin{enumerate}[label=\textbf{Câu \arabic*.}]
+		\item Cho hàm số $f(x)$ liên tục trên đoạn $[a; b]$ với $a < b$. Giá trị trung bình của hàm số $f(x)$ trên đoạn $[a; b]$, ký hiệu là $\bar{f}$, được xác định bởi công thức nào sau đây?
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $\bar{f} = \displaystyle \int_a^b f(x)\,\mathrm{d}x$.
+				\item $\bar{f} = \dfrac{1}{b - a} \displaystyle \int_a^b f(x)\,\mathrm{d}x$.
+				\item $\bar{f} = \dfrac{1}{a - b} \displaystyle \int_a^b f(x)\,\mathrm{d}x$.
+				\item $\bar{f} = \dfrac{f(a) + f(b)}{2}$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Vận tốc của một chất điểm chuyển động thẳng tăng dần theo thời gian $t$ (giây) được cho bởi hàm số $v(t) = 4t + 10\text{ (m/s)}$, với $0 \le t \le 5$. Vận tốc trung bình của chất điểm trong khoảng thời gian $5\text{ giây}$ đầu tiên bằng
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $20\text{ m/s}$.
+				\item $15\text{ m/s}$.
+				\item $30\text{ m/s}$.
+				\item $25\text{ m/s}$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Nhiệt độ không khí tại một thành phố từ $6$ giờ sáng ($t = 0$) đến $18$ giờ cùng ngày ($t = 12$) được mô hình hóa bởi hàm số $T(t) = -\dfrac{1}{8}t^2 + \dfrac{3}{2}t + 22$ ($^\circ\text{C}$). Nhiệt độ trung bình của không khí tại thành phố đó trong khoảng thời gian $12\text{ giờ}$ nói trên là
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $24^\circ\text{C}$.
+				\item $26^\circ\text{C}$.
+				\item $25^\circ\text{C}$.
+				\item $23^\circ\text{C}$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Một chiếc ca nô di chuyển trên sông với vận tốc tức thời phụ thuộc vào thời gian $t$ (phút) theo quy luật $v(t) = 180 + 36t - 3t^2\text{ (m/phút)}$, với $0 \le t \le 6$. Vận tốc trung bình của ca nô trong $6\text{ phút}$ chuyển động đầu tiên bằng
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $240\text{ m/phút}$.
+				\item $270\text{ m/phút}$.
+				\item $216\text{ m/phút}$.
+				\item $252\text{ m/phút}$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Công suất tiêu thụ điện của một phân xưởng may trong $24\text{ giờ}$ của một ngày làm việc được mô hình bởi hàm số $P(t) = 50 + 20\sin\left(\dfrac{\pi t}{12}\right)\text{ (kW)}$, với $t$ là số giờ tính từ $0$ giờ sáng ($0 \le t \le 24$). Công suất tiêu thụ điện trung bình của phân xưởng đó trong cả ngày ($24\text{ giờ}$) là
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $70\text{ kW}$.
+				\item $50\text{ kW}$.
+				\item $60\text{ kW}$.
+				\item $40\text{ kW}$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Nhiệt độ bên trong một kho lạnh bảo quản vắc-xin tại thời điểm $t$ giờ ($0 \le t \le 12$) được duy trì theo hàm số $T(t) = 4 - 6\cos\left(\dfrac{\pi t}{6}\right)$ ($^\circ\text{C}$). Nhiệt độ trung bình trong kho lạnh từ $t = 0$ đến $t = 6\text{ giờ}$ bằng
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $4^\circ\text{C}$.
+				\item $2^\circ\text{C}$.
+				\item $6^\circ\text{C}$.
+				\item $-2^\circ\text{C}$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Nồng độ của một chất hòa tan trong dung dịch biến thiên theo thời gian $t$ (phút) được xác định bởi $C(t) = 10 + 6t - 0{,}75t^2\text{ (g/L)}$, với $0 \le t \le 4$. Nồng độ trung bình của chất đó trong $4\text{ phút}$ đầu tiên bằng
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $16\text{ g/L}$.
+				\item $20\text{ g/L}$.
+				\item $18\text{ g/L}$.
+				\item $22\text{ g/L}$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Một chất điểm chuyển động thẳng với vận tốc tức thời phụ thuộc vào thời gian $t$ (giây) theo quy luật $v(t) = 3t^2 - 12t + 20\text{ (m/s)}$. Vận tốc trung bình của chất điểm trong khoảng thời gian từ $t = 1\text{ s}$ đến $t = 4\text{ s}$ là
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $13\text{ m/s}$.
+				\item $9\text{ m/s}$.
+				\item $15\text{ m/s}$.
+				\item $11\text{ m/s}$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Một vật chuyển động thẳng với hàm vận tốc $v(t)$ và hàm gia tốc $a(t)$ liên tục trên khoảng thời gian đang xét. Mối liên hệ nào sau đây là \textbf{sai}?
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $v'(t) = a(t)$.
+				\item $s(t_2) - s(t_1) = \displaystyle \int_{t_1}^{t_2} v(t)\,\mathrm{d}t$.
+				\item $v(t_2) - v(t_1) = \displaystyle \int_{t_1}^{t_2} a(t)\,\mathrm{d}t$.
+				\item $s'(t) = a(t)$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Một ô tô đang chạy với vận tốc $18\text{ m/s}$ thì người lái đạp phanh. Từ thời điểm đó, ô tô chuyển động chậm dần đều với vận tốc $v(t) = -3t + 18\text{ (m/s)}$, trong đó $t$ là khoảng thời gian tính bằng giây kể từ lúc bắt đầu đạp phanh. Từ lúc đạp phanh đến khi dừng hẳn, ô tô còn di chuyển được quãng đường là
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $54\text{ m}$.
+				\item $48\text{ m}$.
+				\item $60\text{ m}$.
+				\item $36\text{ m}$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Một xe máy đang chạy với vận tốc $15\text{ m/s}$ thì người lái xe hãm phanh. Xe chuyển động chậm dần đều với gia tốc không đổi $a = -5\text{ m/s}^2$ cho đến khi dừng hẳn. Quãng đường xe máy đi được từ lúc bắt đầu hãm phanh đến khi dừng lại bằng
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $18\text{ m}$.
+				\item $22{,}5\text{ m}$.
+				\item $25\text{ m}$.
+				\item $20\text{ m}$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Một đoàn tàu đang chạy với vận tốc ban đầu $v_0 = 10\text{ m/s}$ thì bắt đầu tăng tốc với gia tốc $a(t) = 4t + 1\text{ (m/s}^2\text{)}$ ($t$ tính bằng giây). Quãng đường đoàn tàu đi được trong khoảng thời gian $3\text{ giây}$ kể từ lúc bắt đầu tăng tốc là
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $48{,}5\text{ m}$.
+				\item $56\text{ m}$.
+				\item $52{,}5\text{ m}$.
+				\item $50\text{ m}$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Một ô tô điện xuất phát từ trạng thái đứng yên ($v(0) = 0$) và tăng tốc với gia tốc $a(t) = 3t + 2\text{ (m/s}^2\text{)}$ ($t$ tính bằng giây). Quãng đường ô tô điện đi được trong $4\text{ giây}$ đầu tiên kể từ lúc xuất phát bằng
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $40\text{ m}$.
+				\item $56\text{ m}$.
+				\item $44\text{ m}$.
+				\item $48\text{ m}$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Một chất điểm xuất phát từ trạng thái nghỉ ($v(0) = 0$) chuyển động theo đường thẳng với gia tốc $a(t) = 12 - 3t\text{ (m/s}^2\text{)}$ ($t$ tính bằng giây). Quãng đường chất điểm đi được từ lúc bắt đầu chuyển động đến thời điểm vận tốc đạt giá trị cực đại bằng
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $64\text{ m}$.
+				\item $48\text{ m}$.
+				\item $72\text{ m}$.
+				\item $36\text{ m}$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Một chiếc xe tải đang chạy với vận tốc $24\text{ m/s}$ thì người lái xe phát hiện tín hiệu đèn đỏ nên đạp phanh. Từ thời điểm đó, xe tải chuyển động chậm dần đều với vận tốc $v(t) = -4t + 24\text{ (m/s)}$ ($t$ tính bằng giây). Quãng đường xe tải đi được trong $2\text{ giây}$ cuối cùng trước khi dừng hẳn là
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $12\text{ m}$.
+				\item $8\text{ m}$.
+				\item $16\text{ m}$.
+				\item $10\text{ m}$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Một chiếc máy bay bắt đầu tăng tốc trên đường băng từ trạng thái đứng yên với gia tốc $a(t) = 4 + 0{,}2t\text{ (m/s}^2\text{)}$ ($t$ tính bằng giây). Khi máy bay đạt vận tốc $90\text{ m/s}$ thì rời khỏi đường băng cất cánh. Thời gian máy bay di chuyển trên đường băng kể từ lúc bắt đầu lăn bánh đến khi cất cánh là
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $15\text{ s}$.
+				\item $20\text{ s}$.
+				\item $18\text{ s}$.
+				\item $25\text{ s}$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Tiếp tục bài toán ở Câu 16, quãng đường chiếc máy bay đã di chuyển trên đường băng từ lúc bắt đầu lăn bánh đến thời điểm cất cánh bằng
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $780\text{ m}$.
+				\item $810{,}5\text{ m}$.
+				\item $920\text{ m}$.
+				\item $842{,}4\text{ m}$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Một chất điểm chuyển động với vận tốc ban đầu $v_0 = 12\text{ m/s}$ thì tăng tốc với gia tốc $a(t) = 6t^2 + 6t\text{ (m/s}^2\text{)}$ ($t$ tính bằng giây). Quãng đường chất điểm đi được trong $2\text{ giây}$ đầu tiên kể từ lúc bắt đầu tăng tốc là
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $40\text{ m}$.
+				\item $36\text{ m}$.
+				\item $44\text{ m}$.
+				\item $48\text{ m}$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Một ô tô đang chạy với vận tốc ban đầu $v_0\text{ (m/s)}$ thì người lái xe hãm phanh. Kể từ thời điểm đó, ô tô chuyển động chậm dần đều với gia tốc $a = -4\text{ m/s}^2$ cho đến khi dừng hẳn. Biết quãng đường ô tô đi được từ lúc bắt đầu hãm phanh đến khi dừng hẳn là $32\text{ m}$. Vận tốc ban đầu $v_0$ của ô tô bằng
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $20\text{ m/s}$.
+				\item $16\text{ m/s}$.
+				\item $18\text{ m/s}$.
+				\item $14\text{ m/s}$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Một quả bóng được ném thẳng đứng lên cao từ mặt đất với vận tốc ban đầu $v_0 = 20\text{ m/s}$. Bỏ qua sức cản của không khí và lấy gia tốc trọng trường $g = 10\text{ m/s}^2$. Vận tốc của quả bóng tại thời điểm $t$ giây ($t \ge 0$) là $v(t) = 20 - 10t\text{ (m/s)}$. Độ cao cực đại mà quả bóng đạt được so với mặt đất bằng
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $25\text{ m}$.
+				\item $15\text{ m}$.
+				\item $20\text{ m}$.
+				\item $30\text{ m}$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Một chất điểm chuyển động theo đường thẳng với vận tốc phụ thuộc vào thời gian $t$ (giây) theo quy luật $v(t) = 6\sqrt{2t + 1}\text{ (m/s)}$. Quãng đường chất điểm đi được trong $4\text{ giây}$ đầu tiên ($0 \le t \le 4$) bằng
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $48\text{ m}$.
+				\item $56\text{ m}$.
+				\item $45\text{ m}$.
+				\item $52\text{ m}$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Một chiếc ca nô tăng tốc với gia tốc $a(t) = \dfrac{18}{(t+1)^2}\text{ (m/s}^2\text{)}$ ($t$ tính bằng giây). Biết vận tốc ban đầu của ca nô là $v(0) = 2\text{ m/s}$. Vận tốc của ca nô tại thời điểm $t = 5\text{ giây}$ bằng
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $17\text{ m/s}$.
+				\item $15\text{ m/s}$.
+				\item $20\text{ m/s}$.
+				\item $19\text{ m/s}$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Một tàu điện ngầm rời ga chuyển động nhanh dần với gia tốc $a(t) = 0{,}6t + 0{,}4\text{ (m/s}^2\text{)}$ ($t$ tính bằng giây). Biết tàu điện xuất phát từ trạng thái nghỉ ($v(0) = 0$). Quãng đường tàu điện ngầm đi được trong $10\text{ giây}$ đầu tiên là
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $110\text{ m}$.
+				\item $120\text{ m}$.
+				\item $135\text{ m}$.
+				\item $100\text{ m}$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Một ô tô bắt đầu chuyển động từ trạng thái nghỉ với gia tốc $a(t) = 3t\text{ (m/s}^2\text{)}$ ($t$ tính bằng giây). Thời gian kể từ lúc xuất phát đến khi ô tô đi được quãng đường $108\text{ m}$ là
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $4\text{ s}$.
+				\item $5\text{ s}$.
+				\item $6\text{ s}$.
+				\item $8\text{ s}$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Một chất điểm chuyển động với gia tốc $a(t) = 6 - t\text{ (m/s}^2\text{)}$, xuất phát từ trạng thái nghỉ tại thời điểm $t = 0$. Vận tốc của chất điểm tăng dần đến khi đạt giá trị lớn nhất $v_{\max}$, sau đó bắt đầu giảm dần về $0$. Quãng đường chất điểm đi được kể từ thời điểm vận tốc đạt cực đại đến thời điểm vận tốc giảm về lại bằng $0$ là
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $64\text{ m}$.
+				\item $96\text{ m}$.
+				\item $80\text{ m}$.
+				\item $72\text{ m}$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Một ô tô bắt đầu chuyển động nhanh dần đều với vận tốc $v_1(t) = 5t\text{ (m/s)}$. Đi được $6\text{ giây}$, người lái xe gặp đèn đỏ nên phanh gấp, ô tô tiếp tục chuyển động chậm dần đều với gia tốc $a = -10\text{ m/s}^2$ cho đến khi dừng hẳn. Tổng quãng đường ô tô đã đi được từ lúc bắt đầu chuyển động đến khi dừng hẳn là
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $120\text{ m}$.
+				\item $135\text{ m}$.
+				\item $145\text{ m}$.
+				\item $125\text{ m}$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Một tàu điện ngầm bắt đầu rời ga với vận tốc $v_1(t) = 2t\text{ (m/s)}$. Chạy được $12\text{ giây}$, người điều khiển tàu phát hiện sự cố trên đường ray nên hãm phanh khẩn cấp, tàu tiếp tục chuyển động chậm dần đều với gia tốc $a = -6\text{ m/s}^2$ cho đến khi dừng lại. Tính quãng đường tàu điện đã di chuyển từ lúc bắt đầu rời ga đến khi dừng hẳn.
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $180\text{ m}$.
+				\item $168\text{ m}$.
+				\item $192\text{ m}$.
+				\item $204\text{ m}$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Một ô tô chuyển động thẳng đều với vận tốc $v_0\text{ (m/s)}$. Sau $6\text{ giây}$ chuyển động đều thì người lái xe gặp chướng ngại vật nên bắt đầu đạp phanh, ô tô chuyển động chậm dần với vận tốc $v(t) = -2t + a\text{ (m/s)}$ ($t \ge 6$) cho đến khi dừng hẳn. Biết hàm vận tốc liên tục tại $t = 6$ và tổng quãng đường ô tô đi được từ lúc xuất phát đến lúc dừng hẳn là $100\text{ m}$. Vận tốc ban đầu $v_0$ của ô tô bằng
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $12\text{ m/s}$.
+				\item $8\text{ m/s}$.
+				\item $14\text{ m/s}$.
+				\item $10\text{ m/s}$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Một xe tải đang chuyển động thẳng đều với vận tốc $v_0 = 15\text{ m/s}$. Sau $8\text{ giây}$ chuyển động đều thì người lái xe gặp đèn đỏ nên đạp phanh, xe chuyển động chậm dần đều với gia tốc $a = -3\text{ m/s}^2$ cho đến khi dừng hẳn. Tổng quãng đường xe tải đã di chuyển trong cả hai giai đoạn là
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $157{,}5\text{ m}$.
+				\item $165\text{ m}$.
+				\item $150\text{ m}$.
+				\item $142{,}5\text{ m}$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Để đảm bảo khoảng cách an toàn, một ô tô đang chạy với vận tốc $20\text{ m/s}$ khi phanh gấp cần dừng lại cách xe tải phía trước đang dừng tối thiểu $2\text{ m}$. Từ lúc đạp phanh, ô tô chuyển động chậm dần đều với vận tốc $v(t) = -5t + 20\text{ (m/s)}$ ($t$ tính bằng giây). Để đảm bảo yêu cầu an toàn trên, người lái xe ô tô phải bắt đầu đạp phanh khi cách xe tải một khoảng cách ít nhất bằng
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $40\text{ m}$.
+				\item $42\text{ m}$.
+				\item $45\text{ m}$.
+				\item $38\text{ m}$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Khi tới gần trạm thu phí không dừng, một chiếc xe con đang chạy với vận tốc $16\text{ m/s}$ thì người lái xe đạp phanh để giảm tốc độ dừng trước thanh chắn barrier. Xe chuyển động chậm dần đều với gia tốc $a = -4\text{ m/s}^2$. Để xe dừng lại cách thanh chắn barrier một khoảng an toàn tối thiểu là $3\text{ m}$, người lái xe phải bắt đầu đạp phanh khi khoảng cách tới barrier tối thiểu bằng
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $32\text{ m}$.
+				\item $38\text{ m}$.
+				\item $35\text{ m}$.
+				\item $30\text{ m}$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Một đoàn tàu điện di chuyển giữa hai nhà ga cách nhau một khoảng $S$. Tàu bắt đầu rời ga thứ nhất tăng tốc với gia tốc $a_1 = 2\text{ m/s}^2$ trong $10\text{ giây}$, sau đó chuyển động thẳng đều trong $20\text{ giây}$ với vận tốc vừa đạt được, và cuối cùng hãm phanh chuyển động chậm dần đều với gia tốc $a_3 = -4\text{ m/s}^2$ cho đến khi dừng hẳn tại ga thứ hai. Khoảng cách giữa hai nhà ga đó bằng
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $500\text{ m}$.
+				\item $600\text{ m}$.
+				\item $520\text{ m}$.
+				\item $550\text{ m}$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Một chất điểm $A$ xuất phát từ gốc tọa độ $O$, chuyển động thẳng với quy luật vận tốc $v_A(t) = \dfrac{1}{180}t^2 + \dfrac{11}{18}t\text{ (m/s)}$, trong đó $t$ (giây) tính từ lúc $A$ bắt đầu chuyển động. Từ trạng thái nghỉ, chất điểm $B$ cũng xuất phát từ $O$, chuyển động cùng hướng với $A$ nhưng chậm hơn $5\text{ giây}$ so với $A$ và có gia tốc không đổi $a\text{ (m/s}^2\text{)}$. Sau khi $B$ xuất phát được $10\text{ giây}$ thì đuổi kịp $A$. Vận tốc của chất điểm $B$ tại thời điểm đuổi kịp $A$ bằng
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $15\text{ m/s}$.
+				\item $18\text{ m/s}$.
+				\item $12\text{ m/s}$.
+				\item $20\text{ m/s}$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Một ô tô đang chạy thẳng đều với vận tốc không đổi $v_1 = 18\text{ m/s}$ trên đường thẳng thì vượt qua một xe cảnh sát đang đỗ bên lề đường. Ngay lúc đó, xe cảnh sát bắt đầu tăng tốc đuổi theo ô tô với gia tốc không đổi $a = 1{,}2\text{ m/s}^2$. Thời gian kể từ lúc xuất phát đến khi xe cảnh sát đuổi kịp ô tô là
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $25\text{ s}$.
+				\item $30\text{ s}$.
+				\item $35\text{ s}$.
+				\item $20\text{ s}$.
+			\end{enumerate}
+		\end{multicols}
+		
+		\item Hai người đi mô tô xuất phát cùng một lúc từ hai địa điểm $A$ và $B$ cách nhau $250\text{ m}$, chuyển động ngược chiều để gặp nhau. Người thứ nhất xuất phát từ $A$ đi về phía $B$ nhanh dần đều với vận tốc $v_1(t) = 2t\text{ (m/s)}$. Người thứ hai xuất phát từ $B$ đi về phía $A$ với vận tốc ban đầu $10\text{ m/s}$ và chuyển động nhanh dần đều với gia tốc $a_2 = 1\text{ m/s}^2$ ($v_2(t) = 10 + t\text{ (m/s)}$). Thời gian từ lúc hai người xuất phát đến khi gặp nhau là
+		\begin{multicols}{4}
+			\begin{enumerate}[label=\textbf{\Alph*.}]
+				\item $8\text{ s}$.
+				\item $12\text{ s}$.
+				\item $10\text{ s}$.
+				\item $15\text{ s}$.
+			\end{enumerate}
+		\end{multicols}
+	\end{enumerate}
+	
+	\newpage
+	\subsection{Câu trắc nghiệm Đúng/Sai}
+	% Các câu trắc nghiệm Đúng/Sai 4 ý a, b, c, d
+	
+	\newpage
+	\subsection{Câu trắc nghiệm Trả lời ngắn}
+	% Các câu trắc nghiệm trả lời ngắn (đáp số nguyên hoặc thập phân, khoảng cách vspace thoáng)
+	
+	\newpage
+	
+	% ================================================
+	% PHẦN IV: KẾT LUẬN & TÓM TẮT TRỌNG TÂM
+	% ================================================
+	\section{Kết luận \& Tóm tắt trọng tâm}\label{sec:ketluan}
+	
+	\subsection{Sơ đồ tư duy và mối liên hệ các đại lượng}
+	% Sơ đồ hoặc bảng tổng kết mối quan hệ vi tích phân giữa các đại lượng thực tế
+	
+	\subsection{Các sai lầm thường gặp và lưu ý khi làm bài}
+	% Tổng hợp các bẫy thường gặp (quên đổi đơn vị, nhầm độ dời và quãng đường, tích phân nhầm mốc thời gian...)
+
+\end{document}
